@@ -15,10 +15,11 @@ def shodan_api(ip):
     try:
         port = result['ports']
         port_list = []
-        if len(port) == 0:
+        for ii in port:
+            port_list.append(ii)
+        if len(port_list) == 0:
             port_list.append("NULL")
-        else:
-            port_list = port
+            
         return port_list
     except:
         pass

@@ -7,16 +7,19 @@
     <h1>IP信息收集</h1>
 
     <p><strong>IP: </strong><br> {{data2}}</p>
-    <p><strong>端口: </strong> 
-        {% for jj in data6 %}
-        <tr>
-            <br><td>{{ jj }}</td>            
-        </tr>
-        {% endfor %}
+    <p><strong>端口: </strong><br> 
+        {{data6}}
     </p>
     <p><strong>位置: </strong><br> {{data5}}</p>
    
     <p><strong>公司: </strong><br> {{data4}}</p>
+    <p><strong>历史域名: </strong>
+        {% for kk in data7 %}
+        <tr>
+            <br><td>{{ kk }}</td>            
+        </tr>
+        {% endfor %}
+    </p>
     
     <p><strong>域名: </strong> 
         {% for ii in data1 %}

@@ -1,10 +1,10 @@
 from flask import Flask, render_template,request
-import scan_lib
 import httpx_status
 import finger_recognize
 import icp
 import os
 import basic
+import ip138
 app = Flask(__name__,template_folder='./templates') 
   
 @app.route('/', methods=['GET'])  
@@ -28,7 +28,12 @@ def get_data():
 
     #端口信息
     port = basic.shodan_api(ip)
-    return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4,data5=location,data6=port)
+
+    #ip138域名
+    ip138_domain = ip138.ip138_scan(ip)
+    
+    return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
+    ,data5=location,data6=port,data7=ip138_domain)
   
   
 
