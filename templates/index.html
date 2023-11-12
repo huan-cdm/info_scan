@@ -5,16 +5,35 @@
 </head>  
 <body>  
     <h1>IP信息收集</h1>
-    <!--  
-    <p>IP地址: {{ data.ip }}</p>  
-    <p>端口: {{ data.port }}</p>  
-    <p>主机名: {{ data.hostname }}</p>
-    <p>域名: {{ data.domain }}</p>
-    <p>公司名: {{ data.company }}</p> 
-    -->
-    <p>IP: {{data2}}</p>
-    <p>域名: {{data1}}</p>
-    <p>指纹: {{data3}}</p>
 
+    <p><strong>IP: </strong><br> {{data2}}</p>
+    <p><strong>端口: </strong> 
+        {% for jj in data6 %}
+        <tr>
+            <br><td>{{ jj }}</td>            
+        </tr>
+        {% endfor %}
+    </p>
+    <p><strong>位置: </strong><br> {{data5}}</p>
+   
+    <p><strong>公司: </strong><br> {{data4}}</p>
+    
+    <p><strong>域名: </strong> 
+        {% for ii in data1 %}
+        <tr>
+            <br><td>{{ ii }}</td>            
+        </tr>
+    {% endfor %}
+    
+    </p>
+    
+    <p><strong>指纹: </strong>
+        {% for i in data3 %}
+        <tr>
+            <br><td>{{ i }}</td>            
+        </tr>
+    {% endfor %}
+    </p>
+   
 </body>  
 </html>
