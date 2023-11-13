@@ -24,6 +24,6 @@ def ip138_scan(ip):
         ip138_domain_list.append(j.text)
     
     if len(ip138_domain_list) == 0:
-        ip138_domain_list.append("NULL")
+        ip138_domain_list.append("None")
     
     return ip138_domain_list

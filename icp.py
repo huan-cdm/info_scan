@@ -25,7 +25,7 @@ def icp_scan(ip):
         }
     icp_list = []
     if len(domain_list) == 0:
-        icp_list.append("NULL")
+        icp_list.append("None")
     else:
         for ii in domain_list:
             res = requests.get(url+str(ii),headers=hearder,allow_redirects=False)
