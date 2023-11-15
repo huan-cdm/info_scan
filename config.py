@@ -6,6 +6,8 @@ fofaemail = ""
 fofakey = ""
 fofanum = "100"
 
-#switch=0 调用shodan
-#switch=1 调用fofa
+#命令行查询入口
+#switch = 0 单个扫描
+#switch = 1 批量扫描
 switch = 0
+

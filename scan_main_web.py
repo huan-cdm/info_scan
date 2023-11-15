@@ -1,16 +1,21 @@
+'''
+Description:[网页查询接口启动文件]
+Author:[huan666]
+Date:[2023/11/15]
+'''
 from flask import Flask, render_template,request
 import httpx_status
 import finger_recognize
 import icp
-import os
 import basic
 import ip138
+import subprocess
+
 app = Flask(__name__,template_folder='./templates') 
   
 @app.route('/', methods=['GET'])  
 def get_data():
     ip = request.args.get('ip')
-    #data = scan_lib.shodan_fofa_api(ip)
     
     #状态码为200的url
     data1=httpx_status.status_scan(ip)
@@ -22,9 +27,15 @@ def get_data():
     data4 = icp.icp_scan(ip)
 
     #ip归属地
-    location_1 = os.popen('bash ./finger.sh location'+' '+ip).read()
-    location_11 = location_1.replace("地址","")
-    location = location_11.replace(":","")
+    output = subprocess.check_output(["sh", "./location.sh"], stderr=subprocess.STDOUT)
+    output_list = output.decode().splitlines()
+    #定义列表
+    location_list = []
+    for ii in output_list:
+        if "地址" in ii:
+            location_list.append(ii)
+    localtion_list_1 = location_list[0].replace("地址","")
+    localtion_list_result = localtion_list_1.replace(":","")
 
     #端口信息
     port = basic.shodan_api(ip)
@@ -33,7 +44,7 @@ def get_data():
     ip138_domain = ip138.ip138_scan(ip)
     
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
-    ,data5=location,data6=port,data7=ip138_domain)
+    ,data5=localtion_list_result,data6=port,data7=ip138_domain)
   
   
 
