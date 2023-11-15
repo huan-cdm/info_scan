@@ -1,42 +1,69 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-    <title>IP信息收集</title>  
-</head>  
-<body>  
-    <h1>IP信息收集</h1>
+<html>
 
-    <p><strong>IP: </strong><br> {{data2}}</p>
-    <p><strong>端口: </strong><br> 
-        {{data6}}
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+  <title>IP信息收集</title>
+  <script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_reloadPage(init) {
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+//-->
+</script>
+  <style type="text/css">
+
+  </style>
+</head>
+
+<body>
+  <div id="Layer1" style="position:absolute; width:1000px; height:628px; z-index:1; left: 0px; top: 0px;">
+    <div align="center">
+      <p>&nbsp;</p>
+
+      <p><img src="{{ url_for( 'static',filename='ico/1.gif') }}" width="700" height="500" border="0" usemap="#Map2">
+        <map name="Map2">
+          <area shape="rect" coords="596,90,675,122" href="home.htm" target="main1" alt="home">
+        </map>
+        <map name="Map">
+          <area shape="rect" coords="18,196,60,220" href="home.htm" target="main1" alt="home">
+        </map>
+      </p>
+    </div>
+  </div>
+
+  <div id="Layer2" style="position:absolute; width:566px; height:350px; z-index:2; left: 173px; top: 124px;">
+
+    <p>
+      <strong>IP:</strong>{{data2}}<br>
+      <strong>端口: </strong>{{data6}}<br>
+      <strong>位置:</strong>{{data5}}<br>
+      <strong>公司:</strong>{{data4}}<br>
+      <strong>历史域名: </strong>
+      {% for kk in data7 %}
+      <tr>
+        &nbsp; &nbsp;
+        <td>{{ kk }}</td>
+      </tr>
+      {% endfor %}<br>
+      <strong>域名:</strong>
+      {% for ii in data1 %}
+      <tr>
+        &nbsp;&nbsp;
+        <td>{{ ii }}</td>
+      </tr>
+      {% endfor %}<br>
+      <strong>指纹: </strong>
+      {% for i in data3 %}
+      <tr>
+        <br>
+        <td>{{ i }}</td>
+      </tr>
+      {% endfor %}
     </p>
-    <p><strong>位置: </strong><br> {{data5}}</p>
-   
-    <p><strong>公司: </strong><br> {{data4}}</p>
-    <p><strong>历史域名: </strong>
-        {% for kk in data7 %}
-        <tr>
-            <br><td>{{ kk }}</td>            
-        </tr>
-        {% endfor %}
-    </p>
-    
-    <p><strong>域名: </strong> 
-        {% for ii in data1 %}
-        <tr>
-            <br><td>{{ ii }}</td>            
-        </tr>
-    {% endfor %}
-    
-    </p>
-    
-    <p><strong>指纹: </strong>
-        {% for i in data3 %}
-        <tr>
-            <br><td>{{ i }}</td>            
-        </tr>
-    {% endfor %}
-    </p>
-   
-</body>  
+  </div>
+</body>
+
 </html>
