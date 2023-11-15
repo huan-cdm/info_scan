@@ -11,7 +11,7 @@ import requests
 import json
 import re
 import os
-import sys
+
 def domain_scan(ip):
 
     fofa_first_argv= 'ip=' + ip + ''
@@ -41,9 +41,10 @@ def domain_scan(ip):
         fofa_list_result = []
         for j in fofa_list:
             fofa_list_result.append(j[0])
-
+        
         fofa_list_result_uniq = list(set(fofa_list_result))
-
+        
         return fofa_list_result_uniq
+    
     except:
         pass

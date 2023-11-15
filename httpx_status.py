@@ -24,5 +24,8 @@ def status_scan(ip1):
     for ii in output_list:
         if "http" in ii:
             status_code_list.append(ii)
+    
+    if len(status_code_list) == 0:
+        status_code_list.append("None")
 
     return status_code_list

@@ -20,4 +20,11 @@ def finger_scan(ip1):
         result5 = result4.replace("Banner: ","")
         finger_list.append(result5)
     
+    #清空列表为空的数据
+    while '' in finger_list:
+        finger_list.remove('')
+    #列表为空返回None
+    if len(finger_list) == 0:
+        finger_list.append("None")
+    
     return finger_list
