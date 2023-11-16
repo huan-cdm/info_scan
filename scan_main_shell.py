@@ -25,7 +25,7 @@ def single_scan():
     data4 = icp.icp_scan(ip)
 
     #ip归属地
-    output = subprocess.check_output(["sh", "./location.sh"], stderr=subprocess.STDOUT)
+    output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
     output_list = output.decode().splitlines()
     #定义列表
     location_list = []

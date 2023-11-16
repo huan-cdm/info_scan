@@ -10,6 +10,7 @@ import icp
 import basic
 import ip138
 import subprocess
+import os
 
 app = Flask(__name__,template_folder='./templates') 
   
@@ -27,7 +28,8 @@ def get_data():
     data4 = icp.icp_scan(ip)
 
     #ip归属地
-    output = subprocess.check_output(["sh", "./location.sh"], stderr=subprocess.STDOUT)
+    
+    output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
     output_list = output.decode().splitlines()
     #定义列表
     location_list = []
@@ -36,7 +38,8 @@ def get_data():
             location_list.append(ii)
     localtion_list_1 = location_list[0].replace("地址","")
     localtion_list_result = localtion_list_1.replace(":","")
-
+    
+    
     #端口信息
     port = basic.shodan_api(ip)
 
