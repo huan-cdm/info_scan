@@ -28,7 +28,6 @@ def get_data():
     data4 = icp.icp_scan(ip)
 
     #ip归属地
-    
     output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
     output_list = output.decode().splitlines()
     #定义列表
@@ -45,9 +44,11 @@ def get_data():
 
     #ip138域名
     ip138_domain = ip138.ip138_scan(ip)
-    
+
+    #操作系统识别
+    os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
-    ,data5=localtion_list_result,data6=port,data7=ip138_domain)
+    ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type)
   
   
 

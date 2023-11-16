@@ -23,7 +23,7 @@ MM_reloadPage(true);
     <div align="center">
       <p>&nbsp;</p>
 
-      <p><img src="{{ url_for( 'static',filename='ico/1.gif') }}" width="700" height="500" border="0" usemap="#Map2">
+      <p><img src="{{ url_for( 'static',filename='ico/1.gif') }}" width="700" height="1000" border="0" usemap="#Map2">
         <map name="Map2">
           <area shape="rect" coords="596,90,675,122" href="home.htm" target="main1" alt="home">
         </map>
@@ -35,23 +35,24 @@ MM_reloadPage(true);
   </div>
 
   <div id="Layer2" style="position:absolute; width:566px; height:350px; z-index:2; left: 173px; top: 124px;">
-
+    <br><br><br><br><br>
     <p>
       <strong>IP:</strong>{{data2}}<br>
+      <strong>操作系统:</strong>{{data8}}<br>
       <strong>端口: </strong>{{data6}}<br>
       <strong>位置:</strong>{{data5}}<br>
       <strong>公司:</strong>{{data4}}<br>
       <strong>历史域名: </strong>
       {% for kk in data7 %}
       <tr>
-        &nbsp; &nbsp;
+        &nbsp;
         <td>{{ kk }}</td>
       </tr>
       {% endfor %}<br>
       <strong>域名:</strong>
       {% for ii in data1 %}
       <tr>
-        &nbsp;&nbsp;
+        &nbsp;
         <td>{{ ii }}</td>
       </tr>
       {% endfor %}<br>

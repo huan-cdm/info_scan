@@ -12,6 +12,7 @@ import ip138
 import sys
 import json
 import subprocess
+import os
 
 def single_scan():
     ip = sys.argv[1]
@@ -41,8 +42,12 @@ def single_scan():
     #ip138域名
     ip138_domain = ip138.ip138_scan(ip)
 
+    #操作系统识别
+    os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
+
     dict_data = {
         "ip":ip,
+        "system":os_type,
         "port":port,
         "location":localtion_list_result,
         "company":data4,
