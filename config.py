@@ -10,4 +10,3 @@ fofanum = "100"
 #switch = 0 单个扫描
 #switch = 1 批量扫描
 switch = 0
-
