@@ -15,6 +15,7 @@ import subprocess
 import os
 import re
 import cdn_lib
+import title_lib
 
 def single_scan():
     ip = sys.argv[1]
@@ -63,6 +64,15 @@ def single_scan():
     if len(cdn_list) == 0:
         cdn_list.append("None")
 
+    #网站标题
+    site_title_list = []
+    for sa in data1:
+        site_title = title_lib.title_scan(sa)
+        site_title_list.append(site_title)
+    site_title_list_result = list(set(site_title_list))
+    if len(site_title_list_result) == 0:
+        site_title_list_result.append("None")
+
 
     dict_data = {
         "ip":ip,
@@ -72,6 +82,7 @@ def single_scan():
         "company":data4,
         "history_domain":ip138_domain,
         "survival_domain":data1,
+        "site_title":site_title_list_result,
         "cdn_info":cdn_list,
         "fingerprint":data3
     }

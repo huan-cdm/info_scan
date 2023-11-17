@@ -13,6 +13,7 @@ import subprocess
 import os
 import re
 import cdn_lib
+import title_lib
 
 app = Flask(__name__,template_folder='./templates') 
   
@@ -66,8 +67,18 @@ def get_data():
     if len(cdn_list) == 0:
         cdn_list.append("None")
 
+    #网站标题
+    site_title_list = []
+    for sa in data1:
+        site_title = title_lib.title_scan(sa)
+        site_title_list.append(site_title)
+    site_title_list_result = list(set(site_title_list))
+    if len(site_title_list_result) == 0:
+        site_title_list_result.append("None")
+
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
-    ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list)
+    ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
+    ,data10=site_title_list_result)
   
 
 @app.route('/originfile/', methods=['GET'])
