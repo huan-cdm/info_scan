@@ -37,11 +37,11 @@ MM_reloadPage(true);
   <div id="Layer2" style="position:absolute; width:566px; height:350px; z-index:2; left: 173px; top: 124px;">
     <br><br><br><br><br>
     <p>
-      <strong>IP:</strong>{{data2}}<br>
-      <strong>操作系统:</strong>{{data8}}<br>
-      <strong>端口: </strong>{{data6}}<br>
-      <strong>位置:</strong>{{data5}}<br>
-      <strong>公司:</strong>{{data4}}<br>
+      <strong>IP:</strong>&nbsp;{{data2}}<br>
+      <strong>操作系统:</strong>&nbsp;{{data8}}<br>
+      <strong>端口: </strong>&nbsp;{{data6}}<br>
+      <strong>位置:</strong>&nbsp;{{data5}}<br>
+      <strong>公司:</strong>&nbsp;{{data4}}<br>
       <strong>历史域名: </strong>
       {% for kk in data7 %}
       <tr>
@@ -54,6 +54,13 @@ MM_reloadPage(true);
       <tr>
         &nbsp;
         <td>{{ ii }}</td>
+      </tr>
+      {% endfor %}<br>
+      <strong>CDN信息:</strong>
+      {% for ii9 in data9 %}
+      <tr>
+        &nbsp;
+        <td>{{ ii9 }}</td>
       </tr>
       {% endfor %}<br>
       <strong>指纹: </strong>

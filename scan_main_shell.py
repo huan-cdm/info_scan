@@ -13,6 +13,8 @@ import sys
 import json
 import subprocess
 import os
+import re
+import cdn_lib
 
 def single_scan():
     ip = sys.argv[1]
@@ -45,6 +47,23 @@ def single_scan():
     #操作系统识别
     os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
 
+    #去掉https://或者http://
+    urls_list_1 = [re.sub(r'http://|https://', '', url) for url in data1]
+    urls_list = []
+    for aa in urls_list_1:
+        if "cn" in aa or "com" in aa:
+            urls_list.append(aa)
+    #定义存放cdn结果列表
+    cdn_list_1 = []
+    for bb in urls_list:
+        cdn_result = cdn_lib.cdnscan(bb)
+        cdn_list_1.append(cdn_result)
+    #列表去重
+    cdn_list = list(set(cdn_list_1))
+    if len(cdn_list) == 0:
+        cdn_list.append("None")
+
+
     dict_data = {
         "ip":ip,
         "system":os_type,
@@ -53,6 +72,7 @@ def single_scan():
         "company":data4,
         "history_domain":ip138_domain,
         "survival_domain":data1,
+        "cdn_info":cdn_list,
         "fingerprint":data3
     }
     json_data = json.dumps(dict_data,indent=4,ensure_ascii=False)
