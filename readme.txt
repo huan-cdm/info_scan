@@ -10,12 +10,15 @@ output.json：结果文件
 其他文件：自定义的库文件用于scan_main_web.py和scan_main_shell.py调用
 
 目前通过IP可以识别以下信息,正在完善更新中......
-IP(位置): 
-操作系统: 
-端口:
-公司:  
-历史域名: 
-域名:
-网站标题:
-CDN信息:
-指纹:
+
+判断规则说明：
+IP(位置): 调用cip.cc查询位置。
+操作系统: 利用shell脚本，调用ping命令，返回值大于100是windows，返回值小于100是linux。
+端口: 调用shodan接口查询端口。
+公司: 调用icp备案信息查询公司名称。
+历史域名: 调用ip138查询历史域名。
+域名: 调用fofa查询域名，然后通过httpx判断存活。
+网站标题: request，网页title标签内容。
+CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP地址，存在cdn。
+指纹: 调用tiderfinger指纹识别脚本。
+子域名：调用https://crt.sh/ 查询子域名。

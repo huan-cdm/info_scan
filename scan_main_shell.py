@@ -16,6 +16,7 @@ import os
 import re
 import cdn_lib
 import title_lib
+import subdomain_lib
 
 def single_scan():
     ip = sys.argv[1]
@@ -56,13 +57,26 @@ def single_scan():
             urls_list.append(aa)
     #定义存放cdn结果列表
     cdn_list_1 = []
+     #定义存放子域名的列表
+    subdomain_list_1 = []
     for bb in urls_list:
         cdn_result = cdn_lib.cdnscan(bb)
         cdn_list_1.append(cdn_result)
-    #列表去重
+
+        #子域名存放列表
+        subdomain_result = subdomain_lib.subdomain_scan(bb)
+        subdomain_list_1.append(subdomain_result)
+    flattened_list = [item for sublist in subdomain_list_1 for item in sublist] 
+    
+    #CDN列表去重
     cdn_list = list(set(cdn_list_1))
     if len(cdn_list) == 0:
         cdn_list.append("None")
+
+    #子域名列表去重
+    subdomain_list = list(set(flattened_list))
+    if len(subdomain_list) ==0:
+        subdomain_list.append("None")
 
     #网站标题
     site_title_list = []
@@ -84,7 +98,8 @@ def single_scan():
         "survival_domain":data1,
         "site_title":site_title_list_result,
         "cdn_info":cdn_list,
-        "fingerprint":data3
+        "fingerprint":data3,
+        "sudomain":subdomain_list
     }
     json_data = json.dumps(dict_data,indent=4,ensure_ascii=False)
     with open('./output.json', 'w') as f:

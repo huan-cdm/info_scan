@@ -14,6 +14,7 @@ import os
 import re
 import cdn_lib
 import title_lib
+import subdomain_lib
 
 app = Flask(__name__,template_folder='./templates') 
   
@@ -59,13 +60,30 @@ def get_data():
             urls_list.append(aa)
     #定义存放cdn结果列表
     cdn_list_1 = []
+    #定义存放子域名的列表
+    subdomain_list_1 = []
     for bb in urls_list:
+       
+        #cdn存放结果
         cdn_result = cdn_lib.cdnscan(bb)
         cdn_list_1.append(cdn_result)
-    #列表去重
+
+        #子域名存放列表
+        subdomain_result = subdomain_lib.subdomain_scan(bb)
+        subdomain_list_1.append(subdomain_result)
+    flattened_list = [item for sublist in subdomain_list_1 for item in sublist] 
+    
+    #CDN列表去重
     cdn_list = list(set(cdn_list_1))
     if len(cdn_list) == 0:
         cdn_list.append("None")
+    
+
+    #子域名列表去重
+    subdomain_list = list(set(flattened_list))
+    if len(subdomain_list) ==0:
+        subdomain_list.append("None")
+    
 
     #网站标题
     site_title_list = []
@@ -78,7 +96,7 @@ def get_data():
 
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
-    ,data10=site_title_list_result)
+    ,data10=site_title_list_result,data11=subdomain_list)
   
 
 @app.route('/originfile/', methods=['GET'])
