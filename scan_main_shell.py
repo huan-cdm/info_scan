@@ -17,6 +17,7 @@ import re
 import cdn_lib
 import title_lib
 import subdomain_lib
+import ipstatus_lib
 
 def single_scan():
     ip = sys.argv[1]
@@ -90,9 +91,15 @@ def single_scan():
     if len(site_title_list_result) == 0:
         site_title_list_result.append("None")
 
+    #IP属性判断
+    try:
+        ipstatus = ipstatus_lib.ipstatus_scan(ip)
+    except:
+        pass
 
     dict_data = {
         "ip":ip,
+        "ipstatus":ipstatus,
         "system":os_type,
         "port":port,
         "location":localtion_list_result,

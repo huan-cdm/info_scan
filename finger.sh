@@ -13,6 +13,14 @@ case "${1}" in
     echo "${locat}"
     ;;
 
+    #IP归属地查询
+    location1)
+    locat1=`curl cip.cc/${2} | grep "数据二"`
+    echo "${locat1}"
+    ;;
+
+    
+
 
     #操作系统识别
     osscan)

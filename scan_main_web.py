@@ -15,6 +15,7 @@ import re
 import cdn_lib
 import title_lib
 import subdomain_lib
+import ipstatus_lib
 
 app = Flask(__name__,template_folder='./templates') 
   
@@ -97,9 +98,16 @@ def get_data():
     if len(site_title_list_result) == 0:
         site_title_list_result.append("None")
 
+    
+    #IP属性判断
+    try:
+        ipstatus = ipstatus_lib.ipstatus_scan(ip)
+    except:
+        pass
+
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
-    ,data10=site_title_list_result,data11=subdomain_list)
+    ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus)
   
 
 @app.route('/originfile/', methods=['GET'])
