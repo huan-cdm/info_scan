@@ -66,7 +66,10 @@ def single_scan():
         #子域名存放列表
         subdomain_result = subdomain_lib.subdomain_scan(bb)
         subdomain_list_1.append(subdomain_result)
-    flattened_list = [item for sublist in subdomain_list_1 for item in sublist] 
+    try:
+        flattened_list = [item for sublist in subdomain_list_1 for item in sublist]
+    except:
+        pass
     
     #CDN列表去重
     cdn_list = list(set(cdn_list_1))
