@@ -1,41 +1,16 @@
-<html>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-  <title>IP信息收集</title>
-  <script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_reloadPage(init) {
-  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
-    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
-  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
-}
-MM_reloadPage(true);
-//-->
-</script>
-  <style type="text/css">
-
-  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>IP信息查询接口</title>
 </head>
 
 <body>
-  <div id="Layer1" style="position:absolute; width:1000px; height:628px; z-index:1; left: 0px; top: 0px;">
-    <div align="center">
-      <p>&nbsp;</p>
 
-      <p><img src="{{ url_for( 'static',filename='ico/1.gif') }}" width="700" height="1500" border="0" usemap="#Map2">
-        <map name="Map2">
-          <area shape="rect" coords="596,90,675,122" href="home.htm" target="main1" alt="home">
-        </map>
-        <map name="Map">
-          <area shape="rect" coords="18,196,60,220" href="home.htm" target="main1" alt="home">
-        </map>
-      </p>
-    </div>
-  </div>
+  <div>
 
-  <div id="Layer2" style="position:absolute; width:566px; height:350px; z-index:2; left: 173px; top: 124px;">
-    <br><br><br><br><br><br><br><br>
     <p>
       <strong>IP:</strong>&nbsp;{{data2}}&nbsp;(位置：{{data5}}&nbsp;&nbsp;&nbsp;属性：{{data12}})<br>
       <strong>操作系统:</strong>&nbsp;{{data8}}<br>
@@ -86,10 +61,11 @@ MM_reloadPage(true);
         <td>{{ i11 }}</td>
       </tr>
       {% endfor %}
-     
-      
+
+
     </p>
   </div>
+
 </body>
 
 </html>
