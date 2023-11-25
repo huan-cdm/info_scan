@@ -16,6 +16,10 @@ import cdn_lib
 import title_lib
 import subdomain_lib
 import ipstatus_lib
+import gaodeapi
+from flask import jsonify
+
+
 
 app = Flask(__name__,template_folder='./templates') 
   
@@ -31,6 +35,12 @@ def get_data():
 
     #icp备案信息
     data4 = icp.icp_scan(ip)
+
+    #公司位置信息
+    try:
+        companylocation = gaodeapi.gaodescan(data4)
+    except:
+        pass
 
     #ip归属地
     output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
@@ -98,6 +108,7 @@ def get_data():
     if len(site_title_list_result) == 0:
         site_title_list_result.append("None")
 
+
     
     #IP属性判断
     try:
@@ -107,17 +118,70 @@ def get_data():
 
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
-    ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus)
+    ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation)
   
 
-@app.route('/originfile/', methods=['GET'])
-def originfile():
-    lines = []
-    with open('./output.json','r') as f:
-        for line in f:
-            lines.append(line.strip())
-    return '<br>'.join(lines)
-  
+#跳转首页
+@app.route("/index/")
+def index():
+    
+    return render_template('indexpage.html')
+
+
+@app.route("/showdata/",methods=['POST'])
+def showdata():
+    ip=request.form['ipvalue']
+
+    #ip归属地
+    output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
+    output_list = output.decode().splitlines()
+    #定义列表
+    location_list = []
+    for ii in output_list:
+        if "地址" in ii:
+            location_list.append(ii)
+    localtion_list_1 = location_list[0].replace("地址","")
+    localtion_list_result = localtion_list_1.replace(":","")
+    global location
+    location = localtion_list_result
+
+
+    #IP属性判断
+    try:
+        ipstatus = ipstatus_lib.ipstatus_scan(ip)
+        global ipstatus1
+        ipstatus1 = ipstatus
+    except:
+        pass
+
+    #操作系统识别
+    try:
+        os_type  = os.popen('bash ./finger.sh osscan'+' '+ip).read()
+        global os_type1
+        os_type1 = os_type
+    except:
+        pass
+
+
+    return render_template('indexpage.html')
+
+
+#地理位置
+@app.route("/locationinterfacebyajax/",methods=['GET'])
+def locationinterfacebyajax():
+    global location
+    global ipstatus1
+    global os_type1
+    message_json = {
+    "location": location,
+    "ipstatus1":ipstatus1,
+    "os_type1":os_type1
+    }
+    return jsonify(message_json)
+
+
+
+
 
 if __name__ == '__main__':  
     app.run(host="0.0.0.0",port=80)

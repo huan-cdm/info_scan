@@ -18,6 +18,7 @@ import cdn_lib
 import title_lib
 import subdomain_lib
 import ipstatus_lib
+import gaodeapi
 
 def single_scan():
     ip = sys.argv[1]
@@ -29,6 +30,12 @@ def single_scan():
 
     #icp备案信息
     data4 = icp.icp_scan(ip)
+
+    #公司位置信息
+    try:
+        companylocation = gaodeapi.gaodescan(data4)
+    except:
+        pass
 
     #ip归属地
     output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
@@ -104,6 +111,7 @@ def single_scan():
         "port":port,
         "location":localtion_list_result,
         "company":data4,
+        "companylocation":companylocation,
         "history_domain":ip138_domain,
         "survival_domain":data1,
         "site_title":site_title_list_result,
