@@ -6,6 +6,8 @@ Date:[2023/11/19]
 import subprocess
 from config import cloudserver
 from config import exitaddress
+from config import hotspot
+from config import datacenter
 
 def ipstatus_scan(ip):
 
@@ -23,12 +25,23 @@ def ipstatus_scan(ip):
         #云主机判断
         for a1 in cloudserver:
             if a1 in ip_list_status:
-                ip_status_list_result.append("云主机地址")
+                ip_status_list_result.append("云服务器")
         
         #出口地址判断
         for a2 in exitaddress:
             if a2 in ip_list_status:
                 ip_status_list_result.append("企业专线或家庭宽带")
+
+        #手机热点
+        for a3 in hotspot:
+            if a3 in ip_list_status:
+                ip_status_list_result.append("手机热点")
+
+        #数据中心
+        for a4 in datacenter:
+            if a4 in ip_list_status:
+                ip_status_list_result.append("数据中心")
+
         return ip_status_list_result[0]
     
     except:
