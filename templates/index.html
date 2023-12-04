@@ -1,72 +1,100 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>IP信息查询接口</title>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>信息探测</title>
+<style type="text/css">
+input{
+	transition:all 0.30s ease-in-out;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	
+	border:#35a5e5 1px solid;
+	border-radius:3px;
+	outline:none;
+}
+input:focus{
+	box-shadow:0 0 5px rgba(81, 203, 238, 1);
+	-webkit-box-shadow:0 0 5px rgba(81, 203, 238, 1);
+	-moz-box-shadow:0 0 5px rgba(81, 203, 238, 1);
+}
 
+
+input[type="button"] {  
+      background-color: rgba(81, 203, 238, 1);
+	  border-radius:3px;
+	  -webkit-transition:all linear 0.30s;
+	  -moz-transition:all linear 0.30s;
+	  transition:all linear 0.30s;
+    }
+	
+input[type="button"]:hover {  
+      background-color: rgb(0, 100, 128);  
+}  
+</style>
+</head>
 <body>
 
-  <div>
+<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
+	<input type="text" placeholder="IP或域名"  style="height:25px"/>
+	<input type="button" value="搜索">
+</div>
+<div>
+	<p>
+		<strong>IP:</strong>&nbsp;{{data2}}&nbsp;(位置：{{data5}}&nbsp;&nbsp;&nbsp;属性：{{data12}})<br>
+		<strong>操作系统:</strong>&nbsp;{{data8}}<br>
+		<strong>端口: </strong>&nbsp;{{data6}}<br>
+		<strong>公司:</strong>&nbsp;{{data4}}<br>
+		<strong>公司位置:</strong>&nbsp;{{data13}}<br>
+		<strong>历史域名: </strong>
+		{% for kk in data7 %}
+		<tr>
+		  <br>
+		  <td>{{ kk }}</td>
+		</tr>
+		{% endfor %}<br>
+		<strong>域名:</strong>
+		{% for ii in data1 %}
+		<tr>
+		  <br>
+		  <td>{{ ii }}</td>
+		</tr>
+		{% endfor %}<br>
   
-    <p>
-      <strong>IP:</strong>&nbsp;{{data2}}&nbsp;(位置：{{data5}}&nbsp;&nbsp;&nbsp;属性：{{data12}})<br>
-      <strong>操作系统:</strong>&nbsp;{{data8}}<br>
-      <strong>端口: </strong>&nbsp;{{data6}}<br>
-      <strong>公司:</strong>&nbsp;{{data4}}<br>
-      <strong>公司位置:</strong>&nbsp;{{data13}}<br>
-      <strong>历史域名: </strong>
-      {% for kk in data7 %}
-      <tr>
-        <br>
-        <td>{{ kk }}</td>
-      </tr>
-      {% endfor %}<br>
-      <strong>域名:</strong>
-      {% for ii in data1 %}
-      <tr>
-        <br>
-        <td>{{ ii }}</td>
-      </tr>
-      {% endfor %}<br>
-
-      <strong>网站标题:</strong>
-      {% for i10 in data10 %}
-      <tr>
-        <br>
-        <td>{{ i10 }}</td>
-      </tr>
-      {% endfor %}<br>
-
-      <strong>CDN信息:</strong>
-      {% for ii9 in data9 %}
-      <tr>
-        &nbsp;
-        <td>{{ ii9 }}</td>
-      </tr>
-      {% endfor %}<br>
-      <strong>指纹: </strong>
-      {% for i in data3 %}
-      <tr>
-        <br>
-        <td>{{ i }}</td>
-      </tr>
-      {% endfor %}<br>
-
-      <strong>子域名: </strong>
-      {% for i11 in data11 %}
-      <tr>
-        <br>
-        <td>{{ i11 }}</td>
-      </tr>
-      {% endfor %}
-
-
-    </p>
-  </div>
+		<strong>网站标题:</strong>
+		{% for i10 in data10 %}
+		<tr>
+		  <br>
+		  <td>{{ i10 }}</td>
+		</tr>
+		{% endfor %}<br>
+  
+		<strong>CDN信息:</strong>
+		{% for ii9 in data9 %}
+		<tr>
+		  &nbsp;
+		  <td>{{ ii9 }}</td>
+		</tr>
+		{% endfor %}<br>
+		<strong>指纹: </strong>
+		{% for i in data3 %}
+		<tr>
+		  <br>
+		  <td>{{ i }}</td>
+		</tr>
+		{% endfor %}<br>
+  
+		<strong>子域名: </strong>
+		{% for i11 in data11 %}
+		<tr>
+		  <br>
+		  <td>{{ i11 }}</td>
+		</tr>
+		{% endfor %}
+  
+  
+	  </p>
+</div>
 
 </body>
-
 </html>
