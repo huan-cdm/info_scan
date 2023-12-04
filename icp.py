@@ -32,7 +32,7 @@ def icp_scan(ip):
             res.encoding = 'utf-8'
             soup=BeautifulSoup(res.text,'html.parser')
             soup_p = soup.find_all('p')
-            company_name = soup_p[12].text
+            company_name = soup_p[7].text
             icp_list.append(company_name)
     icp_uniq_list = list(set(icp_list))
     icp_uniq_str = icp_uniq_list[0]
