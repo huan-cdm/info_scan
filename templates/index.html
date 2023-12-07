@@ -1,100 +1,188 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>信息探测</title>
-<style type="text/css">
-input{
-	transition:all 0.30s ease-in-out;
-	-webkit-transition: all 0.30s ease-in-out;
-	-moz-transition: all 0.30s ease-in-out;
-	
-	border:#35a5e5 1px solid;
-	border-radius:3px;
-	outline:none;
-}
-input:focus{
-	box-shadow:0 0 5px rgba(81, 203, 238, 1);
-	-webkit-box-shadow:0 0 5px rgba(81, 203, 238, 1);
-	-moz-box-shadow:0 0 5px rgba(81, 203, 238, 1);
-}
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+	<title>信息探测</title>
+	<style type="text/css">
+		input {
+			transition: all 0.30s ease-in-out;
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+
+			border: #35a5e5 1px solid;
+			border-radius: 3px;
+			outline: none;
+		}
+
+		input:focus {
+			box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+			-webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+			-moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+		}
 
 
-input[type="button"] {  
-      background-color: rgba(81, 203, 238, 1);
-	  border-radius:3px;
-	  -webkit-transition:all linear 0.30s;
-	  -moz-transition:all linear 0.30s;
-	  transition:all linear 0.30s;
-    }
-	
-input[type="button"]:hover {  
-      background-color: rgb(0, 100, 128);  
-}  
-</style>
+		input[type="submit"] {
+			background-color: rgba(81, 203, 238, 1);
+			border-radius: 3px;
+			-webkit-transition: all linear 0.30s;
+			-moz-transition: all linear 0.30s;
+			transition: all linear 0.30s;
+		}
+
+		input[type="submit"]:hover {
+			background-color: rgb(128, 117, 0);
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			border: 1px solid #ccc;
+			padding: 8px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+		/* 使用ID选择器来设置进度条的颜色 */
+		#progress-bar {
+			background-color: #4CAF50;
+			/* 绿色背景 */
+			width: 0%;
+			/* 初始宽度为0 */
+			height: 20px;
+			/* 高度 */
+			transition: width 0.5s;
+			/* 过渡效果 */
+		}
+	</style>
+	<script>
+		function jindutiao() {
+			// 获取进度条容器和进度条元素  
+			const progressBarContainer = document.getElementById('progress-bar-container');
+			const progressBar = document.getElementById('progress-bar');
+
+			// 显示进度条容器（开始前的状态）  
+			progressBarContainer.style.opacity = '1';
+
+			// 发送数据请求  
+			fetch('/ipscaninterface/') // 替换为你的后端接口地址  
+				.then(response => response.json()) // 假设服务器返回JSON响应  
+				.then(data => {
+					// 处理服务器返回的数据（这里假设数据是成功的）  
+					console.log(data); // 在控制台打印返回的数据，你可以根据实际情况进行处理  
+				})
+				.catch(error => {
+					// 处理错误情况（例如服务器返回错误或请求失败）  
+					console.error(error); // 在控制台打印错误信息，你可以根据实际情况进行处理  
+				})
+				.finally(() => {
+					// 数据请求完成后，隐藏进度条容器（完成后的状态）  
+					progressBarContainer.style.opacity = '0';
+				});
+		}
+
+	</script>
 </head>
+
 <body>
 
-<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
-	<input type="text" placeholder="IP或域名"  style="height:25px"/>
-	<input type="button" value="搜索">
-</div>
-<div>
-	<p>
-		<strong>IP:</strong>&nbsp;{{data2}}&nbsp;(位置：{{data5}}&nbsp;&nbsp;&nbsp;属性：{{data12}})<br>
-		<strong>操作系统:</strong>&nbsp;{{data8}}<br>
-		<strong>端口: </strong>&nbsp;{{data6}}<br>
-		<strong>公司:</strong>&nbsp;{{data4}}<br>
-		<strong>公司位置:</strong>&nbsp;{{data13}}<br>
-		<strong>历史域名: </strong>
-		{% for kk in data7 %}
-		<tr>
-		  <br>
-		  <td>{{ kk }}</td>
-		</tr>
-		{% endfor %}<br>
-		<strong>域名:</strong>
-		{% for ii in data1 %}
-		<tr>
-		  <br>
-		  <td>{{ ii }}</td>
-		</tr>
-		{% endfor %}<br>
-  
-		<strong>网站标题:</strong>
-		{% for i10 in data10 %}
-		<tr>
-		  <br>
-		  <td>{{ i10 }}</td>
-		</tr>
-		{% endfor %}<br>
-  
-		<strong>CDN信息:</strong>
-		{% for ii9 in data9 %}
-		<tr>
-		  &nbsp;
-		  <td>{{ ii9 }}</td>
-		</tr>
-		{% endfor %}<br>
-		<strong>指纹: </strong>
-		{% for i in data3 %}
-		<tr>
-		  <br>
-		  <td>{{ i }}</td>
-		</tr>
-		{% endfor %}<br>
-  
-		<strong>子域名: </strong>
-		{% for i11 in data11 %}
-		<tr>
-		  <br>
-		  <td>{{ i11 }}</td>
-		</tr>
-		{% endfor %}
-  
-  
-	  </p>
-</div>
+	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
+		<form method="post" action="/ipscaninterface/">
+			<input type="text" name="ip" placeholder="IP或域名" style="height:25px" value="{{data2}}"
+				required="required" />
+			<input type="submit" value="搜索" onclick="jindutiao()">
+		</form>
+	</div>
+
+	<!-- 进度条容器 -->
+	<div id="progress-bar-container">
+		<div id="progress-bar"></div>
+	</div>
+
+
+	<div>
+
+
+		<table>
+			<tr>
+				<th>IP</th>
+				<th>位置</th>
+				<th>属性</th>
+				<th>操作系统</th>
+				<th>端口</th>
+				<th>公司</th>
+				<th>公司位置</th>
+			</tr>
+
+			<tr>
+				<td>{{data2}}</td>
+				<td>{{data5}}</td>
+				<td>{{data12}}</td>
+				<td>{{data8}}</td>
+				<td>{{data6}}</td>
+				<td>{{data4}}</td>
+				<td>{{data13}}</td>
+			</tr>
+
+		</table>
+
+		<p>
+			<strong>历史域名: </strong>
+			{% for kk in data7 %}
+			<tr>
+				<br>
+				<td>{{ kk }}</td>
+			</tr>
+			{% endfor %}<br>
+			<strong>在线域名:</strong>
+			{% for ii in data1 %}
+			<tr>
+				<br>
+				<td>{{ ii }}</td>
+			</tr>
+			{% endfor %}<br>
+
+			<strong>网站标题:</strong>
+			{% for i10 in data10 %}
+			<tr>
+				<br>
+				<td>{{ i10 }}</td>
+			</tr>
+			{% endfor %}<br>
+
+			<strong>CDN信息:</strong>
+			{% for ii9 in data9 %}
+			<tr>
+				&nbsp;
+				<td>{{ ii9 }}</td>
+			</tr>
+			{% endfor %}<br>
+			<strong>指纹: </strong>
+			{% for i in data3 %}
+			<tr>
+				<br>
+				<td>{{ i }}</td>
+			</tr>
+			{% endfor %}<br>
+
+			<strong>子域名: </strong>
+			{% for i11 in data11 %}
+			<tr>
+				<br>
+				<td>{{ i11 }}</td>
+			</tr>
+			{% endfor %}
+		</p>
+	</div>
 
 </body>
+
 </html>

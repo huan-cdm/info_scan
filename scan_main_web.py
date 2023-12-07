@@ -22,10 +22,15 @@ from flask import jsonify
 
 
 app = Flask(__name__,template_folder='./templates') 
-  
+''' 
 @app.route('/', methods=['GET'])  
 def get_data():
-    ip = request.args.get('ip')
+'''
+@app.route("/ipscaninterface/",methods=['post'])
+def ipscaninterface():
+    ip = request.form['ip']
+    #ip = request.args.get('ip')
+
     
     #状态码为200的url
     data1=httpx_status.status_scan(ip)
@@ -125,61 +130,7 @@ def get_data():
 @app.route("/index/")
 def index():
     
-    return render_template('indexpage.html')
-
-
-@app.route("/showdata/",methods=['POST'])
-def showdata():
-    ip=request.form['ipvalue']
-
-    #ip归属地
-    output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
-    output_list = output.decode().splitlines()
-    #定义列表
-    location_list = []
-    for ii in output_list:
-        if "地址" in ii:
-            location_list.append(ii)
-    localtion_list_1 = location_list[0].replace("地址","")
-    localtion_list_result = localtion_list_1.replace(":","")
-    global location
-    location = localtion_list_result
-
-
-    #IP属性判断
-    try:
-        ipstatus = ipstatus_lib.ipstatus_scan(ip)
-        global ipstatus1
-        ipstatus1 = ipstatus
-    except:
-        pass
-
-    #操作系统识别
-    try:
-        os_type  = os.popen('bash ./finger.sh osscan'+' '+ip).read()
-        global os_type1
-        os_type1 = os_type
-    except:
-        pass
-
-
-    return render_template('indexpage.html')
-
-
-#地理位置
-@app.route("/locationinterfacebyajax/",methods=['GET'])
-def locationinterfacebyajax():
-    global location
-    global ipstatus1
-    global os_type1
-    message_json = {
-    "location": location,
-    "ipstatus1":ipstatus1,
-    "os_type1":os_type1
-    }
-    return jsonify(message_json)
-
-
+    return render_template('index.html')
 
 
 
