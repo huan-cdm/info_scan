@@ -104,6 +104,14 @@ def single_scan():
     except:
         pass
 
+    #masscan端口扫描
+    try:
+        masscan_port_1 = os.popen('bash ./finger.sh masscan_port'+' '+ip).read()
+        masscan_port = masscan_port_1.replace("Discovered open port","")
+
+    except:
+        pass
+
     dict_data = {
         "ip":ip,
         "ipstatus":ipstatus,
@@ -117,7 +125,8 @@ def single_scan():
         "site_title":site_title_list_result,
         "cdn_info":cdn_list,
         "fingerprint":data3,
-        "sudomain":subdomain_list
+        "sudomain":subdomain_list,
+        "masscan_port":masscan_port
     }
     json_data = json.dumps(dict_data,indent=4,ensure_ascii=False)
     with open('./output.json', 'w') as f:

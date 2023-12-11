@@ -1,6 +1,16 @@
 scan_main_web.py：web查询  python3 scan_main_web.py
 http://ip/?ip=1.1.1.1
 
+
+scan_main_web.py：api接口请求
+http://ip/webinterface/
+请求方式：POST
+参数名：ip
+参数类型：string
+参数值：1.1.1.1
+
+
+
 scan_main_shell.py：命令行查询   python3 scan_main_shell.py ip
 
 config.py：配置文件
@@ -34,3 +44,4 @@ datacenter = ["公司","数据中心"]
 CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP地址，存在cdn。
 指纹: 调用tiderfinger指纹识别脚本。
 子域名：调用https://crt.sh/ 查询子域名。
+端口扫描：调用masscan端口扫描工具

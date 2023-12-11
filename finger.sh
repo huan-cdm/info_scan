@@ -59,4 +59,10 @@ case "${1}" in
         echo "Not Found"
     fi
     ;;
+
+    #masscan端口扫描
+    masscan_port)
+    masscan_result=$(masscan $2 -p 1-10000 --rate=10000 | grep "Discovered")
+    echo "${masscan_result}"
+    ;;
 esac
