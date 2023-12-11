@@ -107,7 +107,8 @@ def single_scan():
     #masscan端口扫描
     try:
         masscan_port_1 = os.popen('bash ./finger.sh masscan_port'+' '+ip).read()
-        masscan_port = masscan_port_1.replace("Discovered open port","")
+        masscan_port_11 = masscan_port_1.replace("Discovered open port","")
+        masscan_port = masscan_port_11.replace(ip,"")
 
     except:
         pass

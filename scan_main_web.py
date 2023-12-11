@@ -122,7 +122,8 @@ def ipscaninterface():
     #masscan端口扫描
     try:
         masscan_port_1 = os.popen('bash ./finger.sh masscan_port'+' '+ip).read()
-        masscan_port = masscan_port_1.replace("Discovered open port","")
+        masscan_port_11 = masscan_port_1.replace("Discovered open port","")
+        masscan_port = masscan_port_11.replace(ip,"")
 
     except:
         pass
@@ -240,7 +241,8 @@ def webinterface():
     #masscan端口扫描
     try:
         masscan_port_1 = os.popen('bash ./finger.sh masscan_port'+' '+ip).read()
-        masscan_port = masscan_port_1.replace("Discovered open port","")
+        masscan_port_11 = masscan_port_1.replace("Discovered open port","")
+        masscan_port = masscan_port_11.replace(ip,"")
 
     except:
         pass
@@ -268,4 +270,4 @@ def webinterface():
 
 
 if __name__ == '__main__':  
-    app.run(host="0.0.0.0",port=80)
+    app.run(host="127.0.0.1",port=80)
