@@ -19,6 +19,7 @@ import ipstatus_lib
 import gaodeapi
 from flask import jsonify
 import json
+from nmap_queue import add_ip
 
 
 
@@ -128,10 +129,18 @@ def ipscaninterface():
     except:
         pass
 
+
+    #nmap添加到queue队列
+    try:
+        add_ip(ip)
+        result = "IP added to queue"
+    except:
+        pass
+
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
     ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
-    ,data14=masscan_port)
+    ,data14=masscan_port,data15=result)
   
 
 #跳转首页

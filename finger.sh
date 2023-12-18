@@ -65,4 +65,10 @@ case "${1}" in
     masscan_result=$(masscan $2 -p 1-10000 --rate=10000 | grep "Discovered")
     echo "${masscan_result}"
     ;;
+
+    #nmap端口扫描
+    nmap_port)
+    echo "IP地址："$2 >> ./nmap.txt
+    /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-30000  --min-rate=10000 | grep "tcp"  >> ./nmap.txt
+    ;;
 esac

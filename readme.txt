@@ -45,3 +45,4 @@ CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP�
 指纹: 调用tiderfinger指纹识别脚本。
 子域名：调用https://crt.sh/ 查询子域名。
 端口扫描：调用masscan端口扫描工具
+端口扫描：调用nmap，ip存入队列中，放在后台扫描。
