@@ -32,40 +32,60 @@ def ipscaninterface():
     ip = request.form['ip']
     
     #状态码为200的url
-    data1=httpx_status.status_scan(ip)
-    
+    try:
+        data1=httpx_status.status_scan(ip)
+    except:
+        pass
+
     #状态码为200的url指纹信息
-    data3 = finger_recognize.finger_scan(ip)
+    try:
+        data3 = finger_recognize.finger_scan(ip)
+    except:
+        pass
 
     #icp备案信息
-    data4 = icp.icp_scan(ip)
+    try:
+        data4 = icp.icp_scan(ip)
+    except:
+        pass
 
     #公司位置信息
     try:
         companylocation = gaodeapi.gaodescan(data4)
     except:
-        pass
-
-    #ip归属地
-    output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
-    output_list = output.decode().splitlines()
-    #定义列表
-    location_list = []
-    for ii in output_list:
-        if "地址" in ii:
-            location_list.append(ii)
-    localtion_list_1 = location_list[0].replace("地址","")
-    localtion_list_result = localtion_list_1.replace(":","")
+        companylocation = "接口异常"
     
+    #ip归属地
+    try:
+        output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
+        output_list = output.decode().splitlines()
+        #定义列表
+        location_list = []
+        for ii in output_list:
+            if "地址" in ii:
+                location_list.append(ii)
+        localtion_list_1 = location_list[0].replace("地址","")
+        localtion_list_result = localtion_list_1.replace(":","")
+    except:
+        localtion_list_result = "接口异常"
     
     #端口信息
-    port = basic.shodan_api(ip)
+    try:
+        port = basic.shodan_api(ip)
+    except:
+        pass
 
     #ip138域名
-    ip138_domain = ip138.ip138_scan(ip)
+    try:
+        ip138_domain = ip138.ip138_scan(ip)
+    except:
+        pass
 
     #操作系统识别
-    os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
+    try:
+        os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
+    except:
+        pass
 
     #去掉https://或者http://
     urls_list_1 = [re.sub(r'http://|https://', '', url) for url in data1]
@@ -129,7 +149,6 @@ def ipscaninterface():
     except:
         pass
 
-
     #nmap添加到queue队列
     try:
         add_ip(ip)
@@ -146,9 +165,27 @@ def ipscaninterface():
 #跳转首页
 @app.route("/index/")
 def index():
-    
     return render_template('index.html')
 
+
+
+@app.route("/nmapresultshow/")
+def nmapresultshow():
+    
+    lines = []
+    with open('./nmap.txt', 'r') as f:
+        for line in f:
+            lines.append(line.strip())
+    return '<br>'.join(lines)
+
+
+#跳转首页
+@app.route("/deletenmapresult/")
+def deletenmapresult():
+    os.popen('rm -rf ./nmap.txt')
+    os.popen('touch ./nmap.txt')
+    return render_template('index.html')
+   
 
 
 
