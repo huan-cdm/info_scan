@@ -12,7 +12,7 @@ def nmapscan(ip):
     result = subprocess.run(["sh", "./finger.sh","nmap_port",ip], stdout=subprocess.PIPE)  
     return result.stdout.decode()  
   
-# 定义一个函数来处理队列中的IP地址并执行ping操作  
+# 定义一个函数来处理队列中的IP地址并执行端口扫描  
 def process_queue():  
     while True:  
         try:  
