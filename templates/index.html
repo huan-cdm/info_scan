@@ -5,128 +5,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
+	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
 	<title>IP信息收集</title>
-	<style type="text/css">
-		input {
-			transition: all 0.30s ease-in-out;
-			-webkit-transition: all 0.30s ease-in-out;
-			-moz-transition: all 0.30s ease-in-out;
-
-			border: #35a5e5 1px solid;
-			border-radius: 3px;
-			outline: none;
-
-		}
-
-		input:focus {
-			box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-			-webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-			-moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-		}
-
-
-		input[type="submit"] {
-			background-color: rgba(81, 203, 238, 1);
-			border-radius: 3px;
-			-webkit-transition: all linear 0.30s;
-			-moz-transition: all linear 0.30s;
-			transition: all linear 0.30s;
-			height: 40px;
-			width: 80px;
-		}
-
-		input[type="text"] {
-			height: 40px;
-			width: 500px;
-			font-size: 20px;
-		}
-
-		input[type="submit"]:hover {
-			background-color: rgb(207, 33, 193)
-		}
-
-		table {
-			width: 100%;
-			border-collapse: collapse;
-		}
-
-		th,
-		td {
-			border: 1px solid #ccc;
-			padding: 8px;
-			text-align: left;
-		}
-
-		th {
-			background-color: #f2f2f2;
-		}
-
-		/* 使用ID选择器来设置进度条的颜色 */
-		#progress-bar {
-			background-color: #4CAF50;
-			/* 绿色背景 */
-			width: 0%;
-			/* 初始宽度为0 */
-			height: 20px;
-			/* 高度 */
-			transition: width 0.5s;
-			/* 过渡效果 */
-		}
-
-		.div-container {
-			display: flex;
-			align-items: center;
-			border: 1px solid #000;
-		}
-
-		.inner-div {
-			flex: 1;
-			border-right: 1px solid #000;
-		}
-
-		.inner-div:last-child {
-			border-right: none;
-		}
-	</style>
-	<script>
-		function fanhui() {
-			var input = document.getElementById("myInput");
-			input.value = "";
-			window.location.href = "/index/";
-		}  
-	</script>
-
-	<script>
-		//nuclei扫描结果预览
-		function nmapjumpfunc() {
-			var input = document.getElementById("myInput");
-			input.value = "";
-			window.open("/nmapresultshow/");
-		}
-	</script>
-
-	<script>
-		//ajax异步清除数据
-		function deletenmapfunc() {
-			var input = document.getElementById("myInput");
-			input.value = "";
-			$.ajax({
-				url: '/deletenmapresult/',
-				method: 'GET',
-				success: function (res) {
-					console.log(res)
-					console.log('已清空端口扫描数据')
-				},
-				error: function () {
-					alert('出现内部错误')
-				},
-				complete: function () {
-					alert('已清空端口扫描数据')
-				}
-			})
-		}
-	</script>
-
+	
+	
 
 </head>
 
@@ -136,10 +19,10 @@
 		<form method="post" action="/ipscaninterface/">
 			<input type="text" name="ip" placeholder="IP或域名" value="{{data2}}" required="required" id="myInput" />
 			<input type="submit" value="搜索">
-			<input type="submit" value="返回" onclick="fanhui()">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="首页" onclick="fanhui()">&nbsp;&nbsp;&nbsp;&nbsp;
 			<strong>NMAP扫描队列</strong>
-			<input type="submit" value="查询" onclick="nmapjumpfunc()">
-			<input type="submit" value="删除" onclick="deletenmapfunc()">
+			<input type="button" value="查询" onclick="nmapjumpfunc()">
+			<input type="button" value="删除" onclick="deletenmapfunc()">
 		</form>
 
 	</div>

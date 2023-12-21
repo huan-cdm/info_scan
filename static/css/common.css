@@ -1,0 +1,95 @@
+		input {
+		    transition: all 0.30s ease-in-out;
+		    -webkit-transition: all 0.30s ease-in-out;
+		    -moz-transition: all 0.30s ease-in-out;
+
+		    border: #35a5e5 1px solid;
+		    border-radius: 3px;
+		    outline: none;
+
+		}
+
+		input:focus {
+		    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+		    -webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+		    -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+		}
+
+
+		input[type="submit"] {
+		    background-color: rgba(81, 203, 238, 1);
+		    border-radius: 3px;
+		    -webkit-transition: all linear 0.30s;
+		    -moz-transition: all linear 0.30s;
+		    transition: all linear 0.30s;
+		    height: 40px;
+		    width: 80px;
+		}
+
+		input[type="button"] {
+		    background-color: rgb(238, 183, 81);
+		    border-radius: 3px;
+		    -webkit-transition: all linear 0.30s;
+		    -moz-transition: all linear 0.30s;
+		    transition: all linear 0.30s;
+		    height: 40px;
+		    width: 80px;
+		}
+
+
+		input[type="text"] {
+		    height: 40px;
+		    width: 500px;
+		    font-size: 20px;
+		}
+
+		input[type="submit"]:hover {
+		    background-color: rgb(207, 33, 193)
+		}
+
+		input[type="button"]:hover {
+		    background-color: rgb(33, 207, 33)
+		}
+
+		table {
+		    width: 100%;
+		    border-collapse: collapse;
+		}
+
+		th,
+		td {
+		    border: 1px solid #ccc;
+		    padding: 8px;
+		    text-align: left;
+		}
+
+		th {
+		    background-color: #f2f2f2;
+		}
+
+		/* 使用ID选择器来设置进度条的颜色 */
+		#progress-bar {
+		    background-color: #4CAF50;
+		    /* 绿色背景 */
+		    width: 0%;
+		    /* 初始宽度为0 */
+		    height: 20px;
+		    /* 高度 */
+		    transition: width 0.5s;
+		    /* 过渡效果 */
+		}
+
+		.div-container {
+		    display: flex;
+		    align-items: center;
+		    border: 1px solid #000;
+		}
+
+		.inner-div {
+		    flex: 1;
+		    border-right: 1px solid #000;
+		}
+
+		.inner-div:last-child {
+		    border-right: none;
+		}
