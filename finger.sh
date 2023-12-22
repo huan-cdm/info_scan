@@ -68,6 +68,8 @@ case "${1}" in
 
     #nmap端口扫描
     nmap_port)
+    echo "" >> ./nmap.txt
+    echo "" >> ./nmap.txt
     echo "IP地址："$2 >> ./nmap.txt
     /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-65535  --min-rate=10000 | grep "tcp"  >> ./nmap.txt
     ;;
