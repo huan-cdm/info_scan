@@ -35,3 +35,25 @@ function deletenmapfunc() {
         }
     })
 }
+
+
+//ajax异步查询队列状态
+function statusnmapfunc() {
+    $.ajax({
+        url: '/nmapqueuestatus/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+        },
+        error: function () {
+
+        },
+        complete: function () {
+
+        }
+    })
+    $.getJSON("/nmapqueuestatus/",
+    function (info) {
+        alert(info.nmapstatus)
+    })
+}

@@ -1,3 +1,8 @@
+'''
+Description:[nmap扫描队列相关]
+Author:[huan666]
+Date:[2023/12/23]
+'''
 import threading  
 import subprocess  
 import queue
@@ -16,7 +21,7 @@ def nmapscan(ip):
 def process_queue():  
     while True:  
         try:  
-            ip = ip_queue.get(block=False)  
+            ip = ip_queue.get(block=False)
             port_result = nmapscan(ip)  
             print(f"Port scanning has been completed {ip}: {port_result}")  
         except queue.Empty:

@@ -70,7 +70,21 @@ case "${1}" in
     nmap_port)
     echo "" >> ./nmap.txt
     echo "" >> ./nmap.txt
+    # 输出当前时间  
+    current_time=$(date +"%Y-%m-%d %H:%M:%S")  
+    echo "当前时间：$current_time" >> ./nmap.txt
     echo "IP地址："$2 >> ./nmap.txt
     /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-65535  --min-rate=10000 | grep "tcp"  >> ./nmap.txt
     ;;
+
+    #nmap队列扫描运行状态
+    nmapstatus)
+	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
+	if (( $ps_nmap > 1 ))
+	then
+		echo "队列状态：运行中"
+	else
+		echo "队列状态：停止"
+	fi
+	;;
 esac

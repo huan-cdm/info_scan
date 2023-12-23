@@ -44,11 +44,13 @@
 		}
 
 		input[type="submit"]:hover {
-		    background-color: rgb(207, 33, 193)
+		    background-color: rgb(207, 33, 193);
+			cursor: pointer;
 		}
 
 		input[type="button"]:hover {
-		    background-color: rgb(33, 207, 33)
+		    background-color: rgb(33, 207, 33);
+			cursor: pointer;
 		}
 
 		table {

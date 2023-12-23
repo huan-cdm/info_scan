@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
 	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
 	<title>IP信息收集</title>
-	
-	
+
+
 
 </head>
 
@@ -17,12 +17,15 @@
 
 	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
 		<form method="post" action="/ipscaninterface/">
-			<input type="text" name="ip" placeholder="IP或域名" value="{{data2}}" required="required" id="myInput" />
-			<input type="submit" value="搜索">
-			<input type="button" value="首页" onclick="fanhui()">&nbsp;&nbsp;&nbsp;&nbsp;
-			<strong>NMAP扫描队列</strong>
+			<strong>队列</strong>
+			<input type="button" value="首页" onclick="fanhui()">
 			<input type="button" value="查询" onclick="nmapjumpfunc()">
 			<input type="button" value="删除" onclick="deletenmapfunc()">
+			<input type="button" value="状态" onclick="statusnmapfunc()">
+			<br><br><strong>搜索</strong>
+			<input type="text" name="ip" placeholder="IP或域名" value="{{data2}}" required="required" id="myInput" />
+			<input type="submit" value="搜索">
+			
 		</form>
 
 	</div>
@@ -32,7 +35,7 @@
 		<div id="progress-bar"></div>
 	</div>
 
-
+	<br><br><br>
 	<div>
 
 
@@ -66,7 +69,7 @@
 		<div class="inner-div"><strong>指纹</strong></div>
 		<div class="inner-div"><strong>子域名</strong></div>
 		<div class="inner-div"><strong>常用端口</strong></div>
-		<div class="inner-div"><strong>全端口</strong></div>
+
 	</div>
 
 
@@ -122,9 +125,7 @@
 		<div class="inner-div">
 			{{data14}}
 		</div>
-		<div class="inner-div">
-			{{data15}}
-		</div>
+
 	</div>
 </body>
 
