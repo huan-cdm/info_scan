@@ -10,7 +10,7 @@ import subprocess
 def status_scan(ip1):
 
     domain_list = domain_lib.domain_scan(ip1)
-    f = open(file='./domain.txt', mode='w')
+    f = open(file='./result/domain.txt', mode='w')
     for k in domain_list:
         f.write(str(k)+"\n")
     f.close()

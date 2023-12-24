@@ -68,13 +68,13 @@ case "${1}" in
 
     #nmap端口扫描
     nmap_port)
-    echo "" >> ./nmap.txt
-    echo "" >> ./nmap.txt
+    echo "" >> ./result/nmap.txt
+    echo "" >> ./result/nmap.txt
     # 输出当前时间  
     current_time=$(date +"%Y-%m-%d %H:%M:%S")  
-    echo "当前时间：$current_time" >> ./nmap.txt
-    echo "IP地址："$2 >> ./nmap.txt
-    /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-65535  --min-rate=10000 | grep "tcp"  >> ./nmap.txt
+    echo "当前时间：$current_time" >> ./result/nmap.txt
+    echo "IP地址："$2 >> ./result/nmap.txt
+    /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-65535  --min-rate=10000 | grep "tcp"  >> ./result/nmap.txt
     ;;
 
     #nmap队列扫描运行状态
@@ -86,5 +86,19 @@ case "${1}" in
 	else
 		echo "队列状态：停止"
 	fi
+	;;
+
+    #开启nuclei扫描
+    startnuclei)
+    #   常用参数（https://blog.csdn.net/qq_35607078/article/details/131648824）
+    #   -bulk-size 限制并行的主机数 默认25 
+    #   -c 限制并行的模板数 默认25
+    #   -rate-limit 每秒发送的最大请求数 默认150 
+    #   -l 批量扫描
+    #   -t 要运行的模板或模板目录列表
+    #   -timeout 超时前等待的时间(以秒为单位) 默认 10秒
+    #   dict="/root/nuclei-templates/http"
+    dict="/root/nuclei-templates/http"
+	./nuclei_server/nuclei -l ./result/domainstatuscode.txt -t ${dict} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
 	;;
 esac

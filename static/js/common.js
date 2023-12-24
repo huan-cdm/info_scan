@@ -7,12 +7,21 @@ function fanhui() {
 
 
 
-//nuclei扫描结果预览
+//nmap扫描结果预览
 function nmapjumpfunc() {
-    var input = document.getElementById("myInput");
-    input.value = "";
+    //var input = document.getElementById("myInput");
+    //input.value = "";
     window.open("/nmapresultshow/");
 }
+
+//nuclei扫描结果预览
+function nucleijumpfunc() {
+    //var input = document.getElementById("myInput");
+    //input.value = "";
+    window.open("/nucleiresultshow/");
+}
+
+
 
 
 

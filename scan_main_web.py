@@ -20,6 +20,7 @@ import gaodeapi
 from flask import jsonify
 import json
 from nmap_queue import add_ip
+from nuclei_lib import nucle_scan
 
 
 
@@ -34,6 +35,7 @@ def ipscaninterface():
     #状态码为200的url
     try:
         data1=httpx_status.status_scan(ip)
+        
     except:
         pass
 
@@ -79,7 +81,7 @@ def ipscaninterface():
     try:
         ip138_domain = ip138.ip138_scan(ip)
     except:
-        pass
+        ip138_domain=["接口异常"]
 
     #操作系统识别
     try:
@@ -155,6 +157,12 @@ def ipscaninterface():
     except:
         pass
 
+    #将状态码为200的url列表
+    try:
+        nucle_scan(data1)
+    except:
+        pass
+
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
     ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
@@ -167,22 +175,45 @@ def index():
     return render_template('index.html')
 
 
-
+#nmap接口预览
 @app.route("/nmapresultshow/")
 def nmapresultshow():
     
     lines = []
-    with open('./nmap.txt', 'r') as f:
+    with open('./result/nmap.txt', 'r') as f:
         for line in f:
             lines.append(line.strip())
     return '<br>'.join(lines)
 
 
+#nuclei结果预览
+@app.route("/nucleiresultshow/")
+def nucleiresultshow():
+    
+    lines = []
+    with open('./result/nucleiresult.txt', 'r') as f:
+        for line in f:
+            lines.append(line.strip())
+     #文件结果优化展示
+    liness = []
+    for line1 in lines:
+        line2 = line1.replace("[0m]","     ")
+        line3 = line2.replace("[[92m","    ")
+        line4 = line3.replace("[[94m","    ")
+        line5 = line4.replace("[[34m","    ")
+        line6 = line5.replace("[[96m","    ")
+        line7 = line6.replace("[0m,","     ")
+        linn8 = line7.replace("[0m:[1;92m","  ")
+        
+        liness.append(linn8)
+    return '<br>'.join(liness)
+
+
 #跳转首页
 @app.route("/deletenmapresult/")
 def deletenmapresult():
-    os.popen('rm -rf ./nmap.txt')
-    os.popen('touch ./nmap.txt')
+    os.popen('rm -rf ./result/nmap.txt')
+    os.popen('touch ./result/nmap.txt')
     return render_template('index.html')
    
 
