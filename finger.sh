@@ -82,9 +82,9 @@ case "${1}" in
 	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
 	if (( $ps_nmap > 1 ))
 	then
-		echo "队列状态：运行中"
+		echo "Nmap状态：运行中"
 	else
-		echo "队列状态：停止"
+		echo "Nmap状态：停止"
 	fi
 	;;
 
@@ -101,4 +101,15 @@ case "${1}" in
     dict="/root/nuclei-templates/http"
 	./nuclei_server/nuclei -l ./result/domainstatuscode.txt -t ${dict} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
 	;;
+
+    #nuclei状态查询
+    nucleistatus)
+    ps_nuclei=`ps -aux | grep "result/domainstatuscode.txt" | wc -l`
+	if (( $ps_nuclei > 1 ))
+	then
+		echo "Nuclei状态：运行中"
+	else
+		echo "Nuclei状态：停止"
+	fi
+    ;;
 esac

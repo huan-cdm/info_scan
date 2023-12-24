@@ -214,16 +214,20 @@ def nucleiresultshow():
 def deletenmapresult():
     os.popen('rm -rf ./result/nmap.txt')
     os.popen('touch ./result/nmap.txt')
+    os.popen('rm -rf ./result/nucleiresult.txt')
+    os.popen('touch ./result/nucleiresult.txt')
     return render_template('index.html')
    
 
 
-#nmap扫描队列运行状态
+#nmap扫描队列和nuclei运行状态
 @app.route("/nmapqueuestatus/")
 def nmapqueuestatus():
     nmapstatus = os.popen('bash ./finger.sh nmapstatus').read()
+    nucleistatus = os.popen('bash ./finger.sh nucleistatus').read()
     message_json = {
-        "nmapstatus":nmapstatus
+        "nmapstatus":nmapstatus,
+        "nucleistatus":nucleistatus
     }
     return jsonify(message_json)
     
