@@ -21,6 +21,7 @@ from flask import jsonify
 import json
 from nmap_queue import add_ip
 from nuclei_lib import nucle_scan
+from history_url import historyurl
 
 
 
@@ -125,6 +126,12 @@ def ipscaninterface():
         subdomain_list.append("None")
     
 
+    #子域名对应的历史URL
+    try:
+        history_url = historyurl(subdomain_list)
+    except:
+        history_url = "接口异常"
+
     #网站标题
     site_title_list = []
     for sa in data1:
@@ -166,7 +173,7 @@ def ipscaninterface():
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
     ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
-    ,data14=masscan_port)
+    ,data14=masscan_port,data15=history_url)
   
 
 #跳转首页
@@ -209,7 +216,7 @@ def nucleiresultshow():
     return '<br>'.join(liness)
 
 
-#跳转首页
+#清空数据
 @app.route("/deletenmapresult/")
 def deletenmapresult():
     os.popen('rm -rf ./result/nmap.txt')
@@ -231,11 +238,6 @@ def nmapqueuestatus():
     }
     return jsonify(message_json)
     
-
-
-
-
-
 
 
 
