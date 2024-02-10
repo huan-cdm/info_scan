@@ -224,17 +224,36 @@ def deletenmapresult():
     os.popen('rm -rf ./result/nucleiresult.txt')
     os.popen('touch ./result/nucleiresult.txt')
     return render_template('index.html')
+
+
+
+#启动xray
+@app.route("/startxray/")
+def startxray():
+    
+    command = ["/TIP/batch_scan_domain/start.sh", "startxray"]
+    #启动子进程  
+    process = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #等待子进程结束  
+    process.stdout.close()  
+    returncode = process.wait()  
+    if returncode != 0:  
+        print(f"Error: Command returned non-zero exit status {returncode}") 
+
+    return render_template('index.html')
    
 
 
-#nmap扫描队列和nuclei运行状态
+#nmap扫描队列和nuclei、xray运行状态
 @app.route("/nmapqueuestatus/")
 def nmapqueuestatus():
     nmapstatus = os.popen('bash ./finger.sh nmapstatus').read()
     nucleistatus = os.popen('bash ./finger.sh nucleistatus').read()
+    xraystatus = os.popen('bash ./finger.sh xraystatus').read()
     message_json = {
         "nmapstatus":nmapstatus,
-        "nucleistatus":nucleistatus
+        "nucleistatus":nucleistatus,
+        "xraystatus":xraystatus
     }
     return jsonify(message_json)
     

@@ -112,4 +112,17 @@ case "${1}" in
 		echo "Nuclei状态：停止"
 	fi
     ;;
+
+    #xray状态
+    xraystatus)
+    num_xray=`ps -aux | grep xray-testphp | wc -l`
+    num_xray_status=`ps -aux | grep xray-testphp | grep html`
+    if (( $num_xray > 1 ))
+    then
+        echo "xray状态：""${num_xray_status}"
+    else
+        echo "xray状态：停止"
+    
+    fi
+    ;;
 esac
