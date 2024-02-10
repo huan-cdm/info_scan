@@ -68,20 +68,6 @@ function statusnmapfunc() {
 
 
 //ajax异步启动xray
-function startxraybyajax() {
-    
-    $.ajax({
-        url: '/startxray/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('xray启动成功')
-        },
-        error: function () {
-            alert('出现内部错误')
-        },
-        complete: function () {
-            alert('xray启动成功')
-        }
-    })
+function xrayreportshow() {
+    window.open("http://example.com:18888/", "_blank");  
 }
