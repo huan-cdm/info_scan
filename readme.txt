@@ -48,3 +48,4 @@ CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP�
 端口扫描：调用nmap，ip存入队列中，放在后台扫描。
 漏洞扫描：调用nuclei扫描器
 历史域名查询：调用OTX接口查询历史URL
+联动xray+rad
