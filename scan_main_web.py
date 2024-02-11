@@ -227,6 +227,14 @@ def deletenmapresult():
 
 
 
+#清空xray报告
+@app.route("/deletexrayreport/")
+def deletexrayreport():
+    os.popen('rm -rf /TIP/batch_scan_domain/report/*')
+    return render_template('index.html')
+
+
+
 #启动xray
 @app.route("/startxray/")
 def startxray():
@@ -259,136 +267,6 @@ def nmapqueuestatus():
     }
     return jsonify(message_json)
     
-
-
-
-
-
-
-
-#接口形式访问
-@app.route("/webinterface/",methods=['post'])
-def webinterface():
-
-    ip = request.form['ip']
-    
-    #状态码为200的url
-    data1=httpx_status.status_scan(ip)
-    
-    #状态码为200的url指纹信息
-    data3 = finger_recognize.finger_scan(ip)
-
-    #icp备案信息
-    data4 = icp.icp_scan(ip)
-
-    #公司位置信息
-    try:
-        companylocation = gaodeapi.gaodescan(data4)
-    except:
-        pass
-
-    #ip归属地
-    output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
-    output_list = output.decode().splitlines()
-    #定义列表
-    location_list = []
-    for ii in output_list:
-        if "地址" in ii:
-            location_list.append(ii)
-    localtion_list_1 = location_list[0].replace("地址","")
-    localtion_list_result = localtion_list_1.replace(":","")
-    
-    
-    #端口信息
-    port = basic.shodan_api(ip)
-
-    #ip138域名
-    ip138_domain = ip138.ip138_scan(ip)
-
-    #操作系统识别
-    os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
-
-    #去掉https://或者http://
-    urls_list_1 = [re.sub(r'http://|https://', '', url) for url in data1]
-    urls_list = []
-    for aa in urls_list_1:
-        if "cn" in aa or "com" in aa:
-            urls_list.append(aa)
-    #定义存放cdn结果列表
-    cdn_list_1 = []
-    #定义存放子域名的列表
-    subdomain_list_1 = []
-    for bb in urls_list:
-       
-        #cdn存放结果
-        cdn_result = cdn_lib.cdnscan(bb)
-        cdn_list_1.append(cdn_result)
-
-        #子域名存放列表
-        subdomain_result = subdomain_lib.subdomain_scan(bb)
-        subdomain_list_1.append(subdomain_result)
-    try:
-        flattened_list = [item for sublist in subdomain_list_1 for item in sublist]
-    except:
-        pass
-    
-    #CDN列表去重
-    cdn_list = list(set(cdn_list_1))
-    if len(cdn_list) == 0:
-        cdn_list.append("None")
-    
-
-    #子域名列表去重
-    subdomain_list = list(set(flattened_list))
-    if len(subdomain_list) ==0:
-        subdomain_list.append("None")
-    
-
-    #网站标题
-    site_title_list = []
-    for sa in data1:
-        site_title = title_lib.title_scan(sa)
-        site_title_list.append(site_title)
-    site_title_list_result = list(set(site_title_list))
-    if len(site_title_list_result) == 0:
-        site_title_list_result.append("None")
-
-
-    
-    #IP属性判断
-    try:
-        ipstatus = ipstatus_lib.ipstatus_scan(ip)
-    except:
-        pass
-
-    #masscan端口扫描
-    try:
-        masscan_port_1 = os.popen('bash ./finger.sh masscan_port'+' '+ip).read()
-        masscan_port_11 = masscan_port_1.replace("Discovered open port","")
-        masscan_port = masscan_port_11.replace(ip,"")
-
-    except:
-        pass
-
-    dict_data = {
-        "ip":ip,
-        "ipstatus":ipstatus,
-        "system":os_type,
-        "port":port,
-        "location":localtion_list_result,
-        "company":data4,
-        "companylocation":companylocation,
-        "history_domain":ip138_domain,
-        "survival_domain":data1,
-        "site_title":site_title_list_result,
-        "cdn_info":cdn_list,
-        "fingerprint":data3,
-        "sudomain":subdomain_list,
-        "masscan_port":masscan_port
-    }
-    json_data = json.dumps(dict_data,indent=4,ensure_ascii=False)
-    return jsonify(json_data)
-
 
 
 

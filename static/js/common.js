@@ -61,13 +61,32 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus+ '\n' +info.xraystatus+ '\n' +info.radstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus)
         })
 }
 
 
 
-//ajax异步启动xray
+//xray报告预览
 function xrayreportshow() {
-    window.open("http://121.37.207.248:18888/", "_blank");  
+    window.open("http://121.37.207.248:18888/", "_blank");
+}
+
+
+//ajax异步删除xray报告
+function xrayreportdelete() {
+    $.ajax({
+        url: '/deletexrayreport/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已删除xray报告')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已删除xray报告')
+        }
+    })
 }

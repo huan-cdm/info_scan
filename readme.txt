@@ -2,13 +2,6 @@ scan_main_web.py：web查询  python3 scan_main_web.py
 http://127.0.0.1:5003/index/通过页面查询
 
 
-scan_main_web.py：api接口请求
-http://ip/webinterface/
-请求方式：POST
-参数名：ip
-参数类型：string
-参数值：1.1.1.1
-
 
 
 scan_main_shell.py：命令行查询   python3 scan_main_shell.py ip
