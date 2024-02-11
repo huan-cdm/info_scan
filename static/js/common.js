@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus+ '\n' +info.xraystatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus+ '\n' +info.xraystatus+ '\n' +info.radstatus)
         })
 }
 
@@ -69,5 +69,5 @@ function statusnmapfunc() {
 
 //ajax异步启动xray
 function xrayreportshow() {
-    window.open("http://example.com:18888/", "_blank");  
+    window.open("http://121.37.207.248:18888/", "_blank");  
 }

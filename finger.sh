@@ -125,4 +125,16 @@ case "${1}" in
     
     fi
     ;;
+
+    #rad运行状态
+    radstatus)
+    num_rad=`ps -aux | grep radscan.py | wc -l`
+    num_rad_status=`ps -aux | grep rad_engine/rad_linux_amd64 | grep http-proxy`
+    if (( $num_rad > 1 ))
+    then
+        echo "rad状态：""${num_rad_status}"
+    else
+        echo "rad状态：停止"
+    fi
+    ;;
 esac

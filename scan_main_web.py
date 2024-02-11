@@ -250,10 +250,12 @@ def nmapqueuestatus():
     nmapstatus = os.popen('bash ./finger.sh nmapstatus').read()
     nucleistatus = os.popen('bash ./finger.sh nucleistatus').read()
     xraystatus = os.popen('bash ./finger.sh xraystatus').read()
+    radstatus = os.popen('bash ./finger.sh radstatus').read()
     message_json = {
         "nmapstatus":nmapstatus,
         "nucleistatus":nucleistatus,
-        "xraystatus":xraystatus
+        "xraystatus":xraystatus,
+        "radstatus":radstatus
     }
     return jsonify(message_json)
     
