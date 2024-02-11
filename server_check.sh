@@ -1,11 +1,12 @@
  #! /bin/bash
  if [ "$1" == "-h" ]; then  
-    echo "开启infoscan：bash info_start.sh info_scan_start"  
-    echo "关闭infoscan：bash info_start.sh info_scan_stop"  
-    echo "开启xray报告：bash info_start.sh startreportserver"  
-    echo "关闭xray报告：bash info_start.sh stopreportserver" 
-	echo "查看服务状态：bash info_start.sh status"
-    exit 0  #退出脚本，如果不需要执行其他命令的话  
+    echo "开启infoscan：bash server_check.sh info_scan_start"  
+    echo "关闭infoscan：bash server_check.sh info_scan_stop"  
+    echo "开启xray报告：bash server_check.sh startreportserver"  
+    echo "关闭xray报告：bash server_check.sh stopreportserver" 
+	echo "关闭rad&xray引擎：bash server_check.sh killscan"
+	echo "查看服务状态：bash server_check.sh status"
+    exit 0  #退出脚本，如果不需要执行其他命令的话
 fi  
 
 
@@ -52,6 +53,28 @@ case "${1}" in
 		sleep 0.1s
 	done
     ;;
+
+	#kill rad和xray引擎
+	killscan)
+	xraypid=`ps -aux | grep xray |awk -F " " '{print $2}'`
+	radpid=`ps -aux | grep rad_linux_amd64 |awk -F " " '{print $2}'`
+
+	for xrayline in ${xraypid}
+	do
+		echo ".正在结束进程${xrayline}"
+		kill -9 ${xrayline}
+		sleep 0.1s
+	done
+
+	for radline in ${radpid}
+	do
+		echo ".正在结束进程${radline}"
+		kill -9 ${radline}
+		sleep 0.1s
+	done
+	;;
+
+
 
 	#服务运行状态
 	status)
