@@ -19,6 +19,9 @@ output.json：结果文件
 
 其他文件：自定义的库文件用于scan_main_web.py和scan_main_shell.py调用
 
+server_check.sh：info_scan服务操作、xray报告服务操作
+bash server_check.sh -h：查看脚本参数
+
 目前通过IP可以识别以下信息,正在完善更新中......
 
 判断规则说明：
@@ -47,5 +50,4 @@ CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP�
 端口扫描：调用masscan端口扫描工具
 端口扫描：调用nmap，ip存入队列中，放在后台扫描。
 漏洞扫描：调用nuclei扫描器
-历史域名查询：调用OTX接口查询历史URL
-联动xray+rad
+xray+rad：下载 https://github.com/huan-cdm/batch_scan_domain
