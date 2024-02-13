@@ -17,34 +17,12 @@
 
 	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
 		<form method="post" action="/ipscaninterface/">
-			<strong>端口</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="首页" onclick="fanhui()">
-			<input type="button" value="查询" onclick="nmapjumpfunc()">
-			<input type="button" value="删除" onclick="deletenmapfunc()">
-			<input type="button" value="状态" onclick="statusnmapfunc()"><br><br>
-			<strong>漏洞</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="查询" onclick="nucleijumpfunc()"><br><br>
-			<strong>xray+rad</strong>
-			<input type="button" value="报告预览" onclick="xrayreportshow()">
-			<input type="button" value="报告删除" onclick="xrayreportdelete()">
-			<input type="button" value="结束进程" onclick="killxrayandradfunc()">
-			<br><br><strong>搜索</strong>
 			<input type="text" name="ip" placeholder="IP或域名" value="{{data2}}" required="required" id="myInput" />
 			<input type="submit" value="搜索">
-
 		</form>
-
 	</div>
-
-	<!-- 进度条容器 -->
-	<div id="progress-bar-container">
-		<div id="progress-bar"></div>
-	</div>
-
-	<br><br><br><br><br><br><br><br><br>
+	<br>
 	<div>
-
-
 		<table>
 			<tr>
 				<th>IP</th>
@@ -55,7 +33,6 @@
 				<th>公司</th>
 				<th>公司位置</th>
 			</tr>
-
 			<tr>
 				<td>{{data2}}</td>
 				<td>{{data5}}</td>
@@ -140,6 +117,20 @@
 			{{data15}}
 		</div>
 	</div>
+	<br>
+	<strong>端口</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="首页" onclick="fanhui()">
+			<input type="button" value="查询" onclick="nmapjumpfunc()">
+			<input type="button" value="删除" onclick="deletenmapfunc()">
+			<input type="button" value="状态" onclick="statusnmapfunc()"><br><br>
+			<strong>漏洞</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="查询" onclick="nucleijumpfunc()"><br><br>
+			<strong>xray+rad</strong>
+			<input type="button" value="报告预览" onclick="xrayreportshow()">
+			<input type="button" value="报告删除" onclick="xrayreportdelete()">
+			<input type="button" value="结束进程" onclick="killxrayandradfunc()"><br>
+			
+			
 </body>
 
 </html>
