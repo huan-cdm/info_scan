@@ -90,3 +90,22 @@ function xrayreportdelete() {
         }
     })
 }
+
+
+//ajax异步结束xray和rad引擎进程
+function killxrayandradfunc() {
+    $.ajax({
+        url: '/killprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已结束xray和rad引擎')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已结束xray和rad引擎')
+        }
+    })
+}

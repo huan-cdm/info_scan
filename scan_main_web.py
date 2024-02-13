@@ -234,6 +234,15 @@ def deletexrayreport():
     return render_template('index.html')
 
 
+#结束进程
+@app.route("/killprocess/")
+def killprocess():
+    os.popen('bash ./server_check.sh killscan')
+    
+    return render_template('index.html')
+
+
+
 
 #启动xray
 @app.route("/startxray/")

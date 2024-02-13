@@ -61,17 +61,15 @@ case "${1}" in
 
 	for xrayline in ${xraypid}
 	do
-		echo ".正在结束进程${xrayline}"
 		kill -9 ${xrayline}
-		sleep 0.1s
 	done
+
 
 	for radline in ${radpid}
 	do
-		echo ".正在结束进程${radline}"
 		kill -9 ${radline}
-		sleep 0.1s
 	done
+	
 	;;
 
 
