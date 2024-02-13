@@ -242,6 +242,15 @@ def killprocess():
     return render_template('index.html')
 
 
+@app.route('/submit_data', methods=['POST'])  
+def submit_data():  
+    data = request.json.get('lines', [])
+    #列表中数据存入文件中
+    f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+    for line in data:
+        f.write(str(line)+"\n")
+    return jsonify({'message': '数据已添加', 'lines': data})
+
 
 
 #启动xray
