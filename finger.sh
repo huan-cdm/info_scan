@@ -82,9 +82,9 @@ case "${1}" in
 	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
 	if (( $ps_nmap > 1 ))
 	then
-		echo "Nmap状态：运行中"
+		echo "nmap状态：运行中"
 	else
-		echo "Nmap状态：停止"
+		echo "nmap状态：停止"
 	fi
 	;;
 
@@ -113,9 +113,9 @@ case "${1}" in
     ps_nuclei=`ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l`
 	if (( $ps_nuclei > 1 ))
 	then
-		echo "Nuclei状态：运行中"
+		echo "nuclei状态：运行中"
 	else
-		echo "Nuclei状态：停止"
+		echo "nuclei状态：停止"
 	fi
     ;;
 
