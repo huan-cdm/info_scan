@@ -20,7 +20,7 @@ import gaodeapi
 from flask import jsonify
 from nmap_queue import add_ip
 from config import history_switch
-from history_url import historyurl
+#from history_url import historyurl
 
 
 
@@ -126,10 +126,12 @@ def ipscaninterface():
     
 
     #子域名对应的历史URL
+    '''
     try:
         history_url = historyurl(subdomain_list)
     except:
         history_url = "接口异常"
+    '''
 
     #网站标题
     site_title_list = []
@@ -138,7 +140,7 @@ def ipscaninterface():
         site_title_list.append(site_title)
     site_title_list_result = list(set(site_title_list))
     if len(site_title_list_result) == 0:
-        site_title_list_result.append("None")
+       site_title_list_result.append("")
 
 
     
@@ -173,6 +175,14 @@ def ipscaninterface():
 @app.route("/index/")
 def index():
     return render_template('index.html')
+
+
+#历史URL查询
+@app.route("/historyshow/")
+def historyshow():
+    os.popen('python3 /TIP/batch_scan_domain/scan_lib.py')
+    return render_template('index.html')
+
 
 
 #nmap接口预览
@@ -274,6 +284,18 @@ def nmapqueuestatus():
         "radstatus":radstatus
     }
     return jsonify(message_json)
+
+
+
+#历史URL预览
+@app.route("/previewhistoryurl/")
+def previewhistoryurl():
+    
+    lines = []
+    with open('/TIP/batch_scan_domain/result.txt', 'r') as f:
+        for line in f:
+            lines.append(line.strip())
+    return '<br>'.join(lines)
     
 
 

@@ -143,4 +143,10 @@ case "${1}" in
         echo "rad状态：停止"
     fi
     ;;
+
+    #历史URL数量
+    history_url_num)
+    his_num=`cat /TIP/batch_scan_domain/result.txt | wc -l`
+    echo "${his_num}"
+    ;;
 esac

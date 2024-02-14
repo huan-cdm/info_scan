@@ -161,3 +161,31 @@ function startnucleifunc() {
         }
     })
 }
+
+
+//ajax异步查看历史url
+function historyurlfunc() {
+    $.ajax({
+        url: '/historyshow/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('正在查询历史URL,稍后点击URL获取')
+        },
+        error: function () {
+            alert('出现内部错误')
+            
+        },
+        complete: function () {
+            alert('正在查询历史URL,稍后点击URL获取')
+        }
+    })
+
+}
+
+
+//历史url预览
+function historyurlpreviewfunc() {
+
+    window.open("/previewhistoryurl/");
+}
