@@ -18,9 +18,10 @@ import subdomain_lib
 import ipstatus_lib
 import gaodeapi
 from flask import jsonify
-import json
+#import json
 from nmap_queue import add_ip
-from nuclei_lib import nucle_scan
+#from nuclei_lib import nucle_scan
+from config import history_switch
 from history_url import historyurl
 
 
@@ -164,12 +165,6 @@ def ipscaninterface():
     except:
         pass
 
-    #将状态码为200的url列表
-    try:
-        nucle_scan(data1)
-    except:
-        pass
-
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
     ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
@@ -242,6 +237,7 @@ def killprocess():
     return render_template('index.html')
 
 
+#前端文本框添加URL后端接口
 @app.route('/submit_data', methods=['POST'])  
 def submit_data():  
     data = request.json.get('lines', [])
@@ -252,19 +248,15 @@ def submit_data():
     return jsonify({'message': '数据已添加', 'lines': data})
 
 
-
-#启动xray
-@app.route("/startxray/")
-def startxray():
-    
-    command = ["/TIP/batch_scan_domain/start.sh", "startxray"]
-    #启动子进程  
-    process = subprocess.Popen(command,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    #等待子进程结束  
-    process.stdout.close()  
-    returncode = process.wait()  
-    if returncode != 0:  
-        print(f"Error: Command returned non-zero exit status {returncode}") 
+#启动nuclei
+@app.route("/startnuclei/")
+def startnuclei():
+    if int(history_switch) == 0:
+        os.popen('bash ./finger.sh startnuclei_url')
+    elif int(history_switch) ==1:
+        os.popen('bash ./finger.sh startnuclei_result')
+    else:
+        print("配置文件history_switch字段只允许0/1")
 
     return render_template('index.html')
    

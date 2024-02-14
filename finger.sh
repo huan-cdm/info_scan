@@ -88,8 +88,8 @@ case "${1}" in
 	fi
 	;;
 
-    #开启nuclei扫描
-    startnuclei)
+    #开启nuclei扫描(原始URL)
+    startnuclei_url)
     #   常用参数（https://blog.csdn.net/qq_35607078/article/details/131648824）
     #   -bulk-size 限制并行的主机数 默认25 
     #   -c 限制并行的模板数 默认25
@@ -99,12 +99,18 @@ case "${1}" in
     #   -timeout 超时前等待的时间(以秒为单位) 默认 10秒
     #   dict="/root/nuclei-templates/http"
     dict="/root/nuclei-templates/http"
-	./nuclei_server/nuclei -l ./result/domainstatuscode.txt -t ${dict} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
+	./nuclei_server/nuclei -l /TIP/batch_scan_domain/url.txt -t ${dict} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
+	;;
+
+    #开启nuclei扫描(通过第三方接口获取的URL)
+    startnuclei_result)
+    dict="/root/nuclei-templates/http"
+	./nuclei_server/nuclei -l /TIP/batch_scan_domain/result.txt -t ${dict} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
 	;;
 
     #nuclei状态查询
     nucleistatus)
-    ps_nuclei=`ps -aux | grep "result/domainstatuscode.txt" | wc -l`
+    ps_nuclei=`ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l`
 	if (( $ps_nuclei > 1 ))
 	then
 		echo "Nuclei状态：运行中"

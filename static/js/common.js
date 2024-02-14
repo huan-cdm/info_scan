@@ -32,13 +32,13 @@ function deletenmapfunc() {
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('已清空数据')
+            console.log('已清空nmap和nuclei扫描文件')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已清空数据')
+            alert('已清空nmap和nuclei扫描文件')
         }
     })
 }
@@ -141,4 +141,23 @@ function sendtextareadata() {
 function startradandxray() {
    alert("进入命令行分别开启xray和rad"+"\n"+"启动rad：python3 /TIP/batch_scan_domain/radscan.py"+"\n"+
    "启动xray：bash /TIP/batch_scan_domain/start.sh startxray")
+}
+
+
+//ajax异步启动nuclei
+function startnucleifunc() {
+    $.ajax({
+        url: '/startnuclei/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已启动nuclei扫描')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已启动nuclei扫描')
+        }
+    })
 }
