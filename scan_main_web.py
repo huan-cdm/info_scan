@@ -18,9 +18,7 @@ import subdomain_lib
 import ipstatus_lib
 import gaodeapi
 from flask import jsonify
-#import json
 from nmap_queue import add_ip
-#from nuclei_lib import nucle_scan
 from config import history_switch
 from history_url import historyurl
 
@@ -168,7 +166,7 @@ def ipscaninterface():
     return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
     ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
     ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
-    ,data14=masscan_port,data15=history_url)
+    ,data14=masscan_port)
   
 
 #跳转首页
