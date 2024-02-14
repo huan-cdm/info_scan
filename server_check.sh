@@ -34,16 +34,14 @@ case "${1}" in
 	;;
 
 	#开启xray报告访问服务
-    #本地开启127.0.0.1，利用nginx反向代理，映射到公网访问
+    #本地开启127.0.0.1，利用nginx反向代理
     startreportserver)
     cd /TIP/batch_scan_domain/report
-    #nohup python3 -m http.server 8081 --bind 127.0.0.1 & > /TIP/batch_scan_domain/httpserver.out
     nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
     ;;
 
     #关闭xray报告访问服务
     stopreportserver)
-	rm -rf /TIP/batch_scan_domain/httpserver.out
     pidd=`ps -aux | grep 8081 |awk -F " " '{print $2}'`
     
     for ii in ${pidd}
