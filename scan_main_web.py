@@ -299,6 +299,21 @@ def previewhistoryurl():
     
 
 
+#文本框内容展示
+@app.route("/textareashowinterface/")
+def textareashowinterface():
+    result_list = []
+    file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
+    for line in file.readlines():
+        result_list.append(line.strip())
+    
+    message_json = {
+        "textvalue":result_list
+    }
+    
+    return jsonify(message_json)
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

@@ -117,7 +117,9 @@
 			<input type="button" value="首页" onclick="fanhui()">
 			<input type="button" value="服务状态" onclick="statusnmapfunc()">
 			<input type="button" value="URL查询" onclick="historyurlfunc()">
-			<input type="button" value="URL预览" onclick="historyurlpreviewfunc()"><br><br>
+			<input type="button" value="URL预览" onclick="historyurlpreviewfunc()">
+			
+			<br><br>
 			<strong>nmap</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="报告预览" onclick="nmapjumpfunc()">
 			<input type="button" value="报告删除" onclick="deletenmapfunc()"><br><br>
@@ -132,7 +134,12 @@
 			<input type="button" value="程序启动" onclick="startradandxray()"><br><br>
 			<textarea rows="4" cols="88"  id="myTextarea" >1. 文本框中可输入ip地址，查询基础信息，nmap会调用队列中的ip地址进行扫描；
 2. 可以在这里输入多行文本，文本区域会根据需要自动调整大小；
-3. 输入的文本会保存到url.txt中，可用作rad和xray、nuclei、第三方历史URL查询接口调用；</textarea>
+3. 输入的文本会保存到url.txt中，可用作rad和xray、nuclei、第三方历史URL查询接口调用；</textarea><br><br>
+<input type="button" value="文本框查看" onclick="textinfoshowfunc()">
+<select id="opbyid3">
+	<option>文本框内容展示</option>
+</select>
+
 			
 </body>
 

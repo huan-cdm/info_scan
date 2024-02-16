@@ -116,14 +116,14 @@ function sendtextareadata() {
     // 获取textarea的值  
     const text = document.getElementById('myTextarea').value;
     // 按换行符分割文本为数组  
-    const lines = text.split('\n');  
+    const lines = text.split('\n');
     // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
-    $.ajax({  
-        url: '/submit_data',  
-        type: 'POST',  
-        contentType: 'application/json',  
-        data: JSON.stringify({ lines: lines }),  
-        dataType: 'json',  
+    $.ajax({
+        url: '/submit_data',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ lines: lines }),
+        dataType: 'json',
         success: function (res) {
             console.log(res)
             console.log('URL添加成功')
@@ -134,13 +134,13 @@ function sendtextareadata() {
         complete: function () {
             alert('URL添加成功')
         }
-    });  
+    });
 }
 
 //启动xray和rad提示
 function startradandxray() {
-   alert("进入命令行分别开启xray和rad"+"\n"+"启动rad：python3 /TIP/batch_scan_domain/radscan.py"+"\n"+
-   "启动xray：bash /TIP/batch_scan_domain/start.sh startxray")
+    alert("进入命令行分别开启xray和rad" + "\n" + "启动rad：python3 /TIP/batch_scan_domain/radscan.py" + "\n" +
+        "启动xray：bash /TIP/batch_scan_domain/start.sh startxray")
 }
 
 
@@ -174,7 +174,7 @@ function historyurlfunc() {
         },
         error: function () {
             alert('出现内部错误')
-            
+
         },
         complete: function () {
             alert('正在查询历史URL,稍后点击URL获取')
@@ -188,4 +188,33 @@ function historyurlfunc() {
 function historyurlpreviewfunc() {
 
     window.open("/previewhistoryurl/");
+}
+
+
+//文本框内容展示
+function textinfoshowfunc() {
+    $.ajax({
+        url: '/textareashowinterface/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+
+    $.getJSON("/textareashowinterface/",
+        function (info) {
+            $('#opbyid3').empty();
+            for (var i = 0; i < info.textvalue.length; i++) {
+                $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
+            }
+        })
+
 }
