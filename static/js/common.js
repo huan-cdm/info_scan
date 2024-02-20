@@ -126,7 +126,7 @@ function sendtextareadata() {
         dataType: 'json',
         success: function (res) {
             console.log(res)
-            console.log('URL添加成功点击文本框查看是否添加成功')
+            console.log('URL添加成功点击文本查看是否添加成功')
         },
         error: function () {
             alert('出现内部错误')
