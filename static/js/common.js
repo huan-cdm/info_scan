@@ -126,18 +126,20 @@ function sendtextareadata() {
         dataType: 'json',
         success: function (res) {
             console.log(res)
-            console.log('URL添加成功')
+            console.log('URL添加成功点击文本框查看是否添加成功')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('URL添加成功')
+            alert('URL添加成功点击文本框查看是否添加成功')
         }
     });
 }
 
 //启动xray和rad提示
+
+
 function startradandxray() {
     alert("进入命令行分别开启xray和rad" + "\n" + "启动rad：python3 /TIP/batch_scan_domain/radscan.py" + "\n" +
         "启动xray：bash /TIP/batch_scan_domain/start.sh startxray")
@@ -170,14 +172,14 @@ function historyurlfunc() {
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('正在查询历史URL,稍后点击URL获取')
+            console.log('正在调用威胁情报网站OTX查询稍后点击OTX预览查看结果')
         },
         error: function () {
             alert('出现内部错误')
 
         },
         complete: function () {
-            alert('正在查询历史URL,稍后点击URL获取')
+            alert('正在调用威胁情报网站OTX查询稍后点击OTX预览查看结果')
         }
     })
 
