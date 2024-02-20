@@ -177,6 +177,12 @@ def index():
     return render_template('index.html')
 
 
+#跳转到URL路径去重页面
+@app.route("/pathuniqpage/")
+def pathuniqpage():
+    return render_template('uniqdir.html')
+
+
 #历史URL查询
 @app.route("/historyshow/")
 def historyshow():
@@ -306,11 +312,11 @@ def textareashowinterface():
     file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
     for line in file.readlines():
         result_list.append(line.strip())
-    
+    url_num = os.popen('bash /TIP/info_scan/finger.sh textarea_url_num').read()
     message_json = {
-        "textvalue":result_list
+        "textvalue":result_list,
+        "url_num":"总共查出"+str(url_num)+"条数据"
     }
-    
     return jsonify(message_json)
 
 

@@ -39,7 +39,7 @@
 
 		input[type="text"] {
 		    height: 40px;
-		    width: 500px;
+		    width: 700px;
 		    font-size: 20px;
 		}
 
@@ -104,3 +104,7 @@
             border: 1px solid #ccc; /* 设置边框为1像素宽，颜色为#ccc */  
             border-radius: 5px; /* 设置边框圆角为5像素 */  
         }  
+
+		#span1 {
+			color:orange;
+		  }

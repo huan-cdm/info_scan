@@ -17,7 +17,7 @@
 
 	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
 		<form method="post" action="/ipscaninterface/">
-			<input type="text" name="ip" placeholder="请输入ip地址" value="{{data2}}" required="required" id="myInput" />
+			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}" required="required" id="myInput" />
 			<input type="submit" value="搜索">
 		</form>
 	</div>
@@ -114,13 +114,14 @@
 	</div>
 	<br>
 			<strong>首页</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="刷新" onclick="fanhui()">
+			<input type="button" value="刷新页面" onclick="fanhui()">
 			<input type="button" value="服务状态" onclick="statusnmapfunc()">
-			<input type="button" value="文本框添加" onclick="sendtextareadata()"><br><br>
+			<input type="button" value="文本添加" onclick="sendtextareadata()">
+			<input type="button" value="路径去重" onclick="uniqdirfunc()"><br><br>
 			<strong>历史URL</strong>&nbsp;&nbsp;
 			<input type="button" value="OTX查询" onclick="historyurlfunc()">
 			<input type="button" value="OTX预览" onclick="historyurlpreviewfunc()">
-			
+			<input type="button" value="archive查询" onclick="archiveurlshowfunc()">
 			<br><br>
 			<strong>nmap</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="button" value="报告预览" onclick="nmapjumpfunc()">
@@ -134,15 +135,15 @@
 			<input type="button" value="结束进程" onclick="killxrayandradfunc()">
 			
 			<input type="button" value="程序启动" onclick="startradandxray()"><br><br>
-			<textarea rows="4" cols="88"  id="myTextarea" >1. 一行一个URL，点击首页->文本框添加，会保存到url.txt中；
-2. 可以在这里输入多行文本，文本区域会根据需要自动调整大小；
-3. rad和xray、nuclei、第三方历史URL查询接口调用；</textarea><br><br>
+			<textarea rows="4" cols="88"  id="myTextarea" >操作说明：
+1. 每行一个URL，点击文本框添加，会保存到url.txt中；
+2. rad和xray、nuclei、OTX调用url.txt进行扫描，基础信息查询会将ip存入队列中调用nmap扫描；
+3. 最上面文本框输入域名(baidu.com)，点击archive查询，查询需要科学上网才能访问；</textarea><br><br>
 <input type="button" value="文本框查看" onclick="textinfoshowfunc()">
 <select id="opbyid3">
 	<option>文本框内容展示</option>
-</select>
-
-			
+</select> 
+	&nbsp;&nbsp;<span id="span1"></span>
 </body>
 
 </html>

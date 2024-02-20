@@ -149,4 +149,10 @@ case "${1}" in
     his_num=`cat /TIP/batch_scan_domain/result.txt | wc -l`
     echo "${his_num}"
     ;;
+
+    #文本框中URL数量
+    textarea_url_num)
+    textarea_url_num_value=`cat /TIP/batch_scan_domain/url.txt | wc -l`
+    echo "${textarea_url_num_value}"
+    ;;
 esac

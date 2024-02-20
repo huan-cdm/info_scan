@@ -217,6 +217,40 @@ function textinfoshowfunc() {
             for (var i = 0; i < info.textvalue.length; i++) {
                 $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
             }
+            document.getElementById("span1").innerHTML = info.url_num;
         })
 
 }
+
+//跳转到路径去重页面
+//xray报告预览
+function uniqdirfunc() {
+    window.open("/pathuniqpage/", "_blank");
+}
+
+
+//路径去重处理函数
+function processURLs() {
+    var inputUrls = document.getElementById('urlInput').value.split('\n');
+    var outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = ''; // 清空输出区域
+
+    var uniquePaths = [];
+
+    inputUrls.forEach(function(url) {
+        var path = url.substring(0, url.lastIndexOf('/') + 1);
+        if (!uniquePaths.includes(path)) {
+            uniquePaths.push(path);
+            var outputLine = document.createElement('p');
+            outputLine.textContent = path;
+            outputDiv.appendChild(outputLine);
+        }
+    });
+}
+
+//xray报告预览
+function archiveurlshowfunc() {
+    var inputValue = document.getElementById("myInput").value;
+    window.open("https://web.archive.org/cdx/search?collapse=urlkey&fl=original&limit=10000000000000000&matchType=domain&output=text&url="+inputValue, "_blank");
+}
+
