@@ -254,3 +254,75 @@ function archiveurlshowfunc() {
     window.open("https://web.archive.org/cdx/search?collapse=urlkey&fl=original&limit=10000000000000000&matchType=domain&output=text&url="+inputValue, "_blank");
 }
 
+
+//启用按钮
+function startbutton(){
+    var button2 = document.getElementById("button2");
+    button2.disabled = false; 
+    var button3 = document.getElementById("button3");
+    button3.disabled = false;
+    var button4 = document.getElementById("button4");
+    button4.disabled = false;
+
+    var button6 = document.getElementById("button6");
+    button6.disabled = false;
+    var button7 = document.getElementById("button7");
+    button7.disabled = false;
+    var button8 = document.getElementById("button8");
+    button8.disabled = false;
+    var button9 = document.getElementById("button9");
+    button9.disabled = false;
+    var button10 = document.getElementById("button10");
+    button10.disabled = false;
+    var button11 = document.getElementById("button11");
+    button11.disabled = false;
+    var button12 = document.getElementById("button12");
+    button12.disabled = false;
+    var button13 = document.getElementById("button13");
+    button13.disabled = false;
+    var button14 = document.getElementById("button14");
+    button14.disabled = false;
+    var button15 = document.getElementById("button15");
+    button15.disabled = false;
+    var button16 = document.getElementById("button16");
+    button16.disabled = false;
+    var button17 = document.getElementById("button17");
+    button17.disabled = false;
+
+}
+
+//禁用按钮
+function stopbutton(){
+    var button2 = document.getElementById("button2");
+    button2.disabled = true; 
+    var button3 = document.getElementById("button3");
+    button3.disabled = true;
+    var button4 = document.getElementById("button4");
+    button4.disabled = true;
+
+    var button6 = document.getElementById("button6");
+    button6.disabled = true;
+    var button7 = document.getElementById("button7");
+    button7.disabled = true;
+    var button8 = document.getElementById("button8");
+    button8.disabled = true;
+    var button9 = document.getElementById("button9");
+    button9.disabled = true;
+    var button10 = document.getElementById("button10");
+    button10.disabled = true;
+    var button11 = document.getElementById("button11");
+    button11.disabled = true;
+    var button12 = document.getElementById("button12");
+    button12.disabled = true;
+    var button13 = document.getElementById("button13");
+    button13.disabled = true;
+    var button14 = document.getElementById("button14");
+    button14.disabled = true;
+    var button15 = document.getElementById("button15");
+    button15.disabled = true;
+    var button16 = document.getElementById("button16");
+    button16.disabled = true;
+    var button17 = document.getElementById("button17");
+    button17.disabled = true;
+
+}
