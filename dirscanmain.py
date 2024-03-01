@@ -201,6 +201,15 @@ def origindataclearinterface():
     os.popen('rm -rf /TIP/info_scan/dirsearch/reports/*')
     return render_template('dirsearchscan.html')
 
+
+#后台结束目录扫描进程
+@app.route("/killdirsearch/",methods=['post'])
+def killdirsearch():
+    try:
+        os.popen('bash ./finger.sh killdirsearch')
+        return render_template('dirsearchscan.html')
+    except:
+        pass
     
    
 

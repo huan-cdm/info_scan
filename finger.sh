@@ -205,4 +205,13 @@ case "${1}" in
     direserach_value=$[${dirsearchscancount_value}-2]
     echo "${direserach_value}"
     ;;
+
+    #kill 目录扫描进程
+    killdirsearch)
+	pidd=`ps -aux | grep "dirsearch.py" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
 esac
