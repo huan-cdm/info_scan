@@ -119,6 +119,7 @@
 			<input type="button"  value="禁用按钮" onclick="stopbutton()">
 			<input type="button" id="button2" value="服务状态" onclick="statusnmapfunc()"  disabled>
 			<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()"  disabled>
+			<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()"  disabled>
 			<br><br>
 			<strong>历史URL</strong>&nbsp;&nbsp;
 			<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()"  disabled>
@@ -136,6 +137,7 @@
 			<input type="button" id="button14" value="报告删除" onclick="xrayreportdelete()"  disabled>
 			<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()"  disabled>
 			<input type="button" id="button16" value="程序启动" onclick="startradandxray()"  disabled><br><br>
+
 			<textarea rows="4" cols="101"  id="myTextarea" >操作说明：
 1. 每行一个URL，点击文本框添加，会保存到url.txt中；
 2. rad和xray、nuclei、OTX调用url.txt进行扫描，基础信息查询会将ip存入队列中调用nmap扫描；

@@ -30,3 +30,8 @@ gaodekey = ""
 #history_switch = 1  调用OTX查询历史URL
 #history_switch = 0  用户输入URL
 history_switch = 0
+
+#MySQL数据库配置
+dict = {
+    "ip":"","username":"","password":"","dbname":"","portnum": 3306
+}

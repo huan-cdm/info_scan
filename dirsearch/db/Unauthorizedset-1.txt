@@ -1,0 +1,11 @@
+cluster
+druid
+druid/index.html
+druid/websession.html
+druid/datasource.html
+druid/sql.html
+druid/spring.html
+_cat/indices
+_river/_search
+_nodes
+..;/..;/actuator

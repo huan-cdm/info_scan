@@ -1,0 +1,8 @@
+api/swagger-ui.html
+swagger
+swagger-resources
+swagger-ui.html
+swagger/index.html
+swagger/swagger-ui.html
+actuator
+druid/index.html

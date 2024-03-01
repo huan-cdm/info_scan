@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus+'\n'+info.dirscanstatus)
         })
 }
 
@@ -69,7 +69,7 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://121.37.207.248:18888/", "_blank");
+    window.open("http://x.x.x.x:port/", "_blank");
 }
 
 
@@ -222,7 +222,7 @@ function textinfoshowfunc() {
 
 }
 
-//跳转到路径去重页面
+
 //xray报告预览
 function uniqdirfunc() {
     window.open("/pathuniqpage/", "_blank");
@@ -248,7 +248,7 @@ function processURLs() {
     });
 }
 
-//xray报告预览
+//archive 历史url查询
 function archiveurlshowfunc() {
     var inputValue = document.getElementById("myInput").value;
     window.open("https://web.archive.org/cdx/search?collapse=urlkey&fl=original&limit=10000000000000000&matchType=domain&output=text&url="+inputValue, "_blank");
@@ -288,6 +288,8 @@ function startbutton(){
     button16.disabled = false;
     var button17 = document.getElementById("button17");
     button17.disabled = false;
+    var button18 = document.getElementById("button18");
+    button18.disabled = false;
 
 }
 
@@ -324,5 +326,13 @@ function stopbutton(){
     button16.disabled = true;
     var button17 = document.getElementById("button17");
     button17.disabled = true;
+    var button18 = document.getElementById("button18");
+    button18.disabled = true;
 
+}
+
+
+//跳转到目录扫描页面
+function jumpdirscanpage() {
+    window.open("http://x.x.x.x:port/dirscanpage/", "_blank");
 }

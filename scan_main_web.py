@@ -20,7 +20,6 @@ import gaodeapi
 from flask import jsonify
 from nmap_queue import add_ip
 from config import history_switch
-#from history_url import historyurl
 
 
 
@@ -283,11 +282,13 @@ def nmapqueuestatus():
     nucleistatus = os.popen('bash ./finger.sh nucleistatus').read()
     xraystatus = os.popen('bash ./finger.sh xraystatus').read()
     radstatus = os.popen('bash ./finger.sh radstatus').read()
+    dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
     message_json = {
         "nmapstatus":nmapstatus,
         "nucleistatus":nucleistatus,
         "xraystatus":xraystatus,
-        "radstatus":radstatus
+        "radstatus":radstatus,
+        "dirscanstatus":dirscanstatus
     }
     return jsonify(message_json)
 

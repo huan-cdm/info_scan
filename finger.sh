@@ -155,4 +155,54 @@ case "${1}" in
     textarea_url_num_value=`cat /TIP/batch_scan_domain/url.txt | wc -l`
     echo "${textarea_url_num_value}"
     ;;
+
+
+
+    #################################目录扫描相关脚本#####################################################
+    #目录扫描状态
+    dirsearchstatus)
+	ps_dirsearch=`ps -aux | grep dirsearch.py | wc -l`
+	if (( $ps_dirsearch > 1 ))
+	then
+		echo "dirscan状态：运行中"
+	else
+		echo "dirscan状态：停止"
+	fi
+	;;
+
+    #文件清洗服务运行状态
+	fileclean)
+	ps_fileclean=`ps -aux | grep filterdirsearchdata.sh | wc -l`
+	if (( $ps_fileclean > 2 ))
+	then
+		echo "正在运行中......"
+	else
+		echo "已停止"
+	fi
+	;;
+
+    #目录扫描url数量
+    dirsearchtargetnum)
+	num=`cat /TIP/batch_scan_domain/url.txt | wc -l`
+	echo "${num}"
+	;;
+
+    #目录扫描同步后的结果
+    dirsearchsyncresult)
+    dirsearchsyncresult_value=`cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt  | wc -l`
+    echo "${dirsearchsyncresult_value}"
+    ;;
+
+    #目录扫描启动脚本
+    dirsearchscan)
+    python3 /TIP/info_scan/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb   > /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+    ;;
+
+    #目录扫描原始数量/reports目录下
+    dirsearchscancount)
+    dirsearchscancount_value=`cat /TIP/info_scan/dirsearch/reports/*/BATCH.txt | wc -l`
+    #数量减2才是正确数量
+    direserach_value=$[${dirsearchscancount_value}-2]
+    echo "${direserach_value}"
+    ;;
 esac

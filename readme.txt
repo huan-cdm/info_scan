@@ -1,19 +1,19 @@
-scan_main_web.py：web查询  python3 scan_main_web.py
-http://127.0.0.1:5003/index/通过页面查询
+项目启动文件
+scan_main_web.py：项目入口  python3 scan_main_web.py
+dirscanmain.py:   目录扫描  python3 dirscanmain.py
+server_check.sh s-h 项目启动脚本
+nginx_conf目录：将dirscan_nginx.conf  infoscan_nginx.conf放到/etc/nginx/conf.d/目录下
+【开启infoscan：bash server_check.sh info_scan_start
+关闭infoscan：bash server_check.sh info_scan_stop
+开启xray报告：bash server_check.sh startreportserver
+关闭xray报告：bash server_check.sh stopreportserver
+关闭rad&xray引擎：bash server_check.sh killscan
+开启目录扫描引擎：bash server_check.sh startdirscan
+关闭目录扫描引擎：bash server_check.sh stopdirscan
+查看服务状态：bash server_check.sh status】
 
 
 
-
-scan_main_shell.py：命令行查询   python3 scan_main_shell.py ip
-
-config.py：配置文件
-
-output.json：结果文件
-
-其他文件：自定义的库文件用于scan_main_web.py和scan_main_shell.py调用
-
-server_check.sh：info_scan服务操作、xray报告服务操作
-bash server_check.sh -h：查看脚本参数
 
 目前通过IP可以识别以下信息,正在完善更新中......
 
@@ -44,3 +44,5 @@ CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP�
 端口扫描：调用nmap，ip存入队列中，放在后台扫描。
 漏洞扫描：调用nuclei扫描器
 xray+rad：下载 https://github.com/huan-cdm/batch_scan_domain
+目录扫描：调用dirsearch扫描器
+历史url: 调用otx和archive威胁情报
