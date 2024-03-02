@@ -60,3 +60,7 @@
 .ban {
     opacity: .4;
 }
+
+input:hover {  
+    cursor: pointer;  
+  }
