@@ -8,7 +8,6 @@
   <link type="text/css" href="{{ url_for('static', filename='css/style1.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ url_for('static', filename='css/style3.css') }}" rel="stylesheet">
   <script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for( 'static',filename='js/quanfanxuan.js') }}"></script>
   <script type="text/javascript" src="{{ url_for( 'static',filename='js/dirsearchcommon.js') }}"></script>
   <meta name="robots" content="noindex,follow" />
 
@@ -208,10 +207,9 @@
             <input type="button" class="hover-color" name="commit" value="原始数据删除" onclick="origindataclearfunc()">
             <input type="button" class="hover-color" name="commit" value="列表删除" onclick="cleardirvulmaptargetfunc()">
           </td>
-          
-        </tr>
+        </tr><br>
         <tr>
-          <td>
+          <td><br>
             <strong>数据查看</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="黑名单查询" onclick="blacklistshowfunc()">
             <input type="button" class="hover-color" name="commit" value="白名单查询" onclick="Whitelistshowfunc()">
@@ -228,7 +226,7 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <td><br>
             <strong>批量添加</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="扫描前黑名单" onclick="scanbeforebatchinsert()">
             <input type="button" class="hover-color" name="commit" value="扫描后黑名单" onclick="scanafterbatchinsert()">
@@ -324,12 +322,6 @@
               &nbsp;&nbsp;
               <a href="####" class="hover-color" style='text-decoration:none;'
                 onclick="generatereportfunc('{{i}}')">访问漏洞网址</a>
-              &nbsp;&nbsp;
-              <a href="####" class="hover-color" style='text-decoration:none;'
-                onclick="beforeblacklistaddition('{{i}}')">扫描前黑名单添加</a>
-              &nbsp;&nbsp;
-              <a href="####" class="hover-color" style='text-decoration:none;'
-                onclick="blacklistaddition('{{i}}')">扫描后黑名单添加</a>
               &nbsp;&nbsp;
               <a href="####" class="hover-color" style='text-decoration:none;'
                 onclick="primitivereportfunc1('{{i}}')">原始数据备案信息</a>

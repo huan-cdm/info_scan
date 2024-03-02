@@ -82,6 +82,7 @@ function stopnucleiprocessunc() {
 
 //扫描前黑名单批量添加
 function scanbeforebatchinsert() {
+    
     // 获取所有的复选框元素
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
@@ -118,7 +119,7 @@ function scanbeforebatchinsert() {
     $.getJSON("/scanbeforeinsertinterfacebyajax/",
         function (info) {
             alert(info.insert_data_list_result);
-        })
+    })
 }
 
 
@@ -933,9 +934,6 @@ function flushdirsearchdatabywhitefunc() {
         }
     })
 }
-
-
-
 
 
 

@@ -244,6 +244,148 @@ def filterthresholdvalue():
     return render_template('dirsearchscan.html')
 
 
+#批量添加扫描前黑名单
+@app.route("/scanbeforeinsertinterface/",methods=['POST'])
+def scanbeforeinsertinterface():
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum'])
+    cur = db.cursor()
+    urls = request.get_json()
+    urls_re_list = []
+    for url in urls:
+        #从http://www.xx.com/1.html中匹配出www.xx.com
+        pattern = r"https?://([^/]+)"
+        urls_re_1 = re.search(pattern,url)
+        urls_re = urls_re_1.group(1)
+        urls_re_list.append(urls_re)
+    #存取入库结果文件
+    insert_data_list = []
+    for j in urls_re_list:
+        #检查是否存在相同数据
+        sql_select = "select * from vuln_url_table where vulnurl = '%s' "%(j)
+        cur.execute(sql_select)
+        result = cur.fetchone()
+        if result:
+            url_value_result_11 = list(result)[1]
+            #如果存在相同数据，返回当前查询到的一条数据回显给前端
+            vuln_url_message1 = url_value_result_11+" "+"已存在，请不要重复进行入库操作"
+            insert_data_list.append(vuln_url_message1)
+            
+        else:
+            sql_insert = "insert into vuln_url_table(vulnurl) values('%s')"%(j)
+            cur.execute(sql_insert)
+            db.commit()
+            vuln_url_message2 = "扫描前黑名单"+url_value_result_11+"已入库成功"
+            insert_data_list.append(vuln_url_message2)
+    
+    #逻辑判断 2023.11.01
+    for jj in insert_data_list:
+        if "已入库成功" in jj:
+            insert_data_list_11 = "正在入库中......"
+        else:
+            insert_data_list_11 = "已入库完成!"
+    global insert_data_list_result
+    insert_data_list_result = insert_data_list_11
+    return render_template('dirsearchscan.html')
+
+@app.route("/scanbeforeinsertinterfacebyajax/",methods=['GET'])
+def scanbeforeinsertinterfacebyajax():
+    app.logger.warning('扫描前黑名单批量入库接口结果回显给前端')
+    global insert_data_list_result
+
+    message_json = {
+    "insert_data_list_result":insert_data_list_result
+    }
+    return jsonify(message_json)
+
+
+#扫描前黑名单删除
+@app.route("/deletedirsearcscanbeforehblackbyname/",methods=['GET'])
+def deletedirsearcscanbeforehblackbyname():
+    
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    vulnurl = request.args['vulnurl']
+    sql="DELETE from vuln_url_table WHERE vulnurl = '%s' " %(vulnurl)
+    cur.execute(sql)
+    db.commit()
+    db.rollback()
+    return render_template('dirsearchscan.html')
+
+
+#批量添加扫描后黑名单
+@app.route("/scanafterinsertinterface/",methods=['POST'])
+def scanafterinsertinterface():
+    
+    #数据库连接信息
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum'])
+    cur = db.cursor()
+    #接收前端传入的json数据
+    urls = request.get_json()
+    urls_re_list = []
+    for url in urls:
+        #从http://www.xx.com/1.html中匹配出www.xx.com
+        pattern = r"https?://([^/]+)"
+        urls_re_1 = re.search(pattern,url)
+        urls_re = urls_re_1.group(1)
+        urls_re_list.append(urls_re)
+
+    #存取入库结果文件
+    insert_data_list = []
+    for p in urls_re_list:
+        #检查是否存在相同数据
+        sql_select = "select * from blacklist_table where name = '%s' "%(p)
+        cur.execute(sql_select)
+        result = cur.fetchone()
+        if result:
+            url_value_result_11 = list(result)[1]
+            #如果存在相同数据，返回当前查询到的一条数据回显给前端
+            vuln_url_message1 = url_value_result_11+" "+"已存在，请不要重复进行入库操作"
+            insert_data_list.append(vuln_url_message1)
+            
+        else:
+            sql_insert = "insert into blacklist_table(name) values('%s')"%(p)
+            cur.execute(sql_insert)
+            db.commit()
+            vuln_url_message2 = "扫描后黑名单"+url_value_result_11+"已入库成功"
+            insert_data_list.append(vuln_url_message2)
+
+    #逻辑判断 2023.11.01
+    for jj in insert_data_list:
+        if "已入库成功" in jj:
+            insert_data_list_22 = "正在入库中......"
+        else:
+            insert_data_list_22 = "已入库完成!"
+
+    #定义全局变量用于前端在展示
+    global insert_after_data_list_result
+    insert_after_data_list_result = insert_data_list_22
+
+    #生成文件用于过滤扫描结果
+    sql1 = "select name from blacklist_table order by id desc"
+    cur.execute(sql1)
+    data1 = cur.fetchall()
+    f = open(file='/TIP/info_scan/result/filterdirsearchblack.txt', mode='w')
+    for ii in list(data1):
+        for jj in ii:
+            f.write(str(jj)+"\n")
+
+    return render_template('dirsearchscan.html')
+
+
+@app.route("/scanafterinsertinterfacebyajax/",methods=['GET'])
+def scanafterinsertinterfacebyajax():
+    app.logger.warning('扫描后黑名单批量入库接口结果回显给前端')
+    global insert_after_data_list_result
+
+    message_json = {
+    "insert_after_data_list_result":insert_after_data_list_result
+    }
+    return jsonify(message_json)
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=8088)
