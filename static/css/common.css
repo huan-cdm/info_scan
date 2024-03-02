@@ -17,7 +17,7 @@
 
 
 		input[type="submit"] {
-		    background-color: rgba(81, 203, 238, 1);
+		    background-color:darkorange;
 		    border-radius: 3px;
 		    -webkit-transition: all linear 0.30s;
 		    -moz-transition: all linear 0.30s;
@@ -27,7 +27,7 @@
 		}
 
 		input[type="button"] {
-		    background-color: rgb(238, 183, 81);
+		    background-color:darkorange;
 		    border-radius: 3px;
 		    -webkit-transition: all linear 0.30s;
 		    -moz-transition: all linear 0.30s;
