@@ -247,4 +247,22 @@ case "${1}" in
     sort /TIP/batch_scan_domain/url.txt | uniq >  /TIP/batch_scan_domain/url_tmp.txt
     mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
     ;;
+
+    #报告过滤黑名单同步
+    blacklistsyncshell)
+	num=`cat /TIP/info_scan/result/filterdirsearchblack.txt | wc -l`
+    if (( $num == 0 ))
+    then
+        #echo "不存在过滤数据"
+        echo "不存在过滤数据"
+    else
+        #echo "存在过滤数据"
+        for i in `cat /TIP/info_scan/result/filterdirsearchblack.txt`
+        do
+            cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt  | grep -v ${i} > /TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt
+            mv /TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+        done
+        
+    fi
+    ;;
 esac

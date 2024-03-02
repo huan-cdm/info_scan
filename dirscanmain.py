@@ -385,6 +385,13 @@ def scanafterinsertinterfacebyajax():
     }
     return jsonify(message_json)
 
+#报告过滤黑名单同步
+@app.route("/blacklistsync/",methods=['get'])
+def blacklistsync():
+    os.popen('bash ./finger.sh blacklistsyncshell')
+    return render_template('dirsearchscan.html')
+   
+
 
 
 if __name__ == '__main__':  

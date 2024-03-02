@@ -897,7 +897,7 @@ function filterdirsearchdatabywhitefunc() {
 function flushdirsearchdatafunc() {
 
     $.ajax({
-        url: '/flushfilter/',
+        url: '/blacklistsync/',
         method: 'GET',
 
         success: function (res) {
