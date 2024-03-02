@@ -290,7 +290,8 @@ function startbutton(){
     button17.disabled = false;
     var button18 = document.getElementById("button18");
     button18.disabled = false;
-
+    var button19 = document.getElementById("button19");
+    button19.disabled = false;
 }
 
 //禁用按钮
@@ -328,6 +329,8 @@ function stopbutton(){
     button17.disabled = true;
     var button18 = document.getElementById("button18");
     button18.disabled = true;
+    var button19 = document.getElementById("button19");
+    button19.disabled = true;
 
 }
 
