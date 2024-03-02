@@ -321,6 +321,25 @@ def textareashowinterface():
     return jsonify(message_json)
 
 
+#数据处理模块接口
+@app.route("/uniqdirsearchtargetinterface/",methods=['POST'])
+def uniqdirsearchtargetinterface():
+    
+    fileqingxiname = request.form['fileqingxiname']
+    if int(fileqingxiname) == 1:
+        
+        #文件去重，保留IP地址
+        os.popen('bash ./finger.sh withdrawip')
+        return render_template('dirsearchscan.html')
+    else:
+        
+        #文件去重，保留所有
+        os.popen('bash ./finger.sh uniqfilterdirsearch')
+
+        return render_template('dirsearchscan.html')
+
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

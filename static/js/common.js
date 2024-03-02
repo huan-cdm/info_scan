@@ -69,7 +69,7 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://x.x.x.x:port/", "_blank");
+    window.open("http://121.37.207.248:18888/", "_blank");
 }
 
 
@@ -334,5 +334,28 @@ function stopbutton(){
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://x.x.x.x:port/dirscanpage/", "_blank");
+    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
+}
+
+
+//数据处理模块
+function filedeweightingfunc() {
+    var fileqingxiname = $('select[name="fileqingxiname"]').val();
+    $.ajax({
+        url: '/uniqdirsearchtargetinterface/',
+        method: 'POST',
+        data: {
+            fileqingxiname: fileqingxiname
+        },
+        success: function (res) {
+            console.log(res)
+            console.log('数据处理已完成')
+        },
+        error: function () {
+            alert('数据处理出错')
+        },
+        complete: function () {
+            alert('数据处理已完成')
+        }
+    })
 }
