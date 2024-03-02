@@ -79,14 +79,17 @@ def dirscanpage():
     #回显给前端的目录扫描数量
     dirsearch_count_tmp = os.popen('bash ./finger.sh dirsearchscancount').read()
     if int(dirsearch_count_tmp) == -2:
-        dirsearch_count = "目录数量（过滤前）："+"目前暂无漏洞"
+        dirsearch_count = "目录数量（过滤前）："+"暂无数据"
     else:
         dirsearch_count = "目录数量（过滤前）："+str(dirsearch_count_tmp)
    
     
      #目录扫描同步后的数量
     dirsearch_sync_value = os.popen('bash ./finger.sh dirsearchsyncresult').read()
-    dirsearch_sync_value_result = "目录数量（过滤后）："+str(dirsearch_sync_value)
+    if int(dirsearch_sync_value) == -2:
+        dirsearch_sync_value_result = "目录数量（过滤后）："+"暂无数据"
+    else:
+        dirsearch_sync_value_result = "目录数量（过滤后）："+str(dirsearch_sync_value)
 
     return render_template('dirsearchscan.html',data=dirsearch_list,data6=dirdata,data7=num_1,
     data09=dir_list_status_code,data13=dirsearch_count,data20=file_clean_status,

@@ -190,7 +190,9 @@ case "${1}" in
     #目录扫描同步后的结果
     dirsearchsyncresult)
     dirsearchsyncresult_value=`cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt  | wc -l`
-    echo "${dirsearchsyncresult_value}"
+    #数量减2才是正确数量
+    direserach_rsync_value=$[${dirsearchsyncresult_value}-2]
+    echo "${direserach_rsync_value}"
     ;;
 
     #目录扫描启动脚本
@@ -200,7 +202,7 @@ case "${1}" in
 
     #目录扫描原始数量/reports目录下
     dirsearchscancount)
-    dirsearchscancount_value=`cat /TIP/info_scan/dirsearch/reports/*/BATCH.txt | wc -l`
+    dirsearchscancount_value=`cat /TIP/info_scan/dirsearch/reports/*/*.txt | wc -l`
     #数量减2才是正确数量
     direserach_value=$[${dirsearchscancount_value}-2]
     echo "${direserach_value}"
