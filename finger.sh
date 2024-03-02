@@ -214,4 +214,13 @@ case "${1}" in
 		kill -9 ${ii}
     done
 	;;
+
+    #报告阈值过滤
+    thresholdvaluefilter)
+    for n in `cat /TIP/info_scan/result/thresholdvalue.txt`
+    do
+        cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt  | grep -v ${n} > /TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt
+        mv /TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+    done
+    ;;
 esac

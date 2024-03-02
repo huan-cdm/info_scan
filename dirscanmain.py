@@ -210,8 +210,37 @@ def killdirsearch():
         return render_template('dirsearchscan.html')
     except:
         pass
+
+
+#报告阈值设置
+@app.route("/filterthresholdvalue/",methods=['get'])
+def filterthresholdvalue():
+
+    thresholdname = request.args['thresholdname']
+    #重复数大于4的列表元素
+    dir_no_swa_list_2 = []
+    #无后缀的URL列表,原始数据。
+    global dir_no_swa_list_1_1
+    #遍历新列表dir_no_swa_list_1，利用count函数判断出现的次数，大于4次的，追加到新的列表中，用于去重使用。
+    for d in dir_no_swa_list_1_1:
+        #列表元素出现的次数
+        num_m = dir_no_swa_list_1_1.count(d)
+        #列表中次数大于等于5的存到列表dir_no_swa_list_2
+        if num_m >= int(thresholdname):
+            dir_no_swa_list_2.append(d)
+    #利用集合set去重列表，存到列表dir_no_swa_list_2_removal中
+    dir_no_swa_list_2_removal = list(set(dir_no_swa_list_2))
     
-   
+    #将全局的列表写入到文件中，屏蔽阈值使用。
+    f = open(file='/TIP/info_scan/result/thresholdvalue.txt', mode='w')
+    for ii in dir_no_swa_list_2_removal:
+        f.write(str(ii)+"\n")
+
+    #调用shell脚本进行屏蔽操作
+    os.popen('bash ./finger.sh thresholdvaluefilter')
+    return render_template('dirsearchscan.html')
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=8088)
