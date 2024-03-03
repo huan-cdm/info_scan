@@ -265,4 +265,10 @@ case "${1}" in
         
     fi
     ;;
+
+    #存活检测状态码为200
+    survivaldetection)
+    /TIP/info_scan/httpx_server/httpx -l /TIP/batch_scan_domain/url.txt -mc 200 > /TIP/batch_scan_domain/url_tmp.txt
+    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+    ;;
 esac

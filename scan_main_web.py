@@ -339,6 +339,16 @@ def uniqdirsearchtargetinterface():
         return render_template('dirsearchscan.html')
 
 
+#存活检测接口
+@app.route("/filterstatuscodebyhttpx/",methods=['GET'])
+def filterstatuscodebyhttpx():
+    try:
+        os.popen('bash ./finger.sh survivaldetection')
+        return render_template('dirsearchscan.html')
+    except:
+        pass
+    
+
 
 
 if __name__ == '__main__':  

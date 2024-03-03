@@ -387,31 +387,6 @@ function textrenamefunc() {
 
 
 
-
-//ajax异步过滤状态码，根据前端提交，后端进行处理。
-function filterstatuscodefunc() {
-    var statuscodename = $('select[name="statuscodename"]').val();
-    $.ajax({
-        url: '/filterstatuscodebyhttpx/',
-        method: 'POST',
-        data: {
-            statuscodename: statuscodename
-        },
-        success: function (res) {
-            console.log(res)
-            console.log('状态码过滤成功')
-        },
-        error: function () {
-            alert('状态码过滤出错')
-        },
-        complete: function () {
-            alert('状态码过滤完成')
-        }
-    })
-}
-
-
-
 //ajax异步临时文件复制
 function copydirsearchtmpinterfacefunc() {
 

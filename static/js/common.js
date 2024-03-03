@@ -292,6 +292,8 @@ function startbutton(){
     button18.disabled = false;
     var button19 = document.getElementById("button19");
     button19.disabled = false;
+    var button20 = document.getElementById("button20");
+    button20.disabled = false;
 }
 
 //禁用按钮
@@ -331,6 +333,8 @@ function stopbutton(){
     button18.disabled = true;
     var button19 = document.getElementById("button19");
     button19.disabled = true;
+    var button20 = document.getElementById("button20");
+    button20.disabled = true;
 
 }
 
@@ -359,6 +363,25 @@ function filedeweightingfunc() {
         },
         complete: function () {
             alert('数据处理已完成')
+        }
+    })
+}
+
+//存活检测
+function filterstatuscodefunc() {
+    $.ajax({
+        url: '/filterstatuscodebyhttpx/',
+        method: 'GET',
+    
+        success: function (res) {
+            console.log(res)
+            console.log('存活检测成功点击文本查看最新数据')
+        },
+        error: function () {
+            alert('存活检测出现错误')
+        },
+        complete: function () {
+            alert('存活检测成功点击文本查看最新数据')
         }
     })
 }
