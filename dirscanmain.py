@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Pragram Name:[flask_cnvd]
-Description:[信息收集系统]
+Pragram Name:[dirscan]
+Description:[目录扫描接口文件]
 Author:[huan666]
-Date:[2021/08/01 12:08]
+Date:[2023/03/01]
 """
 #----------------------------------------------------------------------------------------#
 from operator import imod
@@ -61,16 +61,7 @@ def dirscanpage():
     
     #文件清洗服务运行状态
     file_clean_status = os.popen('bash ./finger.sh fileclean').read()
-    #单条数据回显给前端
-    try:
-        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        sql="select url,id from scan_table order by id desc"
-        cur.execute(sql)
-        dirdata = cur.fetchall()
-    except:
-        pass
+    
     #回显给前端的目标文件行数
     num = os.popen('bash ./finger.sh dirsearchtargetnum').read()
     
@@ -84,14 +75,14 @@ def dirscanpage():
         dirsearch_count = "目录数量（过滤前）："+str(dirsearch_count_tmp)
    
     
-     #目录扫描同步后的数量
+    #目录扫描同步后的数量
     dirsearch_sync_value = os.popen('bash ./finger.sh dirsearchsyncresult').read()
     if int(dirsearch_sync_value) == -2:
         dirsearch_sync_value_result = "目录数量（过滤后）："+"暂无数据"
     else:
         dirsearch_sync_value_result = "目录数量（过滤后）："+str(dirsearch_sync_value)
 
-    return render_template('dirsearchscan.html',data=dirsearch_list,data6=dirdata,data7=num_1,
+    return render_template('dirsearchscan.html',data=dirsearch_list,data7=num_1,
     data09=dir_list_status_code,data13=dirsearch_count,data20=file_clean_status,
     data18=dirsearch_sync_value_result)
 
@@ -105,7 +96,7 @@ def QueryingBlacklist():
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
         cur = db.cursor()
-        sql="select name from blacklist_table order by id desc"
+        sql="select name from scan_after_black order by id desc"
         cur.execute(sql)
         data = cur.fetchall()
         list_data = list(data)
@@ -128,14 +119,14 @@ def queryingbeforeblacklist():
     cur = db.cursor()
     
     #sql语句扫描前黑名单查询部分
-    sql="SELECT vulnurl from vuln_url_table order by id desc"
+    sql="SELECT vulnurl from scan_before_black order by id desc"
     cur.execute(sql)
     data = cur.fetchall()
     list_data1 = list(data)
     global query_before_black_list
     query_before_black_list = list_data1
     #sql语句扫描后黑名单查询部分
-    sql_after = "select * from blacklist_table order by id desc"
+    sql_after = "select * from scan_after_black order by id desc"
     cur.execute(sql_after)
     data_after =  cur.fetchall()
     list_data_after = list(data_after)
@@ -155,7 +146,7 @@ def QueryingWhitelist():
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
         cur = db.cursor()
-        sql="select name from whitelist_table order by id desc"
+        sql="select name from scan_after_white order by id desc"
         cur.execute(sql)
         data1 = cur.fetchall()
         list_data1 = list(data1)
@@ -262,7 +253,7 @@ def scanbeforeinsertinterface():
     insert_data_list = []
     for j in urls_re_list:
         #检查是否存在相同数据
-        sql_select = "select * from vuln_url_table where vulnurl = '%s' "%(j)
+        sql_select = "select * from scan_before_black where vulnurl = '%s' "%(j)
         cur.execute(sql_select)
         result = cur.fetchone()
         if result:
@@ -272,7 +263,7 @@ def scanbeforeinsertinterface():
             insert_data_list.append(vuln_url_message1)
             
         else:
-            sql_insert = "insert into vuln_url_table(vulnurl) values('%s')"%(j)
+            sql_insert = "insert into scan_before_black(vulnurl) values('%s')"%(j)
             cur.execute(sql_insert)
             db.commit()
             vuln_url_message2 = "扫描前黑名单"+url_value_result_11+"已入库成功"
@@ -307,7 +298,7 @@ def deletedirsearcscanbeforehblackbyname():
     password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
     cur = db.cursor()
     vulnurl = request.args['vulnurl']
-    sql="DELETE from vuln_url_table WHERE vulnurl = '%s' " %(vulnurl)
+    sql="DELETE from scan_before_black WHERE vulnurl = '%s' " %(vulnurl)
     cur.execute(sql)
     db.commit()
     db.rollback()
@@ -336,7 +327,7 @@ def scanafterinsertinterface():
     insert_data_list = []
     for p in urls_re_list:
         #检查是否存在相同数据
-        sql_select = "select * from blacklist_table where name = '%s' "%(p)
+        sql_select = "select * from scan_after_black where name = '%s' "%(p)
         cur.execute(sql_select)
         result = cur.fetchone()
         if result:
@@ -346,7 +337,7 @@ def scanafterinsertinterface():
             insert_data_list.append(vuln_url_message1)
             
         else:
-            sql_insert = "insert into blacklist_table(name) values('%s')"%(p)
+            sql_insert = "insert into scan_after_black(name) values('%s')"%(p)
             cur.execute(sql_insert)
             db.commit()
             vuln_url_message2 = "扫描后黑名单"+url_value_result_11+"已入库成功"
@@ -364,7 +355,7 @@ def scanafterinsertinterface():
     insert_after_data_list_result = insert_data_list_22
 
     #生成文件用于过滤扫描结果
-    sql1 = "select name from blacklist_table order by id desc"
+    sql1 = "select name from scan_after_black order by id desc"
     cur.execute(sql1)
     data1 = cur.fetchall()
     f = open(file='/TIP/info_scan/result/filterdirsearchblack.txt', mode='w')

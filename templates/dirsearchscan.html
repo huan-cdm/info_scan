@@ -187,7 +187,7 @@
             <select id="opbyid4" onclick="opbyid4func()">
               <option>--请选择--</option>
             </select>
-
+            <br>
             <input type="text" name="whitename" required="required" value="" placeholder="删除白名单" id="input2">
             <input type="button" name="commit" value="删除" onclick="deletedirsearchwhitebynamefunc()">
             <input type="button" name="commit" value="返回" onclick="Whitelistshowlistfunc()">
@@ -269,16 +269,6 @@
         </td>
 
         </tr>
-
-
-
-
-        {% for g in data6 %}
-        <tr>
-          <td>{{g[0]}}</td>
-          <td><a href="#" style='text-decoration:none;' onclick="deletedirfunc('{{ g[1] }}')">删除</a></td>
-        </tr>
-        {% endfor %}
 
         <tr>
           <td>
