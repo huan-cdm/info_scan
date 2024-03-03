@@ -138,11 +138,13 @@
 			<input type="button" id="button14" value="报告删除" onclick="xrayreportdelete()"  disabled>
 			<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()"  disabled>
 			<input type="button" id="button16" value="程序启动" onclick="startradandxray()"  disabled><br>
-			<h3>----------------------------------------------------------------------------------------基础数据添加-----------------------------------------------------------------------------------------</h3>
-			<textarea rows="4" cols="101"  id="myTextarea" >操作说明：
+			<h3>----------------------------------------------------------------------------------------基础数据处理-----------------------------------------------------------------------------------------</h3>
+			<textarea rows="6" cols="101"  id="myTextarea" >操作说明：
 1. 每行一个URL，点击文本框添加，会保存到url.txt中；
-2. rad和xray、nuclei、OTX调用url.txt进行扫描，基础信息查询会将ip存入队列中调用nmap扫描；
-3. 最上面文本框输入域名(baidu.com)，点击archive查询，查询需要科学上网才能访问；</textarea><br><br>
+2. 文本添加和文本查看对文本框中的url进行添加和查看；
+3. 存活检测：检测状态码为200的url、数据过滤：去重和提取IP组成的url、所有url去重；
+4. rad和xray、nuclei、OTX调用url.txt进行扫描，基础信息查询会将ip存入队列中调用nmap扫描；
+5. 最上面文本框输入域名(baidu.com)，点击archive查询，查询需要科学上网才能访问；</textarea><br><br>
 <input type="button" id="button3" value="文本添加" onclick="sendtextareadata()"  disabled>
 <input type="button" id="button17" value="文本查看" onclick="textinfoshowfunc()"  disabled>
 <select id="opbyid3">
