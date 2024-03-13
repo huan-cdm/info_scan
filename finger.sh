@@ -271,4 +271,12 @@ case "${1}" in
     /TIP/info_scan/httpx_server/httpx -l /TIP/batch_scan_domain/url.txt -mc 200 > /TIP/batch_scan_domain/url_tmp.txt
     mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
     ;;
+
+    #urlfinder引擎启动脚本
+    urlfinder_start)
+    #使用date命令生成当前的时间戳  
+    TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+    rm -rf /TIP/info_scan/urlfinder_server/result_tmp.txt
+    /TIP/info_scan/urlfinder_server/URLFinder -f /TIP/batch_scan_domain/url.txt -m 2 -s all -s 200 -o /TIP/info_scan/urlfinder_server/report/urlfinder-${TIMESTAMP}.html > /TIP/info_scan/urlfinder_server/result_tmp.txt
+    ;;
 esac

@@ -294,6 +294,10 @@ function startbutton(){
     button19.disabled = false;
     var button20 = document.getElementById("button20");
     button20.disabled = false;
+    var button21 = document.getElementById("button21");
+    button21.disabled = false;
+    var button22 = document.getElementById("button22");
+    button22.disabled = false;
 }
 
 //禁用按钮
@@ -335,6 +339,11 @@ function stopbutton(){
     button19.disabled = true;
     var button20 = document.getElementById("button20");
     button20.disabled = true;
+    var button21 = document.getElementById("button21");
+    button21.disabled = true;
+    var button22 = document.getElementById("button22");
+    button22.disabled = true;
+    
 
 }
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
@@ -8,11 +9,13 @@
 	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
 	<title>IP信息收集</title>
 </head>
+
 <body>
 	<h3>基础信息查询</h3>
 	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
 		<form method="post" action="/ipscaninterface/">
-			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}" required="required" id="myInput" />
+			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
+				required="required" id="myInput" />
 			<input type="submit" value="搜索">
 		</form>
 	</div>
@@ -47,7 +50,7 @@
 		<div class="inner-div"><strong>指纹</strong></div>
 		<div class="inner-div"><strong>子域名</strong></div>
 		<div class="inner-div"><strong>常用端口</strong></div>
-	
+
 	</div>
 
 
@@ -108,51 +111,79 @@
 		</div>
 	</div>
 	<h3>漏洞扫描集合</h3>
-	
-			<strong>首页</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" value="刷新页面" onclick="fanhui()">
-			<input type="button"  value="启用按钮" onclick="startbutton()">
-			<input type="button"  value="禁用按钮" onclick="stopbutton()">
-			<input type="button" id="button2" value="服务状态" onclick="statusnmapfunc()"  disabled>
-			<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()"  disabled>
-			<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()"  disabled>
-			<br><br>
-			<strong>威胁情报</strong>&nbsp;&nbsp;
-			<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()"  disabled>
-			<input type="button" id="button7" value="OTX预览" onclick="historyurlpreviewfunc()"  disabled>
-			<input type="button" id="button8" value="archive查询" onclick="archiveurlshowfunc()"  disabled>
-			<br><br>
-			<strong>nmap</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" id="button9" value="报告预览" onclick="nmapjumpfunc()"  disabled>
-			<input type="button" id="button10" value="报告删除" onclick="deletenmapfunc()"  disabled><br><br>
-			<strong>nuclei</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" id="button11" value="报告预览" onclick="nucleijumpfunc()"  disabled>
-			<input type="button" id="button12" value="程序启动" onclick="startnucleifunc()"  disabled><br><br>
-			<strong>xray+rad</strong>
-			<input type="button" id="button13" value="报告预览" onclick="xrayreportshow()"  disabled>
-			<input type="button" id="button14" value="报告删除" onclick="xrayreportdelete()"  disabled>
-			<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()"  disabled>
-			<input type="button" id="button16" value="程序启动" onclick="startradandxray()"  disabled><br>
-			<h3>基础数据处理</h3>
-			<textarea rows="6" cols="101"  id="myTextarea" >操作说明：
+	<table border="1">
+		<tr>
+			<td>
+				<input type="submit" value="首页">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="刷新页面" onclick="fanhui()">
+				<input type="button" value="启用按钮" onclick="startbutton()">
+				<input type="button" value="禁用按钮" onclick="stopbutton()">
+				<input type="button" id="button2" value="服务状态" onclick="statusnmapfunc()" disabled>
+				<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()" disabled>
+				
+			</td>
+			<td>
+				<input type="submit" value="目录探测">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()" disabled>
+				<input type="button" id="button21" value="链接扫描" onclick="" disabled>
+				<input type="button" id="button22" value="报告预览" onclick="" disabled>
+				
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="威胁情报">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()" disabled>
+				<input type="button" id="button7" value="OTX预览" onclick="historyurlpreviewfunc()" disabled>
+				<input type="button" id="button8" value="archive查询" onclick="archiveurlshowfunc()" disabled>
+			</td>
+			<td>
+				<input type="submit" value="端口扫描">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button9" value="报告预览" onclick="nmapjumpfunc()" disabled>
+				<input type="button" id="button10" value="报告删除" onclick="deletenmapfunc()" disabled>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="漏洞扫描">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button11" value="报告预览" onclick="nucleijumpfunc()" disabled>
+				<input type="button" id="button12" value="程序启动" onclick="startnucleifunc()" disabled>
+			</td>
+			<td>
+				<input type="submit" value="被动扫描">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button13" value="报告预览" onclick="xrayreportshow()" disabled>
+				<input type="button" id="button14" value="报告删除" onclick="xrayreportdelete()" disabled>
+				<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()" disabled>
+				<input type="button" id="button16" value="程序启动" onclick="startradandxray()" disabled>
+			</td>
+
+		</tr>
+	</table>
+
+	<h3>基础数据处理</h3>
+	<textarea rows="6" cols="101" id="myTextarea">操作说明：
 1. 每行一个URL，点击文本框添加，会保存到url.txt中；
 2. 文本添加和文本查看对文本框中的url进行添加和查看；
 3. 存活检测：检测状态码为200的url、数据过滤：去重和提取IP组成的url、所有url去重；
 4. rad和xray、nuclei、OTX调用url.txt进行扫描，基础信息查询会将ip存入队列中调用nmap扫描；
-5. 最上面文本框输入域名(baidu.com)，点击archive查询，查询需要科学上网才能访问；</textarea><br><br>
-<input type="button" id="button3" value="文本添加" onclick="sendtextareadata()"  disabled>
-<input type="button" id="button17" value="文本查看" onclick="textinfoshowfunc()"  disabled>
-<select id="opbyid3">
-	<option>文本内容展示</option>
-</select> 
+5. 最上面文本框输入域名(baidu.com)，点击archive查询，查询需要科学上网才能访问；</textarea><br>
+	<input type="button" id="button3" value="文本添加" onclick="sendtextareadata()" disabled>
+	<input type="button" id="button17" value="文本查看" onclick="textinfoshowfunc()" disabled>
+	<select id="opbyid3">
+		<option>文本内容展示</option>
+	</select>
 	&nbsp;&nbsp;<span id="span1"></span>
-<br><br>
-	<input type="button" id="button20" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()" disabled>
-	<input type="button" id="button19" class="hover-color" name="commit" value="数据过滤" onclick="filedeweightingfunc()" disabled>
+	<br>
+	<input type="button" id="button20" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()"
+		disabled>
+	<input type="button" id="button19" class="hover-color" name="commit" value="数据过滤" onclick="filedeweightingfunc()"
+		disabled>
 	<select name="fileqingxiname">
 		<option value="1">保留IP并去重</option>
 		<option value="2">保留所有并去重</option>
-	  </select>
+	</select>
 </body>
 
 </html>
