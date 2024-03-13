@@ -24,6 +24,7 @@
 		    transition: all linear 0.30s;
 		    height: 40px;
 		    width: 80px;
+			font-weight: bold; /* 加粗字体 */
 		}
 
 		input[type="button"] {
@@ -34,6 +35,7 @@
 		    transition: all linear 0.30s;
 		    height: 40px;
 		    width: 80px;
+			font-weight: bold; /* 加粗字体 */
 		}
 
 
