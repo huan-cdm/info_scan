@@ -394,3 +394,22 @@ function filterstatuscodefunc() {
         }
     })
 }
+
+//链接扫描
+function urlfinderscanfunc() {
+    $.ajax({
+        url: '/starturlfinderinterface/',
+        method: 'GET',
+    
+        success: function (res) {
+            console.log(res)
+            console.log('正在进行链接扫描稍后点击报告预览查看报告')
+        },
+        error: function () {
+            alert('链接扫描出错')
+        },
+        complete: function () {
+            alert('正在进行链接扫描稍后点击报告预览查看报告')
+        }
+    })
+}

@@ -345,9 +345,19 @@ def filterstatuscodebyhttpx():
     try:
         os.popen('bash ./finger.sh survivaldetection')
         return render_template('dirsearchscan.html')
-    except:
-        pass
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+#链接扫描
+@app.route("/starturlfinderinterface/",methods=['GET'])
+def starturlfinderinterface():
+    try:
+        os.popen('bash ./finger.sh urlfinder_start')
+    except Exception as e:
+        print("捕获到异常:", e)
     
+    return render_template('index.html')
 
 
 
