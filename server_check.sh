@@ -7,6 +7,8 @@
 	echo "关闭rad&xray引擎：bash server_check.sh killscan"
 	echo "开启目录扫描引擎：bash server_check.sh startdirscan"
 	echo "关闭目录扫描引擎：bash server_check.sh stopdirscan"
+	echo "开启链接扫描报告：bash server_check.sh startlinkscanserver"
+	echo "关闭链接扫描报告：bash server_check.sh stoplinkscanserver"
 	echo "查看服务状态：bash server_check.sh status"
     exit 0  #退出脚本，如果不需要执行其他命令的话
 fi  
@@ -96,7 +98,9 @@ case "${1}" in
 	status)
 	infopid=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}' | wc -l`
 	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
+	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
 	dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
+	sleep 0.5s
 	#infoscan运行状态
 	if (( $infopid > 1 ))
 	then
@@ -104,6 +108,7 @@ case "${1}" in
 	else
 		echo -e "infoscan：" "\033[31mX\033[0m"
 	fi
+	sleep 0.5s
 	#xray报告服务
 	if (( $xraypid > 1 ))
 	then
@@ -111,8 +116,15 @@ case "${1}" in
 	else
 		echo -e "xrayreport：" "\033[31mX\033[0m"
 	fi
-	
-
+	sleep 0.5s
+	#链接扫描报告服务
+	if (( $urlfinderpid > 1 ))
+	then
+		echo -e "urlfinderreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "urlfinderreport：" "\033[31mX\033[0m"
+	fi
+	sleep 0.5s
     #目录扫描服务
 	if (( $dirscanpid > 1 ))
 	then
@@ -121,5 +133,27 @@ case "${1}" in
 		echo -e "目录扫描：" "\033[31mX\033[0m"
 	fi
 	;;
+
+
+
+
+	#开启链接扫描报告服务
+    #本地开启127.0.0.1，利用nginx反向代理
+    startlinkscanserver)
+    cd /TIP/info_scan/urlfinder_server/report
+    nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
+    ;;
+
+	#关闭链接扫描报告访问服务
+    stoplinkscanserver)
+    linkpidd=`ps -aux | grep 8089 |awk -F " " '{print $2}'`
+    
+    for ii in ${linkpidd}
+	do
+		echo ".正在结束进程${ii}"
+		kill -9 ${ii}
+		sleep 0.1s
+	done
+    ;;
 
 esac
