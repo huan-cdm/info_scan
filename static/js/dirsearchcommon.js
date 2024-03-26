@@ -749,11 +749,11 @@ function primitivereportfunc(value) {
 
 //目录扫描查询原始数据
 function primitivereportfunc1(url_data) {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "block";
+    //alert(url_data)
+    //var modal = document.getElementById("myModal");
+    //modal.style.display = "block";
     $.ajax({
         url: '/queryorigindatainterface/',
-        cache: false,
         method: 'POST',
         data: {
             url_data: url_data
@@ -771,13 +771,9 @@ function primitivereportfunc1(url_data) {
     })
     $.getJSON("/queryorigindatainterfacebyajax/",
         function (info) {
-            document.getElementById("pidshow").innerHTML = info.global_item_origin_data;
+            alert(info.global_item_origin_data);
+           
         })
-
-    // 设置3秒后自动关闭
-    setTimeout(function () {
-        modal.style.display = "none";
-    }, 2000);
 
 }
 

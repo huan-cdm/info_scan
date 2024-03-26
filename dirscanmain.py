@@ -26,6 +26,7 @@ import base64
 import json
 import subprocess
 from config import dict
+from judgeipordomain import is_valid_ip
 
 app = Flask(__name__,template_folder='./templates')
 app.secret_key = "DragonFire"
@@ -383,6 +384,45 @@ def blacklistsync():
     return render_template('dirsearchscan.html')
    
 
+
+#目录扫描原始日志信息
+@app.route("/queryorigindatainterface/",methods=['post'])
+def queryorigindatainterface():
+    url_data = request.form['url_data']
+    
+    try:
+    
+       
+        list_result = []
+        global global_item_origin_data
+        file_result = open('/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt',encoding='utf-8')
+        #将文件存到列表中用于检索
+        for line in file_result.readlines():
+            list_result.append(line)
+        #前端传入的字符在列表中查找，查找到显示完整的字符串
+        for item in list_result:
+            if url_data in item:
+                global_item_origin_data_1 = item
+        
+        global_item_origin_data = "原始数据："+global_item_origin_data_1
+        global global_item_origin_data_12
+        global_item_origin_data_12 = global_item_origin_data
+        return render_template('dirsearchscan.html')
+
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+@app.route("/queryorigindatainterfacebyajax/",methods=['GET'])
+def queryorigindatainterfacebyajax():
+    app.logger.warning('目录扫描查询原始数据接口前端展示')
+    global global_item_origin_data_12
+
+    message_json = {
+    "global_item_origin_data":global_item_origin_data_12
+   
+    }
+    return jsonify(message_json)
 
 
 if __name__ == '__main__':  
