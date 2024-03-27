@@ -35,3 +35,7 @@ history_switch = 0
 dict = {
     "ip":"","username":"","password":"","dbname":"","portnum": 3306
 }
+
+#主系统账号密码配置选项
+main_username = "mainadmin"
+main_password = "mainadmin"

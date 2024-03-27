@@ -4,6 +4,8 @@ Author:[huan666]
 Date:[2023/11/15]
 '''
 from flask import Flask, render_template,request
+from flask import session
+from flask import redirect
 import httpx_status
 import finger_recognize
 import icp
@@ -20,6 +22,10 @@ import gaodeapi
 from flask import jsonify
 from nmap_queue import add_ip
 from config import history_switch
+
+#主系统账号密码配置导入
+from config import main_username
+from config import main_password
 
 
 
@@ -173,7 +179,11 @@ def ipscaninterface():
 #跳转首页
 @app.route("/index/")
 def index():
-    return render_template('index.html')
+    user = session.get('username')
+    if str(user) == main_username:
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
 
 
 #跳转到URL路径去重页面
