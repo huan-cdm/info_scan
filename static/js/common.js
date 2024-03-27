@@ -98,6 +98,26 @@ function xrayreportdelete() {
 }
 
 
+//ajax异步删除链接扫描报告
+function deleteurlfinderreportfunc() {
+    $.ajax({
+        url: '/deleteurlfinderreport/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已删除链接报告')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已删除链接报告')
+        }
+    })
+}
+
+
+
 //ajax异步结束xray和rad引擎进程
 function killxrayandradfunc() {
     $.ajax({
@@ -304,6 +324,8 @@ function startbutton(){
     button21.disabled = false;
     var button22 = document.getElementById("button22");
     button22.disabled = false;
+    var button23 = document.getElementById("button23");
+    button23.disabled = false;
 }
 
 //禁用按钮
@@ -349,7 +371,8 @@ function stopbutton(){
     button21.disabled = true;
     var button22 = document.getElementById("button22");
     button22.disabled = true;
-    
+    var button23 = document.getElementById("button23");
+    button23.disabled = true;
 
 }
 

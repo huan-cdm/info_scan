@@ -360,6 +360,16 @@ def starturlfinderinterface():
     return render_template('index.html')
 
 
+#清空链接扫描报告
+@app.route("/deleteurlfinderreport/")
+def deleteurlfinderreport():
+    try:
+        os.popen('rm -rf /TIP/info_scan/urlfinder_server/report/*')
+    except Exception as e:
+        print("捕获到异常:",e)
+    return render_template('index.html')
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
