@@ -26,7 +26,6 @@ import base64
 import json
 import subprocess
 from config import dict
-from judgeipordomain import is_valid_ip
 
 app = Flask(__name__,template_folder='./templates')
 app.secret_key = "DragonFire"
