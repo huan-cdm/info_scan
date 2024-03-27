@@ -371,5 +371,11 @@ def deleteurlfinderreport():
 
 
 
+#跳转登录页
+@app.route("/loginpage/")
+def loginpage():
+    return render_template('login.html')
+
+
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
