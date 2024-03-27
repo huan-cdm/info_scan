@@ -261,75 +261,6 @@ function dirsearchtargetshowfunc(value) {
 
 
 
-//ip异步查询ping结果
-function selectpingresultfunc() {
-    var pingvaluename = $('input[name="pingvaluename"]').val();
-    $.ajax({
-        url: '/pingtestinterface/',
-        method: 'POST',
-        data: {
-            pingvaluename: pingvaluename
-        },
-        success: function (res) {
-            console.log(res)
-        },
-        error: function () {
-
-        },
-        complete: function () {
-        }
-    })
-
-
-    $.getJSON("/pingtestinterfaceshow/",
-        function (info) {
-            document.getElementById("pingid").innerHTML = info.ping_value;
-            document.getElementById("pingid1").innerHTML = info.local_value;
-            document.getElementById("pingid2").innerHTML = info.icp_value;
-
-        })
-}
-document.getElementById('pingid').style.display = "block";
-document.getElementById('pingid1').style.display = "block";
-document.getElementById('pingid2').style.display = "block";
-
-
-
-
-function cancelpingresultfunc() {
-    document.getElementById('pingid').style.display = "none";
-    document.getElementById('pingid1').style.display = "none";
-    document.getElementById('pingid2').style.display = "none";
-}
-
-
-
-
-//ajax异步文件去重
-function filedeweightingfunc() {
-    var fileqingxiname = $('select[name="fileqingxiname"]').val();
-    $.ajax({
-        url: '/uniqdirsearchtargetinterface/',
-        method: 'POST',
-        data: {
-            fileqingxiname: fileqingxiname
-        },
-        success: function (res) {
-            console.log(res)
-            console.log('文件过滤去重成功')
-        },
-        error: function () {
-            alert('文件过滤去重出错')
-        },
-        complete: function () {
-            alert('文件过滤去重成功')
-        }
-    })
-}
-
-
-
-
 //ajax异步目标文件去重
 function uniqfofabatchfunc() {
     $.ajax({
@@ -976,19 +907,24 @@ function deletedirsearchblackbynamefunc() {
 
 //ajax异步异步删除扫描前黑名单
 function deletedirsearcscanbeforehblackbynamefunc() {
-    var beforeblackname = $('input[name="beforeblackname"]').val();
+    var vulnurl = $('input[name="beforeblackname"]').val();
     $.ajax({
-        url: '/deletedirsearcscanbeforehblackbyname?vulnurl=' + beforeblackname,
-        method: 'GET',
+        
+        url: '/deletedirsearcscanbeforehblackbyname/',
+        method: 'POST',
+        data: {
+            vulnurl: vulnurl
+        },
         success: function (res) {
-            console.log(res)
-            console.log('扫描前黑名单' + beforeblackname + '删除成功')
+            
+            alert('扫描前黑名单' + vulnurl + '删除成功')
+           
         },
         error: function () {
             alert('删除错误')
         },
         complete: function () {
-            alert('扫描前黑名单' + beforeblackname + '删除完成')
+            alert('扫描前黑名单' + vulnurl + '删除完成')
         }
     })
 }

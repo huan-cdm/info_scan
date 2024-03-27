@@ -291,13 +291,15 @@ def scanbeforeinsertinterfacebyajax():
 
 
 #扫描前黑名单删除
-@app.route("/deletedirsearcscanbeforehblackbyname/",methods=['GET'])
+@app.route("/deletedirsearcscanbeforehblackbyname/",methods=['POST'])
 def deletedirsearcscanbeforehblackbyname():
     
     db= pymysql.connect(host=dict['ip'],user=dict['username'],  
     password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
     cur = db.cursor()
-    vulnurl = request.args['vulnurl']
+    #vulnurl = request.args['vulnurl']
+    vulnurl = request.form['vulnurl']
+    # print(vulnurl)
     sql="DELETE from scan_before_black WHERE vulnurl = '%s' " %(vulnurl)
     cur.execute(sql)
     db.commit()
