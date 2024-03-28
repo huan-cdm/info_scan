@@ -18,14 +18,16 @@
 			<input id="tab-1" type="radio" name="tab" class="sign-in" checked=""><label for="tab-1" class="tab">主系统登录</label>
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
 			<div class="login-form">
+				<form action="/logininterface/" method="post">
 				<div class="sign-in-htm">
 					<div class="group">
 						<label for="user" class="label">用户名</label>
-						<input id="user" type="text" class="input">
+						<input id="user" type="text" class="input" required="required" name="username">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">密码</label>
-						<input id="pass" type="password" class="input" data-type="password">
+						<input id="pass" type="password" class="input" data-type="password" required="required" name="password">
+						<span>{{data1}}</span>
 					</div>
 					
 					<div class="group">
@@ -33,7 +35,7 @@
 					</div>
 					<div class="hr"></div>
 				</div>
-				
+			</form>
 			</div>
 		</div>
 	</div>

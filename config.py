@@ -37,5 +37,5 @@ dict = {
 }
 
 #主系统账号密码配置选项
-main_username = "mainadmin"
-main_password = "mainadmin"
+main_username = ""
+main_password = ""

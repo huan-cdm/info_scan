@@ -114,3 +114,9 @@
 		h3 {  
 			color:chocolate;  
 		}  
+
+		h2 {  
+			color:chocolate;  
+			text-align: right;
+			cursor: pointer;
+		}  

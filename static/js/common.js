@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://ip:18888/", "_blank");
+    window.open("http://121.37.207.248:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://ip:16666/", "_blank");
+    window.open("http://121.37.207.248:16666/", "_blank");
 }
 
 
@@ -379,7 +379,7 @@ function stopbutton(){
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://ip:17777/dirscanpage/", "_blank");
+    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
 }
 
 
@@ -441,4 +441,23 @@ function urlfinderscanfunc() {
             alert('正在进行链接扫描稍后点击报告预览查看报告')
         }
     })
+}
+
+//ajax异步启动注销系统
+function signoutfunc() {
+    $.ajax({
+        url: '/signout/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已注销系统')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已注销系统')
+        }
+    })
+    window.location.href = "/index/";
 }
