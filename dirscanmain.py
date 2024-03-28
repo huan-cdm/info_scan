@@ -59,8 +59,6 @@ def dirscanpage():
     for c in dir_no_swa_list:
         dir_no_swa_list_1.append(c[0])
     
-    #文件清洗服务运行状态
-    file_clean_status = os.popen('bash ./finger.sh fileclean').read()
     
     #回显给前端的目标文件行数
     num = os.popen('bash ./finger.sh dirsearchtargetnum').read()
@@ -83,9 +81,7 @@ def dirscanpage():
         dirsearch_sync_value_result = "目录数量（过滤后）："+str(dirsearch_sync_value)
 
     return render_template('dirsearchscan.html',data=dirsearch_list,data7=num_1,
-    data09=dir_list_status_code,data13=dirsearch_count,data20=file_clean_status,
-    data18=dirsearch_sync_value_result)
-
+    data09=dir_list_status_code,data13=dirsearch_count,data18=dirsearch_sync_value_result)
 
 
 
@@ -281,7 +277,7 @@ def scanbeforeinsertinterface():
 
 @app.route("/scanbeforeinsertinterfacebyajax/",methods=['GET'])
 def scanbeforeinsertinterfacebyajax():
-    app.logger.warning('扫描前黑名单批量入库接口结果回显给前端')
+   
     global insert_data_list_result
 
     message_json = {
@@ -370,7 +366,7 @@ def scanafterinsertinterface():
 
 @app.route("/scanafterinsertinterfacebyajax/",methods=['GET'])
 def scanafterinsertinterfacebyajax():
-    app.logger.warning('扫描后黑名单批量入库接口结果回显给前端')
+    
     global insert_after_data_list_result
 
     message_json = {
@@ -416,7 +412,7 @@ def queryorigindatainterface():
 
 @app.route("/queryorigindatainterfacebyajax/",methods=['GET'])
 def queryorigindatainterfacebyajax():
-    app.logger.warning('目录扫描查询原始数据接口前端展示')
+   
     global global_item_origin_data_12
 
     message_json = {

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>漏洞扫描</title>
+  <title>目录扫描子系统</title>
   <link type="text/css" href="{{ url_for('static', filename='css/style2.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ url_for('static', filename='css/style1.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ url_for('static', filename='css/style3.css') }}" rel="stylesheet">
@@ -98,61 +98,62 @@
 <body>
   <div class="container">
     <div class="login">
-      <p>&nbsp;<strong>文件扩展名</strong>&nbsp;&nbsp;<select name="filename">
-          <option value="php,aspx,jsp,html,js">all</option>
-          <option value="php">php</option>
-          <option value="jsp">jsp</option>
-          <option value="aspx">aspx</option>
-          <option value="html">html</option>
-          <option value="js">js</option>
-        </select>
-
-        &nbsp;&nbsp;
-        <strong>线程数</strong>&nbsp;&nbsp;<select name="thread">
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </select>
-        &nbsp;&nbsp;
-        <strong>状态码</strong>&nbsp;&nbsp;
-        <select name="statuscode">
-          <option value="200">200</option>
-          <option value="301">301</option>
-          <option value="302">302</option>
-          <option value="404">404</option>
-          <option value="403">403</option>
-          <option value="500">500</option>
-          <option value="502">502</option>
-          <option value="200,301,302,403,404,500,502">all</option>
-        </select>
-        &nbsp;&nbsp;
-        <strong>递归级别</strong>&nbsp;&nbsp;<select name="level">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        &nbsp;&nbsp;
-        <strong>字典</strong>&nbsp;&nbsp;<select name="dict">
-          <option value="/TIP/info_scan/dirsearch/db/Unauthorizedset.txt">未授权访问字典</option>
-          <option value="/TIP/info_scan/dirsearch/db/dicc.txt">默认字典</option>
-          <option value="/TIP/info_scan/dirsearch/db/Arbitrary_file_reading">GlassFish任意文件读取漏洞</option>
-          <option value="/TIP/info_scan/dirsearch/db/mobile_xinxigang.txt">中国移动信息港Actuator组件</option>
-          <option value="/TIP/info_scan/dirsearch/db/swagger.txt">Spring Boot Actuator未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/Hadoop.txt">Hadoop未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/Druid.txt">Druid未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/Elasticsearch.txt">Elasticsearch未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/jboss.txt">JBoss未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/Jenkins.txt">Jenkins未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/kibana.txt">kibana未授权访问</option>
-          <option value="/TIP/info_scan/dirsearch/db/solr.txt">solr未授权访问</option>
-        </select>
-      </p>
-
-      <table class="table table-bordered">
-
+     
+      <table class="table table-bordered" border="1">
+        <tr>
+          <td>扩展名&nbsp;&nbsp;
+            <select name="filename">
+              <option value="php,aspx,jsp,html,js">all</option>
+              <option value="php">php</option>
+              <option value="jsp">jsp</option>
+              <option value="aspx">aspx</option>
+              <option value="html">html</option>
+              <option value="js">js</option>
+            </select>
+            &nbsp;&nbsp;状态码&nbsp;&nbsp;
+            <select name="statuscode">
+              <option value="200">200</option>
+              <option value="301">301</option>
+              <option value="302">302</option>
+              <option value="404">404</option>
+              <option value="403">403</option>
+              <option value="500">500</option>
+              <option value="502">502</option>
+              <option value="200,301,302,403,404,500,502">all</option>
+            </select>
+            &nbsp;&nbsp;字典 &nbsp;&nbsp;
+            <select name="dict">
+              <option value="/TIP/info_scan/dirsearch/db/Unauthorizedset.txt">未授权访问字典</option>
+              <option value="/TIP/info_scan/dirsearch/db/dicc.txt">默认字典</option>
+              <option value="/TIP/info_scan/dirsearch/db/Arbitrary_file_reading">GlassFish任意文件读取漏洞</option>
+              <option value="/TIP/info_scan/dirsearch/db/mobile_xinxigang.txt">中国移动信息港Actuator组件</option>
+              <option value="/TIP/info_scan/dirsearch/db/swagger.txt">Spring Boot Actuator未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/Hadoop.txt">Hadoop未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/Druid.txt">Druid未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/Elasticsearch.txt">Elasticsearch未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/jboss.txt">JBoss未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/Jenkins.txt">Jenkins未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/kibana.txt">kibana未授权访问</option>
+              <option value="/TIP/info_scan/dirsearch/db/solr.txt">solr未授权访问</option>
+            </select>
+          </td>
+          <td>线程&nbsp;&nbsp;
+            <select name="thread">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </select>
+            &nbsp;&nbsp;递归级别&nbsp;&nbsp;
+            <select name="level">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </td>
+        </tr>
         <tr>
           <td style="display:none;" id="blacklistshowid">
             <!--黑名单查看-->
@@ -199,17 +200,17 @@
             <strong>扫描开关</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="开始扫描" onclick="dirsearchscanfunc()">
             <input type="button" class="hover-color" name="commit" value="关闭扫描" onclick="dirsearchkillfunc()">
-           
+
           </td>
 
-          <td>  
+          <td>
             <strong>数据操作</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="原始数据删除" onclick="origindataclearfunc()">
             <input type="button" class="hover-color" name="commit" value="列表删除" onclick="cleardirvulmaptargetfunc()">
           </td>
         </tr><br>
         <tr>
-          <td><br>
+          <td>
             <strong>数据查看</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="黑名单查询" onclick="blacklistshowfunc()">
             <input type="button" class="hover-color" name="commit" value="白名单查询" onclick="Whitelistshowfunc()">
@@ -221,12 +222,13 @@
           <td>
             <strong>报告过滤</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="原始数据同步" onclick="dirsearchcopyfilefunc()">
-            <input type="button" class="hover-color" name="commit" value="黑名单同步"   onclick="flushdirsearchdatafunc()">
-            <input type="button" class="hover-color" name="commit" value="白名单同步"   onclick="flushdirsearchdatabywhitefunc()">
+            <input type="button" class="hover-color" name="commit" value="黑名单同步" onclick="flushdirsearchdatafunc()">
+            <input type="button" class="hover-color" name="commit" value="白名单同步"
+              onclick="flushdirsearchdatabywhitefunc()">
           </td>
         </tr>
         <tr>
-          <td><br>
+          <td>
             <strong>批量添加</strong>&nbsp;&nbsp;
             <input type="button" class="hover-color" name="commit" value="扫描前黑名单" onclick="scanbeforebatchinsert()">
             <input type="button" class="hover-color" name="commit" value="扫描后黑名单" onclick="scanafterbatchinsert()">
@@ -258,7 +260,7 @@
           <td>
 
 
-         
+
 
           </td>
           <td>
@@ -272,18 +274,13 @@
 
         <tr>
           <td>
-            <span>{{data7}}</span><br>
-            <span>{{data13}}</span> <br>
-            <span>{{data18}}</span>
+            {{data7}}
           </td>
 
           <td>
-           
-            文件清洗服务运行状态:&nbsp;&nbsp;
-            <font color="red">
-              {{data20}}
-            </font>
 
+            <span>{{data13}}</span> <br>
+            <span>{{data18}}</span>
           </td>
         </tr>
 
