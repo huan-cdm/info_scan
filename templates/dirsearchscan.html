@@ -7,6 +7,7 @@
   <link type="text/css" href="{{ url_for('static', filename='css/style2.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ url_for('static', filename='css/style1.css') }}" rel="stylesheet">
   <link type="text/css" href="{{ url_for('static', filename='css/style3.css') }}" rel="stylesheet">
+  <link type="text/css" href="{{ url_for('static', filename='css/sublogin.css') }}" rel="stylesheet">
   <script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for( 'static',filename='js/dirsearchcommon.js') }}"></script>
   <meta name="robots" content="noindex,follow" />
@@ -96,9 +97,11 @@
 </head>
 
 <body>
+  
   <div class="container">
+   
     <div class="login">
-     
+      <h2 onclick="subsignoutfunc()">注销</h2>
       <table class="table table-bordered" border="1">
         <tr>
           <td>扩展名&nbsp;&nbsp;

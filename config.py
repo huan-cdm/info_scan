@@ -39,3 +39,7 @@ dict = {
 #主系统账号密码配置选项
 main_username = ""
 main_password = ""
+
+#子系统账号密码配置选项
+sub_username = ""
+sub_password = ""

@@ -1020,3 +1020,23 @@ function reverseSelection() {
         checkboxes[i].checked = !checkboxes[i].checked;
     }
 } 
+
+
+//ajax异步启动注销系统
+function subsignoutfunc() {
+    $.ajax({
+        url: '/subsignout/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已注销系统')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已注销系统')
+        }
+    })
+    window.location.href = "/dirscanpage/";
+}
