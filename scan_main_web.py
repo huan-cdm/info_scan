@@ -463,5 +463,51 @@ def signout():
     return render_template('login.html')
 
 
+#cdn探测，将存在cdn和不存在cdn的域名分别存入不同列表中，用于过滤基础数据
+# date:2024.4.3
+@app.route('/cdn_service_recogize/',methods=['get'])
+def cdn_service_recogize():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            #遍历目标文件存入列表
+            url_file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
+            url_list = []
+            for i in url_file.readlines():
+                url_list.append(i)
+            # url中提取域名存列表
+            domain_list = []
+            for j in url_list:
+
+                domain_re = re.findall("https?://([^/]+)",j)
+                domain_list.append(domain_re)
+
+            # url中提取域名并删除掉长度为0的列表
+            domain_list_result = []
+            for k in domain_list:
+                if len(k) > 0:
+                    domain_list_result.append(k[0])
+            
+            # 存在cdn列表
+            rule_cdn_domain_list = []
+            # 不存在cdn列表
+            rule_nocdn_domain_list = []
+            for domain in domain_list_result:
+                cdn_result = os.popen('bash ./finger.sh batch_cdn_scan'+' '+domain).read().strip() 
+                
+                cdn_result_origin = "有CDN"
+                if str(cdn_result) == str(cdn_result_origin):
+                    rule_cdn_domain_list.append(domain)
+                else:
+                    rule_nocdn_domain_list.append(domain)
+            print(rule_cdn_domain_list)
+            print(rule_nocdn_domain_list)
+           
+
+        except Exception as e:
+            print("捕获到异常:",e)
+    return render_template('login.html')
+
+
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

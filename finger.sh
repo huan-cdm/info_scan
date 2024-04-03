@@ -279,4 +279,23 @@ case "${1}" in
     rm -rf /TIP/info_scan/urlfinder_server/result_tmp.txt
     /TIP/info_scan/urlfinder_server/URLFinder -f /TIP/batch_scan_domain/url.txt -m 2 -s all -s 200 -o /TIP/info_scan/urlfinder_server/report/urlfinder-${TIMESTAMP}.html > /TIP/info_scan/urlfinder_server/result_tmp.txt
     ;;
+
+
+    #批量判断cdn
+    batch_cdn_scan)
+    cdn_result=$(nslookup ${2} | grep "Address" | wc -l | uniq 2>&1)
+    #判断上一条命令是否执行成功
+    if [ $? -eq 0 ];then
+        num=$(nslookup ${2} | grep "Address" | wc -l | uniq)
+        if [ ${num} -ge 3 ];then 
+            echo "有CDN"
+        else 
+            echo "无CDN"
+        fi
+    else
+        echo "Not Found"
+    fi
+    ;;
 esac
+
+
