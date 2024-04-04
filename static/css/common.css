@@ -99,7 +99,7 @@
 		}
 
 		select {  
-            width: 530px; /* 设置宽度为200像素 */  
+            width: 505px; /* 设置宽度为200像素 */  
             height: 40px; /* 设置高度为40像素 */  
             padding: 5px; /* 设置内边距为5像素，这可以增加选项之间的空间 */  
             font-size: 16px; /* 设置字体大小为16像素 */  
@@ -116,7 +116,7 @@
 		}  
 
 		h2 {  
-			color:chocolate;  
-			text-align: right;
+			color:darkorange;  
+			text-align: left;
 			cursor: pointer;
 		}  

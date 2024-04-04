@@ -500,9 +500,17 @@ def cdn_service_recogize():
                     rule_cdn_domain_list.append(domain)
                 else:
                     rule_nocdn_domain_list.append(domain)
-            print(rule_cdn_domain_list)
-            print(rule_nocdn_domain_list)
-           
+            
+            # 不存在cdn列表
+            no_cdn_list_result = []
+            for nocdn in rule_nocdn_domain_list:
+                nocdnresult = os.popen('bash ./finger.sh recognize_no_cdn'+' '+nocdn).read().strip()
+                no_cdn_list_result.append(nocdnresult)
+            #列表写入到url.txt
+            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+            for fileline in no_cdn_list_result:
+                f.write(str(fileline)+"\n")
+            # print(no_cdn_list_result)
 
         except Exception as e:
             print("捕获到异常:",e)

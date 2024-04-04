@@ -296,6 +296,12 @@ case "${1}" in
         echo "Not Found"
     fi
     ;;
+
+    #不存在cdn的url脚本
+    recognize_no_cdn)
+    urlvalue=`cat /TIP/batch_scan_domain/url.txt | grep $2`
+    echo "${urlvalue}"
+    ;;
 esac
 
 

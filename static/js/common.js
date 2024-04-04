@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://121.37.207.248:18888/", "_blank");
+    window.open("http://ip:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://121.37.207.248:16666/", "_blank");
+    window.open("http://ip:16666/", "_blank");
 }
 
 
@@ -326,6 +326,8 @@ function startbutton(){
     button22.disabled = false;
     var button23 = document.getElementById("button23");
     button23.disabled = false;
+    var button24 = document.getElementById("button24");
+    button24.disabled = false;
 }
 
 //禁用按钮
@@ -373,13 +375,15 @@ function stopbutton(){
     button22.disabled = true;
     var button23 = document.getElementById("button23");
     button23.disabled = true;
+    var button24 = document.getElementById("button24");
+    button24.disabled = true;
 
 }
 
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
+    window.open("http://ip:17777/dirscanpage/", "_blank");
 }
 
 
@@ -460,4 +464,24 @@ function signoutfunc() {
         }
     })
     window.location.href = "/index/";
+}
+
+
+//CDN检测
+function filtercdndatafunc() {
+    $.ajax({
+        url: '/cdn_service_recogize/',
+        method: 'GET',
+    
+        success: function (res) {
+            console.log(res)
+            console.log('CDN检测成功点击文本查看最新数据')
+        },
+        error: function () {
+            alert('存活检测出现错误')
+        },
+        complete: function () {
+            alert('CDN检测成功点击文本查看最新数据')
+        }
+    })
 }
