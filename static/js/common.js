@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus+'\n'+info.dirscanstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus)
         })
 }
 
@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://ip:18888/", "_blank");
+    window.open("http://121.37.207.248:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://ip:16666/", "_blank");
+    window.open("http://121.37.207.248:16666/", "_blank");
 }
 
 
@@ -145,7 +145,7 @@ function sendtextareadata() {
     const lines = text.split('\n');
     // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
     $.ajax({
-        url: '/submit_data',
+        url: '/submit_data/',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ lines: lines }),
@@ -263,7 +263,7 @@ function processURLs() {
 
     var uniquePaths = [];
 
-    inputUrls.forEach(function(url) {
+    inputUrls.forEach(function (url) {
         var path = url.substring(0, url.lastIndexOf('/') + 1);
         if (!uniquePaths.includes(path)) {
             uniquePaths.push(path);
@@ -277,14 +277,14 @@ function processURLs() {
 //archive 历史url查询
 function archiveurlshowfunc() {
     var inputValue = document.getElementById("myInput").value;
-    window.open("https://web.archive.org/cdx/search?collapse=urlkey&fl=original&limit=10000000000000000&matchType=domain&output=text&url="+inputValue, "_blank");
+    window.open("https://web.archive.org/cdx/search?collapse=urlkey&fl=original&limit=10000000000000000&matchType=domain&output=text&url=" + inputValue, "_blank");
 }
 
 
 //启用按钮
-function startbutton(){
+function startbutton() {
     var button2 = document.getElementById("button2");
-    button2.disabled = false; 
+    button2.disabled = false;
     var button3 = document.getElementById("button3");
     button3.disabled = false;
     var button4 = document.getElementById("button4");
@@ -328,17 +328,19 @@ function startbutton(){
     button23.disabled = false;
     var button24 = document.getElementById("button24");
     button24.disabled = false;
+    var button25 = document.getElementById("button25");
+    button25.disabled = false;
+
 }
 
 //禁用按钮
-function stopbutton(){
+function stopbutton() {
     var button2 = document.getElementById("button2");
-    button2.disabled = true; 
+    button2.disabled = true;
     var button3 = document.getElementById("button3");
     button3.disabled = true;
     var button4 = document.getElementById("button4");
     button4.disabled = true;
-
     var button6 = document.getElementById("button6");
     button6.disabled = true;
     var button7 = document.getElementById("button7");
@@ -377,13 +379,15 @@ function stopbutton(){
     button23.disabled = true;
     var button24 = document.getElementById("button24");
     button24.disabled = true;
+    var button25 = document.getElementById("button25");
+    button25.disabled = true;
 
 }
 
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://ip:17777/dirscanpage/", "_blank");
+    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
 }
 
 
@@ -398,13 +402,13 @@ function filedeweightingfunc() {
         },
         success: function (res) {
             console.log(res)
-            console.log('数据处理已完成')
+            console.log('资产去重成功点击文本查看最新数据')
         },
         error: function () {
-            alert('数据处理出错')
+            alert('资产去重处理出错')
         },
         complete: function () {
-            alert('数据处理已完成')
+            alert('资产去重成功点击文本查看最新数据')
         }
     })
 }
@@ -414,7 +418,7 @@ function filterstatuscodefunc() {
     $.ajax({
         url: '/filterstatuscodebyhttpx/',
         method: 'GET',
-    
+
         success: function (res) {
             console.log(res)
             console.log('存活检测成功点击文本查看最新数据')
@@ -433,7 +437,7 @@ function urlfinderscanfunc() {
     $.ajax({
         url: '/starturlfinderinterface/',
         method: 'GET',
-    
+
         success: function (res) {
             console.log(res)
             console.log('正在进行链接扫描稍后点击报告预览查看报告')
@@ -472,7 +476,7 @@ function filtercdndatafunc() {
     $.ajax({
         url: '/cdn_service_recogize/',
         method: 'GET',
-    
+
         success: function (res) {
             console.log(res)
             console.log('CDN检测成功点击文本查看最新数据')
@@ -482,6 +486,56 @@ function filtercdndatafunc() {
         },
         complete: function () {
             alert('CDN检测成功点击文本查看最新数据')
+        }
+    })
+}
+
+//一键处理
+function oneclickprocessing() {
+    var button19 = document.getElementById("button19");
+    var button20 = document.getElementById("button20");
+    var button24 = document.getElementById("button24");
+    var button17 = document.getElementById("button17");
+
+    button19.disabled = false;
+    button20.disabled = false;
+    button24.disabled = false;
+    button17.disabled = false;
+    // 定义一个函数来模拟点击并安排下一次点击（如果有的话）  
+    function simulateClickAndSleep(buttons, index, interval) {
+        // 如果索引在按钮数组范围内，则模拟点击并安排下一次点击  
+        if (index < buttons.length) {
+            // 模拟点击当前按钮  
+            buttons[index].click();
+            console.log('Clicked button ' + (index + 1));
+
+            // 休眠interval毫秒后，安排下一次点击  
+            setTimeout(function () {
+                simulateClickAndSleep(buttons, index + 1, interval);
+            }, interval);
+        }
+    }
+
+    // 开始模拟点击，从第一个按钮开始，每次点击后休眠10000毫秒（10秒）  
+    var buttonsToClick = [button20, button24, button19, button17];
+    simulateClickAndSleep(buttonsToClick, 0, 10000); // 第一个参数是按钮数组，第二个参数是开始索引，第三个参数是休眠时间（毫秒）
+}
+
+//资产回退
+function assetsbackspacefunc() {
+    $.ajax({
+        url: '/assetsbackspaceinterface/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('资产回退成功点击文本查看最新数据')
+        },
+        error: function () {
+            alert('资产回退出现错误')
+        },
+        complete: function () {
+            alert('资产回退成功点击文本查看最新数据')
         }
     })
 }

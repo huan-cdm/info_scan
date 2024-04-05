@@ -167,9 +167,10 @@
 		<tr>
 			<td>
 				<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled>
+				<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
 				<input type="button" id="button20" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()" disabled>
-				<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled><br>
-
+				<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled>
+				<input type="button"  value="一键处理" onclick="oneclickprocessing()" > <br>
 				<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()" disabled>
 	<select id="opbyid3">
 		<option>文本内容展示</option>
@@ -180,8 +181,8 @@
 	<input type="button" id="button19" class="hover-color" name="commit" value="资产去重" onclick="filedeweightingfunc()"
 		disabled>
 	<select name="fileqingxiname">
-		<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
 		<option value="2">保留所有资产</option>
+		<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>	
 	</select>
 			</td>
 			<td>

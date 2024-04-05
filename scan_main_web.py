@@ -295,7 +295,7 @@ def killprocess():
 
 
 #前端文本框添加URL后端接口
-@app.route('/submit_data', methods=['POST'])  
+@app.route('/submit_data/', methods=['POST'])  
 def submit_data():
     user = session.get('username')
     if str(user) == main_username: 
@@ -304,6 +304,10 @@ def submit_data():
         f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
         for line in data:
             f.write(str(line)+"\n")
+
+        #资产备份
+        os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
+
         return jsonify({'message': '数据已添加', 'lines': data})
     else:
         return render_template('login.html')
@@ -515,6 +519,17 @@ def cdn_service_recogize():
         except Exception as e:
             print("捕获到异常:",e)
     return render_template('login.html')
+
+
+#资产回退
+@app.route("/assetsbackspaceinterface/")
+def assetsbackspaceinterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('cp /TIP/batch_scan_domain/url_back.txt /TIP/batch_scan_domain/url.txt')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  
