@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://121.37.207.248:18888/", "_blank");
+    window.open("http://ip:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://121.37.207.248:16666/", "_blank");
+    window.open("http://ip:16666/", "_blank");
 }
 
 
@@ -395,7 +395,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
+    window.open("http://ip:17777/dirscanpage/", "_blank");
 }
 
 
