@@ -23,7 +23,7 @@
 		    -moz-transition: all linear 0.30s;
 		    transition: all linear 0.30s;
 		    height: 40px;
-		    width: 80px;
+		    width: 100px;
 			font-weight: bold; /* 加粗字体 */
 		}
 
@@ -34,7 +34,7 @@
 		    -moz-transition: all linear 0.30s;
 		    transition: all linear 0.30s;
 		    height: 40px;
-		    width: 80px;
+		    width: 100px;
 			font-weight: bold; /* 加粗字体 */
 		}
 
