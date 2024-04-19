@@ -318,6 +318,16 @@ case "${1}" in
 		echo "weblogic_scan状态：停止"
 	fi
 	;;
+
+
+    #kill weblogic_poc
+    killweblogic_poc)
+	wpid=`ps -aux | grep "WeblogicScan.py" |awk -F " " '{print $2}'`
+	for i in ${wpid}
+	do
+		kill -9 ${i}
+    done
+	;;
     
 esac
 
