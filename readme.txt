@@ -47,3 +47,4 @@ xray+rad：下载 https://github.com/huan-cdm/batch_scan_domain
 目录扫描：调用dirsearch扫描器
 历史url: 调用otx和archive威胁情报
 链接扫描：调用urlfinder（已完成）；其他链接爬取工具正在完善中.....
+weblogic扫描：调用 https://github.com/rabbitmask/WeblogicScan
