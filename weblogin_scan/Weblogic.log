@@ -1,0 +1,42 @@
+2020-07-30 14:15:48,266 [+] [127.0.0.1:7001] Weblogic Version Is 10.3.6.0
+2020-07-30 14:15:48,267 [+] [172.19.19.19:7001] Weblogic Version Is 10.3.6.0
+2020-07-30 14:15:48,276 [+] [127.0.0.1:7001] Weblogic console address is exposed! The path is: http://127.0.0.1:7001/console/login/LoginForm.jsp
+2020-07-30 14:15:48,314 [+] [172.19.19.19:7001] Weblogic console address is exposed! The path is: http://172.19.19.19:7001/console/login/LoginForm.jsp
+2020-07-30 14:15:48,376 [+] [127.0.0.1:7001] Weblogic UDDI module is exposed! The path is: http://127.0.0.1:7001/uddiexplorer/
+2020-07-30 14:15:48,393 [+] [172.19.19.19:7001] Weblogic UDDI module is exposed! The path is: http://172.19.19.19:7001/uddiexplorer/
+2020-07-30 14:16:01,584 [+] [127.0.0.1:7001] weblogic has a JAVA deserialization vulnerability:CVE-2016-0638
+2020-07-30 14:16:01,598 [+] [172.19.19.19:7001] weblogic has a JAVA deserialization vulnerability:CVE-2016-0638
+2020-07-30 14:16:14,800 [-] [127.0.0.1:7001] weblogic not detected CVE-2016-3510
+2020-07-30 14:16:14,802 [-] [172.19.19.19:7001] weblogic not detected CVE-2016-3510
+2020-07-30 14:16:14,818 [-] [127.0.0.1:7001] weblogic not detected CVE-2017-10271
+2020-07-30 14:16:14,821 [-] [172.19.19.19:7001] weblogic not detected CVE-2017-10271
+2020-07-30 14:16:28,031 [-] [127.0.0.1:7001] weblogic not detected CVE-2017-3248
+2020-07-30 14:16:28,035 [-] [172.19.19.19:7001] weblogic not detected CVE-2017-3248
+2020-07-30 14:16:28,041 [-] [172.19.19.19:7001] weblogic not detected CVE-2017-3506
+2020-07-30 14:16:28,048 [-] [127.0.0.1:7001] weblogic not detected CVE-2017-3506
+2020-07-30 14:16:51,253 [+] [172.19.19.19:7001] weblogic has a JAVA deserialization vulnerability:CVE-2018-2628
+2020-07-30 14:16:51,261 [+] [127.0.0.1:7001] weblogic has a JAVA deserialization vulnerability:CVE-2018-2628
+2020-07-30 14:17:04,466 [+] [127.0.0.1:7001] weblogic has a JAVA deserialization vulnerability:CVE-2018-2893
+2020-07-30 14:17:04,471 [-] [127.0.0.1:7001] weblogic not detected CVE-2018-2894
+2020-07-30 14:17:04,609 [-] [127.0.0.1:7001] weblogic not detected CVE-2019-2725
+2020-07-30 14:17:06,381 [+] [172.19.19.19:7001] weblogic has a JAVA deserialization vulnerability:CVE-2018-2893
+2020-07-30 14:17:06,385 [-] [172.19.19.19:7001] weblogic not detected CVE-2018-2894
+2020-07-30 14:17:06,553 [-] [172.19.19.19:7001] weblogic not detected CVE-2019-2725
+2020-07-30 14:17:06,649 [-] [127.0.0.1:7001] weblogic not detected CVE-2019-2729
+2020-07-30 14:17:08,591 [-] [172.19.19.19:7001] weblogic not detected CVE-2019-2729
+2020-07-30 14:17:19,854 [+] [127.0.0.1:7001] weblogic has a JAVA deserialization vulnerability:CVE-2019-2890
+2020-07-30 14:17:21,805 [+] [172.19.19.19:7001] weblogic has a JAVA deserialization vulnerability:CVE-2019-2890
+2024-04-19 10:09:37,228 [+] [121.37.207.248:9999] Weblogic Version Is 10.3.6.0
+2024-04-19 10:09:37,307 [+] [121.37.207.248:9999] Weblogic console address is exposed! The path is: http://121.37.207.248:9999/console/login/LoginForm.jsp
+2024-04-19 10:09:37,389 [+] [121.37.207.248:9999] Weblogic UDDI module is exposed! The path is: http://121.37.207.248:9999/uddiexplorer/
+2024-04-19 10:09:40,960 [-] [121.37.207.248:9999] weblogic not detected CVE-2016-0638
+2024-04-19 10:09:44,529 [-] [121.37.207.248:9999] weblogic not detected CVE-2016-3510
+2024-04-19 10:09:46,387 [+] [121.37.207.248:9999] weblogic has a JAVA deserialization vulnerability:CVE-2017-10271
+2024-04-19 10:09:49,939 [-] [121.37.207.248:9999] weblogic not detected CVE-2017-3248
+2024-04-19 10:09:50,022 [+] [121.37.207.248:9999] weblogic has a JAVA deserialization vulnerability:CVE-2017-3506
+2024-04-19 10:10:13,042 [-] [121.37.207.248:9999] weblogic not detected CVE-2018-2628
+2024-04-19 10:10:16,598 [-] [121.37.207.248:9999] weblogic not detected CVE-2018-2893
+2024-04-19 10:10:16,701 [-] [121.37.207.248:9999] weblogic not detected CVE-2018-2894
+2024-04-19 10:10:17,310 [+] [121.37.207.248:9999] weblogic has a JAVA deserialization vulnerability:CVE-2019-2725
+2024-04-19 10:10:21,341 [+] [121.37.207.248:9999] weblogic has a JAVA deserialization vulnerability:CVE-2019-2729
+2024-04-19 10:10:24,891 [-] [121.37.207.248:9999] weblogic not detected CVE-2019-2890

@@ -302,6 +302,23 @@ case "${1}" in
     urlvalue=`cat /TIP/batch_scan_domain/url.txt | grep $2`
     echo "${urlvalue}"
     ;;
+
+    # weblogic_poc扫描
+    weblogic_poc_scan)
+    python3 /TIP/info_scan/weblogin_scan/WeblogicScan.py -f /TIP/info_scan/weblogin_scan/target.txt | grep "+" > /TIP/info_scan/result/weblogic_poc.txt
+    ;;
+
+    # weblogic_poc运行状态
+    weblogic_status)
+	ps_weblogic=`ps -aux | grep WeblogicScan.py | wc -l`
+	if (( $ps_weblogic > 1 ))
+	then
+		echo "weblogic_scan状态：运行中"
+	else
+		echo "weblogic_scan状态：停止"
+	fi
+	;;
+    
 esac
 
 

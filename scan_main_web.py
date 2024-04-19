@@ -188,6 +188,8 @@ def index():
 def logininterface():
     username = request.form['username']
     password = request.form['password']
+
+
     if str(username) == str(main_username) and str(password) == str(main_password):
         session['username'] = username
         return redirect("/index/")
@@ -341,12 +343,14 @@ def nmapqueuestatus():
         xraystatus = os.popen('bash ./finger.sh xraystatus').read()
         radstatus = os.popen('bash ./finger.sh radstatus').read()
         dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
+        weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
             "xraystatus":xraystatus,
             "radstatus":radstatus,
-            "dirscanstatus":dirscanstatus
+            "dirscanstatus":dirscanstatus,
+            "weblogicstatus":weblogicstatus
         }
         return jsonify(message_json)
     else:
@@ -528,6 +532,53 @@ def assetsbackspaceinterface():
     if str(user) == main_username:
         os.popen('cp /TIP/batch_scan_domain/url_back.txt /TIP/batch_scan_domain/url.txt')
         return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+#weblogic_poc扫描
+@app.route("/weblogicscaninterface/",methods=['get'])
+def weblogicscaninterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 遍历目标文件存入列表
+        url_list = []
+        url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+        for i in url_file.readlines():
+            url_list.append(i.strip())
+        
+        # url中匹配出域名
+        domain_list = []
+        for url in url_list:
+            pattern = r"https?://([^/]+)"
+            urls_re_1 = re.search(pattern,url)
+            urls_re = urls_re_1.group(1)
+            domain_list.append(urls_re)
+        
+        # 域名写入到weblogic_poc目标
+        weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+        for j in domain_list:
+            weblogic_file.write(str(j)+"\n")
+        weblogic_file.close()
+
+        # weblogic_poc开始扫描
+        os.popen('bash ./finger.sh weblogic_poc_scan')
+
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+#weblogic_poc扫描结果预览
+@app.route("/weblogic_poc_report/")
+def weblogic_poc_report():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('./result/weblogic_poc.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
     else:
         return render_template('login.html')
 

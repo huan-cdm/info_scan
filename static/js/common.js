@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus)
         })
 }
 
@@ -330,6 +330,10 @@ function startbutton() {
     button24.disabled = false;
     var button25 = document.getElementById("button25");
     button25.disabled = false;
+    var button27 = document.getElementById("button27");
+    button27.disabled = false;
+    var button28 = document.getElementById("button28");
+    button28.disabled = false;
 
 }
 
@@ -381,6 +385,10 @@ function stopbutton() {
     button24.disabled = true;
     var button25 = document.getElementById("button25");
     button25.disabled = true;
+    var button27 = document.getElementById("button27");
+    button27.disabled = true;
+    var button28 = document.getElementById("button28");
+    button28.disabled = true;
 
 }
 
@@ -538,4 +546,28 @@ function assetsbackspacefunc() {
             alert('资产回退成功点击文本查看最新数据')
         }
     })
+}
+
+//weblogic_poc 扫描
+function weblogicscanfunc() {
+    $.ajax({
+        url: '/weblogicscaninterface/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('weblogic_poc扫描已开启稍后查看结果')
+        },
+        error: function () {
+            alert('weblogic_poc扫描出错')
+        },
+        complete: function () {
+            alert('weblogic_poc扫描已开启稍后查看结果')
+        }
+    })
+}
+
+//weblogic_poc报告预览
+function weblogicreportfunc() {
+    window.open("/weblogic_poc_report/", "_blank");
 }
