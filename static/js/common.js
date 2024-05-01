@@ -334,6 +334,10 @@ function startbutton() {
     button27.disabled = false;
     var button28 = document.getElementById("button28");
     button28.disabled = false;
+    var button29 = document.getElementById("button29");
+    button29.disabled = false;
+    var button30 = document.getElementById("button30");
+    button30.disabled = false;
 
 }
 
@@ -389,6 +393,10 @@ function stopbutton() {
     button27.disabled = true;
     var button28 = document.getElementById("button28");
     button28.disabled = true;
+    var button29 = document.getElementById("button29");
+    button29.disabled = true;
+    var button30 = document.getElementById("button30");
+    button30.disabled = true;
 
 }
 
@@ -595,4 +603,28 @@ function struts2scanfunc() {
             alert('struts2_poc扫描已开启稍后查看结果')
         }
     })
+}
+
+//报告整合
+function reporttotalfunc() {
+    $.ajax({
+        url: '/report_total_interface/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('报告已整合到excel中，点击下载报告进行查看')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('报告已整合到excel中，点击下载报告进行查看')
+        }
+    })
+}
+
+//报告下载
+function reportdownloadfunc() {
+    window.open("/report_download_interface/", "_blank");
 }

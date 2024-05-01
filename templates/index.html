@@ -11,10 +11,21 @@
 </head>
 
 <body>
-	<input type="button" value="首页" onclick="fanhui()">
-	<input type="button" value="启用" onclick="startbutton()">
-	<input type="button" value="禁用" onclick="stopbutton()">
-	<input type="button" value="注销" onclick="signoutfunc()">
+	<h4 align="left">欢迎访问漏洞扫描平台！</h4>
+	<h4 align="left">当前用户：{{data20}}</h4>
+	<table border="1">
+		<tr>
+			<td>
+				<input type="button" value="刷新系统" onclick="fanhui()">
+				<input type="button" value="启用按钮" onclick="startbutton()">
+				<input type="button" value="禁用按钮" onclick="stopbutton()">
+				<input type="button" value="报告整合" onclick="reporttotalfunc()">
+				<input type="button" value="报告下载" onclick="reportdownloadfunc()">
+				<input type="button" value="注销系统" onclick="signoutfunc()">
+			</td>			
+		</tr>
+	</table>
+	
 	<h3>基础信息查询</h3>
 	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
 		<form method="post" action="/ipscaninterface/">
@@ -168,8 +179,8 @@
 			</td>
 			<td>
 				<input type="submit" value="struts2_poc">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="报告预览" onclick="struts2reportfunc()">
-				<input type="button" value="程序启动" onclick="struts2scanfunc()">
+				<input type="button" id="button29" value="报告预览" onclick="struts2reportfunc()" disabled>
+				<input type="button" id="button30" value="程序启动" onclick="struts2scanfunc()" disabled>
 			</td>
 		</tr>
 	</table>

@@ -8,6 +8,7 @@ from flask import Flask, render_template,request
 from flask import session
 from flask import redirect
 from flask_bootstrap import Bootstrap
+from flask import send_file
 import httpx_status
 import finger_recognize
 import icp
@@ -24,6 +25,7 @@ import gaodeapi
 from flask import jsonify
 from nmap_queue import add_ip
 from config import history_switch
+import report_total
 
 #主系统账号密码配置导入
 from config import main_username
@@ -170,7 +172,7 @@ def ipscaninterface():
         return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
         ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
         ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
-        ,data14=masscan_port)
+        ,data14=masscan_port,data20=str(user))
     else:
         return render_template('login.html')
 
@@ -179,7 +181,7 @@ def ipscaninterface():
 def index():
     user = session.get('username')
     if str(user) == main_username:
-        return render_template('index.html')
+        return render_template('index.html',data20=str(user))
     else:
         return render_template('login.html')
     
@@ -608,6 +610,31 @@ def struts2_poc_report():
             for line in f:
                 lines.append(line.strip())
         return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+
+# 报告整合
+@app.route("/report_total_interface/")
+def report_total_interface():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 执行报告整合脚本
+        report_total.report_xlsx()
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
+# 报告下载
+@app.route("/report_download_interface/",methods=['get'])
+def report_download_interface():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        file_path = '/TIP/info_scan/result/vuln_report.xlsx'
+        return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
+    
     else:
         return render_template('login.html')
 
