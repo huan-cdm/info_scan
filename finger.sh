@@ -329,6 +329,23 @@ case "${1}" in
     done
 	;;
     
+
+    # struts2漏洞扫描
+    struts2_poc_scan)
+    python3 /TIP/info_scan/struts2_scan/Struts2Scan.py -f /TIP/batch_scan_domain/url.txt | grep "*" | grep -v "results" > /TIP/info_scan/result/struts2_poc.txt
+    ;;
+
+    # struts2_poc运行状态
+    struts2_status)
+	ps_struts2=`ps -aux | grep Struts2Scan.py | wc -l`
+	if (( $ps_struts2 > 1 ))
+	then
+		echo "struts2_scan状态：运行中"
+	else
+		echo "struts2_scan状态：停止"
+	fi
+	;;
+    
 esac
 
 

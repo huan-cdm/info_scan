@@ -344,13 +344,15 @@ def nmapqueuestatus():
         radstatus = os.popen('bash ./finger.sh radstatus').read()
         dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
         weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
+        struts2status = os.popen('bash ./finger.sh struts2_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
             "xraystatus":xraystatus,
             "radstatus":radstatus,
             "dirscanstatus":dirscanstatus,
-            "weblogicstatus":weblogicstatus
+            "weblogicstatus":weblogicstatus,
+            "struts2status":struts2status
         }
         return jsonify(message_json)
     else:
@@ -576,6 +578,33 @@ def weblogic_poc_report():
     if str(user) == main_username:
         lines = []
         with open('./result/weblogic_poc.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+# struts2_poc扫描
+@app.route("/struts2_poc_scan/")
+def struts2_poc_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 执行poc扫描
+        os.popen('bash ./finger.sh struts2_poc_scan')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+
+#struts2_poc扫描结果预览
+@app.route("/struts2_poc_report/")
+def struts2_poc_report():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('./result/struts2_poc.txt', 'r') as f:
             for line in f:
                 lines.append(line.strip())
         return '<br>'.join(lines)

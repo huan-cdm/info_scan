@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status)
         })
 }
 
@@ -570,4 +570,29 @@ function weblogicscanfunc() {
 //weblogic_poc报告预览
 function weblogicreportfunc() {
     window.open("/weblogic_poc_report/", "_blank");
+}
+
+//struts2_poc报告预览
+function struts2reportfunc() {
+    window.open("/struts2_poc_report/", "_blank");
+}
+
+
+//struts2_poc 扫描
+function struts2scanfunc() {
+    $.ajax({
+        url: '/struts2_poc_scan/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('struts2_poc扫描已开启稍后查看结果')
+        },
+        error: function () {
+            alert('struts2_poc扫描出错')
+        },
+        complete: function () {
+            alert('struts2_poc扫描已开启稍后查看结果')
+        }
+    })
 }
