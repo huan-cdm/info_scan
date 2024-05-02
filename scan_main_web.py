@@ -247,15 +247,12 @@ def nucleiresultshow():
          #文件结果优化展示
         liness = []
         for line1 in lines:
-            line2 = line1.replace("[0m]","     ")
-            line3 = line2.replace("[[92m","    ")
-            line4 = line3.replace("[[94m","    ")
-            line5 = line4.replace("[[34m","    ")
-            line6 = line5.replace("[[96m","    ")
-            line7 = line6.replace("[0m,","     ")
-            linn8 = line7.replace("[0m:[1;92m","  ")
             
-            liness.append(linn8)
+            #页面显示优化
+            pattern = re.compile(r'\x1b\[[0-9;]*m')
+            clean_text = pattern.sub('', line1)
+            liness.append(clean_text)
+            
         return '<br>'.join(liness)
     else:
         return render_template('login.html')
@@ -635,6 +632,36 @@ def report_download_interface():
         file_path = '/TIP/info_scan/result/vuln_report.xlsx'
         return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
     
+    else:
+        return render_template('login.html')
+    
+
+#ehole_finger扫描结果预览
+@app.route("/ehole_finger_report/")
+def ehole_finger_report():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('./result/ehole_finger.txt', 'r') as f:
+            for line in f:
+                
+                #显示优化去掉颜色字符
+                pattern = re.compile(r'\x1b\[[0-9;]*m')
+                clean_text = pattern.sub('', line)
+                lines.append(clean_text)
+
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+# ehole_finger扫描
+@app.route("/ehole_finger_scan/")
+def ehole_finger_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 执行指纹识别扫描
+        os.popen('bash ./finger.sh ehole_finger_scan')
+        return render_template('index.html')
     else:
         return render_template('login.html')
 

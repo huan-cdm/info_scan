@@ -345,6 +345,11 @@ case "${1}" in
 		echo "struts2_scan状态：停止"
 	fi
 	;;
+
+    # EHole指纹识别
+    ehole_finger_scan)
+    /TIP/info_scan/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt | grep "\[" > /TIP/info_scan/result/ehole_finger.txt
+    ;;
     
 esac
 

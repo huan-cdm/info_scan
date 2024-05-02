@@ -35,8 +35,21 @@ def report_xlsx():
     nuclei_report_list = []
     nuclei_file = open("/TIP/info_scan/result/nucleiresult.txt",encoding='utf-8')
     for nuclei_line in nuclei_file.readlines(): 
-        nuclei_report_list.append(nuclei_line.strip())
+        #显示优化去掉颜色字符
+        pattern = re.compile(r'\x1b\[[0-9;]*m')
+        clean_text = pattern.sub('', nuclei_line)
+        nuclei_report_list.append(clean_text.strip())
+
+    # Ehole
+    ehole_report_list = []
+    ehole_file = open("/TIP/info_scan/result/ehole_finger.txt",encoding='utf-8')
+    for ehole_line in ehole_file.readlines(): 
+        #显示优化去掉颜色字符
+        patternq = re.compile(r'\x1b\[[0-9;]*m')
+        cleanq_text = patternq.sub('', ehole_line)
+        ehole_report_list.append(cleanq_text.strip())
     
+    '''
     # 使用正则表达式匹配并提取URL  
     pattern = r'(https?://\S+)'  
   
@@ -50,18 +63,20 @@ def report_xlsx():
 
     # 列表去重
     nuclei_report_list_uniq = list(set(nuclei_report_list_new))
-    
+    '''
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic_vuln'])
-    df_b = pd.DataFrame(nmap_report_list, columns=['nmap_vuln'])
+    df_b = pd.DataFrame(nmap_report_list, columns=['nmap_port'])
     df_c = pd.DataFrame(struts2_report_list, columns=['struts2_vuln'])
-    df_d = pd.DataFrame(nuclei_report_list_uniq, columns=['nuclei_vuln'])
+    df_d = pd.DataFrame(nuclei_report_list, columns=['nuclei_vuln'])
+    df_e = pd.DataFrame(ehole_report_list, columns=['ehole_finger'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
         # 将 DataFrame 写入不同的工作表  
         df_a.to_excel(writer, sheet_name='weblogic_vuln', index=False)
-        df_b.to_excel(writer, sheet_name='nmap_vuln', index=False)
+        df_b.to_excel(writer, sheet_name='nmap_port', index=False)
         df_c.to_excel(writer, sheet_name='struts2_vuln', index=False)
         df_d.to_excel(writer, sheet_name='nuclei_vuln', index=False)
+        df_e.to_excel(writer, sheet_name='ehole_finger', index=False)

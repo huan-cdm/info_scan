@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://ip:18888/", "_blank");
+    window.open("http://121.37.207.248:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://ip:16666/", "_blank");
+    window.open("http://121.37.207.248:16666/", "_blank");
 }
 
 
@@ -403,7 +403,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://ip:17777/dirscanpage/", "_blank");
+    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
 }
 
 
@@ -627,4 +627,29 @@ function reporttotalfunc() {
 //报告下载
 function reportdownloadfunc() {
     window.open("/report_download_interface/", "_blank");
+}
+
+//ehole_finger报告预览
+function eholefingerreportfunc() {
+    window.open("/ehole_finger_report/", "_blank");
+}
+
+
+//ehole_finger 扫描
+function eholefingerfunc() {
+    $.ajax({
+        url: '/ehole_finger_scan/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('指纹识别已开启稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('指纹识别已开启稍后查看结果')
+        }
+    })
 }

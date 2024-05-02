@@ -16,6 +16,7 @@
 	<table border="1">
 		<tr>
 			<td>
+				<input type="submit" value="全局模块：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="刷新系统" onclick="fanhui()">
 				<input type="button" value="启用按钮" onclick="startbutton()">
 				<input type="button" value="禁用按钮" onclick="stopbutton()">
@@ -23,6 +24,13 @@
 				<input type="button" value="报告下载" onclick="reportdownloadfunc()">
 				<input type="button" value="注销系统" onclick="signoutfunc()">
 			</td>			
+		</tr>
+		<tr>
+			<td>
+				<input type="submit"  value="指纹识别：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button"  value="报告预览" onclick="eholefingerreportfunc()">
+				<input type="button"  value="开始识别" onclick="eholefingerfunc()">
+			</td>
 		</tr>
 	</table>
 	
@@ -129,13 +137,14 @@
 	<table border="1">
 		<tr>
 			<td>
-				<input type="submit" value="系统状态">&nbsp;&nbsp;&nbsp;&nbsp;				
+				<input type="submit" value="系统状态：">&nbsp;&nbsp;&nbsp;&nbsp;				
 				<input type="button" id="button2" value="服务状态" onclick="statusnmapfunc()" disabled>
 				<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()" disabled>
 				
 			</td>
+			
 			<td>
-				<input type="submit" value="目录探测">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="目录探测：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()" disabled>
 				<input type="button" id="button21" value="链接扫描" onclick="urlfinderscanfunc()" disabled>
 				<input type="button" id="button22" value="报告预览" onclick="urlfinderreportshow()" disabled>
@@ -145,13 +154,13 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="submit" value="威胁情报">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="威胁情报：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()" disabled>
 				<input type="button" id="button7" value="OTX预览" onclick="historyurlpreviewfunc()" disabled>
 				<input type="button" id="button8" value="archive查询" onclick="archiveurlshowfunc()" disabled>
 			</td>
 			<td>
-				<input type="submit" value="端口扫描">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button9" value="报告预览" onclick="nmapjumpfunc()" disabled>
 				<input type="button" id="button10" value="报告删除" onclick="deletenmapfunc()" disabled>
 			</td>
@@ -159,12 +168,12 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="submit" value="nuclei_poc">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="nuclei_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button11" value="报告预览" onclick="nucleijumpfunc()" disabled>
 				<input type="button" id="button12" value="程序启动" onclick="startnucleifunc()" disabled>
 			</td>
 			<td>
-				<input type="submit" value="xray_poc">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button13" value="报告预览" onclick="xrayreportshow()" disabled>
 				<input type="button" id="button14" value="报告删除" onclick="xrayreportdelete()" disabled>
 				<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()" disabled>
@@ -173,12 +182,12 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="submit" value="weblogic_poc">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button27" value="报告预览" onclick="weblogicreportfunc()" disabled>
 				<input type="button" id="button28" value="程序启动" onclick="weblogicscanfunc()" disabled>
 			</td>
 			<td>
-				<input type="submit" value="struts2_poc">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit" value="struts2_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button29" value="报告预览" onclick="struts2reportfunc()" disabled>
 				<input type="button" id="button30" value="程序启动" onclick="struts2scanfunc()" disabled>
 			</td>

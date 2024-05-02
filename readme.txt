@@ -49,3 +49,4 @@ xray+rad：下载 https://github.com/huan-cdm/batch_scan_domain
 链接扫描：调用urlfinder（已完成）；其他链接爬取工具正在完善中.....
 weblogic扫描：调用 https://github.com/rabbitmask/WeblogicScan
 struts2扫描：调用 https://github.com/HatBoy/Struts2-Scan
+指纹识别：调用 https://github.com/EdgeSecurityTeam/EHole
