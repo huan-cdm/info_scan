@@ -350,6 +350,24 @@ case "${1}" in
     ehole_finger_scan)
     /TIP/info_scan/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt | grep "\[" > /TIP/info_scan/result/ehole_finger.txt
     ;;
+
+    # BBScan敏感信息扫描
+    bbscan_shell)
+    cd /TIP/info_scan/BBScan
+    python3 BBScan.py -f /TIP/batch_scan_domain/url.txt | grep "[+]" > /TIP/info_scan/result/bbscan_info.txt
+    ;;
+
+
+    # bbscan运行状态
+    bbscan_status)
+	ps_bbscan=`ps -aux | grep BBScan.py | wc -l`
+	if (( $ps_bbscan > 1 ))
+	then
+		echo "bbscan_scan状态：运行中"
+	else
+		echo "bbscan_scan状态：停止"
+	fi
+	;;
     
 esac
 

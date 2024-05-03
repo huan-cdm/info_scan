@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus)
         })
 }
 
@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://121.37.207.248:18888/", "_blank");
+    window.open("http://ip:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://121.37.207.248:16666/", "_blank");
+    window.open("http://ip:16666/", "_blank");
 }
 
 
@@ -338,6 +338,14 @@ function startbutton() {
     button29.disabled = false;
     var button30 = document.getElementById("button30");
     button30.disabled = false;
+    var button31 = document.getElementById("button31");
+    button31.disabled = false;
+    var button32 = document.getElementById("button32");
+    button32.disabled = false;
+    var button33 = document.getElementById("button33");
+    button33.disabled = false;
+    var button34 = document.getElementById("button34");
+    button34.disabled = false;
 
 }
 
@@ -397,13 +405,21 @@ function stopbutton() {
     button29.disabled = true;
     var button30 = document.getElementById("button30");
     button30.disabled = true;
+    var button31 = document.getElementById("button31");
+    button31.disabled = true;
+    var button32 = document.getElementById("button32");
+    button32.disabled = true;
+    var button33 = document.getElementById("button33");
+    button33.disabled = true;
+    var button34 = document.getElementById("button34");
+    button34.disabled = true;
 
 }
 
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
+    window.open("http://ip:17777/dirscanpage/", "_blank");
 }
 
 
@@ -652,4 +668,29 @@ function eholefingerfunc() {
             alert('指纹识别已开启稍后查看结果')
         }
     })
+}
+
+
+//bbscan敏感信息扫描
+function bbscaninfofunc() {
+    $.ajax({
+        url: '/bbscan_info_scan/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('敏感信息扫描已开启稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('敏感信息扫描已开启稍后查看结果')
+        }
+    })
+}
+
+//bbscan报告预览
+function showbbscanreportfunc() {
+    window.open("/showbbscanreport/", "_blank");
 }

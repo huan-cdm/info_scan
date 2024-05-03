@@ -345,6 +345,7 @@ def nmapqueuestatus():
         dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
         weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
+        bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -352,7 +353,8 @@ def nmapqueuestatus():
             "radstatus":radstatus,
             "dirscanstatus":dirscanstatus,
             "weblogicstatus":weblogicstatus,
-            "struts2status":struts2status
+            "struts2status":struts2status,
+            "bbscanstatus":bbscanstatus
         }
         return jsonify(message_json)
     else:
@@ -672,6 +674,32 @@ def ehole_finger_scan():
         # 执行指纹识别扫描
         os.popen('bash ./finger.sh ehole_finger_scan')
         return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+# bbscan_info_scan扫描
+@app.route("/bbscan_info_scan/")
+def bbscan_info_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 执行敏感信息扫描
+        os.popen('bash ./finger.sh bbscan_shell')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
+
+#bbscan扫描预览报告
+@app.route("/showbbscanreport/")
+def showbbscanreport():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('/TIP/info_scan/result/bbscan_info.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
     else:
         return render_template('login.html')
 
