@@ -26,6 +26,7 @@ from flask import jsonify
 from nmap_queue import add_ip
 from config import history_switch
 import report_total
+import pandas as pd
 
 #主系统账号密码配置导入
 from config import main_username
@@ -628,9 +629,18 @@ def report_total_interface():
 def report_download_interface():
     user = session.get('username')
     if str(user) == main_username:
-        
+        # 判断vuln_report.xlsx是否存在
         file_path = '/TIP/info_scan/result/vuln_report.xlsx'
-        return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
+        else:
+            text_list = ["系统检测到有扫描器程序正在运行中......","导致漏洞报告保存失败","请确认漏洞扫描程序全部停止在进行保存！"]
+            df_a = pd.DataFrame(text_list, columns=['警告信息'])
+            with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
+            # 将 DataFrame 写入不同的工作表  
+                df_a.to_excel(writer, sheet_name='sheet1', index=False)
+            file_path1 = '/TIP/info_scan/result/vuln_report_warn.xlsx'
+            return send_file(file_path1, as_attachment=True, download_name='vuln_report_warn.xlsx')
     
     else:
         return render_template('login.html')
