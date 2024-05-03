@@ -1,3 +1,9 @@
+注意：
+
+项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
+项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
+项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
+
 项目启动文件
 scan_main_web.py：项目入口  python3 scan_main_web.py
 dirscanmain.py:   目录扫描  python3 dirscanmain.py
