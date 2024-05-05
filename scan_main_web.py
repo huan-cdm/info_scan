@@ -113,7 +113,6 @@ def ipscaninterface():
         #定义存放子域名的列表
         subdomain_list_1 = []
         for bb in urls_list:
-           
             #cdn存放结果
             cdn_result = cdn_lib.cdnscan(bb)
             cdn_list_1.append(cdn_result)
@@ -702,6 +701,53 @@ def showbbscanreport():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
+    
+
+#通过证书批量查询目标子域名
+@app.route("/batch_show_subdomain/",methods=['get'])
+def batch_show_subdomain():
+    user = session.get('username')
+    if str(user) == main_username:
+        url_list = []
+        file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
+        for line in file.readlines():
+            url_list.append(line.strip())
+
+        # url中提取域名
+        domain_list = []
+        for j in url_list:
+            domain_re = re.findall("https?://([^/]+)",j)
+            domain_list.append(domain_re)
+        domain_list_final = []
+        for k in domain_list:
+            domain_list_final.append(k[0])
+
+        # 遍历域名在调用子域名查询接口
+        f = open(file='/TIP/info_scan/result/subdomain.txt',mode='w')
+        for l in domain_list_final:
+
+            subdomain = subdomain_lib.subdomain_scan(l)
+            f.write(str(subdomain)+"\n")
+
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+#子域名预览报告
+@app.route("/showsubdomainreport/")
+def showsubdomainreport():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('/TIP/info_scan/result/subdomain.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
 
 
 if __name__ == '__main__':  

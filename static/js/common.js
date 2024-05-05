@@ -346,6 +346,10 @@ function startbutton() {
     button33.disabled = false;
     var button34 = document.getElementById("button34");
     button34.disabled = false;
+    var button35 = document.getElementById("button35");
+    button35.disabled = false;
+    var button36 = document.getElementById("button36");
+    button36.disabled = false;
 
 }
 
@@ -413,6 +417,10 @@ function stopbutton() {
     button33.disabled = true;
     var button34 = document.getElementById("button34");
     button34.disabled = true;
+    var button35 = document.getElementById("button35");
+    button35.disabled = true;
+    var button36 = document.getElementById("button36");
+    button36.disabled = true;
 
 }
 
@@ -693,4 +701,31 @@ function bbscaninfofunc() {
 //bbscan报告预览
 function showbbscanreportfunc() {
     window.open("/showbbscanreport/", "_blank");
+}
+
+
+//子域名结果预览
+function showsubdomainfunc() {
+    window.open("/showsubdomainreport/");
+}
+
+
+
+//子域名探测
+function subdomainfindfunc() {
+    $.ajax({
+        url: '/batch_show_subdomain/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('子域名探测已开启稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('子域名探测已开启稍后查看结果')
+        }
+    })
 }

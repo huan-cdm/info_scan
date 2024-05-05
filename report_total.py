@@ -55,6 +55,12 @@ def report_xlsx():
     bbscan_file = open("/TIP/info_scan/result/bbscan_info.txt",encoding='utf-8')
     for bbscan_line in bbscan_file.readlines():
         bbscan_report_list.append(bbscan_line.strip())
+
+    # subdomain
+    subdomain_report_list = []
+    subdomain_file = open("/TIP/info_scan/result/subdomain.txt",encoding='utf-8')
+    for subdomain_line in subdomain_file.readlines():
+        subdomain_report_list.append(subdomain_line.strip())
     
     '''
     # 使用正则表达式匹配并提取URL  
@@ -79,6 +85,7 @@ def report_xlsx():
     df_d = pd.DataFrame(nuclei_report_list, columns=['nuclei'])
     df_e = pd.DataFrame(ehole_report_list, columns=['指纹信息'])
     df_f = pd.DataFrame(bbscan_report_list, columns=['敏感信息'])
+    df_g = pd.DataFrame(subdomain_report_list, columns=['子域名'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -89,3 +96,4 @@ def report_xlsx():
         df_d.to_excel(writer, sheet_name='nuclei', index=False)
         df_e.to_excel(writer, sheet_name='指纹信息', index=False)
         df_f.to_excel(writer, sheet_name='敏感信息', index=False)
+        df_g.to_excel(writer, sheet_name='子域名', index=False)
