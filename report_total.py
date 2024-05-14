@@ -77,6 +77,16 @@ def report_xlsx():
     # 列表去重
     nuclei_report_list_uniq = list(set(nuclei_report_list_new))
     '''
+
+    # vulmap
+    vulmap_report_list = []
+    vulmap_file = open("/TIP/info_scan/result/vulmapscan_info.txt",encoding='utf-8')
+    for vulmap_line in vulmap_file.readlines(): 
+        #显示优化去掉颜色字符
+        patternq = re.compile(r'\x1b\[[0-9;]*m')
+        cleanq_text = patternq.sub('', vulmap_line)
+        vulmap_report_list.append(cleanq_text.strip())
+
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -86,6 +96,7 @@ def report_xlsx():
     df_e = pd.DataFrame(ehole_report_list, columns=['指纹信息'])
     df_f = pd.DataFrame(bbscan_report_list, columns=['敏感信息'])
     df_g = pd.DataFrame(subdomain_report_list, columns=['子域名'])
+    df_h = pd.DataFrame(vulmap_report_list, columns=['vulmap'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -97,3 +108,4 @@ def report_xlsx():
         df_e.to_excel(writer, sheet_name='指纹信息', index=False)
         df_f.to_excel(writer, sheet_name='敏感信息', index=False)
         df_g.to_excel(writer, sheet_name='子域名', index=False)
+        df_h.to_excel(writer, sheet_name='vulmap', index=False)

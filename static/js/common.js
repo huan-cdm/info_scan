@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus)
         })
 }
 
@@ -726,6 +726,35 @@ function subdomainfindfunc() {
         },
         complete: function () {
             alert('子域名探测已开启稍后查看结果')
+        }
+    })
+}
+
+//vulmap漏扫报告预览
+function vulmapscanreportfunc() {
+    window.open("/vulmapscanreport/");
+}
+
+
+//启动vulmap漏扫接口
+function startvulmapscanfunc() {
+    var vulnname = $('select[name="vulnname"]').val();
+    alert(vulnname)
+    $.ajax({
+        url: '/startvulmapinterface/',
+        method: 'POST',
+        data: {
+            vulnname: vulnname
+        },
+        success: function (res) {
+            console.log(res)
+            console.log('vulmap漏扫程序已启动稍后查看扫描结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('vulmap漏扫程序已启动稍后查看扫描结果')
         }
     })
 }

@@ -58,3 +58,4 @@ weblogic扫描：调用 https://github.com/rabbitmask/WeblogicScan
 struts2扫描：调用 https://github.com/HatBoy/Struts2-Scan
 指纹识别：调用 https://github.com/EdgeSecurityTeam/EHole
 敏感信息：调用 https://github.com/lijiejie/BBScan
+综合漏洞扫描：调用 https://github.com/zhzyker/vulmap

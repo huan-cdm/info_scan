@@ -345,6 +345,7 @@ def nmapqueuestatus():
         weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
         bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
+        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -353,7 +354,8 @@ def nmapqueuestatus():
             "dirscanstatus":dirscanstatus,
             "weblogicstatus":weblogicstatus,
             "struts2status":struts2status,
-            "bbscanstatus":bbscanstatus
+            "bbscanstatus":bbscanstatus,
+            "vulmapscanstatus":vulmapscanstatus
         }
         return jsonify(message_json)
     else:
@@ -744,6 +746,45 @@ def showsubdomainreport():
             for line in f:
                 lines.append(line.strip())
         return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+
+#vulmap漏扫预览报告
+@app.route("/vulmapscanreport/")
+def vulmapscanreport():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('/TIP/info_scan/result/vulmapscan_info.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+         #文件结果优化展示
+        liness = []
+        for line1 in lines:
+            
+            #页面显示优化
+            pattern = re.compile(r'\x1b\[[0-9;]*m')
+            clean_text = pattern.sub('', line1)
+            liness.append(clean_text)
+        return '<br>'.join(liness)
+    else:
+        return render_template('login.html')
+
+
+
+#启动vulmap漏扫程序
+@app.route("/startvulmapinterface/",methods=['POST'])
+def startvulmapinterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        vulnname = request.form['vulnname']
+        try:
+            os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
+            return render_template('dirsearchscan.html')
+        except Exception as e:
+            print("捕获到异常:", e)
     else:
         return render_template('login.html')
 

@@ -368,6 +368,25 @@ case "${1}" in
 		echo "bbscan_scan状态：停止"
 	fi
 	;;
+
+
+    # vulmap漏洞扫描
+    vulmapscan_shell)
+    cd /TIP/info_scan/vulmap
+    python3 vulmap.py -f /TIP/batch_scan_domain/url.txt -a  ${2} | grep "[+]" > /TIP/info_scan/result/vulmapscan_info.txt
+    ;;
+
+
+    # vulmap运行状态
+    vulmapscan_status)
+	ps_vulmapscan=`ps -aux | grep vulmap.py | wc -l`
+	if (( $ps_vulmapscan > 1 ))
+	then
+		echo "vulmap_scan状态：运行中"
+	else
+		echo "vulmap_scan状态：停止"
+	fi
+	;;
     
 esac
 
