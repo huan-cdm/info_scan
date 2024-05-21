@@ -1,8 +1,7 @@
 注意：
 
 项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
-项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
-项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.jpg"  />
 
 
 项目启动文件
