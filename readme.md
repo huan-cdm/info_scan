@@ -1,10 +1,12 @@
-注意：
+项目中大部分文件是绝对路径，需要跟batch_scan_domain项目存放到/TIP/目录下运行。
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"  />
 
-项目中大部分文件是绝对路径，需要跟batch_scan_domain配合使用，将2个项目部署到服务器 /TIP/目录下！！！
+
+系统运行截图
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.jpg"  />
 
 
-项目启动文件
+系统启动命令
 scan_main_web.py：项目入口  python3 scan_main_web.py
 dirscanmain.py:   目录扫描  python3 dirscanmain.py
 server_check.sh s-h 项目启动脚本
@@ -18,10 +20,6 @@ nginx_conf目录：将dirscan_nginx.conf  infoscan_nginx.conf放到/etc/nginx/co
 关闭目录扫描引擎：bash server_check.sh stopdirscan
 查看服务状态：bash server_check.sh status】
 
-
-
-
-目前通过IP可以识别以下信息,正在完善更新中......
 
 判断规则说明：
 IP(位置): 调用cip.cc查询位置。
