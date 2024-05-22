@@ -3,7 +3,7 @@
 
 
 系统运行截图
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.jpg"  />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.png"  />
 
 
 系统启动命令
@@ -47,12 +47,12 @@ CDN信息: 调用shell脚本，nslookup查询域名,如果查询到3个以上IP�
 端口扫描：调用masscan端口扫描工具
 端口扫描：调用nmap，ip存入队列中，放在后台扫描。
 漏洞扫描：调用nuclei扫描器
-xray+rad：下载 https://github.com/huan-cdm/batch_scan_domain
+xray+rad：下载 https://github.com/huan-cdm/batch_scan_domain <br>
 目录扫描：调用dirsearch扫描器
 历史url: 调用otx和archive威胁情报
 链接扫描：调用urlfinder（已完成）；其他链接爬取工具正在完善中.....
-weblogic扫描：调用 https://github.com/rabbitmask/WeblogicScan
-struts2扫描：调用 https://github.com/HatBoy/Struts2-Scan
-指纹识别：调用 https://github.com/EdgeSecurityTeam/EHole
-敏感信息：调用 https://github.com/lijiejie/BBScan
-综合漏洞扫描：调用 https://github.com/zhzyker/vulmap
+weblogic扫描：调用 https://github.com/rabbitmask/WeblogicScan <br>
+struts2扫描：调用 https://github.com/HatBoy/Struts2-Scan <br>
+指纹识别：调用 https://github.com/EdgeSecurityTeam/EHole <br>
+敏感信息：调用 https://github.com/lijiejie/BBScan <br>
+综合漏洞扫描：调用 https://github.com/zhzyker/vulmap <br>

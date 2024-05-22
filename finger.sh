@@ -387,12 +387,6 @@ case "${1}" in
 		echo "vulmap_scan状态：停止"
 	fi
 	;;
-
-
-    #nmap批量端口扫描
-    nmap_piliang_port)
-    /usr/bin/nmap -Pn -sS -sV -T4  -iL /TIP/info_scan/result/nmap_ip.txt -p 1-65535  --min-rate=10000  > /TIP/info_scan/result/nmap.txt
-    ;;
     
 esac
 

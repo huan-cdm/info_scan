@@ -782,13 +782,25 @@ def startvulmapinterface():
         vulnname = request.form['vulnname']
         try:
             os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
-            return render_template('dirsearchscan.html')
+            return render_template('index.html')
         except Exception as e:
             print("捕获到异常:", e)
     else:
         return render_template('login.html')
 
 
+#启动nmap批量端口扫描
+@app.route("/startbatchnmapscan/",methods=['get'])
+def startbatchnmapscan():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            basic.ip_queue_nmap()
+            return render_template('index.html')
+        except Exception as e:
+            print("捕获到异常:", e)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  

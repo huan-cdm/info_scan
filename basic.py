@@ -6,6 +6,8 @@ Date:[2023/11/12]
 import shodan
 from config import shodankey
 import re
+import queue
+import subprocess 
 
 # 调用shodan接口查询ip基础信息
 def shodan_api(ip):
@@ -47,12 +49,15 @@ def url_convert_ip():
     return ip_addresses
 
 
-# 遍历ip列表存入文件中用于nmap批量扫描
 
-def ip_convert_file():
+# 列表存入到队列中用于nmap扫描
+def ip_queue_nmap():
+    # 创建一个空队列
+    q = queue.Queue()
     ip_list = url_convert_ip()
-    #列表中数据存入文件中
-    f = open(file='/TIP/info_scan/result/nmap_ip.txt',mode='w')
-    for line in ip_list:
-        f.write(str(line)+"\n")
-    f.close()
+    for item in ip_list:
+        q.put(item)
+    # 取出并打印队列中的所有元素（先进先出）  
+    while not q.empty():  
+        ip_queue = q.get()
+        result = subprocess.run(["sh", "./finger.sh","nmap_port",ip_queue], stdout=subprocess.PIPE) 

@@ -159,6 +159,7 @@
 			<td>
 				<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
+				<input type="button" id="button37" value="程序启动" onclick="batchnmapportscanfunc()" disabled>
 				<input type="button" id="button10" value="报告删除" onclick="deletenmapfunc()" disabled>
 			</td>
 
@@ -204,8 +205,8 @@
 		<tr>
 			<td>
 				<input type="submit"  value="vulmap：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button"  value="预览报告" onclick="vulmapscanreportfunc()">
-				<input type="button"  value="启动程序" onclick="startvulmapscanfunc()">
+				<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
+				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
 				<select name="vulnname">s
 					<option value="all">测试所有漏洞 poc 不指定将默认开启指纹识别</option>
 					<option value="activemq">检查站点是否存在activemq漏洞</option>

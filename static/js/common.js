@@ -350,6 +350,12 @@ function startbutton() {
     button35.disabled = false;
     var button36 = document.getElementById("button36");
     button36.disabled = false;
+    var button37 = document.getElementById("button37");
+    button37.disabled = false;
+    var button38 = document.getElementById("button38");
+    button38.disabled = false;
+    var button39 = document.getElementById("button39");
+    button39.disabled = false;
 
 }
 
@@ -421,6 +427,12 @@ function stopbutton() {
     button35.disabled = true;
     var button36 = document.getElementById("button36");
     button36.disabled = true;
+    var button37 = document.getElementById("button37");
+    button37.disabled = true;
+    var button38 = document.getElementById("button38");
+    button38.disabled = true;
+    var button39 = document.getElementById("button39");
+    button39.disabled = true;
 
 }
 
@@ -755,6 +767,26 @@ function startvulmapscanfunc() {
         },
         complete: function () {
             alert('vulmap漏扫程序已启动稍后查看扫描结果')
+        }
+    })
+}
+
+
+//批量端口扫描
+function batchnmapportscanfunc() {
+    $.ajax({
+        url: '/startbatchnmapscan/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            alert('端口扫描已加入队列中稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('端口扫描已加入队列中稍后查看结果')
         }
     })
 }
