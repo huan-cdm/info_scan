@@ -821,12 +821,7 @@ function targeturlcopytextareafunc() {
       
         // 将textAreaContent的内容赋值给textarea  
         $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
-      
-        // 同时设置span1的innerHTML  
-        //document.getElementById("span1").innerHTML = info.url_num;  
-      
-        // 如果有必要清空并重置select元素（尽管原始代码中的select元素id是opbyid3，但在这个上下文中不需要）  
-        // $('#opbyid3').empty(); // 如果这个select不再需要数据，可以取消注释这行代码  
+       
     });
 
 }
