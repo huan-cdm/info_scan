@@ -1,10 +1,17 @@
-项目中大部分文件是绝对路径，需要跟batch_scan_domain项目存放到/TIP/目录下运行。
+项目部署路径（batch_scan_domain+info_scan） <br>
+info_scan：主项目<br>
+batch_scan_domain：xray+rad批量漏扫项目，可shell下运行，通过info_scan进行控制<br>
+
+项目部署截图
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"  />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/startproject.jpg"  />
 
 
 系统运行截图
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic3.jpg"  />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic4.jpg"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.png"  />
-
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"  />
 
 报告截图
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"  />
