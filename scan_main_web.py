@@ -23,7 +23,6 @@ import subdomain_lib
 import ipstatus_lib
 import gaodeapi
 from flask import jsonify
-from nmap_queue import add_ip
 from config import history_switch
 import report_total
 import pandas as pd
@@ -154,25 +153,12 @@ def ipscaninterface():
         except:
             pass
     
-        #masscan端口扫描
-        try:
-            masscan_port_1 = os.popen('bash ./finger.sh masscan_port'+' '+ip).read()
-            masscan_port_11 = masscan_port_1.replace("Discovered open port","")
-            masscan_port = masscan_port_11.replace(ip,"")
     
-        except:
-            pass
-    
-        #nmap添加到queue队列
-        try:
-            add_ip(ip)
-        except:
-            pass
     
         return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
         ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
         ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
-        ,data14=masscan_port,data20=str(user))
+        ,data20=str(user))
     else:
         return render_template('login.html')
 
