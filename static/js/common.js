@@ -790,3 +790,43 @@ function batchnmapportscanfunc() {
         }
     })
 }
+
+
+//目标url的值赋值给 textarea 文本框
+function targeturlcopytextareafunc() {
+    $.ajax({
+        url: '/url_list_textarea_show/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+
+    $.getJSON("/url_list_textarea_show/", function (info) {  
+        // 假设info.textvalue是一个数组  
+        var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+      
+        // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+        for (var i = 0; i < info.textvalue.length; i++) {  
+            textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
+        }  
+      
+        // 将textAreaContent的内容赋值给textarea  
+        $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+      
+        // 同时设置span1的innerHTML  
+        //document.getElementById("span1").innerHTML = info.url_num;  
+      
+        // 如果有必要清空并重置select元素（尽管原始代码中的select元素id是opbyid3，但在这个上下文中不需要）  
+        // $('#opbyid3').empty(); // 如果这个select不再需要数据，可以取消注释这行代码  
+    });
+
+}

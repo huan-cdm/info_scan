@@ -50,6 +50,15 @@ def url_convert_ip():
 
 
 
+# 目标url文件存入列表并返回
+def url_file_ip_list():
+    url_list = []
+    file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
+    for line in file.readlines():
+        url_list.append(line.strip())
+    return url_list
+
+
 # 列表存入到队列中用于nmap扫描
 def ip_queue_nmap():
     # 创建一个空队列

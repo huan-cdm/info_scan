@@ -801,6 +801,21 @@ def startbatchnmapscan():
             print("捕获到异常:", e)
     else:
         return render_template('login.html')
+    
+
+
+#目标url文件存入列表回显给前端
+@app.route("/url_list_textarea_show/")
+def url_list_textarea_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        textvalue = basic.url_file_ip_list()
+        message_json = {
+            "textvalue":textvalue
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  
