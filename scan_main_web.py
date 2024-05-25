@@ -10,7 +10,6 @@ from flask import redirect
 from flask_bootstrap import Bootstrap
 from flask import send_file
 import httpx_status
-import finger_recognize
 import basic
 import ip138
 import subprocess
@@ -48,7 +47,7 @@ def ipscaninterface():
     
         #状态码为200的url指纹信息
         try:
-            data3 = finger_recognize.finger_scan(ip)
+            data3 = basic.finger_scan(ip)
         except:
             pass
     

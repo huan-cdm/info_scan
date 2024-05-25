@@ -20,6 +20,9 @@ import random
 import json
 from config import gaodekey
 
+# 指纹识别
+import os
+
 # 调用shodan接口查询ip基础信息
 def shodan_api(ip):
     apis = shodan.Shodan(shodankey)
@@ -206,3 +209,28 @@ def subdomain_scan(domain):
        
     except:
         pass
+
+
+
+# 指纹识别接口
+def finger_scan(ip1):
+
+    result = httpx_status.status_scan(ip1)
+
+    finger_list = []
+    for i in result:
+        result = os.popen('bash ./finger.sh finger'+''+' '+i).read()
+        #页面显示优化
+        pattern = re.compile(r'\x1b\[[0-9;]*m')
+        clean_text = pattern.sub('', result)
+        clean_text_1 = clean_text.replace("|","")
+        finger_list.append(clean_text_1)
+    
+    #清空列表为空的数据
+    while '' in finger_list:
+        finger_list.remove('')
+    #列表为空返回None
+    if len(finger_list) == 0:
+        finger_list.append("None")
+    
+    return finger_list
