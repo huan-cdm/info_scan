@@ -123,5 +123,31 @@ def icp_info(ip):
             icp_name = soup_td[25].text
         except:
             icp_name = "接口异常"
-    
     return icp_name
+
+
+# 网站标题
+def title_scan(url_list):
+    hearder={
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    }
+
+    
+    # url_list = ['https://182.92.154.36', 'https://zorelworld.com', 'https://www.zorelworld.com']
+    url_title_list = []
+    if len(url_list) == 0:
+        url_title_list.append("None")
+    else:
+        for url in url_list:
+            try:
+                res = requests.get(url,headers=hearder,allow_redirects=False)
+                res.encoding='utf-8'
+                title_1 = re.findall("<title>.*</title>",res.text)
+                title_11 = title_1[0]
+                title_2 = title_11.replace("<title>","")
+                titleinfo = title_2.replace("</title>","")
+                url_title_list.append(titleinfo)
+            except:
+                pass 
+    url_title_list_uniq = list(set(url_title_list)) 
+    return url_title_list_uniq

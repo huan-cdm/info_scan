@@ -17,7 +17,6 @@ import subprocess
 import os
 import re
 import cdn_lib
-import title_lib
 import subdomain_lib
 import ipstatus_lib
 import gaodeapi
@@ -46,7 +45,6 @@ def ipscaninterface():
         #状态码为200的url
         try:
             data1=httpx_status.status_scan(ip)
-            
         except:
             pass
     
@@ -136,14 +134,8 @@ def ipscaninterface():
         
     
         #网站标题
-        site_title_list = []
-        for sa in data1:
-            site_title = title_lib.title_scan(sa)
-            site_title_list.append(site_title)
-        site_title_list_result = list(set(site_title_list))
-        if len(site_title_list_result) == 0:
-           site_title_list_result.append("")
-    
+        
+        site_title_list_result = basic.title_scan(data1)
     
         
         #IP属性判断
