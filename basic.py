@@ -132,8 +132,6 @@ def title_scan(url_list):
         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
 
-    
-    # url_list = ['https://182.92.154.36', 'https://zorelworld.com', 'https://www.zorelworld.com']
     url_title_list = []
     if len(url_list) == 0:
         url_title_list.append("None")
