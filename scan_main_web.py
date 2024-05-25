@@ -19,7 +19,6 @@ import re
 import cdn_lib
 import subdomain_lib
 import ipstatus_lib
-import gaodeapi
 from flask import jsonify
 from config import history_switch
 import report_total
@@ -62,7 +61,7 @@ def ipscaninterface():
     
         #公司位置信息
         try:
-            companylocation = gaodeapi.gaodescan(data4)
+            companylocation = basic.amapscan(data4)
         except:
             companylocation = "接口异常"
         

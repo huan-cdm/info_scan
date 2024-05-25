@@ -1,5 +1,5 @@
 '''
-Description:[调用第三方接口]
+Description:[系统调用第三方接口模块]
 Author:[huan666]
 Date:[2024/05/25]
 '''
@@ -15,6 +15,10 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import random
+
+# 高德地图
+import json
+from config import gaodekey
 
 # 调用shodan接口查询ip基础信息
 def shodan_api(ip):
@@ -149,3 +153,23 @@ def title_scan(url_list):
                 pass 
     url_title_list_uniq = list(set(url_title_list)) 
     return url_title_list_uniq
+
+
+# 调用高德地图接口查询公司位置信息
+def amapscan(keyvalue):
+    url = "https://restapi.amap.com/v3/place/text?keywords="+keyvalue+"&offset=20&page=1&key="+gaodekey+"&extensions=all"
+    hearder={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+        }
+    try:
+        res = requests.get(url,headers=hearder,allow_redirects=False)
+        res.encoding='utf-8'
+        restext = res.text
+        resdic=json.loads(restext)
+        if keyvalue == "None":
+            companylocation = "None"
+        else:
+            companylocation = resdic['pois'][0]['address']
+        return companylocation
+    except:
+        pass
