@@ -14,7 +14,6 @@ import basic
 import subprocess
 import os
 import re
-import cdn_lib
 from flask import jsonify
 from config import history_switch
 import report_total
@@ -105,7 +104,7 @@ def ipscaninterface():
         subdomain_list_1 = []
         for bb in urls_list:
             #cdn存放结果
-            cdn_result = cdn_lib.cdnscan(bb)
+            cdn_result = basic.cdnscan(bb)
             cdn_list_1.append(cdn_result)
     
             #子域名存放列表

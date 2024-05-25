@@ -348,3 +348,13 @@ def ip138_scan(ip):
         ip138_domain_list.append("None")
     
     return ip138_domain_list
+
+
+
+# cdn识别
+def cdnscan(domain):
+    try:
+        result = os.popen('bash ./finger.sh CDN_scan'+' '+domain).read()
+    except:
+        pass
+    return result
