@@ -11,7 +11,6 @@ from flask_bootstrap import Bootstrap
 from flask import send_file
 import httpx_status
 import finger_recognize
-import icp
 import basic
 import ip138
 import subprocess
@@ -59,7 +58,7 @@ def ipscaninterface():
     
         #icp备案信息
         try:
-            data4 = icp.icp_scan(ip)
+            data4 = basic.icp_info(ip)
         except:
             pass
     
