@@ -16,7 +16,6 @@ import subprocess
 import os
 import re
 import cdn_lib
-import ipstatus_lib
 from flask import jsonify
 from config import history_switch
 import report_total
@@ -137,7 +136,7 @@ def ipscaninterface():
         
         #IP属性判断
         try:
-            ipstatus = ipstatus_lib.ipstatus_scan(ip)
+            ipstatus = basic.ipstatus_scan(ip)
         except:
             pass
     
