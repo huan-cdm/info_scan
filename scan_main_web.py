@@ -17,7 +17,6 @@ import subprocess
 import os
 import re
 import cdn_lib
-import subdomain_lib
 import ipstatus_lib
 from flask import jsonify
 from config import history_switch
@@ -113,7 +112,7 @@ def ipscaninterface():
             cdn_list_1.append(cdn_result)
     
             #子域名存放列表
-            subdomain_result = subdomain_lib.subdomain_scan(bb)
+            subdomain_result = basic.subdomain_scan(bb)
             subdomain_list_1.append(subdomain_result)
         try:
             flattened_list = [item for sublist in subdomain_list_1 for item in sublist]
@@ -704,7 +703,7 @@ def batch_show_subdomain():
         f = open(file='/TIP/info_scan/result/subdomain.txt',mode='w')
         for l in domain_list_final:
 
-            subdomain = subdomain_lib.subdomain_scan(l)
+            subdomain = basic.subdomain_scan(l)
             f.write(str(subdomain)+"\n")
 
         return render_template('index.html')
