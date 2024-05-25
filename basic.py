@@ -1,7 +1,7 @@
 '''
-Description:[IP开放端口信息]
+Description:[调用第三方接口]
 Author:[huan666]
-Date:[2023/11/12]
+Date:[2024/05/25]
 '''
 import shodan
 from config import shodankey
