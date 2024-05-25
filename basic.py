@@ -29,6 +29,12 @@ from config import exitaddress
 from config import hotspot
 from config import datacenter
 
+# fofa 通过ip查询域名
+from config import fofaemail
+from config import fofakey
+from config import fofanum
+import base64
+
 
 # 调用shodan接口查询ip基础信息
 def shodan_api(ip):
@@ -281,3 +287,64 @@ def ipstatus_scan(ip):
     
     except:
         pass
+
+
+def domain_scan(ip):
+
+    fofa_first_argv= 'ip=' + ip + ''
+    fofa_first_argv_utf8 = fofa_first_argv.encode('utf-8')
+    fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
+    fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
+    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+fofanum+"&qbase64="
+    hearder={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    }
+
+    try:
+        
+        res = requests.get(url+fofa_argv_str,headers=hearder,allow_redirects=False)
+        res.encoding='utf-8'
+        restext = res.text
+        resdic=json.loads(restext)
+        resdicresult=resdic['results']
+      
+        fofa_list = []
+        for i in resdicresult:
+            matches1 = re.findall(r"(http(s)?://\S+)", i[0])
+            for match in matches1:
+
+                fofa_list.append(match)
+        
+        fofa_list_result = []
+        for j in fofa_list:
+            fofa_list_result.append(j[0])
+        
+        fofa_list_result_uniq = list(set(fofa_list_result))
+        
+        return fofa_list_result_uniq
+    
+    except:
+        pass
+
+# ip138查询历史域名接口
+def ip138_scan(ip):
+    url="https://site.ip138.com/"
+    headers={
+        'Cookie':'Hm_lvt_ecdd6f3afaa488ece3938bcdbb89e8da=1615729527; Hm_lvt_d39191a0b09bb1eb023933edaa468cd5=1617883004,1617934903,1618052897,1618228943; Hm_lpvt_d39191a0b09bb1eb023933edaa468cd5=1618567746',
+        'Host':'site.ip138.com',
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+    }
+    res=requests.get(url+ip,headers=headers,allow_redirects=False)
+    res.encoding='utf-8'
+    soup=BeautifulSoup(res.text,'html.parser')
+    tag2=soup.find('ul',id="list")
+    tag2_a = tag2.find_all('a')
+    ip138_domain_list = []
+   
+    for j in tag2_a:
+        ip138_domain_list.append(j.text)
+    
+    if len(ip138_domain_list) == 0:
+        ip138_domain_list.append("None")
+    
+    return ip138_domain_list

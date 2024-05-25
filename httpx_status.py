@@ -4,12 +4,12 @@ Author:[huan666]
 Date:[2023/11/10]
 '''
 
-import domain_lib
+import basic
 import subprocess
 
 def status_scan(ip1):
 
-    domain_list = domain_lib.domain_scan(ip1)
+    domain_list = basic.domain_scan(ip1)
     f = open(file='./result/domain.txt', mode='w')
     for k in domain_list:
         f.write(str(k)+"\n")

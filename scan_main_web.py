@@ -11,7 +11,6 @@ from flask_bootstrap import Bootstrap
 from flask import send_file
 import httpx_status
 import basic
-import ip138
 import subprocess
 import os
 import re
@@ -84,7 +83,7 @@ def ipscaninterface():
     
         #ip138域名
         try:
-            ip138_domain = ip138.ip138_scan(ip)
+            ip138_domain = basic.ip138_scan(ip)
         except:
             ip138_domain=["接口异常"]
     
