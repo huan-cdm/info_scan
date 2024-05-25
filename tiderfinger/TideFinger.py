@@ -93,7 +93,7 @@ rbracket = re.compile(r'\((.*)\)')
 
 
 def check(_id):
-    with sqlite3.connect(pwd + '/cms_finger.db') as conn:
+    with sqlite3.connect(pwd + '/TIP/info_scan/tiderfinger/cms_finger.db') as conn:
         cursor = conn.cursor()
         result = cursor.execute('SELECT name, keys FROM `tide` WHERE id=\'{}\''.format(_id))
         for row in result:
@@ -101,7 +101,7 @@ def check(_id):
 
 
 def count():
-    with sqlite3.connect(pwd + '/cms_finger.db') as conn:
+    with sqlite3.connect(pwd + '/TIP/info_scan/tiderfinger/cms_finger.db') as conn:
         cursor = conn.cursor()
         result = cursor.execute('SELECT COUNT(id) FROM `tide`')
         for row in result:
@@ -440,7 +440,7 @@ class WhatCms:
                 return False
 
 def finger_query(url):
-    whatcms=WhatCms(url,'cms_finger.db')
+    whatcms=WhatCms(url,'/TIP/info_scan/tiderfinger/cms_finger.db')
     whatcms.run()
     finger_dic = whatcms.get_result()
     return finger_dic

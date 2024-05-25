@@ -227,9 +227,7 @@ def subdomain_scan(domain):
 
 # 指纹识别接口
 def finger_scan(ip1):
-
     result = httpx_status.status_scan(ip1)
-
     finger_list = []
     for i in result:
         result = os.popen('bash ./finger.sh finger'+''+' '+i).read()
