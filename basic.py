@@ -3,25 +3,30 @@ Description:[系统调用第三方接口模块]
 Author:[huan666]
 Date:[2024/05/25]
 '''
+# shodan查询模块
 import shodan
 from config import shodankey
-import re
 import queue
 import subprocess 
 
 # icp备案查询
 import httpx_status
-import requests
-from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import random
 
+
 # 高德地图
-import json
 from config import gaodekey
 
-# 指纹识别
+
+# 通用模块
+import re
+import json
 import os
+import base64
+import requests
+from bs4 import BeautifulSoup
+
 
 # IP属性判断
 from config import cloudserver
@@ -29,11 +34,12 @@ from config import exitaddress
 from config import hotspot
 from config import datacenter
 
+
 # fofa 通过ip查询域名
 from config import fofaemail
 from config import fofakey
 from config import fofanum
-import base64
+
 
 
 # 调用shodan接口查询ip基础信息
@@ -99,7 +105,7 @@ def ip_queue_nmap():
         result = subprocess.run(["sh", "./finger.sh","nmap_port",ip_queue], stdout=subprocess.PIPE) 
 
  
- # 生成一个随机的IPv4地址  
+ # 生成一个随机的IPv4地址防止封禁IP  
 def generate_random_ip():  
     return '.'.join(str(random.randint(0, 255)) for _ in range(4)) 
 
@@ -151,14 +157,18 @@ def title_scan(url_list):
     hearder={
         'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
-
     url_title_list = []
+
     if len(url_list) == 0:
         url_title_list.append("None")
     else:
+        
         for url in url_list:
             try:
                 res = requests.get(url,headers=hearder,allow_redirects=False)
+            except:
+                url_title_list.append("请求出错")
+            try:
                 res.encoding='utf-8'
                 title_1 = re.findall("<title>.*</title>",res.text)
                 title_11 = title_1[0]
@@ -166,9 +176,10 @@ def title_scan(url_list):
                 titleinfo = title_2.replace("</title>","")
                 url_title_list.append(titleinfo)
             except:
-                pass 
-    url_title_list_uniq = list(set(url_title_list)) 
-    return url_title_list_uniq
+                pass
+    return url_title_list
+            
+
 
 
 # 调用高德地图接口查询公司位置信息
@@ -287,6 +298,7 @@ def ipstatus_scan(ip):
         pass
 
 
+# fofa查询模块通过IP反查域名
 def domain_scan(ip):
 
     fofa_first_argv= 'ip=' + ip + ''
@@ -323,6 +335,7 @@ def domain_scan(ip):
     
     except:
         pass
+
 
 # ip138查询历史域名接口
 def ip138_scan(ip):
