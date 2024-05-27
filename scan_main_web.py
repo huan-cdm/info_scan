@@ -94,18 +94,23 @@ def ipscaninterface():
     
         #去掉https://或者http://
         urls_list_1 = [re.sub(r'http://|https://', '', url) for url in data1]
+       
+        # 存活域名列表
         urls_list = []
         for aa in urls_list_1:
-            if "cn" in aa or "com" in aa:
+            if "cn" in aa or "com" in aa or "xyz" in aa or "top" in aa:
                 urls_list.append(aa)
+
+
+
         #定义存放cdn结果列表
-        cdn_list_1 = []
+        cdn_list = []
         #定义存放子域名的列表
         subdomain_list_1 = []
         for bb in urls_list:
             #cdn存放结果
             cdn_result = basic.cdnscan(bb)
-            cdn_list_1.append(cdn_result)
+            cdn_list.append(cdn_result)
     
             #子域名存放列表
             subdomain_result = basic.subdomain_scan(bb)
@@ -114,9 +119,8 @@ def ipscaninterface():
             flattened_list = [item for sublist in subdomain_list_1 for item in sublist]
         except:
             pass
-        
-        #CDN列表去重
-        cdn_list = list(set(cdn_list_1))
+       
+        #CDN列表为空判断
         if len(cdn_list) == 0:
             cdn_list.append("None")
         
@@ -128,8 +132,10 @@ def ipscaninterface():
         
     
         #网站标题
-        
-        site_title_list_result = basic.title_scan(data1)
+        try:
+            site_title_list_result = basic.title_scan(data1)
+        except:
+            pass
     
         
         #IP属性判断
@@ -139,7 +145,6 @@ def ipscaninterface():
             pass
     
     
-        # data13=companylocation
         return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
         ,data5=localtion_list_result,data6=port,data7=history_domain,data8=os_type,data9=cdn_list
         ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation,data20=str(user))
@@ -493,7 +498,6 @@ def cdn_service_recogize():
             f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
             for fileline in no_cdn_list_result:
                 f.write(str(fileline)+"\n")
-            # print(no_cdn_list_result)
 
         except Exception as e:
             print("捕获到异常:",e)

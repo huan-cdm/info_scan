@@ -106,7 +106,7 @@
 		<div class="inner-div"><strong>历史URL</strong></div>
 		<div class="inner-div"><strong>存活URL</strong></div>
 		<div class="inner-div"><strong>网站标题</strong></div>
-		<div class="inner-div"><strong>CDN信息</strong></div>
+		<div class="inner-div"><strong>CDN信息-存活URL</strong></div>
 		<div class="inner-div"><strong>指纹</strong></div>
 		<div class="inner-div"><strong>子域名</strong></div>
 	</div>
@@ -138,10 +138,10 @@
 			{% endfor %}
 		</div>
 		<div class="inner-div">
-			{% for ii9 in data9 %}
+			{% for cdnk in data9 %}
 			<tr>
-				&nbsp;
-				<td>{{ ii9 }}</td>
+				<br>
+				<td>{{ cdnk }}</td>
 			</tr>
 			{% endfor %}
 		</div>
