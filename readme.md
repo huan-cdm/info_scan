@@ -11,7 +11,10 @@ batch_scan_domain：xray+rad批量漏扫项目，可shell下运行，通过info_
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic3.jpg"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic4.jpg"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.png"  />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic22.png"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"  />
+
+
 
 报告截图
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"  />
