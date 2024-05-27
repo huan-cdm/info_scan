@@ -80,11 +80,11 @@ def ipscaninterface():
         except:
             pass
     
-        #ip138域名
+        #历史域名
         try:
-            ip138_domain = basic.ip138_scan(ip)
+            history_domain = basic.domain_scan(ip)
         except:
-            ip138_domain=["接口异常"]
+            history_domain=["接口异常"]
     
         #操作系统识别
         try:
@@ -141,7 +141,7 @@ def ipscaninterface():
     
     
         return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
-        ,data5=localtion_list_result,data6=port,data7=ip138_domain,data8=os_type,data9=cdn_list
+        ,data5=localtion_list_result,data6=port,data7=history_domain,data8=os_type,data9=cdn_list
         ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
         ,data20=str(user))
     else:

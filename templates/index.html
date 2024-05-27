@@ -30,10 +30,10 @@
 	</table>
 	
 	<h3>基础信息查询</h3>
-	<div style="width:1600px;height:34px;margin:10px auto 0 auto;">
+	<div>
 		<form method="post" action="/ipscaninterface/">
 			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
-				required="required" id="myInput" />
+				required="required" id="myInput"/>
 			<input type="submit" value="搜索">
 		</form>
 	</div>
@@ -61,8 +61,8 @@
 		</table>
 	</div>
 	<div class="div-container" style="background-color:#f2f2f2">
-		<div class="inner-div"><strong>历史域名</strong></div>
-		<div class="inner-div"><strong>在线域名</strong></div>
+		<div class="inner-div"><strong>历史URL</strong></div>
+		<div class="inner-div"><strong>存活URL</strong></div>
 		<div class="inner-div"><strong>网站标题</strong></div>
 		<div class="inner-div"><strong>CDN信息</strong></div>
 		<div class="inner-div"><strong>指纹</strong></div>
@@ -263,7 +263,7 @@
 		<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>	
 	</select>
 			</td>
-			<td style="text-align: right;">
+			<td>
 				<input type="button" value="文本赋值" onclick="targeturlcopytextareafunc()">
 				<textarea rows="8" cols="110" id="myTextarea">基础数据处理操作说明：
 
