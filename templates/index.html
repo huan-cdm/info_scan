@@ -39,7 +39,7 @@
 	</div>
 	<br>
 	<div>
-		<table>
+		<!-- <table>
 			<tr>
 				<th>IP</th>
 				<th>位置</th>
@@ -58,7 +58,49 @@
 				<td>{{data4}}</td>
 				<td>{{data13}}</td>
 			</tr>
-		</table>
+		</table> -->
+	</div>
+	<div class="div-container" style="background-color:#f2f2f2">
+		<div class="inner-div"><strong>IP</strong></div>
+		<div class="inner-div"><strong>位置</strong></div>
+		<div class="inner-div"><strong>属性</strong></div>
+		<div class="inner-div"><strong>操作系统</strong></div>
+		<div class="inner-div"><strong>端口</strong></div>
+		<div class="inner-div"><strong>公司</strong></div>
+		<div class="inner-div"><strong>公司位置</strong></div>
+	</div>
+	<div class="div-container">
+		<div class="inner-div">
+			{{data2}}
+		</div>
+		<div class="inner-div">
+			{{data5}}
+		</div>
+		<div class="inner-div">
+			{{data12}}
+		</div>
+		<div class="inner-div">
+			{{data8}}
+		</div>
+		<div class="inner-div">
+			{{data6}}
+		</div>
+		<div class="inner-div">
+			{% for kd in data4 %}
+				<tr>
+					<br>
+					<td>{{ kd }}</td>
+				</tr>
+				{% endfor %}
+			</div>
+		<div class="inner-div">
+			{% for kdk in data13 %}
+				<tr>
+					<br>
+					<td>{{ kdk }}</td>
+				</tr>
+				{% endfor %}
+			</div>
 	</div>
 	<div class="div-container" style="background-color:#f2f2f2">
 		<div class="inner-div"><strong>历史URL</strong></div>
@@ -67,7 +109,6 @@
 		<div class="inner-div"><strong>CDN信息</strong></div>
 		<div class="inner-div"><strong>指纹</strong></div>
 		<div class="inner-div"><strong>子域名</strong></div>
-
 	</div>
 
 
@@ -123,7 +164,6 @@
 			</tr>
 			{% endfor %}
 		</div>
-		
 	</div>
 	<h3>漏洞扫描集合</h3>
 	<table border="1">

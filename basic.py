@@ -121,35 +121,37 @@ def icp_info(ip):
         'Host':'icp.chinaz.com',
         'X-Forwarded-For': generate_random_ip()
         }
-    #状态码为200并带http或者https的列表
-    domain_value = httpx_status.status_scan(ip)
+    #历史URL列表
+    domain_value = domain_scan(ip)
     
-    # 提取带cn或者com的列表
+    # 提取带域名后缀以cn或者com的列表，过滤掉IP的URL
     domain_list = []
     for ii in domain_value:
         if 'cn' in ii or 'com' in ii:
             domain_list.append(ii)
-
+    
     # 列表去重
     try:
         domain_list_uniq = list(set(domain_list))
-        domain_list_uniq_value = domain_list_uniq[0]
     except:
         pass
 
-    
+    icp_name_list = []
     if len(domain_list_uniq) == 0:
-        icp_name = "None"
+        icp_name_list.append("None")
     else:
         try:
-            res = requests.get(url+str(ii),headers=hearder,allow_redirects=False)
-            res.encoding = 'utf-8'
-            soup=BeautifulSoup(res.text,'html.parser')
-            soup_td = soup.find_all('td')
-            icp_name = soup_td[25].text
+            for jii in domain_list_uniq:
+                res = requests.get(url+str(jii),headers=hearder,allow_redirects=False)
+                res.encoding = 'utf-8'
+                soup=BeautifulSoup(res.text,'html.parser')
+                soup_td = soup.find_all('td')
+                icp_name = soup_td[25].text
+                icp_name_list.append(icp_name)
         except:
-            icp_name = "接口异常"
-    return icp_name
+            icp_name_list.append("None")
+    icp_name_list_uniq = list(set(icp_name_list))
+    return icp_name_list_uniq
 
 
 # 网站标题
@@ -183,24 +185,30 @@ def title_scan(url_list):
 
 
 # 调用高德地图接口查询公司位置信息
-def amapscan(keyvalue):
-    url = "https://restapi.amap.com/v3/place/text?keywords="+keyvalue+"&offset=20&page=1&key="+gaodekey+"&extensions=all"
+def amapscan(company_list_list):
+   
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
-    try:
-        res = requests.get(url,headers=hearder,allow_redirects=False)
-        res.encoding='utf-8'
-        restext = res.text
-        resdic=json.loads(restext)
-        if keyvalue == "None":
-            companylocation = "None"
-        else:
-            companylocation = resdic['pois'][0]['address']
-        return companylocation
-    except:
-        pass
-
+    company_location_list = []
+    if len(company_list_list) == 0:
+        company_location_list.append("None")
+    else:
+        try:
+            for company in company_list_list:
+                url = "https://restapi.amap.com/v3/place/text?keywords="+company+"&offset=20&page=1&key="+gaodekey+"&extensions=all"
+                res = requests.get(url,headers=hearder,allow_redirects=False)
+                res.encoding='utf-8'
+                restext = res.text
+                resdic=json.loads(restext)
+                companylocation = resdic['pois'][0]['address']
+                company_location_list.append(companylocation)
+        except:
+            company_location_list.append("None")
+    company_location_list_uniq = list(set(company_location_list))
+    return company_location_list_uniq
+      
+    
 
 # 基于证书查询子域名
 def subdomain_scan(domain):
@@ -345,3 +353,5 @@ def cdnscan(domain):
     except:
         pass
     return result
+
+# icp_info()

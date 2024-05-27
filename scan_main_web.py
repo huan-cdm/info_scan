@@ -48,7 +48,7 @@ def ipscaninterface():
         except:
             pass
     
-        #icp备案信息
+        #icp备案信息-列表返回
         try:
             data4 = basic.icp_info(ip)
         except:
@@ -139,11 +139,10 @@ def ipscaninterface():
             pass
     
     
-    
+        # data13=companylocation
         return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
         ,data5=localtion_list_result,data6=port,data7=history_domain,data8=os_type,data9=cdn_list
-        ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation
-        ,data20=str(user))
+        ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation,data20=str(user))
     else:
         return render_template('login.html')
 
