@@ -105,8 +105,8 @@
 	<div class="div-container" style="background-color:#f2f2f2">
 		<div class="inner-div"><strong>历史URL</strong></div>
 		<div class="inner-div"><strong>存活URL</strong></div>
+		<div class="inner-div"><strong>CDN信息</strong></div>
 		<div class="inner-div"><strong>网站标题</strong></div>
-		<div class="inner-div"><strong>CDN信息-存活URL</strong></div>
 		<div class="inner-div"><strong>指纹</strong></div>
 		<div class="inner-div"><strong>子域名</strong></div>
 	</div>
@@ -130,18 +130,18 @@
 			{% endfor %}
 		</div>
 		<div class="inner-div">
-			{% for i10 in data10 %}
-			<tr>
-				<br>
-				<td>{{ i10 }}</td>
-			</tr>
-			{% endfor %}
-		</div>
-		<div class="inner-div">
 			{% for cdnk in data9 %}
 			<tr>
 				<br>
 				<td>{{ cdnk }}</td>
+			</tr>
+			{% endfor %}
+		</div>
+		<div class="inner-div">
+			{% for i10 in data10 %}
+			<tr>
+				<br>
+				<td>{{ i10 }}</td>
 			</tr>
 			{% endfor %}
 		</div>

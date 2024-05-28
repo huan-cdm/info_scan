@@ -23,8 +23,11 @@ hotspot = ["移动数据上网公共出口","中国电信北京研究院"]
 #数据中心
 datacenter = ["公司","数据中心"]
 
-#高德API
-gaodekey = ""
+
+#高德地图API列表(可添加多个key))
+amap_key_list = ["","",""]
+
+
 
 #判断直接扫描URL还是通过调用OTX接口查询的历史URL作为扫描目标
 #history_switch = 1  调用OTX查询历史URL

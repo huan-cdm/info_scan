@@ -1,7 +1,7 @@
 '''
 Description:[系统调用第三方接口模块]
 Author:[huan666]
-Date:[2024/05/25]
+Date:[2024/05/28]
 '''
 # shodan查询模块
 import shodan
@@ -16,7 +16,7 @@ import random
 
 
 # 高德地图
-from config import gaodekey
+from config import amap_key_list
 
 
 # 通用模块
@@ -110,10 +110,10 @@ def generate_random_ip():
     return '.'.join(str(random.randint(0, 255)) for _ in range(4)) 
 
 
-# ICP备案信息查询
+# icp备案查询公司名称
 def icp_info(ip):
     UA = UserAgent()
-    url = "https://icp.chinaz.com/" 
+    url = "https://icp.chinaz.com/"
     hearder = {
         'Cookie':'cz_statistics_visitor=47200924-88b7-cc6f-e817-6e3d3d76af1c; pinghost=pay.it.10086.cn; Hm_lvt_ca96c3507ee04e182fb6d097cb2a1a4c=1707096410,1707902350; _clck=5gzbp1%7C2%7Cfj9%7C0%7C1496; qHistory=Ly9taWNwLmNoaW5hei5jb20vX+e9keermeWkh+ahiOafpeivol/np7vliqh8Ly9pY3AuY2hpbmF6LmNvbS9f572R56uZ5aSH5qGI5p+l6K+i; JSESSIONID=B525D76194927A260AC9E9C0B72B44D2; Hm_lpvt_ca96c3507ee04e182fb6d097cb2a1a4c=1707902454; _clsk=1hj5on3%7C1707902455070%7C6%7C0%7Cw.clarity.ms%2Fcollect',
         'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8',
@@ -186,7 +186,7 @@ def title_scan(url_list):
 
 # 调用高德地图接口查询公司位置信息
 def amapscan(company_list_list):
-   
+    key = random.choice(amap_key_list)
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
@@ -196,13 +196,17 @@ def amapscan(company_list_list):
     else:
         try:
             for company in company_list_list:
-                url = "https://restapi.amap.com/v3/place/text?keywords="+company+"&offset=20&page=1&key="+gaodekey+"&extensions=all"
-                res = requests.get(url,headers=hearder,allow_redirects=False)
-                res.encoding='utf-8'
-                restext = res.text
-                resdic=json.loads(restext)
-                companylocation = resdic['pois'][0]['address']
-                company_location_list.append(companylocation)
+                # 判断公司名为空时公司位置直接返回空
+                if company == "None":
+                    company_location_list.append("None")
+                else:
+                    url = "https://restapi.amap.com/v3/place/text?keywords="+company+"&offset=20&page=1&key="+key+"&extensions=all"
+                    res = requests.get(url,headers=hearder,allow_redirects=False)
+                    res.encoding='utf-8'
+                    restext = res.text
+                    resdic=json.loads(restext)
+                    companylocation = resdic['pois'][0]['address']
+                    company_location_list.append(companylocation)
         except:
             company_location_list.append("None")
     company_location_list_uniq = list(set(company_location_list))
@@ -236,11 +240,21 @@ def subdomain_scan(domain):
         for kk in subdomain_list_result_1:
             if "<A" not in kk:
                 subdomain_list_result_11.append(kk)
-
         return subdomain_list_result_11
-       
+    
     except:
         pass
+
+
+
+# # 通过证书批量查询子域名
+# def batch_subdomain_scan(urls_list):
+#     url_list_result = []
+#     for url in urls_list:
+#         result = subdomain_scan(url)
+#         url_list_result.append(result)
+#     print(url_list_result)
+
 
 
 
