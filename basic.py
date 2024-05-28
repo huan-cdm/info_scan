@@ -45,20 +45,50 @@ from config import fofanum
 # 调用shodan接口查询ip基础信息
 def shodan_api(ip):
     apis = shodan.Shodan(shodankey)
+
+    # fofa接口
+    fofa_first_argv= 'ip=' + ip + ''
+    fofa_first_argv_utf8 = fofa_first_argv.encode('utf-8')
+    fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
+    fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
+    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+fofanum+"&qbase64="
+    hearder={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    }
+
     try:
         result = apis.host(ip)
     except:
         pass
     try:
+        # shodan接口
         port = result['ports']
         port_list = []
         for ii in port:
             port_list.append(ii)
         if len(port_list) == 0:
             port_list.append("NULL")
-        return port_list
+        
+        # fofa接口
+        res = requests.get(url+fofa_argv_str,headers=hearder,allow_redirects=False)
+        res.encoding='utf-8'
+        restext = res.text
+        resdic=json.loads(restext)
+        resdicresult=resdic['results']
+        fofa_port_list = []
+        for ki in resdicresult:
+            fofa_port_list.append(ki[2])
+        
+        fofa_port_list_uniq = list(set(fofa_port_list))
+        if len(fofa_port_list_uniq) == 0:
+            fofa_port_list_uniq.append("NULL")
+
+        total_list = list(set(fofa_port_list_uniq+port_list))
+        return total_list
+        
     except:
         pass
+    
 
 
 # 从目标url中提取ip地址并存到列表
