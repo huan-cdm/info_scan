@@ -41,6 +41,10 @@ from config import fofakey
 from config import fofanum
 
 
+# 提取根域名
+import tldextract  
+
+
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
@@ -205,7 +209,10 @@ def title_scan(url_list):
         
         for url in url_list:
             try:
-                res = requests.get(url,headers=hearder,allow_redirects=False)
+                # 忽略 SSL 验证，可以使用 Session 对象来避免重复设置 verify=False
+                session = requests.Session()  
+                session.verify = False
+                res = session.get(url,headers=hearder,allow_redirects=False)
             except:
                 url_title_list.append("请求出错")
             try:
@@ -282,17 +289,6 @@ def subdomain_scan(domain):
     
     except:
         pass
-
-
-
-# # 通过证书批量查询子域名
-# def batch_subdomain_scan(urls_list):
-#     url_list_result = []
-#     for url in urls_list:
-#         result = subdomain_scan(url)
-#         url_list_result.append(result)
-#     print(url_list_result)
-
 
 
 
@@ -406,4 +402,15 @@ def cdnscan(domain):
         pass
     return result
 
-# icp_info()
+
+# 根域名提取
+def root_domain_scan(domain_list):
+    try:
+        root_domains = []  
+        for url in domain_list:  
+            extract = tldextract.extract(url)  
+            root_domain = f"{extract.domain}.{extract.suffix}"  
+            root_domains.append(root_domain)
+        return root_domains
+    except:
+        pass

@@ -18,6 +18,7 @@ from flask import jsonify
 from config import history_switch
 import report_total
 import pandas as pd
+from basic import root_domain_scan
 
 #主系统账号密码配置导入
 from config import main_username
@@ -107,16 +108,20 @@ def ipscaninterface():
         cdn_list = []
         #定义存放子域名的列表
         subdomain_list_1 = []
+        
+        urls_list_root = root_domain_scan(urls_list)
         for bb in urls_list:
             #cdn存放结果
             cdn_result = basic.cdnscan(bb)
             cdn_list.append(cdn_result)
-    
+
+        for ab in urls_list_root:
             #子域名存放列表
-            subdomain_result = basic.subdomain_scan(bb)
+            subdomain_result = basic.subdomain_scan(ab)
             subdomain_list_1.append(subdomain_result)
         try:
             flattened_list = [item for sublist in subdomain_list_1 for item in sublist]
+            
         except:
             pass
        
