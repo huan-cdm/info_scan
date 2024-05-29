@@ -42,8 +42,9 @@ from config import fofanum
 
 
 
-# 调用shodan接口查询ip基础信息
+# IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
+
     apis = shodan.Shodan(shodankey)
 
     # fofa接口
@@ -68,7 +69,7 @@ def shodan_api(ip):
             port_list.append(ii)
         if len(port_list) == 0:
             port_list.append("NULL")
-        
+
         # fofa接口
         res = requests.get(url+fofa_argv_str,headers=hearder,allow_redirects=False)
         res.encoding='utf-8'
@@ -82,13 +83,20 @@ def shodan_api(ip):
         fofa_port_list_uniq = list(set(fofa_port_list))
         if len(fofa_port_list_uniq) == 0:
             fofa_port_list_uniq.append("NULL")
+        
+        # 列表元素转int型
+        fofa_port_list_uniq_int = []
+        for inti in fofa_port_list_uniq:
+            fofa_port_list_uniq_int.append(int(inti))
 
-        total_list = list(set(fofa_port_list_uniq+port_list))
+        # fofa+shodan列表组合并去重
+        total_list = list(set(fofa_port_list_uniq_int+port_list))
+
         return total_list
         
     except:
         pass
-    
+
 
 
 # 从目标url中提取ip地址并存到列表

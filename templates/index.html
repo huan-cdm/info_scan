@@ -11,8 +11,7 @@
 </head>
 
 <body>
-	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">当前用户：{{data20}}</span><br>
-	<span align="left">注意：根据服务器配置决定开启扫描器数量，扫描前需先将服务器IP添加到白名单中在进行扫描。</span><br><br>
+	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">当前用户：{{data20}}</span><br><br>
 	<table border="1">
 		<tr>
 			<td>
@@ -285,14 +284,15 @@
 			</td>
 			<td>
 				<input type="button" value="文本赋值" onclick="targeturlcopytextareafunc()">
-				<textarea rows="8" cols="110" id="myTextarea">基础数据处理操作说明：
+				<textarea rows="9" cols="110" id="myTextarea">基础数据处理操作说明：
 
 1. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->数据过滤)->文本查看->纯净资产->漏洞扫描集合扫描；
 2. 格式说明：资产添加位置，一行一个资产；
 3. 文本添加、文本查看：资产添加和查看；
 4. 存活检测：资产存活情况探测；
 5. 数据过滤：资产去重处理、提取url为IP组成的资产；
-6. CDN检测：过滤掉部署CDN的资产；</textarea>
+6. CDN检测： 过滤掉部署CDN的资产；
+7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea>
 			</td>
 		</tr>
 	</table>
