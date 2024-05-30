@@ -1,15 +1,14 @@
 '''
-Description:[主系统flask文件]
+Description:[项目核心文件]
 Author:[huan666]
 Date:[2023/11/15]
-update:[2024/3/28]
+update:[2024/5/30]
 '''
 from flask import Flask, render_template,request
 from flask import session
 from flask import redirect
 from flask_bootstrap import Bootstrap
 from flask import send_file
-import httpx_status
 import basic
 import subprocess
 import os
@@ -39,7 +38,7 @@ def ipscaninterface():
         
         #状态码为200的url
         try:
-            data1=httpx_status.status_scan(ip)
+            data1=basic.status_scan(ip)
         except:
             pass
     

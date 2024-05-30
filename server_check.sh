@@ -9,6 +9,8 @@
 	echo "关闭目录扫描引擎：bash server_check.sh stopdirscan"
 	echo "开启链接扫描报告：bash server_check.sh startlinkscanserver"
 	echo "关闭链接扫描报告：bash server_check.sh stoplinkscanserver"
+	echo "开启afrog报告：bash server_check.sh startafrogreportserver"
+	echo "关闭afrog报告：bash server_check.sh stopafrogreportserver"
 	echo "查看服务状态：bash server_check.sh status"
     exit 0  #退出脚本，如果不需要执行其他命令的话
 fi  
@@ -60,6 +62,7 @@ case "${1}" in
     startreportserver)
     cd /TIP/batch_scan_domain/report
     nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
+	echo "xray报告服务已启动"
     ;;
 
     #关闭xray报告访问服务
@@ -73,6 +76,28 @@ case "${1}" in
 		sleep 0.1s
 	done
     ;;
+
+	# 开启afrog报告服务
+	# 本地开启127.0.0.1，利用nginx反向代理
+	startafrogreportserver)
+    cd /TIP/info_scan/afrog_scan/reports
+    nohup python3 -m http.server 8082 --bind 127.0.0.1 > /dev/null 2>&1 &
+	echo "afrog报告服务已启动"
+    ;;
+
+
+	# 关闭afrog报告服务
+	stopafrogreportserver)
+    afpid=`ps -aux | grep 8082 |awk -F " " '{print $2}'`
+    
+    for ii in ${afpid}
+	do
+		echo ".正在结束进程${ii}"
+		kill -9 ${ii}
+		sleep 0.1s
+	done
+    ;;
+
 
 	#kill rad和xray引擎
 	killscan)
@@ -96,10 +121,11 @@ case "${1}" in
 
 	#服务运行状态
 	status)
-	infopid=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}' | wc -l`
+	infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
 	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
 	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
 	dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
+	afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
 	sleep 0.5s
 	#infoscan运行状态
 	if (( $infopid > 1 ))
@@ -132,6 +158,15 @@ case "${1}" in
 	else
 		echo -e "目录扫描：" "\033[31mX\033[0m"
 	fi
+	sleep 0.5s
+
+	# afrog服务状态
+	if (( $afrogpid > 1 ))
+	then
+		echo -e "afrogreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "afrogreport：" "\033[31mX\033[0m"
+	fi
 	;;
 
 
@@ -142,6 +177,7 @@ case "${1}" in
     startlinkscanserver)
     cd /TIP/info_scan/urlfinder_server/report
     nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
+	echo "链接扫描报告服务已启动"
     ;;
 
 	#关闭链接扫描报告访问服务

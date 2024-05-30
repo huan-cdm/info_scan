@@ -1,5 +1,5 @@
 '''
-Description:[系统调用第三方接口模块]
+Description:[系统调用第三方接口文件]
 Author:[huan666]
 Date:[2024/05/28]
 '''
@@ -10,7 +10,6 @@ import queue
 import subprocess 
 
 # icp备案查询
-import httpx_status
 from fake_useragent import UserAgent
 import random
 
@@ -294,7 +293,7 @@ def subdomain_scan(domain):
 
 # 指纹识别接口
 def finger_scan(ip1):
-    result = httpx_status.status_scan(ip1)
+    result = status_scan(ip1)
     finger_list = []
     for i in result:
         result = os.popen('bash ./finger.sh finger'+''+' '+i).read()
@@ -414,3 +413,28 @@ def root_domain_scan(domain_list):
         return root_domains
     except:
         pass
+
+
+# 提取状态码为200的url
+def status_scan(ip1):
+
+    domain_list = domain_scan(ip1)
+    f = open(file='./result/domain.txt', mode='w')
+    for k in domain_list:
+        f.write(str(k)+"\n")
+    f.close()
+
+    #判断状态码为200的url
+    output = subprocess.check_output(["sh", "./httpxstatus.sh"], stderr=subprocess.STDOUT)
+    output_list = output.decode().splitlines()
+    
+    #提取带http关键字的字符串
+    status_code_list = []
+    for ii in output_list:
+        if "http" in ii:
+            status_code_list.append(ii)
+    
+    if len(status_code_list) == 0:
+        status_code_list.append("None")
+
+    return status_code_list
