@@ -825,3 +825,20 @@ function targeturlcopytextareafunc() {
     });
 
 }
+
+
+//afrog报告预览
+function afrogreportfun() {
+    window.open("http://ip:15555/", "_blank");
+}
+
+
+//ceye dns记录
+function ceyednsfunc() {
+    window.open("/ceye_dns_record/", "_blank");
+}
+
+//ceye http记录
+function ceyehttpfunc() {
+    window.open("/ceye_http_record/", "_blank");
+}

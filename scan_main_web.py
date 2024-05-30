@@ -18,6 +18,7 @@ from config import history_switch
 import report_total
 import pandas as pd
 from basic import root_domain_scan
+from config import ceye_key
 
 #主系统账号密码配置导入
 from config import main_username
@@ -792,6 +793,29 @@ def url_list_textarea_show():
             "textvalue":textvalue
         }
         return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+#ceye_dns记录
+@app.route("/ceye_dns_record/")
+def ceye_dns_record():
+    user = session.get('username')
+    if str(user) == main_username:
+        result = os.popen('bash ./finger.sh ceye_dns'+' '+ceye_key).read()
+        return result
+    else:
+        return render_template('login.html')
+
+
+
+#ceye_http记录
+@app.route("/ceye_http_record/")
+def ceye_http_record():
+    user = session.get('username')
+    if str(user) == main_username:
+        result = os.popen('bash ./finger.sh ceye_http'+' '+ceye_key).read()
+        return result
     else:
         return render_template('login.html')
 

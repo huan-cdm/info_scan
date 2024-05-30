@@ -28,6 +28,8 @@ datacenter = ["公司","数据中心"]
 amap_key_list = ["","",""]
 
 
+# ceye_key配置
+ceye_key = ""
 
 #判断直接扫描URL还是通过调用OTX接口查询的历史URL作为扫描目标
 #history_switch = 1  调用OTX查询历史URL

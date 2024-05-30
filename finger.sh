@@ -387,6 +387,27 @@ case "${1}" in
 		echo "vulmap_scan状态：停止"
 	fi
 	;;
+
+    # ceye_dns记录
+    ceye_dns)
+    ceye_dns_result=`curl -s "http://api.ceye.io/v1/records?token=${2}&type=dns"`
+    if [ -n "${ceye_dns_result}" ];then
+        echo "${ceye_dns_result}"
+    else
+        echo "Error: Failed to retrieve CEYE DNS records." 
+    fi
+    ;;
+
+
+    # ceye_http记录
+    ceye_http)
+    ceye_http_result=`curl -s "http://api.ceye.io/v1/records?token=${2}&type=http"`
+    if [ -n "${ceye_http_result}" ];then
+        echo "${ceye_http_result}"
+    else
+        echo "Error: Failed to retrieve CEYE HTTP records." 
+    fi
+    ;;
     
 esac
 
