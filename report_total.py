@@ -1,10 +1,11 @@
 '''
 Description:[整合扫描器报告存入到vuln_report.xlsx中]
 Author:[huan666]
-Date:[2024/05/01]
+Date:[2024/05/31]
 pip install pandas openpyxl
 '''
 import pandas as pd
+from config import ceye_key
 import os
 import re
 
@@ -61,22 +62,6 @@ def report_xlsx():
     subdomain_file = open("/TIP/info_scan/result/subdomain.txt",encoding='utf-8')
     for subdomain_line in subdomain_file.readlines():
         subdomain_report_list.append(subdomain_line.strip())
-    
-    '''
-    # 使用正则表达式匹配并提取URL  
-    pattern = r'(https?://\S+)'  
-  
-    # 使用列表推导式提取URL，并检查它们是否以http://或https://开头  
-    urls = [match.group(1) for entry in nuclei_report_list for match in re.finditer(pattern, entry) if match.group(1).startswith(('http://', 'https://'))]  
-  
-    #  nuclei 以http://或者https://开头的字符串，其余删除
-    nuclei_report_list_new = []
-    for url in urls:  
-        nuclei_report_list_new.append(url)
-
-    # 列表去重
-    nuclei_report_list_uniq = list(set(nuclei_report_list_new))
-    '''
 
     # vulmap
     vulmap_report_list = []
@@ -87,6 +72,22 @@ def report_xlsx():
         cleanq_text = patternq.sub('', vulmap_line)
         vulmap_report_list.append(cleanq_text.strip())
 
+    # xray
+    xray_report_list = ["xray_poc-->预览报告-->查看报告"]
+    
+    # urlfinder
+    urlfinder_report_list = ["目录扫描-->预览报告-->查看报告"]
+
+    # afrog
+    afrog_report_list = ["afrog_poc-->预览报告-->查看报告"]
+
+    # ceye_dns
+    ceye_dns = os.popen('bash ./finger.sh ceye_dns'+' '+ceye_key).read()
+    ceye_dns_list = [ceye_dns]
+
+    # ceye_dns
+    ceye_http = os.popen('bash ./finger.sh ceye_http'+' '+ceye_key).read()
+    ceye_http_list = [ceye_http]
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -97,6 +98,11 @@ def report_xlsx():
     df_f = pd.DataFrame(bbscan_report_list, columns=['敏感信息'])
     df_g = pd.DataFrame(subdomain_report_list, columns=['子域名'])
     df_h = pd.DataFrame(vulmap_report_list, columns=['vulmap'])
+    df_i = pd.DataFrame(xray_report_list, columns=['xray'])
+    df_j = pd.DataFrame(urlfinder_report_list, columns=['urlfinder'])
+    df_k = pd.DataFrame(afrog_report_list, columns=['afrog'])
+    df_l = pd.DataFrame(ceye_dns_list, columns=['ceye_dns'])
+    df_m = pd.DataFrame(ceye_http_list, columns=['ceye_http'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -109,3 +115,8 @@ def report_xlsx():
         df_f.to_excel(writer, sheet_name='敏感信息', index=False)
         df_g.to_excel(writer, sheet_name='子域名', index=False)
         df_h.to_excel(writer, sheet_name='vulmap', index=False)
+        df_i.to_excel(writer, sheet_name='xray', index=False)
+        df_j.to_excel(writer, sheet_name='urlfinder', index=False)
+        df_k.to_excel(writer, sheet_name='afrog', index=False)
+        df_l.to_excel(writer, sheet_name='ceye_dns', index=False)
+        df_m.to_excel(writer, sheet_name='ceye_http', index=False)

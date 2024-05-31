@@ -34,14 +34,14 @@ batch_scan_domain：xray+rad批量漏扫项目，可shell下运行，通过info_
 
 
 判断规则说明：<br>
-IP(位置): 调用cip.cc查询位置。
+IP(位置): 调用cip.cc查询位置。<br>
 
-IP(属性): 自定义列表,遍历列表和cip.cc的数据二进行对比
+IP(属性): 自定义列表,遍历列表和cip.cc的数据二进行对比<br>
 #带宽出口列表
-exitaddress = ["移动","电信","联通"]
+exitaddress = ["移动","电信","联通"]<br>
 
 #手机热点
-hotspot = ["移动数据上网公共出口","中国电信北京研究院"]
+hotspot = ["移动数据上网公共出口","中国电信北京研究院"]<br>
 
 #数据中心
 datacenter = ["公司","数据中心"] <br>
@@ -68,3 +68,5 @@ struts2扫描：调用Struts2-Scan <br>
 指纹识别：调用EHole <br>
 敏感信息：调用BBScan <br>
 综合漏洞扫描：调用vulmap <br>
+综合漏洞扫描：调用afrog <br>
+DNS平台：调用ceye.io <br>
