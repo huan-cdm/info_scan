@@ -17,8 +17,8 @@
 			<td>
 				<input type="submit" value="全局模块：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="刷新系统" onclick="fanhui()">
-				<input type="button" value="启用按钮" onclick="startbutton()">
-				<input type="button" value="禁用按钮" onclick="stopbutton()">
+				<input type="button" value="解锁按钮" onclick="startbutton()">
+				<input type="button" value="锁定按钮" onclick="stopbutton()">
 				<input type="button" value="报告整合" onclick="reporttotalfunc()">
 				<input type="button" value="报告下载" onclick="reportdownloadfunc()">
 				<input type="button" value="服务状态" onclick="statusnmapfunc()" >
@@ -161,7 +161,7 @@
 				<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()" disabled>
 				<input type="button" id="button21" value="链接扫描" onclick="urlfinderscanfunc()" disabled>
 				<input type="button" id="button22" value="预览报告" onclick="urlfinderreportshow()" disabled>
-				<input type="button" id="button23" value="报告删除" onclick="deleteurlfinderreportfunc()" disabled>
+				<input type="button" id="button23" value="删除报告" onclick="deleteurlfinderreportfunc()" disabled>
 			</td>
 
 		</tr>
@@ -176,7 +176,7 @@
 				<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
 				<input type="button" id="button37" value="程序启动" onclick="batchnmapportscanfunc()" disabled>
-				<input type="button" id="button10" value="报告删除" onclick="deletenmapfunc()" disabled>
+				<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
 			</td>
 
 		</tr>
@@ -189,7 +189,7 @@
 			<td>
 				<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button13" value="预览报告" onclick="xrayreportshow()" disabled>
-				<input type="button" id="button14" value="报告删除" onclick="xrayreportdelete()" disabled>
+				<input type="button" id="button14" value="删除报告" onclick="xrayreportdelete()" disabled>
 				<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()" disabled>
 				<input type="button" id="button16" value="启动程序" onclick="startradandxray()" disabled>
 			</td>
@@ -222,8 +222,8 @@
 			<td>
 				<input type="submit"  value="vulmap_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
-				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
-				<select name="vulnname">s
+				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled><br><br>
+				<select name="vulnname">
 					<option value="all">测试所有漏洞 poc 不指定将默认开启指纹识别</option>
 					<option value="activemq">检查站点是否存在activemq漏洞</option>
 					<option value="flink">检查站点是否存在flink漏洞</option>
@@ -258,9 +258,13 @@
 			</td>
 			<td>
 				<input type="submit"  value="afrog_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button"  value="预览报告" onclick="afrogreportfun()">
-				<input type="button"  value="CEYE-DNS" onclick="ceyednsfunc()">
-				<input type="button"  value="CEYE-HTTP" onclick="ceyehttpfunc()">
+				<input type="button" id="button40" value="预览报告" onclick="afrogreportfun()" disabled>
+				<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
+				<input type="button" id="button42" value="启动程序" onclick="startafrogfunc()" disabled>
+				<input type="button" id="button43" value="结束进程" onclick="killafrogprocessfunc()" disabled><br><br>
+				<input type="submit"  value="反链平台：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button44" value="CEYE-DNS" onclick="ceyednsfunc()" disabled>
+				<input type="button" id="button45" value="CEYE-HTTP" onclick="ceyehttpfunc()" disabled>
 			</td>
 		</tr>
 	</table>

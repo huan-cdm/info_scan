@@ -17,7 +17,7 @@
 
 
 		input[type="submit"] {
-		    background-color:lightseagreen;
+		    background-color:rgb(32, 178, 171);
 		    border-radius: 3px;
 		    -webkit-transition: all linear 0.30s;
 		    -moz-transition: all linear 0.30s;
@@ -28,7 +28,7 @@
 		}
 
 		input[type="button"] {
-		    background-color:darkorange;
+		    background-color:#35a5e5;
 		    border-radius: 3px;
 		    -webkit-transition: all linear 0.30s;
 		    -moz-transition: all linear 0.30s;
@@ -51,7 +51,7 @@
 		}
 
 		input[type="button"]:hover {
-		    background-color: rgb(33, 207, 33);
+		    background-color: rgb(207, 100, 33);
 			cursor: pointer;
 		}
 

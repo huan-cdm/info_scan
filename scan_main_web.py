@@ -326,6 +326,7 @@ def nmapqueuestatus():
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
         bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
         vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
+        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -335,7 +336,8 @@ def nmapqueuestatus():
             "weblogicstatus":weblogicstatus,
             "struts2status":struts2status,
             "bbscanstatus":bbscanstatus,
-            "vulmapscanstatus":vulmapscanstatus
+            "vulmapscanstatus":vulmapscanstatus,
+            "afrogscanstatus":afrogscanstatus
         }
         return jsonify(message_json)
     else:
@@ -818,6 +820,43 @@ def ceye_http_record():
         return result
     else:
         return render_template('login.html')
+    
+
+#清空afrog报告
+@app.route("/deleteafrogreport/")
+def deleteafrogreport():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('rm -rf /TIP/info_scan/afrog_scan/reports/*')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
+
+#启动afrog漏扫程序
+@app.route("/startafrogscanprocess/",methods=['get'])
+def startafrogscanprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            os.popen('bash ./finger.sh startafrogprocess')
+            return render_template('index.html')
+        except Exception as e:
+            print("捕获到异常:", e)
+    else:
+        return render_template('login.html')
+
+
+#结束afrog进程
+@app.route("/killafrogprocess/")
+def killafrogprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killafrog')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
 
 
 if __name__ == '__main__':  

@@ -408,6 +408,36 @@ case "${1}" in
         echo "Error: Failed to retrieve CEYE HTTP records." 
     fi
     ;;
+
+    # 启动afrog程序
+    startafrogprocess)
+    cd /TIP/info_scan/afrog_scan/  
+    if [ -f ./afrog ]; then  
+        ./afrog -T /TIP/batch_scan_domain/url.txt | grep "http" > /TIP/info_scan/result/afrog_vuln.txt  
+    else  
+        echo "Error: afrog not found in /TIP/info_scan/afrog_scan/"  
+    fi  
+    ;;
+
+    # afrog运行状态
+    afrogscan_status)
+	ps_afrogscan=`ps -aux | grep startafrogprocess | wc -l`
+	if (( $ps_afrogscan > 1 ))
+	then
+		echo "afrog_scan状态：运行中"
+	else
+		echo "afrog_scan状态：停止"
+	fi
+	;;
+
+    #kill afrog进程
+    killafrog)
+	pidd=`ps -aux | grep "afrog" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
     
 esac
 

@@ -44,7 +44,7 @@ function deletenmapfunc() {
 }
 
 
-//ajax异步查询队列状态
+//ajax异步查询扫描器状态
 function statusnmapfunc() {
     $.ajax({
         url: '/nmapqueuestatus/',
@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus)
         })
 }
 
@@ -356,6 +356,18 @@ function startbutton() {
     button38.disabled = false;
     var button39 = document.getElementById("button39");
     button39.disabled = false;
+    var button40 = document.getElementById("button40");
+    button40.disabled = false;
+    var button41 = document.getElementById("button41");
+    button41.disabled = false;
+    var button42 = document.getElementById("button42");
+    button42.disabled = false;
+    var button43 = document.getElementById("button43");
+    button43.disabled = false;
+    var button44 = document.getElementById("button44");
+    button44.disabled = false;
+    var button45 = document.getElementById("button45");
+    button45.disabled = false;
 
 }
 
@@ -433,6 +445,18 @@ function stopbutton() {
     button38.disabled = true;
     var button39 = document.getElementById("button39");
     button39.disabled = true;
+    var button40 = document.getElementById("button40");
+    button40.disabled = true;
+    var button41 = document.getElementById("button41");
+    button41.disabled = true;
+    var button42 = document.getElementById("button42");
+    button42.disabled = true;
+    var button43 = document.getElementById("button43");
+    button43.disabled = true;
+    var button44 = document.getElementById("button44");
+    button44.disabled = true;
+    var button45 = document.getElementById("button45");
+    button45.disabled = true;
 
 }
 
@@ -841,4 +865,61 @@ function ceyednsfunc() {
 //ceye http记录
 function ceyehttpfunc() {
     window.open("/ceye_http_record/", "_blank");
+}
+
+//ajax异步删除afrog报告
+function deleteafrogreportfunc() {
+    $.ajax({
+        url: '/deleteafrogreport/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已删除afrog报告')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已删除afrog报告')
+        }
+    })
+}
+
+
+//启动afrog漏扫接口
+function startafrogfunc() {
+    
+    $.ajax({
+        url: '/startafrogscanprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('afrog漏扫程序已启动稍后查看扫描结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('afrog漏扫程序已启动稍后查看扫描结果')
+        }
+    })
+}
+
+
+//ajax异步结束afrog进程
+function killafrogprocessfunc() {
+    $.ajax({
+        url: '/killafrogprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已结束afrog进程')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已结束afrog进程')
+        }
+    })
 }
