@@ -63,6 +63,7 @@ def report_xlsx():
     for subdomain_line in subdomain_file.readlines():
         subdomain_report_list.append(subdomain_line.strip())
 
+
     # vulmap
     vulmap_report_list = []
     vulmap_file = open("/TIP/info_scan/result/vulmapscan_info.txt",encoding='utf-8')

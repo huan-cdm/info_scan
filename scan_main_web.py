@@ -701,16 +701,30 @@ def batch_show_subdomain():
         for j in url_list:
             domain_re = re.findall("https?://([^/]+)",j)
             domain_list.append(domain_re)
-        domain_list_final = []
+        
+        domain_list_final_1 = []
         for k in domain_list:
-            domain_list_final.append(k[0])
+            try:
+                domain_list_final_1.append(k[0])
+            except:
+                pass
 
-        # 遍历域名在调用子域名查询接口
+        
+        domain_list_final = root_domain_scan(domain_list_final_1)
+
+        subdomain_list = []
+        for ll in domain_list_final:
+            subdomain = basic.subdomain_scan(ll)
+            subdomain_list.append(subdomain)
+        
+        subdomain_list_all = []
+        for item in subdomain_list:
+            subdomain_list_all.extend(item)
+        
+        # 列表存入文件中
         f = open(file='/TIP/info_scan/result/subdomain.txt',mode='w')
-        for l in domain_list_final:
-
-            subdomain = basic.subdomain_scan(l)
-            f.write(str(subdomain)+"\n")
+        for lie in subdomain_list_all:
+            f.write(str(lie)+"\n")
 
         return render_template('index.html')
     else:
