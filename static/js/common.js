@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus+ '\n' +info.fscanstatus)
         })
 }
 
@@ -368,6 +368,12 @@ function startbutton() {
     button44.disabled = false;
     var button45 = document.getElementById("button45");
     button45.disabled = false;
+    var button46 = document.getElementById("button46");
+    button46.disabled = false;
+    var button47 = document.getElementById("button47");
+    button47.disabled = false;
+    var button48 = document.getElementById("button48");
+    button48.disabled = false;
 
 }
 
@@ -457,6 +463,12 @@ function stopbutton() {
     button44.disabled = true;
     var button45 = document.getElementById("button45");
     button45.disabled = true;
+    var button46 = document.getElementById("button46");
+    button46.disabled = true;
+    var button47 = document.getElementById("button47");
+    button47.disabled = true;
+    var button48 = document.getElementById("button48");
+    button48.disabled = true;
 
 }
 
@@ -567,35 +579,36 @@ function filtercdndatafunc() {
 }
 
 //一键处理
-function oneclickprocessing() {
-    var button19 = document.getElementById("button19");
-    var button20 = document.getElementById("button20");
-    var button24 = document.getElementById("button24");
-    var button17 = document.getElementById("button17");
+// function oneclickprocessing() {
+//     var button19 = document.getElementById("button19");
+//     var button20 = document.getElementById("button20");
+//     var button24 = document.getElementById("button24");
+//     var button17 = document.getElementById("button17");
 
-    button19.disabled = false;
-    button20.disabled = false;
-    button24.disabled = false;
-    button17.disabled = false;
-    // 定义一个函数来模拟点击并安排下一次点击（如果有的话）  
-    function simulateClickAndSleep(buttons, index, interval) {
-        // 如果索引在按钮数组范围内，则模拟点击并安排下一次点击  
-        if (index < buttons.length) {
-            // 模拟点击当前按钮  
-            buttons[index].click();
-            console.log('Clicked button ' + (index + 1));
+//     button19.disabled = false;
+//     button20.disabled = false;
+//     button24.disabled = false;
+//     button17.disabled = false;
+//     // 定义一个函数来模拟点击并安排下一次点击（如果有的话）  
+//     function simulateClickAndSleep(buttons, index, interval) {
+//         // 如果索引在按钮数组范围内，则模拟点击并安排下一次点击  
+//         if (index < buttons.length) {
+//             // 模拟点击当前按钮  
+//             buttons[index].click();
+//             console.log('Clicked button ' + (index + 1));
 
-            // 休眠interval毫秒后，安排下一次点击  
-            setTimeout(function () {
-                simulateClickAndSleep(buttons, index + 1, interval);
-            }, interval);
-        }
-    }
+//             // 休眠interval毫秒后，安排下一次点击  
+//             setTimeout(function () {
+//                 simulateClickAndSleep(buttons, index + 1, interval);
+//             }, interval);
+//         }
+//     }
 
-    // 开始模拟点击，从第一个按钮开始，每次点击后休眠10000毫秒（10秒）  
-    var buttonsToClick = [button20, button24, button19, button17];
-    simulateClickAndSleep(buttonsToClick, 0, 10000); // 第一个参数是按钮数组，第二个参数是开始索引，第三个参数是休眠时间（毫秒）
-}
+//     // 开始模拟点击，从第一个按钮开始，每次点击后休眠10000毫秒（10秒）  
+//     var buttonsToClick = [button20, button24, button19, button17];
+//     simulateClickAndSleep(buttonsToClick, 0, 10000); // 第一个参数是按钮数组，第二个参数是开始索引，第三个参数是休眠时间（毫秒）
+// }
+
 
 //资产回退
 function assetsbackspacefunc() {
@@ -920,6 +933,50 @@ function killafrogprocessfunc() {
         },
         complete: function () {
             alert('已结束afrog进程')
+        }
+    })
+}
+
+
+//fscan扫描结果预览
+function fscanreprtfunc() {
+    window.open("/fscanreportyulan/");
+}
+
+//批量fscan漏洞扫描
+function batchfscanvulnfunc() {
+    $.ajax({
+        url: '/startfcsaninterface/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            alert('fscan扫描已加入队列中稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('fscan扫描已加入队列中稍后查看结果')
+        }
+    })
+}
+
+
+//ajax异步结束fscan进程
+function killfscanprocessfunc() {
+    $.ajax({
+        url: '/killfscangprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已结束fscan进程')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已结束fscan进程')
         }
     })
 }

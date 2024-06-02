@@ -69,4 +69,5 @@ struts2扫描：调用Struts2-Scan <br>
 敏感信息：调用BBScan <br>
 综合漏洞扫描：调用vulmap <br>
 综合漏洞扫描：调用afrog <br>
+综合漏洞扫描：调用fscan <br>
 DNS平台：调用ceye.io <br>

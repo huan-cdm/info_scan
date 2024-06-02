@@ -312,7 +312,7 @@ def startnuclei():
    
 
 
-#nmap扫描队列和nuclei、xray运行状态
+#扫描器运行状态
 @app.route("/nmapqueuestatus/")
 def nmapqueuestatus():
     user = session.get('username')
@@ -327,6 +327,7 @@ def nmapqueuestatus():
         bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
         vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
         afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
+        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -337,7 +338,8 @@ def nmapqueuestatus():
             "struts2status":struts2status,
             "bbscanstatus":bbscanstatus,
             "vulmapscanstatus":vulmapscanstatus,
-            "afrogscanstatus":afrogscanstatus
+            "afrogscanstatus":afrogscanstatus,
+            "fscanstatus":fscanstatus
         }
         return jsonify(message_json)
     else:
@@ -872,6 +874,47 @@ def killafrogprocess():
         return render_template('login.html')
 
 
+#fscan报告预览
+@app.route("/fscanreportyulan/")
+def fscanreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('./result/fscan_vuln.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#启动fscan程序
+@app.route("/startfcsaninterface/")
+def startfcsaninterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 删除历史fscan扫描数据
+        os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
+
+        try:
+            basic.batch_fscan_interface()
+        except Exception as e:
+            print("捕获到异常:", e)
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+#结束fscan进程
+@app.route("/killfscangprocess/")
+def killfscangprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killfscan')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

@@ -439,6 +439,40 @@ case "${1}" in
     done
 	;;
     
+    
+
+    # 启动fscan扫描程序
+    startfscanprocess)
+    cd /TIP/info_scan/fscan_tool/  
+    if [ -f ./fscan ]; then  
+        # grep -vE  过滤多个参数
+        # ./fscan -h $2 -nopoc | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
+        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
+    else  
+        echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"  
+    fi  
+    ;;
+
+    #kill fscan进程
+    killfscan)
+	pidd=`ps -aux | grep "fscan" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
+
+    # fscan运行状态
+    fscan_status)
+	ps_fscanscan=`ps -aux | grep startfscanprocess | wc -l`
+	if (( $ps_fscanscan > 1 ))
+	then
+		echo "fscan_scan状态：运行中"
+	else
+		echo "fscan_scan状态：停止"
+	fi
+	;;
+
 esac
 
 

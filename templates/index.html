@@ -222,7 +222,7 @@
 			<td>
 				<input type="submit"  value="vulmap_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
-				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled><br><br>
+				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
 				<select name="vulnname">
 					<option value="all">测试所有漏洞 poc 不指定将默认开启指纹识别</option>
 					<option value="activemq">检查站点是否存在activemq漏洞</option>
@@ -254,7 +254,13 @@
 					<option value="eyou">检查站点是否存在eyou漏洞</option>
 					<option value="qianxin">检查站点是否存在qianxin漏洞</option>
 					<option value="ruijie">检查站点是否存在ruijie漏洞</option>
-				  </select>
+				  </select><br><br>
+				
+				  <input type="submit"  value="fscan_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+				  <input type="button"  id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
+				  <input type="button"  id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
+				  <input type="button"  id="button48" value="结束进程" onclick="killfscanprocessfunc()" disabled>
+				
 			</td>
 			<td>
 				<input type="submit"  value="afrog_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -277,7 +283,8 @@
 				<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
 				<input type="button" id="button20" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()" disabled>
 				<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled>
-				<input type="button" id="button2" value="一键处理" onclick="oneclickprocessing()" disabled> <br>
+				<!-- <input type="button" id="button2" value="一键处理" onclick="oneclickprocessing()" disabled>  -->
+				<input type="button" id="button2"  value="文本框赋值" onclick="targeturlcopytextareafunc()" disabled><br>
 				<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()" disabled>
 	<select id="opbyid3">
 		<option>文本内容展示</option>
@@ -293,7 +300,6 @@
 	</select>
 			</td>
 			<td>
-				<input type="button" value="文本赋值" onclick="targeturlcopytextareafunc()">
 				<textarea rows="9" cols="110" id="myTextarea">基础数据处理操作说明：
 
 1. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->数据过滤)->文本查看->纯净资产->漏洞扫描集合扫描；

@@ -438,3 +438,29 @@ def status_scan(ip1):
         status_code_list.append("None")
 
     return status_code_list
+
+
+# fscan批量扫描
+def batch_fscan_interface():
+    ip_list = url_convert_ip()
+    f = open(file='/TIP/info_scan/fscan_tool/ip.txt', mode='w')
+    for k in ip_list:
+        f.write(str(k)+"\n")
+    f.close()
+    try:
+        os.popen('bash /TIP/info_scan/finger.sh startfscanprocess')
+    except Exception as e:
+            print("捕获到异常:", e)
+
+
+# 列表存入到队列中用于fscan扫描
+# def ip_queue_fscan():
+#     # 创建一个空队列
+#     q = queue.Queue()
+#     ip_list = url_convert_ip()
+#     for item in ip_list:
+#         q.put(item)
+#     # 取出并打印队列中的所有元素（先进先出）  
+#     while not q.empty():  
+#         ip_queue = q.get()
+#         result = subprocess.run(["sh", "./finger.sh","startfscanprocess",ip_queue], stdout=subprocess.PIPE)
