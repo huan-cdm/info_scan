@@ -1,7 +1,7 @@
 注意：<br>
 保证系统正常运行需要2个项目：<br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
-- [batch_scan_domain](hhttps://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
+- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 
 项目部署截图
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"  />
