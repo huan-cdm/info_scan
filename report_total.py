@@ -96,6 +96,27 @@ def report_xlsx():
     fscan_file = open("/TIP/info_scan/result/fscan_vuln.txt",encoding='utf-8')
     for fscan_line in fscan_file.readlines():
         fscan_report_list.append(fscan_line.strip())
+
+
+    # shiro报告
+    lines = []
+    with open('/TIP/info_scan/result/shiro_vuln.txt', 'r') as f:
+        for line in f:
+            lines.append(line.strip())    
+     #文件结果优化展示
+    liness = []
+    for line1 in lines:
+        #页面显示优化
+        pattern = re.compile(r'\x1b\[[0-9;]*m')
+        clean_text = pattern.sub('', line1)
+        liness.append(clean_text)
+    # 使用列表推导式创建一个新列表，其中不包含以'Checking :'开头的元素  
+    filtered_list = [item for item in liness if not item.startswith('Checking :')]
+    filtered_list_new = []
+    for fi in filtered_list:
+        result = fi.replace("","")
+        filtered_list_new.append(result)    
+
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -112,6 +133,7 @@ def report_xlsx():
     df_l = pd.DataFrame(ceye_dns_list, columns=['ceye_dns'])
     df_m = pd.DataFrame(ceye_http_list, columns=['ceye_http'])
     df_n = pd.DataFrame(fscan_report_list, columns=['fscan'])
+    df_o = pd.DataFrame(filtered_list_new, columns=['shiro'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -130,3 +152,4 @@ def report_xlsx():
         df_l.to_excel(writer, sheet_name='ceye_dns', index=False)
         df_m.to_excel(writer, sheet_name='ceye_http', index=False)
         df_n.to_excel(writer, sheet_name='fscan', index=False)
+        df_o.to_excel(writer, sheet_name='shiro', index=False)
