@@ -25,6 +25,7 @@ import os
 import base64
 import requests
 from bs4 import BeautifulSoup
+import time
 
 
 # IP属性判断
@@ -453,14 +454,14 @@ def batch_fscan_interface():
             print("捕获到异常:", e)
 
 
-# 列表存入到队列中用于fscan扫描
-# def ip_queue_fscan():
-#     # 创建一个空队列
-#     q = queue.Queue()
-#     ip_list = url_convert_ip()
-#     for item in ip_list:
-#         q.put(item)
-#     # 取出并打印队列中的所有元素（先进先出）  
-#     while not q.empty():  
-#         ip_queue = q.get()
-#         result = subprocess.run(["sh", "./finger.sh","startfscanprocess",ip_queue], stdout=subprocess.PIPE)
+# shiro漏洞扫描
+def shiro_scan():
+    # 清空上一次扫描结果
+    os.popen('rm -rf /TIP/info_scan/result/shiro_vuln.txt')
+    # 遍历url列表
+    url_list = url_file_ip_list()
+    try:
+        for i in url_list:
+            os.popen('bash /TIP/info_scan/finger.sh shiro_scan'+' '+str(i)+'')
+    except Exception as e:
+        print("捕获到异常:", e)

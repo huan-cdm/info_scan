@@ -328,6 +328,7 @@ def nmapqueuestatus():
         vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
         afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
         fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
+        shirostatus = os.popen('bash ./finger.sh shiro_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -339,7 +340,8 @@ def nmapqueuestatus():
             "bbscanstatus":bbscanstatus,
             "vulmapscanstatus":vulmapscanstatus,
             "afrogscanstatus":afrogscanstatus,
-            "fscanstatus":fscanstatus
+            "fscanstatus":fscanstatus,
+            "shirostatus":shirostatus
         }
         return jsonify(message_json)
     else:
@@ -911,6 +913,49 @@ def killfscangprocess():
     user = session.get('username')
     if str(user) == main_username:
         os.popen('bash ./finger.sh killfscan')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
+
+
+#shiro报告预览
+@app.route("/shiro_report_show/")
+def shiro_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('/TIP/info_scan/result/shiro_vuln.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+
+         #文件结果优化展示
+        liness = []
+        for line1 in lines:
+            #页面显示优化
+            pattern = re.compile(r'\x1b\[[0-9;]*m')
+            clean_text = pattern.sub('', line1)
+            liness.append(clean_text)
+        # 使用列表推导式创建一个新列表，其中不包含以'Checking :'开头的元素  
+        filtered_list = [item for item in liness if not item.startswith('Checking :')]
+        filtered_list_new = []
+        for fi in filtered_list:
+            result = fi.replace("","")
+            filtered_list_new.append(result)
+        return '<br>'.join(filtered_list_new)
+    else:
+        return render_template('login.html')
+
+
+#启动shiro程序
+@app.route("/startshirointerface/")
+def startshirointerface():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            basic.shiro_scan()
+        except Exception as e:
+            print("捕获到异常:", e)
         return render_template('index.html')
     else:
         return render_template('login.html')

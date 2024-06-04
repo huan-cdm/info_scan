@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus+ '\n' +info.fscanstatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus+ '\n' +info.fscanstatus+ '\n' +info.shirostatus)
         })
 }
 
@@ -374,6 +374,10 @@ function startbutton() {
     button47.disabled = false;
     var button48 = document.getElementById("button48");
     button48.disabled = false;
+    var button49 = document.getElementById("button49");
+    button49.disabled = false;
+    var button50 = document.getElementById("button50");
+    button50.disabled = false;
 
 }
 
@@ -469,6 +473,10 @@ function stopbutton() {
     button47.disabled = true;
     var button48 = document.getElementById("button48");
     button48.disabled = true;
+    var button49 = document.getElementById("button49");
+    button49.disabled = true;
+    var button50 = document.getElementById("button50");
+    button50.disabled = true;
 
 }
 
@@ -951,13 +959,13 @@ function batchfscanvulnfunc() {
 
         success: function (res) {
             console.log(res)
-            alert('fscan扫描已加入队列中稍后查看结果')
+            alert('fscan漏扫程序已启动稍后查看结果')
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('fscan扫描已加入队列中稍后查看结果')
+            alert('fscan漏扫程序已启动稍后查看结果')
         }
     })
 }
@@ -977,6 +985,32 @@ function killfscanprocessfunc() {
         },
         complete: function () {
             alert('已结束fscan进程')
+        }
+    })
+}
+
+
+//shiro扫描结果预览
+function shiroscanreprtfunc() {
+    window.open("/shiro_report_show/");
+}
+
+
+//shiro漏洞扫描
+function batchshirovulnfunc() {
+    $.ajax({
+        url: '/startshirointerface/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            alert('shiro漏扫程序已启动稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('shiro漏扫程序已启动稍后查看结果')
         }
     })
 }

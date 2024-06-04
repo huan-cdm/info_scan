@@ -473,6 +473,21 @@ case "${1}" in
 	fi
 	;;
 
+    # shiro 默认key扫描
+    shiro_scan)
+    python3 /TIP/info_scan/shiro-tool/shiro-exploit.py check -u $2 >>  /TIP/info_scan/result/shiro_vuln.txt
+    ;;
+
+    # shiro运行状态
+    shiro_status)
+	ps_shiroscan=`ps -aux | grep shiro-exploit.py | wc -l`
+	if (( $ps_shiroscan > 1 ))
+	then
+		echo "shiro_scan状态：运行中"
+	else
+		echo "shiro_scan状态：停止"
+	fi
+	;;
 esac
 
 
