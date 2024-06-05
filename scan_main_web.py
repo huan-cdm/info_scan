@@ -329,6 +329,7 @@ def nmapqueuestatus():
         afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
         fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
         shirostatus = os.popen('bash ./finger.sh shiro_status').read()
+        httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -341,7 +342,8 @@ def nmapqueuestatus():
             "vulmapscanstatus":vulmapscanstatus,
             "afrogscanstatus":afrogscanstatus,
             "fscanstatus":fscanstatus,
-            "shirostatus":shirostatus
+            "shirostatus":shirostatus,
+            "httpxstatus":httpxstatus
         }
         return jsonify(message_json)
     else:

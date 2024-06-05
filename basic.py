@@ -45,6 +45,10 @@ from config import fofanum
 import tldextract  
 
 
+# 指纹自定义列表
+from config import finger_list
+
+
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
@@ -465,3 +469,58 @@ def shiro_scan():
             os.popen('bash /TIP/info_scan/finger.sh shiro_scan'+' '+str(i)+'')
     except Exception as e:
         print("捕获到异常:", e)
+
+
+
+# 重点系统关键字列表，在config.py配置，用于过滤重点目标，并进行针对性扫描
+# 2024.6.5
+def key_point_tiqu():
+    # 提取通过自定义列表过滤出的目标，并提取这些目标的关键字作为字典，存入列表中
+    filter_list_result = []
+    try:
+        for i in finger_list:
+            result = os.popen('bash /TIP/info_scan/finger.sh finger_filter_shell'+' '+i).read()
+            filter_list_result.append(result)
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    try:
+        f2 = open(file='/TIP/info_scan/result/finger_filter_text.txt', mode='w')
+        for j in filter_list_result:
+            j1 = j.replace("[","")
+            j2 = j1.replace("]","")
+            j3 = j2.replace("|","")
+            f2.write(str(j3))
+        f2.close()
+    except Exception as e:
+        print("捕获到异常:", e)
+    
+    try:
+        filter_list_result_final = []
+        f3 = open("/TIP/info_scan/result/finger_filter_text.txt",encoding='utf-8')
+        for k in f3.readlines():
+            filter_list_result_final.append(k.strip())
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    # 最终的列表作为过滤的字典
+    filter_list_result_final_dict = []
+    awk_result_str = os.popen('bash /TIP/info_scan/finger.sh finger_filter_shell_awk').read()
+    
+    
+    # 按行读取字符串存入列表
+    # 使用split()方法按换行符分割字符串，并存储到列表中  
+    finger_url_list = awk_result_str.split('\n')  
+    # 如果需要去除每行末尾可能存在的空白字符（如空格或制表符），可以使用strip()方法  
+    finger_url_list_tmp = [ip.strip() for ip in finger_url_list if ip.strip()] 
+    
+
+    # 经过处理的最终url列表
+    try:
+        finger_url_list_final = []
+        for n in finger_url_list_tmp:
+            if "237;64;35m" not in n:
+                finger_url_list_final.append(n)
+    except Exception as e:
+        print("捕获到异常:", e)
+    return finger_url_list_final

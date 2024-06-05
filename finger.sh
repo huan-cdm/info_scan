@@ -443,7 +443,7 @@ case "${1}" in
 
     # 启动fscan扫描程序
     startfscanprocess)
-    cd /TIP/info_scan/fscan_tool/  
+    cd /TIP/info_scan/fscan_tool/
     if [ -f ./fscan ]; then  
         # grep -vE  过滤多个参数
         # ./fscan -h $2 -nopoc | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
@@ -488,6 +488,28 @@ case "${1}" in
 		echo "shiro_scan状态：停止"
 	fi
 	;;
+
+     # httpx运行状态
+    httpx_status)
+	ps_httpxscan=`ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l`
+	if (( $ps_httpxscan > 1 ))
+	then
+		echo "httpx状态：运行中"
+	else
+		echo "httpx状态：停止"
+	fi
+	;;
+
+    # 自定义指纹列表过滤
+    finger_filter_shell)
+    result=`cat /TIP/info_scan/result/ehole_finger.txt | grep $2`
+    echo "$result"
+    ;;
+
+    finger_filter_shell_awk)
+    awk_result=`cat /TIP/info_scan/result/finger_filter_text.txt | awk -F ' ' '{print $1}'`
+    echo "$awk_result"
+    ;;
 esac
 
 

@@ -61,7 +61,7 @@ function statusnmapfunc() {
     })
     $.getJSON("/nmapqueuestatus/",
         function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus+ '\n' +info.fscanstatus+ '\n' +info.shirostatus)
+            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus+ '\n' +info.fscanstatus+ '\n' +info.shirostatus+ '\n' +info.httpxstatus)
         })
 }
 
