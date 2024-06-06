@@ -69,13 +69,13 @@ function statusnmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://ip:18888/", "_blank");
+    window.open("http://x.x.x.x:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://ip:16666/", "_blank");
+    window.open("http://x.x.x.x:16666/", "_blank");
 }
 
 
@@ -378,6 +378,8 @@ function startbutton() {
     button49.disabled = false;
     var button50 = document.getElementById("button50");
     button50.disabled = false;
+    var button51 = document.getElementById("button51");
+    button51.disabled = false;
 
 }
 
@@ -477,13 +479,15 @@ function stopbutton() {
     button49.disabled = true;
     var button50 = document.getElementById("button50");
     button50.disabled = true;
+    var button51 = document.getElementById("button51");
+    button51.disabled = true;
 
 }
 
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://ip:17777/dirscanpage/", "_blank");
+    window.open("http://x.x.x.x:17777/dirscanpage/", "_blank");
 }
 
 
@@ -874,7 +878,7 @@ function targeturlcopytextareafunc() {
 
 //afrog报告预览
 function afrogreportfun() {
-    window.open("http://ip:15555/", "_blank");
+    window.open("http://x.x.x.x:15555/", "_blank");
 }
 
 
@@ -1011,6 +1015,26 @@ function batchshirovulnfunc() {
         },
         complete: function () {
             alert('shiro漏扫程序已启动稍后查看结果')
+        }
+    })
+}
+
+
+//重点资产提取
+function key_data_tiqu_func() {
+    $.ajax({
+        url: '/key_assets_withdraw/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            alert('已经按照自定义规则提取重点资产，点击文本框赋值查看最新资产')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('已经按照自定义规则提取重点资产，点击文本框赋值查看最新资产')
         }
     })
 }

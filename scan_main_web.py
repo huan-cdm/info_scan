@@ -963,5 +963,23 @@ def startshirointerface():
         return render_template('login.html')
     
 
+#重点资产提取
+@app.route("/key_assets_withdraw/")
+def key_assets_withdraw():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            key_url_list = basic.key_point_tiqu()
+            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+            for line in key_url_list:
+                f.write(str(line)+"\n")
+            f.close()
+        except Exception as e:
+            print("捕获到异常:", e)
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
