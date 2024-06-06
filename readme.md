@@ -2,6 +2,7 @@
 保证系统正常运行需要2个项目：<br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
+
 系统使用说明<br>
 1. 安装python3+MySQL数据库<br>
 2. 安装nginx中间件<br>
