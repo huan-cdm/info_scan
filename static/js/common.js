@@ -44,28 +44,6 @@ function deletenmapfunc() {
 }
 
 
-//ajax异步查询扫描器状态
-function statusnmapfunc() {
-    $.ajax({
-        url: '/nmapqueuestatus/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-        },
-        error: function () {
-
-        },
-        complete: function () {
-
-        }
-    })
-    $.getJSON("/nmapqueuestatus/",
-        function (info) {
-            alert(info.nmapstatus + '\n' + info.nucleistatus + '\n' + info.xraystatus + '\n' + info.radstatus + '\n' + info.dirscanstatus+ '\n' + info.weblogicstatus+ '\n' +info.struts2status+ '\n' +info.bbscanstatus+ '\n' +info.vulmapscanstatus+ '\n' +info.afrogscanstatus+ '\n' +info.fscanstatus+ '\n' +info.shirostatus+ '\n' +info.httpxstatus)
-        })
-}
-
-
 
 //xray报告预览
 function xrayreportshow() {
@@ -1038,3 +1016,31 @@ function key_data_tiqu_func() {
         }
     })
 }
+
+
+function openModal() {  
+    var modal = document.getElementById("modal");  
+    modal.style.display = "block";
+    $.getJSON("/nmapqueuestatus/",
+    function (info) {
+        document.getElementById("spp1").innerHTML = info.nmapstatus;
+        document.getElementById("spp2").innerHTML = info.nucleistatus;
+        document.getElementById("spp3").innerHTML = info.xraystatus;
+        document.getElementById("spp4").innerHTML = info.radstatus;
+        document.getElementById("spp5").innerHTML = info.dirscanstatus;
+        document.getElementById("spp6").innerHTML = info.weblogicstatus;
+        document.getElementById("spp7").innerHTML = info.struts2status;
+        document.getElementById("spp8").innerHTML = info.bbscanstatus;
+        document.getElementById("spp9").innerHTML = info.vulmapscanstatus;
+        document.getElementById("spp10").innerHTML = info.afrogscanstatus;
+        document.getElementById("spp11").innerHTML = info.fscanstatus;
+        document.getElementById("spp12").innerHTML = info.shirostatus;
+        document.getElementById("spp13").innerHTML = info.httpxstatus;
+    })
+
+}  
+  
+function closeModal() {  
+    var modal = document.getElementById("modal");  
+    modal.style.display = "none";  
+}  

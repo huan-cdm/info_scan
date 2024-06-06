@@ -317,19 +317,19 @@ def startnuclei():
 def nmapqueuestatus():
     user = session.get('username')
     if str(user) == main_username:
-        nmapstatus = os.popen('bash ./finger.sh nmapstatus').read()
-        nucleistatus = os.popen('bash ./finger.sh nucleistatus').read()
-        xraystatus = os.popen('bash ./finger.sh xraystatus').read()
-        radstatus = os.popen('bash ./finger.sh radstatus').read()
-        dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
-        weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
-        struts2status = os.popen('bash ./finger.sh struts2_status').read()
-        bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
-        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
-        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
-        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
-        shirostatus = os.popen('bash ./finger.sh shiro_status').read()
-        httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
+        nmapstatus ="nmap："+ os.popen('bash ./finger.sh nmapstatus').read()
+        nucleistatus ="nuclei："+ os.popen('bash ./finger.sh nucleistatus').read()
+        xraystatus = "xray："+os.popen('bash ./finger.sh xraystatus').read()
+        radstatus ="rad："+ os.popen('bash ./finger.sh radstatus').read()
+        dirscanstatus = "dirsearch："+os.popen('bash ./finger.sh dirsearchstatus').read()
+        weblogicstatus = "weblogic："+os.popen('bash ./finger.sh weblogic_status').read()
+        struts2status = "struts2："+os.popen('bash ./finger.sh struts2_status').read()
+        bbscanstatus = "bbscan："+os.popen('bash ./finger.sh bbscan_status').read()
+        vulmapscanstatus = "vulmap："+os.popen('bash ./finger.sh vulmapscan_status').read()
+        afrogscanstatus = "afrog："+os.popen('bash ./finger.sh afrogscan_status').read()
+        fscanstatus = "fscan："+os.popen('bash ./finger.sh fscan_status').read()
+        shirostatus = "shiro："+os.popen('bash ./finger.sh shiro_status').read()
+        httpxstatus = "httpx："+os.popen('bash ./finger.sh httpx_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,

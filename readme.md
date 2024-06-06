@@ -27,6 +27,7 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic3.jpg"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic4.jpg"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.png"  />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic22.png"  />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"  />
 

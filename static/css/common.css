@@ -119,4 +119,38 @@
 			color:darkorange;  
 			text-align: left;
 			cursor: pointer;
+		}
+		.modal {  
+			display: none; /* 隐藏弹窗 */  
+			position: fixed; /* 弹窗固定在视口 */  
+			z-index: 1; /* 弹窗位于其他元素之上 */  
+			left: 0;  
+			top: 0;  
+			width: 100%; /* 宽度为全屏 */  
+			height: 100%; /* 高度为全屏 */  
+			overflow: auto; /* 启用滚动条 */  
+			background-color: rgba(0, 0, 0, 0.5); /* 黑色背景，半透明 */  
 		}  
+		  
+		.modal-content {  
+			background-color: #fefefe;  
+			margin: 15% auto; /* 垂直居中，水平居中 */  
+			padding: 150px;  
+			border: 1px solid #888;  
+			width: 40%; /* 弹窗宽度可以根据需要调整 */  
+		}  
+		  
+		.close {  
+			color: #aaa;  
+			float: right;  
+			font-size: 28px;  
+			font-weight: bold;  
+			cursor: pointer;  
+		}  
+		  
+		.close:hover,  
+		.close:focus {  
+			color: black;  
+			text-decoration: none;  
+			cursor: pointer;  
+		}
