@@ -82,9 +82,9 @@ case "${1}" in
 	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
 	if (( $ps_nmap > 1 ))
 	then
-		echo "nmap状态：运行中"
+		echo "nmap：运行中"
 	else
-		echo "nmap状态：停止"
+		echo "nmap：停止"
 	fi
 	;;
 
@@ -113,9 +113,9 @@ case "${1}" in
     ps_nuclei=`ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l`
 	if (( $ps_nuclei > 1 ))
 	then
-		echo "nuclei状态：运行中"
+		echo "nuclei：运行中"
 	else
-		echo "nuclei状态：停止"
+		echo "nuclei：停止"
 	fi
     ;;
 
@@ -125,9 +125,9 @@ case "${1}" in
     num_xray_status=`ps -aux | grep xray-testphp | grep html`
     if (( $num_xray > 1 ))
     then
-        echo "xray状态：""${num_xray_status}"
+        echo "xray：""${num_xray_status}"
     else
-        echo "xray状态：停止"
+        echo "xray：停止"
     
     fi
     ;;
@@ -138,9 +138,9 @@ case "${1}" in
     num_rad_status=`ps -aux | grep rad_engine/rad_linux_amd64 | grep http-proxy`
     if (( $num_rad > 1 ))
     then
-        echo "rad状态：""${num_rad_status}"
+        echo "rad：""${num_rad_status}"
     else
-        echo "rad状态：停止"
+        echo "rad：停止"
     fi
     ;;
 
@@ -164,9 +164,9 @@ case "${1}" in
 	ps_dirsearch=`ps -aux | grep dirsearch.py | wc -l`
 	if (( $ps_dirsearch > 1 ))
 	then
-		echo "dirscan状态：运行中"
+		echo "dirscan：运行中"
 	else
-		echo "dirscan状态：停止"
+		echo "dirscan：停止"
 	fi
 	;;
 
@@ -313,9 +313,9 @@ case "${1}" in
 	ps_weblogic=`ps -aux | grep WeblogicScan.py | wc -l`
 	if (( $ps_weblogic > 1 ))
 	then
-		echo "weblogic_scan状态：运行中"
+		echo "weblogic_scan：运行中"
 	else
-		echo "weblogic_scan状态：停止"
+		echo "weblogic_scan：停止"
 	fi
 	;;
 
@@ -340,9 +340,9 @@ case "${1}" in
 	ps_struts2=`ps -aux | grep Struts2Scan.py | wc -l`
 	if (( $ps_struts2 > 1 ))
 	then
-		echo "struts2_scan状态：运行中"
+		echo "struts2_scan：运行中"
 	else
-		echo "struts2_scan状态：停止"
+		echo "struts2_scan：停止"
 	fi
 	;;
 
@@ -363,9 +363,9 @@ case "${1}" in
 	ps_bbscan=`ps -aux | grep BBScan.py | wc -l`
 	if (( $ps_bbscan > 1 ))
 	then
-		echo "bbscan_scan状态：运行中"
+		echo "bbscan_scan：运行中"
 	else
-		echo "bbscan_scan状态：停止"
+		echo "bbscan_scan：停止"
 	fi
 	;;
 
@@ -382,9 +382,9 @@ case "${1}" in
 	ps_vulmapscan=`ps -aux | grep vulmap.py | wc -l`
 	if (( $ps_vulmapscan > 1 ))
 	then
-		echo "vulmap_scan状态：运行中"
+		echo "vulmap_scan：运行中"
 	else
-		echo "vulmap_scan状态：停止"
+		echo "vulmap_scan：停止"
 	fi
 	;;
 
@@ -424,9 +424,9 @@ case "${1}" in
 	ps_afrogscan=`ps -aux | grep startafrogprocess | wc -l`
 	if (( $ps_afrogscan > 1 ))
 	then
-		echo "afrog_scan状态：运行中"
+		echo "afrog_scan：运行中"
 	else
-		echo "afrog_scan状态：停止"
+		echo "afrog_scan：停止"
 	fi
 	;;
 
@@ -467,9 +467,9 @@ case "${1}" in
 	ps_fscanscan=`ps -aux | grep startfscanprocess | wc -l`
 	if (( $ps_fscanscan > 1 ))
 	then
-		echo "fscan_scan状态：运行中"
+		echo "fscan_scan：运行中"
 	else
-		echo "fscan_scan状态：停止"
+		echo "fscan_scan：停止"
 	fi
 	;;
 
@@ -483,9 +483,9 @@ case "${1}" in
 	ps_shiroscan=`ps -aux | grep shiro-exploit.py | wc -l`
 	if (( $ps_shiroscan > 1 ))
 	then
-		echo "shiro_scan状态：运行中"
+		echo "shiro_scan：运行中"
 	else
-		echo "shiro_scan状态：停止"
+		echo "shiro_scan：停止"
 	fi
 	;;
 
@@ -494,9 +494,9 @@ case "${1}" in
 	ps_httpxscan=`ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l`
 	if (( $ps_httpxscan > 1 ))
 	then
-		echo "httpx状态：运行中"
+		echo "httpx：运行中"
 	else
-		echo "httpx状态：停止"
+		echo "httpx：停止"
 	fi
 	;;
 
@@ -510,6 +510,15 @@ case "${1}" in
     awk_result=`cat /TIP/info_scan/result/finger_filter_text.txt | awk -F ' ' '{print $1}'`
     echo "$awk_result"
     ;;
+
+
+    # 目标URL数量
+    url_file_num)
+    url_num=`cat /TIP/batch_scan_domain/url.txt | wc -l`
+    echo "${url_num}"
+    ;;
+
+    
 esac
 
 

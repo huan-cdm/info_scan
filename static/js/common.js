@@ -1036,6 +1036,7 @@ function openModal() {
         document.getElementById("spp11").innerHTML = info.fscanstatus;
         document.getElementById("spp12").innerHTML = info.shirostatus;
         document.getElementById("spp13").innerHTML = info.httpxstatus;
+        document.getElementById("spp14").innerHTML = info.url_file_num;
     })
 
 }  

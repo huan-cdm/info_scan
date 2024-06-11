@@ -134,16 +134,16 @@
 		  
 		.modal-content {  
 			background-color: #fefefe;  
-			margin: 15% auto; /* 垂直居中，水平居中 */  
-			padding: 150px;  
-			border: 1px solid #888;  
-			width: 40%; /* 弹窗宽度可以根据需要调整 */  
+			margin: 0% auto; /* 垂直居中，水平居中  */
+			padding: 250px;  
+			border: 10px solid #888;  
+			width: 15%; /* 弹窗宽度可以根据需要调整 */  
 		}  
 		  
 		.close {  
 			color: #aaa;  
 			float: right;  
-			font-size: 28px;  
+			font-size: 38px;  
 			font-weight: bold;  
 			cursor: pointer;  
 		}  
