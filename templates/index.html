@@ -49,7 +49,7 @@
 		</div>  
 	</div>  
 	
-	<h3>基础信息查询</h3>
+	<h3>IP信息搜索</h3>
 	<div>
 		<form method="post" action="/ipscaninterface/">
 			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
@@ -165,7 +165,7 @@
 			{% endfor %}
 		</div>
 	</div>
-	<h3>漏洞扫描集合</h3>
+	<h3>漏洞管理</h3>
 	<table border="1">
 		<tr>
 			<td>
@@ -290,7 +290,7 @@
 				<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
 				<input type="button" id="button42" value="启动程序" onclick="startafrogfunc()" disabled>
 				<input type="button" id="button43" value="结束进程" onclick="killafrogprocessfunc()" disabled><br><br>
-				<input type="submit"  value="反链平台：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="submit"  value="DNS日志：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button44" value="CEYE-DNS" onclick="ceyednsfunc()" disabled>
 				<input type="button" id="button45" value="CEYE-HTTP" onclick="ceyehttpfunc()" disabled>
 			</td>
@@ -305,7 +305,7 @@
 		</tr>
 	</table>
 
-	<h3>基础数据处理</h3>
+	<h3>资产管理</h3>
 	<table border="1">
 		<tr>
 			<td>
