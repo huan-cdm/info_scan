@@ -473,7 +473,7 @@ def shiro_scan():
 
 
 # 重点系统关键字列表，在config.py配置，用于过滤重点目标，并进行针对性扫描
-# 2024.6.5
+# 2024.6.12优化
 def key_point_tiqu():
     # 提取通过自定义列表过滤出的目标，并提取这些目标的关键字作为字典，存入列表中
     filter_list_result = []
@@ -499,14 +499,24 @@ def key_point_tiqu():
         filter_list_result_final = []
         f3 = open("/TIP/info_scan/result/finger_filter_text.txt",encoding='utf-8')
         for k in f3.readlines():
-            filter_list_result_final.append(k.strip())
+            k1 = k.replace("8;2;237;64;35m","")
+            filter_list_result_final.append(k1.strip())
     except Exception as e:
         print("捕获到异常:", e)
 
+
+    # 去除脏数据后重组finger_filter_text.txt文件
+    try:
+        f4 = open(file='/TIP/info_scan/result/finger_filter_text.txt', mode='w')
+        for z in filter_list_result_final:
+            f4.write(str(z)+"\n")
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
     # 最终的列表作为过滤的字典
-    filter_list_result_final_dict = []
     awk_result_str = os.popen('bash /TIP/info_scan/finger.sh finger_filter_shell_awk').read()
-    
+
     
     # 按行读取字符串存入列表
     # 使用split()方法按换行符分割字符串，并存储到列表中  
@@ -520,7 +530,8 @@ def key_point_tiqu():
         finger_url_list_final = []
         for n in finger_url_list_tmp:
             if "237;64;35m" not in n:
-                finger_url_list_final.append(n)
+                n1 = n.replace("\x1b3 ","")
+                finger_url_list_final.append(n1)
     except Exception as e:
         print("捕获到异常:", e)
     return finger_url_list_final

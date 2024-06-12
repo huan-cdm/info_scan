@@ -331,6 +331,7 @@ def nmapqueuestatus():
         shirostatus = os.popen('bash ./finger.sh shiro_status').read()
         httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
         url_file_num = os.popen('bash ./finger.sh url_file_num').read()
+        eholestatus = os.popen('bash ./finger.sh ehole_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -345,7 +346,8 @@ def nmapqueuestatus():
             "fscanstatus":fscanstatus,
             "shirostatus":shirostatus,
             "httpxstatus":httpxstatus,
-            "url_file_num":url_file_num
+            "url_file_num":url_file_num,
+            "eholestatus":eholestatus
         }
         return jsonify(message_json)
     else:

@@ -82,7 +82,7 @@ case "${1}" in
 	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
 	if (( $ps_nmap > 1 ))
 	then
-		echo "nmap：运行中"
+		echo "nmap：运行中..."
 	else
 		echo "nmap：停止"
 	fi
@@ -113,7 +113,7 @@ case "${1}" in
     ps_nuclei=`ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l`
 	if (( $ps_nuclei > 1 ))
 	then
-		echo "nuclei：运行中"
+		echo "nuclei：运行中..."
 	else
 		echo "nuclei：停止"
 	fi
@@ -164,7 +164,7 @@ case "${1}" in
 	ps_dirsearch=`ps -aux | grep dirsearch.py | wc -l`
 	if (( $ps_dirsearch > 1 ))
 	then
-		echo "dirscan：运行中"
+		echo "dirscan：运行中..."
 	else
 		echo "dirscan：停止"
 	fi
@@ -175,7 +175,7 @@ case "${1}" in
 	ps_fileclean=`ps -aux | grep filterdirsearchdata.sh | wc -l`
 	if (( $ps_fileclean > 2 ))
 	then
-		echo "正在运行中......"
+		echo "正在运行中........."
 	else
 		echo "已停止"
 	fi
@@ -313,7 +313,7 @@ case "${1}" in
 	ps_weblogic=`ps -aux | grep WeblogicScan.py | wc -l`
 	if (( $ps_weblogic > 1 ))
 	then
-		echo "weblogic_scan：运行中"
+		echo "weblogic_scan：运行中..."
 	else
 		echo "weblogic_scan：停止"
 	fi
@@ -340,7 +340,7 @@ case "${1}" in
 	ps_struts2=`ps -aux | grep Struts2Scan.py | wc -l`
 	if (( $ps_struts2 > 1 ))
 	then
-		echo "struts2_scan：运行中"
+		echo "struts2_scan：运行中..."
 	else
 		echo "struts2_scan：停止"
 	fi
@@ -363,7 +363,7 @@ case "${1}" in
 	ps_bbscan=`ps -aux | grep BBScan.py | wc -l`
 	if (( $ps_bbscan > 1 ))
 	then
-		echo "bbscan_scan：运行中"
+		echo "bbscan_scan：运行中..."
 	else
 		echo "bbscan_scan：停止"
 	fi
@@ -382,7 +382,7 @@ case "${1}" in
 	ps_vulmapscan=`ps -aux | grep vulmap.py | wc -l`
 	if (( $ps_vulmapscan > 1 ))
 	then
-		echo "vulmap_scan：运行中"
+		echo "vulmap_scan：运行中..."
 	else
 		echo "vulmap_scan：停止"
 	fi
@@ -424,7 +424,7 @@ case "${1}" in
 	ps_afrogscan=`ps -aux | grep startafrogprocess | wc -l`
 	if (( $ps_afrogscan > 1 ))
 	then
-		echo "afrog_scan：运行中"
+		echo "afrog_scan：运行中..."
 	else
 		echo "afrog_scan：停止"
 	fi
@@ -467,7 +467,7 @@ case "${1}" in
 	ps_fscanscan=`ps -aux | grep startfscanprocess | wc -l`
 	if (( $ps_fscanscan > 1 ))
 	then
-		echo "fscan_scan：运行中"
+		echo "fscan_scan：运行中..."
 	else
 		echo "fscan_scan：停止"
 	fi
@@ -483,7 +483,7 @@ case "${1}" in
 	ps_shiroscan=`ps -aux | grep shiro-exploit.py | wc -l`
 	if (( $ps_shiroscan > 1 ))
 	then
-		echo "shiro_scan：运行中"
+		echo "shiro_scan：运行中..."
 	else
 		echo "shiro_scan：停止"
 	fi
@@ -494,7 +494,7 @@ case "${1}" in
 	ps_httpxscan=`ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l`
 	if (( $ps_httpxscan > 1 ))
 	then
-		echo "httpx：运行中"
+		echo "httpx：运行中..."
 	else
 		echo "httpx：停止"
 	fi
@@ -507,7 +507,7 @@ case "${1}" in
     ;;
 
     finger_filter_shell_awk)
-    awk_result=`cat /TIP/info_scan/result/finger_filter_text.txt | awk -F ' ' '{print $1}'`
+    awk_result=`cat /TIP/info_scan/result/finger_filter_text.txt | awk -F '  ' '{print $1}'`
     echo "$awk_result"
     ;;
 
@@ -518,6 +518,16 @@ case "${1}" in
     echo "${url_num}"
     ;;
 
+    # Ehole指纹识别运行状态
+    ehole_status)
+	ps_eholescan=`ps -aux | grep EHole | wc -l`
+	if (( $ps_eholescan > 1 ))
+	then
+		echo "ehole：运行中..."
+	else
+		echo "ehole：停止"
+	fi
+	;;
     
 esac
 
