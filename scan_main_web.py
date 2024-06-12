@@ -983,6 +983,54 @@ def key_assets_withdraw():
         return render_template('index.html')
     else:
         return render_template('login.html')
+
+
+
+#nuclei poc查询
+@app.route("/nuclei_poc_show/",methods=['POST'])
+def nuclei_poc_show():
+    
+    
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        poc_dir = request.form['poc_dir']
+    
+        try:
+            result = os.popen('bash /TIP/info_scan/finger.sh templatenuclei'+''+' '+poc_dir).read()
+            nuclei_poc_list = []
+            for i in result.splitlines():
+                nuclei_poc_list.append(i)
+            global nuclei_poc_list_global
+            nuclei_poc_list_global = nuclei_poc_list
+            
+        except Exception as e:
+            print("捕获到异常:", e)
+
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
+
+
+
+#文本框内容展示
+@app.route("/nuclei_poc_show_ajax/")
+def nuclei_poc_show_ajax():
+    user = session.get('username')
+    if str(user) == main_username:
+        global nuclei_poc_list_global
+        message_json = {
+            "nuclei_poc_list_global":nuclei_poc_list_global,
+            "nuclei_poc_list_len":"共"+" "+str(len(nuclei_poc_list_global))+" "+"条 poc",
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+
+
     
 
 if __name__ == '__main__':  

@@ -523,6 +523,13 @@ case "${1}" in
 		echo "ehole：停止"
 	fi
 	;;
+
+
+    #nuclei模板文件查看
+    templatenuclei)
+    templatenuclei_result=`find $2 -type f`
+    echo "${templatenuclei_result}"
+    ;;
     
 esac
 

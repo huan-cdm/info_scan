@@ -6,9 +6,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
-	<script type="text/javascript" src="{{ url_for( 'static',filename='js/tanchuang.js') }}"></script>
+	<!-- <script type="text/javascript" src="{{ url_for( 'static',filename='js/tanchuang.js') }}"></script> -->
 	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
-	<link type="text/css" href="{{ url_for('static', filename='css/tanchuang.css') }}" rel="stylesheet">
+	<!-- <link type="text/css" href="{{ url_for('static', filename='css/tanchuang.css') }}" rel="stylesheet"> -->
 	<title>漏洞扫描主系统</title>
 </head>
 
@@ -208,6 +208,46 @@
 				<input type="submit" value="nuclei_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
 				<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
+				<select name="poc_dir">
+					<option value="/root/nuclei-templates/http">http</option>
+					<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
+					<option value="/root/nuclei-templates/http/cves">http_cves</option>
+					<option value="/root/nuclei-templates/http/exposed-panels">http_exposed_panels</option>
+					<option value="/root/nuclei-templates/http/fuzzing">http_fuzzing</option>
+					<option value="/root/nuclei-templates/http/iot">http_iot</option>
+					<option value="/root/nuclei-templates/http/misconfiguration">http_misconfiguration</option>
+					<option value="/root/nuclei-templates/http/takeovers">http_takeovers</option>
+					<option value="/root/nuclei-templates/http/token-spray">http_token_spray</option>
+					<option value="/root/nuclei-templates/http/credential-stuffing">http_credential_stuffing</option>
+					<option value="/root/nuclei-templates/http/default-logins">http_default_logins</option>
+					<option value="/root/nuclei-templates/http/exposures">http_exposures</option>
+					<option value="/root/nuclei-templates/http/honeypot">http_honeypot</option>
+					<option value="/root/nuclei-templates/http/miscellaneous">http_miscellaneous</option>
+					<option value="/root/nuclei-templates/http/osint">http_osint</option>
+					<option value="/root/nuclei-templates/http/technologies">http_technologies</option>
+					<option value="/root/nuclei-templates/http/vulnerabilities">http_vulnerabilities</option>
+					<option value="/root/nuclei-templates/dns">dns</option>
+					<option value="/root/nuclei-templates/helpers">helpers</option>
+					<option value="/root/nuclei-templates/miscellaneous">miscellaneous</option>
+					<option value="/root/nuclei-templates/technologies">technologies</option>
+					<option value="/root/nuclei-templates/workflows">workflows</option>
+					<option value="/root/nuclei-templates/file">file</option>
+					<option value="/root/nuclei-templates/cloud">cloud</option>
+					<option value="/root/nuclei-templates/misconfiguration">misconfiguration</option>
+					<option value="/root/nuclei-templates/default-logins">default-logins</option>
+					<option value="/root/nuclei-templates/headless">headless</option>
+					<option value="/root/nuclei-templates/network">network</option>
+					<option value="/root/nuclei-templates/ssl">ssl</option>
+					<option value="/root/nuclei-templates/javascript">javascript</option>
+					<option value="/root/nuclei-templates/config">config</option>
+					<option value="/root/nuclei-templates/code">code</option>
+				  </select>
+				  <select id="nucleibyid1">
+					<option>暂无数据</option>
+				  </select>
+				 
+				  <input type="button" value="查询" onclick="nuclei_poc_show_func()">
+				  <span id="nucleibyid2"></span>
 			</td>
 			<td>
 				<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -248,7 +288,7 @@
 				<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
 				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
 				<select name="vulnname">
-					<option value="all">测试所有漏洞 poc 不指定将默认开启指纹识别</option>
+					<option value="all">all</option>
 					<option value="activemq">检查站点是否存在activemq漏洞</option>
 					<option value="flink">检查站点是否存在flink漏洞</option>
 					<option value="shiro">检查站点是否存在shiro漏洞</option>

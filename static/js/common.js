@@ -1046,3 +1046,34 @@ function closeModal() {
     var modal = document.getElementById("modal");  
     modal.style.display = "none";  
 }  
+
+
+//nuclei查看poc yaml文件
+function nuclei_poc_show_func() {
+    var poc_dir = $('select[name="poc_dir"]').val();
+    $.ajax({
+        url: '/nuclei_poc_show/',
+        method: 'POST',
+        data: {
+            poc_dir: poc_dir
+        },
+        success: function (res) {
+            console.log(res)
+        },
+        error: function () {
+
+        },
+        complete: function () {
+        }
+    })
+
+    $.getJSON("/nuclei_poc_show_ajax/",
+        function (info) {
+            $('#nucleibyid1').empty();
+            for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
+                $('#nucleibyid1').append('<option>' + info.nuclei_poc_list_global[i] + '</option><br>');
+            }
+            document.getElementById("nucleibyid2").innerHTML = info.nuclei_poc_list_len;
+        })
+
+}
