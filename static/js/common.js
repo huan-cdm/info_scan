@@ -807,7 +807,7 @@ function batchnmapportscanfunc() {
 
         success: function (res) {
             console.log(res)
-            alert('端口扫描已加入队列中稍后查看结果')
+            console.log('端口扫描已加入队列中稍后查看结果')
         },
         error: function () {
             alert('内部出错')
@@ -941,7 +941,7 @@ function batchfscanvulnfunc() {
 
         success: function (res) {
             console.log(res)
-            alert('fscan漏扫程序已启动稍后查看结果')
+            console.log('fscan漏扫程序已启动稍后查看结果')
         },
         error: function () {
             alert('内部出错')
@@ -986,7 +986,7 @@ function batchshirovulnfunc() {
 
         success: function (res) {
             console.log(res)
-            alert('shiro漏扫程序已启动稍后查看结果')
+            console.log('shiro漏扫程序已启动稍后查看结果')
         },
         error: function () {
             alert('内部出错')
@@ -1006,7 +1006,7 @@ function key_data_tiqu_func() {
 
         success: function (res) {
             console.log(res)
-            alert('已经按照自定义规则提取重点资产，点击文本框赋值查看最新资产')
+            console.log('已经按照自定义规则提取重点资产，点击文本框赋值查看最新资产')
         },
         error: function () {
             alert('内部出错')

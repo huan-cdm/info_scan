@@ -506,11 +506,6 @@ case "${1}" in
     echo "$result"
     ;;
 
-    finger_filter_shell_awk)
-    awk_result=`cat /TIP/info_scan/result/finger_filter_text.txt | awk -F '  ' '{print $1}'`
-    echo "$awk_result"
-    ;;
-
 
     # 目标URL数量
     url_file_num)

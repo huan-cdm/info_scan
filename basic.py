@@ -499,39 +499,21 @@ def key_point_tiqu():
         filter_list_result_final = []
         f3 = open("/TIP/info_scan/result/finger_filter_text.txt",encoding='utf-8')
         for k in f3.readlines():
-            k1 = k.replace("8;2;237;64;35m","")
-            filter_list_result_final.append(k1.strip())
+            #页面显示优化
+            pattern = re.compile(r'\x1b\[[0-9;]*m')
+            clean_text = pattern.sub('', k)
+            clean_text_1 = clean_text.replace("\x1b38;2;237;64;35m ","")
+            clean_text_2 = clean_text_1.replace(" \x1b0m","")
+            filter_list_result_final.append(clean_text_2.strip())
+            
     except Exception as e:
         print("捕获到异常:", e)
 
 
-    # 去除脏数据后重组finger_filter_text.txt文件
-    try:
-        f4 = open(file='/TIP/info_scan/result/finger_filter_text.txt', mode='w')
-        for z in filter_list_result_final:
-            f4.write(str(z)+"\n")
-    except Exception as e:
-        print("捕获到异常:", e)
+    finger_url_list_final = []
+    for item in filter_list_result_final:
+        url = item.split()[0]
+        finger_url_list_final.append(url)
 
-
-    # 最终的列表作为过滤的字典
-    awk_result_str = os.popen('bash /TIP/info_scan/finger.sh finger_filter_shell_awk').read()
-
-    
-    # 按行读取字符串存入列表
-    # 使用split()方法按换行符分割字符串，并存储到列表中  
-    finger_url_list = awk_result_str.split('\n')  
-    # 如果需要去除每行末尾可能存在的空白字符（如空格或制表符），可以使用strip()方法  
-    finger_url_list_tmp = [ip.strip() for ip in finger_url_list if ip.strip()] 
-    
-
-    # 经过处理的最终url列表
-    try:
-        finger_url_list_final = []
-        for n in finger_url_list_tmp:
-            if "237;64;35m" not in n:
-                n1 = n.replace("\x1b3 ","")
-                finger_url_list_final.append(n1)
-    except Exception as e:
-        print("捕获到异常:", e)
     return finger_url_list_final
+
