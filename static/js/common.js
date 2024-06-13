@@ -152,9 +152,13 @@ function startradandxray() {
 
 //ajax异步启动nuclei
 function startnucleifunc() {
+    var poc_dir = $('select[name="poc_dir"]').val();
     $.ajax({
         url: '/startnuclei/',
-        method: 'GET',
+        method: 'POST',
+        data: {
+            poc_dir: poc_dir
+        },
         success: function (res) {
             console.log(res)
             console.log('已启动nuclei扫描')

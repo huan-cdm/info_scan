@@ -98,8 +98,8 @@ case "${1}" in
     #   -t 要运行的模板或模板目录列表
     #   -timeout 超时前等待的时间(以秒为单位) 默认 10秒
     #   dict="/root/nuclei-templates/http"
-    dict="/root/nuclei-templates/http"
-	./nuclei_server/nuclei -l /TIP/batch_scan_domain/url.txt -t ${dict} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
+    # dict="/root/nuclei-templates/http"
+	./nuclei_server/nuclei -l /TIP/batch_scan_domain/url.txt -t ${2} -c 10 -bulk-size 10  -rate-limit 30 -timeout 3 > ./result/nucleiresult.txt
 	;;
 
     #开启nuclei扫描(通过第三方接口获取的URL)

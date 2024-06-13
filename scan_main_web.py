@@ -295,12 +295,13 @@ def submit_data():
 
 
 #启动nuclei
-@app.route("/startnuclei/")
+@app.route("/startnuclei/", methods=['POST'])
 def startnuclei():
     user = session.get('username')
     if str(user) == main_username:
+        poc_dir = request.form['poc_dir']
         if int(history_switch) == 0:
-            os.popen('bash ./finger.sh startnuclei_url')
+            os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
         elif int(history_switch) ==1:
             os.popen('bash ./finger.sh startnuclei_result')
         else:
@@ -1014,7 +1015,7 @@ def nuclei_poc_show():
 
 
 
-#文本框内容展示
+#nuclei poc查询
 @app.route("/nuclei_poc_show_ajax/")
 def nuclei_poc_show_ajax():
     user = session.get('username')
