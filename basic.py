@@ -509,11 +509,61 @@ def key_point_tiqu():
     except Exception as e:
         print("捕获到异常:", e)
 
-
     finger_url_list_final = []
     for item in filter_list_result_final:
         url = item.split()[0]
         finger_url_list_final.append(url)
-
     return finger_url_list_final
 
+
+
+# 重点资产数量
+def key_point_assets_num(assets_finger_list):
+    # 提取通过自定义列表过滤出的目标，并提取这些目标的关键字作为字典，存入列表中
+    filter_list_result = []
+    try:
+        for i in assets_finger_list:
+            result = os.popen('bash /TIP/info_scan/finger.sh finger_filter_shell'+' '+i).read()
+            filter_list_result.append(result)
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    try:
+        f2 = open(file='/TIP/info_scan/result/finger_filter_text.txt', mode='w')
+        for j in filter_list_result:
+            j1 = j.replace("[","")
+            j2 = j1.replace("]","")
+            j3 = j2.replace("|","")
+            f2.write(str(j3))
+        f2.close()
+    except Exception as e:
+        print("捕获到异常:", e)
+    
+    try:
+        filter_list_result_final = []
+        f3 = open("/TIP/info_scan/result/finger_filter_text.txt",encoding='utf-8')
+        for k in f3.readlines():
+            #页面显示优化
+            pattern = re.compile(r'\x1b\[[0-9;]*m')
+            clean_text = pattern.sub('', k)
+            clean_text_1 = clean_text.replace("\x1b38;2;237;64;35m ","")
+            clean_text_2 = clean_text_1.replace(" \x1b0m","")
+            filter_list_result_final.append(clean_text_2.strip())
+            
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    try:
+        finger_url_list_final = []
+        for item in filter_list_result_final:
+            url = item.split()[0]
+            finger_url_list_final.append(url)
+    except:
+        pass
+    
+    if len(finger_url_list_final) == 0:
+        assets_len = 0
+    else:
+        assets_len = len(finger_url_list_final)
+    
+    return assets_len

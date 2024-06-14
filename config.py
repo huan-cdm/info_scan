@@ -49,8 +49,15 @@ main_password = ""
 sub_username = ""
 sub_password = ""
 
-#自定义指纹列表
-# 判定规则
-# ① 利用网站指纹识别模块识别所有目标指纹
-# ② 利用自定义指纹列表，筛选出有价值的目标进行针对性扫描
-finger_list = ["Shiro","",""]
+#重点资产提取，列表里配置多个关键字
+finger_list = ["Shiro","spring-boot","Weblogic","宝塔-BT","若依","Struts2","WordPress"]
+
+
+# 资产管理-重点资产数量展示，列表里只填一个关键字
+Shiro_rule = ["Shiro"]
+SpringBoot_rule = ["spring-boot"]
+weblogic_rule = ["Weblogic"]
+baota_rule = ["宝塔-BT"]
+ruoyi_rule = ["若依"]
+struts2_rule = ["Struts2"]
+WordPress_rule = ["WordPress"]

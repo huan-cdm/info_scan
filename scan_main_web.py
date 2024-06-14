@@ -25,6 +25,15 @@ from config import main_username
 from config import main_password
 
 
+# 重点资产数量规则
+from config import Shiro_rule
+from config import SpringBoot_rule
+from config import weblogic_rule
+from config import baota_rule
+from config import ruoyi_rule
+from config import struts2_rule
+from config import WordPress_rule
+
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -313,11 +322,13 @@ def startnuclei():
    
 
 
-#扫描器运行状态
-@app.route("/nmapqueuestatus/")
-def nmapqueuestatus():
+#系统管理
+@app.route("/systemmanagement/")
+def systemmanagement():
     user = session.get('username')
     if str(user) == main_username:
+
+        # 扫描器运行状态
         nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
         nucleistatus =os.popen('bash ./finger.sh nucleistatus').read()
         xraystatus = os.popen('bash ./finger.sh xraystatus').read()
@@ -331,8 +342,20 @@ def nmapqueuestatus():
         fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
         shirostatus = os.popen('bash ./finger.sh shiro_status').read()
         httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
-        url_file_num = os.popen('bash ./finger.sh url_file_num').read()
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
+
+        # 目标url行数
+        url_file_num = os.popen('bash ./finger.sh url_file_num').read()
+
+        # 重点资产数量查询
+       
+        shiro_num = basic.key_point_assets_num(Shiro_rule)
+        springboot_num = basic.key_point_assets_num(SpringBoot_rule)
+        weblogic_num = basic.key_point_assets_num(weblogic_rule)
+        baota_num = basic.key_point_assets_num(baota_rule)
+        ruoyi_num = basic.key_point_assets_num(ruoyi_rule)
+        struts2_num = basic.key_point_assets_num(struts2_rule)
+        WordPress_num = basic.key_point_assets_num(WordPress_rule)
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -348,7 +371,14 @@ def nmapqueuestatus():
             "shirostatus":shirostatus,
             "httpxstatus":httpxstatus,
             "url_file_num":url_file_num,
-            "eholestatus":eholestatus
+            "eholestatus":eholestatus,
+            "shiro_num":"shiro: "+str(shiro_num),
+            "springboot_num":"springboot: "+str(springboot_num),
+            "weblogic_num":"weblogic: "+str(weblogic_num),
+            "baota_num":"宝塔面板: "+str(baota_num),
+            "ruoyi_num":"若依CMS: "+str(ruoyi_num),
+            "struts2_num":"struts2: "+str(struts2_num),
+            "WordPress_num":"wordpress: "+str(WordPress_num)
         }
         return jsonify(message_json)
     else:

@@ -47,13 +47,13 @@ function deletenmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://x.x.x.x:18888/", "_blank");
+    window.open("http://121.37.207.248:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://x.x.x.x:16666/", "_blank");
+    window.open("http://121.37.207.248:16666/", "_blank");
 }
 
 
@@ -469,7 +469,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://x.x.x.x:17777/dirscanpage/", "_blank");
+    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
 }
 
 
@@ -860,7 +860,7 @@ function targeturlcopytextareafunc() {
 
 //afrog报告预览
 function afrogreportfun() {
-    window.open("http://x.x.x.x:15555/", "_blank");
+    window.open("http://121.37.207.248:15555/", "_blank");
 }
 
 
@@ -1025,7 +1025,7 @@ function key_data_tiqu_func() {
 function openModal() {  
     var modal = document.getElementById("modal");  
     modal.style.display = "block";
-    $.getJSON("/nmapqueuestatus/",
+    $.getJSON("/systemmanagement/",
     function (info) {
         document.getElementById("spp1").innerHTML = info.nmapstatus;
         document.getElementById("spp2").innerHTML = info.nucleistatus;
@@ -1042,6 +1042,13 @@ function openModal() {
         document.getElementById("spp13").innerHTML = info.httpxstatus;
         document.getElementById("spp14").innerHTML = info.url_file_num;
         document.getElementById("spp15").innerHTML = info.eholestatus;
+        document.getElementById("spp16").innerHTML = info.shiro_num;
+        document.getElementById("spp17").innerHTML = info.springboot_num;
+        document.getElementById("spp18").innerHTML = info.weblogic_num;
+        document.getElementById("spp19").innerHTML = info.baota_num;
+        document.getElementById("spp20").innerHTML = info.ruoyi_num;
+        document.getElementById("spp21").innerHTML = info.struts2_num;
+        document.getElementById("spp22").innerHTML = info.WordPress_num;
     })
 
 }  
