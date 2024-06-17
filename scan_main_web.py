@@ -33,6 +33,9 @@ from config import baota_rule
 from config import ruoyi_rule
 from config import struts2_rule
 from config import WordPress_rule
+from config import jboss_rule
+
+import psutil
 
 
 app = Flask(__name__,template_folder='./templates') 
@@ -356,6 +359,16 @@ def systemmanagement():
         ruoyi_num = basic.key_point_assets_num(ruoyi_rule)
         struts2_num = basic.key_point_assets_num(struts2_rule)
         WordPress_num = basic.key_point_assets_num(WordPress_rule)
+        jboss_num = basic.key_point_assets_num(jboss_rule)
+
+        # cpu占用率
+        cpu_percent = psutil.cpu_percent(interval=1)
+
+        # 获取内存信息  
+        mem = psutil.virtual_memory()  
+        # 计算内存占用百分比  
+        memory_percent = mem.percent  
+
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -378,7 +391,10 @@ def systemmanagement():
             "baota_num":"宝塔面板: "+str(baota_num),
             "ruoyi_num":"若依CMS: "+str(ruoyi_num),
             "struts2_num":"struts2: "+str(struts2_num),
-            "WordPress_num":"wordpress: "+str(WordPress_num)
+            "WordPress_num":"wordpress: "+str(WordPress_num),
+            "cpuinfo":"CPU: "+str(cpu_percent),
+            "memoryinfo":"内存: "+str(memory_percent),
+            "jboss_num":"jboss: "+str(jboss_num)
         }
         return jsonify(message_json)
     else:
@@ -1053,13 +1069,12 @@ def nuclei_poc_show_ajax():
         global nuclei_poc_list_global
         message_json = {
             "nuclei_poc_list_global":nuclei_poc_list_global,
-            "nuclei_poc_list_len":"共"+" "+str(len(nuclei_poc_list_global))+" "+"条 poc",
+            "nuclei_poc_list_len":"总共查询到"+" "+str(len(nuclei_poc_list_global))+" "+"条yaml规则",
         }
         return jsonify(message_json)
     else:
         return render_template('login.html')
     
-
 
 
     

@@ -47,13 +47,13 @@ function deletenmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://x.x.x.x:18888/", "_blank");
+    window.open("http://121.37.207.248:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://x.x.x.x:16666/", "_blank");
+    window.open("http://121.37.207.248:16666/", "_blank");
 }
 
 
@@ -469,7 +469,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://x.x.x.x:17777/dirscanpage/", "_blank");
+    window.open("http://121.37.207.248:17777/dirscanpage/", "_blank");
 }
 
 
@@ -860,7 +860,7 @@ function targeturlcopytextareafunc() {
 
 //afrog报告预览
 function afrogreportfun() {
-    window.open("http://x.x.x.x:15555/", "_blank");
+    window.open("http://121.37.207.248:15555/", "_blank");
 }
 
 
@@ -1049,6 +1049,9 @@ function openModal() {
         document.getElementById("spp20").innerHTML = info.ruoyi_num;
         document.getElementById("spp21").innerHTML = info.struts2_num;
         document.getElementById("spp22").innerHTML = info.WordPress_num;
+        document.getElementById("spp23").innerHTML = info.cpuinfo;
+        document.getElementById("spp24").innerHTML = info.memoryinfo;
+        document.getElementById("spp25").innerHTML = info.jboss_num;
     })
 
 }  
@@ -1088,3 +1091,34 @@ function nuclei_poc_show_func() {
         })
 
 }
+
+// 资产管理展开
+function assetmanagerzhankaifunc() {
+    document.getElementById('assetid1').style.display = "block";
+    document.getElementById('assetid3').style.display = "block";
+    document.getElementById('assetid2').style.display = "none";
+  }
+
+
+// 资产管理折叠
+function assetmanagerzhediefunc() {
+    document.getElementById('assetid1').style.display = "none";
+    document.getElementById('assetid3').style.display = "none";
+    document.getElementById('assetid2').style.display = "block";
+  }
+
+
+// 漏洞管理展开
+function vulnmanagerzhankaifunc() {
+    document.getElementById('vulnid1').style.display = "block";
+    document.getElementById('vulnid3').style.display = "block";
+    document.getElementById('vulnid2').style.display = "none";
+  }
+
+
+// 漏洞管理折叠
+function vulnmanagerzhediefunc() {
+    document.getElementById('vulnid1').style.display = "none";
+    document.getElementById('vulnid3').style.display = "none";
+    document.getElementById('vulnid2').style.display = "block";
+  }

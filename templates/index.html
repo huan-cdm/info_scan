@@ -31,6 +31,9 @@
 	<div id="modal" class="modal">
 		<div class="modal-content">  
 			<span class="close" onclick="closeModal()">&times;</span> 
+			<strong style="color:coral">系统状态 </strong><br>
+			<span id="spp23"></span><br>
+			<span id="spp24"></span><br><br>
 			<strong style="color:coral">服务状态 </strong><br>
 			<span id="spp1"></span><br>
 			<span id="spp2"></span><br>
@@ -56,6 +59,7 @@
 			<span id="spp19"></span><br>
 			<span id="spp20"></span><br>
 			<span id="spp22"></span><br>
+			<span id="spp25"></span><br>
 		</div>  
 	</div>  
 	
@@ -176,7 +180,9 @@
 		</div>
 	</div>
 	<h3>漏洞管理</h3>
-	<table border="1">
+	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2">展开</h3>
+	<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">折叠</h5>
+	<table border="1" style="display:none;" id="vulnid1">
 		<tr>
 			<td>
 				<input type="submit" value="路劲处理：">&nbsp;&nbsp;&nbsp;&nbsp;				
@@ -254,7 +260,7 @@
 					<option>暂无数据</option>
 				  </select>
 				 
-				  <input type="button" value="查询" onclick="nuclei_poc_show_func()">
+				  <input type="button" value="查询" onclick="nuclei_poc_show_func()"><br>
 				  <span id="nucleibyid2"></span>
 			</td>
 			<td>
@@ -282,7 +288,7 @@
 				<input type="submit"  value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button"  id="button31"  value="预览报告" onclick="eholefingerreportfunc()" disabled>
 				<input type="button"  id="button32"  value="启动程序" onclick="eholefingerfunc()" disabled>
-				<input type="button"  id="button51"  value="重点资产提取" onclick="key_data_tiqu_func()" disabled>
+				<input type="button"  id="button51"  value="识别重点资产" onclick="key_data_tiqu_func()" disabled>
 			</td>
 			<td>
 				<input type="submit"  value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -351,12 +357,16 @@
 				<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
 				<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
 			</td>
-			<td></td>
+			<td>
+				<input type="submit"  value="定向扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+			</td>
 		</tr>
 	</table>
 
 	<h3>资产管理</h3>
-	<table border="1">
+	<h5 onclick="assetmanagerzhankaifunc()" id="assetid2">展开</h3>
+	<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">折叠</h5>
+	<table border="1" style="display:none;" id="assetid1">
 		<tr>
 			<td>
 				<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled>
