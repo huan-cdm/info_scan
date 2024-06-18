@@ -710,8 +710,10 @@ def ehole_finger_report():
 def ehole_finger_scan():
     user = session.get('username')
     if str(user) == main_username:
+        
         # 执行指纹识别扫描
         os.popen('bash ./finger.sh ehole_finger_scan')
+
         return render_template('index.html')
     else:
         return render_template('login.html')

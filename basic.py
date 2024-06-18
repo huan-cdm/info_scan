@@ -513,7 +513,8 @@ def key_point_tiqu():
     for item in filter_list_result_final:
         url = item.split()[0]
         finger_url_list_final.append(url)
-    return finger_url_list_final
+        finger_url_list_final_uniq = list(set(finger_url_list_final))
+    return finger_url_list_final_uniq
 
 
 
@@ -564,6 +565,7 @@ def key_point_assets_num(assets_finger_list):
     if len(finger_url_list_final) == 0:
         assets_len = 0
     else:
-        assets_len = len(finger_url_list_final)
+        finger_url_list_final_uniq = list(set(finger_url_list_final))
+        assets_len = len(finger_url_list_final_uniq)
     
     return assets_len

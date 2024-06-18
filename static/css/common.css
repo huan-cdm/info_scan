@@ -3,7 +3,7 @@
 		    -webkit-transition: all 0.30s ease-in-out;
 		    -moz-transition: all 0.30s ease-in-out;
 
-		    border: #35a5e5 1px solid;
+		    border: #35a5e5 3px solid;
 		    border-radius: 3px;
 		    outline: none;
 
@@ -22,7 +22,7 @@
 		    -webkit-transition: all linear 0.30s;
 		    -moz-transition: all linear 0.30s;
 		    transition: all linear 0.30s;
-		    height: 40px;
+		    height: 50px;
 		    width: 100px;
 			font-weight: bold; /* 加粗字体 */
 		}
@@ -33,7 +33,7 @@
 		    -webkit-transition: all linear 0.30s;
 		    -moz-transition: all linear 0.30s;
 		    transition: all linear 0.30s;
-		    height: 40px;
+		    height: 50px;
 		    width: 100px;
 			font-weight: bold; /* 加粗字体 */
 		}
@@ -100,7 +100,7 @@
 
 		select {  
             width: 150px; /* 设置宽度为200像素 */  
-            height: 40px; /* 设置高度为40像素 */  
+            height: 50px; /* 设置高度为40像素 */  
             padding: 5px; /* 设置内边距为5像素，这可以增加选项之间的空间 */  
             font-size: 16px; /* 设置字体大小为16像素 */  
             border: 1px solid #ccc; /* 设置边框为1像素宽，颜色为#ccc */  
@@ -138,6 +138,7 @@
 			padding: 250px;  
 			border: 10px solid #888;  
 			width: 15%; /* 弹窗宽度可以根据需要调整 */  
+			border: 2px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
 		}  
 		  
 		.close {  
