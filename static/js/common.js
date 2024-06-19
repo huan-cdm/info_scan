@@ -1002,7 +1002,7 @@ function batchshirovulnfunc() {
 }
 
 
-//重点资产提取
+//识别重点资产
 function key_data_tiqu_func() {
     $.ajax({
         url: '/key_assets_withdraw/',
@@ -1010,18 +1010,22 @@ function key_data_tiqu_func() {
 
         success: function (res) {
             console.log(res)
-            console.log('已经按照自定义规则提取重点资产，点击文本框赋值查看最新资产')
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('已经按照自定义规则提取重点资产，点击文本框赋值查看最新资产')
+           
         }
+    })
+    $.getJSON("/key_assets_withdraw/",
+        function (info) {
+            alert(info.key_assets_result)
     })
 }
 
 
+// 系统管理
 function openModal() {  
     var modal = document.getElementById("modal");  
     modal.style.display = "block";
@@ -1052,10 +1056,13 @@ function openModal() {
         document.getElementById("spp23").innerHTML = info.cpuinfo;
         document.getElementById("spp24").innerHTML = info.memoryinfo;
         document.getElementById("spp25").innerHTML = info.jboss_num;
+        document.getElementById("spp26").innerHTML = info.key_asset_rule;
+        document.getElementById("spp27").innerHTML = info.current_key_asset_num;
     })
 
 }  
   
+// 关闭系统管理
 function closeModal() {  
     var modal = document.getElementById("modal");  
     modal.style.display = "none";  

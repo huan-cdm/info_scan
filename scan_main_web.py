@@ -34,6 +34,7 @@ from config import ruoyi_rule
 from config import struts2_rule
 from config import WordPress_rule
 from config import jboss_rule
+from config import finger_list
 
 import psutil
 
@@ -369,6 +370,12 @@ def systemmanagement():
         # 计算内存占用百分比  
         memory_percent = mem.percent  
 
+        # 资产规则
+        key_asset_rule = str(finger_list)
+
+        # 当前自查数量
+        url_file_current_num = os.popen('bash ./finger.sh current_url_file_num').read()
+
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -394,7 +401,9 @@ def systemmanagement():
             "WordPress_num":"wordpress: "+str(WordPress_num),
             "cpuinfo":"CPU: "+str(cpu_percent),
             "memoryinfo":"内存: "+str(memory_percent),
-            "jboss_num":"jboss: "+str(jboss_num)
+            "jboss_num":"jboss: "+str(jboss_num),
+            "key_asset_rule":"资产规则: "+str(key_asset_rule),
+            "current_key_asset_num":"资产数量: "+str(url_file_current_num)
         }
         return jsonify(message_json)
     else:
@@ -1016,20 +1025,82 @@ def startshirointerface():
         return render_template('login.html')
     
 
-#重点资产提取
+#识别重点资产
 @app.route("/key_assets_withdraw/")
 def key_assets_withdraw():
     user = session.get('username')
     if str(user) == main_username:
-        try:
-            key_url_list = basic.key_point_tiqu()
-            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
-            for line in key_url_list:
-                f.write(str(line)+"\n")
-            f.close()
-        except Exception as e:
-            print("捕获到异常:", e)
-        return render_template('index.html')
+        eholestatus = os.popen('bash ./finger.sh ehole_status').read()
+        if "running" in eholestatus:
+            key_assets_result = "指纹识别接口正在运行中请稍后再进行识别重点资产"
+        else:
+
+            # 根据config.py中finger_list配置进行识别，可在finger_list列表中配置多个，最终写入到全局资产文件url.txt中
+            try:
+                key_url_list = basic.key_point_tiqu()
+                f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+                for line in key_url_list:
+                    f.write(str(line)+"\n")
+                f.close()
+            except Exception as e:
+                print("捕获到异常:", e)
+
+            # 根据config.py中*_rule配置进行识别，只能配置一个关键字，最终写入到单个重点资产文件中，用于指定扫描器调用扫描
+            # ①、写入shiro文件
+            try:
+
+                shiro_file_list = basic.key_point_assets_file(Shiro_rule)
+                f_shiro = open(file='/TIP/info_scan/result/keyasset/shiro_file.txt',mode='w')
+                for shiro_line in shiro_file_list:
+                    f_shiro.write(str(shiro_line)+"\n")
+                f_shiro.close()
+            except Exception as e:
+                print("捕获到异常:", e)
+
+            # ②、写入springboot文件
+            try:
+
+                springboot_file_list = basic.key_point_assets_file(SpringBoot_rule)
+                f_springboot = open(file='/TIP/info_scan/result/keyasset/springboot_file.txt',mode='w')
+                for springboot_line in springboot_file_list:
+                    f_springboot.write(str(springboot_line)+"\n")
+                f_springboot.close()
+            except Exception as e:
+                print("捕获到异常:", e)
+
+
+             # ③、写入struts2文件
+            try:
+
+                struts2_file_list = basic.key_point_assets_file(struts2_rule)
+                f_struts2 = open(file='/TIP/info_scan/result/keyasset/struts2_file.txt',mode='w')
+                for struts2_line in struts2_file_list:
+                    f_struts2.write(str(struts2_line)+"\n")
+                f_struts2.close()
+            except Exception as e:
+                print("捕获到异常:", e)
+
+
+              # ④、写入weblogic文件
+            try:
+
+                weblogic_file_list = basic.key_point_assets_file(weblogic_rule)
+                f_weblogic = open(file='/TIP/info_scan/result/keyasset/weblogic_file.txt',mode='w')
+                for weblogic_line in weblogic_file_list:
+                    f_weblogic.write(str(weblogic_line)+"\n")
+                f_weblogic.close()
+            except Exception as e:
+                print("捕获到异常:", e)
+
+
+            key_assets_result = "已成功识别出重点资产"
+
+        
+        message_json = {
+            "key_assets_result":key_assets_result
+        }
+        return jsonify(message_json)
+        
     else:
         return render_template('login.html')
 

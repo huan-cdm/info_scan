@@ -507,10 +507,16 @@ case "${1}" in
     ;;
 
 
-    # 目标URL数量
+    # 总资产URL数量
     url_file_num)
-    url_num=`cat /TIP/batch_scan_domain/url.txt | wc -l`
+    url_num=`cat /TIP/batch_scan_domain/url_back.txt | wc -l`
     echo "${url_num}"
+    ;;
+
+     # 当前资产URL数量
+    current_url_file_num)
+    url_current_num=`cat /TIP/batch_scan_domain/url.txt | wc -l`
+    echo "${url_current_num}"
     ;;
 
     # Ehole指纹识别运行状态
