@@ -72,4 +72,5 @@ rad+xray批量：batch_scan_domain<br>
 DNS平台：ceye<br>
 敏感信息：BBScan<br>
 威胁情报平台：otx、archive<br>
-重点资产提取：自定义关键字列表，与EHole识别结果进行匹配<br>
+识别重点资产：自定义关键字列表，与EHole识别结果进行匹配<br>
+
