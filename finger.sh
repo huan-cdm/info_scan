@@ -536,6 +536,12 @@ case "${1}" in
     templatenuclei_result=`find $2 -type f`
     echo "${templatenuclei_result}"
     ;;
+
+
+    # 启动springboot漏洞扫描程序
+    start_springboot)
+    /TIP/info_scan/SpingBoot_Scan/ssp_linux_amd64 -uf /TIP/batch_scan_domain/url.txt | grep "+" > /TIP/info_scan/result/springboot_result.txt
+    ;;
     
 esac
 

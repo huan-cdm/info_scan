@@ -1129,3 +1129,29 @@ function vulnmanagerzhediefunc() {
     document.getElementById('vulnid3').style.display = "none";
     document.getElementById('vulnid2').style.display = "block";
   }
+
+
+//springboot报告预览
+function springboot_report_show_func() {
+
+    window.open("/springboot_report_show/");
+}
+
+//springboot漏洞扫描
+function start_springboot_scan_func() {
+    $.ajax({
+        url: '/start_springboot_vuln_scan/',
+        method: 'GET',
+
+        success: function (res) {
+            console.log(res)
+            console.log('springboot漏扫程序已启动稍后查看结果')
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+            alert('springboot漏扫程序已启动稍后查看结果')
+        }
+    })
+}

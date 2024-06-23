@@ -1149,7 +1149,33 @@ def nuclei_poc_show_ajax():
         return render_template('login.html')
     
 
+#springboot报告预览
+@app.route("/springboot_report_show/")
+def springboot_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('./result/springboot_result.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
 
+
+
+#启动springboot漏洞扫描程序
+@app.route("/start_springboot_vuln_scan/")
+def start_springboot_vuln_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_springboot')
+        except Exception as e:
+            print("捕获到异常:", e)
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
     
 
 if __name__ == '__main__':  
