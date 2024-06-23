@@ -542,6 +542,18 @@ case "${1}" in
     start_springboot)
     /TIP/info_scan/SpingBoot_Scan/ssp_linux_amd64 -uf /TIP/batch_scan_domain/url.txt | grep "+" > /TIP/info_scan/result/springboot_result.txt
     ;;
+
+
+    # springboot扫描运行状态
+    springboot_scan_status)
+	ps_springbootscan=`ps -aux | grep ssp_linux_amd64 | wc -l`
+	if (( $ps_springbootscan > 1 ))
+	then
+		echo "springboot：running..."
+	else
+		echo "springboot：stop"
+	fi
+	;;
     
 esac
 

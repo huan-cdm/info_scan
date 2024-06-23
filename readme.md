@@ -68,9 +68,8 @@ CDN信息: shell脚本nslookup<br>
 指纹: tiderfinger、EHole<br>
 子域名：crt证书<br>
 rad+xray批量：batch_scan_domain<br>
-漏洞扫描工具：nuclei、xray、rad、dirsearch、urlfinder、WeblogicScan、Struts2-Scan、vulmap、afrog、fscan、shiro-exploit<br>
+漏洞扫描工具：nuclei、xray、rad、dirsearch、urlfinder、WeblogicScan、Struts2-Scan、vulmap、afrog、fscan、shiro-exploit、ssp_linux_amd64<br>
 DNS平台：ceye<br>
 敏感信息：BBScan<br>
 威胁情报平台：otx、archive<br>
 识别重点资产：自定义关键字列表，与EHole识别结果进行匹配<br>
-

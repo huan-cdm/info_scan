@@ -362,6 +362,12 @@ function startbutton() {
     button50.disabled = false;
     var button51 = document.getElementById("button51");
     button51.disabled = false;
+    var button52 = document.getElementById("button52");
+    button52.disabled = false;
+    var button53 = document.getElementById("button53");
+    button53.disabled = false;
+
+
 
 }
 
@@ -463,6 +469,10 @@ function stopbutton() {
     button50.disabled = true;
     var button51 = document.getElementById("button51");
     button51.disabled = true;
+    var button52 = document.getElementById("button52");
+    button52.disabled = true;
+    var button53 = document.getElementById("button53");
+    button53.disabled = true;
 
 }
 
@@ -1058,6 +1068,7 @@ function openModal() {
         document.getElementById("spp25").innerHTML = info.jboss_num;
         document.getElementById("spp26").innerHTML = info.key_asset_rule;
         document.getElementById("spp27").innerHTML = info.current_key_asset_num;
+        document.getElementById("spp28").innerHTML = info.springbootstatus;
     })
 
 }  

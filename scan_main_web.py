@@ -347,6 +347,7 @@ def systemmanagement():
         shirostatus = os.popen('bash ./finger.sh shiro_status').read()
         httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
+        springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
 
         # 目标url行数
         url_file_num = os.popen('bash ./finger.sh url_file_num').read()
@@ -403,7 +404,8 @@ def systemmanagement():
             "memoryinfo":"内存: "+str(memory_percent),
             "jboss_num":"jboss: "+str(jboss_num),
             "key_asset_rule":"资产规则: "+str(key_asset_rule),
-            "current_key_asset_num":"资产数量: "+str(url_file_current_num)
+            "current_key_asset_num":"资产数量: "+str(url_file_current_num),
+            "springbootstatus":springbootstatus
         }
         return jsonify(message_json)
     else:
@@ -1154,6 +1156,7 @@ def nuclei_poc_show_ajax():
 def springboot_report_show():
     user = session.get('username')
     if str(user) == main_username:
+        os.popen('rm -rf /TIP/info_scan/result.txt')
         lines = []
         with open('./result/springboot_result.txt', 'r') as f:
             for line in f:
