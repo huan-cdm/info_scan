@@ -852,16 +852,31 @@ def startvulmapinterface():
         return render_template('login.html')
 
 
+
 #启动nmap批量端口扫描
 @app.route("/startbatchnmapscan/",methods=['get'])
 def startbatchnmapscan():
     user = session.get('username')
     if str(user) == main_username:
-        try:
-            basic.ip_queue_nmap()
-            return render_template('index.html')
-        except Exception as e:
-            print("捕获到异常:", e)
+        namptatus = os.popen('bash ./finger.sh nmapstatus').read()
+        if "running" in namptatus:
+            nmap_status_result = "端口扫描程序正在运行中稍后在开启扫描"
+        
+        else:
+
+            try:
+                basic.ip_queue_nmap()
+                nmap_status_result = "端口扫描程序已开启稍后查看结果"
+            except Exception as e:
+                print("捕获到异常:", e)
+
+        message_json = {
+            "nmap_status_result":nmap_status_result
+        }
+
+        return jsonify(message_json)
+
+        
     else:
         return render_template('login.html')
     

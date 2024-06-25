@@ -836,14 +836,19 @@ function batchnmapportscanfunc() {
 
         success: function (res) {
             console.log(res)
-            console.log('端口扫描已加入队列中稍后查看结果')
+           
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('端口扫描已加入队列中稍后查看结果')
+           
         }
+    })
+
+    $.getJSON("/startbatchnmapscan/",
+        function (info) {
+            alert(info.nmap_status_result)
     })
 }
 
