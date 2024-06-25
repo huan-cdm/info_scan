@@ -32,13 +32,13 @@ function deletenmapfunc() {
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('已清空nmap和nuclei扫描文件')
+            console.log('已删除端口扫描报告')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已清空nmap和nuclei扫描文件')
+            alert('已删除端口扫描报告')
         }
     })
 }
@@ -96,20 +96,20 @@ function deleteurlfinderreportfunc() {
 
 
 
-//ajax异步结束xray和rad引擎进程
+//ajax异步关闭xray和rad引擎进程
 function killxrayandradfunc() {
     $.ajax({
         url: '/killprocess/',
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('已结束xray和rad引擎')
+            console.log('已关闭xray和rad引擎')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已结束xray和rad引擎')
+            alert('已关闭xray和rad引擎')
         }
     })
 }
@@ -366,7 +366,14 @@ function startbutton() {
     button52.disabled = false;
     var button53 = document.getElementById("button53");
     button53.disabled = false;
-
+    var button54 = document.getElementById("button54");
+    button54.disabled = false;
+    var button55 = document.getElementById("button55");
+    button55.disabled = false;
+    var button56 = document.getElementById("button56");
+    button56.disabled = false;
+    var button57 = document.getElementById("button57");
+    button57.disabled = false;
 
 
 }
@@ -473,6 +480,14 @@ function stopbutton() {
     button52.disabled = true;
     var button53 = document.getElementById("button53");
     button53.disabled = true;
+    var button54 = document.getElementById("button54");
+    button54.disabled = true;
+    var button55 = document.getElementById("button55");
+    button55.disabled = true;
+    var button56 = document.getElementById("button56");
+    button56.disabled = true;
+    var button57 = document.getElementById("button57");
+    button57.disabled = true;
 
 }
 
@@ -923,20 +938,20 @@ function startafrogfunc() {
 }
 
 
-//ajax异步结束afrog进程
+//ajax异步关闭afrog进程
 function killafrogprocessfunc() {
     $.ajax({
         url: '/killafrogprocess/',
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('已结束afrog进程')
+            console.log('已关闭afrog进程')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已结束afrog进程')
+            alert('已关闭afrog进程')
         }
     })
 }
@@ -967,20 +982,20 @@ function batchfscanvulnfunc() {
 }
 
 
-//ajax异步结束fscan进程
+//ajax异步关闭fscan进程
 function killfscanprocessfunc() {
     $.ajax({
         url: '/killfscangprocess/',
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('已结束fscan进程')
+            console.log('已关闭fscan进程')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已结束fscan进程')
+            alert('已关闭fscan进程')
         }
     })
 }
@@ -1163,6 +1178,62 @@ function start_springboot_scan_func() {
         },
         complete: function () {
             alert('springboot漏扫程序已启动稍后查看结果')
+        }
+    })
+}
+
+
+//ajax异步关闭nmap进程
+function killnmapfunc() {
+    $.ajax({
+        url: '/killnmapprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已关闭端口扫描程序')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已关闭端口扫描程序')
+        }
+    })
+}
+
+//ajax异步关闭vulmap进程
+function killvulmapfunc() {
+    $.ajax({
+        url: '/killvulmapprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已关闭vulmap扫描程序')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已关闭vulmap扫描程序')
+        }
+    })
+}
+
+
+//ajax异步关闭nuclei进程
+function killnucleifunc() {
+    $.ajax({
+        url: '/killnucleiprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已关闭nuclei扫描程序')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已关闭nuclei扫描程序')
         }
     })
 }

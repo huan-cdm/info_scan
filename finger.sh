@@ -72,8 +72,8 @@ case "${1}" in
     echo "" >> ./result/nmap.txt
     # 输出当前时间  
     current_time=$(date +"%Y-%m-%d %H:%M:%S")  
-    echo "当前时间：$current_time" >> ./result/nmap.txt
-    echo "IP地址："$2 >> ./result/nmap.txt
+    echo "[+]$current_time" >> ./result/nmap.txt
+    echo "[+]$2" >> ./result/nmap.txt
     /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-65535  --min-rate=10000 | grep "tcp"  >> ./result/nmap.txt
     ;;
 
@@ -439,7 +439,33 @@ case "${1}" in
     done
 	;;
     
+    #kill nmap进程
+    killnmap)
+	pidd=`ps -aux | grep "nmap" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
+
+    #kill vulmap进程
+    killvulmap)
+	pidd=`ps -aux | grep "vulmap" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
     
+     #kill nuclei进程
+    killnuclei)
+	pidd=`ps -aux | grep "nuclei" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
+
 
     # 启动fscan扫描程序
     startfscanprocess)

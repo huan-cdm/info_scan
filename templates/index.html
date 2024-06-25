@@ -6,9 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
-	<!-- <script type="text/javascript" src="{{ url_for( 'static',filename='js/tanchuang.js') }}"></script> -->
 	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
-	<!-- <link type="text/css" href="{{ url_for('static', filename='css/tanchuang.css') }}" rel="stylesheet"> -->
 	<title>漏洞扫描主系统</title>
 </head>
 
@@ -216,8 +214,9 @@
 			<td>
 				<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
-				<input type="button" id="button37" value="程序启动" onclick="batchnmapportscanfunc()" disabled>
+				<input type="button" id="button37" value="启动程序" onclick="batchnmapportscanfunc()" disabled>
 				<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
+				<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
 			</td>
 
 		</tr>
@@ -226,6 +225,7 @@
 				<input type="submit" value="nuclei_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
 				<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
+				<input type="button" id="button56" value="关闭程序" onclick="killnucleifunc()" disabled>
 				<select name="poc_dir">
 					<option value="/root/nuclei-templates/http">http</option>
 					<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
@@ -264,22 +264,24 @@
 					<option>暂无数据</option>
 				  </select>
 				 
-				  <input type="button" value="查询" onclick="nuclei_poc_show_func()"><br>
+				  <input type="button" id="button57" value="查询" onclick="nuclei_poc_show_func()" disabled>
+				 
+				 <br>
 				  <span id="nucleibyid2"></span>
 			</td>
 			<td>
 				<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button13" value="预览报告" onclick="xrayreportshow()" disabled>
 				<input type="button" id="button14" value="删除报告" onclick="xrayreportdelete()" disabled>
-				<input type="button" id="button15" value="结束进程" onclick="killxrayandradfunc()" disabled>
+				<input type="button" id="button15" value="关闭程序" onclick="killxrayandradfunc()" disabled>
 				<input type="button" id="button16" value="启动程序" onclick="startradandxray()" disabled>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
-				<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
+				<input type="submit"  value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button"   id="button33"  value="预览报告" onclick="showbbscanreportfunc()" disabled>
+				<input type="button"   id="button34"  value="启动程序" onclick="bbscaninfofunc()" disabled>
 			</td>
 			<td>
 				<input type="submit" value="struts2_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -292,18 +294,20 @@
 				<input type="submit"  value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button"  id="button31"  value="预览报告" onclick="eholefingerreportfunc()" disabled>
 				<input type="button"  id="button32"  value="启动程序" onclick="eholefingerfunc()" disabled>
-				<input type="button"  id="button51"  value="识别重点资产" onclick="key_data_tiqu_func()" disabled>
+				
 			</td>
 			<td>
-				<input type="submit"  value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button"   id="button33"  value="预览报告" onclick="showbbscanreportfunc()" disabled>
-				<input type="button"   id="button34"  value="启动程序" onclick="bbscaninfofunc()" disabled>
+				<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
+				<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
+				
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<input type="submit"  value="vulmap_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
+				<input type="button" id="button55" value="关闭程序" onclick="killvulmapfunc()" disabled> 
 				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
 				<select name="vulnname">
 					<option value="all">all</option>
@@ -336,12 +340,14 @@
 					<option value="eyou">检查站点是否存在eyou漏洞</option>
 					<option value="qianxin">检查站点是否存在qianxin漏洞</option>
 					<option value="ruijie">检查站点是否存在ruijie漏洞</option>
-				  </select><br><br>
+				  </select>
+				  
+				  <br><br>
 				
 				  <input type="submit"  value="fscan_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 				  <input type="button"  id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
 				  <input type="button"  id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
-				  <input type="button"  id="button48" value="结束进程" onclick="killfscanprocessfunc()" disabled>
+				  <input type="button"  id="button48" value="关闭程序" onclick="killfscanprocessfunc()" disabled>
 				
 			</td>
 			<td>
@@ -349,17 +355,20 @@
 				<input type="button" id="button40" value="预览报告" onclick="afrogreportfun()" disabled>
 				<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
 				<input type="button" id="button42" value="启动程序" onclick="startafrogfunc()" disabled>
-				<input type="button" id="button43" value="结束进程" onclick="killafrogprocessfunc()" disabled><br><br>
-				<input type="submit"  value="DNS日志：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button44" value="CEYE-DNS" onclick="ceyednsfunc()" disabled>
-				<input type="button" id="button45" value="CEYE-HTTP" onclick="ceyehttpfunc()" disabled>
+				<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled><br><br>
+				<input type="submit"  value="shiro_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
+				<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
+				
+				
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<input type="submit"  value="shiro_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
-				<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
+				<input type="submit"  value="DNS日志：">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="button44" value="CEYE-DNS" onclick="ceyednsfunc()" disabled>
+				<input type="button" id="button45" value="CEYE-HTTP" onclick="ceyehttpfunc()" disabled>
+				
 			</td>
 			<td>
 				<input type="submit"  value="springboot_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -379,9 +388,10 @@
 				<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
 				<input type="button" id="button20" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()" disabled>
 				<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled>
-				<!-- <input type="button" id="button2" value="一键处理" onclick="oneclickprocessing()" disabled>  -->
-				<input type="button" id="button2"  value="文本框赋值" onclick="targeturlcopytextareafunc()" disabled><br>
+				<input type="button" id="button2"  value="文本框赋值" onclick="targeturlcopytextareafunc()" disabled>
+				<input type="button"  id="button51"  value="识别重点资产" onclick="key_data_tiqu_func()" disabled><br>
 				<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()" disabled>
+				
 	<select id="opbyid3">
 		<option>文本内容展示</option>
 	</select>

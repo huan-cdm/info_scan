@@ -258,8 +258,6 @@ def deletenmapresult():
     if str(user) == main_username:
         os.popen('rm -rf ./result/nmap.txt')
         os.popen('touch ./result/nmap.txt')
-        os.popen('rm -rf ./result/nucleiresult.txt')
-        os.popen('touch ./result/nucleiresult.txt')
         return render_template('index.html')
     else:
         return render_template('login.html')
@@ -686,7 +684,7 @@ def report_download_interface():
         if os.path.exists(file_path) and os.path.isfile(file_path):
             return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
         else:
-            text_list = ["系统检测到有扫描器程序正在运行中......","导致漏洞报告保存失败","请确认漏洞扫描程序全部停止在进行保存！"]
+            text_list = ["{\"status\":\"failed\",\"errorcode\":500,\"describe\":\"正在进行报告整合...\"}"]
             df_a = pd.DataFrame(text_list, columns=['警告信息'])
             with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
             # 将 DataFrame 写入不同的工作表  
@@ -940,6 +938,43 @@ def killafrogprocess():
         return render_template('index.html')
     else:
         return render_template('login.html')
+    
+
+
+#结束nmap进程
+@app.route("/killnmapprocess/")
+def killnmapprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killnmap')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+
+#结束vulmap进程
+@app.route("/killvulmapprocess/")
+def killvulmapprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killvulmap')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+
+
+
+#结束nuclei进程
+@app.route("/killnucleiprocess/")
+def killnucleiprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killnuclei')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
 
 
 #fscan报告预览
