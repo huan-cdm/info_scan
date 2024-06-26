@@ -310,15 +310,25 @@ def submit_data():
 def startnuclei():
     user = session.get('username')
     if str(user) == main_username:
-        poc_dir = request.form['poc_dir']
-        if int(history_switch) == 0:
-            os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
-        elif int(history_switch) ==1:
-            os.popen('bash ./finger.sh startnuclei_result')
+        nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
+        if "running" in nucleitatus:
+            nuclei_status_result = "nuclei扫描程序正在运行中稍后在开启扫描"
         else:
-            print("配置文件history_switch字段只允许0/1")
-    
-        return render_template('index.html')
+            poc_dir = request.form['poc_dir']
+            if int(history_switch) == 0:
+                os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
+                nuclei_status_result = "nuclei扫描程序已开启稍后查看结果"
+            elif int(history_switch) ==1:
+                os.popen('bash ./finger.sh startnuclei_result')
+            else:
+                print("配置文件history_switch字段只允许0/1")
+
+
+        message_json = {
+            "nuclei_status_result":nuclei_status_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
    
@@ -593,30 +603,40 @@ def assetsbackspaceinterface():
 def weblogicscaninterface():
     user = session.get('username')
     if str(user) == main_username:
-        # 遍历目标文件存入列表
-        url_list = []
-        url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
-        for i in url_file.readlines():
-            url_list.append(i.strip())
-        
-        # url中匹配出域名
-        domain_list = []
-        for url in url_list:
-            pattern = r"https?://([^/]+)"
-            urls_re_1 = re.search(pattern,url)
-            urls_re = urls_re_1.group(1)
-            domain_list.append(urls_re)
-        
-        # 域名写入到weblogic_poc目标
-        weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
-        for j in domain_list:
-            weblogic_file.write(str(j)+"\n")
-        weblogic_file.close()
+        weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
+        if "running" in weblogic_status:
+            weblogic_status_result = "weblogic扫描程序正在运行中稍后在开启扫描"
+        else:
 
-        # weblogic_poc开始扫描
-        os.popen('bash ./finger.sh weblogic_poc_scan')
+            # 遍历目标文件存入列表
+            url_list = []
+            url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+            for i in url_file.readlines():
+                url_list.append(i.strip())
+            
+            # url中匹配出域名
+            domain_list = []
+            for url in url_list:
+                pattern = r"https?://([^/]+)"
+                urls_re_1 = re.search(pattern,url)
+                urls_re = urls_re_1.group(1)
+                domain_list.append(urls_re)
+            
+            # 域名写入到weblogic_poc目标
+            weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+            for j in domain_list:
+                weblogic_file.write(str(j)+"\n")
+            weblogic_file.close()
+    
+            # weblogic_poc开始扫描
+            os.popen('bash ./finger.sh weblogic_poc_scan')
+            weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
 
-        return render_template('index.html')
+        message_json = {
+            "weblogic_status_result":weblogic_status_result
+        }
+        return jsonify(message_json)
+            
     else:
         return render_template('login.html')
     
@@ -640,9 +660,17 @@ def weblogic_poc_report():
 def struts2_poc_scan():
     user = session.get('username')
     if str(user) == main_username:
-        # 执行poc扫描
-        os.popen('bash ./finger.sh struts2_poc_scan')
-        return render_template('index.html')
+        struts2status = os.popen('bash ./finger.sh struts2_status').read()
+        if "running" in struts2status:
+            struts2status_result = "struts2扫描程序正在运行中稍后在开启扫描"
+        else:
+            # 执行poc扫描
+            os.popen('bash ./finger.sh struts2_poc_scan')
+            struts2status_result = "struts2扫描程序已开启稍后查看结果"
+        message_json = {
+            "struts2status_result":struts2status_result
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -865,8 +893,8 @@ def startbatchnmapscan():
         else:
 
             try:
-                basic.ip_queue_nmap()
                 nmap_status_result = "端口扫描程序已开启稍后查看结果"
+                basic.ip_queue_nmap()
             except Exception as e:
                 print("捕获到异常:", e)
 
@@ -1068,11 +1096,20 @@ def shiro_report_show():
 def startshirointerface():
     user = session.get('username')
     if str(user) == main_username:
-        try:
-            basic.shiro_scan()
-        except Exception as e:
-            print("捕获到异常:", e)
-        return render_template('index.html')
+        shiro_status = os.popen('bash ./finger.sh shiro_status').read()
+        if "running" in shiro_status:
+            shiro_status_result = "shiro扫描程序正在运行中稍后在开启扫描"
+        else:
+            try:
+                basic.shiro_scan()
+                shiro_status_result = "shiro扫描程序已开启稍后查看结果"
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "shiro_status_result":shiro_status_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -1222,11 +1259,21 @@ def springboot_report_show():
 def start_springboot_vuln_scan():
     user = session.get('username')
     if str(user) == main_username:
-        try:
-            os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-        except Exception as e:
-            print("捕获到异常:", e)
-        return render_template('index.html')
+        springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
+        if "running" in springboot_scan_status:
+            springboot_scan_status_result = "springboot扫描程序正在运行中稍后在开启扫描"
+        else:
+            try:
+                os.popen('bash /TIP/info_scan/finger.sh start_springboot')
+                springboot_scan_status_result = "springboot扫描程序已开启稍后查看结果"
+            except Exception as e:
+                print("捕获到异常:", e)
+        
+        message_json = {
+            "springboot_scan_status_result":springboot_scan_status_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     

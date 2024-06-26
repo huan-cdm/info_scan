@@ -161,14 +161,19 @@ function startnucleifunc() {
         },
         success: function (res) {
             console.log(res)
-            console.log('已启动nuclei扫描')
+            
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已启动nuclei扫描')
+           
         }
+    })
+
+    $.getJSON("/startnuclei/",
+        function (info) {
+            alert(info.nuclei_status_result)
     })
 }
 
@@ -656,14 +661,18 @@ function weblogicscanfunc() {
 
         success: function (res) {
             console.log(res)
-            console.log('weblogic_poc扫描已开启稍后查看结果')
+           
         },
         error: function () {
             alert('weblogic_poc扫描出错')
         },
         complete: function () {
-            alert('weblogic_poc扫描已开启稍后查看结果')
+     
         }
+    })
+    $.getJSON("/weblogicscaninterface/",
+        function (info) {
+            alert(info.weblogic_status_result)
     })
 }
 
@@ -686,14 +695,18 @@ function struts2scanfunc() {
 
         success: function (res) {
             console.log(res)
-            console.log('struts2_poc扫描已开启稍后查看结果')
+           
         },
         error: function () {
             alert('struts2_poc扫描出错')
         },
         complete: function () {
-            alert('struts2_poc扫描已开启稍后查看结果')
+           
         }
+    })
+    $.getJSON("/struts2_poc_scan/",
+        function (info) {
+            alert(info.struts2status_result)
     })
 }
 
@@ -1020,14 +1033,18 @@ function batchshirovulnfunc() {
 
         success: function (res) {
             console.log(res)
-            console.log('shiro漏扫程序已启动稍后查看结果')
+        
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('shiro漏扫程序已启动稍后查看结果')
+            
         }
+    })
+    $.getJSON("/startshirointerface/",
+        function (info) {
+            alert(info.shiro_status_result)
     })
 }
 
@@ -1176,14 +1193,18 @@ function start_springboot_scan_func() {
 
         success: function (res) {
             console.log(res)
-            console.log('springboot漏扫程序已启动稍后查看结果')
+           
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('springboot漏扫程序已启动稍后查看结果')
+           
         }
+    })
+    $.getJSON("/start_springboot_vuln_scan/",
+        function (info) {
+            alert(info.springboot_scan_status_result)
     })
 }
 
