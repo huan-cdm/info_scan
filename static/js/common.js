@@ -379,6 +379,8 @@ function startbutton() {
     button56.disabled = false;
     var button57 = document.getElementById("button57");
     button57.disabled = false;
+    var button58 = document.getElementById("button58");
+    button58.disabled = false;
 
 
 }
@@ -493,7 +495,8 @@ function stopbutton() {
     button56.disabled = true;
     var button57 = document.getElementById("button57");
     button57.disabled = true;
-
+    var button58 = document.getElementById("button58");
+    button58.disabled = true;
 }
 
 
@@ -748,14 +751,19 @@ function eholefingerfunc() {
 
         success: function (res) {
             console.log(res)
-            console.log('指纹识别已开启稍后查看结果')
+            
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('指纹识别已开启稍后查看结果')
+           
         }
+    })
+    
+    $.getJSON("/ehole_finger_scan/",
+        function (info) {
+            alert(info.finger_status_result)
     })
 }
 
@@ -768,14 +776,18 @@ function bbscaninfofunc() {
 
         success: function (res) {
             console.log(res)
-            console.log('敏感信息扫描已开启稍后查看结果')
+            
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('敏感信息扫描已开启稍后查看结果')
+            
         }
+    })
+    $.getJSON("/bbscan_info_scan/",
+        function (info) {
+            alert(info.bbscan_status_result)
     })
 }
 
@@ -1260,6 +1272,25 @@ function killnucleifunc() {
         },
         complete: function () {
             alert('已关闭nuclei扫描程序')
+        }
+    })
+}
+
+
+//ajax异步关闭bbscan进程
+function killbbscanfunc() {
+    $.ajax({
+        url: '/killbbscanprocess/',
+        method: 'GET',
+        success: function (res) {
+            console.log(res)
+            console.log('已关闭bbscan扫描程序')
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            alert('已关闭bbscan扫描程序')
         }
     })
 }

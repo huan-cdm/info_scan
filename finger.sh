@@ -580,6 +580,16 @@ case "${1}" in
 		echo "springboot：stop"
 	fi
 	;;
+
+
+    #kill bbscan进程
+    killbbscan)
+	pidd=`ps -aux | grep "BBScan.py" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+	;;
     
 esac
 

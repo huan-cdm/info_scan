@@ -747,11 +747,19 @@ def ehole_finger_report():
 def ehole_finger_scan():
     user = session.get('username')
     if str(user) == main_username:
-        
-        # 执行指纹识别扫描
-        os.popen('bash ./finger.sh ehole_finger_scan')
+        finger_status = os.popen('bash ./finger.sh ehole_status').read()
+        if "running" in finger_status:
+            finger_status_result = "指纹识别程序正在运行中稍后在开启扫描"
+        else:
+            # 执行指纹识别扫描
+            os.popen('bash ./finger.sh ehole_finger_scan')
+            finger_status_result = "指纹识别程序已开启稍后查看结果"
 
-        return render_template('index.html')
+        message_json = {
+            "finger_status_result":finger_status_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -761,9 +769,22 @@ def ehole_finger_scan():
 def bbscan_info_scan():
     user = session.get('username')
     if str(user) == main_username:
-        # 执行敏感信息扫描
-        os.popen('bash ./finger.sh bbscan_shell')
-        return render_template('index.html')
+        bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
+
+        if "running" in bbscan_status1:
+            bbscan_status_result = "敏感信息扫描程序正在运行中稍后在开启扫描"
+
+        else:
+            os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
+            # 执行敏感信息扫描
+            os.popen('bash ./finger.sh bbscan_shell')
+            bbscan_status_result = "敏感信息扫描程序已开启稍后查看结果"
+
+        message_json = {
+            "bbscan_status_result":bbscan_status_result
+        }
+        return jsonify(message_json)
+    
     else:
         return render_template('login.html')
 
@@ -1014,6 +1035,18 @@ def killnucleiprocess():
     user = session.get('username')
     if str(user) == main_username:
         os.popen('bash ./finger.sh killnuclei')
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
+    
+
+
+#关闭bbscan程序
+@app.route("/killbbscanprocess/")
+def killbbscanprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killbbscan')
         return render_template('index.html')
     else:
         return render_template('login.html')
