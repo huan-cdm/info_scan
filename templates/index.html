@@ -20,15 +20,15 @@
 				<input type="button" value="锁定按钮" onclick="stopbutton()">
 				<input type="button" value="报告整合" onclick="reporttotalfunc()">
 				<input type="button" value="报告下载" onclick="reportdownloadfunc()">
-				<input type="button" value="系统管理" onclick="openModal()" >
+				<input type="button" value="系统管理" onclick="openModal()">
 				<input type="button" value="注销系统" onclick="signoutfunc()">
-			</td>			
+			</td>
 		</tr>
 	</table>
 
 	<div id="modal" class="modal">
-		<div class="modal-content">  
-			<span class="close" onclick="closeModal()">&times;</span> 
+		<div class="modal-content">
+			<span class="close" onclick="closeModal()">&times;</span>
 			<strong style="color:coral">系统状态 </strong><br>
 			<span id="spp23"></span><br>
 			<span id="spp24"></span><br><br>
@@ -62,14 +62,31 @@
 			<span id="spp20"></span><br>
 			<span id="spp22"></span><br>
 			<span id="spp25"></span><br>
-		</div>  
-	</div>  
-	
+		</div>
+	</div>
+
+
+	<div id="modal1" class="modal1">
+		<div class="modal-content1">
+			<span class="close" onclick="closeModal1()">&times;</span>
+			<P>ip="1.1.1.1" 通过单一IPv4地址进行查询</P>
+			<p>ip="220.181.111.1/24" 通过IPv4 C段进行查询</p>
+			<p>ip="2600:9000:202a:2600:18:4ab7:f600:93a1" 通过单一Ipv6地址进行查询</p>
+			<p> port="6379" 通过端口号进行查询</p>
+			<p>domain="qq.com" 通过根域名进行查询</p>
+			<p>title="beijing" 通过网站标题进行查询</p>
+			<p>body="网络空间测绘" 通过HTML正文进行查询</p>
+			<p>country="CN" 通过国家的简称代码进行查询</p>
+			<p>更多语法参考fofa官网<a href="https://fofa.info/" target="_blank">fofa</a></p>
+
+		</div>
+	</div>
+
 	<h3>IP信息搜索</h3>
 	<div>
 		<form method="post" action="/ipscaninterface/">
 			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
-				required="required" id="myInput"/>
+				required="required" id="myInput" />
 			<input type="submit" value="搜索">
 		</form>
 	</div>
@@ -102,20 +119,20 @@
 		</div>
 		<div class="inner-div">
 			{% for kd in data4 %}
-				<tr>
-					<td>{{ kd }}</td>
-					<br>
-				</tr>
-				{% endfor %}
-			</div>
+			<tr>
+				<td>{{ kd }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
 		<div class="inner-div">
 			{% for kdk in data13 %}
-				<tr>
-					<td>{{ kdk }}</td>
-					<br>
-				</tr>
-				{% endfor %}
-			</div>
+			<tr>
+				<td>{{ kdk }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
 	</div>
 	<div class="div-container" style="background-color:#f2f2f2">
 		<div class="inner-div"><strong>历史URL</strong></div>
@@ -174,7 +191,7 @@
 		<div class="inner-div">
 			{% for i11 in data11 %}
 			<tr>
-				
+
 				<td>{{ i11 }}</td>
 				<br>
 			</tr>
@@ -183,231 +200,234 @@
 	</div>
 	<h3>漏洞管理</h3>
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2">展开</h3>
-	<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">折叠</h5>
-	<table border="1" style="display:none;" id="vulnid1">
-		<tr>
-			<td>
-				<input type="submit" value="路劲处理：">&nbsp;&nbsp;&nbsp;&nbsp;				
-				
-				<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()" disabled>
-				<input type="button" id="button35" value="子域名预览" onclick="showsubdomainfunc()" disabled>
-				<input type="button" id="button36" value="子域名探测" onclick="subdomainfindfunc()" disabled>
-				
-			</td>
-			
-			<td style="text-align: right;">
-				<input type="submit" value="目录探测：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()" disabled>
-				<input type="button" id="button21" value="链接扫描" onclick="urlfinderscanfunc()" disabled>
-				<input type="button" id="button22" value="预览报告" onclick="urlfinderreportshow()" disabled>
-				<input type="button" id="button23" value="删除报告" onclick="deleteurlfinderreportfunc()" disabled>
-			</td>
+		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">折叠</h5>
+		<table border="1" style="display:none;" id="vulnid1">
+			<tr>
+				<td>
+					<input type="submit" value="路劲处理：">&nbsp;&nbsp;&nbsp;&nbsp;
 
-		</tr>
-		<tr>
-			<td>
-				<input type="submit" value="威胁情报：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()" disabled>
-				<input type="button" id="button7" value="OTX预览" onclick="historyurlpreviewfunc()" disabled>
-				<input type="button" id="button8" value="archive查询" onclick="archiveurlshowfunc()" disabled>
-			</td>
-			<td>
-				<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
-				<input type="button" id="button37" value="启动程序" onclick="batchnmapportscanfunc()" disabled>
-				<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
-				<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
-			</td>
+					<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()" disabled>
+					<input type="button" id="button35" value="子域名预览" onclick="showsubdomainfunc()" disabled>
+					<input type="button" id="button36" value="子域名探测" onclick="subdomainfindfunc()" disabled>
 
-		</tr>
-		<tr>
-			<td>
-				<input type="submit" value="nuclei_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
-				<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
-				<input type="button" id="button56" value="关闭程序" onclick="killnucleifunc()" disabled>
-				<select name="poc_dir">
-					<option value="/root/nuclei-templates/http">http</option>
-					<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
-					<option value="/root/nuclei-templates/http/cves">http_cves</option>
-					<option value="/root/nuclei-templates/http/exposed-panels">http_exposed_panels</option>
-					<option value="/root/nuclei-templates/http/fuzzing">http_fuzzing</option>
-					<option value="/root/nuclei-templates/http/iot">http_iot</option>
-					<option value="/root/nuclei-templates/http/misconfiguration">http_misconfiguration</option>
-					<option value="/root/nuclei-templates/http/takeovers">http_takeovers</option>
-					<option value="/root/nuclei-templates/http/token-spray">http_token_spray</option>
-					<option value="/root/nuclei-templates/http/credential-stuffing">http_credential_stuffing</option>
-					<option value="/root/nuclei-templates/http/default-logins">http_default_logins</option>
-					<option value="/root/nuclei-templates/http/exposures">http_exposures</option>
-					<option value="/root/nuclei-templates/http/honeypot">http_honeypot</option>
-					<option value="/root/nuclei-templates/http/miscellaneous">http_miscellaneous</option>
-					<option value="/root/nuclei-templates/http/osint">http_osint</option>
-					<option value="/root/nuclei-templates/http/technologies">http_technologies</option>
-					<option value="/root/nuclei-templates/http/vulnerabilities">http_vulnerabilities</option>
-					<option value="/root/nuclei-templates/dns">dns</option>
-					<option value="/root/nuclei-templates/helpers">helpers</option>
-					<option value="/root/nuclei-templates/miscellaneous">miscellaneous</option>
-					<option value="/root/nuclei-templates/technologies">technologies</option>
-					<option value="/root/nuclei-templates/workflows">workflows</option>
-					<option value="/root/nuclei-templates/file">file</option>
-					<option value="/root/nuclei-templates/cloud">cloud</option>
-					<option value="/root/nuclei-templates/misconfiguration">misconfiguration</option>
-					<option value="/root/nuclei-templates/default-logins">default-logins</option>
-					<option value="/root/nuclei-templates/headless">headless</option>
-					<option value="/root/nuclei-templates/network">network</option>
-					<option value="/root/nuclei-templates/ssl">ssl</option>
-					<option value="/root/nuclei-templates/javascript">javascript</option>
-					<option value="/root/nuclei-templates/config">config</option>
-					<option value="/root/nuclei-templates/code">code</option>
-				  </select>
-				  <select id="nucleibyid1">
-					<option>暂无数据</option>
-				  </select>
-				 
-				  <input type="button" id="button57" value="查询" onclick="nuclei_poc_show_func()" disabled>
-				 
-				 <br>
-				  <span id="nucleibyid2"></span>
-			</td>
-			<td>
-				<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button13" value="预览报告" onclick="xrayreportshow()" disabled>
-				<input type="button" id="button14" value="删除报告" onclick="xrayreportdelete()" disabled>
-				<input type="button" id="button15" value="关闭程序" onclick="killxrayandradfunc()" disabled>
-				<input type="button" id="button16" value="启动程序" onclick="startradandxray()" disabled>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit"  value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button"   id="button33"  value="预览报告" onclick="showbbscanreportfunc()" disabled>
-				<input type="button"   id="button34"  value="启动程序" onclick="bbscaninfofunc()" disabled>
-				<input type="button" id="button58" value="关闭程序" onclick="killbbscanfunc()" disabled>
-			</td>
-			<td>
-				<input type="submit" value="struts2_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button29" value="预览报告" onclick="struts2reportfunc()" disabled>
-				<input type="button" id="button30" value="启动程序" onclick="struts2scanfunc()" disabled>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit"  value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button"  id="button31"  value="预览报告" onclick="eholefingerreportfunc()" disabled>
-				<input type="button"  id="button32"  value="启动程序" onclick="eholefingerfunc()" disabled>
-				
-			</td>
-			<td>
-				<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
-				<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
-				
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit"  value="vulmap_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
-				<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
-				<input type="button" id="button55" value="关闭程序" onclick="killvulmapfunc()" disabled> 
-				<select name="vulnname">
-					<option value="all">all</option>
-					<option value="activemq">检查站点是否存在activemq漏洞</option>
-					<option value="flink">检查站点是否存在flink漏洞</option>
-					<option value="shiro">检查站点是否存在shiro漏洞</option>
-					<option value="solr">检查站点是否存在solr漏洞</option>
-					<option value="struts2">检查站点是否存在struts2漏洞</option>
-					<option value="tomcat">检查站点是否存在tomcat漏洞</option>
-					<option value="unomi">检查站点是否存在unomi漏洞</option>
-					<option value="drupal">检查站点是否存在drupal漏洞</option>
-					<option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
-					<option value="fastjson">检查站点是否存在fastjson漏洞</option>
-					<option value="jenkins">检查站点是否存在jenkins漏洞</option>
-					<option value="laravel">检查站点是否存在laravel漏洞</option>
-					<option value="nexus">检查站点是否存在nexus漏洞</option>
-					<option value="weblogic">检查站点是否存在weblogic漏洞</option>
-					<option value="jboss">检查站点是否存在jboss漏洞</option>
-					<option value="spring">检查站点是否存在spring漏洞</option>
-					<option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
-					<option value="druid">检查站点是否存在druid漏洞</option>
-					<option value="exchange">检查站点是否存在exchange漏洞</option>
-					<option value="nodejs">检查站点是否存在nodejs漏洞</option>
-					<option value="saltstack">检查站点是否存在saltstack漏洞</option>
-					<option value="vmware">检查站点是否存在vmware漏洞</option>
-					<option value="bigip">检查站点是否存在bigip漏洞</option>
-					<option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
-					<option value="coremail">检查站点是否存在coremail漏洞</option>
-					<option value="ecology">检查站点是否存在ecology漏洞</option>
-					<option value="eyou">检查站点是否存在eyou漏洞</option>
-					<option value="qianxin">检查站点是否存在qianxin漏洞</option>
-					<option value="ruijie">检查站点是否存在ruijie漏洞</option>
-				  </select>
-				  
-				  <br><br>
-				
-				  <input type="submit"  value="fscan_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				  <input type="button"  id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
-				  <input type="button"  id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
-				  <input type="button"  id="button48" value="关闭程序" onclick="killfscanprocessfunc()" disabled>
-				
-			</td>
-			<td>
-				<input type="submit"  value="afrog_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button40" value="预览报告" onclick="afrogreportfun()" disabled>
-				<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
-				<input type="button" id="button42" value="启动程序" onclick="startafrogfunc()" disabled>
-				<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled><br><br>
-				<input type="submit"  value="shiro_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
-				<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
-				
-				
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit"  value="DNS日志：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" id="button44" value="CEYE-DNS" onclick="ceyednsfunc()" disabled>
-				<input type="button" id="button45" value="CEYE-HTTP" onclick="ceyehttpfunc()" disabled>
-				
-			</td>
-			<td>
-				<input type="submit"  value="springboot_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button"  id="button52" value="预览报告" onclick="springboot_report_show_func()" disabled>
-				<input type="button"  id="button53" value="启动程序" onclick="start_springboot_scan_func()" disabled>
-			</td>
-		</tr>
-	</table>
+				</td>
 
-	<h3>资产管理</h3>
-	<h5 onclick="assetmanagerzhankaifunc()" id="assetid2">展开</h3>
-	<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">折叠</h5>
-	<table border="1" style="display:none;" id="assetid1">
-		<tr>
-			<td>
-				<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled>
-				<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
-				<input type="button" id="button20" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()" disabled>
-				<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled>
-				<input type="button" id="button2"  value="文本框赋值" onclick="targeturlcopytextareafunc()" disabled>
-				<input type="button"  id="button51"  value="识别重点资产" onclick="key_data_tiqu_func()" disabled><br>
-				<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()" disabled>
-				
-	<select id="opbyid3">
-		<option>文本内容展示</option>
-	</select>
-	&nbsp;&nbsp;<span id="span1"></span>
-	<br>
-	
-	<input type="button" id="button19" class="hover-color" name="commit" value="资产去重" onclick="filedeweightingfunc()"
-		disabled>
-	<select name="fileqingxiname">
-		<option value="2">保留所有资产</option>
-		<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>	
-	</select>
-			</td>
-			<td>
-				<textarea rows="9" cols="110" id="myTextarea">基础数据处理操作说明：
+				<td style="text-align: right;">
+					<input type="submit" value="目录探测：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button18" value="目录扫描" onclick="jumpdirscanpage()" disabled>
+					<input type="button" id="button21" value="链接扫描" onclick="urlfinderscanfunc()" disabled>
+					<input type="button" id="button22" value="预览报告" onclick="urlfinderreportshow()" disabled>
+					<input type="button" id="button23" value="删除报告" onclick="deleteurlfinderreportfunc()" disabled>
+				</td>
+
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="威胁情报：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()" disabled>
+					<input type="button" id="button7" value="OTX预览" onclick="historyurlpreviewfunc()" disabled>
+					<input type="button" id="button8" value="archive查询" onclick="archiveurlshowfunc()" disabled>
+				</td>
+				<td>
+					<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
+					<input type="button" id="button37" value="启动程序" onclick="batchnmapportscanfunc()" disabled>
+					<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
+					<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
+				</td>
+
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="nuclei_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
+					<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
+					<input type="button" id="button56" value="关闭程序" onclick="killnucleifunc()" disabled>
+					<select name="poc_dir">
+						<option value="/root/nuclei-templates/http">http</option>
+						<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
+						<option value="/root/nuclei-templates/http/cves">http_cves</option>
+						<option value="/root/nuclei-templates/http/exposed-panels">http_exposed_panels</option>
+						<option value="/root/nuclei-templates/http/fuzzing">http_fuzzing</option>
+						<option value="/root/nuclei-templates/http/iot">http_iot</option>
+						<option value="/root/nuclei-templates/http/misconfiguration">http_misconfiguration</option>
+						<option value="/root/nuclei-templates/http/takeovers">http_takeovers</option>
+						<option value="/root/nuclei-templates/http/token-spray">http_token_spray</option>
+						<option value="/root/nuclei-templates/http/credential-stuffing">http_credential_stuffing
+						</option>
+						<option value="/root/nuclei-templates/http/default-logins">http_default_logins</option>
+						<option value="/root/nuclei-templates/http/exposures">http_exposures</option>
+						<option value="/root/nuclei-templates/http/honeypot">http_honeypot</option>
+						<option value="/root/nuclei-templates/http/miscellaneous">http_miscellaneous</option>
+						<option value="/root/nuclei-templates/http/osint">http_osint</option>
+						<option value="/root/nuclei-templates/http/technologies">http_technologies</option>
+						<option value="/root/nuclei-templates/http/vulnerabilities">http_vulnerabilities</option>
+						<option value="/root/nuclei-templates/dns">dns</option>
+						<option value="/root/nuclei-templates/helpers">helpers</option>
+						<option value="/root/nuclei-templates/miscellaneous">miscellaneous</option>
+						<option value="/root/nuclei-templates/technologies">technologies</option>
+						<option value="/root/nuclei-templates/workflows">workflows</option>
+						<option value="/root/nuclei-templates/file">file</option>
+						<option value="/root/nuclei-templates/cloud">cloud</option>
+						<option value="/root/nuclei-templates/misconfiguration">misconfiguration</option>
+						<option value="/root/nuclei-templates/default-logins">default-logins</option>
+						<option value="/root/nuclei-templates/headless">headless</option>
+						<option value="/root/nuclei-templates/network">network</option>
+						<option value="/root/nuclei-templates/ssl">ssl</option>
+						<option value="/root/nuclei-templates/javascript">javascript</option>
+						<option value="/root/nuclei-templates/config">config</option>
+						<option value="/root/nuclei-templates/code">code</option>
+					</select>
+					<select id="nucleibyid1">
+						<option>暂无数据</option>
+					</select>
+
+					<input type="button" id="button57" value="查询" onclick="nuclei_poc_show_func()" disabled>
+
+					<br>
+					<span id="nucleibyid2"></span>
+				</td>
+				<td>
+					<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button13" value="预览报告" onclick="xrayreportshow()" disabled>
+					<input type="button" id="button14" value="删除报告" onclick="xrayreportdelete()" disabled>
+					<input type="button" id="button15" value="关闭程序" onclick="killxrayandradfunc()" disabled>
+					<input type="button" id="button16" value="启动程序" onclick="startradandxray()" disabled>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button33" value="预览报告" onclick="showbbscanreportfunc()" disabled>
+					<input type="button" id="button34" value="启动程序" onclick="bbscaninfofunc()" disabled>
+					<input type="button" id="button58" value="关闭程序" onclick="killbbscanfunc()" disabled>
+				</td>
+				<td>
+					<input type="submit" value="struts2_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button29" value="预览报告" onclick="struts2reportfunc()" disabled>
+					<input type="button" id="button30" value="启动程序" onclick="struts2scanfunc()" disabled>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button31" value="预览报告" onclick="eholefingerreportfunc()" disabled>
+					<input type="button" id="button32" value="启动程序" onclick="eholefingerfunc()" disabled>
+
+				</td>
+				<td>
+					<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
+					<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="vulmap_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
+					<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
+					<input type="button" id="button55" value="关闭程序" onclick="killvulmapfunc()" disabled>
+					<select name="vulnname">
+						<option value="all">all</option>
+						<option value="activemq">检查站点是否存在activemq漏洞</option>
+						<option value="flink">检查站点是否存在flink漏洞</option>
+						<option value="shiro">检查站点是否存在shiro漏洞</option>
+						<option value="solr">检查站点是否存在solr漏洞</option>
+						<option value="struts2">检查站点是否存在struts2漏洞</option>
+						<option value="tomcat">检查站点是否存在tomcat漏洞</option>
+						<option value="unomi">检查站点是否存在unomi漏洞</option>
+						<option value="drupal">检查站点是否存在drupal漏洞</option>
+						<option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
+						<option value="fastjson">检查站点是否存在fastjson漏洞</option>
+						<option value="jenkins">检查站点是否存在jenkins漏洞</option>
+						<option value="laravel">检查站点是否存在laravel漏洞</option>
+						<option value="nexus">检查站点是否存在nexus漏洞</option>
+						<option value="weblogic">检查站点是否存在weblogic漏洞</option>
+						<option value="jboss">检查站点是否存在jboss漏洞</option>
+						<option value="spring">检查站点是否存在spring漏洞</option>
+						<option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
+						<option value="druid">检查站点是否存在druid漏洞</option>
+						<option value="exchange">检查站点是否存在exchange漏洞</option>
+						<option value="nodejs">检查站点是否存在nodejs漏洞</option>
+						<option value="saltstack">检查站点是否存在saltstack漏洞</option>
+						<option value="vmware">检查站点是否存在vmware漏洞</option>
+						<option value="bigip">检查站点是否存在bigip漏洞</option>
+						<option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
+						<option value="coremail">检查站点是否存在coremail漏洞</option>
+						<option value="ecology">检查站点是否存在ecology漏洞</option>
+						<option value="eyou">检查站点是否存在eyou漏洞</option>
+						<option value="qianxin">检查站点是否存在qianxin漏洞</option>
+						<option value="ruijie">检查站点是否存在ruijie漏洞</option>
+					</select>
+
+					<br><br>
+
+					<input type="submit" value="fscan_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
+					<input type="button" id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
+					<input type="button" id="button48" value="关闭程序" onclick="killfscanprocessfunc()" disabled>
+
+				</td>
+				<td>
+					<input type="submit" value="afrog_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button40" value="预览报告" onclick="afrogreportfun()" disabled>
+					<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
+					<input type="button" id="button42" value="启动程序" onclick="startafrogfunc()" disabled>
+					<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled><br><br>
+					<input type="submit" value="shiro_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
+					<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
+
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="DNS日志：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button44" value="CEYE-DNS" onclick="ceyednsfunc()" disabled>
+					<input type="button" id="button45" value="CEYE-HTTP" onclick="ceyehttpfunc()" disabled>
+
+				</td>
+				<td>
+					<input type="submit" value="springboot_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="button52" value="预览报告" onclick="springboot_report_show_func()" disabled>
+					<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()" disabled>
+				</td>
+			</tr>
+		</table>
+
+		<h3>资产管理</h3>
+		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2">展开</h3>
+			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">折叠</h5>
+			<table border="1" style="display:none;" id="assetid1">
+				<tr>
+					<td>
+						<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled>
+						<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
+						<input type="button" id="button20" class="hover-color" name="commit" value="存活检测"
+							onclick="filterstatuscodefunc()" disabled>
+						<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled>
+						<input type="button" id="button2" value="文本框赋值" onclick="targeturlcopytextareafunc()" disabled>
+						<input type="button" id="button51" value="识别重点资产" onclick="key_data_tiqu_func()" disabled><br>
+						<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()" disabled>
+
+						<select id="opbyid3">
+							<option>文本内容展示</option>
+						</select>
+						&nbsp;&nbsp;<span id="span1"></span>
+						<br>
+
+						<input type="button" id="button19" class="hover-color" name="commit" value="资产去重"
+							onclick="filedeweightingfunc()" disabled>
+						<select name="fileqingxiname">
+							<option value="2">保留所有资产</option>
+							<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
+						</select>
+
+					</td>
+					<td>
+						<textarea rows="9" cols="110" id="myTextarea">基础数据处理操作说明：
 
 1. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->数据过滤)->文本查看->纯净资产->漏洞扫描集合扫描；
 2. 格式说明：资产添加位置，一行一个资产；
@@ -415,10 +435,14 @@
 4. 存活检测：资产存活情况探测；
 5. 数据过滤：资产去重处理、提取url为IP组成的资产；
 6. CDN检测： 过滤掉部署CDN的资产；
-7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea>
-			</td>
-		</tr>
-	</table>
-	
+7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea><br>
+						<input type="text"  placeholder="fofa语法" id="inputfofaid" />
+						<input type="submit" value="查询" onclick="fofa_search_assets_func()">
+						<input type="button" value="语法提示" onclick="fofayufa()">
+					</td>
+				</tr>
+			</table>
+
 </body>
+
 </html>

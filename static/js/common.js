@@ -1129,6 +1129,23 @@ function closeModal() {
 }  
 
 
+
+
+// 查询fofa语法
+function fofayufa() {  
+    var modal1 = document.getElementById("modal1");  
+    modal1.style.display = "block";
+  
+}  
+
+// 关闭查询语法
+function closeModal1() {  
+    var modal1 = document.getElementById("modal1");  
+    modal1.style.display = "none";  
+}  
+
+
+
 //nuclei查看poc yaml文件
 function nuclei_poc_show_func() {
     var poc_dir = $('select[name="poc_dir"]').val();
@@ -1293,4 +1310,29 @@ function killbbscanfunc() {
             alert('已关闭bbscan扫描程序')
         }
     })
+}
+
+
+//通过fofa收集资产
+function fofa_search_assets_func() {
+    var part = document.getElementById("inputfofaid").value;
+    $.ajax({
+        url: '/fofa_search_assets_service/',
+        method: 'POST',
+        data: {
+            part: part
+        },
+        success: function (info) {
+            // 当请求成功时调用  
+             alert(info.asset_len_list);  
+           
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+           
+        }
+    })
+  
 }

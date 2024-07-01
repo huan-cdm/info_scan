@@ -413,7 +413,7 @@ def root_domain_scan(domain_list):
         root_domains = []  
         for url in domain_list:  
             extract = tldextract.extract(url)  
-            root_domain = f"{extract.domain}.{extract.suffix}"  
+            root_domain = f"{extract.domain}.{extract.suffix}"
             root_domains.append(root_domain)
         return root_domains
     except:
@@ -618,3 +618,51 @@ def key_point_assets_file(assets_finger_list):
         pass
     finger_url_list_final_uniq = list(set(finger_url_list_final))
     return finger_url_list_final_uniq
+
+
+
+# fofa资产发现
+def fofa_search_assets_service_lib(parameter):
+
+    fofa_first_argv_utf8 = parameter.encode('utf-8')
+    fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
+    fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
+    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+fofanum+"&qbase64="
+    hearder={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    }
+
+    try:
+        
+        res = requests.get(url+fofa_argv_str,headers=hearder,allow_redirects=False)
+        res.encoding='utf-8'
+        restext = res.text
+        resdic=json.loads(restext)
+        resdicresult=resdic['results']
+      
+        fofa_list = []
+        for i in resdicresult:
+            matches1 = re.findall(r"(http(s)?://\S+)", i[0])
+            for match in matches1:
+
+                fofa_list.append(match)
+        
+        fofa_list_result = []
+        for j in fofa_list:
+            fofa_list_result.append(j[0])
+        
+        fofa_list_result_uniq = list(set(fofa_list_result))
+        
+        # 遍历列表存入目标资产
+        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        for k in fofa_list_result_uniq:
+            f.write(str(k)+"\n")
+        f.close()
+
+        # 资产备份
+        os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
+
+        return len(fofa_list_result_uniq)
+    
+    except:
+        pass

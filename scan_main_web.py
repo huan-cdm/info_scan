@@ -1309,6 +1309,27 @@ def start_springboot_vuln_scan():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
+
+# 通过fofa发现资产
+@app.route("/fofa_search_assets_service/",methods=['POST'])
+def fofa_search_assets_service():
+    user = session.get('username')
+    if str(user) == main_username:
+        part = request.form['part']
+        asset_len_list = basic.fofa_search_assets_service_lib(part)
+        message_json = {
+            "asset_len_list":"总共发现"+" "+str(asset_len_list)+" "+"条资产已存入扫描目标中"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+
+    
+
+
     
 
 if __name__ == '__main__':  
