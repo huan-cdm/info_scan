@@ -18,11 +18,10 @@
 12. nginx相关配置文件在nginx_conf目录下，将nginx.conf放到/etc/nginx目录下，将dirscan_nginx.conf和infoscan_nginx.conf放到/etc/nginx/conf.d目录下，执行nginx -t检查配置文件是否正确<br>
 13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
 
-├── /TIP
-│   ├── info_scan
-│   ├── batch_scan_domain
+├── /TIP<br>
+│   ├── info_scan<br>
+│   ├── batch_scan_domain<br>
 
-<br>
 系统服务启动参数 <br>
 启动服务参数：bash server_check.sh -h <br>
 开启infoscan：bash server_check.sh info_scan_start <br>
