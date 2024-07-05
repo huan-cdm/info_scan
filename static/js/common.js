@@ -351,10 +351,6 @@ function startbutton() {
     button42.disabled = false;
     var button43 = document.getElementById("button43");
     button43.disabled = false;
-    var button44 = document.getElementById("button44");
-    button44.disabled = false;
-    var button45 = document.getElementById("button45");
-    button45.disabled = false;
     var button46 = document.getElementById("button46");
     button46.disabled = false;
     var button47 = document.getElementById("button47");
@@ -381,6 +377,12 @@ function startbutton() {
     button57.disabled = false;
     var button58 = document.getElementById("button58");
     button58.disabled = false;
+    var button59 = document.getElementById("button59");
+    button59.disabled = false;
+    var button60 = document.getElementById("button60");
+    button60.disabled = false;
+    var button61 = document.getElementById("button61");
+    button61.disabled = false;
 
 
 }
@@ -467,10 +469,6 @@ function stopbutton() {
     button42.disabled = true;
     var button43 = document.getElementById("button43");
     button43.disabled = true;
-    var button44 = document.getElementById("button44");
-    button44.disabled = true;
-    var button45 = document.getElementById("button45");
-    button45.disabled = true;
     var button46 = document.getElementById("button46");
     button46.disabled = true;
     var button47 = document.getElementById("button47");
@@ -497,6 +495,13 @@ function stopbutton() {
     button57.disabled = true;
     var button58 = document.getElementById("button58");
     button58.disabled = true;
+    var button59 = document.getElementById("button59");
+    button59.disabled = true;
+    var button60 = document.getElementById("button60");
+    button60.disabled = true;
+    var button61 = document.getElementById("button61");
+    button61.disabled = true;
+
 }
 
 
@@ -605,36 +610,6 @@ function filtercdndatafunc() {
     })
 }
 
-//一键处理
-// function oneclickprocessing() {
-//     var button19 = document.getElementById("button19");
-//     var button20 = document.getElementById("button20");
-//     var button24 = document.getElementById("button24");
-//     var button17 = document.getElementById("button17");
-
-//     button19.disabled = false;
-//     button20.disabled = false;
-//     button24.disabled = false;
-//     button17.disabled = false;
-//     // 定义一个函数来模拟点击并安排下一次点击（如果有的话）  
-//     function simulateClickAndSleep(buttons, index, interval) {
-//         // 如果索引在按钮数组范围内，则模拟点击并安排下一次点击  
-//         if (index < buttons.length) {
-//             // 模拟点击当前按钮  
-//             buttons[index].click();
-//             console.log('Clicked button ' + (index + 1));
-
-//             // 休眠interval毫秒后，安排下一次点击  
-//             setTimeout(function () {
-//                 simulateClickAndSleep(buttons, index + 1, interval);
-//             }, interval);
-//         }
-//     }
-
-//     // 开始模拟点击，从第一个按钮开始，每次点击后休眠10000毫秒（10秒）  
-//     var buttonsToClick = [button20, button24, button19, button17];
-//     simulateClickAndSleep(buttonsToClick, 0, 10000); // 第一个参数是按钮数组，第二个参数是开始索引，第三个参数是休眠时间（毫秒）
-// }
 
 
 //资产回退
@@ -1118,6 +1093,7 @@ function openModal() {
         document.getElementById("spp26").innerHTML = info.key_asset_rule;
         document.getElementById("spp27").innerHTML = info.current_key_asset_num;
         document.getElementById("spp28").innerHTML = info.springbootstatus;
+        document.getElementById("spp29").innerHTML = info.hydrastatus;
     })
 
 }  
@@ -1335,4 +1311,51 @@ function fofa_search_assets_func() {
         }
     })
   
+}
+
+
+//hydra扫描报告预览
+function hydra_report_show_func() {
+    window.open("/hydra_report_show/", "_blank");
+}
+
+
+// 启用hydra扫描
+function start_hydra_scan_func() {
+    var hydrapart = $('select[name="hydrapart"]').val();
+    $.ajax({
+        url: '/start_hydra_interface/',
+        method: 'POST',
+        data: {
+            hydrapart: hydrapart
+        },
+        success: function (info) {
+             // 当请求成功时调用  
+             alert(info.hydra_scan_result);  
+        },
+        error: function () {
+            alert('接口内部出错')
+        },
+        complete: function () {
+            
+        }
+    })
+}
+
+
+//ajax异步关闭hydra进程
+function killhydraprocessfunc() {
+    $.ajax({
+        url: '/killhydraprocess/',
+        method: 'GET',
+        success: function (info) {
+           alert(info.kill_hydra_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+           
+        }
+    })
 }

@@ -666,3 +666,35 @@ def fofa_search_assets_service_lib(parameter):
     
     except:
         pass
+
+
+# 启动hydra弱口令扫描库文件
+def start_hydra_lib(part):
+    if int(part) == 1:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh mysql_weak_password')
+        except Exception as e:
+            print("捕获到异常:", e)
+    elif int(part) == 2:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh ssh_weak_password')
+        except Exception as e:
+            print("捕获到异常:", e)
+    elif int(part) == 3:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh ftp_weak_password')
+        except Exception as e:
+            print("捕获到异常:", e)
+    elif int(part) == 4:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh redis_weak_password')
+        except Exception as e:
+            print("捕获到异常:", e)
+
+    elif int(part) == 5:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh mssql_weak_password')
+        except Exception as e:
+            print("捕获到异常:", e)
+    else:
+        print("接收的参数为1-5")

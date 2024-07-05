@@ -1,0 +1,3 @@
+anonymous
+ftp
+admin

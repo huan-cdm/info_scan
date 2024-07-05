@@ -590,7 +590,58 @@ case "${1}" in
 		kill -9 ${ii}
     done
 	;;
+
+
+    # 调用hydra弱口令扫描工具
+    # Ubuntu安装命令：apt-get install hydra
+    # centos安装命令：yum install hydra
+
+    # hydra扫描器状态
+    hydra_status)
+    ps_hydra_scan=`ps -aux | grep  "/usr/bin/hydra"  | wc -l`
+	if (( $ps_hydra_scan > 1 ))
+	then
+		echo "hydra：running..."
+	else
+		echo "hydra：stop"
+	fi
+    ;;
+
+
+    # 关闭hydra扫描器
+    killhydra)
+    pidd=`ps -aux | grep "/usr/bin/hydra" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+    ;;
+
+
+    # 调用hydra爆破mysql弱口令
+    mysql_weak_password)
+    /usr/bin/hydra -L /TIP/info_scan/hydra/mysql/user.txt -P /TIP/info_scan/hydra/mysql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mysql > /TIP/info_scan/result/hydra_result.txt
+    ;;
     
+    # 调用hydra爆破ssh弱口令
+     ssh_weak_password)
+    /usr/bin/hydra -L /TIP/info_scan/hydra/ssh/user.txt -P /TIP/info_scan/hydra/ssh/pass.txt -M /TIP/info_scan/result/hydra_ip.txt ssh > /TIP/info_scan/result/hydra_result.txt
+    ;;
+
+    # 调用hydra爆破ftp弱口令
+     ftp_weak_password)
+    /usr/bin/hydra -L /TIP/info_scan/hydra/ftp/user.txt -P /TIP/info_scan/hydra/ftp/pass.txt -M /TIP/info_scan/result/hydra_ip.txt ftp > /TIP/info_scan/result/hydra_result.txt
+    ;;
+
+    # 调用hydra爆破redis弱口令
+     redis_weak_password)
+    /usr/bin/hydra  -P /TIP/info_scan/hydra/redis/pass.txt -M /TIP/info_scan/result/hydra_ip.txt redis > /TIP/info_scan/result/hydra_result.txt
+    ;;
+
+    # 调用hydra爆破mssql弱口令
+     mssql_weak_password)
+    /usr/bin/hydra -L /TIP/info_scan/hydra/mssql/user.txt -P /TIP/info_scan/hydra/mssql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mssql > /TIP/info_scan/result/hydra_result.txt
+    ;;
 esac
 
 

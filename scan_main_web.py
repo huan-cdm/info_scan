@@ -312,7 +312,7 @@ def startnuclei():
     if str(user) == main_username:
         nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
         if "running" in nucleitatus:
-            nuclei_status_result = "nuclei扫描程序正在运行中稍后在开启扫描"
+            nuclei_status_result = "nuclei扫描程序正在运行中稍后再开启扫描"
         else:
             poc_dir = request.form['poc_dir']
             if int(history_switch) == 0:
@@ -356,6 +356,7 @@ def systemmanagement():
         httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
         springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
+        hydrastatus = os.popen('bash ./finger.sh hydra_status').read()
 
         # 目标url行数
         url_file_num = os.popen('bash ./finger.sh url_file_num').read()
@@ -413,7 +414,8 @@ def systemmanagement():
             "jboss_num":"jboss: "+str(jboss_num),
             "key_asset_rule":"资产规则: "+str(key_asset_rule),
             "current_key_asset_num":"资产数量: "+str(url_file_current_num),
-            "springbootstatus":springbootstatus
+            "springbootstatus":springbootstatus,
+            "hydrastatus":hydrastatus
         }
         return jsonify(message_json)
     else:
@@ -605,7 +607,7 @@ def weblogicscaninterface():
     if str(user) == main_username:
         weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
         if "running" in weblogic_status:
-            weblogic_status_result = "weblogic扫描程序正在运行中稍后在开启扫描"
+            weblogic_status_result = "weblogic扫描程序正在运行中稍后再开启扫描"
         else:
 
             # 遍历目标文件存入列表
@@ -662,7 +664,7 @@ def struts2_poc_scan():
     if str(user) == main_username:
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
         if "running" in struts2status:
-            struts2status_result = "struts2扫描程序正在运行中稍后在开启扫描"
+            struts2status_result = "struts2扫描程序正在运行中稍后再开启扫描"
         else:
             # 执行poc扫描
             os.popen('bash ./finger.sh struts2_poc_scan')
@@ -749,7 +751,7 @@ def ehole_finger_scan():
     if str(user) == main_username:
         finger_status = os.popen('bash ./finger.sh ehole_status').read()
         if "running" in finger_status:
-            finger_status_result = "指纹识别程序正在运行中稍后在开启扫描"
+            finger_status_result = "指纹识别程序正在运行中稍后再开启扫描"
         else:
             # 执行指纹识别扫描
             os.popen('bash ./finger.sh ehole_finger_scan')
@@ -772,7 +774,7 @@ def bbscan_info_scan():
         bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
 
         if "running" in bbscan_status1:
-            bbscan_status_result = "敏感信息扫描程序正在运行中稍后在开启扫描"
+            bbscan_status_result = "敏感信息扫描程序正在运行中稍后再开启扫描"
 
         else:
             os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
@@ -909,7 +911,7 @@ def startbatchnmapscan():
     if str(user) == main_username:
         namptatus = os.popen('bash ./finger.sh nmapstatus').read()
         if "running" in namptatus:
-            nmap_status_result = "端口扫描程序正在运行中稍后在开启扫描"
+            nmap_status_result = "端口扫描程序正在运行中稍后再开启扫描"
         
         else:
 
@@ -1131,7 +1133,7 @@ def startshirointerface():
     if str(user) == main_username:
         shiro_status = os.popen('bash ./finger.sh shiro_status').read()
         if "running" in shiro_status:
-            shiro_status_result = "shiro扫描程序正在运行中稍后在开启扫描"
+            shiro_status_result = "shiro扫描程序正在运行中稍后再开启扫描"
         else:
             try:
                 basic.shiro_scan()
@@ -1294,7 +1296,7 @@ def start_springboot_vuln_scan():
     if str(user) == main_username:
         springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
         if "running" in springboot_scan_status:
-            springboot_scan_status_result = "springboot扫描程序正在运行中稍后在开启扫描"
+            springboot_scan_status_result = "springboot扫描程序正在运行中稍后再开启扫描"
         else:
             try:
                 os.popen('bash /TIP/info_scan/finger.sh start_springboot')
@@ -1326,9 +1328,72 @@ def fofa_search_assets_service():
         return render_template('login.html')
     
 
+#hydra报告预览
+@app.route("/hydra_report_show/")
+def hydra_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('./result/hydra_result.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+
+# 启动hydra弱口令扫描工具
+@app.route("/start_hydra_interface/",methods=['POST'])
+def start_hydra_interface():
+    user = session.get('username')
+    if str(user) == main_username:
+
+        # 调用url转ip函数写入文件
+        ip_list = basic.url_convert_ip()
+        f = open(file='/TIP/info_scan/result/hydra_ip.txt',mode='w')
+        for line in ip_list:
+            f.write(str(line)+"\n")
+
+        # 开启扫描
+        hydrapart = request.form['hydrapart']
+        hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
+
+        if "running" in hydra_scan_status:
+            hydra_scan_result = "hydra扫描程序正在运行中稍后再开启扫描"
+        else:
+            basic.start_hydra_lib(hydrapart)
+            hydra_scan_result = "hydra扫描程序已开启稍后查看扫描结果"
+
+        message_json = {
+            "hydra_scan_result":hydra_scan_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
     
 
+#关闭hydra进程
+@app.route("/killhydraprocess/")
+def killhydraprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killhydra')
+        hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
+        if "stop" in hydra_scan_status:
+            kill_hydra_result = "已关闭hydra扫描程序"
+        else:
+            kill_hydra_result = "正在关闭中......"
+        message_json = {
+            "kill_hydra_result":kill_hydra_result
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
 
     
 

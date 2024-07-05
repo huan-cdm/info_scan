@@ -38,11 +38,11 @@
 查看服务状态：bash server_check.sh status <br>
 
 程序文件
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic33.png"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic33.png"/><br>
 
 项目部署
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/startproject.jpg"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/startproject.jpg"/><br>
 
 系统运行
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic3.jpg"/>
@@ -51,10 +51,12 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic22.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br>
 
 漏洞报告
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br>
 资产发现
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br>
+弱口令扫描
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br>
