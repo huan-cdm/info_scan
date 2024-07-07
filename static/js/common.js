@@ -383,6 +383,8 @@ function startbutton() {
     button60.disabled = false;
     var button61 = document.getElementById("button61");
     button61.disabled = false;
+    var button62 = document.getElementById("button62");
+    button62.disabled = false;
 
 
 }
@@ -501,6 +503,8 @@ function stopbutton() {
     button60.disabled = true;
     var button61 = document.getElementById("button61");
     button61.disabled = true;
+    var button62 = document.getElementById("button62");
+    button62.disabled = true;
 
 }
 
@@ -557,16 +561,14 @@ function urlfinderscanfunc() {
     $.ajax({
         url: '/starturlfinderinterface/',
         method: 'GET',
-
-        success: function (res) {
-            console.log(res)
-            console.log('正在进行链接扫描稍后点击报告预览查看报告')
+        success: function (info) {
+            alert(info.urlfinder_status_result)
         },
         error: function () {
             alert('链接扫描出错')
         },
         complete: function () {
-            alert('正在进行链接扫描稍后点击报告预览查看报告')
+            
         }
     })
 }
@@ -1094,6 +1096,7 @@ function openModal() {
         document.getElementById("spp27").innerHTML = info.current_key_asset_num;
         document.getElementById("spp28").innerHTML = info.springbootstatus;
         document.getElementById("spp29").innerHTML = info.hydrastatus;
+        document.getElementById("spp30").innerHTML = info.urlfinderstatus;
     })
 
 }  
@@ -1356,6 +1359,42 @@ function killhydraprocessfunc() {
         },
         complete: function () {
            
+        }
+    })
+}
+
+
+//ajax异步关闭urlfinder进程
+function killurlfinderprocessfunc() {
+    $.ajax({
+        url: '/killurlfinderprocess/',
+        method: 'GET',
+        success: function (info) {
+           alert(info.kill_urlfinder_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            
+        }
+    })
+}
+
+
+//ajax异步关闭EHole进程
+function killEHoleprocessfunc() {
+    $.ajax({
+        url: '/killEHoleprocess/',
+        method: 'GET',
+        success: function (info) {
+           alert(info.kill_EHole_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+            
         }
     })
 }

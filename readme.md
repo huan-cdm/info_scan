@@ -38,19 +38,19 @@
 查看服务状态：bash server_check.sh status <br>
 
 程序文件
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic33.png"/><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br>
 
 项目部署
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/startproject.jpg"/><br>
 
 系统运行
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic3.jpg"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic4.jpg"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic2.png"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/pic22.png"/>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br>
 
 漏洞报告

@@ -281,6 +281,20 @@ case "${1}" in
     ;;
 
 
+
+    # urlfinder扫描器状态
+    urlfinder_status)
+    ps_urlfinder_scan=`ps -aux | grep  "URLFinder"  | wc -l`
+	if (( $ps_urlfinder_scan > 1 ))
+	then
+		echo "URLFinder：running..."
+	else
+		echo "URLFinder：stop"
+	fi
+    ;;
+
+
+
     #批量判断cdn
     batch_cdn_scan)
     cdn_result=$(nslookup ${2} | grep "Address" | wc -l | uniq 2>&1)
@@ -550,9 +564,9 @@ case "${1}" in
 	ps_eholescan=`ps -aux | grep EHole | wc -l`
 	if (( $ps_eholescan > 1 ))
 	then
-		echo "ehole：running..."
+		echo "Ehole：running..."
 	else
-		echo "ehole：stop"
+		echo "Ehole：stop"
 	fi
 	;;
 
@@ -575,9 +589,9 @@ case "${1}" in
 	ps_springbootscan=`ps -aux | grep ssp_linux_amd64 | wc -l`
 	if (( $ps_springbootscan > 1 ))
 	then
-		echo "springboot：running..."
+		echo "SpringBoot：running..."
 	else
-		echo "springboot：stop"
+		echo "SpringBoot：stop"
 	fi
 	;;
 
@@ -618,6 +632,26 @@ case "${1}" in
     ;;
 
 
+
+    # 关闭urlfinder扫描器
+    killurlfinder)
+    pidd=`ps -aux | grep "URLFinder" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+    ;;
+
+
+    # 关闭EHole扫描器
+    killEHole)
+    pidd=`ps -aux | grep "EHole_linux_amd64" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii}
+    done
+    ;;
+
     # 调用hydra爆破mysql弱口令
     mysql_weak_password)
     /usr/bin/hydra -L /TIP/info_scan/hydra/mysql/user.txt -P /TIP/info_scan/hydra/mysql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mysql > /TIP/info_scan/result/hydra_result.txt
@@ -643,5 +677,3 @@ case "${1}" in
     /usr/bin/hydra -L /TIP/info_scan/hydra/mssql/user.txt -P /TIP/info_scan/hydra/mssql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mssql > /TIP/info_scan/result/hydra_result.txt
     ;;
 esac
-
-

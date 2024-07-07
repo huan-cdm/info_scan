@@ -357,6 +357,7 @@ def systemmanagement():
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
         springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
         hydrastatus = os.popen('bash ./finger.sh hydra_status').read()
+        urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
 
         # 目标url行数
         url_file_num = os.popen('bash ./finger.sh url_file_num').read()
@@ -415,7 +416,8 @@ def systemmanagement():
             "key_asset_rule":"资产规则: "+str(key_asset_rule),
             "current_key_asset_num":"资产数量: "+str(url_file_current_num),
             "springbootstatus":springbootstatus,
-            "hydrastatus":hydrastatus
+            "hydrastatus":hydrastatus,
+            "urlfinderstatus":urlfinderstatus
         }
         return jsonify(message_json)
     else:
@@ -496,12 +498,25 @@ def filterstatuscodebyhttpx():
 def starturlfinderinterface():
     user = session.get('username')
     if str(user) == main_username:
-        try:
-            os.popen('bash ./finger.sh urlfinder_start')
-        except Exception as e:
-            print("捕获到异常:", e)
-        
-        return render_template('index.html')
+        urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
+        if "running" in urlfinder_status:
+            urlfinder_status_result = "urlfinder扫描程序正在运行中稍后再开启扫描"
+        else:
+            try:
+                os.popen('bash ./finger.sh urlfinder_start')
+                urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
+                if "running" in urlfinder_status:
+                    urlfinder_status_result = "urlfinder扫描程序已开启稍后查看结果"
+                else:
+                    urlfinder_status_result = "urlfinder正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+
+        message_json = {
+            "urlfinder_status_result":urlfinder_status_result
+        }
+        return jsonify(message_json)
+    
     else:
         return render_template('login.html')
 
@@ -1395,7 +1410,50 @@ def killhydraprocess():
     else:
         return render_template('login.html')
 
+
+
+#关闭urlfinder进程
+@app.route("/killurlfinderprocess/")
+def killurlfinderprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killurlfinder')
+        urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
+        if "stop" in urlfinderstatus:
+            kill_urlfinder_result = "已关闭URLFinder扫描程序"
+        else:
+            kill_urlfinder_result = "正在关闭中......"
+        message_json = {
+            "kill_urlfinder_result":kill_urlfinder_result
+        }
+
+        return jsonify(message_json)
     
+    else:
+        return render_template('login.html')
+    
+
+#关闭EHole进程
+@app.route("/killEHoleprocess/")
+def killEHoleprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh killEHole')
+        EHolestatus = os.popen('bash ./finger.sh ehole_status').read()
+        if "stop" in EHolestatus:
+            kill_EHole_result = "已关闭EHole扫描程序"
+        else:
+            kill_EHole_result = "正在关闭中......"
+        message_json = {
+            "kill_EHole_result":kill_EHole_result
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+    
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
