@@ -759,18 +759,21 @@ def ehole_finger_report():
     else:
         return render_template('login.html')
     
-# ehole_finger扫描
+# 启动EHole
 @app.route("/ehole_finger_scan/")
 def ehole_finger_scan():
     user = session.get('username')
     if str(user) == main_username:
         finger_status = os.popen('bash ./finger.sh ehole_status').read()
         if "running" in finger_status:
-            finger_status_result = "指纹识别程序正在运行中稍后再开启扫描"
+            finger_status_result = "EHole程序正在运行中稍后再开启扫描"
         else:
             # 执行指纹识别扫描
             os.popen('bash ./finger.sh ehole_finger_scan')
-            finger_status_result = "指纹识别程序已开启稍后查看结果"
+            if "running" in finger_status:
+                finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
+            else:
+                finger_status_result = "EHole正在后台启动中......"
 
         message_json = {
             "finger_status_result":finger_status_result
@@ -795,7 +798,10 @@ def bbscan_info_scan():
             os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
             # 执行敏感信息扫描
             os.popen('bash ./finger.sh bbscan_shell')
-            bbscan_status_result = "敏感信息扫描程序已开启稍后查看结果"
+            if "running" in bbscan_status1:
+                bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
+            else:
+                bbscan_status_result = "bbscan正在后台启动中......"
 
         message_json = {
             "bbscan_status_result":bbscan_status_result
@@ -909,11 +915,24 @@ def startvulmapinterface():
     user = session.get('username')
     if str(user) == main_username:
         vulnname = request.form['vulnname']
-        try:
-            os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
-            return render_template('index.html')
-        except Exception as e:
-            print("捕获到异常:", e)
+        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
+        if "running" in vulmapscanstatus:
+            vummap_scan_result = "vulmap扫描程序正在运行中稍后再开启扫描"
+        else:
+            try:
+                os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
+                if "running" in vulmapscanstatus:
+                    vummap_scan_result = "vulmap扫描程序已启动稍后查看扫描结果"
+                else:
+                    vummap_scan_result = "vulmap正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+
+        message_json = {
+            "vummap_scan_result":vummap_scan_result
+        }
+        return jsonify(message_json)
+
     else:
         return render_template('login.html')
 
@@ -926,13 +945,17 @@ def startbatchnmapscan():
     if str(user) == main_username:
         namptatus = os.popen('bash ./finger.sh nmapstatus').read()
         if "running" in namptatus:
-            nmap_status_result = "端口扫描程序正在运行中稍后再开启扫描"
+            nmap_status_result = "nmap正在运行中稍后再开启扫描"
         
         else:
 
             try:
-                nmap_status_result = "端口扫描程序已开启稍后查看结果"
+    
                 basic.ip_queue_nmap()
+                if "running" in namptatus:
+                    nmap_status_result = "nmap已开启稍后查看结果"
+                else:
+                    nmap_status_result = "nmap正在后台启动中......"
             except Exception as e:
                 print("捕获到异常:", e)
 
@@ -1027,8 +1050,18 @@ def killafrogprocess():
 def killnmapprocess():
     user = session.get('username')
     if str(user) == main_username:
+        nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
         os.popen('bash ./finger.sh killnmap')
-        return render_template('index.html')
+        if "stop" in nmapstatus:
+            kill_nmap_result = "已关闭nmap扫描程序"
+        else:
+            kill_nmap_result = "正在关闭中......"
+        message_json = {
+            "kill_nmap_result":kill_nmap_result
+        }
+
+        return jsonify(message_json)
+    
     else:
         return render_template('login.html')
     
@@ -1039,8 +1072,17 @@ def killnmapprocess():
 def killvulmapprocess():
     user = session.get('username')
     if str(user) == main_username:
+        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
         os.popen('bash ./finger.sh killvulmap')
-        return render_template('index.html')
+        if "stop" in vulmapscanstatus:
+            kill_vulmap_result = "已关闭vulmap扫描程序"
+        else:
+            kill_vulmap_result = "正在关闭中......"
+        message_json = {
+            "kill_vulmap_result":kill_vulmap_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
@@ -1051,8 +1093,19 @@ def killvulmapprocess():
 def killnucleiprocess():
     user = session.get('username')
     if str(user) == main_username:
+        nucleistatus =os.popen('bash ./finger.sh nucleistatus').read()
+
         os.popen('bash ./finger.sh killnuclei')
-        return render_template('index.html')
+        if "stop" in nucleistatus:
+            kill_nuclei_result = "已关闭nuclei扫描程序"
+        else:
+            kill_nuclei_result = "正在关闭中......"
+        message_json = {
+            "kill_nuclei_result":kill_nuclei_result
+        }
+
+        return jsonify(message_json)
+    
     else:
         return render_template('login.html')
     
@@ -1063,8 +1116,17 @@ def killnucleiprocess():
 def killbbscanprocess():
     user = session.get('username')
     if str(user) == main_username:
+        bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
         os.popen('bash ./finger.sh killbbscan')
-        return render_template('index.html')
+        if "stop" in bbscanstatus:
+            kill_bbscan_result = "已关闭bbscan扫描程序"
+        else:
+            kill_bbscan_result = "正在关闭中......"
+        message_json = {
+            "kill_bbscan_result":kill_bbscan_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -1091,12 +1153,24 @@ def startfcsaninterface():
     if str(user) == main_username:
         # 删除历史fscan扫描数据
         os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
-
-        try:
-            basic.batch_fscan_interface()
-        except Exception as e:
-            print("捕获到异常:", e)
-        return render_template('index.html')
+    
+        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
+        if "running" in fscanstatus:
+            fscan_status_result = "fscan扫描程序正在运行中稍后再开启扫描"
+        else:
+            try:
+                basic.batch_fscan_interface()
+                
+                if "running" in fscanstatus:
+                    fscan_status_result = "fscan扫描程序已启动稍后查看扫描结果"
+                else:
+                    fscan_status_result = "fscan正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "fscan_status_result":fscan_status_result
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -1106,8 +1180,18 @@ def startfcsaninterface():
 def killfscangprocess():
     user = session.get('username')
     if str(user) == main_username:
+        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
         os.popen('bash ./finger.sh killfscan')
-        return render_template('index.html')
+        if "stop" in fscanstatus:
+            kill_fscan_result = "已关闭fscan扫描程序"
+        else:
+            kill_fscan_result = "正在关闭中......"
+        message_json = {
+            "kill_fscan_result":kill_fscan_result
+        }
+
+        return jsonify(message_json)
+        
     else:
         return render_template('login.html')
 
@@ -1260,32 +1344,19 @@ def nuclei_poc_show():
             nuclei_poc_list = []
             for i in result.splitlines():
                 nuclei_poc_list.append(i)
-            global nuclei_poc_list_global
-            nuclei_poc_list_global = nuclei_poc_list
             
         except Exception as e:
             print("捕获到异常:", e)
 
-        return render_template('index.html')
-    else:
-        return render_template('login.html')
-
-
-
-
-#nuclei poc查询
-@app.route("/nuclei_poc_show_ajax/")
-def nuclei_poc_show_ajax():
-    user = session.get('username')
-    if str(user) == main_username:
-        global nuclei_poc_list_global
         message_json = {
-            "nuclei_poc_list_global":nuclei_poc_list_global,
-            "nuclei_poc_list_len":"总共查询到"+" "+str(len(nuclei_poc_list_global))+" "+"条yaml规则",
+            "nuclei_poc_list_global":nuclei_poc_list,
+            "nuclei_poc_list_len":"总共查询到"+" "+str(len(nuclei_poc_list))+" "+"条yaml规则",
         }
         return jsonify(message_json)
+    
     else:
         return render_template('login.html')
+
     
 
 #springboot报告预览
@@ -1315,7 +1386,10 @@ def start_springboot_vuln_scan():
         else:
             try:
                 os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-                springboot_scan_status_result = "springboot扫描程序已开启稍后查看结果"
+                if "running" in springboot_scan_status:
+                    springboot_scan_status_result = "springboot扫描程序已开启稍后查看结果"
+                else:
+                    springboot_scan_status_result = "springboot扫描程序正在后台启动中......"
             except Exception as e:
                 print("捕获到异常:", e)
         

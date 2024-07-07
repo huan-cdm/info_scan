@@ -159,21 +159,16 @@ function startnucleifunc() {
         data: {
             poc_dir: poc_dir
         },
-        success: function (res) {
-            console.log(res)
-            
+        success: function (info) {
+            alert(info.nuclei_status_result)
+
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-           
-        }
-    })
 
-    $.getJSON("/startnuclei/",
-        function (info) {
-            alert(info.nuclei_status_result)
+        }
     })
 }
 
@@ -211,27 +206,22 @@ function textinfoshowfunc() {
     $.ajax({
         url: '/textareashowinterface/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-
+        success: function (info) {
+            
+            $('#opbyid3').empty();
+            for (var i = 0; i < info.textvalue.length; i++) {
+                $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
+            }
+            document.getElementById("span1").innerHTML = info.url_num;
         },
         error: function () {
-
+            alert('出现内部错误')
 
         },
         complete: function () {
 
         }
     })
-
-    $.getJSON("/textareashowinterface/",
-        function (info) {
-            $('#opbyid3').empty();
-            for (var i = 0; i < info.textvalue.length; i++) {
-                $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
-            }
-            document.getElementById("span1").innerHTML = info.url_num;
-        })
 
 }
 
@@ -568,7 +558,7 @@ function urlfinderscanfunc() {
             alert('链接扫描出错')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -641,19 +631,19 @@ function weblogicscanfunc() {
 
         success: function (res) {
             console.log(res)
-           
+
         },
         error: function () {
             alert('weblogic_poc扫描出错')
         },
         complete: function () {
-     
+
         }
     })
     $.getJSON("/weblogicscaninterface/",
         function (info) {
             alert(info.weblogic_status_result)
-    })
+        })
 }
 
 //weblogic_poc报告预览
@@ -673,20 +663,16 @@ function struts2scanfunc() {
         url: '/struts2_poc_scan/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-           
+        success: function (info) {
+            alert(info.struts2status_result)
+
         },
         error: function () {
             alert('struts2_poc扫描出错')
         },
         complete: function () {
-           
+
         }
-    })
-    $.getJSON("/struts2_poc_scan/",
-        function (info) {
-            alert(info.struts2status_result)
     })
 }
 
@@ -720,27 +706,22 @@ function eholefingerreportfunc() {
 }
 
 
-//ehole_finger 扫描
+//启动EHole
 function eholefingerfunc() {
     $.ajax({
         url: '/ehole_finger_scan/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            
+        success: function (info) {
+            alert(info.finger_status_result)
+
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-           
+
         }
-    })
-    
-    $.getJSON("/ehole_finger_scan/",
-        function (info) {
-            alert(info.finger_status_result)
     })
 }
 
@@ -751,20 +732,15 @@ function bbscaninfofunc() {
         url: '/bbscan_info_scan/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            
+        success: function (info) {
+            alert(info.bbscan_status_result)
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            
+
         }
-    })
-    $.getJSON("/bbscan_info_scan/",
-        function (info) {
-            alert(info.bbscan_status_result)
     })
 }
 
@@ -809,22 +785,21 @@ function vulmapscanreportfunc() {
 //启动vulmap漏扫接口
 function startvulmapscanfunc() {
     var vulnname = $('select[name="vulnname"]').val();
-    alert(vulnname)
     $.ajax({
         url: '/startvulmapinterface/',
         method: 'POST',
         data: {
             vulnname: vulnname
         },
-        success: function (res) {
-            console.log(res)
-            console.log('vulmap漏扫程序已启动稍后查看扫描结果')
+        success: function (info) {
+            alert(info.vummap_scan_result)
+            
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('vulmap漏扫程序已启动稍后查看扫描结果')
+            
         }
     })
 }
@@ -838,20 +813,20 @@ function batchnmapportscanfunc() {
 
         success: function (res) {
             console.log(res)
-           
+
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-           
+
         }
     })
 
     $.getJSON("/startbatchnmapscan/",
         function (info) {
             alert(info.nmap_status_result)
-    })
+        })
 }
 
 
@@ -873,18 +848,18 @@ function targeturlcopytextareafunc() {
         }
     })
 
-    $.getJSON("/url_list_textarea_show/", function (info) {  
+    $.getJSON("/url_list_textarea_show/", function (info) {
         // 假设info.textvalue是一个数组  
         var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
-      
+
         // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
-        for (var i = 0; i < info.textvalue.length; i++) {  
+        for (var i = 0; i < info.textvalue.length; i++) {
             textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
-        }  
-      
+        }
+
         // 将textAreaContent的内容赋值给textarea  
         $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
-       
+
     });
 
 }
@@ -927,7 +902,7 @@ function deleteafrogreportfunc() {
 
 //启动afrog漏扫接口
 function startafrogfunc() {
-    
+
     $.ajax({
         url: '/startafrogscanprocess/',
         method: 'GET',
@@ -975,15 +950,14 @@ function batchfscanvulnfunc() {
         url: '/startfcsaninterface/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            console.log('fscan漏扫程序已启动稍后查看结果')
+        success: function (info) {
+            alert(info.fscan_status_result)
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('fscan漏扫程序已启动稍后查看结果')
+            
         }
     })
 }
@@ -994,15 +968,14 @@ function killfscanprocessfunc() {
     $.ajax({
         url: '/killfscangprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭fscan进程')
+        success: function (info) {
+           alert(info.kill_fscan_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已关闭fscan进程')
+           
         }
     })
 }
@@ -1022,19 +995,19 @@ function batchshirovulnfunc() {
 
         success: function (res) {
             console.log(res)
-        
+
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            
+
         }
     })
     $.getJSON("/startshirointerface/",
         function (info) {
             alert(info.shiro_status_result)
-    })
+        })
 }
 
 
@@ -1051,77 +1024,77 @@ function key_data_tiqu_func() {
             alert('内部出错')
         },
         complete: function () {
-           
+
         }
     })
     $.getJSON("/key_assets_withdraw/",
         function (info) {
             alert(info.key_assets_result)
-    })
+        })
 }
 
 
 // 系统管理
-function openModal() {  
-    var modal = document.getElementById("modal");  
+function openModal() {
+    var modal = document.getElementById("modal");
     modal.style.display = "block";
     $.getJSON("/systemmanagement/",
-    function (info) {
-        document.getElementById("spp1").innerHTML = info.nmapstatus;
-        document.getElementById("spp2").innerHTML = info.nucleistatus;
-        document.getElementById("spp3").innerHTML = info.xraystatus;
-        document.getElementById("spp4").innerHTML = info.radstatus;
-        document.getElementById("spp5").innerHTML = info.dirscanstatus;
-        document.getElementById("spp6").innerHTML = info.weblogicstatus;
-        document.getElementById("spp7").innerHTML = info.struts2status;
-        document.getElementById("spp8").innerHTML = info.bbscanstatus;
-        document.getElementById("spp9").innerHTML = info.vulmapscanstatus;
-        document.getElementById("spp10").innerHTML = info.afrogscanstatus;
-        document.getElementById("spp11").innerHTML = info.fscanstatus;
-        document.getElementById("spp12").innerHTML = info.shirostatus;
-        document.getElementById("spp13").innerHTML = info.httpxstatus;
-        document.getElementById("spp14").innerHTML = info.url_file_num;
-        document.getElementById("spp15").innerHTML = info.eholestatus;
-        document.getElementById("spp16").innerHTML = info.shiro_num;
-        document.getElementById("spp17").innerHTML = info.springboot_num;
-        document.getElementById("spp18").innerHTML = info.weblogic_num;
-        document.getElementById("spp19").innerHTML = info.baota_num;
-        document.getElementById("spp20").innerHTML = info.ruoyi_num;
-        document.getElementById("spp21").innerHTML = info.struts2_num;
-        document.getElementById("spp22").innerHTML = info.WordPress_num;
-        document.getElementById("spp23").innerHTML = info.cpuinfo;
-        document.getElementById("spp24").innerHTML = info.memoryinfo;
-        document.getElementById("spp25").innerHTML = info.jboss_num;
-        document.getElementById("spp26").innerHTML = info.key_asset_rule;
-        document.getElementById("spp27").innerHTML = info.current_key_asset_num;
-        document.getElementById("spp28").innerHTML = info.springbootstatus;
-        document.getElementById("spp29").innerHTML = info.hydrastatus;
-        document.getElementById("spp30").innerHTML = info.urlfinderstatus;
-    })
+        function (info) {
+            document.getElementById("spp1").innerHTML = info.nmapstatus;
+            document.getElementById("spp2").innerHTML = info.nucleistatus;
+            document.getElementById("spp3").innerHTML = info.xraystatus;
+            document.getElementById("spp4").innerHTML = info.radstatus;
+            document.getElementById("spp5").innerHTML = info.dirscanstatus;
+            document.getElementById("spp6").innerHTML = info.weblogicstatus;
+            document.getElementById("spp7").innerHTML = info.struts2status;
+            document.getElementById("spp8").innerHTML = info.bbscanstatus;
+            document.getElementById("spp9").innerHTML = info.vulmapscanstatus;
+            document.getElementById("spp10").innerHTML = info.afrogscanstatus;
+            document.getElementById("spp11").innerHTML = info.fscanstatus;
+            document.getElementById("spp12").innerHTML = info.shirostatus;
+            document.getElementById("spp13").innerHTML = info.httpxstatus;
+            document.getElementById("spp14").innerHTML = info.url_file_num;
+            document.getElementById("spp15").innerHTML = info.eholestatus;
+            document.getElementById("spp16").innerHTML = info.shiro_num;
+            document.getElementById("spp17").innerHTML = info.springboot_num;
+            document.getElementById("spp18").innerHTML = info.weblogic_num;
+            document.getElementById("spp19").innerHTML = info.baota_num;
+            document.getElementById("spp20").innerHTML = info.ruoyi_num;
+            document.getElementById("spp21").innerHTML = info.struts2_num;
+            document.getElementById("spp22").innerHTML = info.WordPress_num;
+            document.getElementById("spp23").innerHTML = info.cpuinfo;
+            document.getElementById("spp24").innerHTML = info.memoryinfo;
+            document.getElementById("spp25").innerHTML = info.jboss_num;
+            document.getElementById("spp26").innerHTML = info.key_asset_rule;
+            document.getElementById("spp27").innerHTML = info.current_key_asset_num;
+            document.getElementById("spp28").innerHTML = info.springbootstatus;
+            document.getElementById("spp29").innerHTML = info.hydrastatus;
+            document.getElementById("spp30").innerHTML = info.urlfinderstatus;
+        })
 
-}  
-  
+}
+
 // 关闭系统管理
-function closeModal() {  
-    var modal = document.getElementById("modal");  
-    modal.style.display = "none";  
-}  
+function closeModal() {
+    var modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
 
 
 
 
 // 查询fofa语法
-function fofayufa() {  
-    var modal1 = document.getElementById("modal1");  
+function fofayufa() {
+    var modal1 = document.getElementById("modal1");
     modal1.style.display = "block";
-  
-}  
+
+}
 
 // 关闭查询语法
-function closeModal1() {  
-    var modal1 = document.getElementById("modal1");  
-    modal1.style.display = "none";  
-}  
+function closeModal1() {
+    var modal1 = document.getElementById("modal1");
+    modal1.style.display = "none";
+}
 
 
 
@@ -1134,8 +1107,12 @@ function nuclei_poc_show_func() {
         data: {
             poc_dir: poc_dir
         },
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            $('#nucleibyid1').empty();
+            for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
+                $('#nucleibyid1').append('<option>' + info.nuclei_poc_list_global[i] + '</option><br>');
+            }
+            document.getElementById("nucleibyid2").innerHTML = info.nuclei_poc_list_len;
         },
         error: function () {
 
@@ -1143,16 +1120,6 @@ function nuclei_poc_show_func() {
         complete: function () {
         }
     })
-
-    $.getJSON("/nuclei_poc_show_ajax/",
-        function (info) {
-            $('#nucleibyid1').empty();
-            for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
-                $('#nucleibyid1').append('<option>' + info.nuclei_poc_list_global[i] + '</option><br>');
-            }
-            document.getElementById("nucleibyid2").innerHTML = info.nuclei_poc_list_len;
-        })
-
 }
 
 // 资产管理展开
@@ -1160,7 +1127,7 @@ function assetmanagerzhankaifunc() {
     document.getElementById('assetid1').style.display = "block";
     document.getElementById('assetid3').style.display = "block";
     document.getElementById('assetid2').style.display = "none";
-  }
+}
 
 
 // 资产管理折叠
@@ -1168,7 +1135,7 @@ function assetmanagerzhediefunc() {
     document.getElementById('assetid1').style.display = "none";
     document.getElementById('assetid3').style.display = "none";
     document.getElementById('assetid2').style.display = "block";
-  }
+}
 
 
 // 漏洞管理展开
@@ -1176,7 +1143,7 @@ function vulnmanagerzhankaifunc() {
     document.getElementById('vulnid1').style.display = "block";
     document.getElementById('vulnid3').style.display = "block";
     document.getElementById('vulnid2').style.display = "none";
-  }
+}
 
 
 // 漏洞管理折叠
@@ -1184,7 +1151,7 @@ function vulnmanagerzhediefunc() {
     document.getElementById('vulnid1').style.display = "none";
     document.getElementById('vulnid3').style.display = "none";
     document.getElementById('vulnid2').style.display = "block";
-  }
+}
 
 
 //springboot报告预览
@@ -1199,20 +1166,16 @@ function start_springboot_scan_func() {
         url: '/start_springboot_vuln_scan/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-           
+        success: function (info) {
+            alert(info.springboot_scan_status_result)
+
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-           
+
         }
-    })
-    $.getJSON("/start_springboot_vuln_scan/",
-        function (info) {
-            alert(info.springboot_scan_status_result)
     })
 }
 
@@ -1222,15 +1185,14 @@ function killnmapfunc() {
     $.ajax({
         url: '/killnmapprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭端口扫描程序')
+        success: function (info) {
+            alert(info.kill_nmap_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已关闭端口扫描程序')
+            
         }
     })
 }
@@ -1240,15 +1202,14 @@ function killvulmapfunc() {
     $.ajax({
         url: '/killvulmapprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭vulmap扫描程序')
+        success: function (info) {
+            alert(info.kill_vulmap_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已关闭vulmap扫描程序')
+           
         }
     })
 }
@@ -1259,15 +1220,14 @@ function killnucleifunc() {
     $.ajax({
         url: '/killnucleiprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭nuclei扫描程序')
+        success: function (info) {
+            alert(info.kill_nuclei_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已关闭nuclei扫描程序')
+            
         }
     })
 }
@@ -1278,15 +1238,14 @@ function killbbscanfunc() {
     $.ajax({
         url: '/killbbscanprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭bbscan扫描程序')
+        success: function (info) {
+            alert(info.kill_bbscan_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已关闭bbscan扫描程序')
+            
         }
     })
 }
@@ -1303,17 +1262,17 @@ function fofa_search_assets_func() {
         },
         success: function (info) {
             // 当请求成功时调用  
-             alert(info.asset_len_list);  
-           
+            alert(info.asset_len_list);
+
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-           
+
         }
     })
-  
+
 }
 
 
@@ -1333,14 +1292,14 @@ function start_hydra_scan_func() {
             hydrapart: hydrapart
         },
         success: function (info) {
-             // 当请求成功时调用  
-             alert(info.hydra_scan_result);  
+            // 当请求成功时调用  
+            alert(info.hydra_scan_result);
         },
         error: function () {
             alert('接口内部出错')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1352,13 +1311,13 @@ function killhydraprocessfunc() {
         url: '/killhydraprocess/',
         method: 'GET',
         success: function (info) {
-           alert(info.kill_hydra_result)
+            alert(info.kill_hydra_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-           
+
         }
     })
 }
@@ -1370,13 +1329,13 @@ function killurlfinderprocessfunc() {
         url: '/killurlfinderprocess/',
         method: 'GET',
         success: function (info) {
-           alert(info.kill_urlfinder_result)
+            alert(info.kill_urlfinder_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1388,13 +1347,13 @@ function killEHoleprocessfunc() {
         url: '/killEHoleprocess/',
         method: 'GET',
         success: function (info) {
-           alert(info.kill_EHole_result)
+            alert(info.kill_EHole_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
