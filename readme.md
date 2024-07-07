@@ -1,9 +1,9 @@
-注意：<br>
-保证系统正常运行需要2个项目：<br>
+注意：<br><br>
+保证系统正常运行需要2个项目：<br><br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 
-系统使用说明<br>
+系统使用说明<br><br>
 1. 安装python3+MySQL数据库<br>
 2. 建议安装nginx反向代理web服务，部分接口会出现查询超时情况，可通过nginx控制超时时间，也可直接通过flask直接访问，只需修改scan_main_web.py和dirscanmain.py最后一行IP部分<br>
 3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下，<br>
@@ -18,20 +18,20 @@
 12. nginx相关配置文件在nginx_conf目录下，将nginx.conf放到/etc/nginx目录下，将dirscan_nginx.conf和infoscan_nginx.conf放到/etc/nginx/conf.d目录下，执行nginx -t检查配置文件是否正确<br>
 13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
 
-项目目录结构
+项目目录结构<br><br>
 ├── /TIP<br>
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br>
 
 
-程序文件
+程序文件<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br>
 
-项目部署
+项目部署<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br>
 
-系统运行
+系统运行<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/>
@@ -40,10 +40,10 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br>
 
-漏洞报告
+漏洞报告<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br>
-资产发现
+资产发现<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br>
-弱口令扫描
+弱口令扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br>
