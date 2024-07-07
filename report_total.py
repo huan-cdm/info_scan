@@ -121,8 +121,15 @@ def report_xlsx():
     springboot_report_list = []
     springboot_file = open("/TIP/info_scan/result/springboot_result.txt",encoding='utf-8')
     for springboot_line in springboot_file.readlines():
-        springboot_report_list.append(springboot_line.strip())    
+        springboot_report_list.append(springboot_line.strip())   
 
+
+    # hydra弱口令
+     
+    hydra_report_list = []
+    hydra_file = open("/TIP/info_scan/result/hydra_result.txt",encoding='utf-8')
+    for hydra_line in hydra_file.readlines():
+        hydra_report_list.append(hydra_line.strip())   
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -141,6 +148,7 @@ def report_xlsx():
     df_n = pd.DataFrame(fscan_report_list, columns=['fscan'])
     df_o = pd.DataFrame(filtered_list_new, columns=['shiro'])
     df_p = pd.DataFrame(springboot_report_list, columns=['springboot'])
+    df_r = pd.DataFrame(hydra_report_list, columns=['hydra'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -161,3 +169,4 @@ def report_xlsx():
         df_n.to_excel(writer, sheet_name='fscan', index=False)
         df_o.to_excel(writer, sheet_name='shiro', index=False)
         df_p.to_excel(writer, sheet_name='springboot', index=False)
+        df_r.to_excel(writer, sheet_name='hydra', index=False)
