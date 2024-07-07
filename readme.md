@@ -23,15 +23,16 @@
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br>
 
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br>
 
 程序文件<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br>
 
-项目部署<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/>
+服务启动参数<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br>
 
-系统运行<br>
+
+部分功能截图<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/>
