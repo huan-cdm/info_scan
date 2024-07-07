@@ -1,17 +1,29 @@
  #! /bin/bash
  if [ "$1" == "-h" ]; then  
-    echo "开启infoscan：bash server_check.sh info_scan_start"  
-    echo "关闭infoscan：bash server_check.sh info_scan_stop"  
-    echo "开启xray报告：bash server_check.sh startreportserver"  
-    echo "关闭xray报告：bash server_check.sh stopreportserver" 
-	echo "关闭rad&xray引擎：bash server_check.sh killscan"
-	echo "开启目录扫描引擎：bash server_check.sh startdirscan"
-	echo "关闭目录扫描引擎：bash server_check.sh stopdirscan"
-	echo "开启链接扫描报告：bash server_check.sh startlinkscanserver"
-	echo "关闭链接扫描报告：bash server_check.sh stoplinkscanserver"
-	echo "开启afrog报告：bash server_check.sh startafrogreportserver"
-	echo "关闭afrog报告：bash server_check.sh stopafrogreportserver"
+	echo -e "[+]------------------------------------------"
+    echo "开启infoscan：bash server_check.sh startinfoscan"  
+    echo "关闭infoscan：bash server_check.sh stopinfoscan"  
+	echo "重启infoscan：bash server_check.sh restartinfoscan"  
+	echo -e "[+]------------------------------------------"
+    echo "开启xray报告：bash server_check.sh startxrayreport"  
+    echo "关闭xray报告：bash server_check.sh stopxrayreport" 
+	echo "重启xray报告：bash server_check.sh restartxrayreport" 
+	echo -e "[+]------------------------------------------"
+	echo "开启dirscan：bash server_check.sh startdirscan"
+	echo "关闭dirscan：bash server_check.sh stopdirscan"
+	echo "重启dirscan：bash server_check.sh restartdirscan"
+	echo -e "[+]------------------------------------------"
+	
+	echo "开启URLFinder报告：bash server_check.sh startURLFinder"
+	echo "关闭URLFinder报告：bash server_check.sh stopURLFinder"
+	echo "重启URLFinder报告：bash server_check.sh restartURLFinder"
+	echo -e "[+]------------------------------------------"
+	echo "开启afrog报告：bash server_check.sh startafrogreport"
+	echo "关闭afrog报告：bash server_check.sh stopafrogreport"
+	echo "重启afrog报告：bash server_check.sh restartafrogreport"
+	echo -e "[+]------------------------------------------"
 	echo "查看服务状态：bash server_check.sh status"
+	echo -e "[+]------------------------------------------"
     exit 0  #退出脚本，如果不需要执行其他命令的话
 fi  
 
@@ -19,30 +31,73 @@ fi
 
 case "${1}" in
    
-    #info_scan web启动脚本
-    info_scan_start)
+    #启动infoscan
+    startinfoscan)
     nohup python3 ./scan_main_web.py > /dev/null 2>&1 &
-    sleep 0.1s
-	echo "info_scan_web已启动"
+    sleep 0.5s
+	infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
+	#infoscan运行状态
+	if (( $infopid > 1 ))
+	then
+		echo -e "infoscan：" "\033[32m√\033[0m" 
+	else
+		echo -e "infoscan：" "\033[31mX\033[0m"
+	fi
 	;;
+
+
+    #关闭infoscan
+    stopinfoscan)
+    pides=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}'`
+	for aes in ${pides}
+	do
+		kill -9 ${aes} 2>/dev/null
+	done
+	sleep 0.5s
+	infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
+	#infoscan运行状态
+	if (( $infopid > 1 ))
+	then
+		echo -e "infoscan：" "\033[32m√\033[0m" 
+	else
+		echo -e "infoscan：" "\033[31mX\033[0m"
+	fi
+	;;
+
+	# 重启infoscan
+	restartinfoscan)
+	pides=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}'`
+	for aes in ${pides}
+	do
+		kill -9 ${aes} 2>/dev/null
+	done
+	sleep 0.5s
+	echo "infoscan正在重启中......"
+	sleep 0.5s
+	nohup python3 ./scan_main_web.py > /dev/null 2>&1 &
+	infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
+	#infoscan运行状态
+	if (( $infopid > 1 ))
+	then
+		echo -e "infoscan：" "\033[32m√\033[0m" 
+	else
+		echo -e "infoscan：" "\033[31mX\033[0m"
+	fi
+	;;
+
 
 	#目录扫描启动脚本
 	startdirscan)
     nohup python3 ./dirscanmain.py > /dev/null 2>&1 &
-    sleep 0.1s
-	echo "目录扫描已启动"
-	;;
-
-    #info_scan web关闭脚本
-    info_scan_stop)
-    pides=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}'`
-	for aes in ${pides}
-	do
-		echo "正在结束进程${aes}"
-		kill -9 ${aes}
-	done
-	sleep 0.1s
-    echo "info_scan_web已关闭"
+    sleep 0.5s
+	dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
+	#目录扫描服务
+	if (( $dirscanpid > 1 ))
+	then
+		echo -e "dirscan：" "\033[32m√\033[0m" 
+	else
+		echo -e "dirscan：" "\033[31mX\033[0m"
+	fi
 	;;
 
 	#目录扫描关闭脚本
@@ -50,53 +105,179 @@ case "${1}" in
     dirscanpid=`ps -aux | grep  dirscanmain.py | awk -F " " '{print $2}'`
 	for dirid in ${dirscanpid}
 	do
-		echo "正在结束进程${dirid}"
-		kill -9 ${dirid}
+		kill -9 ${dirid} 2>/dev/null
 	done
-	sleep 0.1s
-    echo "目录扫描已关闭"
+	sleep 0.5s
+    dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
+	#目录扫描服务
+	if (( $dirscanpid > 1 ))
+	then
+		echo -e "dirscan：" "\033[32m√\033[0m" 
+	else
+		echo -e "dirscan：" "\033[31mX\033[0m"
+	fi
 	;;
+
+	# 重启目录扫描
+	restartdirscan)
+	dirscanpid=`ps -aux | grep  dirscanmain.py | awk -F " " '{print $2}'`
+	for dirid in ${dirscanpid}
+	do
+		kill -9 ${dirid} 2>/dev/null
+	done
+	sleep 0.5s
+	echo "dirscan正在重启中......"
+	sleep 0.5s
+	nohup python3 ./dirscanmain.py > /dev/null 2>&1 &
+	dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
+	#目录扫描服务
+	if (( $dirscanpid > 1 ))
+	then
+		echo -e "dirscan：" "\033[32m√\033[0m" 
+	else
+		echo -e "dirscan：" "\033[31mX\033[0m"
+	fi
+
+	;;
+
 
 	#开启xray报告访问服务
     #本地开启127.0.0.1，利用nginx反向代理
-    startreportserver)
+    startxrayreport)
     cd /TIP/batch_scan_domain/report
     nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
-	echo "xray报告服务已启动"
+	sleep 0.5s
+	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
+	#xray报告服务
+	if (( $xraypid > 1 ))
+	then
+		echo -e "xrayreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "xrayreport：" "\033[31mX\033[0m"
+	fi
+
     ;;
 
     #关闭xray报告访问服务
-    stopreportserver)
+    stopxrayreport)
     pidd=`ps -aux | grep 8081 |awk -F " " '{print $2}'`
     
     for ii in ${pidd}
 	do
-		echo ".正在结束进程${ii}"
-		kill -9 ${ii}
-		sleep 0.1s
+		kill -9 ${ii} 2>/dev/null
 	done
+
+	sleep 0.5s
+	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
+	#xray报告服务
+	if (( $xraypid > 1 ))
+	then
+		echo -e "xrayreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "xrayreport：" "\033[31mX\033[0m"
+	fi
     ;;
+
+
+	# 重启xray报告访问服务
+	restartxrayreport)
+
+	pidd=`ps -aux | grep 8081 |awk -F " " '{print $2}'`
+    
+    for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+
+	sleep 0.5s
+	echo "xrayreport正在重启中......"
+	sleep 0.5s
+	cd /TIP/batch_scan_domain/report
+    nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
+	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
+	#xray报告服务
+	if (( $xraypid > 1 ))
+	then
+		echo -e "xrayreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "xrayreport：" "\033[31mX\033[0m"
+	fi
+
+	;;
+
+
 
 	# 开启afrog报告服务
 	# 本地开启127.0.0.1，利用nginx反向代理
-	startafrogreportserver)
+	startafrogreport)
     cd /TIP/info_scan/afrog_scan/reports
     nohup python3 -m http.server 8082 --bind 127.0.0.1 > /dev/null 2>&1 &
-	echo "afrog报告服务已启动"
+	
+	sleep 0.5s
+	afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
+	# afrog服务状态
+	if (( $afrogpid > 1 ))
+	then
+		echo -e "afrogreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "afrogreport：" "\033[31mX\033[0m"
+	fi
+
     ;;
 
 
 	# 关闭afrog报告服务
-	stopafrogreportserver)
+	stopafrogreport)
     afpid=`ps -aux | grep 8082 |awk -F " " '{print $2}'`
     
     for ii in ${afpid}
 	do
-		echo ".正在结束进程${ii}"
-		kill -9 ${ii}
-		sleep 0.1s
+
+		kill -9 ${ii} 2>/dev/null
+		
 	done
+
+	sleep 0.5s
+	afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
+	# afrog服务状态
+	if (( $afrogpid > 1 ))
+	then
+		echo -e "afrogreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "afrogreport：" "\033[31mX\033[0m"
+	fi
     ;;
+
+
+	# 重启afrog报告服务
+	restartafrogreport)
+
+	afpid=`ps -aux | grep 8082 |awk -F " " '{print $2}'`
+    
+    for ii in ${afpid}
+	do
+
+		kill -9 ${ii} 2>/dev/null
+		
+	done
+
+	sleep 0.5s
+	echo "afrogreport正在重启中......"
+	sleep 0.5s
+
+	cd /TIP/info_scan/afrog_scan/reports
+    nohup python3 -m http.server 8082 --bind 127.0.0.1 > /dev/null 2>&1 &
+	
+	
+	afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
+	# afrog服务状态
+	if (( $afrogpid > 1 ))
+	then
+		echo -e "afrogreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "afrogreport：" "\033[31mX\033[0m"
+	fi
+	;;
 
 
 	#kill rad和xray引擎
@@ -106,13 +287,13 @@ case "${1}" in
 	#kill xray
 	for xrayline in ${xraypid}
 	do
-		kill -9 ${xrayline}
+		kill -9 ${xrayline} 2>/dev/null
 	done
 
 	#kill rad
 	for radline in ${radpid}
 	do
-		kill -9 ${radline}
+		kill -9 ${radline} 2>/dev/null
 	done
 	
 	;;
@@ -154,9 +335,9 @@ case "${1}" in
     #目录扫描服务
 	if (( $dirscanpid > 1 ))
 	then
-		echo -e "目录扫描：" "\033[32m√\033[0m" 
+		echo -e "dirscan：" "\033[32m√\033[0m" 
 	else
-		echo -e "目录扫描：" "\033[31mX\033[0m"
+		echo -e "dirscan：" "\033[31mX\033[0m"
 	fi
 	sleep 0.5s
 
@@ -174,22 +355,70 @@ case "${1}" in
 
 	#开启链接扫描报告服务
     #本地开启127.0.0.1，利用nginx反向代理
-    startlinkscanserver)
+    startURLFinder)
     cd /TIP/info_scan/urlfinder_server/report
     nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
-	echo "链接扫描报告服务已启动"
+	
+	sleep 0.5s
+	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
+	#链接扫描报告服务
+	if (( $urlfinderpid > 1 ))
+	then
+		echo -e "urlfinderreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "urlfinderreport：" "\033[31mX\033[0m"
+	fi
     ;;
 
 	#关闭链接扫描报告访问服务
-    stoplinkscanserver)
+    stopURLFinder)
     linkpidd=`ps -aux | grep 8089 |awk -F " " '{print $2}'`
     
     for ii in ${linkpidd}
 	do
-		echo ".正在结束进程${ii}"
-		kill -9 ${ii}
-		sleep 0.1s
+		
+		kill -9 ${ii} 2>/dev/null
+		
 	done
+
+	sleep 0.5s
+	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
+	#链接扫描报告服务
+	if (( $urlfinderpid > 1 ))
+	then
+		echo -e "urlfinderreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "urlfinderreport：" "\033[31mX\033[0m"
+	fi
     ;;
+
+
+	#重启链接扫描报告访问服务
+	restartURLFinder)
+	linkpidd=`ps -aux | grep 8089 |awk -F " " '{print $2}'`
+    
+    for ii in ${linkpidd}
+	do
+		
+		kill -9 ${ii} 2>/dev/null
+		
+	done
+
+	sleep 0.5s
+	echo "URLFinderreport正在重启中......"
+	sleep 0.5s
+	cd /TIP/info_scan/urlfinder_server/report
+    nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
+	
+	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
+	#链接扫描报告服务
+	if (( $urlfinderpid > 1 ))
+	then
+		echo -e "URLFinderreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "URLFinderreport：" "\033[31mX\033[0m"
+	fi
+	;;
+
 
 esac

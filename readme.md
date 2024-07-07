@@ -18,31 +18,18 @@
 12. nginx相关配置文件在nginx_conf目录下，将nginx.conf放到/etc/nginx目录下，将dirscan_nginx.conf和infoscan_nginx.conf放到/etc/nginx/conf.d目录下，执行nginx -t检查配置文件是否正确<br>
 13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
 
+项目目录结构
 ├── /TIP<br>
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br>
 
-系统服务启动参数 <br>
-启动服务参数：bash server_check.sh -h <br>
-开启infoscan：bash server_check.sh info_scan_start <br>
-关闭infoscan：bash server_check.sh info_scan_stop <br>
-开启xray报告：bash server_check.sh startreportserver <br>
-关闭xray报告：bash server_check.sh stopreportserver <br>
-关闭rad&xray引擎：bash server_check.sh killscan <br>
-开启目录扫描引擎：bash server_check.sh startdirscan <br>
-关闭目录扫描引擎：bash server_check.sh stopdirscan <br>
-开启链接扫描报告：bash server_check.sh startlinkscanserver <br>
-关闭链接扫描报告：bash server_check.sh stoplinkscanserver <br>
-开启afrog报告：bash server_check.sh startafrogreportserver<br>
-关闭afrog报告：bash server_check.sh stopafrogreportserver<br>
-查看服务状态：bash server_check.sh status <br>
 
 程序文件
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br>
 
 项目部署
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/startproject.jpg"/><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br>
 
 系统运行
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
