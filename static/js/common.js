@@ -207,7 +207,7 @@ function textinfoshowfunc() {
         url: '/textareashowinterface/',
         method: 'GET',
         success: function (info) {
-            
+
             $('#opbyid3').empty();
             for (var i = 0; i < info.textvalue.length; i++) {
                 $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
@@ -682,15 +682,14 @@ function reporttotalfunc() {
         url: '/report_total_interface/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            console.log('报告已整合到excel中，点击下载报告进行查看')
+        success: function () {
+            
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('报告已整合到excel中，点击下载报告进行查看')
+            alert('已完成整合点击报告下载进行预览')
         }
     })
 }
@@ -793,13 +792,13 @@ function startvulmapscanfunc() {
         },
         success: function (info) {
             alert(info.vummap_scan_result)
-            
+
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -811,8 +810,8 @@ function batchnmapportscanfunc() {
         url: '/startbatchnmapscan/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            alert(info.nmap_status_result)
 
         },
         error: function () {
@@ -822,11 +821,6 @@ function batchnmapportscanfunc() {
 
         }
     })
-
-    $.getJSON("/startbatchnmapscan/",
-        function (info) {
-            alert(info.nmap_status_result)
-        })
 }
 
 
@@ -835,9 +829,17 @@ function targeturlcopytextareafunc() {
     $.ajax({
         url: '/url_list_textarea_show/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            // 假设info.textvalue是一个数组  
+            var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
 
+            // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+            for (var i = 0; i < info.textvalue.length; i++) {
+                textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
+            }
+
+            // 将textAreaContent的内容赋值给textarea  
+            $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
         },
         error: function () {
 
@@ -847,21 +849,6 @@ function targeturlcopytextareafunc() {
 
         }
     })
-
-    $.getJSON("/url_list_textarea_show/", function (info) {
-        // 假设info.textvalue是一个数组  
-        var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
-
-        // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
-        for (var i = 0; i < info.textvalue.length; i++) {
-            textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
-        }
-
-        // 将textAreaContent的内容赋值给textarea  
-        $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
-
-    });
-
 }
 
 
@@ -906,15 +893,14 @@ function startafrogfunc() {
     $.ajax({
         url: '/startafrogscanprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('afrog漏扫程序已启动稍后查看扫描结果')
+        success: function (info) {
+            alert(info.start_afrog_result)
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('afrog漏扫程序已启动稍后查看扫描结果')
+
         }
     })
 }
@@ -925,15 +911,14 @@ function killafrogprocessfunc() {
     $.ajax({
         url: '/killafrogprocess/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭afrog进程')
+        success: function (info) {
+            alert(info.kill_afrog_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已关闭afrog进程')
+
         }
     })
 }
@@ -957,7 +942,7 @@ function batchfscanvulnfunc() {
             alert('内部出错')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -969,13 +954,13 @@ function killfscanprocessfunc() {
         url: '/killfscangprocess/',
         method: 'GET',
         success: function (info) {
-           alert(info.kill_fscan_result)
+            alert(info.kill_fscan_result)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-           
+
         }
     })
 }
@@ -993,8 +978,8 @@ function batchshirovulnfunc() {
         url: '/startshirointerface/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            alert(info.shiro_status_result)
 
         },
         error: function () {
@@ -1004,10 +989,6 @@ function batchshirovulnfunc() {
 
         }
     })
-    $.getJSON("/startshirointerface/",
-        function (info) {
-            alert(info.shiro_status_result)
-        })
 }
 
 
@@ -1017,8 +998,8 @@ function key_data_tiqu_func() {
         url: '/key_assets_withdraw/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            alert(info.key_assets_result)
         },
         error: function () {
             alert('内部出错')
@@ -1027,10 +1008,6 @@ function key_data_tiqu_func() {
 
         }
     })
-    $.getJSON("/key_assets_withdraw/",
-        function (info) {
-            alert(info.key_assets_result)
-        })
 }
 
 
@@ -1192,7 +1169,7 @@ function killnmapfunc() {
             alert('出现内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1209,7 +1186,7 @@ function killvulmapfunc() {
             alert('出现内部错误')
         },
         complete: function () {
-           
+
         }
     })
 }
@@ -1227,7 +1204,7 @@ function killnucleifunc() {
             alert('出现内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1245,7 +1222,7 @@ function killbbscanfunc() {
             alert('出现内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1356,4 +1333,10 @@ function killEHoleprocessfunc() {
 
         }
     })
+}
+
+
+//总报告预览
+function total_report_yulan_func() {
+    window.open("/totalreportyulan/", "_blank");
 }

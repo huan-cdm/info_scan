@@ -719,26 +719,6 @@ def report_total_interface():
     else:
         return render_template('login.html')
 
-# 报告下载
-@app.route("/report_download_interface/",methods=['get'])
-def report_download_interface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 判断vuln_report.xlsx是否存在
-        file_path = '/TIP/info_scan/result/vuln_report.xlsx'
-        if os.path.exists(file_path) and os.path.isfile(file_path):
-            return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
-        else:
-            text_list = ["{\"status\":\"failed\",\"errorcode\":500,\"describe\":\"正在进行报告整合...\"}"]
-            df_a = pd.DataFrame(text_list, columns=['警告信息'])
-            with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
-            # 将 DataFrame 写入不同的工作表  
-                df_a.to_excel(writer, sheet_name='sheet1', index=False)
-            file_path1 = '/TIP/info_scan/result/vuln_report_warn.xlsx'
-            return send_file(file_path1, as_attachment=True, download_name='vuln_report_warn.xlsx')
-    
-    else:
-        return render_template('login.html')
     
 
 #ehole_finger扫描结果预览
@@ -1024,11 +1004,23 @@ def deleteafrogreport():
 def startafrogscanprocess():
     user = session.get('username')
     if str(user) == main_username:
-        try:
-            os.popen('bash ./finger.sh startafrogprocess')
-            return render_template('index.html')
-        except Exception as e:
-            print("捕获到异常:", e)
+        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
+        if "running" in afrogscanstatus:
+            start_afrog_result = "afrog正在运行中稍后再开启扫描"
+        else:
+            try:
+                os.popen('bash ./finger.sh startafrogprocess')
+                if "running" in afrogscanstatus:
+                    start_afrog_result = "afrog已开启稍后查看结果"
+                else:
+                    start_afrog_result = "afrog正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "start_afrog_result":start_afrog_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
@@ -1038,8 +1030,18 @@ def startafrogscanprocess():
 def killafrogprocess():
     user = session.get('username')
     if str(user) == main_username:
+        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
         os.popen('bash ./finger.sh killafrog')
-        return render_template('index.html')
+        if "stop" in afrogscanstatus:
+            kill_afrog_result = "已关闭afrog扫描程序"
+        else:
+            kill_afrog_result = "正在关闭中......"
+
+        message_json = {
+            "kill_afrog_result":kill_afrog_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -1527,6 +1529,53 @@ def killEHoleprocess():
     else:
         return render_template('login.html')
     
+
+# 报告预览
+@app.route('/totalreportyulan/')
+def totalreportyulan():
+    file_path = '/TIP/info_scan/result/vuln_report.xlsx'
+    file_path_warn = '/TIP/info_scan/result/vuln_report_warn.xlsx'
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+        # 读取Excel文件的所有sheets
+        xls = pd.ExcelFile(file_path)
+        result_data = {sheet_name: pd.read_excel(file_path, sheet_name=sheet_name).to_dict(orient='records') 
+                       for sheet_name in xls.sheet_names}
+    else:
+        text_list = ["{\"status\":\"failed\",\"errorcode\":500,\"describe\":\"正在进行报告整合...\"}"]
+        df_a = pd.DataFrame(text_list, columns=['警告信息'])
+        with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
+        # 将 DataFrame 写入不同的工作表  
+            df_a.to_excel(writer, sheet_name='正在整合中...', index=False)
+        # 读取Excel文件的所有sheets
+        xls = pd.ExcelFile(file_path_warn)
+        result_data = {sheet_name: pd.read_excel(file_path_warn, sheet_name=sheet_name).to_dict(orient='records') 
+                       for sheet_name in xls.sheet_names}
+    # 使用模板渲染HTML表格
+    return render_template('preview.html', data=result_data)
+
+
+
+
+# 报告下载
+@app.route("/report_download_interface/",methods=['get'])
+def report_download_interface():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 判断vuln_report.xlsx是否存在
+        file_path = '/TIP/info_scan/result/vuln_report.xlsx'
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return send_file(file_path, as_attachment=True, download_name='vuln_report.xlsx')
+        else:
+            text_list = ["{\"status\":\"failed\",\"errorcode\":500,\"describe\":\"正在进行报告整合...\"}"]
+            df_a = pd.DataFrame(text_list, columns=['警告信息'])
+            with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
+            # 将 DataFrame 写入不同的工作表  
+                df_a.to_excel(writer, sheet_name='sheet1', index=False)
+            file_path1 = '/TIP/info_scan/result/vuln_report_warn.xlsx'
+            return send_file(file_path1, as_attachment=True, download_name='vuln_report_warn.xlsx')
+    
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  

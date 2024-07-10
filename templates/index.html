@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">当前用户：{{data20}}</span><br><br>
+	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">登录用户：{{data20}}</span><br><br>
 	<table border="1">
 		<tr>
 			<td>
@@ -22,7 +22,8 @@
 				<input type="button" value="CEYE-HTTP" onclick="ceyehttpfunc()">
 				<input type="button" value="目录扫描系统" onclick="jumpdirscanpage()">
 				<input type="button" value="报告整合" onclick="reporttotalfunc()">
-				<input type="button" value="报告下载" onclick="reportdownloadfunc()">
+				<input type="button" value="在线预览" onclick="total_report_yulan_func()">
+				<input type="button" value="下载报告" onclick="reportdownloadfunc()">
 				<input type="button" value="系统管理" onclick="openModal()">
 				<input type="button" value="注销系统" onclick="signoutfunc()">
 			</td>

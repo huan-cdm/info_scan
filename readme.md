@@ -48,3 +48,5 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br>
 弱口令扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br>
+总报告在线预览<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br>

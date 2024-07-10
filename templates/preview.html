@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+    <title>漏洞预览</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <select id="sheet-selector" onchange="displaySheet()">
+       
+    </select>
+    <table id="excel-table">
+       
+    </table>
+
+    <script>
+        var sheetsData = {{ data | tojson }};
+        var currentSheet = null;8
+
+        window.onload = function() {
+            populateSheetSelector();
+        }
+
+        function populateSheetSelector() {
+            var selector = document.getElementById('sheet-selector');
+            for (var sheet in sheetsData) {
+                var option = document.createElement('option');
+                option.textContent = sheet;
+                option.value = sheet;
+                selector.appendChild(option);
+            }
+        }
+
+        function displaySheet() {
+            var sheetName = document.getElementById('sheet-selector').value;
+            if (currentSheet === sheetName) return;
+            currentSheet = sheetName;
+            var table = document.getElementById('excel-table');
+            table.innerHTML = ''; 
+
+            var data = sheetsData[sheetName];
+            var thead = table.createTHead();
+            var headerRow = thead.insertRow();
+            var firstRow = data[0];
+            Object.keys(firstRow).forEach(function(key) {
+                var headerCell = document.createElement('th');
+                headerCell.textContent = key;
+                headerRow.appendChild(headerCell);
+            });
+
+            var tbody = table.createTBody();
+            data.forEach(function(rowData) {
+                var row = tbody.insertRow();
+                Object.values(rowData).forEach(function(value) {
+                    var cell = row.insertCell();
+                    cell.textContent = value;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
