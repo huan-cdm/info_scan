@@ -296,11 +296,15 @@ def submit_data():
         f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
         for line in data:
             f.write(str(line)+"\n")
-
+        f.close()
+        file_line = os.popen('bash ./finger.sh textarea_url_num').read()
+        
         #资产备份
         os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
-
-        return jsonify({'message': '数据已添加', 'lines': data})
+        message_json = {
+            "file_line":"已成功添加"+str(file_line)+"条资产"
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
@@ -1263,6 +1267,7 @@ def key_assets_withdraw():
             # 根据config.py中finger_list配置进行识别，可在finger_list列表中配置多个，最终写入到全局资产文件url.txt中
             try:
                 key_url_list = basic.key_point_tiqu()
+               
                 f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
                 for line in key_url_list:
                     f.write(str(line)+"\n")

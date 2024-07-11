@@ -115,7 +115,7 @@ function killxrayandradfunc() {
 }
 
 
-//ajax异步发送textarea的值
+//文本框内容添加
 function sendtextareadata() {
     // 获取textarea的值  
     const text = document.getElementById('myTextarea').value;
@@ -128,15 +128,14 @@ function sendtextareadata() {
         contentType: 'application/json',
         data: JSON.stringify({ lines: lines }),
         dataType: 'json',
-        success: function (res) {
-            console.log(res)
-            console.log('URL添加成功点击文本查看是否添加成功')
+        success: function (info) {
+            alert(info.file_line)
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('URL添加成功点击文本框查看是否添加成功')
+           
         }
     });
 }

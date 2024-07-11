@@ -676,4 +676,6 @@ case "${1}" in
      mssql_weak_password)
     /usr/bin/hydra -L /TIP/info_scan/hydra/mssql/user.txt -P /TIP/info_scan/hydra/mssql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mssql > /TIP/info_scan/result/hydra_result.txt
     ;;
+
+    
 esac

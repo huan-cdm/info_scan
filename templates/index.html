@@ -207,18 +207,18 @@
 	<h3>漏洞管理</h3>
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2">展开</h3>
 		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">折叠</h5>
-		<table border="1" style="display:none;" id="vulnid1">
+		<div style="display:none;" id="vulnid1">
+		<table border="1" >
 			<tr>
 				<td>
 					<input type="submit" value="路劲处理：">&nbsp;&nbsp;&nbsp;&nbsp;
-
 					<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()" disabled>
 					<input type="button" id="button35" value="子域名预览" onclick="showsubdomainfunc()" disabled>
 					<input type="button" id="button36" value="子域名探测" onclick="subdomainfindfunc()" disabled>
 
 				</td>
 
-				<td style="text-align: right;">
+				<td>
 					<input type="submit" value="链接扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="button" id="button22" value="预览报告" onclick="urlfinderreportshow()" disabled>
 					<input type="button" id="button21" value="启动程序" onclick="urlfinderscanfunc()" disabled>
@@ -227,7 +227,7 @@
 				</td>
 				
 				<td>
-					<input type="submit" value="nuclei参数：">&nbsp;&nbsp;&nbsp;&nbsp;
+					 nuclei参数：&nbsp;&nbsp;
 					<select name="poc_dir">
 						<option value="/root/nuclei-templates/http">http</option>
 						<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
@@ -289,7 +289,7 @@
 					<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
 				</td>
 				<td>
-					<input type="submit" value="vulmap参数：">&nbsp;&nbsp;&nbsp;&nbsp;
+					vulmap参数：
 					<select name="vulnname">
 						<option value="all">all</option>
 						<option value="activemq">检查站点是否存在activemq漏洞</option>
@@ -341,7 +341,7 @@
 					<input type="button" id="button15" value="关闭程序" onclick="killxrayandradfunc()" disabled>
 				</td>
 				<td>
-					<input type="submit" value="弱口令参数：">&nbsp;&nbsp;&nbsp;&nbsp;
+					弱口令参数：&nbsp;&nbsp;
 					<select name="hydrapart">
 						<option value="1">mysql</option>
 						<option value="2">ssh</option>
@@ -351,6 +351,9 @@
 					</select>
 				</td>
 			</tr>
+			
+					
+				
 			<tr>
 				<td>
 					<input type="submit" value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -365,7 +368,15 @@
 					<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
 					<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled>
 				</td>
+				<!-- <td>
+					<img src="{{ url_for('static', filename='image/bg.jpg') }}" width="450" height="100">
+				</td> -->
 			</tr>
+			<!-- <tr>
+				<td>
+					<img src="{{ url_for('static', filename='image/bg.jpg') }}" width="450" height="100">
+				</td>
+			</tr> -->
 			<tr>
 				<td>
 					<input type="submit" value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -422,11 +433,12 @@
 				</td>
 			</tr>
 		</table>
-
+	</div>
 		<h3>资产管理</h3>
 		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2">展开</h3>
 			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">折叠</h5>
-			<table border="1" style="display:none;" id="assetid1">
+			<div style="display:none;" id="assetid1">
+			<table border="1">
 				<tr>
 					<td>
 						<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled>
@@ -468,7 +480,7 @@
 					</td>
 				</tr>
 			</table>
-
+		</div>
 </body>
 
 </html>
