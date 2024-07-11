@@ -568,17 +568,15 @@ function signoutfunc() {
         url: '/signout/',
         method: 'GET',
         success: function (res) {
-            console.log(res)
-            console.log('已注销系统')
+            alert('已注销系统')
+            window.location.href = "/index/";
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已注销系统')
         }
     })
-    window.location.href = "/index/";
 }
 
 
