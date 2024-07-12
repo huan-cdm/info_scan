@@ -1352,9 +1352,11 @@ function login_interface_func() {
             password: password
         },
         success: function (info) {
-            // 当请求成功时调用 
-            alert(info.loginstatus);
-            window.location.href = info.redirect_url;
+            if (confirm(info.loginstatus)) {
+                window.location.href = info.redirect_url;
+              } else {
+                window.location.href = info.nologin;
+              }
         },
         error: function () {
             alert('接口内部出错')

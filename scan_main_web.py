@@ -1,8 +1,8 @@
 '''
-Description:[项目核心文件]
+Description:[主系统]
 Author:[huan666]
 Date:[2023/11/15]
-update:[2024/5/30]
+update:[2024/7/12]
 '''
 from flask import Flask, render_template,request
 from flask import session
@@ -178,7 +178,7 @@ def index():
     else:
         return render_template('login.html')
     
-#登录实现
+#主系统登录实现
 @app.route('/logininterface/',methods=['post'])
 def logininterface():
     username = request.form['username']
@@ -187,7 +187,7 @@ def logininterface():
     # 登录判断
     if str(username) == str(main_username) and str(password) == str(main_password):
         session['username'] = username
-        login_status = "确认登录系统吗？"
+        login_status = "账号密码正确确认登录系统吗？"
         redirecturl = '/index/'
 
     elif str(username) == str(main_username) and str(password) != str(main_password):
@@ -202,7 +202,8 @@ def logininterface():
 
     message_json = {
         'loginstatus':login_status,
-        'redirect_url':redirecturl
+        'redirect_url':redirecturl,
+        'nologin':'/loginpage/'
     }    
        
     return jsonify(message_json)

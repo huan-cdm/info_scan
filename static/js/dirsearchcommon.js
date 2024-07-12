@@ -1,85 +1,3 @@
-//nuclei查看模板文件
-function nucleishowtemplatefunc() {
-    var obj = document.getElementById("nucleu_value_name_id"); //定位id
-    var index = obj.selectedIndex; // 选中索引
-    var text = obj.options[index].text; // 选中文本
-    var oper_nucleu_value_name = obj.options[index].value; // 选中值
-
-    $.ajax({
-        url: '/templatenucleishowinterface/',
-        method: 'POST',
-        data: {
-            oper_nucleu_value_name: oper_nucleu_value_name
-        },
-        success: function (res) {
-            console.log(res)
-        },
-        error: function () {
-
-        },
-        complete: function () {
-        }
-    })
-
-    $.getJSON("/templatenucleishowbyajaxinterface/",
-        function (info) {
-            $('#nucleibyid1').empty();
-            for (var i = 0; i < info.nuclei_result_list_1.length; i++) {
-                $('#nucleibyid1').append('<option>' + info.nuclei_result_list_1[i] + '</option><br>');
-            }
-            document.getElementById("nucleibyid2").innerHTML = info.nuclei_length;
-        })
-
-}
-
-
-
-
-//ajax异步启动Nuclei
-function startnucleiserverfunc() {
-    var nucleu_value_name = $('select[name="nucleu_value_name"]').val();
-    $.ajax({
-        url: '/startnucleiinterface/',
-        method: 'POST',
-        data: {
-            nucleu_value_name: nucleu_value_name
-        },
-        success: function (res) {
-            console.log(res)
-            console.log('Nuclei服务正在启动中......')
-        },
-        error: function () {
-            alert('Nuclei服务启动出错')
-        },
-        complete: function () {
-            alert('Nuclei服务正在启动中......')
-        }
-    })
-}
-
-
-
-
-//ajax异步关闭nuclei进程
-function stopnucleiprocessunc() {
-
-    $.ajax({
-        url: '/stopnucleiprocessinterface/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭Nuclei进程')
-        },
-        error: function () {
-            alert('关闭Nuclei进程出错')
-        },
-        complete: function () {
-            alert('已关闭Nuclei进程')
-        }
-    })
-}
-
-
 //扫描前黑名单批量添加
 function scanbeforebatchinsert() {
     
@@ -1027,16 +945,45 @@ function subsignoutfunc() {
     $.ajax({
         url: '/subsignout/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已注销系统')
+        success: function (info) {
+            alert(info.subzhuxiaostatus);
+            window.location.href = info.subzhuxiaoredirect_url;
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已注销系统')
+    
         }
     })
-    window.location.href = "/dirscanpage/";
+    
+}
+
+
+
+// 登录接口
+function sublogin_interface_func() {
+    var username = document.getElementById("user1").value;
+    var password = document.getElementById("pass1").value;
+    $.ajax({
+        url: '/sublogininterface/',
+        method: 'POST',
+        data: {
+            username: username,
+            password: password
+        },
+        success: function (info) {
+            if (confirm(info.subloginstatus)) {
+                window.location.href = info.subredirect_url;
+              } else {
+                window.location.href = info.subnologin;
+              }
+        },
+        error: function () {
+            alert('接口内部出错')
+        },
+        complete: function () {
+
+        }
+    })
 }

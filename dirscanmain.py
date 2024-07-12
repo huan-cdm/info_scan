@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 Pragram Name:[dirscan]
-Description:[目录扫描接口文件]
+Description:[目录扫描子系统]
 Author:[huan666]
-Date:[2023/03/01]
+Date:[2024/07/12]
 """
 #----------------------------------------------------------------------------------------#
 from operator import imod
@@ -484,26 +484,69 @@ def subloginpage():
     return render_template('sublogin.html')
 
 
+
+# @app.route('/sublogininterface/',methods=['post'])
+# def sublogininterface():
+#     username = request.form['username']
+#     password = request.form['password']
+#     if str(username) == str(sub_username) and str(password) == str(sub_password):
+#         session['username1'] = username
+#         return redirect("/dirscanpage/")
+#     else:
+#         return render_template('sublogin.html',data1="账号或者密码错误")
+    
+
+
+
+
 #登录实现
 @app.route('/sublogininterface/',methods=['post'])
 def sublogininterface():
     username = request.form['username']
     password = request.form['password']
+    
+    # 登录判断
     if str(username) == str(sub_username) and str(password) == str(sub_password):
         session['username1'] = username
-        return redirect("/dirscanpage/")
+        login_status = "账号密码正确确认登录系统吗？"
+        redirecturl = '/dirscanpage/'
+
+    elif str(username) == str(sub_username) and str(password) != str(sub_password):
+        login_status = "密码错误"
+        redirecturl = '/subloginpage/'
+    elif str(username) != str(sub_username) and str(password) == str(sub_password):
+        login_status = "账号不存在"
+        redirecturl = '/subloginpage/'
     else:
-        return render_template('sublogin.html',data1="账号或者密码错误")
+        login_status = "登录失败"
+        redirecturl = '/subloginpage/'
+
+    message_json = {
+        'subloginstatus':login_status,
+        'subredirect_url':redirecturl,
+        'subnologin':'/subloginpage/'
+    }    
+       
+    return jsonify(message_json)
+
+
+
     
+
 
 #注销系统
 @app.route('/subsignout/',methods=['get'])
 def subsignout():
     try:
-        session.clear()
+         session['username1'].clear()
     except Exception as e:
         print("捕获到异常:",e)
-    return render_template('sublogin.html')
+    message_json = {
+        'subzhuxiaostatus':'确认退出系统吗？',
+        'subzhuxiaoredirect_url':'/subloginpage/'
+    }    
+       
+    return jsonify(message_json)
 
 
 if __name__ == '__main__':  
