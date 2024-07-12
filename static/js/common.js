@@ -135,7 +135,7 @@ function sendtextareadata() {
             alert('出现内部错误')
         },
         complete: function () {
-           
+
         }
     });
 }
@@ -567,14 +567,15 @@ function signoutfunc() {
     $.ajax({
         url: '/signout/',
         method: 'GET',
-        success: function (res) {
-            alert('已注销系统')
-            window.location.href = "/index/";
+        success: function (info) {
+            alert(info.zhuxiaostatus);
+            window.location.href = info.zhuxiaoredirect_url;
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
+
         }
     })
 }
@@ -680,7 +681,7 @@ function reporttotalfunc() {
         method: 'GET',
 
         success: function () {
-            
+
         },
         error: function () {
             alert('内部出错')
@@ -1336,4 +1337,30 @@ function killEHoleprocessfunc() {
 //总报告预览
 function total_report_yulan_func() {
     window.open("/totalreportyulan/", "_blank");
+}
+
+
+// 登录接口
+function login_interface_func() {
+    var username = document.getElementById("user").value;
+    var password = document.getElementById("pass").value;
+    $.ajax({
+        url: '/logininterface/',
+        method: 'POST',
+        data: {
+            username: username,
+            password: password
+        },
+        success: function (info) {
+            // 当请求成功时调用 
+            alert(info.loginstatus);
+            window.location.href = info.redirect_url;
+        },
+        error: function () {
+            alert('接口内部出错')
+        },
+        complete: function () {
+
+        }
+    })
 }

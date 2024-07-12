@@ -183,13 +183,31 @@ def index():
 def logininterface():
     username = request.form['username']
     password = request.form['password']
-
-
+    
+    # 登录判断
     if str(username) == str(main_username) and str(password) == str(main_password):
         session['username'] = username
-        return redirect("/index/")
+        login_status = "确认登录系统吗？"
+        redirecturl = '/index/'
+
+    elif str(username) == str(main_username) and str(password) != str(main_password):
+        login_status = "密码错误"
+        redirecturl = '/loginpage/'
+    elif str(username) != str(main_username) and str(password) == str(main_password):
+        login_status = "账号不存在"
+        redirecturl = '/loginpage/'
     else:
-        return render_template('login.html',data1="账号或者密码错误")
+        login_status = "登录失败"
+        redirecturl = '/loginpage/'
+
+    message_json = {
+        'loginstatus':login_status,
+        'redirect_url':redirecturl
+    }    
+       
+    return jsonify(message_json)
+    
+   
 
 
 #跳转到URL路径去重页面
@@ -552,7 +570,12 @@ def signout():
         session.clear()
     except Exception as e:
         print("捕获到异常:",e)
-    return render_template('login.html')
+    message_json = {
+        'zhuxiaostatus':'确认退出系统吗？',
+        'zhuxiaoredirect_url':'/index/'
+    }    
+       
+    return jsonify(message_json)
 
 
 #cdn探测，将存在cdn和不存在cdn的域名分别存入不同列表中，用于过滤基础数据

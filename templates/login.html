@@ -7,6 +7,8 @@
 <title>主系统登录</title>
 
 <link type="text/css" href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
 
 </head>
 <body>
@@ -18,7 +20,6 @@
 			<input id="tab-1" type="radio" name="tab" class="sign-in" checked=""><label for="tab-1" class="tab">主系统登录</label>
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
 			<div class="login-form">
-				<form action="/logininterface/" method="post">
 				<div class="sign-in-htm">
 					<div class="group">
 						<label for="user" class="label">用户名</label>
@@ -27,15 +28,13 @@
 					<div class="group">
 						<label for="pass" class="label">密码</label>
 						<input id="pass" type="password" class="input" data-type="password" required="required" name="password">
-						<span>{{data1}}</span>
 					</div>
 					
 					<div class="group">
-						<input type="submit" class="button" value="登录">
+						<input type="submit" class="button" value="登录" onclick="login_interface_func()">
 					</div>
 					<div class="hr"></div>
 				</div>
-			</form>
 			</div>
 		</div>
 	</div>
