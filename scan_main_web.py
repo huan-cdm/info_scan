@@ -426,18 +426,18 @@ def systemmanagement():
             "httpxstatus":httpxstatus,
             "url_file_num":url_file_num,
             "eholestatus":eholestatus,
-            "shiro_num":"shiro: "+str(shiro_num),
-            "springboot_num":"springboot: "+str(springboot_num),
-            "weblogic_num":"weblogic: "+str(weblogic_num),
-            "baota_num":"宝塔面板: "+str(baota_num),
-            "ruoyi_num":"若依CMS: "+str(ruoyi_num),
-            "struts2_num":"struts2: "+str(struts2_num),
-            "WordPress_num":"wordpress: "+str(WordPress_num),
-            "cpuinfo":"CPU: "+str(cpu_percent),
-            "memoryinfo":"内存: "+str(memory_percent),
+            "shiro_num":str(shiro_num),
+            "springboot_num":str(springboot_num),
+            "weblogic_num":str(weblogic_num),
+            "baota_num":str(baota_num),
+            "ruoyi_num":str(ruoyi_num),
+            "struts2_num":str(struts2_num),
+            "WordPress_num":str(WordPress_num),
+            "cpuinfo":str(cpu_percent)+"%",
+            "memoryinfo":str(memory_percent)+"%",
             "jboss_num":"jboss: "+str(jboss_num),
-            "key_asset_rule":"资产规则: "+str(key_asset_rule),
-            "current_key_asset_num":"资产数量: "+str(url_file_current_num),
+            "key_asset_rule":str(key_asset_rule),
+            "current_key_asset_num":str(url_file_current_num),
             "springbootstatus":springbootstatus,
             "hydrastatus":hydrastatus,
             "urlfinderstatus":urlfinderstatus
@@ -1605,6 +1605,30 @@ def report_download_interface():
     
     else:
         return render_template('login.html')
+
+
+#前端软重启系统服务
+@app.route("/restartsystemservice/")
+def restartsystemservice():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash ./finger.sh restartinfoscan')
+        infoscanstatus = os.popen('bash ./finger.sh infoscanstatus').read()
+        if "running" in infoscanstatus:
+            infoscanstatus = "服务已启动"
+        else:
+            infoscanstatus = "正在重启中..."
+        message_json = {
+            "infoscanstatus":infoscanstatus,
+            "comfirm":"确定重新启动服务吗?"
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+    
+
 
 
 if __name__ == '__main__':  

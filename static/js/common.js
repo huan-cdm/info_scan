@@ -1366,3 +1366,27 @@ function login_interface_func() {
         }
     })
 }
+
+
+
+// 重启服务接口
+function restart_service_func() {
+   
+    $.ajax({
+        url: '/restartsystemservice/',
+        method: 'GET',
+        
+        success: function (info) {
+            if (confirm(info.comfirm)) {
+                info.infoscanstatus;
+              } 
+        },
+        // 重启服务中断会跳转到error处
+        error: function (info) {
+            alert("服务已重启相关配置已重新加载")
+        },
+        complete: function () {
+
+        }
+    })
+}

@@ -122,29 +122,30 @@
 		}
 		.modal {  
 			display: none; /* 隐藏弹窗 */  
-			position: fixed; /* 弹窗固定在视口 */  
+			position:static; /* 弹窗固定在视口 */  
 			z-index: 1; /* 弹窗位于其他元素之上 */  
 			left: 0;  
 			top: 0;  
 			width: 100%; /* 宽度为全屏 */  
 			height: 100%; /* 高度为全屏 */  
-			overflow: auto; /* 启用滚动条 */  
+			overflow:auto; /*启用滚动条  */ 
 			background-color: rgba(0, 0, 0, 0.5); /* 黑色背景，半透明 */  
 		}  
 		  
 		.modal-content {  
 			background-color: #fefefe;  
 			margin: 0% auto; /* 垂直居中，水平居中  */
-			padding: 250px;  
+			
+			padding: 200px;  
 			border: 10px solid #888;  
-			width: 20%; /* 弹窗宽度可以根据需要调整 */  
-			border: 2px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
+			width: 100%; /* 弹窗宽度可以根据需要调整 */  
+			border: 5px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
 		}  
 		  
 		.close {  
 			color: #aaa;  
 			float: right;  
-			font-size: 98px;  
+			font-size: 28px;  
 			font-weight: bold;  
 			cursor: pointer;  
 		}  

@@ -82,9 +82,9 @@ case "${1}" in
 	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
 	if (( $ps_nmap > 1 ))
 	then
-		echo "nmap：running..."
+		echo "running..."
 	else
-		echo "nmap：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -113,9 +113,9 @@ case "${1}" in
     ps_nuclei=`ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l`
 	if (( $ps_nuclei > 1 ))
 	then
-		echo "nuclei：running..."
+		echo "running..."
 	else
-		echo "nuclei：stop"
+		echo "stop"
 	fi
     ;;
 
@@ -125,9 +125,9 @@ case "${1}" in
     num_xray_status=`ps -aux | grep xray-testphp | grep html`
     if (( $num_xray > 1 ))
     then
-        echo "xray：""${num_xray_status}"
+        echo "${num_xray_status}"
     else
-        echo "xray：stop"
+        echo "stop"
     
     fi
     ;;
@@ -138,9 +138,9 @@ case "${1}" in
     num_rad_status=`ps -aux | grep rad_engine/rad_linux_amd64 | grep http-proxy`
     if (( $num_rad > 1 ))
     then
-        echo "rad：""${num_rad_status}"
+        echo "${num_rad_status}"
     else
-        echo "rad：stop"
+        echo "stop"
     fi
     ;;
 
@@ -164,9 +164,9 @@ case "${1}" in
 	ps_dirsearch=`ps -aux | grep dirsearch.py | wc -l`
 	if (( $ps_dirsearch > 1 ))
 	then
-		echo "dirscan：running..."
+		echo "running..."
 	else
-		echo "dirscan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -175,7 +175,7 @@ case "${1}" in
 	ps_fileclean=`ps -aux | grep filterdirsearchdata.sh | wc -l`
 	if (( $ps_fileclean > 2 ))
 	then
-		echo "正在running........."
+		echo "running..."
 	else
 		echo "stop"
 	fi
@@ -287,9 +287,9 @@ case "${1}" in
     ps_urlfinder_scan=`ps -aux | grep  "URLFinder"  | wc -l`
 	if (( $ps_urlfinder_scan > 1 ))
 	then
-		echo "URLFinder：running..."
+		echo "running..."
 	else
-		echo "URLFinder：stop"
+		echo "stop"
 	fi
     ;;
 
@@ -327,9 +327,9 @@ case "${1}" in
 	ps_weblogic=`ps -aux | grep WeblogicScan.py | wc -l`
 	if (( $ps_weblogic > 1 ))
 	then
-		echo "weblogic_scan：running..."
+		echo "running..."
 	else
-		echo "weblogic_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -354,9 +354,9 @@ case "${1}" in
 	ps_struts2=`ps -aux | grep Struts2Scan.py | wc -l`
 	if (( $ps_struts2 > 1 ))
 	then
-		echo "struts2_scan：running..."
+		echo "running..."
 	else
-		echo "struts2_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -377,9 +377,9 @@ case "${1}" in
 	ps_bbscan=`ps -aux | grep BBScan.py | wc -l`
 	if (( $ps_bbscan > 1 ))
 	then
-		echo "bbscan_scan：running..."
+		echo "running..."
 	else
-		echo "bbscan_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -396,9 +396,9 @@ case "${1}" in
 	ps_vulmapscan=`ps -aux | grep vulmap.py | wc -l`
 	if (( $ps_vulmapscan > 1 ))
 	then
-		echo "vulmap_scan：running..."
+		echo "running..."
 	else
-		echo "vulmap_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -438,9 +438,9 @@ case "${1}" in
 	ps_afrogscan=`ps -aux | grep startafrogprocess | wc -l`
 	if (( $ps_afrogscan > 1 ))
 	then
-		echo "afrog_scan：running..."
+		echo "running..."
 	else
-		echo "afrog_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -507,9 +507,9 @@ case "${1}" in
 	ps_fscanscan=`ps -aux | grep startfscanprocess | wc -l`
 	if (( $ps_fscanscan > 1 ))
 	then
-		echo "fscan_scan：running..."
+		echo "running..."
 	else
-		echo "fscan_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -523,9 +523,9 @@ case "${1}" in
 	ps_shiroscan=`ps -aux | grep shiro-exploit.py | wc -l`
 	if (( $ps_shiroscan > 1 ))
 	then
-		echo "shiro_scan：running..."
+		echo "running..."
 	else
-		echo "shiro_scan：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -534,9 +534,9 @@ case "${1}" in
 	ps_httpxscan=`ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l`
 	if (( $ps_httpxscan > 1 ))
 	then
-		echo "httpx：running..."
+		echo "running..."
 	else
-		echo "httpx：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -564,9 +564,9 @@ case "${1}" in
 	ps_eholescan=`ps -aux | grep EHole | wc -l`
 	if (( $ps_eholescan > 1 ))
 	then
-		echo "Ehole：running..."
+		echo "running..."
 	else
-		echo "Ehole：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -589,9 +589,9 @@ case "${1}" in
 	ps_springbootscan=`ps -aux | grep ssp_linux_amd64 | wc -l`
 	if (( $ps_springbootscan > 1 ))
 	then
-		echo "SpringBoot：running..."
+		echo "running..."
 	else
-		echo "SpringBoot：stop"
+		echo "stop"
 	fi
 	;;
 
@@ -615,9 +615,9 @@ case "${1}" in
     ps_hydra_scan=`ps -aux | grep  "/usr/bin/hydra"  | wc -l`
 	if (( $ps_hydra_scan > 1 ))
 	then
-		echo "hydra：running..."
+		echo "running..."
 	else
-		echo "hydra：stop"
+		echo "stop"
 	fi
     ;;
 
@@ -677,5 +677,26 @@ case "${1}" in
     /usr/bin/hydra -L /TIP/info_scan/hydra/mssql/user.txt -P /TIP/info_scan/hydra/mssql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mssql > /TIP/info_scan/result/hydra_result.txt
     ;;
 
+    # 前端软重启服务
+    restartinfoscan)
+    pides=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}'`
+	for aes in ${pides}
+	do
+		kill -9 ${aes} 2>/dev/null
+	done
+	nohup python3 ./scan_main_web.py > /dev/null 2>&1 &
+    ;;
     
+    # 软重启后系统服务状态
+    infoscanstatus)
+    infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
+	if (( $infopid > 1 ))
+	then
+		echo -e "running" 
+	else
+		echo -e "stop"
+	fi
+    ;;
+
+
 esac
