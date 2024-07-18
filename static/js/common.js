@@ -1354,9 +1354,9 @@ function login_interface_func() {
         success: function (info) {
             if (confirm(info.loginstatus)) {
                 window.location.href = info.redirect_url;
-              } else {
+            } else {
                 window.location.href = info.nologin;
-              }
+            }
         },
         error: function () {
             alert('接口内部出错')
@@ -1371,19 +1371,74 @@ function login_interface_func() {
 
 // 重启服务接口
 function restart_service_func() {
-   
+
     $.ajax({
         url: '/restartsystemservice/',
         method: 'GET',
-        
+
         success: function (info) {
             if (confirm(info.comfirm)) {
                 info.infoscanstatus;
-              } 
+            }
         },
         // 重启服务中断会跳转到error处
         error: function (info) {
             alert("服务已重启相关配置已重新加载")
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+
+// 关闭后端服务
+function stopbackservicefunc() {
+    $.ajax({
+        url: '/stopbackserviceinterface/',
+        method: 'GET',
+        success: function (info) {
+            // 参数1：确认操作
+            // 参数2：取消操作
+            if (confirm(info.backcomfirm)) {
+                $.ajax({
+                    url: '/confirm_stop_service/',
+                    method: 'POST',
+                    data: {
+                        action: 1
+                    },
+                    success: function (info) {
+                        alert(info.result_status)
+                        window.location.href = "/index/";
+                    },
+                    error: function () {
+                        alert('内部出错');
+                    }
+                });
+            } else {
+
+                $.ajax({
+                    url: '/confirm_stop_service/',
+                    method: 'POST',
+                    data: {
+                        action: 2
+                    },
+                    success: function (info) {
+                        alert(info.result_status)
+                        window.location.href = "/index/";
+                    },
+                    error: function () {
+                        alert('内部出错');
+                    }
+                });
+
+            }
+
+        },
+        // 关闭所有服务nginx会返回502
+        error: function () {
+            alert('内部出错')
         },
         complete: function () {
 

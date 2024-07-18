@@ -63,28 +63,24 @@ def dirscanpage():
         for c in dir_no_swa_list:
             dir_no_swa_list_1.append(c[0])
         
-        
-        #回显给前端的目标文件行数
-        num = os.popen('bash ./finger.sh dirsearchtargetnum').read()
-        
-        num_1 = "URL数量: "+" "+str(num)
+
         
         #回显给前端的目录扫描数量
         dirsearch_count_tmp = os.popen('bash ./finger.sh dirsearchscancount').read()
         if int(dirsearch_count_tmp) == -2:
-            dirsearch_count = "目录数量（过滤前）："+"暂无数据"
+            dirsearch_count = "筛选前："+"暂无数据"
         else:
-            dirsearch_count = "目录数量（过滤前）："+str(dirsearch_count_tmp)
+            dirsearch_count = "筛选前："+str(dirsearch_count_tmp)
        
         
         #目录扫描同步后的数量
         dirsearch_sync_value = os.popen('bash ./finger.sh dirsearchsyncresult').read()
         if int(dirsearch_sync_value) == -2:
-            dirsearch_sync_value_result = "目录数量（过滤后）："+"暂无数据"
+            dirsearch_sync_value_result = "筛选后："+"暂无数据"
         else:
-            dirsearch_sync_value_result = "目录数量（过滤后）："+str(dirsearch_sync_value)
+            dirsearch_sync_value_result = "筛选后："+str(dirsearch_sync_value)
     
-        return render_template('dirsearchscan.html',data=dirsearch_list,data7=num_1,
+        return render_template('dirsearchscan.html',data=dirsearch_list,
         data09=dir_list_status_code,data13=dirsearch_count,data18=dirsearch_sync_value_result)
     
     else:
@@ -179,9 +175,20 @@ def dirsearchscanfun():
         statuscode = request.form['statuscode']
         level = request.form['level']
         dict = request.form['dict']
-    
-        os.popen('bash ./finger.sh dirsearchscan'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
-        return render_template('dirsearchscan.html')
+        dirsearchstatus_result = os.popen('bash ./finger.sh dirsearchstatus').read()
+        if "running" in dirsearchstatus_result:
+
+            dirsearch_status_result = "目录扫描程序正在运行中稍后再开启扫描"
+        else:
+            os.popen('bash ./finger.sh dirsearchscan'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
+            dirsearch_status_result = "目录扫描程序已开启稍后查看结果"
+        
+        message_json = {
+            "dirsearch_status_result":dirsearch_status_result
+        }
+
+        return jsonify(message_json)
+        
     else:
         return render_template('sublogin.html')
    
@@ -219,6 +226,8 @@ def origindataclearinterface():
     else:
         return render_template('sublogin.html')
 
+
+
 #后台结束目录扫描进程
 @app.route("/killdirsearch/",methods=['post'])
 def killdirsearch():
@@ -226,11 +235,25 @@ def killdirsearch():
     if str(user1) == sub_username:
         try:
             os.popen('bash ./finger.sh killdirsearch')
-            return render_template('dirsearchscan.html')
         except:
             pass
+        dirsearchstatus_result = os.popen('bash ./finger.sh dirsearchstatus').read()
+        if "stop" in dirsearchstatus_result:
+            kill_dirsearch_result = "已关闭目录扫描程序"
+        else:
+            kill_dirsearch_result = "正在关闭中......"
+
+        message_json = {
+            "kill_dirsearch_result":kill_dirsearch_result
+        
+        }
+        return jsonify(message_json)   
+        
     else:
         return render_template('sublogin.html')
+
+
+
 
 #报告阈值设置
 @app.route("/filterthresholdvalue/",methods=['get'])
@@ -334,9 +357,8 @@ def deletedirsearcscanbeforehblackbyname():
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
         cur = db.cursor()
-        #vulnurl = request.args['vulnurl']
         vulnurl = request.form['vulnurl']
-        # print(vulnurl)
+       
         sql="DELETE from scan_before_black WHERE vulnurl = '%s' " %(vulnurl)
         cur.execute(sql)
         db.commit()
@@ -344,6 +366,26 @@ def deletedirsearcscanbeforehblackbyname():
         return render_template('dirsearchscan.html')
     else:
         return render_template('sublogin.html')
+
+
+#扫描后黑名单删除
+@app.route("/deletedirsearchblackbyname/",methods=['POST'])
+def deletedirsearchblackbyname():
+    user1 = session.get('username1')
+    if str(user1) == sub_username:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        blackname = request.form['blackname']
+       
+        sql="DELETE from scan_after_black WHERE name = '%s' " %(blackname)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+        return render_template('dirsearchscan.html')
+    else:
+        return render_template('sublogin.html')
+
 
 
 #批量添加扫描后黑名单

@@ -1627,6 +1627,45 @@ def restartsystemservice():
     
     else:
         return render_template('login.html')
+
+
+
+# 关闭后端所有服务
+@app.route("/stopbackserviceinterface/")
+def stopbackserviceinterface():
+    user = session.get('username')
+    if str(user) == main_username:
+
+        message_json = {
+            "backcomfirm":"确定关闭所有后端服务吗?请谨慎操作，重启需登录服务器后台操作！"
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+    
+
+@app.route("/confirm_stop_service/",methods=['post'])
+def confirm_stop_service():
+    user = session.get('username')
+    if str(user) == main_username:
+        action = request.form['action']
+        if action == '1':
+            os.popen('bash /TIP/info_scan/finger.sh stopallserver')
+            result_status = "关闭后端服务指令已开启"
+        else:
+            result_status = "关闭后端服务指令已取消"
+
+        message_json = {
+            "result_status":result_status
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
     
 
 

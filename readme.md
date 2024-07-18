@@ -33,13 +33,13 @@
 
 
 部分功能截图<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
 
 漏洞报告<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br>

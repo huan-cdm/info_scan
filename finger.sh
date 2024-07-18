@@ -679,14 +679,27 @@ case "${1}" in
 
     # 前端软重启服务
     restartinfoscan)
+
+    # 软重启info_scan
     pides=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}'`
 	for aes in ${pides}
 	do
 		kill -9 ${aes} 2>/dev/null
 	done
 	nohup python3 ./scan_main_web.py > /dev/null 2>&1 &
+
+    # 软重启dirscan
+    dirscanpid=`ps -aux | grep  dirscanmain.py | awk -F " " '{print $2}'`
+	for dirid in ${dirscanpid}
+	do
+		kill -9 ${dirid} 2>/dev/null
+	done
+
+	nohup python3 ./dirscanmain.py > /dev/null 2>&1 &
     ;;
     
+
+
     # 软重启后系统服务状态
     infoscanstatus)
     infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
@@ -696,6 +709,55 @@ case "${1}" in
 	else
 		echo -e "stop"
 	fi
+    ;;
+
+
+    # 关闭所有服务
+    stopallserver)
+    # 关闭info_scan
+	pides=`ps -aux | grep  scan_main_web.py | awk -F " " '{print $2}'`
+	for aes in ${pides}
+	do
+		kill -9 ${aes} 2>/dev/null
+	done
+	
+
+	# 关闭dirscan
+	dirscanpid=`ps -aux | grep  dirscanmain.py | awk -F " " '{print $2}'`
+	for dirid in ${dirscanpid}
+	do
+		kill -9 ${dirid} 2>/dev/null
+	done
+
+	# 关闭xray
+	pidd=`ps -aux | grep 8081 |awk -F " " '{print $2}'`
+    
+    for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+
+
+	# 关闭afrog
+	afpid=`ps -aux | grep 8082 |awk -F " " '{print $2}'`
+    
+    for ii in ${afpid}
+	do
+
+		kill -9 ${ii} 2>/dev/null
+		
+	done
+
+
+
+	# 关闭urlfinder
+	linkpidd=`ps -aux | grep 8089 |awk -F " " '{print $2}'`
+    
+    for ii in ${linkpidd}
+	do
+		
+		kill -9 ${ii} 2>/dev/null
+	done
     ;;
 
 
