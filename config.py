@@ -1,9 +1,9 @@
 #shodan key配置
-shodankey = "5wdqqD7mCbWQdehFqWhk5aKVK0OtwR0Z"
+shodankey = ""
 
 #fofa key 配置
-fofaemail = "weakchicken@qq.com"
-fofakey = "2aa095c6c28f3d511559282f8caa7a93"
+fofaemail = ""
+fofakey = ""
 fofanum = "10000"
 
 #命令行查询入口
@@ -25,10 +25,10 @@ datacenter = ["公司","数据中心"]
 
 
 #高德地图API列表(可添加多个key)
-amap_key_list = ["2c0f28df8ad2748d51f49d8a075c6c88","7b9b96ca1f7df413f999ebd7f08577e6"]
+amap_key_list = ["",""]
 
 # ceye_key配置
-ceye_key = "1c9ca5b4d4eebd74f3b77675c919005b"
+ceye_key = ""
 
 
 #判断直接扫描URL还是通过调用OTX接口查询的历史URL作为扫描目标
@@ -39,18 +39,18 @@ history_switch = 0
 
 #MySQL数据库配置
 dict = {
-    "ip":"127.0.0.1","username":"admin","password":"admin@123","dbname":"vuln_scan_database","portnum": 3306
+    "ip":"127.0.0.1","username":"","password":"","dbname":"vuln_scan_database","portnum": 3306
 }
 
 
 
 #主系统账号密码配置选项
-main_username = "mainadmin"
-main_password = "mainadmin"
+main_username = ""
+main_password = ""
 
 #子系统账号密码配置选项
-sub_username = "subadmin"
-sub_password = "subadmin"
+sub_username = ""
+sub_password = ""
 
 
 #重点资产提取，列表里配置多个关键字
