@@ -1045,6 +1045,7 @@ function openModal() {
             document.getElementById("spp28").innerHTML = info.springbootstatus;
             document.getElementById("spp29").innerHTML = info.hydrastatus;
             document.getElementById("spp30").innerHTML = info.urlfinderstatus;
+            document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
         })
 
 }
@@ -1439,6 +1440,44 @@ function stopbackservicefunc() {
         // 关闭所有服务nginx会返回502
         error: function () {
             alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 弹出编辑筛选规则页面
+function shuaixuanrule() {
+    var idp1 = document.getElementById("idp1");
+    idp1.style.display = "block";
+
+}
+
+// 隐藏编辑筛选规则页面
+function fanhuishuaixuanrule() {
+    var idp1 = document.getElementById("idp1");
+    idp1.style.display = "none";
+
+}
+
+
+// 新增筛选规则
+function add_rule_func() {
+    var rule = document.getElementById("rule_input_id1").value;
+    $.ajax({
+        url: '/add_point_rule_interface/',
+        method: 'POST',
+        data: {
+            rule: rule
+        },
+        success: function (info) {
+            alert(info.result_rule)
+        },
+        
+        error: function (info) {
+            alert("内部出错")
         },
         complete: function () {
 

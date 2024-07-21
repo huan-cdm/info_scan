@@ -48,6 +48,11 @@ import tldextract
 # 指纹自定义列表
 from config import finger_list
 
+# MySQL操作模块
+import pymysql
+from config import dict
+from config  import rule_options
+
 
 
 # IP基础信息端口查询通过fofa+shodan
@@ -477,10 +482,20 @@ def shiro_scan():
 def key_point_tiqu():
     # 提取通过自定义列表过滤出的目标，并提取这些目标的关键字作为字典，存入列表中
     filter_list_result = []
+   
+    # 配置文件或者MySQL数据库
+    if int(rule_options) == 1:
+        key_rule_list = str(finger_list)
+    elif int(rule_options) == 2:
+        key_rule_list = select_rule()
+    else:
+        key_rule_list = ['参数只能为0/1']
+
     try:
-        for i in finger_list:
+        for i in key_rule_list:
             result = os.popen('bash /TIP/info_scan/finger.sh finger_filter_shell'+' '+i).read()
             filter_list_result.append(result)
+    
     except Exception as e:
         print("捕获到异常:", e)
 
@@ -698,3 +713,23 @@ def start_hydra_lib(part):
             print("捕获到异常:", e)
     else:
         print("接收的参数为1-5")
+
+
+
+# 重点资产中筛选规则查询
+def select_rule():
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select rule FROM rule_table"
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+    except:
+        list_result = ['MySQL连接失败']
+
+    return list_result

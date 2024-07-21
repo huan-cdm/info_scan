@@ -1,10 +1,10 @@
 #shodan key配置
-shodankey = ""
+shodankey = "5wdqqD7mCbWQdehFqWhk5aKVK0OtwR0Z"
 
 #fofa key 配置
-fofaemail = ""
-fofakey = ""
-fofanum = "100"
+fofaemail = "weakchicken@qq.com"
+fofakey = "2aa095c6c28f3d511559282f8caa7a93"
+fofanum = "10000"
 
 #命令行查询入口
 #switch = 0 单个扫描
@@ -24,33 +24,42 @@ hotspot = ["移动数据上网公共出口","中国电信北京研究院"]
 datacenter = ["公司","数据中心"]
 
 
-#高德地图API列表(可添加多个key))
-amap_key_list = ["","",""]
-
+#高德地图API列表(可添加多个key)
+amap_key_list = ["2c0f28df8ad2748d51f49d8a075c6c88","7b9b96ca1f7df413f999ebd7f08577e6"]
 
 # ceye_key配置
-ceye_key = ""
+ceye_key = "1c9ca5b4d4eebd74f3b77675c919005b"
+
 
 #判断直接扫描URL还是通过调用OTX接口查询的历史URL作为扫描目标
 #history_switch = 1  调用OTX查询历史URL
 #history_switch = 0  用户输入URL
 history_switch = 0
 
+
 #MySQL数据库配置
 dict = {
-    "ip":"","username":"","password":"","dbname":"","portnum": 3306
+    "ip":"127.0.0.1","username":"admin","password":"admin@123","dbname":"vuln_scan_database","portnum": 3306
 }
 
+
+
 #主系统账号密码配置选项
-main_username = ""
-main_password = ""
+main_username = "mainadmin"
+main_password = "mainadmin"
 
 #子系统账号密码配置选项
-sub_username = ""
-sub_password = ""
+sub_username = "subadmin"
+sub_password = "subadmin"
+
 
 #重点资产提取，列表里配置多个关键字
-finger_list = ["Shiro","spring-boot","Weblogic","宝塔-BT","若依","Struts2","WordPress"]
+finger_list = ["spring-boot"]
+
+# 重点资产提取启用配置文件或者MySQL数据库
+# 1:配置文件
+# 2:MySQL数据库
+rule_options = 2
 
 
 # 资产管理-重点资产数量展示，列表里只填一个关键字

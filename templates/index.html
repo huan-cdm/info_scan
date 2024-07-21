@@ -16,24 +16,36 @@
 	<table border="1">
 		<tr>
 			<td>
-				<img src="{{ url_for('static', filename='image/shuaxin.png') }}" width="50" height="50" style="cursor: pointer;" onclick="fanhui()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/mainsuoding.png') }}" width="50" height="50" style="cursor: pointer;" onclick="stopbutton()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/mainjiesuo.png') }}" width="50" height="50" style="cursor: pointer;" onclick="startbutton()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/maindns.png') }}" width="50" height="50" style="cursor: pointer;" onclick="ceyednsfunc()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/mainhttp.png') }}" width="50" height="50" style="cursor: pointer;" onclick="ceyehttpfunc()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/reportzhenghe.png') }}" width="50" height="50" style="cursor: pointer;" onclick="reporttotalfunc()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/mainyulanexcel.png') }}" width="50" height="50" style="cursor: pointer;" onclick="total_report_yulan_func()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/maindownloadreport.png') }}" width="50" height="50" style="cursor: pointer;" onclick="reportdownloadfunc()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/mainsystemoper.png') }}" width="50" height="50" style="cursor: pointer;" onclick="openModal()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50" style="cursor: pointer;" onclick="signoutfunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/shuaxin.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="fanhui()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainsuoding.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="stopbutton()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainjiesuo.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="startbutton()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/maindns.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="ceyednsfunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainhttp.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="ceyehttpfunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/reportzhenghe.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="reporttotalfunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainyulanexcel.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="total_report_yulan_func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/maindownloadreport.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="reportdownloadfunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainsystemoper.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="openModal()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="signoutfunc()">&nbsp;&nbsp;
 			</td>
 		</tr>
 	</table>
 
 	<div id="modal" class="modal">
 		<div class="modal-content">
-			<img src="{{ url_for('static', filename='image/restart.png') }}" width="50" height="50" style="cursor: pointer;" onclick="restart_service_func()">
-			<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50" style="cursor: pointer;" onclick="stopbackservicefunc()">
+			<img src="{{ url_for('static', filename='image/restart.png') }}" width="50" height="50"
+				style="cursor: pointer;" onclick="restart_service_func()">
+			<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
+				style="cursor: pointer;" onclick="stopbackservicefunc()">
 			<br><br>
 			<strong style="color:coral">全局视角</strong>
 			<table border="1">
@@ -42,14 +54,27 @@
 					<td>内存</td>
 					<td>原始资产数量</td>
 					<td>筛选资产数量</td>
-					<td>筛选规则</td>
+					<td>
+						筛选规则<br>
+						<span id="spp31"></span>
+
+					</td>
 				</tr>
 				<tr>
 					<td><span id="spp23"></span></td>
 					<td><span id="spp24"></span></td>
 					<td><span id="spp14"></span></td>
 					<td><span id="spp27"></span></td>
-					<td><span id="spp26"></span></td>
+
+					<td>
+						<span id="spp26"></span>&nbsp;&nbsp;
+						<a href="###" onclick="shuaixuanrule()">编辑</a>
+						<p style="display: none;" id="idp1">
+							<input type="text"placeholder="输入筛选规则,只针对数据来源为MySQL数据库的生效" id="rule_input_id1">
+							<input type="button" value="提交" onclick="add_rule_func()">
+							<input type="button" value="返回" onclick="fanhuishuaixuanrule()">
+						</p>
+					</td>
 				</tr>
 			</table>
 			<br><br>
@@ -120,7 +145,8 @@
 					<td><span id="spp25"></span></td>
 				</tr>
 			</table><br>
-			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50" style="cursor: pointer;" onclick="closeModal()">
+			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50"
+				style="cursor: pointer;" onclick="closeModal()">
 		</div>
 	</div>
 

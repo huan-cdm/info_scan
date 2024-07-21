@@ -35,9 +35,11 @@ from config import struts2_rule
 from config import WordPress_rule
 from config import jboss_rule
 from config import finger_list
-
+from config  import rule_options
+from config import dict
+from basic import select_rule
 import psutil
-
+import pymysql
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -405,7 +407,14 @@ def systemmanagement():
         memory_percent = mem.percent  
 
         # 资产规则
-        key_asset_rule = str(finger_list)
+        if int(rule_options) == 1:
+            key_asset_rule = str(finger_list)
+            key_asset_rule_origin = '数据来源: 配置文件'
+        elif int(rule_options) == 2:
+            key_asset_rule = select_rule()
+            key_asset_rule_origin = '数据来源: MySQL数据库'
+        else:
+            key_asset_rule = ['参数只能为0/1']
 
         # 当前自查数量
         url_file_current_num = os.popen('bash ./finger.sh current_url_file_num').read()
@@ -440,7 +449,8 @@ def systemmanagement():
             "current_key_asset_num":str(url_file_current_num),
             "springbootstatus":springbootstatus,
             "hydrastatus":hydrastatus,
-            "urlfinderstatus":urlfinderstatus
+            "urlfinderstatus":urlfinderstatus,
+            "key_asset_rule_origin":key_asset_rule_origin
         }
         return jsonify(message_json)
     else:
@@ -1645,7 +1655,7 @@ def stopbackserviceinterface():
     else:
         return render_template('login.html')
     
-
+# 确认关闭后端所有服务
 @app.route("/confirm_stop_service/",methods=['post'])
 def confirm_stop_service():
     user = session.get('username')
@@ -1667,6 +1677,37 @@ def confirm_stop_service():
         return render_template('login.html')
 
     
+
+# 识别重点资产中新增筛选规则接口
+@app.route("/add_point_rule_interface/",methods=['post'])
+def add_point_rule_interface():
+    user = session.get('username')
+    rule = request.form['rule']
+    if str(user) == main_username:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        
+        # 判断数据库中是否存在传入的数据
+        sql_select = "select rule FROM rule_table where rule = '%s' "%(rule)
+        cur.execute(sql_select)
+        result = cur.fetchone()
+        if result:
+            result_rule = rule+" "+"规则已存在不要重复添加"
+        else:
+            sql_insert = "insert into rule_table(rule)  values('%s')" %(rule)
+            cur.execute(sql_insert)  
+            db.commit()
+            result_rule = rule+" "+"规则已添加成功"
+        message_json = {
+            "result_rule":result_rule
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
 
 
 
