@@ -55,9 +55,9 @@
 					<td>原始资产数量</td>
 					<td>筛选资产数量</td>
 					<td>
-						筛选规则<br>
+						筛选规则&nbsp;&nbsp;
+						<a href="###" onclick="shuaixuanrule()">编辑</a><br>
 						<span id="spp31"></span>
-
 					</td>
 				</tr>
 				<tr>
@@ -67,11 +67,11 @@
 					<td><span id="spp27"></span></td>
 
 					<td>
-						<span id="spp26"></span>&nbsp;&nbsp;
-						<a href="###" onclick="shuaixuanrule()">编辑</a>
+						<span id="spp26"></span>
 						<p style="display: none;" id="idp1">
-							<input type="text"placeholder="输入筛选规则,只针对数据来源为MySQL数据库的生效" id="rule_input_id1">
-							<input type="button" value="提交" onclick="add_rule_func()">
+							<input type="text"placeholder="只针对数据来源: MySQL数据库有效,可对筛选规则进行新增和删除" id="rule_input_id1">
+							<input type="button" value="新增" onclick="add_rule_func()">
+							<input type="button" value="删除" onclick="delete_rule_func()">
 							<input type="button" value="返回" onclick="fanhuishuaixuanrule()">
 						</p>
 					</td>
@@ -285,7 +285,7 @@
 	</div>
 	<h3>漏洞管理</h3>
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2">展开</h3>
-		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">折叠</h5>
+		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">收起</h5>
 		<div style="display:none;" id="vulnid1">
 			<table border="1">
 				<tr>
@@ -516,7 +516,7 @@
 		</div>
 		<h3>资产管理</h3>
 		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2">展开</h3>
-			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">折叠</h5>
+			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">收起</h5>
 			<div style="display:none;" id="assetid1">
 				<table border="1">
 					<tr>

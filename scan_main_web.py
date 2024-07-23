@@ -409,9 +409,13 @@ def systemmanagement():
         # 资产规则
         if int(rule_options) == 1:
             key_asset_rule = str(finger_list)
+            if len(finger_list) == 0:
+                key_asset_rule = ['规则为空']
             key_asset_rule_origin = '数据来源: 配置文件'
         elif int(rule_options) == 2:
             key_asset_rule = select_rule()
+            if len(key_asset_rule) == 0:
+                key_asset_rule = ['规则为空']
             key_asset_rule_origin = '数据来源: MySQL数据库'
         else:
             key_asset_rule = ['参数只能为0/1']
@@ -1682,8 +1686,9 @@ def confirm_stop_service():
 @app.route("/add_point_rule_interface/",methods=['post'])
 def add_point_rule_interface():
     user = session.get('username')
-    rule = request.form['rule']
+
     if str(user) == main_username:
+        rule = request.form['rule']
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
         cur = db.cursor()
@@ -1709,7 +1714,37 @@ def add_point_rule_interface():
         return render_template('login.html')
 
 
+# 重点资产识别根据筛选规则名称删除
+@app.route("/delete_point_rule_interface/",methods=['post'])
+def delete_point_rule_interface():
+    user = session.get('username')
 
+    if str(user) == main_username:
+        rule = request.form['rule']
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        # 删除操作
+        sql="DELETE from rule_table WHERE rule = '%s' " %(rule)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+
+        # 判断是否删除成功
+        sql1 = "select * from rule_table where rule = '%s' " %(rule)
+        cur.execute(sql1)
+        result = cur.fetchone()
+        if result == None:
+            result_rule = rule+" "+"删除成功"
+        
+        message_json = {
+            "delete_rule":result_rule
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

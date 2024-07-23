@@ -1463,7 +1463,7 @@ function fanhuishuaixuanrule() {
 }
 
 
-// 新增筛选规则
+// 新增重点资产筛选规则
 function add_rule_func() {
     var rule = document.getElementById("rule_input_id1").value;
     $.ajax({
@@ -1474,6 +1474,29 @@ function add_rule_func() {
         },
         success: function (info) {
             alert(info.result_rule)
+        },
+        
+        error: function (info) {
+            alert("内部出错")
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 删除重点资产筛选规则
+function delete_rule_func() {
+    var rule = document.getElementById("rule_input_id1").value;
+    $.ajax({
+        url: '/delete_point_rule_interface/',
+        method: 'POST',
+        data: {
+            rule: rule
+        },
+        success: function (info) {
+            alert(info.delete_rule)
         },
         
         error: function (info) {
