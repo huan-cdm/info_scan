@@ -47,13 +47,13 @@ function deletenmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://x.x.x.x:18888/", "_blank");
+    window.open("http://117.72.16.222:18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://x.x.x.x:16666/", "_blank");
+    window.open("http://117.72.16.222:16666/", "_blank");
 }
 
 
@@ -500,7 +500,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://x.x.x.x:17777/dirscanpage/", "_blank");
+    window.open("http://117.72.16.222:17777/dirscanpage/", "_blank");
 }
 
 
@@ -852,7 +852,7 @@ function targeturlcopytextareafunc() {
 
 //afrog报告预览
 function afrogreportfun() {
-    window.open("http://x.x.x.x:15555/", "_blank");
+    window.open("http://117.72.16.222:15555/", "_blank");
 }
 
 
@@ -1486,14 +1486,39 @@ function add_rule_func() {
 }
 
 
-// 删除重点资产筛选规则
+// 通过规则名称删除重点资产筛选规则
 function delete_rule_func() {
     var rule = document.getElementById("rule_input_id1").value;
     $.ajax({
         url: '/delete_point_rule_interface/',
         method: 'POST',
         data: {
-            rule: rule
+            rule: rule,
+            key:1
+        },
+        success: function (info) {
+            alert(info.delete_rule)
+        },
+        
+        error: function (info) {
+            alert("内部出错")
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 清空重点资产筛选规则表
+function delete_rule_all_func() {
+    var rule = document.getElementById("rule_input_id1").value;
+    $.ajax({
+        url: '/delete_point_rule_interface/',
+        method: 'POST',
+        data: {
+            rule: rule,
+            key:2
         },
         success: function (info) {
             alert(info.delete_rule)

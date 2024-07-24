@@ -56,8 +56,9 @@
 					<td>筛选资产数量</td>
 					<td>
 						筛选规则&nbsp;&nbsp;
-						<a href="###" onclick="shuaixuanrule()">编辑</a><br>
-						<span id="spp31"></span>
+
+						<span id="spp31"></span>（<a href="###" onclick="shuaixuanrule()">编辑</a>&nbsp;
+						<a href="###" onclick="delete_rule_all_func()">清空</a>）
 					</td>
 				</tr>
 				<tr>
@@ -69,7 +70,7 @@
 					<td>
 						<span id="spp26"></span>
 						<p style="display: none;" id="idp1">
-							<input type="text"placeholder="只针对数据来源: MySQL数据库有效,可对筛选规则进行新增和删除" id="rule_input_id1">
+							<input type="text" placeholder="只针对数据来源: MySQL数据库有效,可对筛选规则进行新增和删除" id="rule_input_id1">
 							<input type="button" value="新增" onclick="add_rule_func()">
 							<input type="button" value="删除" onclick="delete_rule_func()">
 							<input type="button" value="返回" onclick="fanhuishuaixuanrule()">
@@ -556,7 +557,8 @@
 5. 数据过滤：资产去重处理、提取url为IP组成的资产；
 6. CDN检测： 过滤掉部署CDN的资产；
 7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled><br><br>
+							<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()"
+								disabled><br><br>
 							<input type="text" placeholder="fofa语法" id="inputfofaid" />
 							<input type="submit" value="查询" onclick="fofa_search_assets_func()">
 							<input type="button" value="语法提示" onclick="fofayufa()">

@@ -1752,6 +1752,7 @@ def delete_point_rule_interface():
 
     if str(user) == main_username:
         rule = request.form['rule']
+        key = request.form['key']
         if '' in  rule:
             result_rule = "输入参数不能为空"
 
@@ -1765,18 +1766,56 @@ def delete_point_rule_interface():
             db= pymysql.connect(host=dict['ip'],user=dict['username'],  
             password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
             cur = db.cursor()
-            # 删除操作
-            sql="DELETE from rule_table WHERE rule = '%s' " %(rule)
-            cur.execute(sql)
-            db.commit()
-            db.rollback()
-    
-            # 判断是否删除成功
-            sql1 = "select * from rule_table where rule = '%s' " %(rule)
-            cur.execute(sql1)
-            result = cur.fetchone()
-            if result == None:
-                result_rule = rule+" "+"删除成功"
+
+            if int(key) == 1:
+                # 判断是否删除成功
+                sql1 = "select * from rule_table where rule = '%s' " %(rule)
+                cur.execute(sql1)
+                result = cur.fetchone()
+                if result == None:
+                    result_rule = rule+" "+"删除成功"
+
+                else:
+
+                    # 前端传递过来1为根据规则名称删除
+                    sql="DELETE from rule_table WHERE rule = '%s' " %(rule)
+                    cur.execute(sql)
+                    db.commit()
+                    db.rollback()
+
+                    # 二次判断是否删除成功
+                    sql1 = "select * from rule_table where rule = '%s' " %(rule)
+                    cur.execute(sql1)
+                    result = cur.fetchone()
+                    if result == None:
+                        result_rule = rule+" "+"删除完成,不要重复操作"
+
+            elif int(key) ==2:
+                
+
+                # 判断是否删除成功
+                sql1 = "select * from rule_table"
+                cur.execute(sql1)
+                result = cur.fetchone()
+                if result == None:
+                    result_rule = "规则已清空,不要重复操作"
+                else:
+                    # 前端传递过来2为清空筛选规则表
+                    sql2="DELETE from rule_table"
+                    cur.execute(sql2)
+                    db.commit()
+                    db.rollback()
+                    
+                    # 二次判断是否删除成功
+                    sql1 = "select * from rule_table"
+                    cur.execute(sql1)
+                    result = cur.fetchone()
+                    if result == None:
+                        result_rule = "已清空所有规则"
+
+            else:
+                print("参数值只允许1/2")
+            
             
         message_json = {
             "delete_rule":result_rule
@@ -1786,6 +1825,8 @@ def delete_point_rule_interface():
     
     else:
         return render_template('login.html')
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
