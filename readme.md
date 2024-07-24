@@ -50,3 +50,5 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br>
 总报告在线预览<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br>
+特殊字符校验<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br>

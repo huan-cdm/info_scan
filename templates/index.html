@@ -521,7 +521,7 @@
 				<table border="1">
 					<tr>
 						<td>
-							<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled>
+							<!-- <input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled> -->
 							<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
 							<input type="button" id="button20" class="hover-color" name="commit" value="存活检测"
 								onclick="filterstatuscodefunc()" disabled>
@@ -555,7 +555,8 @@
 4. 存活检测：资产存活情况探测；
 5. 数据过滤：资产去重处理、提取url为IP组成的资产；
 6. CDN检测： 过滤掉部署CDN的资产；
-7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea><br>
+7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled><br><br>
 							<input type="text" placeholder="fofa语法" id="inputfofaid" />
 							<input type="submit" value="查询" onclick="fofa_search_assets_func()">
 							<input type="button" value="语法提示" onclick="fofayufa()">

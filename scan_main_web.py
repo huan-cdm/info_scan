@@ -41,6 +41,7 @@ from basic import select_rule
 import psutil
 import pymysql
 
+
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
@@ -313,17 +314,27 @@ def submit_data():
     user = session.get('username')
     if str(user) == main_username: 
         data = request.json.get('lines', [])
-        #列表中数据存入文件中
-        f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
-        for line in data:
-            f.write(str(line)+"\n")
-        f.close()
-        file_line = os.popen('bash ./finger.sh textarea_url_num').read()
-        
-        #资产备份
-        os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
+        if '' in  data:
+            result_rule = "输入参数不能为空"
+
+        if ' ' in data:
+            result_rule = "输入参数不能包含空格"
+
+        if 'alert' in data or 'select' in data or '<' in data or '>' in data or 'union' in data:
+            result_rule = "请勿进行安全测试！"
+        else:
+            #列表中数据存入文件中
+            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+            for line in data:
+                f.write(str(line)+"\n")
+            f.close()
+            file_line = os.popen('bash ./finger.sh textarea_url_num').read()
+            result_rule = "已成功添加"+str(file_line)+"条资产"
+            
+            #资产备份
+            os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
         message_json = {
-            "file_line":"已成功添加"+str(file_line)+"条资产"
+            "file_line":result_rule
         }
         return jsonify(message_json)
     else:
@@ -1453,9 +1464,19 @@ def fofa_search_assets_service():
     user = session.get('username')
     if str(user) == main_username:
         part = request.form['part']
-        asset_len_list = basic.fofa_search_assets_service_lib(part)
+        if '' in  part:
+            asset_len_list = "输入参数不能为空"
+
+        if ' ' in part:
+            asset_len_list = "输入参数不能包含空格"
+
+        if 'alert' in part or 'select' in part or '<' in part or '>' in part or 'union' in part:
+            asset_len_list = "请勿进行安全测试！"
+        else:
+            asset_len_list_1 = basic.fofa_search_assets_service_lib(part)
+            asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
         message_json = {
-            "asset_len_list":"总共发现"+" "+str(asset_len_list)+" "+"条资产已存入扫描目标中"
+            "asset_len_list":asset_len_list
         }
         return jsonify(message_json)
     else:
@@ -1689,21 +1710,31 @@ def add_point_rule_interface():
 
     if str(user) == main_username:
         rule = request.form['rule']
-        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        
-        # 判断数据库中是否存在传入的数据
-        sql_select = "select rule FROM rule_table where rule = '%s' "%(rule)
-        cur.execute(sql_select)
-        result = cur.fetchone()
-        if result:
-            result_rule = rule+" "+"规则已存在不要重复添加"
+        if '' in  rule:
+            result_rule = "输入参数不能为空"
+
+        if ' ' in rule:
+            result_rule = "输入参数不能包含空格"
+
+        if 'alert' in rule or 'select' in rule or '<' in rule or '>' in rule or 'union' in rule:
+            result_rule = "请勿进行安全测试！"
+
         else:
-            sql_insert = "insert into rule_table(rule)  values('%s')" %(rule)
-            cur.execute(sql_insert)  
-            db.commit()
-            result_rule = rule+" "+"规则已添加成功"
+            db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+            password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+            cur = db.cursor()
+            
+            # 判断数据库中是否存在传入的数据
+            sql_select = "select rule FROM rule_table where rule = '%s' "%(rule)
+            cur.execute(sql_select)
+            result = cur.fetchone()
+            if result:
+                result_rule = rule+" "+"规则已存在不要重复添加"
+            else:
+                sql_insert = "insert into rule_table(rule)  values('%s')" %(rule)
+                cur.execute(sql_insert)  
+                db.commit()
+                result_rule = rule+" "+"规则已添加成功"
         message_json = {
             "result_rule":result_rule
         }
@@ -1721,22 +1752,32 @@ def delete_point_rule_interface():
 
     if str(user) == main_username:
         rule = request.form['rule']
-        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        # 删除操作
-        sql="DELETE from rule_table WHERE rule = '%s' " %(rule)
-        cur.execute(sql)
-        db.commit()
-        db.rollback()
+        if '' in  rule:
+            result_rule = "输入参数不能为空"
 
-        # 判断是否删除成功
-        sql1 = "select * from rule_table where rule = '%s' " %(rule)
-        cur.execute(sql1)
-        result = cur.fetchone()
-        if result == None:
-            result_rule = rule+" "+"删除成功"
-        
+        if ' ' in rule:
+            result_rule = "输入参数不能包含空格"
+
+        if 'alert' in rule or 'select' in rule or '<' in rule or '>' in rule or 'union' in rule:
+            result_rule = "请勿进行安全测试！"
+
+        else:
+            db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+            password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+            cur = db.cursor()
+            # 删除操作
+            sql="DELETE from rule_table WHERE rule = '%s' " %(rule)
+            cur.execute(sql)
+            db.commit()
+            db.rollback()
+    
+            # 判断是否删除成功
+            sql1 = "select * from rule_table where rule = '%s' " %(rule)
+            cur.execute(sql1)
+            result = cur.fetchone()
+            if result == None:
+                result_rule = rule+" "+"删除成功"
+            
         message_json = {
             "delete_rule":result_rule
         }
