@@ -733,3 +733,37 @@ def select_rule():
         list_result = ['MySQL连接失败']
 
     return list_result
+
+
+# 筛选后资产状态查询
+def assets_status_show():
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="SELECT status_value FROM status_table"
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        status_value = []
+        for i in list_data:
+            status_value.append(i[0])
+        status_value_result = status_value[0]
+    except:
+        status_value_result = "MySQL连接失败"
+    return status_value_result
+
+
+# 筛选后资产状态更新
+def assets_status_update(part):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE status_table SET status_value = '%s' WHERE id = 1"%(part)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+        
+    except Exception as e:
+            print("捕获到异常:", e)

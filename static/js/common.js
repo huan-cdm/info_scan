@@ -1046,6 +1046,7 @@ function openModal() {
             document.getElementById("spp29").innerHTML = info.hydrastatus;
             document.getElementById("spp30").innerHTML = info.urlfinderstatus;
             document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
+            document.getElementById("spp32").innerHTML = info.assets_status;
         })
 
 }

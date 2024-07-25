@@ -434,6 +434,9 @@ def systemmanagement():
         # 当前自查数量
         url_file_current_num = os.popen('bash ./finger.sh current_url_file_num').read()
 
+        # 筛选后资产状态查询
+        assets_status = basic.assets_status_show()
+
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -465,7 +468,8 @@ def systemmanagement():
             "springbootstatus":springbootstatus,
             "hydrastatus":hydrastatus,
             "urlfinderstatus":urlfinderstatus,
-            "key_asset_rule_origin":key_asset_rule_origin
+            "key_asset_rule_origin":key_asset_rule_origin,
+            "assets_status":assets_status
         }
         return jsonify(message_json)
     else:
@@ -507,11 +511,13 @@ def textareashowinterface():
         return render_template('login.html')
 
 
-#数据处理模块接口
+#资产去重
 @app.route("/uniqdirsearchtargetinterface/",methods=['POST'])
 def uniqdirsearchtargetinterface():
     user = session.get('username')
     if str(user) == main_username:
+        # 筛选后资产时间线更新
+        basic.assets_status_update('资产去重已完成')
         fileqingxiname = request.form['fileqingxiname']
         if int(fileqingxiname) == 1:
             
@@ -533,6 +539,8 @@ def uniqdirsearchtargetinterface():
 def filterstatuscodebyhttpx():
     user = session.get('username')
     if str(user) == main_username:
+        # 筛选后资产时间线更新
+        basic.assets_status_update('存活检测已完成')
         try:
             os.popen('bash ./finger.sh survivaldetection')
             return render_template('dirsearchscan.html')
@@ -610,6 +618,8 @@ def signout():
 def cdn_service_recogize():
     user = session.get('username')
     if str(user) == main_username:
+        # 筛选后资产时间线更新
+        basic.assets_status_update('CDN检测已完成')    
         try:
             #遍历目标文件存入列表
             url_file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
@@ -662,6 +672,8 @@ def cdn_service_recogize():
 def assetsbackspaceinterface():
     user = session.get('username')
     if str(user) == main_username:
+        # 筛选后资产时间线更新
+        basic.assets_status_update('资产回退已完成')
         os.popen('cp /TIP/batch_scan_domain/url_back.txt /TIP/batch_scan_domain/url.txt')
         return render_template('index.html')
     else:
@@ -1308,6 +1320,9 @@ def startshirointerface():
 def key_assets_withdraw():
     user = session.get('username')
     if str(user) == main_username:
+
+        # 筛选后资产时间线更新
+        basic.assets_status_update('识别重点资产已完成')
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
         if "running" in eholestatus:
             key_assets_result = "指纹识别接口正在运行中请稍后再进行识别重点资产"
