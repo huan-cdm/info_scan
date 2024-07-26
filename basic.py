@@ -741,7 +741,7 @@ def assets_status_show():
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
         cur = db.cursor()
-        sql="SELECT status_value FROM status_table"
+        sql="SELECT status_value FROM status_table where id = 1"
         cur.execute(sql)
         data = cur.fetchall()
         list_data = list(data)
@@ -761,6 +761,42 @@ def assets_status_update(part):
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
         cur = db.cursor()
         sql="UPDATE status_table SET status_value = '%s' WHERE id = 1"%(part)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+        
+    except Exception as e:
+            print("捕获到异常:", e)
+
+
+
+# 扫描器时间线查询
+def vuln_scan_status_show():
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="SELECT status_value FROM status_table where id = 2"
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        status_value = []
+        for i in list_data:
+            status_value.append(i[0])
+        vuln_status_value_result = status_value[0]
+    except:
+        vuln_status_value_result = "MySQL连接失败"
+    return vuln_status_value_result
+
+
+
+# 扫描器时间线更新
+def vuln_scan_status_update(part):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE status_table SET status_value = '%s' WHERE id = 2"%(part)
         cur.execute(sql)
         db.commit()
         db.rollback()

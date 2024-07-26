@@ -1008,13 +1008,15 @@ function key_data_tiqu_func() {
     })
 }
 
-
-// 系统管理
+// 系统管理调整为5秒自动请求1次
 function openModal() {
     var modal = document.getElementById("modal");
     modal.style.display = "block";
-    $.getJSON("/systemmanagement/",
-        function (info) {
+
+    // 定义一个函数来处理AJAX请求
+    function fetchData() {
+        $.getJSON("/systemmanagement/",
+            function (info) {
             document.getElementById("spp1").innerHTML = info.nmapstatus;
             document.getElementById("spp2").innerHTML = info.nucleistatus;
             document.getElementById("spp3").innerHTML = info.xraystatus;
@@ -1047,9 +1049,24 @@ function openModal() {
             document.getElementById("spp30").innerHTML = info.urlfinderstatus;
             document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
             document.getElementById("spp32").innerHTML = info.assets_status;
-        })
+            document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
 
+            });
+    }
+
+    // 调用fetchData函数初始化显示
+    fetchData();
+
+    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
+    var intervalId = setInterval(fetchData, 5000);
 }
+
+// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
+window.addEventListener("beforeunload", function() {
+    clearInterval(intervalId);
+});
+
+
 
 // 关闭系统管理
 function closeModal() {

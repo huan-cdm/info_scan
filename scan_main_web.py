@@ -346,6 +346,8 @@ def submit_data():
 def startnuclei():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成nuclei漏洞扫描')
         nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
         if "running" in nucleitatus:
             nuclei_status_result = "nuclei扫描程序正在运行中稍后再开启扫描"
@@ -437,6 +439,9 @@ def systemmanagement():
         # 筛选后资产状态查询
         assets_status = basic.assets_status_show()
 
+        # 漏洞扫描器时间线查询
+        vuln_scan_status_shijianxian = basic.vuln_scan_status_show()
+
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -469,7 +474,9 @@ def systemmanagement():
             "hydrastatus":hydrastatus,
             "urlfinderstatus":urlfinderstatus,
             "key_asset_rule_origin":key_asset_rule_origin,
-            "assets_status":assets_status
+            "assets_status":"原始资产 -> "+assets_status,
+            "vuln_scan_status_shijianxian":vuln_scan_status_shijianxian
+
         }
         return jsonify(message_json)
     else:
@@ -554,6 +561,8 @@ def filterstatuscodebyhttpx():
 def starturlfinderinterface():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成urlfinder链接扫描')
         urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
         if "running" in urlfinder_status:
             urlfinder_status_result = "urlfinder扫描程序正在运行中稍后再开启扫描"
@@ -685,6 +694,8 @@ def assetsbackspaceinterface():
 def weblogicscaninterface():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成weblogic漏洞扫描')
         weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
         if "running" in weblogic_status:
             weblogic_status_result = "weblogic扫描程序正在运行中稍后再开启扫描"
@@ -742,6 +753,8 @@ def weblogic_poc_report():
 def struts2_poc_scan():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成struts2漏洞扫描')
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
         if "running" in struts2status:
             struts2status_result = "struts2扫描程序正在运行中稍后再开启扫描"
@@ -809,6 +822,8 @@ def ehole_finger_report():
 def ehole_finger_scan():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成ehole指纹识别扫描')
         finger_status = os.popen('bash ./finger.sh ehole_status').read()
         if "running" in finger_status:
             finger_status_result = "EHole程序正在运行中稍后再开启扫描"
@@ -834,6 +849,8 @@ def ehole_finger_scan():
 def bbscan_info_scan():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成bbscan敏感信息扫描')
         bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
 
         if "running" in bbscan_status1:
@@ -876,6 +893,8 @@ def showbbscanreport():
 def batch_show_subdomain():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成子域名扫描')
         url_list = []
         file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
         for line in file.readlines():
@@ -959,6 +978,8 @@ def vulmapscanreport():
 def startvulmapinterface():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成vulmap漏洞扫描')
         vulnname = request.form['vulnname']
         vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
         if "running" in vulmapscanstatus:
@@ -988,6 +1009,8 @@ def startvulmapinterface():
 def startbatchnmapscan():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成nmap端口扫描')
         namptatus = os.popen('bash ./finger.sh nmapstatus').read()
         if "running" in namptatus:
             nmap_status_result = "nmap正在运行中稍后再开启扫描"
@@ -1069,6 +1092,8 @@ def deleteafrogreport():
 def startafrogscanprocess():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成afrog漏洞扫描')
         afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
         if "running" in afrogscanstatus:
             start_afrog_result = "afrog正在运行中稍后再开启扫描"
@@ -1218,6 +1243,8 @@ def fscanreportyulan():
 def startfcsaninterface():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成fscan漏洞扫描')
         # 删除历史fscan扫描数据
         os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
     
@@ -1297,6 +1324,8 @@ def shiro_report_show():
 def startshirointerface():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成shiro漏洞扫描')
         shiro_status = os.popen('bash ./finger.sh shiro_status').read()
         if "running" in shiro_status:
             shiro_status_result = "shiro扫描程序正在运行中稍后再开启扫描"
@@ -1451,6 +1480,8 @@ def springboot_report_show():
 def start_springboot_vuln_scan():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成springboot漏洞扫描')
         springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
         if "running" in springboot_scan_status:
             springboot_scan_status_result = "springboot扫描程序正在运行中稍后再开启扫描"
@@ -1518,7 +1549,8 @@ def hydra_report_show():
 def start_hydra_interface():
     user = session.get('username')
     if str(user) == main_username:
-
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成hydra弱口令扫描')
         # 调用url转ip函数写入文件
         ip_list = basic.url_convert_ip()
         f = open(file='/TIP/info_scan/result/hydra_ip.txt',mode='w')

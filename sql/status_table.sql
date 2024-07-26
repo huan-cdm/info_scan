@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 25/07/2024 21:29:10
+ Date: 26/07/2024 15:06:48
 */
 
 SET NAMES utf8mb4;
@@ -30,6 +30,7 @@ CREATE TABLE `status_table`  (
 -- ----------------------------
 -- Records of status_table
 -- ----------------------------
-INSERT INTO `status_table` VALUES (1, '资产回退已完成');
+INSERT INTO `status_table` VALUES (1, '识别重点资产已完成');
+INSERT INTO `status_table` VALUES (2, '已完成springboot漏洞扫描');
 
 SET FOREIGN_KEY_CHECKS = 1;
