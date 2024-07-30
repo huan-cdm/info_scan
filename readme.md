@@ -52,3 +52,5 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br>
 特殊字符校验<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br>
+一键扫描重点资产漏洞<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yijianscan.png" /><br>

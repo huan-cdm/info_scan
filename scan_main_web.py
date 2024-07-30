@@ -41,6 +41,8 @@ from basic import select_rule
 import psutil
 import pymysql
 
+# 设置session过期时间
+from datetime import timedelta
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -190,6 +192,8 @@ def logininterface():
     # 登录判断
     if str(username) == str(main_username) and str(password) == str(main_password):
         session['username'] = username
+        session.permanent_session_lifetime = timedelta(minutes=30)  # 设置会话过期时间为30分钟
+
         login_status = "账号密码正确确认登录系统吗？"
         redirecturl = '/index/'
 
@@ -1368,53 +1372,9 @@ def key_assets_withdraw():
             except Exception as e:
                 print("捕获到异常:", e)
 
-            # 根据config.py中*_rule配置进行识别，只能配置一个关键字，最终写入到单个重点资产文件中，用于指定扫描器调用扫描
-            # ①、写入shiro文件
-            try:
-
-                shiro_file_list = basic.key_point_assets_file(Shiro_rule)
-                f_shiro = open(file='/TIP/info_scan/result/keyasset/shiro_file.txt',mode='w')
-                for shiro_line in shiro_file_list:
-                    f_shiro.write(str(shiro_line)+"\n")
-                f_shiro.close()
-            except Exception as e:
-                print("捕获到异常:", e)
-
-            # ②、写入springboot文件
-            try:
-
-                springboot_file_list = basic.key_point_assets_file(SpringBoot_rule)
-                f_springboot = open(file='/TIP/info_scan/result/keyasset/springboot_file.txt',mode='w')
-                for springboot_line in springboot_file_list:
-                    f_springboot.write(str(springboot_line)+"\n")
-                f_springboot.close()
-            except Exception as e:
-                print("捕获到异常:", e)
-
-
-             # ③、写入struts2文件
-            try:
-
-                struts2_file_list = basic.key_point_assets_file(struts2_rule)
-                f_struts2 = open(file='/TIP/info_scan/result/keyasset/struts2_file.txt',mode='w')
-                for struts2_line in struts2_file_list:
-                    f_struts2.write(str(struts2_line)+"\n")
-                f_struts2.close()
-            except Exception as e:
-                print("捕获到异常:", e)
-
-
-              # ④、写入weblogic文件
-            try:
-
-                weblogic_file_list = basic.key_point_assets_file(weblogic_rule)
-                f_weblogic = open(file='/TIP/info_scan/result/keyasset/weblogic_file.txt',mode='w')
-                for weblogic_line in weblogic_file_list:
-                    f_weblogic.write(str(weblogic_line)+"\n")
-                f_weblogic.close()
-            except Exception as e:
-                print("捕获到异常:", e)
-
+            # 根据config.py中*_rule配置进行识别，只能配置一个关键字
+            # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
+            basic.asset_by_rule_handle()
 
             key_assets_result = "已成功识别出重点资产"
 
@@ -1866,6 +1826,130 @@ def delete_point_rule_interface():
             
         message_json = {
             "delete_rule":result_rule
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
+
+
+
+# 针对特定漏洞一键扫描
+@app.route("/one_click_scan/")
+def one_click_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+
+        
+        # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
+        basic.asset_by_rule_handle()
+        
+        # 计算shiro_file文件行数，如果为0不开启，否则开启
+        shiro_num =  os.popen('bash ./finger.sh zhongdian_file_num shiro_file.txt').read()
+        if int(shiro_num) == 0:
+            shiro_status_result = "shiro资产为空无法开启扫描"
+        else:
+            # 开启shiro
+            shiro_status = os.popen('bash ./finger.sh shiro_status').read()
+            if "running" in shiro_status:
+                shiro_status_result = "shiro扫描程序正在运行中稍后再开启扫描"
+            else:
+                try:
+                    basic.shiro_scan()
+                    if "running" in shiro_status:
+                        shiro_status_result = "shiro扫描程序已开启稍后查看结果"
+                    else:
+                        shiro_status_result = "shiro扫描程序正在后台启动中......"
+                except Exception as e:
+                    print("捕获到异常:", e)
+        
+
+        # 计算springboot_file文件行数，如果为0不开启，否则开启
+        springboot_num =  os.popen('bash ./finger.sh zhongdian_file_num springboot_file.txt').read()
+        if int(springboot_num) == 0:
+            springboot_status_result = "springboot资产为空无法开启扫描"
+        else:
+            # 开启springboot
+            springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
+            if "running" in springboot_scan_status:
+                springboot_status_result = "springboot扫描程序正在运行中稍后再开启扫描"
+            else:
+                try:
+                    os.popen('bash /TIP/info_scan/finger.sh start_springboot')
+                    if "running" in springboot_scan_status:
+                        springboot_status_result = "springboot扫描程序已开启稍后查看结果"
+                    else:
+                        springboot_status_result = "springboot扫描程序正在后台启动中......"
+                except Exception as e:
+                    print("捕获到异常:", e)
+
+
+        # 计算struts2_file文件行数，如果为0不开启，否则开启
+        struts2_num =  os.popen('bash ./finger.sh zhongdian_file_num struts2_file.txt').read()
+        if int(struts2_num) == 0:
+            struts2_status_result = "struts2资产为空无法开启扫描"
+        else:
+            # 开启struts2
+            struts2status = os.popen('bash ./finger.sh struts2_status').read()
+            if "running" in struts2status:
+                struts2_status_result = "struts2扫描程序正在运行中稍后再开启扫描"
+            else:
+                try:
+                    os.popen('bash ./finger.sh struts2_poc_scan')
+                    if "running" in struts2status:
+                        struts2_status_result = "struts2扫描程序已开启稍后查看结果"
+                    else:
+                        struts2_status_result = "struts2扫描程序正在后台启动中......"
+                except Exception as e:
+                    print("捕获到异常:", e)
+                
+
+
+        # 计算weblogic_file文件行数，如果为0不开启，否则开启
+        weblogic_num =  os.popen('bash ./finger.sh zhongdian_file_num weblogic_file.txt').read()
+        if int(weblogic_num) == 0:
+            weblogic_status_result = "weblogic资产为空无法开启扫描"
+        else:
+            # 开启weblogic
+            weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
+            if "running" in weblogic_status:
+                weblogic_status_result = "weblogic扫描程序正在运行中稍后再开启扫描"
+            else:
+    
+                # 遍历目标文件存入列表
+                url_list = []
+                url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+                for i in url_file.readlines():
+                    url_list.append(i.strip())
+                
+                # url中匹配出域名
+                domain_list = []
+                for url in url_list:
+                    pattern = r"https?://([^/]+)"
+                    urls_re_1 = re.search(pattern,url)
+                    urls_re = urls_re_1.group(1)
+                    domain_list.append(urls_re)
+                
+                # 域名写入到weblogic_poc目标
+                weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+                for j in domain_list:
+                    weblogic_file.write(str(j)+"\n")
+                weblogic_file.close()
+        
+                # weblogic_poc开始扫描
+                os.popen('bash ./finger.sh weblogic_poc_scan')
+                if "running" in weblogic_status:
+                    weblogic_status_result = "struts2扫描程序已开启稍后查看结果"
+                else:
+                    weblogic_status_result = "struts2扫描程序正在后台启动中......"
+
+        message_json = {
+            "shiro_status_result":shiro_status_result,
+            "springboot_status_result":springboot_status_result,
+            "struts2_status_result":struts2_status_result,
+            "weblogic_status_result":weblogic_status_result
         }
 
         return jsonify(message_json)

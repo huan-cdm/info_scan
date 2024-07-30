@@ -761,4 +761,11 @@ case "${1}" in
     ;;
 
 
+    # 计算springboot、weblogic、struts2、shiro 资产行数,分别传入springboot_file.txt、weblogic_file.txt、struts2_file.txt、shiro_file.txt
+    zhongdian_file_num)
+    num=`cat /TIP/info_scan/result/keyasset/$2 | wc -l`
+    echo "${num}"
+    ;;
+
+
 esac

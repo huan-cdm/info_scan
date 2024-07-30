@@ -1550,3 +1550,21 @@ function delete_rule_all_func() {
         }
     })
 }
+
+//一键完成重点资产扫描
+function one_click_scan_func() {
+    $.ajax({
+        url: '/one_click_scan/',
+        method: 'GET',
+
+        success: function (info) {
+            alert(info.shiro_status_result+"\n"+info.springboot_status_result+"\n"+info.struts2_status_result+"\n"+info.weblogic_status_result+"\n")
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}

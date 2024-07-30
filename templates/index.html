@@ -54,8 +54,8 @@
 					<td>内存</td>
 					<td>原始资产数量</td>
 					<td>筛选资产数量</td>
-					<td>筛选资产时间线</td>
-					<td>扫描器时间线</td>
+					<td>资产过滤时间线</td>
+					<td>漏洞扫描时间线</td>
 					<td>
 						筛选规则&nbsp;&nbsp;
 
@@ -451,15 +451,8 @@
 						<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
 						<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled>
 					</td>
-					<!-- <td>
-					<img src="{{ url_for('static', filename='image/bg.jpg') }}" width="450" height="100">
-				</td> -->
 				</tr>
-				<!-- <tr>
-				<td>
-					<img src="{{ url_for('static', filename='image/bg.jpg') }}" width="450" height="100">
-				</td>
-			</tr> -->
+				
 				<tr>
 					<td>
 						<input type="submit" value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -514,6 +507,10 @@
 						<input type="button" id="button52" value="预览报告" onclick="springboot_report_show_func()"
 							disabled>
 						<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()" disabled>
+					</td>
+					<td>
+						<span>&nbsp;&nbsp;&nbsp;&nbsp;说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描， <br> 针对特定资产进行扫描，不会扫描所有资产！</span><br><br>
+						<input type="submit" value="一键扫描" onclick="one_click_scan_func()">
 					</td>
 				</tr>
 			</table>

@@ -54,6 +54,13 @@ from config import dict
 from config  import rule_options
 
 
+# 根据规则分别存入不同的文件
+from config import Shiro_rule
+from config import SpringBoot_rule
+from config import weblogic_rule
+from config import struts2_rule
+
+
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
@@ -803,3 +810,48 @@ def vuln_scan_status_update(part):
         
     except Exception as e:
             print("捕获到异常:", e)
+
+
+
+# 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
+def asset_by_rule_handle():
+
+    # shiro
+    try:
+        shiro_file_list = key_point_assets_file(Shiro_rule)
+        f_shiro = open(file='/TIP/info_scan/result/keyasset/shiro_file.txt',mode='w')
+        for shiro_line in shiro_file_list:
+            f_shiro.write(str(shiro_line)+"\n")
+        f_shiro.close()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    # springboot
+    try:
+        springboot_file_list = key_point_assets_file(SpringBoot_rule)
+        f_springboot = open(file='/TIP/info_scan/result/keyasset/springboot_file.txt',mode='w')
+        for springboot_line in springboot_file_list:
+            f_springboot.write(str(springboot_line)+"\n")
+        f_springboot.close()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    # struts2
+    try:
+        struts2_file_list = key_point_assets_file(struts2_rule)
+        f_struts2 = open(file='/TIP/info_scan/result/keyasset/struts2_file.txt',mode='w')
+        for struts2_line in struts2_file_list:
+            f_struts2.write(str(struts2_line)+"\n")
+        f_struts2.close()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    # weblogic
+    try:
+        weblogic_file_list = key_point_assets_file(weblogic_rule)
+        f_weblogic = open(file='/TIP/info_scan/result/keyasset/weblogic_file.txt',mode='w')
+        for weblogic_line in weblogic_file_list:
+            f_weblogic.write(str(weblogic_line)+"\n")
+        f_weblogic.close()
+    except Exception as e:
+        print("捕获到异常:", e)
