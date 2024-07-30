@@ -509,8 +509,16 @@
 						<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()" disabled>
 					</td>
 					<td>
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描， <br> 针对特定资产进行扫描，不会扫描所有资产！</span><br><br>
-						<input type="submit" value="一键扫描" onclick="one_click_scan_func()">
+						<table>
+							<tr>
+								<td><input type="submit" value="一键扫描" onclick="one_click_scan_func()"></td>
+								<td>说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描！ <br> 针对特定资产进行扫描，不会扫描所有资产！扫描前需先进行网站指纹识别！</td>
+								
+							</tr>
+						</table>
+						
+						<!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描， <br> 针对特定资产进行扫描，不会扫描所有资产！扫描前需先进行网站指纹识别！</span><br>
+						<input type="submit" value="一键扫描" onclick="one_click_scan_func()"> -->
 					</td>
 				</tr>
 			</table>
