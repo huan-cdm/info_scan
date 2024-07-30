@@ -1842,7 +1842,9 @@ def one_click_scan():
     user = session.get('username')
     if str(user) == main_username:
 
-        
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成一键漏洞扫描')
+
         # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
         basic.asset_by_rule_handle()
         

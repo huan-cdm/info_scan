@@ -452,7 +452,7 @@
 						<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<td>
 						<input type="submit" value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -512,11 +512,12 @@
 						<table>
 							<tr>
 								<td><input type="submit" value="一键扫描" onclick="one_click_scan_func()"></td>
-								<td>说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描！ <br> 针对特定资产进行扫描，不会扫描所有资产！扫描前需先进行网站指纹识别！</td>
-								
+								<td>说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描！ <br>
+									针对特定资产进行扫描，不会扫描所有资产！扫描前需先进行网站指纹识别！</td>
+
 							</tr>
 						</table>
-						
+
 						<!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描， <br> 针对特定资产进行扫描，不会扫描所有资产！扫描前需先进行网站指纹识别！</span><br>
 						<input type="submit" value="一键扫描" onclick="one_click_scan_func()"> -->
 					</td>
@@ -530,43 +531,75 @@
 				<table border="1">
 					<tr>
 						<td>
-							<!-- <input type="button" id="button3" value="资产添加" onclick="sendtextareadata()" disabled> -->
-							<input type="button" id="button25" value="资产回退" onclick="assetsbackspacefunc()" disabled>
-							<input type="button" id="button20" class="hover-color" name="commit" value="存活检测"
-								onclick="filterstatuscodefunc()" disabled>
-							<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()" disabled>
-							<input type="button" id="button2" value="文本框赋值" onclick="targeturlcopytextareafunc()"
-								disabled>
-							<input type="button" id="button51" value="识别重点资产" onclick="key_data_tiqu_func()"
-								disabled><br>
-							<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()" disabled>
+							<table border="1">
+								<tr>
+									<td>
+										<input type="button" id="button20" class="hover-color" name="commit"
+											value="存活检测" onclick="filterstatuscodefunc()" disabled> &nbsp;&nbsp;
+										<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()"
+											disabled>&nbsp;&nbsp;
+										<input type="button" id="button51" value="识别重点资产" onclick="key_data_tiqu_func()"
+											disabled>&nbsp;&nbsp;
+									</td>
+								</tr>
+							</table>
 
-							<select id="opbyid3">
-								<option>文本内容展示</option>
-							</select>
-							&nbsp;&nbsp;<span id="span1"></span>
-							<br>
+							<table border="1">
+								<tr>
+									<td>
+										<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()"
+											disabled>
+										<select id="opbyid3">
+											<option>文本内容展示</option>
+										</select>
+										&nbsp;&nbsp;<span id="span1"></span>
+										
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="button" id="button19" class="hover-color" name="commit"
+											value="资产去重" onclick="filedeweightingfunc()" disabled>
+										<select name="fileqingxiname">
+											<option value="2">保留所有资产</option>
+											<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
+										</select>
+									</td>
+								</tr>
+							</table>
 
-							<input type="button" id="button19" class="hover-color" name="commit" value="资产去重"
-								onclick="filedeweightingfunc()" disabled>
-							<select name="fileqingxiname">
-								<option value="2">保留所有资产</option>
-								<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
-							</select>
 
 						</td>
 						<td>
-							<textarea rows="9" cols="110" id="myTextarea">基础数据处理操作说明：
+							<table border="1">
+								<tr>
+									<td>
+										<input type="button" id="button3" value="添加资产" onclick="sendtextareadata()"
+											disabled>&nbsp;&nbsp;
+										<input type="button" id="button2" value="编辑资产"
+											onclick="targeturlcopytextareafunc()" disabled>&nbsp;&nbsp;
+										<input type="button" id="button25" value="回退资产" onclick="assetsbackspacefunc()"
+											disabled>
 
+									</td>
+								</tr>
+							</table>
+							<table border="1">
+								<tr>
+									<td>
+										<textarea rows="9" cols="110" id="myTextarea">
+基础数据处理操作说明：
 1. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->数据过滤)->文本查看->纯净资产->漏洞扫描集合扫描；
 2. 格式说明：资产添加位置，一行一个资产；
 3. 文本添加、文本查看：资产添加和查看；
 4. 存活检测：资产存活情况探测；
 5. 数据过滤：资产去重处理、提取url为IP组成的资产；
 6. CDN检测： 过滤掉部署CDN的资产；
-7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；</textarea>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="button" id="button3" value="资产添加" onclick="sendtextareadata()"
-								disabled><br><br>
+7. 文本赋值：异步方式将存入服务器的URL回显给文本框进行编辑；
+										</textarea>
+									</td>
+								</tr>
+							</table>
 							<input type="text" placeholder="fofa语法" id="inputfofaid" />
 							<input type="submit" value="查询" onclick="fofa_search_assets_func()">
 							<input type="button" value="语法提示" onclick="fofayufa()">
