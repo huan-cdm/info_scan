@@ -34,6 +34,7 @@ from config import ruoyi_rule
 from config import struts2_rule
 from config import WordPress_rule
 from config import jboss_rule
+from config import phpMyAdmin_rule
 from config import finger_list
 from config  import rule_options
 from config import dict
@@ -317,6 +318,8 @@ def killprocess():
 def submit_data():
     user = session.get('username')
     if str(user) == main_username: 
+        # 筛选后资产时间线更新
+        basic.assets_status_update('手工录入资产完成')
         data = request.json.get('lines', [])
         if '' in  data:
             result_rule = "输入参数不能为空"
@@ -414,6 +417,7 @@ def systemmanagement():
         struts2_num = basic.key_point_assets_num(struts2_rule)
         WordPress_num = basic.key_point_assets_num(WordPress_rule)
         jboss_num = basic.key_point_assets_num(jboss_rule)
+        phpmyadmin_num = basic.key_point_assets_num(phpMyAdmin_rule)
 
         # cpu占用率
         cpu_percent = psutil.cpu_percent(interval=1)
@@ -471,14 +475,15 @@ def systemmanagement():
             "WordPress_num":str(WordPress_num),
             "cpuinfo":str(cpu_percent)+"%",
             "memoryinfo":str(memory_percent)+"%",
-            "jboss_num":"jboss: "+str(jboss_num),
+            "jboss_num":str(jboss_num),
+            "phpmyadmin_num":str(phpmyadmin_num),
             "key_asset_rule":str(key_asset_rule),
             "current_key_asset_num":str(url_file_current_num),
             "springbootstatus":springbootstatus,
             "hydrastatus":hydrastatus,
             "urlfinderstatus":urlfinderstatus,
             "key_asset_rule_origin":key_asset_rule_origin,
-            "assets_status":"原始资产 -> "+assets_status,
+            "assets_status":"原始资产-------->"+assets_status,
             "vuln_scan_status_shijianxian":vuln_scan_status_shijianxian
 
         }
@@ -1469,6 +1474,9 @@ def start_springboot_vuln_scan():
 def fofa_search_assets_service():
     user = session.get('username')
     if str(user) == main_username:
+        # 筛选后资产时间线更新
+        basic.assets_status_update('通过fofa平台获取资产完成')
+
         part = request.form['part']
         if '' in  part:
             asset_len_list = "输入参数不能为空"

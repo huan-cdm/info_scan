@@ -1050,7 +1050,7 @@ function openModal() {
             document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
             document.getElementById("spp32").innerHTML = info.assets_status;
             document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
-
+            document.getElementById("spp34").innerHTML = info.phpmyadmin_num;
             });
     }
 
