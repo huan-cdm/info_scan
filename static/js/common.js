@@ -1051,6 +1051,13 @@ function openModal() {
             document.getElementById("spp32").innerHTML = info.assets_status;
             document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
             document.getElementById("spp34").innerHTML = info.phpmyadmin_num;
+            document.getElementById("spp35").innerHTML = info.disk_read;
+            document.getElementById("spp36").innerHTML = info.disk_write;
+            document.getElementById("spp37").innerHTML = info.infoinfostatus;
+            document.getElementById("spp38").innerHTML = info.dirsub_sys_status;
+            document.getElementById("spp39").innerHTML = info.xray_report_status;
+            document.getElementById("spp40").innerHTML = info.urlfinder_report_status;
+            document.getElementById("spp41").innerHTML = info.afrog_report_status;
             });
     }
 

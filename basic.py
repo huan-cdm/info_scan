@@ -60,6 +60,9 @@ from config import SpringBoot_rule
 from config import weblogic_rule
 from config import struts2_rule
 
+# 磁盘读写
+import psutil
+
 
 
 # IP基础信息端口查询通过fofa+shodan
@@ -855,3 +858,22 @@ def asset_by_rule_handle():
         f_weblogic.close()
     except Exception as e:
         print("捕获到异常:", e)
+
+
+
+# 磁盘读写状态查询
+def disk_read_write():
+    try:
+        # 获取磁盘的读写速度，单位是字节每秒
+        read_speed_bytes_per_sec = psutil.disk_io_counters().read_bytes
+        write_speed_bytes_per_sec = psutil.disk_io_counters().write_bytes
+    
+        # 将字节转换为千字节
+        read_speed_kb_per_sec = read_speed_bytes_per_sec / 1024
+        write_speed_kb_per_sec = write_speed_bytes_per_sec / 1024
+    
+        
+    except Exception as e:
+        print("捕获到异常:", e)
+    tuple_list = [read_speed_kb_per_sec,write_speed_kb_per_sec]
+    return tuple_list

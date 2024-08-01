@@ -767,5 +767,55 @@ case "${1}" in
     echo "${num}"
     ;;
 
+    # python后端服务展示给前端
+    infoinfostatus)
+    infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
+    if (( $infopid > 1 ))
+	then
+		echo -e "running" 
+	else
+		echo -e "stop"
+	fi
+    ;;
+
+    xray_report_status)
+    xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
+    if (( $xraypid > 1 ))
+	then
+		echo -e "running" 
+	else
+		echo -e "stop"
+	fi
+    ;;
+
+    urlfinder_report_status)
+    urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
+    if (( $urlfinderpid > 1 ))
+	then
+		echo -e "running" 
+	else
+		echo -e "stop"
+	fi
+    ;;
+
+    dirsub_sys_status)
+    dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
+    if (( $dirscanpid > 1 ))
+	then
+		echo -e "running" 
+	else
+		echo -e "stop"
+	fi
+    ;;
+
+    afrog_report_status)
+    afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
+    if (( $afrogpid > 1 ))
+	then
+		echo -e "running" 
+	else
+		echo -e "stop"
+	fi
+    ;;
 
 esac

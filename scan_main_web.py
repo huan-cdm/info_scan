@@ -450,6 +450,18 @@ def systemmanagement():
         # 漏洞扫描器时间线查询
         vuln_scan_status_shijianxian = basic.vuln_scan_status_show()
 
+        # 磁盘读速率
+        disk_read = basic.disk_read_write()[0]
+        # 磁盘写速率
+        disk_write = basic.disk_read_write()[1]
+
+        # python后端服务状态
+        infoinfostatus = os.popen('bash ./finger.sh infoinfostatus').read()
+        dirsub_sys_status = os.popen('bash ./finger.sh dirsub_sys_status').read()
+        xray_report_status = os.popen('bash ./finger.sh xray_report_status').read()
+        urlfinder_report_status = os.popen('bash ./finger.sh urlfinder_report_status').read()
+        afrog_report_status = os.popen('bash ./finger.sh afrog_report_status').read()
+
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -484,7 +496,14 @@ def systemmanagement():
             "urlfinderstatus":urlfinderstatus,
             "key_asset_rule_origin":key_asset_rule_origin,
             "assets_status":"原始资产-------->"+assets_status,
-            "vuln_scan_status_shijianxian":vuln_scan_status_shijianxian
+            "vuln_scan_status_shijianxian":vuln_scan_status_shijianxian,
+            "disk_read":str(disk_read)+" KB/s",
+            "disk_write":str(disk_write)+" KB/s",
+            "infoinfostatus":infoinfostatus,
+            "dirsub_sys_status":dirsub_sys_status,
+            "xray_report_status":xray_report_status,
+            "urlfinder_report_status":urlfinder_report_status,
+            "afrog_report_status":afrog_report_status
 
         }
         return jsonify(message_json)
