@@ -13,40 +13,56 @@
 <body>
 	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">登录用户：{{data20}}</span><br><br>
 	<a href="###" onclick="jumpdirscanpage()">目录扫描</a>
+	
 	<table border="1">
 		<tr>
 			<td>
+		
 				<img src="{{ url_for('static', filename='image/shuaxin.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="fanhui()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="fanhui()"  onmouseenter="caozuo1func()" onmouseleave="caozuo11func()">&nbsp;&nbsp; 
 				<img src="{{ url_for('static', filename='image/mainsuoding.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="stopbutton()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="stopbutton()" onmouseenter="caozuo2func()" onmouseleave="caozuo22func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/mainjiesuo.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="startbutton()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="startbutton()" onmouseenter="caozuo3func()" onmouseleave="caozuo33func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/maindns.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="ceyednsfunc()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="ceyednsfunc()" onmouseenter="caozuo4func()" onmouseleave="caozuo44func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/mainhttp.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="ceyehttpfunc()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="ceyehttpfunc()" onmouseenter="caozuo5func()" onmouseleave="caozuo55func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/reportzhenghe.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="reporttotalfunc()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="reporttotalfunc()" onmouseenter="caozuo6func()" onmouseleave="caozuo66func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/mainyulanexcel.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="total_report_yulan_func()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="total_report_yulan_func()" onmouseenter="caozuo7func()" onmouseleave="caozuo77func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/maindownloadreport.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="reportdownloadfunc()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="reportdownloadfunc()" onmouseenter="caozuo8func()" onmouseleave="caozuo88func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/mainsystemoper.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="openModal()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="openModal()" onmouseenter="caozuo9func()" onmouseleave="caozuo99func()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="signoutfunc()">&nbsp;&nbsp;
+					style="cursor: pointer;" onclick="signoutfunc()" onmouseenter="caozuo9afunc()" onmouseleave="caozuo99afunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/restart.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="restart_service_func()" onmouseenter="caozuo9bfunc()" onmouseleave="caozuo99bfunc()">
+
+				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="stopbackservicefunc()" onmouseenter="caozuo9cfunc()" onmouseleave="caozuo99cfunc()">
+				<br><br>
+				<span id="tishisp1" style="display: none; color: magenta;" >刷新系统按钮</span>
+				<span id="tishisp2" style="display: none; color: magenta;" >锁定按钮</span>
+				<span id="tishisp3" style="display: none; color: magenta;" >解锁按钮</span>
+				<span id="tishisp4" style="display: none; color: magenta;" >dnslog平台dns日志</span>
+				<span id="tishisp5" style="display: none; color: magenta;" >dnslog平台http日志</span>
+				<span id="tishisp6" style="display: none; color: magenta;" >报告整合</span>
+				<span id="tishisp7" style="display: none; color: magenta;" >报告预览</span>
+				<span id="tishisp8" style="display: none; color: magenta;" >报告下载</span>
+				<span id="tishisp9" style="display: none; color: magenta;" >系统管理</span>
+				<span id="tishisp9a" style="display: none; color: magenta;" >注销系统</span>
+				<span id="tishisp9b" style="display: none; color: magenta;" >软重启系统</span>
+				<span id="tishisp9c" style="display: none; color: magenta;" >关闭后端服务</span>
 			</td>
 		</tr>
 	</table>
 
 	<div id="modal" class="modal">
 		<div class="modal-content">
-			<img src="{{ url_for('static', filename='image/restart.png') }}" width="50" height="50"
-				style="cursor: pointer;" onclick="restart_service_func()">
-			<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
-				style="cursor: pointer;" onclick="stopbackservicefunc()">
-			<br><br>
+			
 			<strong style="color:coral">全局视角</strong>
 			<table border="1">
 				<tr>
