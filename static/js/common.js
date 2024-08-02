@@ -1,3 +1,6 @@
+// 上线后需替换为自己的服务器IP地址
+var ipvalue = "http://x.x.x.x"
+
 
 function fanhui() {
     var input = document.getElementById("myInput");
@@ -47,13 +50,13 @@ function deletenmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open("http://x.x.x.x:18888/", "_blank");
+    window.open(ipvalue+":18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open("http://x.x.x.x:16666/", "_blank");
+    window.open(ipvalue+":16666/", "_blank");
 }
 
 
@@ -500,7 +503,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open("http://x.x.x.x:17777/dirscanpage/", "_blank");
+    window.open(ipvalue+":17777/dirscanpage/", "_blank");
 }
 
 
@@ -852,7 +855,7 @@ function targeturlcopytextareafunc() {
 
 //afrog报告预览
 function afrogreportfun() {
-    window.open("http://x.x.x.x:15555/", "_blank");
+    window.open(ipvalue+":15555/", "_blank");
 }
 
 
@@ -1574,4 +1577,23 @@ function one_click_scan_func() {
 
         }
     })
+}
+
+
+一键预览所有报告
+function one_click_preview_all_report_finc() {
+    window.open("/showsubdomainreport/");
+    window.open("/showbbscanreport/");
+    window.open("/ehole_finger_report/");
+    window.open("/nmapresultshow/");
+    window.open("/weblogic_poc_report/");
+    window.open("/vulmapscanreport/");
+    window.open("/struts2_poc_report/");
+    window.open("/fscanreportyulan/");
+    window.open("/shiro_report_show/");
+    window.open("/hydra_report_show/");
+    window.open("/springboot_report_show/");
+    window.open(ipvalue+":18888/");
+    window.open(ipvalue+":16666/");
+    window.open(ipvalue+":15555/");
 }

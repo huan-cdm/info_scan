@@ -6,8 +6,8 @@
 系统使用说明<br><br>
 1. 安装python3+MySQL数据库<br>
 2. 建议安装nginx反向代理web服务，部分接口会出现查询超时情况，可通过nginx控制超时时间，也可直接通过flask直接访问，只需修改scan_main_web.py和dirscanmain.py最后一行IP部分<br>
-3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下，<br>
-4. 将/TIP/info_scan/static/js/common.js中的x.x.x.x替换为vps ip，替换命令(:%s/x.x.x.x/vps_ip/g)
+3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下<br>
+4. 将/TIP/info_scan/static/js/common.js第一行修改为自己服务器的IP地址<br>
 5. info_scan系统相关配置在/TIP/info_scan/config.py文件配置<br>
 6. 系统使用前需点击解锁按钮进行解锁<br>
 7. 系统主要功能分为三类，第一是对IP进行基础信息探测，第二是对URL进行漏洞扫描，第三是对URL数据进行处理<br>
