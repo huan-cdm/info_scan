@@ -44,18 +44,18 @@
 				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
 					style="cursor: pointer;" onclick="stopbackservicefunc()" onmouseenter="caozuo9cfunc()" onmouseleave="caozuo99cfunc()">
 				<br><br>
-				<span id="tishisp1" style="display: none; color: magenta;" >刷新系统按钮</span>
-				<span id="tishisp2" style="display: none; color: magenta;" >锁定按钮</span>
-				<span id="tishisp3" style="display: none; color: magenta;" >解锁按钮</span>
-				<span id="tishisp4" style="display: none; color: magenta;" >dnslog平台dns日志</span>
-				<span id="tishisp5" style="display: none; color: magenta;" >dnslog平台http日志</span>
-				<span id="tishisp6" style="display: none; color: magenta;" >报告整合</span>
-				<span id="tishisp7" style="display: none; color: magenta;" >报告预览</span>
-				<span id="tishisp8" style="display: none; color: magenta;" >报告下载</span>
-				<span id="tishisp9" style="display: none; color: magenta;" >系统管理</span>
-				<span id="tishisp9a" style="display: none; color: magenta;" >注销系统</span>
-				<span id="tishisp9b" style="display: none; color: magenta;" >软重启系统</span>
-				<span id="tishisp9c" style="display: none; color: magenta;" >关闭后端服务</span>
+				<span id="tishisp1" style="display: none; color: chocolate;" >刷新系统按钮</span>
+				<span id="tishisp2" style="display: none; color: chocolate;" >锁定按钮</span>
+				<span id="tishisp3" style="display: none; color: chocolate;" >解锁按钮</span>
+				<span id="tishisp4" style="display: none; color: chocolate;" >dnslog平台dns日志</span>
+				<span id="tishisp5" style="display: none; color: chocolate;" >dnslog平台http日志</span>
+				<span id="tishisp6" style="display: none; color: chocolate;" >报告整合</span>
+				<span id="tishisp7" style="display: none; color: chocolate;" >报告预览</span>
+				<span id="tishisp8" style="display: none; color: chocolate;" >报告下载</span>
+				<span id="tishisp9" style="display: none; color: chocolate;" >系统管理</span>
+				<span id="tishisp9a" style="display: none; color: chocolate;" >注销系统</span>
+				<span id="tishisp9b" style="display: none; color: chocolate;" >软重启系统</span>
+				<span id="tishisp9c" style="display: none; color: chocolate;" >关闭后端服务</span>
 			</td>
 		</tr>
 	</table>
@@ -589,9 +589,7 @@
 											disabled>&nbsp;&nbsp;
 									</td>
 								</tr>
-							</table>
 
-							<table border="1">
 								<tr>
 									<td>
 										<input type="button" id="button17" value="资产查看" onclick="textinfoshowfunc()"
@@ -603,6 +601,7 @@
 										
 									</td>
 								</tr>
+
 								<tr>
 									<td>
 										<input type="button" id="button19" class="hover-color" name="commit"
@@ -613,10 +612,12 @@
 										</select>
 									</td>
 								</tr>
+
+
 							</table>
 
-
 						</td>
+
 						<td>
 							<table border="1">
 								<tr>
@@ -627,11 +628,10 @@
 											onclick="targeturlcopytextareafunc()" disabled>&nbsp;&nbsp;
 										<input type="button" id="button25" value="回退资产" onclick="assetsbackspacefunc()"
 											disabled>
-
 									</td>
 								</tr>
-							</table>
-							<table border="1">
+
+
 								<tr>
 									<td>
 										<textarea rows="9" cols="110" id="myTextarea">
@@ -646,14 +646,18 @@
 										</textarea>
 									</td>
 								</tr>
+
+								<tr>
+									<td>
+										<input type="text" placeholder="fofa语法" id="inputfofaid" />
+										<input type="submit" value="查询" onclick="fofa_search_assets_func()">
+										<input type="button" value="语法提示" onclick="fofayufa()">
+									</td>
+								</tr>
 							</table>
-							<input type="text" placeholder="fofa语法" id="inputfofaid" />
-							<input type="submit" value="查询" onclick="fofa_search_assets_func()">
-							<input type="button" value="语法提示" onclick="fofayufa()">
 						</td>
 					</tr>
 				</table>
 			</div>
-</body>
-
+	</body>
 </html>

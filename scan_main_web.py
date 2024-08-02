@@ -321,7 +321,7 @@ def submit_data():
         # 筛选后资产时间线更新
         basic.assets_status_update('手工录入资产完成')
         data = request.json.get('lines', [])
-        print(data)
+
         if '' in  data:
             result_rule = "输入参数不能为空"
 
@@ -332,21 +332,23 @@ def submit_data():
             result_rule = "请勿进行安全测试！"
 
         else:
-            #  2024.8.2 校验url格式,只允许https://或者https://格式
+            # 2024.8.2更新  校验非URL资产
+            result_rule = ""
             for ii in data:
                 if "http://"  not in ii and "https://" not in ii:
                     result_rule = "请勿输入非URL字段！"
-                else:
-                    #列表中数据存入文件中
-                    f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
-                    for line in data:
-                        f.write(str(line)+"\n")
-                    f.close()
-                    file_line = os.popen('bash ./finger.sh textarea_url_num').read()
-                    result_rule = "已成功添加"+str(file_line)+"条资产"
+                    break
+            if not result_rule:
+                # 列表中数据存入文件中
+                f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+                for line in data:
+                    f.write(str(line)+"\n")
+                f.close()
+                file_line = os.popen('bash ./finger.sh textarea_url_num').read()
+                result_rule = "已成功添加"+str(file_line)+"条资产"
+                #资产备份
+                os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
             
-            #资产备份
-            os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
         message_json = {
             "file_line":result_rule
         }
