@@ -377,6 +377,12 @@ function startbutton() {
     button61.disabled = false;
     var button62 = document.getElementById("button62");
     button62.disabled = false;
+    var button63 = document.getElementById("button63");
+    button63.disabled = false;
+    var button64 = document.getElementById("button64");
+    button64.disabled = false;
+    var button65 = document.getElementById("button65");
+    button65.disabled = false;
 
 
 }
@@ -497,6 +503,12 @@ function stopbutton() {
     button61.disabled = true;
     var button62 = document.getElementById("button62");
     button62.disabled = true;
+    var button63 = document.getElementById("button63");
+    button63.disabled = true;
+    var button64 = document.getElementById("button64");
+    button64.disabled = true;
+    var button65 = document.getElementById("button65");
+    button65.disabled = true;
 
 }
 
@@ -1723,4 +1735,10 @@ function caozuo9cfunc() {
 function caozuo99cfunc() {
     var tishisp9c = document.getElementById("tishisp9c");
     tishisp9c.style.display = "none";
+}
+
+// 文本框重置
+function textareachongzhifunc(){
+    var myTextarea = document.getElementById("myTextarea");
+    myTextarea.value = "";
 }
