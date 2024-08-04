@@ -66,6 +66,7 @@
 			<strong style="color:coral">全局视角</strong>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
+					<th>名称</th>
 					<td>CPU</td>
 					<td>内存</td>
 					<td>磁盘读速率</td>
@@ -77,11 +78,11 @@
 					<td>
 						筛选规则&nbsp;&nbsp;
 
-						<span id="spp31"></span>（<a href="###" onclick="shuaixuanrule()">编辑</a>&nbsp;
-						<a href="###" onclick="delete_rule_all_func()">清空</a>）
+						<span id="spp31"></span>
 					</td>
 				</tr>
 				<tr>
+					<th>状态</th>
 					<td><span id="spp23"></span></td>
 					<td><span id="spp24"></span></td>
 					<td><span id="spp35"></span></td>
@@ -98,6 +99,9 @@
 							<input type="button" value="删除" onclick="delete_rule_func()">
 							<input type="button" value="返回" onclick="fanhuishuaixuanrule()">
 						</p>
+
+						<a href="###" onclick="shuaixuanrule()">编辑</a>&nbsp;
+						<a href="###" onclick="delete_rule_all_func()">清空</a>
 					</td>
 				</tr>
 			</table>
@@ -107,6 +111,7 @@
 			<table border="1" style="width: 1500px; height: 100px;">
 
 				<tr>
+					<th>名称</th>
 					<td>主系统</td>
 					<td>子系统</td>
 					<td>xray报告</td>
@@ -114,6 +119,7 @@
 					<td>afrog报告</td>
 				</tr>
 				<tr>
+					<th>状态</th>
 					<td><span id="spp37"></span></td>
 					<td><span id="spp38"></span></td>
 					<td><span id="spp39"></span></td>
@@ -126,6 +132,7 @@
 			<strong style="color:coral">扫描器状态</strong>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
+					<th>名称</th>
 					<td>nmap</td>
 					<td>nuclei</td>
 					<td>xray</td>
@@ -138,6 +145,7 @@
 				</tr>
 
 				<tr>
+					<th>状态</th>
 					<td><span id="spp1"></span></td>
 					<td><span id="spp2"></span></td>
 					<td><span id="spp3"></span></td>
@@ -153,6 +161,7 @@
 			<br>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
+					<th>名称</th>
 					<td>afrog</td>
 					<td>fscan</td>
 					<td>shiro</td>
@@ -163,6 +172,7 @@
 					<td>urlfinder</td>
 				</tr>
 				<tr>
+					<th>状态</th>
 					<td><span id="spp10"></span></td>
 					<td><span id="spp11"></span></td>
 					<td><span id="spp12"></span></td>
@@ -178,6 +188,7 @@
 			<strong style="color:coral">重点资产数量</strong>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
+					<th>资产名称</th>
 					<td>shiro</td>
 					<td>springboot</td>
 					<td>struts2</td>
@@ -187,8 +198,24 @@
 					<td>wordpress</td>
 					<td>jboss</td>
 					<td>phpmyadmin</td>
+					<td>thinkphp</td>
+				</tr>
+				<!-- 规则名称 -->
+				<tr>
+					<th>规则名称</th>
+					<td>Shiro</td>
+					<td>spring-boot</td>
+					<td>Struts2</td>
+					<td>Weblogic</td>
+					<td>宝塔-BT</td>
+					<td>若依</td>
+					<td>WordPress</td>
+					<td>Jboss</td>
+					<td>phpMyAdmin</td>
+					<td>ThinkPHP</td>
 				</tr>
 				<tr>
+					<th>资产数量</th>
 					<td><span id="spp16"></span></td>
 					<td><span id="spp17"></span></td>
 					<td><span id="spp21"></span></td>
@@ -198,6 +225,7 @@
 					<td><span id="spp22"></span></td>
 					<td><span id="spp25"></span></td>
 					<td><span id="spp34"></span></td>
+					<td><span id="spp42"></span></td>
 				</tr>
 			</table><br>
 			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50"
@@ -651,8 +679,7 @@
 ⑤. 识别重点资产：过滤网站指纹识别后的数据，过滤规则在系统管理模块下的筛选规则处添加；
 ⑥. 资产去重：资产去重处理、提取url为IP组成的资产并去重；
 ⑦. 编辑资产：异步获取上传到服务器的资产回显到文本框进行编辑；
-⑧. 回退资产：回退到未经处理前的资产；
-										</textarea>
+⑧. 回退资产：回退到未经处理前的资产；										</textarea>
 									</td>
 								</tr>
 

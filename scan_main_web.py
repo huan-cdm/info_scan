@@ -2,7 +2,7 @@
 Description:[主系统]
 Author:[huan666]
 Date:[2023/11/15]
-update:[2024/7/12]
+update:[2024/8/4]
 '''
 from flask import Flask, render_template,request
 from flask import session
@@ -35,6 +35,7 @@ from config import struts2_rule
 from config import WordPress_rule
 from config import jboss_rule
 from config import phpMyAdmin_rule
+from config import ThinkPHP_rule
 from config import finger_list
 from config  import rule_options
 from config import dict
@@ -427,6 +428,7 @@ def systemmanagement():
         WordPress_num = basic.key_point_assets_num(WordPress_rule)
         jboss_num = basic.key_point_assets_num(jboss_rule)
         phpmyadmin_num = basic.key_point_assets_num(phpMyAdmin_rule)
+        ThinkPHP_num = basic.key_point_assets_num(ThinkPHP_rule)
 
         # cpu占用率
         cpu_percent = psutil.cpu_percent(interval=1)
@@ -512,7 +514,8 @@ def systemmanagement():
             "dirsub_sys_status":dirsub_sys_status,
             "xray_report_status":xray_report_status,
             "urlfinder_report_status":urlfinder_report_status,
-            "afrog_report_status":afrog_report_status
+            "afrog_report_status":afrog_report_status,
+            "ThinkPHP_num":ThinkPHP_num
 
         }
         return jsonify(message_json)

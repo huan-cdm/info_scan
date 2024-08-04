@@ -269,7 +269,8 @@ case "${1}" in
     #存活检测状态码为200
     survivaldetection)
     /TIP/info_scan/httpx_server/httpx -l /TIP/batch_scan_domain/url.txt -mc 200 > /TIP/batch_scan_domain/url_tmp.txt
-    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+    # 删除空行
+    sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt > /TIP/batch_scan_domain/url.txt
     ;;
 
     #urlfinder引擎启动脚本

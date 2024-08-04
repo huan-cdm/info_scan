@@ -205,27 +205,41 @@ function historyurlpreviewfunc() {
 
 //文本框内容展示
 function textinfoshowfunc() {
-    $.ajax({
-        url: '/textareashowinterface/',
-        method: 'GET',
-        success: function (info) {
 
-            $('#opbyid3').empty();
-            for (var i = 0; i < info.textvalue.length; i++) {
-                $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
+    // 定义一个函数来处理AJAX请求
+    function fetchData() {
+        $.ajax({
+            url: '/textareashowinterface/',
+            method: 'GET',
+            success: function (info) {
+    
+                $('#opbyid3').empty();
+                for (var i = 0; i < info.textvalue.length; i++) {
+                    $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
+                }
+                document.getElementById("span1").innerHTML = info.url_num;
+            },
+            error: function () {
+                alert('出现内部错误')
+    
+            },
+            complete: function () {
+    
             }
-            document.getElementById("span1").innerHTML = info.url_num;
-        },
-        error: function () {
-            alert('出现内部错误')
+        })
+    }
 
-        },
-        complete: function () {
+    // 调用fetchData函数初始化显示
+    fetchData();
 
-        }
-    })
-
+    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
+    var intervalId = setInterval(fetchData, 5000);
 }
+
+// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
+window.addEventListener("beforeunload", function() {
+    clearInterval(intervalId);
+});
 
 
 //xray报告预览
@@ -1072,6 +1086,7 @@ function openModal() {
             document.getElementById("spp39").innerHTML = info.xray_report_status;
             document.getElementById("spp40").innerHTML = info.urlfinder_report_status;
             document.getElementById("spp41").innerHTML = info.afrog_report_status;
+            document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
             });
     }
 
