@@ -547,15 +547,14 @@ function filterstatuscodefunc() {
         url: '/filterstatuscodebyhttpx/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            console.log('存活检测成功点击文本查看最新数据')
+        success: function (info) {
+            alert(info.httpx_status_result)
         },
         error: function () {
-            alert('存活检测出现错误')
+            alert('出现内部错误')
         },
         complete: function () {
-            alert('存活检测成功点击文本查看最新数据')
+            
         }
     })
 }

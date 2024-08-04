@@ -366,7 +366,7 @@ def startnuclei():
         basic.vuln_scan_status_update('已完成nuclei漏洞扫描')
         nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
         if "running" in nucleitatus:
-            nuclei_status_result = "nuclei扫描程序正在运行中稍后再开启扫描"
+            nuclei_status_result = "nuclei扫描程序正在运行中请勿重复提交"
         else:
             poc_dir = request.form['poc_dir']
             if int(history_switch) == 0:
@@ -585,11 +585,22 @@ def filterstatuscodebyhttpx():
     if str(user) == main_username:
         # 筛选后资产时间线更新
         basic.assets_status_update('存活检测已完成')
-        try:
-            os.popen('bash ./finger.sh survivaldetection')
-            return render_template('dirsearchscan.html')
-        except Exception as e:
-            print("捕获到异常:", e)
+        httpx_status = os.popen('bash ./finger.sh httpx_status').read()
+        if "running" in httpx_status:
+            httpx_status_result = "httpx存活检测程序正在运行中请勿重复提交"
+        else:
+            try:
+                os.popen('bash ./finger.sh survivaldetection')
+                if "running" in httpx_status:
+                    httpx_status_result = "httpx存活检测程序已开启稍后查看结果"
+                else:
+                    httpx_status_result = "httpx存活检测程序正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "httpx_status_result":httpx_status_result
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
@@ -602,7 +613,7 @@ def starturlfinderinterface():
         basic.vuln_scan_status_update('已完成urlfinder链接扫描')
         urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
         if "running" in urlfinder_status:
-            urlfinder_status_result = "urlfinder扫描程序正在运行中稍后再开启扫描"
+            urlfinder_status_result = "urlfinder扫描程序正在运行中请勿重复提交"
         else:
             try:
                 os.popen('bash ./finger.sh urlfinder_start')
@@ -735,7 +746,7 @@ def weblogicscaninterface():
         basic.vuln_scan_status_update('已完成weblogic漏洞扫描')
         weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
         if "running" in weblogic_status:
-            weblogic_status_result = "weblogic扫描程序正在运行中稍后再开启扫描"
+            weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
         else:
 
             # 遍历目标文件存入列表
@@ -794,7 +805,7 @@ def struts2_poc_scan():
         basic.vuln_scan_status_update('已完成struts2漏洞扫描')
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
         if "running" in struts2status:
-            struts2status_result = "struts2扫描程序正在运行中稍后再开启扫描"
+            struts2status_result = "struts2扫描程序正在运行中请勿重复提交"
         else:
             # 执行poc扫描
             os.popen('bash ./finger.sh struts2_poc_scan')
@@ -863,7 +874,7 @@ def ehole_finger_scan():
         basic.vuln_scan_status_update('已完成ehole指纹识别扫描')
         finger_status = os.popen('bash ./finger.sh ehole_status').read()
         if "running" in finger_status:
-            finger_status_result = "EHole程序正在运行中稍后再开启扫描"
+            finger_status_result = "EHole程序正在运行中请勿重复提交"
         else:
             # 执行指纹识别扫描
             os.popen('bash ./finger.sh ehole_finger_scan')
@@ -891,7 +902,7 @@ def bbscan_info_scan():
         bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
 
         if "running" in bbscan_status1:
-            bbscan_status_result = "敏感信息扫描程序正在运行中稍后再开启扫描"
+            bbscan_status_result = "敏感信息扫描程序正在运行中请勿重复提交"
 
         else:
             os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
@@ -1020,7 +1031,7 @@ def startvulmapinterface():
         vulnname = request.form['vulnname']
         vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
         if "running" in vulmapscanstatus:
-            vummap_scan_result = "vulmap扫描程序正在运行中稍后再开启扫描"
+            vummap_scan_result = "vulmap扫描程序正在运行中请勿重复提交"
         else:
             try:
                 os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
@@ -1050,7 +1061,7 @@ def startbatchnmapscan():
         basic.vuln_scan_status_update('已完成nmap端口扫描')
         namptatus = os.popen('bash ./finger.sh nmapstatus').read()
         if "running" in namptatus:
-            nmap_status_result = "nmap正在运行中稍后再开启扫描"
+            nmap_status_result = "nmap正在运行中请勿重复提交"
         
         else:
 
@@ -1133,7 +1144,7 @@ def startafrogscanprocess():
         basic.vuln_scan_status_update('已完成afrog漏洞扫描')
         afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
         if "running" in afrogscanstatus:
-            start_afrog_result = "afrog正在运行中稍后再开启扫描"
+            start_afrog_result = "afrog正在运行中请勿重复提交"
         else:
             try:
                 os.popen('bash ./finger.sh startafrogprocess')
@@ -1287,7 +1298,7 @@ def startfcsaninterface():
     
         fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
         if "running" in fscanstatus:
-            fscan_status_result = "fscan扫描程序正在运行中稍后再开启扫描"
+            fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
         else:
             try:
                 basic.batch_fscan_interface()
@@ -1365,7 +1376,7 @@ def startshirointerface():
         basic.vuln_scan_status_update('已完成shiro漏洞扫描')
         shiro_status = os.popen('bash ./finger.sh shiro_status').read()
         if "running" in shiro_status:
-            shiro_status_result = "shiro扫描程序正在运行中稍后再开启扫描"
+            shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
         else:
             try:
                 basic.shiro_scan()
@@ -1477,7 +1488,7 @@ def start_springboot_vuln_scan():
         basic.vuln_scan_status_update('已完成springboot漏洞扫描')
         springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
         if "running" in springboot_scan_status:
-            springboot_scan_status_result = "springboot扫描程序正在运行中稍后再开启扫描"
+            springboot_scan_status_result = "springboot扫描程序正在运行中请勿重复提交"
         else:
             try:
                 os.popen('bash /TIP/info_scan/finger.sh start_springboot')
@@ -1558,7 +1569,7 @@ def start_hydra_interface():
         hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
 
         if "running" in hydra_scan_status:
-            hydra_scan_result = "hydra扫描程序正在运行中稍后再开启扫描"
+            hydra_scan_result = "hydra扫描程序正在运行中请勿重复提交"
         else:
             basic.start_hydra_lib(hydrapart)
             hydra_scan_result = "hydra扫描程序已开启稍后查看扫描结果"
@@ -1892,7 +1903,7 @@ def one_click_scan():
             # 开启shiro
             shiro_status = os.popen('bash ./finger.sh shiro_status').read()
             if "running" in shiro_status:
-                shiro_status_result = "shiro扫描程序正在运行中稍后再开启扫描"
+                shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
             else:
                 try:
                     basic.shiro_scan()
@@ -1912,7 +1923,7 @@ def one_click_scan():
             # 开启springboot
             springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
             if "running" in springboot_scan_status:
-                springboot_status_result = "springboot扫描程序正在运行中稍后再开启扫描"
+                springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
             else:
                 try:
                     os.popen('bash /TIP/info_scan/finger.sh start_springboot')
@@ -1932,7 +1943,7 @@ def one_click_scan():
             # 开启struts2
             struts2status = os.popen('bash ./finger.sh struts2_status').read()
             if "running" in struts2status:
-                struts2_status_result = "struts2扫描程序正在运行中稍后再开启扫描"
+                struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
             else:
                 try:
                     os.popen('bash ./finger.sh struts2_poc_scan')
@@ -1953,7 +1964,7 @@ def one_click_scan():
             # 开启weblogic
             weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
             if "running" in weblogic_status:
-                weblogic_status_result = "weblogic扫描程序正在运行中稍后再开启扫描"
+                weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
             else:
     
                 # 遍历目标文件存入列表
