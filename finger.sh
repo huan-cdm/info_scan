@@ -819,4 +819,22 @@ case "${1}" in
 	fi
     ;;
 
+
+    # thinkphp漏洞扫描
+    thinkphp_vuln_scan)
+    python3 /TIP/info_scan/TPscan/TPscan.py -u $2 >>  /TIP/info_scan/result/thinkphp_vuln.txt
+    ;;
+
+
+    # TPscan运行状态
+    TPscan_status)
+	ps_tpscan=`ps -aux | grep TPscan.py | wc -l`
+	if (( $ps_tpscan > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+	;;
+
 esac

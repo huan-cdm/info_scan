@@ -397,6 +397,10 @@ function startbutton() {
     button64.disabled = false;
     var button65 = document.getElementById("button65");
     button65.disabled = false;
+    var button66 = document.getElementById("button66");
+    button66.disabled = false;
+    var button67 = document.getElementById("button67");
+    button67.disabled = false;
 
 
 }
@@ -523,6 +527,11 @@ function stopbutton() {
     button64.disabled = true;
     var button65 = document.getElementById("button65");
     button65.disabled = true;
+    var button66 = document.getElementById("button66");
+    button66.disabled = true;
+    var button67 = document.getElementById("button67");
+    button67.disabled = true;
+
 
 }
 
@@ -1087,6 +1096,7 @@ function openModal() {
             document.getElementById("spp40").innerHTML = info.urlfinder_report_status;
             document.getElementById("spp41").innerHTML = info.afrog_report_status;
             document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
+            document.getElementById("spp43").innerHTML = info.thinkphpstatus;
             });
     }
 
@@ -1625,134 +1635,209 @@ function one_click_preview_all_report_finc() {
 }
 
 
-// 操作按钮提示语
+// 操作按钮提示语，延迟0.5秒显示和隐藏
 function caozuo1func() {
+    setTimeout(function() {
     var tishisp1 = document.getElementById("tishisp1");
     tishisp1.style.display = "block";
+    }, 500);
 }
 
 function caozuo11func() {
+    setTimeout(function() {
     var tishisp1 = document.getElementById("tishisp1");
     tishisp1.style.display = "none";
+    }, 500); 
 }
 
 
 function caozuo2func() {
+    setTimeout(function() {
     var tishisp2 = document.getElementById("tishisp2");
     tishisp2.style.display = "block";
+    }, 500); 
 }
 
 function caozuo22func() {
+    setTimeout(function() {
     var tishisp2 = document.getElementById("tishisp2");
     tishisp2.style.display = "none";
+    }, 500); 
 }
 
 function caozuo3func() {
+    setTimeout(function() {
     var tishisp3 = document.getElementById("tishisp3");
     tishisp3.style.display = "block";
+    }, 500); 
 }
 
 function caozuo33func() {
+    setTimeout(function() {
     var tishisp3 = document.getElementById("tishisp3");
     tishisp3.style.display = "none";
+    }, 500); 
 }
 
 function caozuo4func() {
+    setTimeout(function() {
     var tishisp4 = document.getElementById("tishisp4");
     tishisp4.style.display = "block";
+    }, 500); 
 }
 
 function caozuo44func() {
+    setTimeout(function() {
     var tishisp4 = document.getElementById("tishisp4");
     tishisp4.style.display = "none";
+    }, 500); 
 }
 
 
 function caozuo5func() {
+    setTimeout(function() {
     var tishisp5 = document.getElementById("tishisp5");
     tishisp5.style.display = "block";
+    }, 500); 
 }
 
 function caozuo55func() {
+    setTimeout(function() {
     var tishisp5 = document.getElementById("tishisp5");
     tishisp5.style.display = "none";
+    }, 500);
 }
 
 function caozuo6func() {
+    setTimeout(function() {
     var tishisp6 = document.getElementById("tishisp6");
     tishisp6.style.display = "block";
+    }, 500);
 }
 
 function caozuo66func() {
+    setTimeout(function() {
     var tishisp6 = document.getElementById("tishisp6");
     tishisp6.style.display = "none";
+    }, 500);
 }
 
 function caozuo7func() {
+    setTimeout(function() {
     var tishisp7 = document.getElementById("tishisp7");
     tishisp7.style.display = "block";
+    }, 500);
 }
 
 function caozuo77func() {
+    setTimeout(function() {
     var tishisp7 = document.getElementById("tishisp7");
     tishisp7.style.display = "none";
+    }, 500);
 }
 
 function caozuo8func() {
+    setTimeout(function() {
     var tishisp8 = document.getElementById("tishisp8");
     tishisp8.style.display = "block";
+    }, 500);    
 }
 
 function caozuo88func() {
+    setTimeout(function() {
     var tishisp8 = document.getElementById("tishisp8");
     tishisp8.style.display = "none";
+    }, 500); 
 }
 
 
 function caozuo9func() {
+    setTimeout(function() {
     var tishisp9 = document.getElementById("tishisp9");
     tishisp9.style.display = "block";
+    }, 500); 
 }
 
 function caozuo99func() {
+    setTimeout(function() {
     var tishisp9 = document.getElementById("tishisp9");
     tishisp9.style.display = "none";
+    }, 500); 
 }
 
 
 function caozuo9afunc() {
+    setTimeout(function() {
     var tishisp9a = document.getElementById("tishisp9a");
     tishisp9a.style.display = "block";
+    }, 500); 
 }
 
 function caozuo99afunc() {
+    setTimeout(function() {
     var tishisp9a = document.getElementById("tishisp9a");
     tishisp9a.style.display = "none";
+    }, 500);
 }
 
 
 function caozuo9bfunc() {
+    setTimeout(function() {
     var tishisp9b = document.getElementById("tishisp9b");
     tishisp9b.style.display = "block";
+    }, 500);
 }
 
 function caozuo99bfunc() {
+    setTimeout(function() {
     var tishisp9b = document.getElementById("tishisp9b");
     tishisp9b.style.display = "none";
+    }, 500);    
 }
 
 function caozuo9cfunc() {
+    setTimeout(function() {
     var tishisp9c = document.getElementById("tishisp9c");
     tishisp9c.style.display = "block";
+    }, 500);  
 }
 
 function caozuo99cfunc() {
+    setTimeout(function() {
     var tishisp9c = document.getElementById("tishisp9c");
     tishisp9c.style.display = "none";
+    }, 500);
 }
 
 // 文本框重置
 function textareachongzhifunc(){
     var myTextarea = document.getElementById("myTextarea");
     myTextarea.value = "";
+}
+
+
+//thinkphp漏洞扫描
+function startthinkphpscanfunc() {
+    $.ajax({
+        url: '/starttpscaninterface/',
+        method: 'GET',
+
+        success: function (info) {
+            alert(info.thinkphp_status_result)
+
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+//thinkphp报告预览
+function thinkphp_report_show_func() {
+
+    window.open("/thinkphp_poc_report/");
 }

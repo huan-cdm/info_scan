@@ -170,6 +170,7 @@
 					<td>httpx</td>
 					<td>hydra</td>
 					<td>urlfinder</td>
+					<td>thinkphp</td>
 				</tr>
 				<tr>
 					<th>状态</th>
@@ -181,6 +182,7 @@
 					<td><span id="spp13"></span></td>
 					<td><span id="spp29"></span></td>
 					<td><span id="spp30"></span></td>
+					<td><span id="spp43"></span></td>
 				</tr>
 			</table>
 			<br><br>
@@ -367,8 +369,8 @@
 		</div>
 	</div>
 	<h3>漏洞管理</h3>
-	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2">展开</h3>
-		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none;">收起</h5>
+	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
+		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
 		<div style="display:none;" id="vulnid1">
 			<table border="1">
 				<tr>
@@ -530,6 +532,7 @@
 						<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
 						<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled>
 					</td>
+					
 				</tr>
 
 				<tr>
@@ -545,6 +548,9 @@
 						<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
 
 					</td>
+
+					
+
 				</tr>
 				<tr>
 					<td>
@@ -603,13 +609,18 @@
 							disabled>
 						<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()" disabled>
 					</td>
-					
+					<td>
+						<input type="submit"  value="thinkphp_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button"  id="button66"  value="预览报告" onclick="thinkphp_report_show_func()" disabled>
+						<input type="button"  id="button67"  value="启动程序" onclick="startthinkphpscanfunc()" disabled>
+
+					</td>
 				</tr>
 			</table>
 		</div>
 		<h3>资产管理</h3>
-		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2">展开</h3>
-			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;">收起</h5>
+		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;">展开</h3>
+			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;">收起</h5>
 			<div style="display:none;" id="assetid1">
 				<table border="1">
 					<tr>

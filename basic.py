@@ -877,3 +877,16 @@ def disk_read_write():
         print("捕获到异常:", e)
     tuple_list = [read_speed_kb_per_sec,write_speed_kb_per_sec]
     return tuple_list
+
+
+# thinkphp漏洞扫描
+def thinkphp_scan():
+    # 清空上一次扫描结果
+    os.popen('rm -rf /TIP/info_scan/result/thinkphp_vuln.txt')
+    # 遍历url列表
+    url_list = url_file_ip_list()
+    try:
+        for i in url_list:
+            os.popen('bash /TIP/info_scan/finger.sh thinkphp_vuln_scan'+' '+str(i)+'')
+    except Exception as e:
+        print("捕获到异常:", e)

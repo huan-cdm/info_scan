@@ -413,7 +413,7 @@ def systemmanagement():
         springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
         hydrastatus = os.popen('bash ./finger.sh hydra_status').read()
         urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
-
+        thinkphpstatus = os.popen('bash ./finger.sh TPscan_status').read()
         # 目标url行数
         url_file_num = os.popen('bash ./finger.sh url_file_num').read()
 
@@ -515,7 +515,8 @@ def systemmanagement():
             "xray_report_status":xray_report_status,
             "urlfinder_report_status":urlfinder_report_status,
             "afrog_report_status":afrog_report_status,
-            "ThinkPHP_num":ThinkPHP_num
+            "ThinkPHP_num":ThinkPHP_num,
+            "thinkphpstatus":thinkphpstatus
 
         }
         return jsonify(message_json)
@@ -1880,6 +1881,52 @@ def delete_point_rule_interface():
 
         return jsonify(message_json)
     
+    else:
+        return render_template('login.html')
+
+
+
+
+#启动tpscan程序
+@app.route("/starttpscaninterface/")
+def starttpscaninterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成thinkphp漏洞扫描')
+        tpscan_status = os.popen('bash ./finger.sh TPscan_status').read()
+        if "running" in tpscan_status:
+            thinkphp_status_result = "thinkphp扫描程序正在运行中请勿重复提交"
+        else:
+            try:
+                basic.thinkphp_scan()
+                if "running" in tpscan_status:
+                    thinkphp_status_result = "thinkphp扫描程序已开启稍后查看结果"
+                else:
+                    thinkphp_status_result = "thinkphp扫描程序正在后台启动中......"
+ 
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "thinkphp_status_result":thinkphp_status_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+
+#thinkphp_poc扫描结果预览
+@app.route("/thinkphp_poc_report/")
+def thinkphp_poc_report():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('/TIP/info_scan/result/thinkphp_vuln.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
     else:
         return render_template('login.html')
 

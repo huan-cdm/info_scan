@@ -125,11 +125,20 @@ def report_xlsx():
 
 
     # hydra弱口令
-     
     hydra_report_list = []
     hydra_file = open("/TIP/info_scan/result/hydra_result.txt",encoding='utf-8')
     for hydra_line in hydra_file.readlines():
-        hydra_report_list.append(hydra_line.strip())   
+        hydra_report_list.append(hydra_line.strip())
+    
+
+    # thinkphp
+    thinkphp_report_list = []
+    thinkphp_file = open("/TIP/info_scan/result/thinkphp_vuln.txt",encoding='utf-8')
+    for thinkphp_line in thinkphp_file.readlines():
+        thinkphp_report_list.append(thinkphp_line.strip())
+
+
+    
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -149,6 +158,8 @@ def report_xlsx():
     df_o = pd.DataFrame(filtered_list_new, columns=['shiro'])
     df_p = pd.DataFrame(springboot_report_list, columns=['springboot'])
     df_r = pd.DataFrame(hydra_report_list, columns=['hydra'])
+    df_s = pd.DataFrame(thinkphp_report_list, columns=['thinkphp'])
+
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -170,3 +181,4 @@ def report_xlsx():
         df_o.to_excel(writer, sheet_name='shiro', index=False)
         df_p.to_excel(writer, sheet_name='springboot', index=False)
         df_r.to_excel(writer, sheet_name='hydra', index=False)
+        df_s.to_excel(writer, sheet_name='thinkphp', index=False)
