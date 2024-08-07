@@ -1841,3 +1841,504 @@ function thinkphp_report_show_func() {
 
     window.open("/thinkphp_poc_report/");
 }
+
+
+// 查询fofa语法
+function xianshipointfunc() {
+    var pointid1 = document.getElementById("pointid1");
+    pointid1.style.display = "block";
+
+    var spanpointvalue = $('select[name="spanpointvalue"]').val();
+    if (spanpointvalue == 1) {
+    
+        var point1 = document.getElementById("point1");
+        point1.style.display = "block";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+
+    } else if (spanpointvalue == 2) {
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "block";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+
+    } else if (spanpointvalue == 3) {
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "block";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+        
+    } else if (spanpointvalue == 4){
+       
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "block";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    } else if (spanpointvalue == 6){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "block";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+
+    }else if (spanpointvalue == 7){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "block";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    }else if (spanpointvalue == 8){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "block";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    }else if (spanpointvalue == 9){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "block";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    }else if (spanpointvalue == 10){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "block";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    }else if (spanpointvalue == 11){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "block";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    }else if (spanpointvalue == 12){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "block";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+    }else if (spanpointvalue == 13){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "block";
+    }
+    else {
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "block";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+      }
+}
+
+
+function guanbipointfunc() {
+        var point1 = document.getElementById("point1");
+        point1.style.display = "block";
+
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+}

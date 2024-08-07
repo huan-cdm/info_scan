@@ -15,6 +15,10 @@
 		    -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 		}
 
+		table{
+			height:10px;
+			width: 10px;
+		}
 
 		input[type="submit"] {
 		    background-color:rgb(32, 178, 171);
