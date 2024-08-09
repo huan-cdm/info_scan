@@ -231,7 +231,6 @@ function textinfoshowfunc() {
 
     // 调用fetchData函数初始化显示
     fetchData();
-
     // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
     var intervalId = setInterval(fetchData, 5000);
 }
@@ -861,7 +860,9 @@ function batchnmapportscanfunc() {
 
 //目标url的值赋值给 textarea 文本框
 function targeturlcopytextareafunc() {
-    $.ajax({
+    // 定义一个函数来处理AJAX请求
+    function fetchData() {
+        $.ajax({
         url: '/url_list_textarea_show/',
         method: 'GET',
         success: function (info) {
@@ -884,7 +885,19 @@ function targeturlcopytextareafunc() {
 
         }
     })
+    }
+
+    // 调用fetchData函数初始化显示
+    fetchData();
+    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
+    var intervalId = setInterval(fetchData, 5000);
 }
+
+// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
+window.addEventListener("beforeunload", function() {
+    clearInterval(intervalId);
+});
+
 
 
 //afrog报告预览
@@ -1294,11 +1307,13 @@ function killbbscanfunc() {
 //通过fofa收集资产
 function fofa_search_assets_func() {
     var part = document.getElementById("inputfofaid").value;
+    var num_fofa = $('select[name="num_fofa"]').val();
     $.ajax({
         url: '/fofa_search_assets_service/',
         method: 'POST',
         data: {
-            part: part
+            part: part,
+            num_fofa:num_fofa
         },
         success: function (info) {
             // 当请求成功时调用  

@@ -1521,6 +1521,7 @@ def fofa_search_assets_service():
         basic.assets_status_update('通过fofa平台获取资产完成')
 
         part = request.form['part']
+        num_fofa = request.form['num_fofa']
         if '' in  part:
             asset_len_list = "输入参数不能为空"
 
@@ -1530,7 +1531,7 @@ def fofa_search_assets_service():
         if 'alert' in part or 'select' in part or '<' in part or '>' in part or 'union' in part:
             asset_len_list = "请勿进行安全测试！"
         else:
-            asset_len_list_1 = basic.fofa_search_assets_service_lib(part)
+            asset_len_list_1 = basic.fofa_search_assets_service_lib(part,num_fofa)
             asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
         message_json = {
             "asset_len_list":asset_len_list

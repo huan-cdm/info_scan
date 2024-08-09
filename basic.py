@@ -647,12 +647,12 @@ def key_point_assets_file(assets_finger_list):
 
 
 # fofa资产发现
-def fofa_search_assets_service_lib(parameter):
+def fofa_search_assets_service_lib(parameter,num_fofa):
 
     fofa_first_argv_utf8 = parameter.encode('utf-8')
     fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
     fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
-    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+fofanum+"&qbase64="
+    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+num_fofa+"&qbase64="
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
