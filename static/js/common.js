@@ -50,13 +50,13 @@ function deletenmapfunc() {
 
 //xray报告预览
 function xrayreportshow() {
-    window.open(ipvalue+":18888/", "_blank");
+    window.open(ipvalue + ":18888/", "_blank");
 }
 
 
 //urlfinder报告预览
 function urlfinderreportshow() {
-    window.open(ipvalue+":16666/", "_blank");
+    window.open(ipvalue + ":16666/", "_blank");
 }
 
 
@@ -180,20 +180,40 @@ function historyurlfunc() {
     $.ajax({
         url: '/historyshow/',
         method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('正在调用威胁情报网站OTX查询稍后点击OTX预览查看结果')
+        success: function (info) {
+            alert(info.otx_status_result)
         },
         error: function () {
             alert('出现内部错误')
 
         },
         complete: function () {
-            alert('正在调用威胁情报网站OTX查询稍后点击OTX预览查看结果')
+
         }
     })
 
 }
+
+
+
+
+//ajax异步关闭otx历史url查询接口
+function killotxhistory_func() {
+    $.ajax({
+        url: '/killotxhistory/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_otx_url_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 
 
 //历史url预览
@@ -212,7 +232,7 @@ function textinfoshowfunc() {
             url: '/textareashowinterface/',
             method: 'GET',
             success: function (info) {
-    
+
                 $('#opbyid3').empty();
                 for (var i = 0; i < info.textvalue.length; i++) {
                     $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
@@ -221,10 +241,10 @@ function textinfoshowfunc() {
             },
             error: function () {
                 alert('出现内部错误')
-    
+
             },
             complete: function () {
-    
+
             }
         })
     }
@@ -236,7 +256,7 @@ function textinfoshowfunc() {
 }
 
 // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function() {
+window.addEventListener("beforeunload", function () {
     clearInterval(intervalId);
 });
 
@@ -537,7 +557,7 @@ function stopbutton() {
 
 //跳转到目录扫描页面
 function jumpdirscanpage() {
-    window.open(ipvalue+":17777/dirscanpage/", "_blank");
+    window.open(ipvalue + ":17777/dirscanpage/", "_blank");
 }
 
 
@@ -576,7 +596,7 @@ function filterstatuscodefunc() {
             alert('出现内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -863,28 +883,28 @@ function targeturlcopytextareafunc() {
     // 定义一个函数来处理AJAX请求
     function fetchData() {
         $.ajax({
-        url: '/url_list_textarea_show/',
-        method: 'GET',
-        success: function (info) {
-            // 假设info.textvalue是一个数组  
-            var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+            url: '/url_list_textarea_show/',
+            method: 'GET',
+            success: function (info) {
+                // 假设info.textvalue是一个数组  
+                var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
 
-            // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
-            for (var i = 0; i < info.textvalue.length; i++) {
-                textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
+                // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+                for (var i = 0; i < info.textvalue.length; i++) {
+                    textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
+                }
+
+                // 将textAreaContent的内容赋值给textarea  
+                $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+            },
+            error: function () {
+
+
+            },
+            complete: function () {
+
             }
-
-            // 将textAreaContent的内容赋值给textarea  
-            $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
-        },
-        error: function () {
-
-
-        },
-        complete: function () {
-
-        }
-    })
+        })
     }
 
     // 调用fetchData函数初始化显示
@@ -894,7 +914,7 @@ function targeturlcopytextareafunc() {
 }
 
 // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function() {
+window.addEventListener("beforeunload", function () {
     clearInterval(intervalId);
 });
 
@@ -902,7 +922,7 @@ window.addEventListener("beforeunload", function() {
 
 //afrog报告预览
 function afrogreportfun() {
-    window.open(ipvalue+":15555/", "_blank");
+    window.open(ipvalue + ":15555/", "_blank");
 }
 
 
@@ -1067,49 +1087,50 @@ function openModal() {
     function fetchData() {
         $.getJSON("/systemmanagement/",
             function (info) {
-            document.getElementById("spp1").innerHTML = info.nmapstatus;
-            document.getElementById("spp2").innerHTML = info.nucleistatus;
-            document.getElementById("spp3").innerHTML = info.xraystatus;
-            document.getElementById("spp4").innerHTML = info.radstatus;
-            document.getElementById("spp5").innerHTML = info.dirscanstatus;
-            document.getElementById("spp6").innerHTML = info.weblogicstatus;
-            document.getElementById("spp7").innerHTML = info.struts2status;
-            document.getElementById("spp8").innerHTML = info.bbscanstatus;
-            document.getElementById("spp9").innerHTML = info.vulmapscanstatus;
-            document.getElementById("spp10").innerHTML = info.afrogscanstatus;
-            document.getElementById("spp11").innerHTML = info.fscanstatus;
-            document.getElementById("spp12").innerHTML = info.shirostatus;
-            document.getElementById("spp13").innerHTML = info.httpxstatus;
-            document.getElementById("spp14").innerHTML = info.url_file_num;
-            document.getElementById("spp15").innerHTML = info.eholestatus;
-            document.getElementById("spp16").innerHTML = info.shiro_num;
-            document.getElementById("spp17").innerHTML = info.springboot_num;
-            document.getElementById("spp18").innerHTML = info.weblogic_num;
-            document.getElementById("spp19").innerHTML = info.baota_num;
-            document.getElementById("spp20").innerHTML = info.ruoyi_num;
-            document.getElementById("spp21").innerHTML = info.struts2_num;
-            document.getElementById("spp22").innerHTML = info.WordPress_num;
-            document.getElementById("spp23").innerHTML = info.cpuinfo;
-            document.getElementById("spp24").innerHTML = info.memoryinfo;
-            document.getElementById("spp25").innerHTML = info.jboss_num;
-            document.getElementById("spp26").innerHTML = info.key_asset_rule;
-            document.getElementById("spp27").innerHTML = info.current_key_asset_num;
-            document.getElementById("spp28").innerHTML = info.springbootstatus;
-            document.getElementById("spp29").innerHTML = info.hydrastatus;
-            document.getElementById("spp30").innerHTML = info.urlfinderstatus;
-            document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
-            document.getElementById("spp32").innerHTML = info.assets_status;
-            document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
-            document.getElementById("spp34").innerHTML = info.phpmyadmin_num;
-            document.getElementById("spp35").innerHTML = info.disk_read;
-            document.getElementById("spp36").innerHTML = info.disk_write;
-            document.getElementById("spp37").innerHTML = info.infoinfostatus;
-            document.getElementById("spp38").innerHTML = info.dirsub_sys_status;
-            document.getElementById("spp39").innerHTML = info.xray_report_status;
-            document.getElementById("spp40").innerHTML = info.urlfinder_report_status;
-            document.getElementById("spp41").innerHTML = info.afrog_report_status;
-            document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
-            document.getElementById("spp43").innerHTML = info.thinkphpstatus;
+                document.getElementById("spp1").innerHTML = info.nmapstatus;
+                document.getElementById("spp2").innerHTML = info.nucleistatus;
+                document.getElementById("spp3").innerHTML = info.xraystatus;
+                document.getElementById("spp4").innerHTML = info.radstatus;
+                document.getElementById("spp5").innerHTML = info.dirscanstatus;
+                document.getElementById("spp6").innerHTML = info.weblogicstatus;
+                document.getElementById("spp7").innerHTML = info.struts2status;
+                document.getElementById("spp8").innerHTML = info.bbscanstatus;
+                document.getElementById("spp9").innerHTML = info.vulmapscanstatus;
+                document.getElementById("spp10").innerHTML = info.afrogscanstatus;
+                document.getElementById("spp11").innerHTML = info.fscanstatus;
+                document.getElementById("spp12").innerHTML = info.shirostatus;
+                document.getElementById("spp13").innerHTML = info.httpxstatus;
+                document.getElementById("spp14").innerHTML = info.url_file_num;
+                document.getElementById("spp15").innerHTML = info.eholestatus;
+                document.getElementById("spp16").innerHTML = info.shiro_num;
+                document.getElementById("spp17").innerHTML = info.springboot_num;
+                document.getElementById("spp18").innerHTML = info.weblogic_num;
+                document.getElementById("spp19").innerHTML = info.baota_num;
+                document.getElementById("spp20").innerHTML = info.ruoyi_num;
+                document.getElementById("spp21").innerHTML = info.struts2_num;
+                document.getElementById("spp22").innerHTML = info.WordPress_num;
+                document.getElementById("spp23").innerHTML = info.cpuinfo;
+                document.getElementById("spp24").innerHTML = info.memoryinfo;
+                document.getElementById("spp25").innerHTML = info.jboss_num;
+                document.getElementById("spp26").innerHTML = info.key_asset_rule;
+                document.getElementById("spp27").innerHTML = info.current_key_asset_num;
+                document.getElementById("spp28").innerHTML = info.springbootstatus;
+                document.getElementById("spp29").innerHTML = info.hydrastatus;
+                document.getElementById("spp30").innerHTML = info.urlfinderstatus;
+                document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
+                document.getElementById("spp32").innerHTML = info.assets_status;
+                document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
+                document.getElementById("spp34").innerHTML = info.phpmyadmin_num;
+                document.getElementById("spp35").innerHTML = info.disk_read;
+                document.getElementById("spp36").innerHTML = info.disk_write;
+                document.getElementById("spp37").innerHTML = info.infoinfostatus;
+                document.getElementById("spp38").innerHTML = info.dirsub_sys_status;
+                document.getElementById("spp39").innerHTML = info.xray_report_status;
+                document.getElementById("spp40").innerHTML = info.urlfinder_report_status;
+                document.getElementById("spp41").innerHTML = info.afrog_report_status;
+                document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
+                document.getElementById("spp43").innerHTML = info.thinkphpstatus;
+                document.getElementById("spp44").innerHTML = info.otx_status;
             });
     }
 
@@ -1121,7 +1142,7 @@ function openModal() {
 }
 
 // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function() {
+window.addEventListener("beforeunload", function () {
     clearInterval(intervalId);
 });
 
@@ -1313,7 +1334,7 @@ function fofa_search_assets_func() {
         method: 'POST',
         data: {
             part: part,
-            num_fofa:num_fofa
+            num_fofa: num_fofa
         },
         success: function (info) {
             // 当请求成功时调用  
@@ -1554,7 +1575,7 @@ function add_rule_func() {
         success: function (info) {
             alert(info.result_rule)
         },
-        
+
         error: function (info) {
             alert("内部出错")
         },
@@ -1573,12 +1594,12 @@ function delete_rule_func() {
         method: 'POST',
         data: {
             rule: rule,
-            key:1
+            key: 1
         },
         success: function (info) {
             alert(info.delete_rule)
         },
-        
+
         error: function (info) {
             alert("内部出错")
         },
@@ -1597,12 +1618,12 @@ function delete_rule_all_func() {
         method: 'POST',
         data: {
             rule: rule,
-            key:2
+            key: 2
         },
         success: function (info) {
             alert(info.delete_rule)
         },
-        
+
         error: function (info) {
             alert("内部出错")
         },
@@ -1619,7 +1640,7 @@ function one_click_scan_func() {
         method: 'GET',
 
         success: function (info) {
-            alert(info.shiro_status_result+"\n"+info.springboot_status_result+"\n"+info.struts2_status_result+"\n"+info.weblogic_status_result+"\n")
+            alert(info.shiro_status_result + "\n" + info.springboot_status_result + "\n" + info.struts2_status_result + "\n" + info.weblogic_status_result + "\n")
         },
         error: function () {
             alert('内部出错')
@@ -1644,188 +1665,188 @@ function one_click_preview_all_report_finc() {
     window.open("/shiro_report_show/");
     window.open("/hydra_report_show/");
     window.open("/springboot_report_show/");
-    window.open(ipvalue+":18888/");
-    window.open(ipvalue+":16666/");
-    window.open(ipvalue+":15555/");
+    window.open(ipvalue + ":18888/");
+    window.open(ipvalue + ":16666/");
+    window.open(ipvalue + ":15555/");
 }
 
 
 // 操作按钮提示语，延迟0.5秒显示和隐藏
 function caozuo1func() {
-    setTimeout(function() {
-    var tishisp1 = document.getElementById("tishisp1");
-    tishisp1.style.display = "block";
+    setTimeout(function () {
+        var tishisp1 = document.getElementById("tishisp1");
+        tishisp1.style.display = "block";
     }, 500);
 }
 
 function caozuo11func() {
-    setTimeout(function() {
-    var tishisp1 = document.getElementById("tishisp1");
-    tishisp1.style.display = "none";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp1 = document.getElementById("tishisp1");
+        tishisp1.style.display = "none";
+    }, 500);
 }
 
 
 function caozuo2func() {
-    setTimeout(function() {
-    var tishisp2 = document.getElementById("tishisp2");
-    tishisp2.style.display = "block";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp2 = document.getElementById("tishisp2");
+        tishisp2.style.display = "block";
+    }, 500);
 }
 
 function caozuo22func() {
-    setTimeout(function() {
-    var tishisp2 = document.getElementById("tishisp2");
-    tishisp2.style.display = "none";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp2 = document.getElementById("tishisp2");
+        tishisp2.style.display = "none";
+    }, 500);
 }
 
 function caozuo3func() {
-    setTimeout(function() {
-    var tishisp3 = document.getElementById("tishisp3");
-    tishisp3.style.display = "block";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp3 = document.getElementById("tishisp3");
+        tishisp3.style.display = "block";
+    }, 500);
 }
 
 function caozuo33func() {
-    setTimeout(function() {
-    var tishisp3 = document.getElementById("tishisp3");
-    tishisp3.style.display = "none";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp3 = document.getElementById("tishisp3");
+        tishisp3.style.display = "none";
+    }, 500);
 }
 
 function caozuo4func() {
-    setTimeout(function() {
-    var tishisp4 = document.getElementById("tishisp4");
-    tishisp4.style.display = "block";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp4 = document.getElementById("tishisp4");
+        tishisp4.style.display = "block";
+    }, 500);
 }
 
 function caozuo44func() {
-    setTimeout(function() {
-    var tishisp4 = document.getElementById("tishisp4");
-    tishisp4.style.display = "none";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp4 = document.getElementById("tishisp4");
+        tishisp4.style.display = "none";
+    }, 500);
 }
 
 
 function caozuo5func() {
-    setTimeout(function() {
-    var tishisp5 = document.getElementById("tishisp5");
-    tishisp5.style.display = "block";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp5 = document.getElementById("tishisp5");
+        tishisp5.style.display = "block";
+    }, 500);
 }
 
 function caozuo55func() {
-    setTimeout(function() {
-    var tishisp5 = document.getElementById("tishisp5");
-    tishisp5.style.display = "none";
+    setTimeout(function () {
+        var tishisp5 = document.getElementById("tishisp5");
+        tishisp5.style.display = "none";
     }, 500);
 }
 
 function caozuo6func() {
-    setTimeout(function() {
-    var tishisp6 = document.getElementById("tishisp6");
-    tishisp6.style.display = "block";
+    setTimeout(function () {
+        var tishisp6 = document.getElementById("tishisp6");
+        tishisp6.style.display = "block";
     }, 500);
 }
 
 function caozuo66func() {
-    setTimeout(function() {
-    var tishisp6 = document.getElementById("tishisp6");
-    tishisp6.style.display = "none";
+    setTimeout(function () {
+        var tishisp6 = document.getElementById("tishisp6");
+        tishisp6.style.display = "none";
     }, 500);
 }
 
 function caozuo7func() {
-    setTimeout(function() {
-    var tishisp7 = document.getElementById("tishisp7");
-    tishisp7.style.display = "block";
+    setTimeout(function () {
+        var tishisp7 = document.getElementById("tishisp7");
+        tishisp7.style.display = "block";
     }, 500);
 }
 
 function caozuo77func() {
-    setTimeout(function() {
-    var tishisp7 = document.getElementById("tishisp7");
-    tishisp7.style.display = "none";
+    setTimeout(function () {
+        var tishisp7 = document.getElementById("tishisp7");
+        tishisp7.style.display = "none";
     }, 500);
 }
 
 function caozuo8func() {
-    setTimeout(function() {
-    var tishisp8 = document.getElementById("tishisp8");
-    tishisp8.style.display = "block";
-    }, 500);    
+    setTimeout(function () {
+        var tishisp8 = document.getElementById("tishisp8");
+        tishisp8.style.display = "block";
+    }, 500);
 }
 
 function caozuo88func() {
-    setTimeout(function() {
-    var tishisp8 = document.getElementById("tishisp8");
-    tishisp8.style.display = "none";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp8 = document.getElementById("tishisp8");
+        tishisp8.style.display = "none";
+    }, 500);
 }
 
 
 function caozuo9func() {
-    setTimeout(function() {
-    var tishisp9 = document.getElementById("tishisp9");
-    tishisp9.style.display = "block";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp9 = document.getElementById("tishisp9");
+        tishisp9.style.display = "block";
+    }, 500);
 }
 
 function caozuo99func() {
-    setTimeout(function() {
-    var tishisp9 = document.getElementById("tishisp9");
-    tishisp9.style.display = "none";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp9 = document.getElementById("tishisp9");
+        tishisp9.style.display = "none";
+    }, 500);
 }
 
 
 function caozuo9afunc() {
-    setTimeout(function() {
-    var tishisp9a = document.getElementById("tishisp9a");
-    tishisp9a.style.display = "block";
-    }, 500); 
+    setTimeout(function () {
+        var tishisp9a = document.getElementById("tishisp9a");
+        tishisp9a.style.display = "block";
+    }, 500);
 }
 
 function caozuo99afunc() {
-    setTimeout(function() {
-    var tishisp9a = document.getElementById("tishisp9a");
-    tishisp9a.style.display = "none";
+    setTimeout(function () {
+        var tishisp9a = document.getElementById("tishisp9a");
+        tishisp9a.style.display = "none";
     }, 500);
 }
 
 
 function caozuo9bfunc() {
-    setTimeout(function() {
-    var tishisp9b = document.getElementById("tishisp9b");
-    tishisp9b.style.display = "block";
+    setTimeout(function () {
+        var tishisp9b = document.getElementById("tishisp9b");
+        tishisp9b.style.display = "block";
     }, 500);
 }
 
 function caozuo99bfunc() {
-    setTimeout(function() {
-    var tishisp9b = document.getElementById("tishisp9b");
-    tishisp9b.style.display = "none";
-    }, 500);    
+    setTimeout(function () {
+        var tishisp9b = document.getElementById("tishisp9b");
+        tishisp9b.style.display = "none";
+    }, 500);
 }
 
 function caozuo9cfunc() {
-    setTimeout(function() {
-    var tishisp9c = document.getElementById("tishisp9c");
-    tishisp9c.style.display = "block";
-    }, 500);  
+    setTimeout(function () {
+        var tishisp9c = document.getElementById("tishisp9c");
+        tishisp9c.style.display = "block";
+    }, 500);
 }
 
 function caozuo99cfunc() {
-    setTimeout(function() {
-    var tishisp9c = document.getElementById("tishisp9c");
-    tishisp9c.style.display = "none";
+    setTimeout(function () {
+        var tishisp9c = document.getElementById("tishisp9c");
+        tishisp9c.style.display = "none";
     }, 500);
 }
 
 // 文本框重置
-function textareachongzhifunc(){
+function textareachongzhifunc() {
     var myTextarea = document.getElementById("myTextarea");
     myTextarea.value = "";
 }
@@ -1858,115 +1879,92 @@ function thinkphp_report_show_func() {
 }
 
 
-// 查询fofa语法
+// 漏洞扫描工具集合
 function xianshipointfunc() {
     var pointid1 = document.getElementById("pointid1");
     pointid1.style.display = "block";
 
     var spanpointvalue = $('select[name="spanpointvalue"]').val();
     if (spanpointvalue == 1) {
-    
+
         var point1 = document.getElementById("point1");
         point1.style.display = "block";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
-
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
-
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-
         var point11 = document.getElementById("point11");
         point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
 
     } else if (spanpointvalue == 2) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "block";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
-
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-
         var point11 = document.getElementById("point11");
         point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
 
     } else if (spanpointvalue == 3) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "block";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
-
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
-
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
@@ -1975,36 +1973,29 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        
-    } else if (spanpointvalue == 4){
-       
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+
+    } else if (spanpointvalue == 4) {
+
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "block";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
-
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
-
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
@@ -2013,33 +2004,27 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    } else if (spanpointvalue == 6){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 6) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "block";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
-
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
@@ -2048,26 +2033,22 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
 
-    }else if (spanpointvalue == 7){
+    } else if (spanpointvalue == 7) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "block";
         var point8 = document.getElementById("point8");
@@ -2082,25 +2063,21 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    }else if (spanpointvalue == 8){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 8) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
@@ -2115,25 +2092,21 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    }else if (spanpointvalue == 9){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 9) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
@@ -2148,32 +2121,27 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    }else if (spanpointvalue == 10){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 10) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "block";
         var point11 = document.getElementById("point11");
@@ -2182,32 +2150,27 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    }else if (spanpointvalue == 11){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 11) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
@@ -2216,32 +2179,27 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    }else if (spanpointvalue == 12){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 12) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
@@ -2250,32 +2208,27 @@ function xianshipointfunc() {
         point12.style.display = "block";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-    }else if (spanpointvalue == 13){
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 13) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "none";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
-
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
@@ -2284,31 +2237,55 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "block";
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    } else if (spanpointvalue == 14) {
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+        var point14 = document.getElementById("point14");
+        point14.style.display = "block";
     }
     else {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
-
         var point2 = document.getElementById("point2");
         point2.style.display = "none";
-
         var point3 = document.getElementById("point3");
         point3.style.display = "none";
-
         var point4 = document.getElementById("point4");
         point4.style.display = "none";
-
         var point5 = document.getElementById("point5");
         point5.style.display = "block";
-
         var point6 = document.getElementById("point6");
         point6.style.display = "none";
-
         var point7 = document.getElementById("point7");
         point7.style.display = "none";
         var point8 = document.getElementById("point8");
         point8.style.display = "none";
-
         var point9 = document.getElementById("point9");
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
@@ -2319,41 +2296,39 @@ function xianshipointfunc() {
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-      }
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+    }
 }
 
 
 function guanbipointfunc() {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "block";
-
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
+    var point1 = document.getElementById("point1");
+    point1.style.display = "block";
+    var point2 = document.getElementById("point2");
+    point2.style.display = "none";
+    var point3 = document.getElementById("point3");
+    point3.style.display = "none";
+    var point4 = document.getElementById("point4");
+    point4.style.display = "none";
+    var point5 = document.getElementById("point5");
+    point5.style.display = "none";
+    var point6 = document.getElementById("point6");
+    point6.style.display = "none";
+    var point7 = document.getElementById("point7");
+    point7.style.display = "none";
+    var point8 = document.getElementById("point8");
+    point8.style.display = "none";
+    var point9 = document.getElementById("point9");
+    point9.style.display = "none";
+    var point10 = document.getElementById("point10");
+    point10.style.display = "none";
+    var point11 = document.getElementById("point11");
+    point11.style.display = "none";
+    var point12 = document.getElementById("point12");
+    point12.style.display = "none";
+    var point13 = document.getElementById("point13");
+    point13.style.display = "none";
+    var point14 = document.getElementById("point14");
+    point14.style.display = "none";
 }

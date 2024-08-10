@@ -186,6 +186,33 @@
 				</tr>
 			</table>
 			<br><br>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>名称</th>
+					<td>otx_url</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<th>状态</th>
+					<td><span id="spp44"></span></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			<br><br>
 
 			<strong style="color:coral">关键资产数量</strong>
 			<table border="1" style="width: 1500px; height: 100px;">
@@ -252,13 +279,15 @@
 		</div>
 	</div>
 
-	<h3>IP信息搜索</h3>
+	<h3>IP搜索</h3>
 	<div>
 		<form method="post" action="/ipscaninterface/">
 			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
 				required="required" id="myInput" />
 			<input type="submit" value="搜索">
+			<input type="button"  value="ARCHIVE搜索" onclick="archiveurlshowfunc()">
 		</form>
+		
 	</div>
 	<br>
 
@@ -377,16 +406,16 @@
 					<td>
 						<input type="submit" value="路劲处理：">&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" id="button4" value="路径去重" onclick="uniqdirfunc()" disabled>
-						<input type="button" id="button35" value="子域名预览" onclick="showsubdomainfunc()" disabled>
-						<input type="button" id="button36" value="子域名探测" onclick="subdomainfindfunc()" disabled>
 
 					</td>
 
 					<td>
 						<input type="submit" value="威胁情报：">&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" id="button6" value="OTX查询" onclick="historyurlfunc()" disabled>
-						<input type="button" id="button7" value="OTX预览" onclick="historyurlpreviewfunc()" disabled>
-						<input type="button" id="button8" value="archive查询" onclick="archiveurlshowfunc()" disabled>
+						<input type="button" id="button7" value="报告预览" onclick="historyurlpreviewfunc()" disabled>
+						<input type="button" id="button6" value="启动程序" onclick="historyurlfunc()" disabled>
+						<input type="button" id="button8" value="关闭程序" onclick="killotxhistory_func()" disabled>
+						
+						
 					</td>
 
 					<td>
@@ -424,6 +453,7 @@
 							<option value="11">端口扫描</option>
 							<option value="12">vulmap_poc</option>
 							<option value="13">nuclei_poc</option>
+							<option value="14">子域名</option>
 						</select>
 						<input type="button"  value="显示" onclick="xianshipointfunc()">&nbsp;&nbsp;
 						<input type="button"  value="重置" onclick="guanbipointfunc()">
@@ -502,7 +532,8 @@
 							<input type="button" id="button59" value="预览报告" onclick="hydra_report_show_func()" disabled>
 							<input type="button" id="button60" value="启动程序" onclick="start_hydra_scan_func()" disabled>
 							<input type="button" id="button61" value="关闭程序" onclick="killhydraprocessfunc()" disabled>
-							弱口令参数：&nbsp;&nbsp;
+							<br><br>
+							参数：&nbsp;&nbsp;
 					<select name="hydrapart">
 						<option value="1">mysql</option>
 						<option value="2">ssh</option>
@@ -541,6 +572,7 @@
 							<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
 							<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
 							<input type="button" id="button55" value="关闭程序" onclick="killvulmapfunc()" disabled>
+							<br><br>
 							参数：
 					<select name="vulnname">
 						<option value="all">all</option>
@@ -581,7 +613,7 @@
 							<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
 							<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
 							<input type="button" id="button56" value="关闭程序" onclick="killnucleifunc()" disabled>
-
+							<br><br>
 							参数：&nbsp;&nbsp;
 					<select name="poc_dir">
 						<option value="/root/nuclei-templates/http">http</option>
@@ -626,7 +658,13 @@
 
 					<br>
 					<span id="nucleibyid2"></span>
-						</span>
+					</span>
+
+					<span style="display: none;" id="point14">
+						<input type="submit" value="子域名：">&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" id="button35" value="预览报告" onclick="showsubdomainfunc()" disabled>
+						<input type="button" id="button36" value="启动程序" onclick="subdomainfindfunc()" disabled>
+					</span>
 				</td>
 					<td>
 						

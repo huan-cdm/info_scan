@@ -837,4 +837,35 @@ case "${1}" in
 	fi
 	;;
 
+
+    # 通过otx查询域名绑定的url
+    otx_domain_url_shell)
+    python3 /TIP/info_scan/basic.py otx_domain_url_lib >> /TIP/info_scan/result/otxhistoryurl.txt
+    ;;
+
+
+     # 通过otx查询域名运行状态
+    otx_domain_url_shell_status)
+	ps_otx_domain_url_lib=`ps -aux | grep "otx_domain_url_lib" | wc -l`
+	if (( $ps_otx_domain_url_lib > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+	;;
+
+
+    # 关闭otx_domain_url_shell
+    kill_otx_domain_url_shell)
+	otx_domain_url_shell_pid=`ps -aux | grep "otx_domain_url_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${otx_domain_url_shell_pid}
+	do
+		
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
 esac

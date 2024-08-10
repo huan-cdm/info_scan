@@ -63,7 +63,7 @@ from config import struts2_rule
 # 磁盘读写
 import psutil
 
-
+import sys
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
@@ -890,3 +890,58 @@ def thinkphp_scan():
             os.popen('bash /TIP/info_scan/finger.sh thinkphp_vuln_scan'+' '+str(i)+'')
     except Exception as e:
         print("捕获到异常:", e)
+
+
+# 利用otx网站查询域名绑定url
+def otx_domain_url_lib():
+    UA = UserAgent()
+    try:
+        # url.txt转换为列表
+        url_list = url_file_ip_list()
+        # 提取根域名
+        root_domain_list = root_domain_scan(url_list)
+        # 根域名去重
+        root_domain_list_uniq = list(set(root_domain_list))
+        domain_list_uniq_result = []
+        for i in root_domain_list_uniq:
+            if "cn" in i or "com" in i or "net" in i:
+                domain_list_uniq_result.append(i)
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    
+    for domain in domain_list_uniq_result:
+        print("\n\n")
+        print("[+]"+domain)
+        time.sleep(2)
+        try:
+            url = "https://otx.alienvault.com/api/v1/indicators/domain/" + domain + "/url_list?limit=500&page=1"  
+            headers={
+            'Cookie':'Hm_lvt_ecdd6f3afaa488ece3938bcdbb89e8da=1615729527; Hm_lvt_d39191a0b09bb1eb023933edaa468cd5=1617883004,1617934903,1618052897,1618228943; Hm_lpvt_d39191a0b09bb1eb023933edaa468cd5=1618567746',
+            'Host':'otx.alienvault.com',
+            'User-Agent':UA.random
+            }
+            res = requests.get(url, headers=headers, allow_redirects=False)  
+            res.raise_for_status() 
+            res_json = res.json()
+        
+            data = res_json.get('url_list', [])
+
+            # 打印结果 
+            for item in data:
+                url_text = item.get('url','')
+                print(url_text)
+        except Exception as e:
+            # 出现异常继续下一下
+            print("捕获到异常:", e)
+            continue
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        func_name = sys.argv[1]
+        if func_name == 'otx_domain_url_lib':
+            otx_domain_url_lib()
+        else:
+            print("Invalid function number")
+    else:
+        print("No function number provided")

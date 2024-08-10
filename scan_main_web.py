@@ -235,11 +235,64 @@ def pathuniqpage():
 def historyshow():
     user = session.get('username')
     if str(user) == main_username:
-        os.popen('python3 /TIP/batch_scan_domain/scan_lib.py')
-        return render_template('index.html')
+        # 每次启动前清空上次扫描结果
+        os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
+        os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
+        otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+        if "running" in otx_domain_url_shell_status:
+            otx_status_result = "历史URL查询接口正在运行中请勿重复提交"
+        else:
+            try:
+                os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell')
+                if "running" in otx_domain_url_shell_status:
+                    otx_status_result = "历史URL查询接口已开启稍后查看结果"
+                else:
+                    otx_status_result = "历史URL查询接口正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "otx_status_result":otx_status_result
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
+
+#历史URL预览
+@app.route("/previewhistoryurl/")
+def previewhistoryurl():
+    user = session.get('username')
+    if str(user) == main_username:
+        lines = []
+        with open('/TIP/info_scan/result/otxhistoryurl.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+
+#关闭历史URL查询接口
+@app.route("/killotxhistory/")
+def killotxhistory():
+    user = session.get('username')
+    if str(user) == main_username:
+        otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+        os.popen('bash ./finger.sh kill_otx_domain_url_shell')
+        if "stop" in otx_domain_url_shell_status:
+            kill_otx_url_result = "已关闭历史URL查询接口"
+        else:
+            kill_otx_url_result = "正在关闭中......"
+
+        message_json = {
+            "kill_otx_url_result":kill_otx_url_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
 
 
 #nmap接口预览
@@ -473,6 +526,7 @@ def systemmanagement():
         urlfinder_report_status = os.popen('bash ./finger.sh urlfinder_report_status').read()
         afrog_report_status = os.popen('bash ./finger.sh afrog_report_status').read()
 
+        otx_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -516,27 +570,14 @@ def systemmanagement():
             "urlfinder_report_status":urlfinder_report_status,
             "afrog_report_status":afrog_report_status,
             "ThinkPHP_num":ThinkPHP_num,
-            "thinkphpstatus":thinkphpstatus
+            "thinkphpstatus":thinkphpstatus,
+            "otx_status":otx_status
 
         }
         return jsonify(message_json)
     else:
         return render_template('login.html')
 
-
-
-#历史URL预览
-@app.route("/previewhistoryurl/")
-def previewhistoryurl():
-    user = session.get('username')
-    if str(user) == main_username:
-        lines = []
-        with open('/TIP/batch_scan_domain/result.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
-        return '<br>'.join(lines)
-    else:
-        return render_template('login.html')
     
 
 
