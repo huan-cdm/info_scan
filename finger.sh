@@ -844,7 +844,26 @@ case "${1}" in
     ;;
 
 
-     # 通过otx查询域名运行状态
+
+    # 通过证书查询子域名
+    crt_subdomain_shell)
+    python3 /TIP/info_scan/basic.py crt_subdomain_lib >> /TIP/info_scan/result/subdomain.txt
+    ;;
+
+
+    # 通过证书查询子域名运行状态
+    crt_subdomain_shell_status)
+	crt_subdomain_shell_lib=`ps -aux | grep "crt_subdomain_lib" | wc -l`
+	if (( $crt_subdomain_shell_lib > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+	;;
+
+
+    # 通过otx查询域名运行状态
     otx_domain_url_shell_status)
 	ps_otx_domain_url_lib=`ps -aux | grep "otx_domain_url_lib" | wc -l`
 	if (( $ps_otx_domain_url_lib > 1 ))
@@ -865,6 +884,95 @@ case "${1}" in
 		
 		kill -9 ${ii} 2>/dev/null
 	done
+    ;;
+
+
+    #otx历史url数量
+    otx_history_url_num)
+    otx_his_num=`cat /TIP/info_scan/result/otxhistoryurl.txt | wc -l`
+    echo "${otx_his_num}"
+    ;;
+
+    # 指纹识别结果数量
+    ehole_finger_num)
+    ehole_num=`cat /TIP/info_scan/result/ehole_finger.txt | wc -l`
+    echo "${ehole_num}"
+    ;;
+
+    # 敏感信息结果数量
+    bbscan_scan_num)
+    bbscan_num=`cat /TIP/info_scan/result/bbscan_info.txt | wc -l`
+    echo "${bbscan_num}"
+    ;;
+
+    # struts2结果数量
+    struts2_scan_num)
+    struts2_num=`cat /TIP/info_scan/result/struts2_poc.txt | wc -l`
+    echo "${struts2_num}"
+    ;;
+
+    # weblogic结果数量
+    weblogic_scan_num)
+    weblogic_num=`cat /TIP/info_scan/result/weblogic_poc.txt | wc -l`
+    echo "${weblogic_num}"
+    ;;
+
+
+    # shiro结果数量
+    shiro_scan_num)
+    shiro_num=`cat /TIP/info_scan/result/shiro_vuln.txt | wc -l`
+    echo "${shiro_num}"
+    ;;
+
+    # springboot结果数量
+    springboot_scan_num)    
+    springboot_num=`cat /TIP/info_scan/result/springboot_result.txt | wc -l`
+    echo "${springboot_num}"
+    ;;
+
+    # thinkphp结果数量
+    thinkphp_scan_num)    
+    thinkphp_num=`cat /TIP/info_scan/result/thinkphp_vuln.txt | wc -l`
+    echo "${thinkphp_num}"
+    ;;
+
+    # fscan结果数量
+    fscan_scan_num)    
+    fscan_num=`cat /TIP/info_scan/result/fscan_vuln.txt | wc -l`
+    echo "${fscan_num}"
+    ;;
+
+    # hydra结果数量
+    hydra_scan_num)    
+    hydra_num=`cat /TIP/info_scan/result/hydra_result.txt | wc -l`
+    echo "${hydra_num}"
+    ;;
+
+    # nmap结果数量
+    nmap_scan_num)    
+    nmap_num=`cat /TIP/info_scan/result/nmap.txt | wc -l`
+    echo "${nmap_num}"
+    ;;
+
+
+    # vulmap结果数量
+    vulmap_scan_num)    
+    vulmap_num=`cat /TIP/info_scan/result/vulmapscan_info.txt | wc -l`
+    echo "${vulmap_num}"
+    ;;
+
+
+    # nuclei结果数量
+    nuclei_scan_num)    
+    nuclei_num=`cat /TIP/info_scan/result/nucleiresult.txt | wc -l`
+    echo "${nuclei_num}"
+    ;;
+
+
+    # subdomain结果数量
+    subdomain_scan_num)    
+    subdomain_num=`cat /TIP/info_scan/result/subdomain.txt | wc -l`
+    echo "${subdomain_num}"
     ;;
 
 

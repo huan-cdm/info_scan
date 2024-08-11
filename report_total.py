@@ -138,6 +138,13 @@ def report_xlsx():
         thinkphp_report_list.append(thinkphp_line.strip())
 
 
+    # 历史url
+    otx_url_report_list = []
+    otx_url_file = open("/TIP/info_scan/result/otxhistoryurl.txt",encoding='utf-8')
+    for otx_url_line in otx_url_file.readlines():
+        otx_url_report_list.append(otx_url_line.strip())
+
+
     
     
     # 将列表转换为 pandas 的 DataFrame
@@ -159,6 +166,7 @@ def report_xlsx():
     df_p = pd.DataFrame(springboot_report_list, columns=['springboot'])
     df_r = pd.DataFrame(hydra_report_list, columns=['hydra'])
     df_s = pd.DataFrame(thinkphp_report_list, columns=['thinkphp'])
+    df_t = pd.DataFrame(otx_url_report_list, columns=['历史url'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -182,3 +190,4 @@ def report_xlsx():
         df_p.to_excel(writer, sheet_name='springboot', index=False)
         df_r.to_excel(writer, sheet_name='hydra', index=False)
         df_s.to_excel(writer, sheet_name='thinkphp', index=False)
+        df_t.to_excel(writer, sheet_name='历史url', index=False)

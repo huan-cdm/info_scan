@@ -235,6 +235,8 @@ def pathuniqpage():
 def historyshow():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成历史url查询')
         # 每次启动前清空上次扫描结果
         os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
         os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
@@ -263,10 +265,14 @@ def historyshow():
 def previewhistoryurl():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('/TIP/info_scan/result/otxhistoryurl.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        otx_his_num = os.popen('bash /TIP/info_scan/finger.sh otx_history_url_num').read()
+        if int(otx_his_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/otxhistoryurl.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -300,10 +306,14 @@ def killotxhistory():
 def nmapresultshow():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/nmap.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        nmap_num = os.popen('bash /TIP/info_scan/finger.sh nmap_scan_num').read()
+        if int(nmap_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/nmap.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -314,18 +324,22 @@ def nmapresultshow():
 def nucleiresultshow():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/nucleiresult.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
-         #文件结果优化展示
-        liness = []
-        for line1 in lines:
-            
-            #页面显示优化
-            pattern = re.compile(r'\x1b\[[0-9;]*m')
-            clean_text = pattern.sub('', line1)
-            liness.append(clean_text)
+        nuclei_num = os.popen('bash /TIP/info_scan/finger.sh nuclei_scan_num').read()
+        if int(nuclei_num) == 0:
+            liness = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/nucleiresult.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+             #文件结果优化展示
+            liness = []
+            for line1 in lines:
+                
+                #页面显示优化
+                pattern = re.compile(r'\x1b\[[0-9;]*m')
+                clean_text = pattern.sub('', line1)
+                liness.append(clean_text)
             
         return '<br>'.join(liness)
     else:
@@ -527,6 +541,7 @@ def systemmanagement():
         afrog_report_status = os.popen('bash ./finger.sh afrog_report_status').read()
 
         otx_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+        crt_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -571,7 +586,8 @@ def systemmanagement():
             "afrog_report_status":afrog_report_status,
             "ThinkPHP_num":ThinkPHP_num,
             "thinkphpstatus":thinkphpstatus,
-            "otx_status":otx_status
+            "otx_status":otx_status,
+            "crt_status":crt_status
 
         }
         return jsonify(message_json)
@@ -832,10 +848,14 @@ def weblogicscaninterface():
 def weblogic_poc_report():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/weblogic_poc.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        weblogic_num = os.popen('bash /TIP/info_scan/finger.sh weblogic_scan_num').read()
+        if int(weblogic_num) ==0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/weblogic_poc.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -869,10 +889,14 @@ def struts2_poc_scan():
 def struts2_poc_report():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/struts2_poc.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        struts2_num = os.popen('bash /TIP/info_scan/finger.sh struts2_scan_num').read()
+        if int(struts2_num) ==0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/struts2_poc.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -897,15 +921,19 @@ def report_total_interface():
 def ehole_finger_report():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/ehole_finger.txt', 'r') as f:
-            for line in f:
-                
-                #显示优化去掉颜色字符
-                pattern = re.compile(r'\x1b\[[0-9;]*m')
-                clean_text = pattern.sub('', line)
-                lines.append(clean_text)
-
+        ehole_num = os.popen('bash /TIP/info_scan/finger.sh ehole_finger_num').read()
+        if int(ehole_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/ehole_finger.txt', 'r') as f:
+                for line in f:
+                    
+                    #显示优化去掉颜色字符
+                    pattern = re.compile(r'\x1b\[[0-9;]*m')
+                    clean_text = pattern.sub('', line)
+                    lines.append(clean_text)
+    
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -972,10 +1000,14 @@ def bbscan_info_scan():
 def showbbscanreport():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('/TIP/info_scan/result/bbscan_info.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        bbscan_num = os.popen('bash /TIP/info_scan/finger.sh bbscan_scan_num').read()
+        if int(bbscan_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/bbscan_info.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -988,42 +1020,26 @@ def batch_show_subdomain():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成子域名扫描')
-        url_list = []
-        file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
-        for line in file.readlines():
-            url_list.append(line.strip())
-
-        # url中提取域名
-        domain_list = []
-        for j in url_list:
-            domain_re = re.findall("https?://([^/]+)",j)
-            domain_list.append(domain_re)
-        
-        domain_list_final_1 = []
-        for k in domain_list:
+        # 每次启动前清空上次扫描结果
+        os.popen('rm -rf /TIP/info_scan/result/subdomain.txt')
+        os.popen('touch /TIP/info_scan/result/subdomain.txt')
+        crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+        if "running" in crt_subdomain_shell_status:
+            crt_status_result = "基于证书查询子域名接口正在运行中请勿重复提交"
+        else:
             try:
-                domain_list_final_1.append(k[0])
-            except:
-                pass
-
-        
-        domain_list_final = root_domain_scan(domain_list_final_1)
-
-        subdomain_list = []
-        for ll in domain_list_final:
-            subdomain = basic.subdomain_scan(ll)
-            subdomain_list.append(subdomain)
-        
-        subdomain_list_all = []
-        for item in subdomain_list:
-            subdomain_list_all.extend(item)
-        
-        # 列表存入文件中
-        f = open(file='/TIP/info_scan/result/subdomain.txt',mode='w')
-        for lie in subdomain_list_all:
-            f.write(str(lie)+"\n")
-
-        return render_template('index.html')
+                os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell')
+                
+                if "running" in crt_subdomain_shell_status:
+                    crt_status_result = "基于证书查询子域名接口已开启稍后查看结果"
+                else:
+                    crt_status_result = "基于证书查询子域名接口正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+        message_json = {
+            "crt_status_result":crt_status_result
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
     
@@ -1033,10 +1049,14 @@ def batch_show_subdomain():
 def showsubdomainreport():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('/TIP/info_scan/result/subdomain.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        subdomain_num = os.popen('bash /TIP/info_scan/finger.sh subdomain_scan_num').read()
+        if int(subdomain_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/subdomain.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -1048,18 +1068,22 @@ def showsubdomainreport():
 def vulmapscanreport():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('/TIP/info_scan/result/vulmapscan_info.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
-         #文件结果优化展示
-        liness = []
-        for line1 in lines:
-            
-            #页面显示优化
-            pattern = re.compile(r'\x1b\[[0-9;]*m')
-            clean_text = pattern.sub('', line1)
-            liness.append(clean_text)
+        vulmap_num = os.popen('bash /TIP/info_scan/finger.sh vulmap_scan_num').read()
+        if int(vulmap_num) == 0:
+            liness = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/vulmapscan_info.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+             #文件结果优化展示
+            liness = []
+            for line1 in lines:
+                
+                #页面显示优化
+                pattern = re.compile(r'\x1b\[[0-9;]*m')
+                clean_text = pattern.sub('', line1)
+                liness.append(clean_text)
         return '<br>'.join(liness)
     else:
         return render_template('login.html')
@@ -1322,10 +1346,14 @@ def killbbscanprocess():
 def fscanreportyulan():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/fscan_vuln.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        fscan_num = os.popen('bash /TIP/info_scan/finger.sh fscan_scan_num').read()
+        if int(fscan_num) ==0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/fscan_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -1389,24 +1417,28 @@ def killfscangprocess():
 def shiro_report_show():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('/TIP/info_scan/result/shiro_vuln.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
-
-         #文件结果优化展示
-        liness = []
-        for line1 in lines:
-            #页面显示优化
-            pattern = re.compile(r'\x1b\[[0-9;]*m')
-            clean_text = pattern.sub('', line1)
-            liness.append(clean_text)
-        # 使用列表推导式创建一个新列表，其中不包含以'Checking :'开头的元素  
-        filtered_list = [item for item in liness if not item.startswith('Checking :')]
-        filtered_list_new = []
-        for fi in filtered_list:
-            result = fi.replace("","")
-            filtered_list_new.append(result)
+        shiro_num = os.popen('bash /TIP/info_scan/finger.sh shiro_scan_num').read()
+        if int(shiro_num) ==0:
+            filtered_list_new = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/shiro_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+    
+             #文件结果优化展示
+            liness = []
+            for line1 in lines:
+                #页面显示优化
+                pattern = re.compile(r'\x1b\[[0-9;]*m')
+                clean_text = pattern.sub('', line1)
+                liness.append(clean_text)
+            # 使用列表推导式创建一个新列表，其中不包含以'Checking :'开头的元素  
+            filtered_list = [item for item in liness if not item.startswith('Checking :')]
+            filtered_list_new = []
+            for fi in filtered_list:
+                result = fi.replace("","")
+                filtered_list_new.append(result)
         return '<br>'.join(filtered_list_new)
     else:
         return render_template('login.html')
@@ -1514,10 +1546,14 @@ def springboot_report_show():
     user = session.get('username')
     if str(user) == main_username:
         os.popen('rm -rf /TIP/info_scan/result.txt')
-        lines = []
-        with open('./result/springboot_result.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        springboot_num = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_num').read()
+        if int(springboot_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/springboot_result.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -1587,10 +1623,14 @@ def fofa_search_assets_service():
 def hydra_report_show():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('./result/hydra_result.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        hydra_num = os.popen('bash /TIP/info_scan/finger.sh hydra_scan_num').read()
+        if int(hydra_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/hydra_result.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
@@ -1964,10 +2004,14 @@ def starttpscaninterface():
 def thinkphp_poc_report():
     user = session.get('username')
     if str(user) == main_username:
-        lines = []
-        with open('/TIP/info_scan/result/thinkphp_vuln.txt', 'r') as f:
-            for line in f:
-                lines.append(line.strip())
+        thinkphp_num = os.popen('bash /TIP/info_scan/finger.sh thinkphp_scan_num').read()
+        if int(thinkphp_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/thinkphp_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
         return '<br>'.join(lines)
     else:
         return render_template('login.html')

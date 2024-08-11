@@ -816,15 +816,14 @@ function subdomainfindfunc() {
         url: '/batch_show_subdomain/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            console.log('子域名探测已开启稍后查看结果')
+        success: function (info) {
+            alert(info.crt_status_result)
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('子域名探测已开启稍后查看结果')
+            
         }
     })
 }
@@ -880,43 +879,71 @@ function batchnmapportscanfunc() {
 
 //目标url的值赋值给 textarea 文本框
 function targeturlcopytextareafunc() {
-    // 定义一个函数来处理AJAX请求
-    function fetchData() {
-        $.ajax({
-            url: '/url_list_textarea_show/',
-            method: 'GET',
-            success: function (info) {
-                // 假设info.textvalue是一个数组  
-                var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+    $.ajax({
+        url: '/url_list_textarea_show/',
+        method: 'GET',
+        success: function (info) {
+            // 假设info.textvalue是一个数组  
+            var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
 
-                // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
-                for (var i = 0; i < info.textvalue.length; i++) {
-                    textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
-                }
-
-                // 将textAreaContent的内容赋值给textarea  
-                $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
-            },
-            error: function () {
-
-
-            },
-            complete: function () {
-
+            // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+            for (var i = 0; i < info.textvalue.length; i++) {
+                textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
             }
-        })
-    }
 
-    // 调用fetchData函数初始化显示
-    fetchData();
-    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
-    var intervalId = setInterval(fetchData, 5000);
+            // 将textAreaContent的内容赋值给textarea  
+            $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+
+
+
+    // // 定义一个函数来处理AJAX请求
+    // function fetchData() {
+    //     $.ajax({
+    //         url: '/url_list_textarea_show/',
+    //         method: 'GET',
+    //         success: function (info) {
+    //             // 假设info.textvalue是一个数组  
+    //             var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+
+    //             // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+    //             for (var i = 0; i < info.textvalue.length; i++) {
+    //                 textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
+    //             }
+
+    //             // 将textAreaContent的内容赋值给textarea  
+    //             $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+    //         },
+    //         error: function () {
+
+
+    //         },
+    //         complete: function () {
+
+    //         }
+    //     })
+    // }
+
+    // // 调用fetchData函数初始化显示
+    // fetchData();
+    // // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
+    // var intervalId = setInterval(fetchData, 5000);
 }
 
 // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
 window.addEventListener("beforeunload", function () {
     clearInterval(intervalId);
 });
+
+
 
 
 
@@ -1131,6 +1158,7 @@ function openModal() {
                 document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
                 document.getElementById("spp43").innerHTML = info.thinkphpstatus;
                 document.getElementById("spp44").innerHTML = info.otx_status;
+                document.getElementById("spp45").innerHTML = info.crt_status;
             });
     }
 

@@ -936,11 +936,45 @@ def otx_domain_url_lib():
             print("捕获到异常:", e)
             continue
 
+
+def crt_subdomain_lib():
+    try:
+        # url.txt转换为列表
+        url_list = url_file_ip_list()
+        # 提取根域名
+        root_domain_list = root_domain_scan(url_list)
+        # 根域名去重
+        root_domain_list_uniq = list(set(root_domain_list))
+        # domain_list_uniq_result = []
+        for i in root_domain_list_uniq:
+            if "cn" in i or "com" in i or "net" in i:
+                print("\n")
+                print("[+]"+i)
+                print("\n")
+                try:
+                    subdomain_list = []
+                    time.sleep(1)
+                    subdomain = subdomain_scan(i)
+                    subdomain_list.append(subdomain)
+                    subdomain_list_all = []
+                    for item in subdomain_list:
+                        subdomain_list_all.extend(item)
+                    for kk in subdomain_list_all:
+                        print(kk)
+                except Exception as e:
+                    print("捕获到异常:", e)
+    except Exception as e:
+        print("捕获到异常:", e)
+
+    
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         func_name = sys.argv[1]
         if func_name == 'otx_domain_url_lib':
             otx_domain_url_lib()
+        elif func_name == 'crt_subdomain_lib':
+            crt_subdomain_lib()
         else:
             print("Invalid function number")
     else:
