@@ -976,4 +976,16 @@ case "${1}" in
     ;;
 
 
+    # 关闭crt_subdomain_shell
+    kill_crt_subdomain_shell)
+	crt_subdomainshell_pid=`ps -aux | grep "crt_subdomain_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${crt_subdomainshell_pid}
+	do
+		
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
 esac

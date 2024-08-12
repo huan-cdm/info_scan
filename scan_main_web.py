@@ -301,6 +301,27 @@ def killotxhistory():
     
 
 
+#关闭基于证书查询子域名接口
+@app.route("/kill_crt_subdomain_shell/")
+def kill_crt_subdomain_shell():
+    user = session.get('username')
+    if str(user) == main_username:
+        crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+        os.popen('bash ./finger.sh kill_crt_subdomain_shell')
+        if "stop" in crt_subdomain_shell_status:
+            kill_crt_subdomain_result = "已关闭历史URL查询接口"
+        else:
+            kill_crt_subdomain_result = "正在关闭中......"
+
+        message_json = {
+            "kill_crt_subdomain_result":kill_crt_subdomain_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
 #nmap接口预览
 @app.route("/nmapresultshow/")
 def nmapresultshow():

@@ -215,6 +215,24 @@ function killotxhistory_func() {
 }
 
 
+//ajax异步关闭基于证书查询子域名接口
+function kill_crt_subdomain_func() {
+    $.ajax({
+        url: '/kill_crt_subdomain_shell/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_crt_subdomain_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
 
 //历史url预览
 function historyurlpreviewfunc() {
@@ -420,6 +438,8 @@ function startbutton() {
     button66.disabled = false;
     var button67 = document.getElementById("button67");
     button67.disabled = false;
+    var button68 = document.getElementById("button68");
+    button68.disabled = false;
 
 
 }
@@ -550,6 +570,8 @@ function stopbutton() {
     button66.disabled = true;
     var button67 = document.getElementById("button67");
     button67.disabled = true;
+    var button68 = document.getElementById("button68");
+    button68.disabled = true;
 
 
 }
