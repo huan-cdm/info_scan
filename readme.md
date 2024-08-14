@@ -1,8 +1,12 @@
-##### 虚拟机（已安装好相关服务）
-虚拟机账号密码：huan/admin@123
-下载链接：<br>
-
-##### 源码安装
+##### 虚拟机：
+虚拟机账号密码：huan/admin@123<br>
+1. 登录Linux系统，修改info_scan/config.py中的参数<br>
+2. 修改info_scan/static/js/common.js文件第一行修改为自己虚拟机的IP地址<br>
+3. 启动 bash /TIP/info_scan/server_check.sh -h 启动python后端服务，nginx和mysql未启动就手动启动一下<br>
+网盘链接：<br>
+https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy
+<br><br><br><br>
+##### 源码安装：
 注意：<br><br>
 保证系统正常运行需要2个项目：<br><br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
