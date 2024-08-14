@@ -1,3 +1,8 @@
+##### 虚拟机（已安装好相关服务）
+虚拟机账号密码：huan/admin@123
+下载链接：<br>
+
+##### 源码安装
 注意：<br><br>
 保证系统正常运行需要2个项目：<br><br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
