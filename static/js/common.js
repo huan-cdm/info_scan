@@ -279,10 +279,6 @@ window.addEventListener("beforeunload", function () {
 });
 
 
-//xray报告预览
-function uniqdirfunc() {
-    window.open("/pathuniqpage/", "_blank");
-}
 
 
 //路径去重处理函数
@@ -317,9 +313,6 @@ function startbutton() {
     button2.disabled = false;
     var button3 = document.getElementById("button3");
     button3.disabled = false;
-    var button4 = document.getElementById("button4");
-    button4.disabled = false;
-
     var button6 = document.getElementById("button6");
     button6.disabled = false;
     var button7 = document.getElementById("button7");
@@ -450,8 +443,6 @@ function stopbutton() {
     button2.disabled = true;
     var button3 = document.getElementById("button3");
     button3.disabled = true;
-    var button4 = document.getElementById("button4");
-    button4.disabled = true;
     var button6 = document.getElementById("button6");
     button6.disabled = true;
     var button7 = document.getElementById("button7");
@@ -2382,4 +2373,42 @@ function guanbipointfunc() {
     point13.style.display = "none";
     var point14 = document.getElementById("point14");
     point14.style.display = "none";
+}
+
+
+// 打开信息收集工具集合
+function infoshoujitoolstart() {
+    var spaninfomationname = $('select[name="spaninfomationname"]').val();
+    if (spaninfomationname == 1) {
+        var infoscanspan1 = document.getElementById("infoscanspan1");
+        infoscanspan1.style.display = "block";
+        var infoscanspan2 = document.getElementById("infoscanspan2");
+        infoscanspan2.style.display = "none";
+        var infoscanspan3 = document.getElementById("infoscanspan3");
+        infoscanspan3.style.display = "none";
+    }else if(spaninfomationname == 2){
+        var infoscanspan1 = document.getElementById("infoscanspan1");
+        infoscanspan1.style.display = "none";
+        var infoscanspan2 = document.getElementById("infoscanspan2");
+        infoscanspan2.style.display = "block";
+        var infoscanspan3 = document.getElementById("infoscanspan3");
+        infoscanspan3.style.display = "none";
+    }else if (spaninfomationname == 3){
+        var infoscanspan1 = document.getElementById("infoscanspan1");
+        infoscanspan1.style.display = "none";
+        var infoscanspan2 = document.getElementById("infoscanspan2");
+        infoscanspan2.style.display = "none";
+        var infoscanspan3 = document.getElementById("infoscanspan3");
+        infoscanspan3.style.display = "block";
+    }
+}
+
+// 关闭信息收集工具集合
+function infoshoujitoolstop(){
+    var infoscanspan1 = document.getElementById("infoscanspan1");
+    infoscanspan1.style.display = "block";
+    var infoscanspan2 = document.getElementById("infoscanspan2");
+    infoscanspan2.style.display = "none";
+    var infoscanspan3 = document.getElementById("infoscanspan3");
+    infoscanspan3.style.display = "none";
 }

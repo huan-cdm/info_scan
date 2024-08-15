@@ -218,17 +218,6 @@ def logininterface():
        
     return jsonify(message_json)
     
-   
-
-
-#跳转到URL路径去重页面
-@app.route("/pathuniqpage/")
-def pathuniqpage():
-    user = session.get('username')
-    if str(user) == main_username:
-        return render_template('uniqdir.html')
-    else:
-        return render_template('login.html')
 
 
 #历史URL查询
