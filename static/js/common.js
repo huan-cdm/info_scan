@@ -1181,6 +1181,7 @@ function openModal() {
                 document.getElementById("spp43").innerHTML = info.thinkphpstatus;
                 document.getElementById("spp44").innerHTML = info.otx_status;
                 document.getElementById("spp45").innerHTML = info.crt_status;
+                document.getElementById("spp46").innerHTML = info.nacos_num;
             });
     }
 

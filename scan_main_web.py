@@ -36,6 +36,7 @@ from config import WordPress_rule
 from config import jboss_rule
 from config import phpMyAdmin_rule
 from config import ThinkPHP_rule
+from config import nacos_rule
 from config import finger_list
 from config  import rule_options
 from config import dict
@@ -517,6 +518,7 @@ def systemmanagement():
         jboss_num = basic.key_point_assets_num(jboss_rule)
         phpmyadmin_num = basic.key_point_assets_num(phpMyAdmin_rule)
         ThinkPHP_num = basic.key_point_assets_num(ThinkPHP_rule)
+        nacos_num = basic.key_point_assets_num(nacos_rule)
 
         # cpu占用率
         cpu_percent = psutil.cpu_percent(interval=1)
@@ -608,7 +610,8 @@ def systemmanagement():
             "ThinkPHP_num":ThinkPHP_num,
             "thinkphpstatus":thinkphpstatus,
             "otx_status":otx_status,
-            "crt_status":crt_status
+            "crt_status":crt_status,
+            "nacos_num":str(nacos_num)
 
         }
         return jsonify(message_json)
@@ -1496,8 +1499,7 @@ def key_assets_withdraw():
     user = session.get('username')
     if str(user) == main_username:
 
-        # 筛选后资产时间线更新
-        basic.assets_status_update('识别重点资产已完成')
+        
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
         if "running" in eholestatus:
             key_assets_result = "指纹识别接口正在运行中请稍后再进行识别重点资产"
@@ -1519,7 +1521,8 @@ def key_assets_withdraw():
             basic.asset_by_rule_handle()
 
             key_assets_result = "已成功识别出重点资产"
-
+            # 筛选后资产时间线更新
+            basic.assets_status_update('识别重点资产已完成')
         
         message_json = {
             "key_assets_result":key_assets_result
