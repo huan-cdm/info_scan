@@ -559,6 +559,7 @@ def systemmanagement():
 
         otx_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
         crt_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+        weaver_status = os.popen('bash ./finger.sh weaver_status').read()
         message_json = {
             "nmapstatus":nmapstatus,
             "nucleistatus":nucleistatus,
@@ -606,7 +607,8 @@ def systemmanagement():
             "otx_status":otx_status,
             "crt_status":crt_status,
             "nacos_num":str(nacos_num),
-            "fanwei_num":str(fanwei_num)
+            "fanwei_num":str(fanwei_num),
+            "weaver_status":weaver_status
 
         }
         return jsonify(message_json)
@@ -2160,7 +2162,89 @@ def one_click_scan():
     
     else:
         return render_template('login.html')
+    
 
+
+
+#开启泛微OA漏洞扫描
+@app.route("/startweavervulnscan/",methods=['GET'])
+def startweavervulnscan():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成泛微OA漏洞扫描')
+        weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+        if "running" in weaver_status:
+            weaver_status_result = "泛微OA漏洞扫描程序正在运行中请勿重复提交"
+        else:
+            try:
+                os.popen('bash ./finger.sh weaver_exp_scan')
+                weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+                if "running" in weaver_status:
+                    weaver_status_result = "泛微OA漏洞扫描程序已开启稍后查看结果"
+                else:
+                    weaver_status_result = "泛微OA漏洞扫描程序正在后台启动中......"
+            except Exception as e:
+                print("捕获到异常:", e)
+
+        message_json = {
+            "weaver_status_result":weaver_status_result
+        }
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
+
+
+#泛微扫描结果预览
+@app.route("/weaverresultshow/")
+def weaverresultshow():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('rm -rf /TIP/info_scan/weaver_exp/*.zip')
+        weaver_scan_num = os.popen('bash /TIP/info_scan/finger.sh weaver_scan_num').read()
+        if int(weaver_scan_num) == 0:
+            liness = ["暂无数据"]
+        else:
+            lines = []
+            with open('./result/weaver_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+             #文件结果优化展示
+            liness = []
+            for line1 in lines:
+                
+                #页面显示优化
+                pattern = re.compile(r'\x1b\[[0-9;]*m')
+                clean_text = pattern.sub('', line1)
+                liness.append(clean_text)
+            
+        return '<br>'.join(liness)
+    else:
+        return render_template('login.html')
+
+
+
+#关闭泛微OA漏洞扫描程序
+@app.route("/killweavervulnscan/")
+def killweavervulnscan():
+    user = session.get('username')
+    if str(user) == main_username:
+        weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+        os.popen('bash ./finger.sh kill_weaver_scan')
+        if "stop" in weaver_status:
+            kill_weaver_result = "已关闭历史URL查询接口"
+        else:
+            kill_weaver_result = "正在关闭中......"
+
+        message_json = {
+            "kill_weaver_result":kill_weaver_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  

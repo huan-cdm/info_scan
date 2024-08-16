@@ -968,6 +968,12 @@ case "${1}" in
     echo "${nuclei_num}"
     ;;
 
+    # weaver结果数量
+    weaver_scan_num)    
+    weaver_num=`cat /TIP/info_scan/result/weaver_vuln.txt | wc -l`
+    echo "${weaver_num}"
+    ;;
+
 
     # subdomain结果数量
     subdomain_scan_num)    
@@ -987,5 +993,30 @@ case "${1}" in
 	done
     ;;
 
+    # 开启泛微OA漏洞扫描
+    weaver_exp_scan)
+    python3 /TIP/info_scan/weaver_exp/main.py  -f /TIP/batch_scan_domain/url.txt > /TIP/info_scan/result/weaver_vuln.txt
+    ;;
 
+    # 泛微OA扫描器运行状态
+    weaver_status)
+    weaver_lib=`ps -aux | grep "weaver_exp/main.py" | wc -l`
+	if (( $weaver_lib > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭泛微OA漏洞扫描
+    kill_weaver_scan)
+	weaver_pid=`ps -aux | grep "weaver_exp/main.py" |awk -F " " '{print $2}'`
+    
+    for ii in ${weaver_pid}
+	do
+		
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
 esac

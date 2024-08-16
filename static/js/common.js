@@ -433,8 +433,12 @@ function startbutton() {
     button67.disabled = false;
     var button68 = document.getElementById("button68");
     button68.disabled = false;
-
-
+    var button69 = document.getElementById("button69");
+    button69.disabled = false;
+    var button70 = document.getElementById("button70");
+    button70.disabled = false;
+    var button71 = document.getElementById("button71");
+    button71.disabled = false;
 }
 
 //禁用按钮
@@ -563,8 +567,12 @@ function stopbutton() {
     button67.disabled = true;
     var button68 = document.getElementById("button68");
     button68.disabled = true;
-
-
+    var button69 = document.getElementById("button69");
+    button69.disabled = true;
+    var button70 = document.getElementById("button70");
+    button70.disabled = true;
+    var button71 = document.getElementById("button71");
+    button71.disabled = true;
 }
 
 
@@ -1174,6 +1182,7 @@ function openModal() {
                 document.getElementById("spp45").innerHTML = info.crt_status;
                 document.getElementById("spp46").innerHTML = info.nacos_num;
                 document.getElementById("spp47").innerHTML = info.fanwei_num;
+                document.getElementById("spp48").innerHTML = info.weaver_status;
             });
     }
 
@@ -1958,6 +1967,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
 
     } else if (spanpointvalue == 2) {
         var point1 = document.getElementById("point1");
@@ -1988,6 +1999,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
 
     } else if (spanpointvalue == 3) {
         var point1 = document.getElementById("point1");
@@ -2018,6 +2031,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
 
     } else if (spanpointvalue == 4) {
 
@@ -2049,6 +2064,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 6) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2078,6 +2095,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
 
     } else if (spanpointvalue == 7) {
         var point1 = document.getElementById("point1");
@@ -2108,6 +2127,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 8) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2137,6 +2158,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 9) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2166,6 +2189,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 10) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2195,6 +2220,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 11) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2224,6 +2251,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 12) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2253,6 +2282,8 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 13) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2282,6 +2313,8 @@ function xianshipointfunc() {
         point13.style.display = "block";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
     } else if (spanpointvalue == 14) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
@@ -2311,8 +2344,9 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "block";
-    }
-    else {
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
+    }else if (spanpointvalue == 5){
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
         var point2 = document.getElementById("point2");
@@ -2341,6 +2375,39 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point14 = document.getElementById("point14");
         point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "none";
+    }else if (spanpointvalue == 15){
+        var point1 = document.getElementById("point1");
+        point1.style.display = "none";
+        var point2 = document.getElementById("point2");
+        point2.style.display = "none";
+        var point3 = document.getElementById("point3");
+        point3.style.display = "none";
+        var point4 = document.getElementById("point4");
+        point4.style.display = "none";
+        var point5 = document.getElementById("point5");
+        point5.style.display = "none";
+        var point6 = document.getElementById("point6");
+        point6.style.display = "none";
+        var point7 = document.getElementById("point7");
+        point7.style.display = "none";
+        var point8 = document.getElementById("point8");
+        point8.style.display = "none";
+        var point9 = document.getElementById("point9");
+        point9.style.display = "none";
+        var point10 = document.getElementById("point10");
+        point10.style.display = "none";
+        var point11 = document.getElementById("point11");
+        point11.style.display = "none";
+        var point12 = document.getElementById("point12");
+        point12.style.display = "none";
+        var point13 = document.getElementById("point13");
+        point13.style.display = "none";
+        var point14 = document.getElementById("point14");
+        point14.style.display = "none";
+        var point15 = document.getElementById("point15");
+        point15.style.display = "block";
     }
 }
 
@@ -2378,6 +2445,8 @@ function guanbipointfunc() {
     point13.style.display = "none";
     var point14 = document.getElementById("point14");
     point14.style.display = "none";
+    var point15 = document.getElementById("point15");
+    point15.style.display = "none";
 }
 
 
@@ -2420,4 +2489,50 @@ function infoshoujitoolstop(){
     infoscanspan2.style.display = "none";
     var infoscanspan3 = document.getElementById("infoscanspan3");
     infoscanspan3.style.display = "none";
+}
+
+
+
+//ajax异步开启泛微OA漏洞扫描
+function startweaverscanfunc() {
+    $.ajax({
+        url: '/startweavervulnscan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.weaver_status_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+
+        },
+        complete: function () {
+
+        }
+    })
+
+}
+
+
+//weaver扫描结果预览
+function weaverscanfunc() {
+
+    window.open("/weaverresultshow/");
+}
+
+
+//ajax异步关闭泛微OA漏洞扫描程序
+function killweaverscanfunc() {
+    $.ajax({
+        url: '/killweavervulnscan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_weaver_result)
+        },
+        error: function () {
+            alert('出现内部错误')
+        },
+        complete: function () {
+
+        }
+    })
 }

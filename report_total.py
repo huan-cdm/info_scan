@@ -144,6 +144,16 @@ def report_xlsx():
     for otx_url_line in otx_url_file.readlines():
         otx_url_report_list.append(otx_url_line.strip())
 
+    
+    # weaver
+    weaver_report_list = []
+    weaver_file = open("/TIP/info_scan/result/weaver_vuln.txt",encoding='utf-8')
+    for weaver_line in weaver_file.readlines(): 
+        #显示优化去掉颜色字符
+        pattern = re.compile(r'\x1b\[[0-9;]*m')
+        clean_text = pattern.sub('', weaver_line)
+        weaver_report_list.append(clean_text.strip())
+
 
     
     
@@ -167,6 +177,7 @@ def report_xlsx():
     df_r = pd.DataFrame(hydra_report_list, columns=['hydra'])
     df_s = pd.DataFrame(thinkphp_report_list, columns=['thinkphp'])
     df_t = pd.DataFrame(otx_url_report_list, columns=['历史url'])
+    df_u = pd.DataFrame(weaver_report_list, columns=['泛微OA'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -191,3 +202,4 @@ def report_xlsx():
         df_r.to_excel(writer, sheet_name='hydra', index=False)
         df_s.to_excel(writer, sheet_name='thinkphp', index=False)
         df_t.to_excel(writer, sheet_name='历史url', index=False)
+        df_u.to_excel(writer, sheet_name='泛微OA', index=False)
