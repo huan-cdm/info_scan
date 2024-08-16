@@ -37,10 +37,14 @@ from config import jboss_rule
 from config import phpMyAdmin_rule
 from config import ThinkPHP_rule
 from config import nacos_rule
+from config import fanwei_rule
 from config import finger_list
 from config  import rule_options
 from config import dict
 from basic import select_rule
+
+
+
 import psutil
 import pymysql
 
@@ -508,6 +512,7 @@ def systemmanagement():
         phpmyadmin_num = basic.key_point_assets_num(phpMyAdmin_rule)
         ThinkPHP_num = basic.key_point_assets_num(ThinkPHP_rule)
         nacos_num = basic.key_point_assets_num(nacos_rule)
+        fanwei_num = basic.key_point_assets_num(fanwei_rule)
 
         # cpu占用率
         cpu_percent = psutil.cpu_percent(interval=1)
@@ -600,7 +605,8 @@ def systemmanagement():
             "thinkphpstatus":thinkphpstatus,
             "otx_status":otx_status,
             "crt_status":crt_status,
-            "nacos_num":str(nacos_num)
+            "nacos_num":str(nacos_num),
+            "fanwei_num":str(fanwei_num)
 
         }
         return jsonify(message_json)

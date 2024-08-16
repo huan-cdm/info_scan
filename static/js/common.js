@@ -1173,6 +1173,7 @@ function openModal() {
                 document.getElementById("spp44").innerHTML = info.otx_status;
                 document.getElementById("spp45").innerHTML = info.crt_status;
                 document.getElementById("spp46").innerHTML = info.nacos_num;
+                document.getElementById("spp47").innerHTML = info.fanwei_num;
             });
     }
 
@@ -2345,6 +2346,10 @@ function xianshipointfunc() {
 
 
 function guanbipointfunc() {
+     // 将select选项值重置
+     var spanpointvalue = document.querySelector('select[name="spanpointvalue"]');
+     spanpointvalue.selectedIndex = 0; // 将第一个选项设置为选中状态
+
     var point1 = document.getElementById("point1");
     point1.style.display = "block";
     var point2 = document.getElementById("point2");
@@ -2405,6 +2410,10 @@ function infoshoujitoolstart() {
 
 // 关闭信息收集工具集合
 function infoshoujitoolstop(){
+    // 将select选项值重置
+    var selectElement = document.querySelector('select[name="spaninfomationname"]');
+    selectElement.selectedIndex = 0; // 将第一个选项设置为选中状态
+
     var infoscanspan1 = document.getElementById("infoscanspan1");
     infoscanspan1.style.display = "block";
     var infoscanspan2 = document.getElementById("infoscanspan2");
