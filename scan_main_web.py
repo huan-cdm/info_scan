@@ -1381,10 +1381,11 @@ def fscanreportyulan():
 
 
 #启动fscan程序
-@app.route("/startfcsaninterface/")
+@app.route("/startfcsaninterface/",methods=['POST'])
 def startfcsaninterface():
     user = session.get('username')
     if str(user) == main_username:
+        fscanpartname = request.form['fscanpartname']
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成fscan漏洞扫描')
         # 删除历史fscan扫描数据
@@ -1395,7 +1396,7 @@ def startfcsaninterface():
             fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
         else:
             try:
-                basic.batch_fscan_interface()
+                basic.batch_fscan_interface(fscanpartname)
                 
                 if "running" in fscanstatus:
                     fscan_status_result = "fscan扫描程序已启动稍后查看扫描结果"

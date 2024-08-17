@@ -1047,10 +1047,13 @@ function fscanreprtfunc() {
 
 //批量fscan漏洞扫描
 function batchfscanvulnfunc() {
+    var fscanpartname = $('select[name="fscanpartname"]').val();
     $.ajax({
         url: '/startfcsaninterface/',
-        method: 'GET',
-
+        method: 'POST',
+        data: {
+            fscanpartname: fscanpartname
+        },
         success: function (info) {
             alert(info.fscan_status_result)
         },

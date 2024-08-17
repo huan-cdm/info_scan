@@ -470,14 +470,21 @@ def status_scan(ip1):
 
 
 # fscan批量扫描
-def batch_fscan_interface():
+def batch_fscan_interface(part):
     ip_list = url_convert_ip()
+    
     f = open(file='/TIP/info_scan/fscan_tool/ip.txt', mode='w')
     for k in ip_list:
         f.write(str(k)+"\n")
     f.close()
+
     try:
-        os.popen('bash /TIP/info_scan/finger.sh startfscanprocess')
+        if int(part) == 1:
+            os.popen('bash /TIP/info_scan/finger.sh startfscanprocessmoren')
+        elif int(part) ==2:
+            os.popen('bash /TIP/info_scan/finger.sh startfscanprocessall')
+        else:
+            os.popen('bash /TIP/info_scan/finger.sh startfscanprocesspoint')
     except Exception as e:
             print("捕获到异常:", e)
 
