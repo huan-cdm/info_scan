@@ -445,8 +445,12 @@ def status_scan(ip1):
     f.close()
 
     #判断状态码为200的url
-    output = subprocess.check_output(["sh", "./httpxstatus.sh"], stderr=subprocess.STDOUT)
-    output_list = output.decode().splitlines()
+    try:
+        output = subprocess.check_output(["sh", "./httpxstatus.sh"], stderr=subprocess.STDOUT)
+        output_list = output.decode().splitlines()
+    except Exception as e:
+        print("捕获到异常:", e)
+
     
     #提取带http关键字的字符串
     status_code_list = []
@@ -457,7 +461,12 @@ def status_scan(ip1):
     if len(status_code_list) == 0:
         status_code_list.append("None")
 
-    return status_code_list
+    # 删除特殊字符
+    status_code_list_result = []
+    for jj in status_code_list:
+        if "version" not in jj:
+            status_code_list_result.append(jj)
+    return status_code_list_result
 
 
 # fscan批量扫描
