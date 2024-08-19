@@ -2,6 +2,7 @@
 Description:[系统调用第三方接口文件]
 Author:[huan666]
 Date:[2024/05/28]
+update:[2024/8/19]
 '''
 # shodan查询模块
 import shodan
@@ -36,9 +37,8 @@ from config import datacenter
 
 
 # fofa 通过ip查询域名
-from config import fofaemail
-from config import fofakey
 from config import fofanum
+from config import fofa_list_key
 
 
 # 提取根域名
@@ -69,13 +69,13 @@ import sys
 def shodan_api(ip):
 
     apis = shodan.Shodan(shodankey)
-
+    key = random.choice(fofa_list_key)
     # fofa接口
     fofa_first_argv= 'ip=' + ip + ''
     fofa_first_argv_utf8 = fofa_first_argv.encode('utf-8')
     fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
     fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
-    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+fofanum+"&qbase64="
+    url = "https://fofa.info/api/v1/search/all?email="+key["email"]+"&key="+key["key"]+"&size="+fofanum+"&qbase64="
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
@@ -173,45 +173,48 @@ def generate_random_ip():
 
 # icp备案查询公司名称
 def icp_info(ip):
-    UA = UserAgent()
-    url = "https://icp.chinaz.com/"
-    hearder = {
-        'Cookie':'cz_statistics_visitor=47200924-88b7-cc6f-e817-6e3d3d76af1c; pinghost=pay.it.10086.cn; Hm_lvt_ca96c3507ee04e182fb6d097cb2a1a4c=1707096410,1707902350; _clck=5gzbp1%7C2%7Cfj9%7C0%7C1496; qHistory=Ly9taWNwLmNoaW5hei5jb20vX+e9keermeWkh+ahiOafpeivol/np7vliqh8Ly9pY3AuY2hpbmF6LmNvbS9f572R56uZ5aSH5qGI5p+l6K+i; JSESSIONID=B525D76194927A260AC9E9C0B72B44D2; Hm_lpvt_ca96c3507ee04e182fb6d097cb2a1a4c=1707902454; _clsk=1hj5on3%7C1707902455070%7C6%7C0%7Cw.clarity.ms%2Fcollect',
-        'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8',
-        'User-Agent':UA.random,
-        'Host':'icp.chinaz.com',
-        'X-Forwarded-For': generate_random_ip()
-        }
-    #历史URL列表
-    domain_value = domain_scan(ip)
-    
-    # 提取带域名后缀以cn或者com的列表，过滤掉IP的URL
-    domain_list = []
-    for ii in domain_value:
-        if 'cn' in ii or 'com' in ii:
-            domain_list.append(ii)
-    
-    # 列表去重
     try:
-        domain_list_uniq = list(set(domain_list))
-    except:
-        pass
-
-    icp_name_list = []
-    if len(domain_list_uniq) == 0:
-        icp_name_list.append("None")
-    else:
+        UA = UserAgent()
+        url = "https://icp.chinaz.com/"
+        hearder = {
+            'Cookie':'cz_statistics_visitor=47200924-88b7-cc6f-e817-6e3d3d76af1c; pinghost=pay.it.10086.cn; Hm_lvt_ca96c3507ee04e182fb6d097cb2a1a4c=1707096410,1707902350; _clck=5gzbp1%7C2%7Cfj9%7C0%7C1496; qHistory=Ly9taWNwLmNoaW5hei5jb20vX+e9keermeWkh+ahiOafpeivol/np7vliqh8Ly9pY3AuY2hpbmF6LmNvbS9f572R56uZ5aSH5qGI5p+l6K+i; JSESSIONID=B525D76194927A260AC9E9C0B72B44D2; Hm_lpvt_ca96c3507ee04e182fb6d097cb2a1a4c=1707902454; _clsk=1hj5on3%7C1707902455070%7C6%7C0%7Cw.clarity.ms%2Fcollect',
+            'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8',
+            'User-Agent':UA.random,
+            'Host':'icp.chinaz.com',
+            'X-Forwarded-For': generate_random_ip()
+            }
+        #历史URL列表
+        domain_value = domain_scan(ip)
+        
+        # 提取带域名后缀以cn或者com的列表，过滤掉IP的URL
+        domain_list = []
+        for ii in domain_value:
+            if 'cn' in ii or 'com' in ii:
+                domain_list.append(ii)
+        
+        # 列表去重
         try:
-            for jii in domain_list_uniq:
-                res = requests.get(url+str(jii),headers=hearder,allow_redirects=False)
-                res.encoding = 'utf-8'
-                soup=BeautifulSoup(res.text,'html.parser')
-                soup_td = soup.find_all('td')
-                icp_name = soup_td[25].text
-                icp_name_list.append(icp_name)
+            domain_list_uniq = list(set(domain_list))
         except:
+            pass
+    
+        icp_name_list = []
+        if len(domain_list_uniq) == 0:
             icp_name_list.append("None")
-    icp_name_list_uniq = list(set(icp_name_list))
+        else:
+            try:
+                for jii in domain_list_uniq:
+                    res = requests.get(url+str(jii),headers=hearder,allow_redirects=False)
+                    res.encoding = 'utf-8'
+                    soup=BeautifulSoup(res.text,'html.parser')
+                    soup_td = soup.find_all('td')
+                    icp_name = soup_td[25].text
+                    icp_name_list.append(icp_name)
+            except:
+                icp_name_list.append("None")
+        icp_name_list_uniq = list(set(icp_name_list))
+    except:
+        icp_name_list_uniq = ["None"]
     return icp_name_list_uniq
 
 
@@ -313,23 +316,25 @@ def subdomain_scan(domain):
 
 # 指纹识别接口
 def finger_scan(ip1):
-    result = status_scan(ip1)
-    finger_list = []
-    for i in result:
-        result = os.popen('bash ./finger.sh finger'+''+' '+i).read()
-        #页面显示优化
-        pattern = re.compile(r'\x1b\[[0-9;]*m')
-        clean_text = pattern.sub('', result)
-        clean_text_1 = clean_text.replace("|","")
-        finger_list.append(clean_text_1)
-    
-    #清空列表为空的数据
-    while '' in finger_list:
-        finger_list.remove('')
-    #列表为空返回None
-    if len(finger_list) == 0:
-        finger_list.append("None")
-    
+    try:
+        result = status_scan(ip1)
+        finger_list = []
+        for i in result:
+            result = os.popen('bash ./finger.sh finger'+''+' '+i).read()
+            #页面显示优化
+            pattern = re.compile(r'\x1b\[[0-9;]*m')
+            clean_text = pattern.sub('', result)
+            clean_text_1 = clean_text.replace("|","")
+            finger_list.append(clean_text_1)
+        
+        #清空列表为空的数据
+        while '' in finger_list:
+            finger_list.remove('')
+        #列表为空返回None
+        if len(finger_list) == 0:
+            finger_list.append("None")
+    except:
+        finger_list = ["None"]
     return finger_list
 
 
@@ -375,12 +380,12 @@ def ipstatus_scan(ip):
 
 # fofa查询模块通过IP反查域名
 def domain_scan(ip):
-
+    key = random.choice(fofa_list_key)
     fofa_first_argv= 'ip=' + ip + ''
     fofa_first_argv_utf8 = fofa_first_argv.encode('utf-8')
     fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
     fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
-    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+fofanum+"&qbase64="
+    url = "https://fofa.info/api/v1/search/all?email="+key["email"]+"&key="+key["key"]+"&size="+fofanum+"&qbase64="
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
@@ -405,11 +410,11 @@ def domain_scan(ip):
             fofa_list_result.append(j[0])
         
         fofa_list_result_uniq = list(set(fofa_list_result))
-        
-        return fofa_list_result_uniq
-    
     except:
-        pass
+        fofa_list_result_uniq = ["None"]
+    return fofa_list_result_uniq
+    
+    
 
 
 
@@ -437,35 +442,37 @@ def root_domain_scan(domain_list):
 
 # 提取状态码为200的url
 def status_scan(ip1):
-
-    domain_list = domain_scan(ip1)
-    f = open(file='./result/domain.txt', mode='w')
-    for k in domain_list:
-        f.write(str(k)+"\n")
-    f.close()
-
-    #判断状态码为200的url
     try:
-        output = subprocess.check_output(["sh", "./httpxstatus.sh"], stderr=subprocess.STDOUT)
-        output_list = output.decode().splitlines()
-    except Exception as e:
-        print("捕获到异常:", e)
-
+        domain_list = domain_scan(ip1)
+        f = open(file='./result/domain.txt', mode='w')
+        for k in domain_list:
+            f.write(str(k)+"\n")
+        f.close()
     
-    #提取带http关键字的字符串
-    status_code_list = []
-    for ii in output_list:
-        if "http" in ii:
-            status_code_list.append(ii)
+        #判断状态码为200的url
+        try:
+            output = subprocess.check_output(["sh", "./httpxstatus.sh"], stderr=subprocess.STDOUT)
+            output_list = output.decode().splitlines()
+        except Exception as e:
+            print("捕获到异常:", e)
     
-    if len(status_code_list) == 0:
-        status_code_list.append("None")
-
-    # 删除特殊字符
-    status_code_list_result = []
-    for jj in status_code_list:
-        if "version" not in jj:
-            status_code_list_result.append(jj)
+        
+        #提取带http关键字的字符串
+        status_code_list = []
+        for ii in output_list:
+            if "http" in ii:
+                status_code_list.append(ii)
+        
+        if len(status_code_list) == 0:
+            status_code_list.append("None")
+    
+        # 删除特殊字符
+        status_code_list_result = []
+        for jj in status_code_list:
+            if "version" not in jj:
+                status_code_list_result.append(jj)
+    except:
+        status_code_list_result = ["None"]
     return status_code_list_result
 
 
@@ -662,13 +669,16 @@ def key_point_assets_file(assets_finger_list):
 
 
 
-# fofa资产发现
+# fofa资产发现，查询数量通过前端传入
 def fofa_search_assets_service_lib(parameter,num_fofa):
-
+    # 随机key
+    key = random.choice(fofa_list_key)
+    
     fofa_first_argv_utf8 = parameter.encode('utf-8')
     fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
     fofa_argv_str=str(fofa_first_argv_base64,'utf-8')
-    url = "https://fofa.info/api/v1/search/all?email="+fofaemail+"&key="+fofakey+"&size="+num_fofa+"&qbase64="
+
+    url = "https://fofa.info/api/v1/search/all?email="+key["email"]+"&key="+key["key"]+"&size="+num_fofa+"&qbase64="
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
@@ -702,11 +712,13 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
 
         # 资产备份
         os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
-
-        return len(fofa_list_result_uniq)
-    
     except:
-        pass
+        # fofa接口异常无数据长度返回0
+        fofa_list_result_uniq = [""]
+        fofa_list_result_uniq.clear()
+    return len(fofa_list_result_uniq)
+    
+    
 
 
 # 启动hydra弱口令扫描库文件

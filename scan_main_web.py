@@ -2,7 +2,7 @@
 Description:[主系统]
 Author:[huan666]
 Date:[2023/11/15]
-update:[2024/8/4]
+update:[2024/8/19]
 '''
 from flask import Flask, render_template,request
 from flask import session
@@ -55,7 +55,8 @@ app = Flask(__name__,template_folder='./templates')
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
 
-#web网页访问
+
+#IP基础信息查询
 @app.route("/ipscaninterface/",methods=['post'])
 def ipscaninterface():
     user = session.get('username')
@@ -117,16 +118,21 @@ def ipscaninterface():
             os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
         except:
             pass
-    
-        #去掉https://或者http://
-        urls_list_1 = [re.sub(r'http://|https://', '', url) for url in data1]
+        
+        try:
+            #去掉https://或者http://
+            urls_list_1 = [re.sub(r'http://|https://', '', url) for url in data1]
+        except:
+            pass
        
         # 存活域名列表
-        urls_list = []
-        for aa in urls_list_1:
-            if "cn" in aa or "com" in aa or "xyz" in aa or "top" in aa:
-                urls_list.append(aa)
-
+        try:
+            urls_list = []
+            for aa in urls_list_1:
+                if "cn" in aa or "com" in aa or "xyz" in aa or "top" in aa:
+                    urls_list.append(aa)
+        except:
+            pass
 
 
         #定义存放cdn结果列表
