@@ -66,3 +66,6 @@ https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yijianscan.png" /><br>
 支持工具详情<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/tools_assemble.png" /><br>
+选择扫描器一键完成扫描<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br>
+##### 信息扫描类工具已开发完毕，漏洞扫描类只完成前端功能，后端正在开发中......

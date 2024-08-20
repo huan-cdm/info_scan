@@ -424,16 +424,8 @@
 			<table border="1">
 				<tr>
 					<td>
-						<table border="0.01">
-							<tr>
-								<td>
-									<input type="submit" id="button64" value="显示报告"
-										onclick="one_click_preview_all_report_finc()" disabled>
-								</td>
-								<td>说明：一键打开所有漏洞扫描结果</td>
-							</tr>
-						</table>
-
+						<input type="submit" id="button64" value="显示报告" onclick="one_click_preview_all_report_finc()" disabled>&nbsp;&nbsp;&nbsp;
+						说明：一键打开所有漏洞扫描结果
 					</td>
 
 					<td>
@@ -455,6 +447,8 @@
 							<option value="1">敏感信息</option>
 							<option value="2">网站指纹</option>
 							<option value="3">域名绑定URL</option>
+							<option value="4">子域名</option>
+							<option value="5">端口扫描</option>
 						</select>
 						<input type="button" value="显示" onclick="infoshoujitoolstart()">&nbsp;&nbsp;
 						<input type="button" value="重置" onclick="infoshoujitoolstop()">
@@ -472,12 +466,10 @@
 							<option value="6">afrog_poc</option>
 							<option value="7">fscan_poc</option>
 							<option value="8">弱口令扫描</option>
-							<option value="9">链接扫描</option>
+							<option value="9">api接口扫描</option>
 							<option value="10">xray_poc</option>
-							<option value="11">端口扫描</option>
 							<option value="12">vulmap_poc</option>
 							<option value="13">nuclei_poc</option>
-							<option value="14">子域名</option>
 							<option value="15">泛微OA</option>
 						</select>
 						<input type="button" value="显示" onclick="xianshipointfunc()">&nbsp;&nbsp;
@@ -508,6 +500,21 @@
 							<input type="button" id="button6" value="启动程序" onclick="historyurlfunc()" disabled>
 							<input type="button" id="button8" value="关闭程序" onclick="killotxhistory_func()" disabled>
 
+						</span>
+
+						<span id="infoscanspan4" style="display: none;">
+							<input type="submit" value="子域名：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button35" value="预览报告" onclick="showsubdomainfunc()" disabled>
+							<input type="button" id="button36" value="启动程序" onclick="subdomainfindfunc()" disabled>
+							<input type="button" id="button68" value="关闭程序" onclick="kill_crt_subdomain_func()"
+								disabled>
+						</span>
+						<span id="infoscanspan5" style="display: none;">
+							<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
+							<input type="button" id="button37" value="启动程序" onclick="batchnmapportscanfunc()" disabled>
+							<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
+							<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
 						</span>
 					</td>
 					<!-- 关键资产扫描开关选项详情 -->
@@ -558,7 +565,8 @@
 							<input type="submit" value="fscan_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
 							<input type="button" id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
-							<input type="button" id="button48" value="关闭程序" onclick="killfscanprocessfunc()" disabled><br><br>
+							<input type="button" id="button48" value="关闭程序" onclick="killfscanprocessfunc()"
+								disabled><br><br>
 							参数：&nbsp;&nbsp;
 							<select name="fscanpartname">
 								<option value="1">默认端口</option>
@@ -584,7 +592,7 @@
 						</span>
 
 						<span style="display: none;" id="point9">
-							<input type="submit" value="链接扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="submit" value="api接口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" id="button22" value="预览报告" onclick="urlfinderreportshow()" disabled>
 							<input type="button" id="button21" value="启动程序" onclick="urlfinderscanfunc()" disabled>
 							<input type="button" id="button23" value="删除报告" onclick="deleteurlfinderreportfunc()"
@@ -599,14 +607,6 @@
 							<input type="button" id="button16" value="启动程序" onclick="startradandxray()" disabled>
 							<input type="button" id="button14" value="删除报告" onclick="xrayreportdelete()" disabled>
 							<input type="button" id="button15" value="关闭程序" onclick="killxrayandradfunc()" disabled>
-						</span>
-
-						<span style="display: none;" id="point11">
-							<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
-							<input type="button" id="button37" value="启动程序" onclick="batchnmapportscanfunc()" disabled>
-							<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
-							<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
 						</span>
 
 						<span style="display: none;" id="point12">
@@ -704,12 +704,6 @@
 							<span id="nucleibyid2"></span>
 						</span>
 
-						<span style="display: none;" id="point14">
-							<input type="submit" value="子域名：">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="button" id="button35" value="预览报告" onclick="showsubdomainfunc()" disabled>
-							<input type="button" id="button36" value="启动程序" onclick="subdomainfindfunc()" disabled>
-							<input type="button" id="button68" value="关闭程序" onclick="kill_crt_subdomain_func()" disabled>
-						</span>
 
 						<span style="display: none;" id="point15">
 							<input type="submit" value="泛微OA：">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -720,8 +714,52 @@
 					</td>
 				</tr>
 
+				<tr>
+					<td colspan="2">
+						<input type="submit" id="button72" value="漏洞扫描" onclick="vulnxuanzhongscan()" disabled>&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" id="option1" name="option" value="1">
+						<label for="option1">struts2</label>
+						<input type="checkbox" id="option2" name="option" value="2">
+						<label for="option2">weblogic</label>
+						<input type="checkbox" id="option3" name="option" value="3">
+						<label for="option3">shiro</label>
+						<input type="checkbox" id="option4" name="option" value="4">
+						<label for="option4">springboot</label>
+						<input type="checkbox" id="option5" name="option" value="5">
+						<label for="option5">thinkphp</label>
+						<input type="checkbox" id="option6" name="option" value="6">
+						<label for="option6">afrog</label>
+						<input type="checkbox" id="option7" name="option" value="7">
+						<label for="option7">fscan</label>
+						<input type="checkbox" id="option8" name="option" value="8">
+						<label for="option8">弱口令</label>
+						<input type="checkbox" id="option9" name="option" value="9">
+						<label for="option9">api接口</label>
+						<input type="checkbox" id="option11" name="option" value="10">
+						<label for="option11">vulmap</label>
+						<input type="checkbox" id="option12" name="option" value="11">
+						<label for="option12">nuclei</label>
+						<input type="checkbox" id="option14" name="option" value="12">
+						<label for="option14">泛微OA</label>
+					</td>
+				</tr>
 
+				<tr>
+					<td colspan="2">
+						<input type="submit" id="button73" value="信息收集" onclick="infoxuanzhongscan()" disabled>&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" id="infooption1" name="info_option" value="1">
+						<label for="infooption1">敏感信息</label>
+						<input type="checkbox" id="infooption2" name="info_option" value="2">
+						<label for="infooption2">网站指纹</label>
+						<input type="checkbox" id="infooption3" name="info_option" value="3">
+						<label for="infooption3">域名绑定URL</label>
+						<input type="checkbox" id="infooption4" name="info_option" value="4">
+						<label for="infooption4">子域名</label>
+						<input type="checkbox" id="infooption5" name="info_option" value="5">
+						<label for="infooption5">端口扫描</label>
 
+					</td>
+				</tr>
 
 
 			</table>

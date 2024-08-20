@@ -79,20 +79,20 @@ function xrayreportdelete() {
 }
 
 
-//ajax异步删除链接扫描报告
+//ajax异步删除api接口扫描报告
 function deleteurlfinderreportfunc() {
     $.ajax({
         url: '/deleteurlfinderreport/',
         method: 'GET',
         success: function (res) {
             console.log(res)
-            console.log('已删除链接报告')
+            console.log('已删除api接口报告')
         },
         error: function () {
             alert('出现内部错误')
         },
         complete: function () {
-            alert('已删除链接报告')
+            alert('已删除api接口报告')
         }
     })
 }
@@ -439,6 +439,10 @@ function startbutton() {
     button70.disabled = false;
     var button71 = document.getElementById("button71");
     button71.disabled = false;
+    var button72 = document.getElementById("button72");
+    button72.disabled = false;
+    var button73 = document.getElementById("button73");
+    button73.disabled = false;
 }
 
 //禁用按钮
@@ -573,6 +577,10 @@ function stopbutton() {
     button70.disabled = true;
     var button71 = document.getElementById("button71");
     button71.disabled = true;
+    var button72 = document.getElementById("button72");
+    button72.disabled = true;
+    var button73 = document.getElementById("button73");
+    button73.disabled = true;
 }
 
 
@@ -622,7 +630,7 @@ function filterstatuscodefunc() {
     })
 }
 
-//链接扫描
+//api接口扫描
 function urlfinderscanfunc() {
     $.ajax({
         url: '/starturlfinderinterface/',
@@ -631,7 +639,7 @@ function urlfinderscanfunc() {
             alert(info.urlfinder_status_result)
         },
         error: function () {
-            alert('链接扫描出错')
+            alert('api接口扫描出错')
         },
         complete: function () {
 
@@ -1962,14 +1970,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
 
@@ -1994,14 +1998,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
 
@@ -2026,14 +2026,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
 
@@ -2059,14 +2055,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 6) {
@@ -2090,14 +2082,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
 
@@ -2122,14 +2110,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 8) {
@@ -2153,14 +2137,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 9) {
@@ -2184,14 +2164,10 @@ function xianshipointfunc() {
         point9.style.display = "block";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 10) {
@@ -2215,14 +2191,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "block";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 11) {
@@ -2246,14 +2218,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "block";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 12) {
@@ -2277,14 +2245,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "block";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     } else if (spanpointvalue == 13) {
@@ -2309,44 +2273,9 @@ function xianshipointfunc() {
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
         var point11 = document.getElementById("point11");
-        point11.style.display = "none";
-        var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "block";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 14) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "block";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     }else if (spanpointvalue == 5){
@@ -2370,14 +2299,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
     }else if (spanpointvalue == 15){
@@ -2401,14 +2326,10 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
-        point11.style.display = "none";
         var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "none";
-        var point14 = document.getElementById("point14");
-        point14.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "block";
     }
@@ -2440,14 +2361,10 @@ function guanbipointfunc() {
     point9.style.display = "none";
     var point10 = document.getElementById("point10");
     point10.style.display = "none";
-    var point11 = document.getElementById("point11");
-    point11.style.display = "none";
     var point12 = document.getElementById("point12");
     point12.style.display = "none";
     var point13 = document.getElementById("point13");
     point13.style.display = "none";
-    var point14 = document.getElementById("point14");
-    point14.style.display = "none";
     var point15 = document.getElementById("point15");
     point15.style.display = "none";
 }
@@ -2463,6 +2380,10 @@ function infoshoujitoolstart() {
         infoscanspan2.style.display = "none";
         var infoscanspan3 = document.getElementById("infoscanspan3");
         infoscanspan3.style.display = "none";
+        var infoscanspan4 = document.getElementById("infoscanspan4");
+        infoscanspan4.style.display = "none";
+        var infoscanspan5 = document.getElementById("infoscanspan5");
+        infoscanspan5.style.display = "none";
     }else if(spaninfomationname == 2){
         var infoscanspan1 = document.getElementById("infoscanspan1");
         infoscanspan1.style.display = "none";
@@ -2470,6 +2391,10 @@ function infoshoujitoolstart() {
         infoscanspan2.style.display = "block";
         var infoscanspan3 = document.getElementById("infoscanspan3");
         infoscanspan3.style.display = "none";
+        var infoscanspan4 = document.getElementById("infoscanspan4");
+        infoscanspan4.style.display = "none";
+        var infoscanspan5 = document.getElementById("infoscanspan5");
+        infoscanspan5.style.display = "none";
     }else if (spaninfomationname == 3){
         var infoscanspan1 = document.getElementById("infoscanspan1");
         infoscanspan1.style.display = "none";
@@ -2477,6 +2402,32 @@ function infoshoujitoolstart() {
         infoscanspan2.style.display = "none";
         var infoscanspan3 = document.getElementById("infoscanspan3");
         infoscanspan3.style.display = "block";
+        var infoscanspan4 = document.getElementById("infoscanspan4");
+        infoscanspan4.style.display = "none";
+        var infoscanspan5 = document.getElementById("infoscanspan5");
+        infoscanspan5.style.display = "none";
+    }else if (spaninfomationname == 4){
+        var infoscanspan1 = document.getElementById("infoscanspan1");
+        infoscanspan1.style.display = "none";
+        var infoscanspan2 = document.getElementById("infoscanspan2");
+        infoscanspan2.style.display = "none";
+        var infoscanspan3 = document.getElementById("infoscanspan3");
+        infoscanspan3.style.display = "none";
+        var infoscanspan4 = document.getElementById("infoscanspan4");
+        infoscanspan4.style.display = "block";
+        var infoscanspan5 = document.getElementById("infoscanspan5");
+        infoscanspan5.style.display = "none";
+    }else if (spaninfomationname == 5){
+        var infoscanspan1 = document.getElementById("infoscanspan1");
+        infoscanspan1.style.display = "none";
+        var infoscanspan2 = document.getElementById("infoscanspan2");
+        infoscanspan2.style.display = "none";
+        var infoscanspan3 = document.getElementById("infoscanspan3");
+        infoscanspan3.style.display = "none";
+        var infoscanspan4 = document.getElementById("infoscanspan4");
+        infoscanspan4.style.display = "none";
+        var infoscanspan5 = document.getElementById("infoscanspan5");
+        infoscanspan5.style.display = "block";
     }
 }
 
@@ -2485,13 +2436,16 @@ function infoshoujitoolstop(){
     // 将select选项值重置
     var selectElement = document.querySelector('select[name="spaninfomationname"]');
     selectElement.selectedIndex = 0; // 将第一个选项设置为选中状态
-
     var infoscanspan1 = document.getElementById("infoscanspan1");
     infoscanspan1.style.display = "block";
     var infoscanspan2 = document.getElementById("infoscanspan2");
     infoscanspan2.style.display = "none";
     var infoscanspan3 = document.getElementById("infoscanspan3");
     infoscanspan3.style.display = "none";
+    var infoscanspan4 = document.getElementById("infoscanspan4");
+    infoscanspan4.style.display = "none";
+    var infoscanspan5 = document.getElementById("infoscanspan5");
+    infoscanspan5.style.display = "none";
 }
 
 
@@ -2533,6 +2487,62 @@ function killweaverscanfunc() {
         },
         error: function () {
             alert('出现内部错误')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 漏洞扫描集合选中扫描
+function vulnxuanzhongscan(){
+
+    const checkboxes = document.querySelectorAll('input[name="option"]:checked');
+    const selectedValues = [];
+
+    if (checkboxes.length === 0) {
+        alert('请至少选择一个选项');
+        return;
+    }
+
+    checkboxes.forEach((checkbox) => {
+        
+        selectedValues.push(checkbox.value);
+    });
+	alert(selectedValues)
+}
+
+
+
+// 信息收集集合选中扫描
+function infoxuanzhongscan(){
+
+    const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
+    const info_front_list = [];
+
+    if (checkboxes.length === 0) {
+        alert('请至少选择一个选项');
+        return;
+    }
+
+    checkboxes.forEach((checkbox) => {
+        info_front_list.push(checkbox.value);
+    });
+    
+    $.ajax({
+        url: '/infoscan_check_back/',
+        method: 'POST',
+        data: JSON.stringify({ info_front_list: info_front_list }), // 发送 JSON 字符串
+        contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
+        dataType: 'json', // 期望服务器返回的数据类型
+        // data: JSON.stringify({ info_front_list: info_front_list }),
+        success: function (info) {
+            alert(info.dictkey1+"\n"+info.dictkey2+"\n"+info.dictkey3+"\n"+info.dictkey4+"\n"+info.dictkey5)
+        },
+
+        error: function (info) {
+            alert("内部出错")
         },
         complete: function () {
 

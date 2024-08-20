@@ -2254,5 +2254,139 @@ def killweavervulnscan():
         return render_template('login.html')
 
 
+
+# 前端复选框批量调用信息收集工具接口
+@app.route("/infoscan_check_back/",methods=['post'])
+def infoscan_check_back():
+    user = session.get('username')
+    if str(user) == main_username:
+        data = request.get_json()  # 使用 get_json 解析 JSON 请求体
+        info_front_list = data['info_front_list']
+        # 接收前端传入的值转为int型
+        info_value_list = []
+        for i in info_front_list:
+            info_value_list.append(int(i))
+
+        # 遍历列表判断调用哪个扫描器
+        for j in info_value_list:
+            if '1' in str(j):
+                bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
+                if "running" in bbscan_status1:
+                    bbscan_status_result = "敏感信息扫描程序正在运行中请勿重复提交"
+                else:
+                    os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
+                    # 执行敏感信息扫描
+                    os.popen('bash ./finger.sh bbscan_shell')
+                    if "running" in bbscan_status1:
+                        bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
+                    else:
+                        bbscan_status_result = "bbscan正在后台启动中......"
+            elif '2' in str(j):
+                finger_status = os.popen('bash ./finger.sh ehole_status').read()
+                if "running" in finger_status:
+                    finger_status_result = "EHole程序正在运行中请勿重复提交"
+                else:
+                    # 执行指纹识别扫描
+                    os.popen('bash ./finger.sh ehole_finger_scan')
+                    if "running" in finger_status:
+                        finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
+                    else:
+                        finger_status_result = "EHole正在后台启动中......"
+            elif '3' in str(j):
+                # 每次启动前清空上次扫描结果
+                os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
+                os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
+                otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+                if "running" in otx_domain_url_shell_status:
+                    otx_status_result = "历史URL查询接口正在运行中请勿重复提交"
+                else:
+                    try:
+                        os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell')
+                        if "running" in otx_domain_url_shell_status:
+                            otx_status_result = "历史URL查询接口已开启稍后查看结果"
+                        else:
+                            otx_status_result = "历史URL查询接口正在后台启动中......"
+                    except Exception as e:
+                        print("捕获到异常:", e)
+            elif '4' in str(j):
+                # 每次启动前清空上次扫描结果
+                os.popen('rm -rf /TIP/info_scan/result/subdomain.txt')
+                os.popen('touch /TIP/info_scan/result/subdomain.txt')
+                crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+                if "running" in crt_subdomain_shell_status:
+                    crt_status_result = "基于证书查询子域名接口正在运行中请勿重复提交"
+                else:
+                    try:
+                        os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell')
+                        
+                        if "running" in crt_subdomain_shell_status:
+                            crt_status_result = "基于证书查询子域名接口已开启稍后查看结果"
+                        else:
+                            crt_status_result = "基于证书查询子域名接口正在后台启动中......"
+                    except Exception as e:
+                        print("捕获到异常:", e)
+            elif '5' in str(j):
+                namptatus = os.popen('bash ./finger.sh nmapstatus').read()
+                if "running" in namptatus:
+                    nmap_status_result = "nmap正在运行中请勿重复提交"
+                
+                else:
+        
+                    try:
+            
+                        basic.ip_queue_nmap()
+                        if "running" in namptatus:
+                            nmap_status_result = "nmap已开启稍后查看结果"
+                        else:
+                            nmap_status_result = "nmap正在后台启动中......"
+                    except Exception as e:
+                        print("捕获到异常:", e)
+            else:
+                print("参数正在完善中...")
+
+        try:
+            bbscan_status_result1 = bbscan_status_result
+        except:
+            bbscan_status_result1 = ""
+        try:
+            finger_status_result1 = finger_status_result
+        except:
+            finger_status_result1 = ""
+
+        try:
+            otx_status_result1 = otx_status_result
+        except:
+            otx_status_result1 = ""
+        try:
+            crt_status_result1 = crt_status_result
+        except:
+            crt_status_result1 = ""
+        try:
+            nmap_status_result1 = nmap_status_result
+        except:
+            nmap_status_result1 = ""
+        
+        dict = {
+            "key1":bbscan_status_result1,
+            "key2":finger_status_result1,
+            "key3":otx_status_result1,
+            "key4":crt_status_result1,
+            "key5":nmap_status_result1
+        }
+        message_json = {
+            "dictkey1":dict['key1'],
+            "dictkey2":dict['key2'],
+            "dictkey3":dict['key3'],
+            "dictkey4":dict['key4'],
+            "dictkey5":dict['key5'],
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
+
+
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
