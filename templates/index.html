@@ -66,7 +66,7 @@
 				<span id="tishisp8" style="display: none; color: chocolate;">报告下载</span>
 				<span id="tishisp9" style="display: none; color: chocolate;">系统管理</span>
 				<span id="tishisp9a" style="display: none; color: chocolate;">注销系统</span>
-				<span id="tishisp9b" style="display: none; color: chocolate;">软重启系统</span>
+				<span id="tishisp9b" style="display: none; color: chocolate;">系统变更代码软重启服务</span>
 				<span id="tishisp9c" style="display: none; color: chocolate;">关闭后端服务</span>
 			</td>
 		</tr>
@@ -424,7 +424,8 @@
 			<table border="1">
 				<tr>
 					<td>
-						<input type="submit" id="button64" value="显示报告" onclick="one_click_preview_all_report_finc()" disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button64" value="显示报告" onclick="one_click_preview_all_report_finc()"
+							disabled>&nbsp;&nbsp;&nbsp;
 						说明：一键打开所有漏洞扫描结果
 					</td>
 
@@ -716,7 +717,8 @@
 
 				<tr>
 					<td colspan="2">
-						<input type="submit" id="button72" value="漏洞扫描" onclick="vulnxuanzhongscan()" disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button72" value="漏洞扫描" onclick="vulnxuanzhongscan()"
+							disabled>&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="option1" name="option" value="1">
 						<label for="option1">struts2</label>
 						<input type="checkbox" id="option2" name="option" value="2">
@@ -746,7 +748,15 @@
 
 				<tr>
 					<td colspan="2">
-						<input type="submit" id="button73" value="信息收集" onclick="infoxuanzhongscan()" disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button73" value="开启信息收集" onclick="infoxuanzhongscan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button75" value="关闭信息收集" onclick="infoxuanzhongstopscanfunc()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button74" value="开启报告预览" onclick="infoxuanzhongreportyulan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;<span
+								style="cursor: pointer;" onclick="unSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="infooption1" name="info_option" value="1">
 						<label for="infooption1">敏感信息</label>
 						<input type="checkbox" id="infooption2" name="info_option" value="2">

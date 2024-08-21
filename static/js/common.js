@@ -443,6 +443,10 @@ function startbutton() {
     button72.disabled = false;
     var button73 = document.getElementById("button73");
     button73.disabled = false;
+    var button74 = document.getElementById("button74");
+    button74.disabled = false;
+    var button75 = document.getElementById("button75");
+    button75.disabled = false;
 }
 
 //禁用按钮
@@ -581,6 +585,10 @@ function stopbutton() {
     button72.disabled = true;
     var button73 = document.getElementById("button73");
     button73.disabled = true;
+    var button74 = document.getElementById("button74");
+    button74.disabled = true;
+    var button75 = document.getElementById("button75");
+    button75.disabled = true;
 }
 
 
@@ -2515,7 +2523,7 @@ function vulnxuanzhongscan(){
 
 
 
-// 信息收集集合选中扫描
+// 信息收集集合复选框选中开启扫描
 function infoxuanzhongscan(){
 
     const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
@@ -2548,4 +2556,91 @@ function infoxuanzhongscan(){
 
         }
     })
+}
+
+// 信息收集集合复选框选中报告预览
+function infoxuanzhongreportyulan(){
+
+    const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
+    const info_front_list = [];
+
+    if (checkboxes.length === 0) {
+        alert('请至少选择一个选项');
+        return;
+    }
+
+    checkboxes.forEach((checkbox) => {
+        info_front_list.push(checkbox.value);
+    });
+    
+    // 遍历列表并判断然后跳转到对应的报告
+    for (let i = 0; i < info_front_list.length; i++){
+        if (info_front_list[i] == '1'){
+            window.open("/showbbscanreport/", "_blank");
+        }else if (info_front_list[i] == '2'){
+            window.open("/ehole_finger_report/", "_blank");
+        }else if (info_front_list[i] == '3'){
+            window.open("/previewhistoryurl/", "_blank");
+        }else if (info_front_list[i] == '4'){
+            window.open("/showsubdomainreport/", "_blank");
+        }else if (info_front_list[i] == '5'){
+            window.open("/nmapresultshow/", "_blank");
+        }
+    }
+}
+
+// 信息收集集合复选框选中关闭扫描
+function infoxuanzhongstopscanfunc(){
+    const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
+    const info_front_list = [];
+
+    if (checkboxes.length === 0) {
+        alert('请至少选择一个选项');
+        return;
+    }
+
+    checkboxes.forEach((checkbox) => {
+        info_front_list.push(checkbox.value);
+    });
+
+    $.ajax({
+        url: '/stop_infoscan_back/',
+        method: 'POST',
+        data: JSON.stringify({ info_front_list: info_front_list }), // 发送 JSON 字符串
+        contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
+        dataType: 'json', // 期望服务器返回的数据类型
+        // data: JSON.stringify({ info_front_list: info_front_list }),
+        success: function (info) {
+            alert(info.dictkey11+"\n"+info.dictkey21+"\n"+info.dictkey31+"\n"+info.dictkey41+"\n"+info.dictkey51)
+        },
+
+        error: function (info) {
+            alert("内部出错")
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 信息收集复选框全选和反选
+function selectAll() {
+    // 获取所有具有相同名称的复选框
+    var checkboxes = document.querySelectorAll('input[name="info_option"]');
+    
+    // 遍历所有复选框，并设置为选中状态
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = true;
+    }
+}
+
+function unSelection() {
+    // 获取所有具有相同名称的复选框
+    var checkboxes = document.querySelectorAll('input[name="info_option"]');
+    
+    // 遍历所有复选框，并取反选中状态
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = !checkboxes[i].checked;
+    }
 }

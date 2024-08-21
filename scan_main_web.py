@@ -51,6 +51,10 @@ import pymysql
 # 设置session过期时间
 from datetime import timedelta
 
+
+# 导入线程模块
+import threading
+
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
@@ -1162,8 +1166,12 @@ def startbatchnmapscan():
         else:
 
             try:
-    
-                basic.ip_queue_nmap()
+                # 创建线程来运行nmap任务
+                nmap_thread = threading.Thread(target=basic.ip_queue_nmap())
+
+                # 启动线程
+                nmap_thread.start()
+                
                 if "running" in namptatus:
                     nmap_status_result = "nmap已开启稍后查看结果"
                 else:
@@ -1281,7 +1289,7 @@ def killafrogprocess():
     
 
 
-#结束nmap进程
+#关闭nmap进程
 @app.route("/killnmapprocess/")
 def killnmapprocess():
     user = session.get('username')
@@ -2255,11 +2263,13 @@ def killweavervulnscan():
 
 
 
-# 前端复选框批量调用信息收集工具接口
+# 前端复选框批量开启信息收集工具接口
 @app.route("/infoscan_check_back/",methods=['post'])
 def infoscan_check_back():
     user = session.get('username')
     if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成开启批量信息收集')
         data = request.get_json()  # 使用 get_json 解析 JSON 请求体
         info_front_list = data['info_front_list']
         # 接收前端传入的值转为int型
@@ -2326,6 +2336,9 @@ def infoscan_check_back():
                     except Exception as e:
                         print("捕获到异常:", e)
             elif '5' in str(j):
+                # 每次启动前清空上次扫描结果
+                os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
+                os.popen('touch /TIP/info_scan/result/nmap.txt')
                 namptatus = os.popen('bash ./finger.sh nmapstatus').read()
                 if "running" in namptatus:
                     nmap_status_result = "nmap正在运行中请勿重复提交"
@@ -2333,8 +2346,13 @@ def infoscan_check_back():
                 else:
         
                     try:
-            
-                        basic.ip_queue_nmap()
+                        
+                        # 创建线程来运行nmap任务
+                        nmap_thread = threading.Thread(target=basic.ip_queue_nmap())
+
+                        # 启动线程
+                        nmap_thread.start()
+
                         if "running" in namptatus:
                             nmap_status_result = "nmap已开启稍后查看结果"
                         else:
@@ -2386,6 +2404,103 @@ def infoscan_check_back():
     else:
         return render_template('login.html')
 
+
+
+# 前端复选框批量关闭信息收集工具接口
+@app.route("/stop_infoscan_back/",methods=['post'])
+def stop_infoscan_back():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成关闭批量信息收集')
+        data = request.get_json()  # 使用 get_json 解析 JSON 请求体
+        info_front_list = data['info_front_list']
+        # 接收前端传入的值转为int型
+        info_value_list = []
+        for i in info_front_list:
+            info_value_list.append(int(i))
+
+        # 遍历列表判断关闭哪个扫描器
+        for j in info_value_list:
+            if '1' in str(j):
+                bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
+                os.popen('bash ./finger.sh killbbscan')
+                if "stop" in bbscanstatus:
+                    kill_bbscan_result = "已关闭bbscan扫描程序"
+                else:
+                    kill_bbscan_result = "正在关闭中......"
+            elif '2' in str(j):
+                os.popen('bash ./finger.sh killEHole')
+                EHolestatus = os.popen('bash ./finger.sh ehole_status').read()
+                if "stop" in EHolestatus:
+                    kill_EHole_result = "已关闭EHole扫描程序"
+                else:
+                    kill_EHole_result = "正在关闭中......"
+            elif '3' in str(j):
+                otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+                os.popen('bash ./finger.sh kill_otx_domain_url_shell')
+                if "stop" in otx_domain_url_shell_status:
+                    kill_otx_url_result = "已关闭历史URL查询接口"
+                else:
+                    kill_otx_url_result = "正在关闭中......"
+            elif '4' in str(j):
+                crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+                os.popen('bash ./finger.sh kill_crt_subdomain_shell')
+                if "stop" in crt_subdomain_shell_status:
+                    kill_crt_subdomain_result = "已关闭历史URL查询接口"
+                else:
+                    kill_crt_subdomain_result = "正在关闭中......"
+            elif '5' in str(j):
+                nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
+                os.popen('bash ./finger.sh killnmap')
+                if "stop" in nmapstatus:
+                    kill_nmap_result = "已关闭nmap扫描程序"
+                else:
+                    kill_nmap_result = "正在关闭中......"
+            else:
+                print("参数正在完善中...")
+
+        try:
+            kill_bbscan_result1 = kill_bbscan_result
+        except:
+            kill_bbscan_result1 = ""
+        try:
+            kill_EHole_result1 = kill_EHole_result
+        except:
+            kill_EHole_result1 = ""
+
+        try:
+            kill_otx_url_result1 = kill_otx_url_result
+        except:
+            kill_otx_url_result1 = ""
+        try:
+            kill_crt_subdomain_result1 = kill_crt_subdomain_result
+        except:
+            kill_crt_subdomain_result1 = ""
+        try:
+            kill_nmap_result1 = kill_nmap_result
+        except:
+            kill_nmap_result1 = ""
+        
+        dict = {
+            "key11":kill_bbscan_result1,
+            "key21":kill_EHole_result1,
+            "key31":kill_otx_url_result1,
+            "key41":kill_crt_subdomain_result1,
+            "key51":kill_nmap_result1
+        }
+        message_json = {
+            "dictkey11":dict['key11'],
+            "dictkey21":dict['key21'],
+            "dictkey31":dict['key31'],
+            "dictkey41":dict['key41'],
+            "dictkey51":dict['key51'],
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  

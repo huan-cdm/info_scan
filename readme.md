@@ -73,4 +73,3 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/tools_assemble.png" /><br>
 选择扫描器一键完成扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br>
-##### 信息扫描类工具已开发完毕，漏洞扫描类只完成前端功能，后端正在开发中......
