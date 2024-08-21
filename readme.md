@@ -1,5 +1,5 @@
 ##### 虚拟机安装：
-##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目（https://github.com/huan-cdm/info_scan.git）替换到虚拟机的/TIP/目录下，然后重启相关服务；
+##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
 虚拟机账号密码：huan/admin@123<br>
 1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件<br>
 2. 修改info_scan/static/js/common.js文件第一行修改为自己虚拟机的IP地址<br>
@@ -8,7 +8,7 @@
 5. 入口地址：http://虚拟机IP:19999/index/<br>
 6. 项目源码路径：/TIP/*
 网盘链接：<br>
-https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy
+- [info_scan虚拟机版](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)
 <br><br>
 
 ##### 源码安装：
