@@ -57,6 +57,7 @@ import threading
 
 # 导入时间模块
 import time
+from config import info_time_controls
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -2288,7 +2289,7 @@ def infoscan_check_back():
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes = basic.info_time_shijian_cha(1)
 
-                if int(diff_time_minutes) > 2:
+                if int(diff_time_minutes) > info_time_controls:
                     # 超过2分钟更新数据库中的时间
                     basic.last_time_update_lib(current_time,1)
                     # 提交扫描任务
@@ -2304,7 +2305,7 @@ def infoscan_check_back():
                         else:
                             bbscan_status_result = "bbscan正在后台启动中......"
                 else:
-                    bbscan_status_result = "bbscan扫描程序2分钟内不允许重复扫描"
+                    bbscan_status_result = "bbscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 
                 
             elif '2' in str(j):
@@ -2312,7 +2313,7 @@ def infoscan_check_back():
                 current_time2 = time.time()
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes2 = basic.info_time_shijian_cha(2)
-                if int(diff_time_minutes2) > 2:
+                if int(diff_time_minutes2) > info_time_controls:
                     # 超过2分钟更新数据库中的时间
                     basic.last_time_update_lib(current_time2,2)
                     # 提交扫描任务
@@ -2328,13 +2329,13 @@ def infoscan_check_back():
                         else:
                             finger_status_result = "EHole正在后台启动中......"
                 else:
-                    finger_status_result = "EHole扫描程序2分钟内不允许重复扫描"
+                    finger_status_result = "EHole扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '3' in str(j):
                 # 获取系统当前时间
                 current_time3 = time.time()
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes3 = basic.info_time_shijian_cha(3)
-                if int(diff_time_minutes3) > 2:
+                if int(diff_time_minutes3) > info_time_controls:
                     # 超过2分钟更新数据库中的时间
                     basic.last_time_update_lib(current_time3,3)
                     # 提交扫描任务
@@ -2354,13 +2355,13 @@ def infoscan_check_back():
                         except Exception as e:
                             print("捕获到异常:", e)
                 else:
-                    otx_status_result = "历史URL查询接口2分钟内不允许重复扫描"
+                    otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '4' in str(j):
                 # 获取系统当前时间
                 current_time4 = time.time()
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes4 = basic.info_time_shijian_cha(4)
-                if int(diff_time_minutes4) > 2:
+                if int(diff_time_minutes4) > info_time_controls:
                     # 超过2分钟更新数据库中的时间
                     basic.last_time_update_lib(current_time4,4)
                     # 提交扫描任务
@@ -2381,13 +2382,13 @@ def infoscan_check_back():
                         except Exception as e:
                             print("捕获到异常:", e)
                 else:
-                    crt_status_result = "基于证书查询子域名接口2分钟内不允许重复扫描"
+                    crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(j):
                 # 获取系统当前时间
                 current_time5 = time.time()
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes5 = basic.info_time_shijian_cha(5)
-                if int(diff_time_minutes5) > 2:
+                if int(diff_time_minutes5) > info_time_controls:
                     # 超过2分钟更新数据库中的时间
                     basic.last_time_update_lib(current_time5,5)
                     # 提交扫描任务
@@ -2415,7 +2416,7 @@ def infoscan_check_back():
                         except Exception as e:
                             print("捕获到异常:", e)
                 else:
-                    nmap_status_result = "nmap端口扫描程序2分钟内不允许重复扫描"
+                    nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             else:
                 print("参数正在完善中...")
 
