@@ -71,6 +71,7 @@
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yijianscan.png" /><br>
 支持工具详情<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/tools_assemble.png" /><br>
-选择扫描器一键完成扫描<br>
+以复选框形式操作扫描器<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/infoscan_time.png" /><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br>

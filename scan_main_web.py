@@ -58,6 +58,7 @@ import threading
 # 导入时间模块
 import time
 from config import info_time_controls
+from config import vuln_time_controls
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -2055,132 +2056,6 @@ def thinkphp_poc_report():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
-
-
-
-
-# 针对特定漏洞一键扫描
-@app.route("/one_click_scan/")
-def one_click_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成一键漏洞扫描')
-
-        # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
-        basic.asset_by_rule_handle()
-        
-        # 计算shiro_file文件行数，如果为0不开启，否则开启
-        shiro_num =  os.popen('bash ./finger.sh zhongdian_file_num shiro_file.txt').read()
-        if int(shiro_num) == 0:
-            shiro_status_result = "shiro资产为空无法开启扫描"
-        else:
-            # 开启shiro
-            shiro_status = os.popen('bash ./finger.sh shiro_status').read()
-            if "running" in shiro_status:
-                shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
-            else:
-                try:
-                    basic.shiro_scan()
-                    if "running" in shiro_status:
-                        shiro_status_result = "shiro扫描程序已开启稍后查看结果"
-                    else:
-                        shiro_status_result = "shiro扫描程序正在后台启动中......"
-                except Exception as e:
-                    print("捕获到异常:", e)
-        
-
-        # 计算springboot_file文件行数，如果为0不开启，否则开启
-        springboot_num =  os.popen('bash ./finger.sh zhongdian_file_num springboot_file.txt').read()
-        if int(springboot_num) == 0:
-            springboot_status_result = "springboot资产为空无法开启扫描"
-        else:
-            # 开启springboot
-            springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
-            if "running" in springboot_scan_status:
-                springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
-            else:
-                try:
-                    os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-                    if "running" in springboot_scan_status:
-                        springboot_status_result = "springboot扫描程序已开启稍后查看结果"
-                    else:
-                        springboot_status_result = "springboot扫描程序正在后台启动中......"
-                except Exception as e:
-                    print("捕获到异常:", e)
-
-
-        # 计算struts2_file文件行数，如果为0不开启，否则开启
-        struts2_num =  os.popen('bash ./finger.sh zhongdian_file_num struts2_file.txt').read()
-        if int(struts2_num) == 0:
-            struts2_status_result = "struts2资产为空无法开启扫描"
-        else:
-            # 开启struts2
-            struts2status = os.popen('bash ./finger.sh struts2_status').read()
-            if "running" in struts2status:
-                struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
-            else:
-                try:
-                    os.popen('bash ./finger.sh struts2_poc_scan')
-                    if "running" in struts2status:
-                        struts2_status_result = "struts2扫描程序已开启稍后查看结果"
-                    else:
-                        struts2_status_result = "struts2扫描程序正在后台启动中......"
-                except Exception as e:
-                    print("捕获到异常:", e)
-                
-
-
-        # 计算weblogic_file文件行数，如果为0不开启，否则开启
-        weblogic_num =  os.popen('bash ./finger.sh zhongdian_file_num weblogic_file.txt').read()
-        if int(weblogic_num) == 0:
-            weblogic_status_result = "weblogic资产为空无法开启扫描"
-        else:
-            # 开启weblogic
-            weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
-            if "running" in weblogic_status:
-                weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
-            else:
-    
-                # 遍历目标文件存入列表
-                url_list = []
-                url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
-                for i in url_file.readlines():
-                    url_list.append(i.strip())
-                
-                # url中匹配出域名
-                domain_list = []
-                for url in url_list:
-                    pattern = r"https?://([^/]+)"
-                    urls_re_1 = re.search(pattern,url)
-                    urls_re = urls_re_1.group(1)
-                    domain_list.append(urls_re)
-                
-                # 域名写入到weblogic_poc目标
-                weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
-                for j in domain_list:
-                    weblogic_file.write(str(j)+"\n")
-                weblogic_file.close()
-        
-                # weblogic_poc开始扫描
-                os.popen('bash ./finger.sh weblogic_poc_scan')
-                if "running" in weblogic_status:
-                    weblogic_status_result = "struts2扫描程序已开启稍后查看结果"
-                else:
-                    weblogic_status_result = "struts2扫描程序正在后台启动中......"
-
-        message_json = {
-            "shiro_status_result":shiro_status_result,
-            "springboot_status_result":springboot_status_result,
-            "struts2_status_result":struts2_status_result,
-            "weblogic_status_result":weblogic_status_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
     
 
 
@@ -2290,7 +2165,7 @@ def infoscan_check_back():
                 diff_time_minutes = basic.info_time_shijian_cha(1)
 
                 if int(diff_time_minutes) > info_time_controls:
-                    # 超过2分钟更新数据库中的时间
+                    # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time,1)
                     # 提交扫描任务
                     bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
@@ -2314,7 +2189,7 @@ def infoscan_check_back():
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes2 = basic.info_time_shijian_cha(2)
                 if int(diff_time_minutes2) > info_time_controls:
-                    # 超过2分钟更新数据库中的时间
+                    # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time2,2)
                     # 提交扫描任务
 
@@ -2336,7 +2211,7 @@ def infoscan_check_back():
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes3 = basic.info_time_shijian_cha(3)
                 if int(diff_time_minutes3) > info_time_controls:
-                    # 超过2分钟更新数据库中的时间
+                    # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time3,3)
                     # 提交扫描任务
                     # 每次启动前清空上次扫描结果
@@ -2362,7 +2237,7 @@ def infoscan_check_back():
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes4 = basic.info_time_shijian_cha(4)
                 if int(diff_time_minutes4) > info_time_controls:
-                    # 超过2分钟更新数据库中的时间
+                    # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time4,4)
                     # 提交扫描任务
                     # 每次启动前清空上次扫描结果
@@ -2389,7 +2264,7 @@ def infoscan_check_back():
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes5 = basic.info_time_shijian_cha(5)
                 if int(diff_time_minutes5) > info_time_controls:
-                    # 超过2分钟更新数据库中的时间
+                    # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time5,5)
                     # 提交扫描任务
                     # 每次启动前清空上次扫描结果
@@ -2459,6 +2334,545 @@ def infoscan_check_back():
 
         return jsonify(message_json)
     
+    else:
+        return render_template('login.html')
+
+
+
+
+
+# 前端复选框批量开启漏洞扫描工具接口
+@app.route("/vulnscan_check_back/",methods=['post'])
+def vulnscan_check_back():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成开启批量漏洞扫描')
+        # 使用 get_json 解析 JSON 请求体,接收前端传递过来的json
+        data = request.get_json()  
+        vuln_front_list = data['vuln_front_list']
+        fscanpartname = int(data['fscanpartname'])
+        hydrapart = int(data['hydrapart'])
+        vulnname = data['vulnname']
+        poc_dir = data['poc_dir']
+        
+        # 遍历列表判断调用哪个扫描器
+        for k in vuln_front_list:
+            if '1' in str(k):
+                print("struts2")
+                # 获取系统当前时间
+                current_time1 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes1 = basic.vuln_time_shijian_cha(1)
+                if int(diff_time_minutes1) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time1,1)
+                    # 提交扫描任务
+
+                    struts2status = os.popen('bash ./finger.sh struts2_status').read()
+                    if "running" in struts2status:
+                        struts2status_result = "struts2扫描程序正在运行中请勿重复提交"
+                    else:
+                        # 执行poc扫描
+                        os.popen('bash ./finger.sh struts2_poc_scan')
+                        struts2status_result = "struts2扫描程序已开启稍后查看结果"
+                else:
+                    struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+            elif '2' in str(k):
+                print("weblogic")
+                # 获取系统当前时间
+                current_time2 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes2 = basic.vuln_time_shijian_cha(2)
+                if int(diff_time_minutes2) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time2,2)
+                    # 提交扫描任务
+                    weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
+                    if "running" in weblogic_status:
+                        weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
+                    else:
+            
+                        # 遍历目标文件存入列表
+                        url_list = []
+                        url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+                        for i in url_file.readlines():
+                            url_list.append(i.strip())
+                        
+                        # url中匹配出域名
+                        domain_list = []
+                        for url in url_list:
+                            pattern = r"https?://([^/]+)"
+                            urls_re_1 = re.search(pattern,url)
+                            urls_re = urls_re_1.group(1)
+                            domain_list.append(urls_re)
+                        
+                        # 域名写入到weblogic_poc目标
+                        weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+                        for j in domain_list:
+                            weblogic_file.write(str(j)+"\n")
+                        weblogic_file.close()
+                
+                        # weblogic_poc开始扫描
+                        os.popen('bash ./finger.sh weblogic_poc_scan')
+                        weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
+                    
+                else:
+                    weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+            elif '3' in str(k):
+                print("shiro")
+                # 获取系统当前时间
+                current_time3 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes3 = basic.vuln_time_shijian_cha(3)
+                if int(diff_time_minutes3) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time3,3)
+                    # 提交扫描任务
+                    shiro_status = os.popen('bash ./finger.sh shiro_status').read()
+                    if "running" in shiro_status:
+                        shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            basic.shiro_scan()
+                            shiro_status_result = "shiro扫描程序已开启稍后查看结果"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                    
+                else:
+                    shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+            elif '4' in str(k):
+                print("springboot")
+                # 获取系统当前时间
+                current_time4 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes4 = basic.vuln_time_shijian_cha(4)
+                if int(diff_time_minutes4) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time4,4)
+                    # 提交扫描任务
+                    springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
+                    if "running" in springboot_scan_status:
+                        springboot_scan_status_result = "springboot扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            os.popen('bash /TIP/info_scan/finger.sh start_springboot')
+                            if "running" in springboot_scan_status:
+                                springboot_scan_status_result = "springboot扫描程序已开启稍后查看结果"
+                            else:
+                                springboot_scan_status_result = "springboot扫描程序正在后台启动中......"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                
+                else:
+                    springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '5' in str(k):
+                print("thinkphp")
+                # 获取系统当前时间
+                current_time5 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes5 = basic.vuln_time_shijian_cha(5)
+                if int(diff_time_minutes5) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time5,5)
+                    # 提交扫描任务
+                    tpscan_status = os.popen('bash ./finger.sh TPscan_status').read()
+                    if "running" in tpscan_status:
+                        thinkphp_status_result = "thinkphp扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            basic.thinkphp_scan()
+                            if "running" in tpscan_status:
+                                thinkphp_status_result = "thinkphp扫描程序已开启稍后查看结果"
+                            else:
+                                thinkphp_status_result = "thinkphp扫描程序正在后台启动中......"
+             
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                
+                else:
+                    thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '6' in str(k):
+                print("afrog")
+                # 获取系统当前时间
+                current_time6 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes6 = basic.vuln_time_shijian_cha(6)
+                if int(diff_time_minutes6) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time6,6)
+                    # 提交扫描任务
+                    afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
+                    if "running" in afrogscanstatus:
+                        start_afrog_result = "afrog正在运行中请勿重复提交"
+                    else:
+                        try:
+                            os.popen('bash ./finger.sh startafrogprocess')
+                            if "running" in afrogscanstatus:
+                                start_afrog_result = "afrog已开启稍后查看结果"
+                            else:
+                                start_afrog_result = "afrog正在后台启动中......"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                
+                else:
+                    start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '7' in str(k):
+                print("fscan")
+                # 获取系统当前时间
+                current_time7 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes7 = basic.vuln_time_shijian_cha(7)
+                if int(diff_time_minutes7) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time7,7)
+                    # 提交扫描任务
+                    # 删除历史fscan扫描数据
+                    os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
+                
+                    fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
+                    if "running" in fscanstatus:
+                        fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            basic.batch_fscan_interface(fscanpartname)
+                            
+                            if "running" in fscanstatus:
+                                fscan_status_result = "fscan扫描程序已启动稍后查看扫描结果"
+                            else:
+                                fscan_status_result = "fscan正在后台启动中......"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                
+                else:
+                    fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '8' in str(k):
+                print("弱口令")
+                # 获取系统当前时间
+                current_time8 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes8 = basic.vuln_time_shijian_cha(8)
+                if int(diff_time_minutes8) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time8,8)
+                    # 提交扫描任务
+                    # 调用url转ip函数写入文件
+                    ip_list = basic.url_convert_ip()
+                    f = open(file='/TIP/info_scan/result/hydra_ip.txt',mode='w')
+                    for line in ip_list:
+                        f.write(str(line)+"\n")
+                    
+                    # 开启扫描
+                    hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
+            
+                    if "running" in hydra_scan_status:
+                        hydra_scan_result = "hydra扫描程序正在运行中请勿重复提交"
+                    else:
+                        basic.start_hydra_lib(hydrapart)
+                        hydra_scan_result = "hydra扫描程序已开启稍后查看扫描结果"
+                                            
+                else:
+                    hydra_scan_result = "hydra扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '9' in str(k):
+                print("api接口")
+                # 获取系统当前时间
+                current_time9 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes9 = basic.vuln_time_shijian_cha(9)
+                if int(diff_time_minutes9) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time9,9)
+                    # 提交扫描任务
+                    urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
+                    if "running" in urlfinder_status:
+                        urlfinder_status_result = "urlfinder扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            os.popen('bash ./finger.sh urlfinder_start')
+                            urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
+                            if "running" in urlfinder_status:
+                                urlfinder_status_result = "urlfinder扫描程序已开启稍后查看结果"
+                            else:
+                                urlfinder_status_result = "urlfinder正在后台启动中......"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                            
+                else:
+                    urlfinder_status_result = "urlfinder扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'a' in str(k):
+                print("vulmap")
+                # 获取系统当前时间
+                current_time10 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes10 = basic.vuln_time_shijian_cha(10)
+                if int(diff_time_minutes10) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time10,10)
+                    # 提交扫描任务
+                    vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
+                    if "running" in vulmapscanstatus:
+                        vummap_scan_result = "vulmap扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
+                            if "running" in vulmapscanstatus:
+                                vummap_scan_result = "vulmap扫描程序已启动稍后查看扫描结果"
+                            else:
+                                vummap_scan_result = "vulmap正在后台启动中......"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                            
+                else:
+                    vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'b' in str(k):
+                print("nuclei")
+                # 获取系统当前时间
+                current_time11 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes11 = basic.vuln_time_shijian_cha(11)
+                if int(diff_time_minutes11) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time11,11)
+                    # 提交扫描任务
+                    nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
+                    if "running" in nucleitatus:
+                        nuclei_status_result = "nuclei扫描程序正在运行中请勿重复提交"
+                    else:
+                        
+                        if int(history_switch) == 0:
+                            os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
+                            nuclei_status_result = "nuclei扫描程序已开启稍后查看结果"
+                        elif int(history_switch) ==1:
+                            os.popen('bash ./finger.sh startnuclei_result')
+                        else:
+                            print("配置文件history_switch字段只允许0/1")
+                                            
+                else:
+                    nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'c' in str(k):
+                print("泛微OA")
+                # 获取系统当前时间
+                current_time12 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes12 = basic.vuln_time_shijian_cha(12)
+                if int(diff_time_minutes12) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time12,12)
+                    # 提交扫描任务
+                    weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+                    if "running" in weaver_status:
+                        weaver_status_result = "泛微OA漏洞扫描程序正在运行中请勿重复提交"
+                    else:
+                        try:
+                            os.popen('bash ./finger.sh weaver_exp_scan')
+                            weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+                            if "running" in weaver_status:
+                                weaver_status_result = "泛微OA漏洞扫描程序已开启稍后查看结果"
+                            else:
+                                weaver_status_result = "泛微OA漏洞扫描程序正在后台启动中......"
+                        except Exception as e:
+                            print("捕获到异常:", e)
+                                            
+                else:
+                    weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'd' in str(k):
+                print("重点资产")
+                # 获取系统当前时间
+                current_time13 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes13 = basic.vuln_time_shijian_cha(13)
+                if int(diff_time_minutes13) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time13,13)
+                    # 提交扫描任务
+                    # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
+                    basic.asset_by_rule_handle()
+                    
+                    # 计算shiro_file文件行数，如果为0不开启，否则开启
+                    shiro_num =  os.popen('bash ./finger.sh zhongdian_file_num shiro_file.txt').read()
+                    if int(shiro_num) == 0:
+                        all_shiro_status_result = "shiro资产为空无法开启扫描"
+                    else:
+                        # 开启shiro
+                        shiro_status = os.popen('bash ./finger.sh shiro_status').read()
+                        if "running" in shiro_status:
+                            all_shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
+                        else:
+                            try:
+                                basic.shiro_scan()
+                                if "running" in shiro_status:
+                                    all_shiro_status_result = "shiro扫描程序已开启稍后查看结果"
+                                else:
+                                    all_shiro_status_result = "shiro扫描程序正在后台启动中......"
+                            except Exception as e:
+                                print("捕获到异常:", e)
+                    
+            
+                    # 计算springboot_file文件行数，如果为0不开启，否则开启
+                    springboot_num =  os.popen('bash ./finger.sh zhongdian_file_num springboot_file.txt').read()
+                    if int(springboot_num) == 0:
+                        all_springboot_status_result = "springboot资产为空无法开启扫描"
+                    else:
+                        # 开启springboot
+                        springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
+                        if "running" in springboot_scan_status:
+                            all_springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
+                        else:
+                            try:
+                                os.popen('bash /TIP/info_scan/finger.sh start_springboot')
+                                if "running" in springboot_scan_status:
+                                    all_springboot_status_result = "springboot扫描程序已开启稍后查看结果"
+                                else:
+                                    all_springboot_status_result = "springboot扫描程序正在后台启动中......"
+                            except Exception as e:
+                                print("捕获到异常:", e)
+            
+            
+                    # 计算struts2_file文件行数，如果为0不开启，否则开启
+                    struts2_num =  os.popen('bash ./finger.sh zhongdian_file_num struts2_file.txt').read()
+                    if int(struts2_num) == 0:
+                        all_struts2_status_result = "struts2资产为空无法开启扫描"
+                    else:
+                        # 开启struts2
+                        struts2status = os.popen('bash ./finger.sh struts2_status').read()
+                        if "running" in struts2status:
+                            all_struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
+                        else:
+                            try:
+                                os.popen('bash ./finger.sh struts2_poc_scan')
+                                if "running" in struts2status:
+                                    all_struts2_status_result = "struts2扫描程序已开启稍后查看结果"
+                                else:
+                                    all_struts2_status_result = "struts2扫描程序正在后台启动中......"
+                            except Exception as e:
+                                print("捕获到异常:", e)
+                            
+            
+            
+                    # 计算weblogic_file文件行数，如果为0不开启，否则开启
+                    weblogic_num =  os.popen('bash ./finger.sh zhongdian_file_num weblogic_file.txt').read()
+                    if int(weblogic_num) == 0:
+                        all_weblogic_status_result = "weblogic资产为空无法开启扫描"
+                    else:
+                        # 开启weblogic
+                        weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
+                        if "running" in weblogic_status:
+                            all_weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
+                        else:
+                
+                            # 遍历目标文件存入列表
+                            url_list = []
+                            url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+                            for i in url_file.readlines():
+                                url_list.append(i.strip())
+                            
+                            # url中匹配出域名
+                            domain_list = []
+                            for url in url_list:
+                                pattern = r"https?://([^/]+)"
+                                urls_re_1 = re.search(pattern,url)
+                                urls_re = urls_re_1.group(1)
+                                domain_list.append(urls_re)
+                            
+                            # 域名写入到weblogic_poc目标
+                            weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+                            for j in domain_list:
+                                weblogic_file.write(str(j)+"\n")
+                            weblogic_file.close()
+                    
+                            # weblogic_poc开始扫描
+                            os.popen('bash ./finger.sh weblogic_poc_scan')
+                            if "running" in weblogic_status:
+                                all_weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
+                            else:
+                                all_weblogic_status_result = "weblogic扫描程序正在后台启动中......"
+
+                    point_all_result = all_shiro_status_result+" "+all_springboot_status_result+" "+all_struts2_status_result+" "+all_weblogic_status_result
+                                            
+                else:
+                    point_all_result = "重点资产扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            else:
+                print("其他扫描器正在完善中......")
+        try:
+            struts2status_result1 = struts2status_result
+        except:
+            struts2status_result1 = ""
+        try:
+            weblogic_status_result1 = weblogic_status_result
+        except:
+            weblogic_status_result1 = ""
+
+        try:
+            shiro_status_result1 = shiro_status_result
+        except:
+            shiro_status_result1 = ""
+
+        try:
+            springboot_scan_status_result1 = springboot_scan_status_result
+        except:
+            springboot_scan_status_result1 = ""
+        try:
+            thinkphp_status_result1 = thinkphp_status_result
+        except:
+            thinkphp_status_result1 = ""
+        try:
+            start_afrog_result1 = start_afrog_result
+        except:
+            start_afrog_result1 = ""
+
+        try:
+            fscan_status_result1 = fscan_status_result
+        except:
+            fscan_status_result1 = ""
+
+        try:
+            hydra_scan_result1 = hydra_scan_result
+        except:
+            hydra_scan_result1 = ""
+
+        try:
+            urlfinder_status_result1 = urlfinder_status_result
+        except:
+            urlfinder_status_result1 = ""
+
+        try:
+            vummap_scan_result1 = vummap_scan_result
+        except:
+            vummap_scan_result1 = ""
+        try:
+            nuclei_status_result1 = nuclei_status_result
+        except:
+            nuclei_status_result1 = ""
+
+        try:
+            weaver_status_result1 = weaver_status_result
+        except:
+            weaver_status_result1 = ""
+        
+        try:
+            point_all_result1 = point_all_result
+        except:
+            point_all_result1 = ""
+        message_json = {
+            "struts2status_result":struts2status_result1,
+            "weblogic_status_result":weblogic_status_result1,
+            "shiro_status_result":shiro_status_result1,
+            "springboot_scan_status_result":springboot_scan_status_result1,
+            "thinkphp_status_result":thinkphp_status_result1,
+            "start_afrog_result":start_afrog_result1,
+            "fscan_status_result":fscan_status_result1,
+            "hydra_scan_result":hydra_scan_result1,
+            "urlfinder_status_result":urlfinder_status_result1,
+            "vummap_scan_result":vummap_scan_result1,
+            "nuclei_status_result":nuclei_status_result1,
+            "weaver_status_result":weaver_status_result1,
+            "point_all_result":point_all_result1
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 

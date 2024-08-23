@@ -423,10 +423,6 @@ function startbutton() {
     button62.disabled = false;
     var button63 = document.getElementById("button63");
     button63.disabled = false;
-    var button64 = document.getElementById("button64");
-    button64.disabled = false;
-    var button65 = document.getElementById("button65");
-    button65.disabled = false;
     var button66 = document.getElementById("button66");
     button66.disabled = false;
     var button67 = document.getElementById("button67");
@@ -447,6 +443,10 @@ function startbutton() {
     button74.disabled = false;
     var button75 = document.getElementById("button75");
     button75.disabled = false;
+    var button76 = document.getElementById("button76");
+    button76.disabled = false;
+    var button77 = document.getElementById("button77");
+    button77.disabled = false;
 }
 
 //禁用按钮
@@ -565,10 +565,6 @@ function stopbutton() {
     button62.disabled = true;
     var button63 = document.getElementById("button63");
     button63.disabled = true;
-    var button64 = document.getElementById("button64");
-    button64.disabled = true;
-    var button65 = document.getElementById("button65");
-    button65.disabled = true;
     var button66 = document.getElementById("button66");
     button66.disabled = true;
     var button67 = document.getElementById("button67");
@@ -589,6 +585,10 @@ function stopbutton() {
     button74.disabled = true;
     var button75 = document.getElementById("button75");
     button75.disabled = true;
+    var button76 = document.getElementById("button76");
+    button76.disabled = true;
+    var button77 = document.getElementById("button77");
+    button77.disabled = true;
 }
 
 
@@ -1704,42 +1704,7 @@ function delete_rule_all_func() {
     })
 }
 
-//一键完成重点资产扫描
-function one_click_scan_func() {
-    $.ajax({
-        url: '/one_click_scan/',
-        method: 'GET',
 
-        success: function (info) {
-            alert(info.shiro_status_result + "\n" + info.springboot_status_result + "\n" + info.struts2_status_result + "\n" + info.weblogic_status_result + "\n")
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-// 一键预览所有报告
-function one_click_preview_all_report_finc() {
-    window.open("/showsubdomainreport/");
-    window.open("/showbbscanreport/");
-    window.open("/ehole_finger_report/");
-    window.open("/nmapresultshow/");
-    window.open("/weblogic_poc_report/");
-    window.open("/vulmapscanreport/");
-    window.open("/struts2_poc_report/");
-    window.open("/fscanreportyulan/");
-    window.open("/shiro_report_show/");
-    window.open("/hydra_report_show/");
-    window.open("/springboot_report_show/");
-    window.open(ipvalue + ":18888/");
-    window.open(ipvalue + ":16666/");
-    window.open(ipvalue + ":15555/");
-}
 
 
 // 操作按钮提示语，延迟0.5秒显示和隐藏
@@ -2280,7 +2245,7 @@ function xianshipointfunc() {
         point9.style.display = "none";
         var point10 = document.getElementById("point10");
         point10.style.display = "none";
-        var point11 = document.getElementById("point11");
+        var point12 = document.getElementById("point12");
         point12.style.display = "none";
         var point13 = document.getElementById("point13");
         point13.style.display = "block";
@@ -2507,7 +2472,7 @@ function killweaverscanfunc() {
 function vulnxuanzhongscan(){
 
     const checkboxes = document.querySelectorAll('input[name="option"]:checked');
-    const selectedValues = [];
+    const vuln_front_list = [];
 
     if (checkboxes.length === 0) {
         alert('请至少选择一个选项');
@@ -2515,10 +2480,37 @@ function vulnxuanzhongscan(){
     }
 
     checkboxes.forEach((checkbox) => {
-        
-        selectedValues.push(checkbox.value);
+        vuln_front_list.push(checkbox.value);
     });
-	alert(selectedValues)
+    // fscan前端需要传递到后端的参数
+	var fscanpartname = $('select[name="fscanpartname"]').val();
+    // hydra弱口令前端需要传递到后端的参数
+    var hydrapart = $('select[name="hydrapart"]').val();
+    // vulmap前端需要传递到后端的参数
+    var vulnname = $('select[name="vulnname"]').val();
+    // nuclei前端需要传递到后端的参数
+    var poc_dir = $('select[name="poc_dir"]').val();
+    $.ajax({
+        url: '/vulnscan_check_back/',
+        method: 'POST',
+        // JSON格式数据传递给后端
+        data: JSON.stringify({ vuln_front_list: vuln_front_list,fscanpartname: fscanpartname, hydrapart:hydrapart, vulnname:vulnname, poc_dir:poc_dir }), 
+        // 告诉服务器发送的数据是 JSON 格式
+        contentType: 'application/json', 
+        // 期望服务器返回的数据类型
+        dataType: 'json', 
+        success: function (info) {
+            alert(info.struts2status_result+"\n"+info.weblogic_status_result+"\n"+info.shiro_status_result+"\n"+info.springboot_scan_status_result+"\n"+info.thinkphp_status_result+"\n"+info.start_afrog_result+"\n"+info.fscan_status_result+"\n"+info.hydra_scan_result+"\n"+info.urlfinder_status_result+"\n"+info.vummap_scan_result+"\n"+info.nuclei_status_result+"\n"+info.weaver_status_result+"\n"+info.point_all_result)
+        },
+
+        error: function (info) {
+            alert("内部出错")
+        },
+        complete: function () {
+
+        }
+    })
+
 }
 
 
@@ -2537,7 +2529,6 @@ function infoxuanzhongscan(){
     checkboxes.forEach((checkbox) => {
         info_front_list.push(checkbox.value);
     });
-    
     $.ajax({
         url: '/infoscan_check_back/',
         method: 'POST',
@@ -2556,7 +2547,15 @@ function infoxuanzhongscan(){
 
         }
     })
+    
 }
+
+// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
+window.addEventListener("beforeunload", function () {
+    clearInterval(intervalId);
+});
+
+
 
 // 信息收集集合复选框选中报告预览
 function infoxuanzhongreportyulan(){
@@ -2624,7 +2623,9 @@ function infoxuanzhongstopscanfunc(){
 }
 
 
-// 信息收集复选框全选和反选
+
+
+// 信息收集复选框全选和取消
 function selectAll() {
     // 获取所有具有相同名称的复选框
     var checkboxes = document.querySelectorAll('input[name="info_option"]');
@@ -2638,6 +2639,27 @@ function selectAll() {
 function unSelection() {
     // 获取所有具有相同名称的复选框
     var checkboxes = document.querySelectorAll('input[name="info_option"]');
+    
+    // 遍历所有复选框，并取反选中状态
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = !checkboxes[i].checked;
+    }
+}
+
+// 漏洞扫描复选框全选和取消
+function vulnselectAll() {
+    // 获取所有具有相同名称的复选框
+    var checkboxes = document.querySelectorAll('input[name="option"]');
+    
+    // 遍历所有复选框，并设置为选中状态
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = true;
+    }
+}
+
+function vulnunSelection() {
+    // 获取所有具有相同名称的复选框
+    var checkboxes = document.querySelectorAll('input[name="option"]');
     
     // 遍历所有复选框，并取反选中状态
     for (var i = 0; i < checkboxes.length; i++) {

@@ -424,25 +424,6 @@
 			<table border="1">
 				<tr>
 					<td>
-						<input type="submit" id="button64" value="显示报告" onclick="one_click_preview_all_report_finc()"
-							disabled>&nbsp;&nbsp;&nbsp;
-						说明：一键打开所有漏洞扫描结果
-					</td>
-
-					<td>
-						<table border="0.01">
-							<tr>
-								<td><input type="submit" id="button65" value="一键扫描" onclick="one_click_scan_func()"
-										disabled></td>
-								<td>说明：一键完成 weblogic、struts2、shiro、springboot漏洞扫描！ <br>
-									针对特定资产进行扫描，不会扫描所有资产！扫描前需先进行网站指纹识别！</td>
-							</tr>
-
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<input type="submit" value="信息收集工具:">&nbsp;&nbsp;&nbsp;&nbsp;
 						<select name="spaninfomationname">
 							<option value="1">敏感信息</option>
@@ -717,8 +698,15 @@
 
 				<tr>
 					<td colspan="2">
-						<input type="submit" id="button72" value="漏洞扫描" onclick="vulnxuanzhongscan()"
+						<input type="submit" id="button72" value="开启漏洞扫描" onclick="vulnxuanzhongscan()"
 							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button76" value="关闭漏洞扫描" onclick=""
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button77" value="开启报告预览" onclick=""
+							disabled>&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="vulnselectAll()">全选</span>&nbsp;&nbsp;<span
+							style="cursor: pointer;" onclick="vulnunSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="option1" name="option" value="1">
 						<label for="option1">struts2</label>
 						<input type="checkbox" id="option2" name="option" value="2">
@@ -737,12 +725,14 @@
 						<label for="option8">弱口令</label>
 						<input type="checkbox" id="option9" name="option" value="9">
 						<label for="option9">api接口</label>
-						<input type="checkbox" id="option11" name="option" value="10">
+						<input type="checkbox" id="option11" name="option" value="a">
 						<label for="option11">vulmap</label>
-						<input type="checkbox" id="option12" name="option" value="11">
+						<input type="checkbox" id="option12" name="option" value="b">
 						<label for="option12">nuclei</label>
-						<input type="checkbox" id="option14" name="option" value="12">
+						<input type="checkbox" id="option14" name="option" value="c">
 						<label for="option14">泛微OA</label>
+						<input type="checkbox" id="option15" name="option" value="d">
+						<label for="option15">一键扫描重点资产</label>
 					</td>
 				</tr>
 
@@ -756,7 +746,7 @@
 							disabled>&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;
 						<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;<span
-								style="cursor: pointer;" onclick="unSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
+							style="cursor: pointer;" onclick="unSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="infooption1" name="info_option" value="1">
 						<label for="infooption1">敏感信息</label>
 						<input type="checkbox" id="infooption2" name="info_option" value="2">

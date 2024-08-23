@@ -86,5 +86,8 @@ nacos_rule = ["Nacos"]
 fanwei_rule = ["泛微"]
 
 
-# 信息收集类工具限制多少分钟类禁止重复提交
+# 信息收集类工具限制单位时间内禁止重复提交
 info_time_controls = 5
+
+# 漏洞扫描类工具限制单位时间内禁止重复提交
+vuln_time_controls = 5

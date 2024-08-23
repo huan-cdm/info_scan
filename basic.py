@@ -965,6 +965,7 @@ def otx_domain_url_lib():
             continue
 
 
+# 基于证书查询子域名
 def crt_subdomain_lib():
     try:
         # url.txt转换为列表
@@ -996,7 +997,7 @@ def crt_subdomain_lib():
 
 
 
-# 信息收集集合时间差判断上一次时间查询
+# 信息收集工具集合上一次扫描时间查询
 def last_time_lib(part):
     try:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
@@ -1045,6 +1046,57 @@ def info_time_shijian_cha(part):
     return diff_time_minutes
         
     
+
+
+
+# 漏洞扫描工具集合上一次扫描时间查询
+def vuln_last_time_lib(part):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="SELECT time_diff from vuln_time_diff where id = '%s'"%(part)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        last_time_list = []
+        for i in list_data:
+            last_time_list.append(i[0])
+        vuln_last_time_list_result = last_time_list[0]
+    except:
+        vuln_last_time_list_result = "MySQL连接失败"
+    return vuln_last_time_list_result
+
+
+
+# 漏洞扫描集合更新为当前时间
+def vuln_last_time_update_lib(part1,part2):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE vuln_time_diff SET time_diff = '%s' WHERE id = '%s'"%(part1,part2)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+
+# 漏洞扫描类扫描器计算时间差
+def vuln_time_shijian_cha(part):
+    # 判断2次时间差是否大于2分钟,防止恶意重复提交
+    # 获取系统当前时间
+    current_time = time.time()
+    # 存入数据库的上一次时间,传入参数part代表不同的扫描器
+    last_time_str = vuln_last_time_lib(part)
+    last_time = float(last_time_str)
+    diff_time = current_time - last_time
+    # 将时间差转换为分钟
+    diff_time_minutes = diff_time / 60
+    return diff_time_minutes
+
 
 
 if __name__ == "__main__":
