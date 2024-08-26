@@ -1,7 +1,8 @@
 body{
 	margin:0;
 	color:#6a6f8c;
-	background:#c8c8c8;
+	/* background:#c8c8c8; */
+	background: ghostwhite;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
@@ -15,10 +16,10 @@ input, button {
 .login-wrap{
 	width:100%;
 	margin:auto;
-	max-width:1025px;
+	max-width:1500px;
 	min-height:870px;
 	position:relative;
-	background:url(../image/login.jpeg) no-repeat center;
+	/* background:url(../image/login.jpeg) no-repeat center; */
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
 .login-html{
