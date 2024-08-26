@@ -335,6 +335,16 @@ case "${1}" in
 	;;
 
 
+    #kill weblogic漏洞扫描程序
+    killweblogicprocess)
+	pidd=`ps -aux | grep "WeblogicScan.py" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+    done
+	;;
+
+
     #kill weblogic_poc
     killweblogic_poc)
 	wpid=`ps -aux | grep "WeblogicScan.py" |awk -F " " '{print $2}'`
@@ -359,6 +369,15 @@ case "${1}" in
 	else
 		echo "stop"
 	fi
+	;;
+
+    #kill struts2进程
+    killstruts2process)
+	pidd=`ps -aux | grep "Struts2Scan.py" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+    done
 	;;
 
     # EHole指纹识别
@@ -557,6 +576,17 @@ case "${1}" in
 	fi
 	;;
 
+
+    #关闭shiro漏洞扫描程序
+    killshirovulnscanprocess)
+	pidd=`ps -aux | grep "shiro-exploit.py" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+    done
+	;;
+
+
      # httpx运行状态
     httpx_status)
 	ps_httpxscan=`ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l`
@@ -621,6 +651,15 @@ case "${1}" in
 	else
 		echo "stop"
 	fi
+	;;
+
+     #关闭springboot漏洞扫描程序
+    killspringbootvulnscanprocess)
+	pidd=`ps -aux | grep "ssp_linux_amd64" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+    done
 	;;
 
 
@@ -864,6 +903,15 @@ case "${1}" in
 	fi
 	;;
 
+    #关闭thinkphp漏洞扫描程序
+    killthinkphpprocess)
+	pidd=`ps -aux | grep "TPscan.py" |awk -F " " '{print $2}'`
+	for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+    done
+	;;
+
 
     # 通过otx查询域名绑定的url
     otx_domain_url_shell)
@@ -1046,4 +1094,8 @@ case "${1}" in
 		kill -9 ${ii} 2>/dev/null
 	done
     ;;
+
+
+    
+
 esac

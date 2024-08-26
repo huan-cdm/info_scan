@@ -38,7 +38,7 @@ function deletenmapfunc() {
             console.log('已删除端口扫描报告')
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
             alert('已删除端口扫描报告')
@@ -70,7 +70,7 @@ function xrayreportdelete() {
             console.log('已删除xray报告')
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
             alert('已删除xray报告')
@@ -89,7 +89,7 @@ function deleteurlfinderreportfunc() {
             console.log('已删除api接口报告')
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
             alert('已删除api接口报告')
@@ -109,7 +109,7 @@ function killxrayandradfunc() {
             console.log('已关闭xray和rad引擎')
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
             alert('已关闭xray和rad引擎')
@@ -135,7 +135,7 @@ function sendtextareadata() {
             alert(info.file_line)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -166,7 +166,7 @@ function startnucleifunc() {
 
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -184,7 +184,7 @@ function historyurlfunc() {
             alert(info.otx_status_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
 
         },
         complete: function () {
@@ -206,7 +206,7 @@ function killotxhistory_func() {
             alert(info.kill_otx_url_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -224,7 +224,7 @@ function kill_crt_subdomain_func() {
             alert(info.kill_crt_subdomain_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -258,7 +258,7 @@ function textinfoshowfunc() {
                 document.getElementById("span1").innerHTML = info.url_num;
             },
             error: function () {
-                alert('出现内部错误')
+                alert('内部出错')
 
             },
             complete: function () {
@@ -447,6 +447,16 @@ function startbutton() {
     button76.disabled = false;
     var button77 = document.getElementById("button77");
     button77.disabled = false;
+    var button78 = document.getElementById("button78");
+    button78.disabled = false;
+    var button79 = document.getElementById("button79");
+    button79.disabled = false;
+    var button80 = document.getElementById("button80");
+    button80.disabled = false;
+    var button81 = document.getElementById("button81");
+    button81.disabled = false;
+    var button82 = document.getElementById("button82");
+    button82.disabled = false;
 }
 
 //禁用按钮
@@ -589,6 +599,16 @@ function stopbutton() {
     button76.disabled = true;
     var button77 = document.getElementById("button77");
     button77.disabled = true;
+    var button78 = document.getElementById("button78");
+    button78.disabled = true;
+    var button79 = document.getElementById("button79");
+    button79.disabled = true;
+    var button80 = document.getElementById("button80");
+    button80.disabled = true;
+    var button81 = document.getElementById("button81");
+    button81.disabled = true;
+    var button82 = document.getElementById("button82");
+    button82.disabled = true;
 }
 
 
@@ -630,7 +650,7 @@ function filterstatuscodefunc() {
             alert(info.httpx_status_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -665,7 +685,7 @@ function signoutfunc() {
             window.location.href = info.zhuxiaoredirect_url;
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -742,6 +762,24 @@ function weblogicreportfunc() {
     window.open("/weblogic_poc_report/", "_blank");
 }
 
+
+//ajax异步关闭weblogic漏洞扫描程序
+function stopweblogicscanprocess() {
+    $.ajax({
+        url: '/stop_weblogic_poc_scan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_weblogic_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 //struts2_poc报告预览
 function struts2reportfunc() {
     window.open("/struts2_poc_report/", "_blank");
@@ -766,6 +804,25 @@ function struts2scanfunc() {
         }
     })
 }
+
+
+//ajax异步关闭struts2漏洞扫描程序
+function stopstruts2scanprocess() {
+    $.ajax({
+        url: '/stop_struts2_poc_scan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_struts2_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 
 //报告整合
 function reporttotalfunc() {
@@ -860,7 +917,7 @@ function subdomainfindfunc() {
             alert('内部出错')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1010,7 +1067,7 @@ function deleteafrogreportfunc() {
             console.log('已删除afrog报告')
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
             alert('已删除afrog报告')
@@ -1047,7 +1104,7 @@ function killafrogprocessfunc() {
             alert(info.kill_afrog_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1092,7 +1149,7 @@ function killfscanprocessfunc() {
             alert(info.kill_fscan_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1125,6 +1182,25 @@ function batchshirovulnfunc() {
         }
     })
 }
+
+
+//ajax异步关闭shiro漏洞扫描程序
+function killshiroprocessfunc() {
+    $.ajax({
+        url: '/stop_shiro_poc_scan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_shiro_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 
 
 //识别重点资产
@@ -1325,6 +1401,23 @@ function start_springboot_scan_func() {
 }
 
 
+//ajax异步关闭springboot漏洞扫描程序
+function killspringbootprocessfunc() {
+    $.ajax({
+        url: '/stop_springboot_poc_scan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_springboot_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 //ajax异步关闭nmap进程
 function killnmapfunc() {
     $.ajax({
@@ -1334,7 +1427,7 @@ function killnmapfunc() {
             alert(info.kill_nmap_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1351,7 +1444,7 @@ function killvulmapfunc() {
             alert(info.kill_vulmap_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1369,7 +1462,7 @@ function killnucleifunc() {
             alert(info.kill_nuclei_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1387,7 +1480,7 @@ function killbbscanfunc() {
             alert(info.kill_bbscan_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1461,7 +1554,7 @@ function killhydraprocessfunc() {
             alert(info.kill_hydra_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1479,7 +1572,7 @@ function killurlfinderprocessfunc() {
             alert(info.kill_urlfinder_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1497,7 +1590,7 @@ function killEHoleprocessfunc() {
             alert(info.kill_EHole_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -1915,6 +2008,24 @@ function thinkphp_report_show_func() {
 }
 
 
+//ajax异步关闭thinkphp漏洞扫描程序
+function killthinkphpprocessfunc() {
+    $.ajax({
+        url: '/stop_thinkphp_poc_scan/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.kill_thinkphp_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
 // 漏洞扫描工具集合
 function xianshipointfunc() {
     var pointid1 = document.getElementById("pointid1");
@@ -2251,7 +2362,7 @@ function xianshipointfunc() {
         point13.style.display = "block";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
-    }else if (spanpointvalue == 5){
+    } else if (spanpointvalue == 5) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
         var point2 = document.getElementById("point2");
@@ -2278,7 +2389,7 @@ function xianshipointfunc() {
         point13.style.display = "none";
         var point15 = document.getElementById("point15");
         point15.style.display = "none";
-    }else if (spanpointvalue == 15){
+    } else if (spanpointvalue == 15) {
         var point1 = document.getElementById("point1");
         point1.style.display = "none";
         var point2 = document.getElementById("point2");
@@ -2310,9 +2421,9 @@ function xianshipointfunc() {
 
 
 function guanbipointfunc() {
-     // 将select选项值重置
-     var spanpointvalue = document.querySelector('select[name="spanpointvalue"]');
-     spanpointvalue.selectedIndex = 0; // 将第一个选项设置为选中状态
+    // 将select选项值重置
+    var spanpointvalue = document.querySelector('select[name="spanpointvalue"]');
+    spanpointvalue.selectedIndex = 0; // 将第一个选项设置为选中状态
 
     var point1 = document.getElementById("point1");
     point1.style.display = "block";
@@ -2357,7 +2468,7 @@ function infoshoujitoolstart() {
         infoscanspan4.style.display = "none";
         var infoscanspan5 = document.getElementById("infoscanspan5");
         infoscanspan5.style.display = "none";
-    }else if(spaninfomationname == 2){
+    } else if (spaninfomationname == 2) {
         var infoscanspan1 = document.getElementById("infoscanspan1");
         infoscanspan1.style.display = "none";
         var infoscanspan2 = document.getElementById("infoscanspan2");
@@ -2368,7 +2479,7 @@ function infoshoujitoolstart() {
         infoscanspan4.style.display = "none";
         var infoscanspan5 = document.getElementById("infoscanspan5");
         infoscanspan5.style.display = "none";
-    }else if (spaninfomationname == 3){
+    } else if (spaninfomationname == 3) {
         var infoscanspan1 = document.getElementById("infoscanspan1");
         infoscanspan1.style.display = "none";
         var infoscanspan2 = document.getElementById("infoscanspan2");
@@ -2379,7 +2490,7 @@ function infoshoujitoolstart() {
         infoscanspan4.style.display = "none";
         var infoscanspan5 = document.getElementById("infoscanspan5");
         infoscanspan5.style.display = "none";
-    }else if (spaninfomationname == 4){
+    } else if (spaninfomationname == 4) {
         var infoscanspan1 = document.getElementById("infoscanspan1");
         infoscanspan1.style.display = "none";
         var infoscanspan2 = document.getElementById("infoscanspan2");
@@ -2390,7 +2501,7 @@ function infoshoujitoolstart() {
         infoscanspan4.style.display = "block";
         var infoscanspan5 = document.getElementById("infoscanspan5");
         infoscanspan5.style.display = "none";
-    }else if (spaninfomationname == 5){
+    } else if (spaninfomationname == 5) {
         var infoscanspan1 = document.getElementById("infoscanspan1");
         infoscanspan1.style.display = "none";
         var infoscanspan2 = document.getElementById("infoscanspan2");
@@ -2405,7 +2516,7 @@ function infoshoujitoolstart() {
 }
 
 // 关闭信息收集工具集合
-function infoshoujitoolstop(){
+function infoshoujitoolstop() {
     // 将select选项值重置
     var selectElement = document.querySelector('select[name="spaninfomationname"]');
     selectElement.selectedIndex = 0; // 将第一个选项设置为选中状态
@@ -2432,7 +2543,7 @@ function startweaverscanfunc() {
             alert(info.weaver_status_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
 
         },
         complete: function () {
@@ -2459,7 +2570,7 @@ function killweaverscanfunc() {
             alert(info.kill_weaver_result)
         },
         error: function () {
-            alert('出现内部错误')
+            alert('内部出错')
         },
         complete: function () {
 
@@ -2469,7 +2580,7 @@ function killweaverscanfunc() {
 
 
 // 漏洞扫描集合选中扫描
-function vulnxuanzhongscan(){
+function vulnxuanzhongscan() {
 
     const checkboxes = document.querySelectorAll('input[name="option"]:checked');
     const vuln_front_list = [];
@@ -2483,7 +2594,7 @@ function vulnxuanzhongscan(){
         vuln_front_list.push(checkbox.value);
     });
     // fscan前端需要传递到后端的参数
-	var fscanpartname = $('select[name="fscanpartname"]').val();
+    var fscanpartname = $('select[name="fscanpartname"]').val();
     // hydra弱口令前端需要传递到后端的参数
     var hydrapart = $('select[name="hydrapart"]').val();
     // vulmap前端需要传递到后端的参数
@@ -2494,13 +2605,13 @@ function vulnxuanzhongscan(){
         url: '/vulnscan_check_back/',
         method: 'POST',
         // JSON格式数据传递给后端
-        data: JSON.stringify({ vuln_front_list: vuln_front_list,fscanpartname: fscanpartname, hydrapart:hydrapart, vulnname:vulnname, poc_dir:poc_dir }), 
+        data: JSON.stringify({ vuln_front_list: vuln_front_list, fscanpartname: fscanpartname, hydrapart: hydrapart, vulnname: vulnname, poc_dir: poc_dir }),
         // 告诉服务器发送的数据是 JSON 格式
-        contentType: 'application/json', 
+        contentType: 'application/json',
         // 期望服务器返回的数据类型
-        dataType: 'json', 
+        dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result+"\n"+info.weblogic_status_result+"\n"+info.shiro_status_result+"\n"+info.springboot_scan_status_result+"\n"+info.thinkphp_status_result+"\n"+info.start_afrog_result+"\n"+info.fscan_status_result+"\n"+info.hydra_scan_result+"\n"+info.urlfinder_status_result+"\n"+info.vummap_scan_result+"\n"+info.nuclei_status_result+"\n"+info.weaver_status_result+"\n"+info.point_all_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result)
         },
 
         error: function (info) {
@@ -2516,7 +2627,7 @@ function vulnxuanzhongscan(){
 
 
 // 信息收集集合复选框选中开启扫描
-function infoxuanzhongscan(){
+function infoxuanzhongscan() {
 
     const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
     const info_front_list = [];
@@ -2537,7 +2648,7 @@ function infoxuanzhongscan(){
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey1+"\n"+info.dictkey2+"\n"+info.dictkey3+"\n"+info.dictkey4+"\n"+info.dictkey5)
+            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5)
         },
 
         error: function (info) {
@@ -2547,7 +2658,7 @@ function infoxuanzhongscan(){
 
         }
     })
-    
+
 }
 
 // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
@@ -2558,7 +2669,7 @@ window.addEventListener("beforeunload", function () {
 
 
 // 信息收集集合复选框选中报告预览
-function infoxuanzhongreportyulan(){
+function infoxuanzhongreportyulan() {
 
     const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
     const info_front_list = [];
@@ -2571,25 +2682,25 @@ function infoxuanzhongreportyulan(){
     checkboxes.forEach((checkbox) => {
         info_front_list.push(checkbox.value);
     });
-    
+
     // 遍历列表并判断然后跳转到对应的报告
-    for (let i = 0; i < info_front_list.length; i++){
-        if (info_front_list[i] == '1'){
+    for (let i = 0; i < info_front_list.length; i++) {
+        if (info_front_list[i] == '1') {
             window.open("/showbbscanreport/", "_blank");
-        }else if (info_front_list[i] == '2'){
+        } else if (info_front_list[i] == '2') {
             window.open("/ehole_finger_report/", "_blank");
-        }else if (info_front_list[i] == '3'){
+        } else if (info_front_list[i] == '3') {
             window.open("/previewhistoryurl/", "_blank");
-        }else if (info_front_list[i] == '4'){
+        } else if (info_front_list[i] == '4') {
             window.open("/showsubdomainreport/", "_blank");
-        }else if (info_front_list[i] == '5'){
+        } else if (info_front_list[i] == '5') {
             window.open("/nmapresultshow/", "_blank");
         }
     }
 }
 
 // 信息收集集合复选框选中关闭扫描
-function infoxuanzhongstopscanfunc(){
+function infoxuanzhongstopscanfunc() {
     const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
     const info_front_list = [];
 
@@ -2610,7 +2721,44 @@ function infoxuanzhongstopscanfunc(){
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey11+"\n"+info.dictkey21+"\n"+info.dictkey31+"\n"+info.dictkey41+"\n"+info.dictkey51)
+            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51)
+        },
+
+        error: function (info) {
+            alert("内部出错")
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 漏洞扫描集合复选框选中关闭扫描
+function vulnxuanzhongstopscanfunc() {
+    const checkboxes = document.querySelectorAll('input[name="option"]:checked');
+    const vuln_front_list = [];
+
+    if (checkboxes.length === 0) {
+        alert('请至少选择一个选项');
+        return;
+    }
+
+    checkboxes.forEach((checkbox) => {
+        vuln_front_list.push(checkbox.value);
+    });
+
+    $.ajax({
+        url: '/stop_vulnscan_back/',
+        method: 'POST',
+        // 发送 JSON 字符串
+        data: JSON.stringify({ vuln_front_list: vuln_front_list }), 
+        // 告诉服务器发送的数据是 JSON 格式
+        contentType: 'application/json', 
+        // 期望服务器返回的数据类型
+        dataType: 'json', 
+        success: function (info) {
+            alert(info.kill_struts2_result+"\n"+info.kill_weblogic_result+"\n"+info.kill_shiro_result+"\n"+info.kill_springboot_result+"\n"+info.kill_thinkphp_result+"\n"+info.kill_afrog_result+"\n"+info.kill_fscan_result+"\n"+info.kill_hydra_result+"\n"+info.kill_urlfinder_result+"\n"+info.kill_vulmap_result+"\n"+info.kill_nuclei_result+"\n"+info.kill_weaver_result+"\n"+info.kill_point_assset_result)
         },
 
         error: function (info) {
@@ -2629,7 +2777,7 @@ function infoxuanzhongstopscanfunc(){
 function selectAll() {
     // 获取所有具有相同名称的复选框
     var checkboxes = document.querySelectorAll('input[name="info_option"]');
-    
+
     // 遍历所有复选框，并设置为选中状态
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
@@ -2639,7 +2787,7 @@ function selectAll() {
 function unSelection() {
     // 获取所有具有相同名称的复选框
     var checkboxes = document.querySelectorAll('input[name="info_option"]');
-    
+
     // 遍历所有复选框，并取反选中状态
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = !checkboxes[i].checked;
@@ -2650,7 +2798,7 @@ function unSelection() {
 function vulnselectAll() {
     // 获取所有具有相同名称的复选框
     var checkboxes = document.querySelectorAll('input[name="option"]');
-    
+
     // 遍历所有复选框，并设置为选中状态
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = true;
@@ -2660,9 +2808,60 @@ function vulnselectAll() {
 function vulnunSelection() {
     // 获取所有具有相同名称的复选框
     var checkboxes = document.querySelectorAll('input[name="option"]');
-    
+
     // 遍历所有复选框，并取反选中状态
     for (var i = 0; i < checkboxes.length; i++) {
         checkboxes[i].checked = !checkboxes[i].checked;
+    }
+}
+
+
+// 漏洞扫描集合复选框选中批量打开报告预览
+function vulnscanxuanzhongreportyulan() {
+
+    const checkboxes = document.querySelectorAll('input[name="option"]:checked');
+    const vuln_front_list = [];
+
+    if (checkboxes.length === 0) {
+        alert('请至少选择一个选项');
+        return;
+    }
+
+    checkboxes.forEach((checkbox) => {
+        vuln_front_list.push(checkbox.value);
+    });
+
+    // 遍历列表并判断然后跳转到对应的报告
+    for (let i = 0; i < vuln_front_list.length; i++) {
+        if (vuln_front_list[i] == '1') {
+            window.open("/struts2_poc_report/", "_blank");
+        } else if (vuln_front_list[i] == '2') {
+            window.open("/weblogic_poc_report/", "_blank");
+        } else if (vuln_front_list[i] == '3') {
+            window.open("/shiro_report_show/", "_blank");
+        } else if (vuln_front_list[i] == '4') {
+            window.open("/springboot_report_show/", "_blank");
+        } else if (vuln_front_list[i] == '5') {
+            window.open("/thinkphp_poc_report/", "_blank");
+        } else if (vuln_front_list[i] == '6') {
+            window.open(ipvalue + ":15555/", "_blank");
+        } else if (vuln_front_list[i] == '7') {
+            window.open("/fscanreportyulan/", "_blank");
+        } else if (vuln_front_list[i] == '8') {
+            window.open("/hydra_report_show/", "_blank");
+        } else if (vuln_front_list[i] == '9') {
+            window.open(ipvalue + ":16666/", "_blank");
+        } else if (vuln_front_list[i] == 'a') {
+            window.open("/vulmapscanreport/", "_blank");
+        } else if (vuln_front_list[i] == 'b') {
+            window.open("/nucleiresultshow/", "_blank");
+        } else if (vuln_front_list[i] == 'c') {
+            window.open("/weaverresultshow/", "_blank");
+        } else if (vuln_front_list[i] == 'd') {
+            window.open("/shiro_report_show/", "_blank");
+            window.open("/springboot_report_show/", "_blank");
+            window.open("/struts2_poc_report/", "_blank");
+            window.open("/weblogic_poc_report/", "_blank");
+        }
     }
 }

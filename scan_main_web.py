@@ -293,13 +293,7 @@ def previewhistoryurl():
 def killotxhistory():
     user = session.get('username')
     if str(user) == main_username:
-        otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
-        os.popen('bash ./finger.sh kill_otx_domain_url_shell')
-        if "stop" in otx_domain_url_shell_status:
-            kill_otx_url_result = "已关闭历史URL查询接口"
-        else:
-            kill_otx_url_result = "正在关闭中......"
-
+        kill_otx_url_result = basic.stopotx_lib()
         message_json = {
             "kill_otx_url_result":kill_otx_url_result
         }
@@ -315,13 +309,7 @@ def killotxhistory():
 def kill_crt_subdomain_shell():
     user = session.get('username')
     if str(user) == main_username:
-        crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
-        os.popen('bash ./finger.sh kill_crt_subdomain_shell')
-        if "stop" in crt_subdomain_shell_status:
-            kill_crt_subdomain_result = "已关闭历史URL查询接口"
-        else:
-            kill_crt_subdomain_result = "正在关闭中......"
-
+        kill_crt_subdomain_result = basic.stopcrtsubdomain_lib()
         message_json = {
             "kill_crt_subdomain_result":kill_crt_subdomain_result
         }
@@ -372,6 +360,23 @@ def nucleiresultshow():
                 liness.append(clean_text)
             
         return '<br>'.join(liness)
+    else:
+        return render_template('login.html')
+
+
+
+#结束nuclei进程
+@app.route("/killnucleiprocess/")
+def killnucleiprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_nuclei_result = basic.stopnuclei_lib()
+        message_json = {
+            "kill_nuclei_result":kill_nuclei_result
+        }
+
+        return jsonify(message_json)
+    
     else:
         return render_template('login.html')
 
@@ -460,22 +465,10 @@ def submit_data():
 def startnuclei():
     user = session.get('username')
     if str(user) == main_username:
+        poc_dir = request.form['poc_dir']
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成nuclei漏洞扫描')
-        nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
-        if "running" in nucleitatus:
-            nuclei_status_result = "nuclei扫描程序正在运行中请勿重复提交"
-        else:
-            poc_dir = request.form['poc_dir']
-            if int(history_switch) == 0:
-                os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
-                nuclei_status_result = "nuclei扫描程序已开启稍后查看结果"
-            elif int(history_switch) ==1:
-                os.popen('bash ./finger.sh startnuclei_result')
-            else:
-                print("配置文件history_switch字段只允许0/1")
-
-
+        nuclei_status_result = basic.startnuclei_lib(poc_dir)
         message_json = {
             "nuclei_status_result":nuclei_status_result
         }
@@ -708,19 +701,7 @@ def starturlfinderinterface():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成urlfinder链接扫描')
-        urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
-        if "running" in urlfinder_status:
-            urlfinder_status_result = "urlfinder扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash ./finger.sh urlfinder_start')
-                urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
-                if "running" in urlfinder_status:
-                    urlfinder_status_result = "urlfinder扫描程序已开启稍后查看结果"
-                else:
-                    urlfinder_status_result = "urlfinder正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        urlfinder_status_result = basic.starturlfinder_lib()
 
         message_json = {
             "urlfinder_status_result":urlfinder_status_result
@@ -744,6 +725,22 @@ def deleteurlfinderreport():
     else:
         return render_template('login.html')
 
+
+
+#关闭urlfinder进程
+@app.route("/killurlfinderprocess/")
+def killurlfinderprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_urlfinder_result = basic.stopurlfinder_lib()
+        message_json = {
+            "kill_urlfinder_result":kill_urlfinder_result
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
 
 
 #跳转登录页
@@ -841,35 +838,7 @@ def weblogicscaninterface():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成weblogic漏洞扫描')
-        weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
-        if "running" in weblogic_status:
-            weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
-        else:
-
-            # 遍历目标文件存入列表
-            url_list = []
-            url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
-            for i in url_file.readlines():
-                url_list.append(i.strip())
-            
-            # url中匹配出域名
-            domain_list = []
-            for url in url_list:
-                pattern = r"https?://([^/]+)"
-                urls_re_1 = re.search(pattern,url)
-                urls_re = urls_re_1.group(1)
-                domain_list.append(urls_re)
-            
-            # 域名写入到weblogic_poc目标
-            weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
-            for j in domain_list:
-                weblogic_file.write(str(j)+"\n")
-            weblogic_file.close()
-    
-            # weblogic_poc开始扫描
-            os.popen('bash ./finger.sh weblogic_poc_scan')
-            weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
-
+        weblogic_status_result = basic.startweblogic_lib()
         message_json = {
             "weblogic_status_result":weblogic_status_result
         }
@@ -895,22 +864,32 @@ def weblogic_poc_report():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
+
+
+#关闭weblogic漏洞扫描程序
+@app.route("/stop_weblogic_poc_scan/")
+def stop_weblogic_poc_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_weblogic_result = basic.stopweblogic_lib()
+
+        message_json = {
+            "kill_weblogic_result":kill_weblogic_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
     
 
-# struts2_poc扫描
+# 开启struts2漏洞扫描程序
 @app.route("/struts2_poc_scan/")
 def struts2_poc_scan():
     user = session.get('username')
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成struts2漏洞扫描')
-        struts2status = os.popen('bash ./finger.sh struts2_status').read()
-        if "running" in struts2status:
-            struts2status_result = "struts2扫描程序正在运行中请勿重复提交"
-        else:
-            # 执行poc扫描
-            os.popen('bash ./finger.sh struts2_poc_scan')
-            struts2status_result = "struts2扫描程序已开启稍后查看结果"
+        struts2status_result = basic.startstruts2_lib()
         message_json = {
             "struts2status_result":struts2status_result
         }
@@ -920,7 +899,7 @@ def struts2_poc_scan():
     
 
 
-#struts2_poc扫描结果预览
+#struts2漏洞扫描结果预览
 @app.route("/struts2_poc_report/")
 def struts2_poc_report():
     user = session.get('username')
@@ -938,6 +917,19 @@ def struts2_poc_report():
         return render_template('login.html')
     
 
+#关闭struts2漏洞扫描程序
+@app.route("/stop_struts2_poc_scan/")
+def stop_struts2_poc_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_struts2_result = basic.stopstruts2_lib()
+        message_json = {
+            "kill_struts2_result":kill_struts2_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 # 报告整合
 @app.route("/report_total_interface/")
@@ -1134,18 +1126,7 @@ def startvulmapinterface():
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成vulmap漏洞扫描')
         vulnname = request.form['vulnname']
-        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
-        if "running" in vulmapscanstatus:
-            vummap_scan_result = "vulmap扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
-                if "running" in vulmapscanstatus:
-                    vummap_scan_result = "vulmap扫描程序已启动稍后查看扫描结果"
-                else:
-                    vummap_scan_result = "vulmap正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        vummap_scan_result = basic.startvulmap_lib(vulnname)
 
         message_json = {
             "vummap_scan_result":vummap_scan_result
@@ -1154,6 +1135,22 @@ def startvulmapinterface():
 
     else:
         return render_template('login.html')
+
+
+#结束vulmap进程
+@app.route("/killvulmapprocess/")
+def killvulmapprocess():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_vulmap_result = basic.stopvulmap_lib()
+        message_json = {
+            "kill_vulmap_result":kill_vulmap_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
 
 
 
@@ -1251,18 +1248,7 @@ def startafrogscanprocess():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成afrog漏洞扫描')
-        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
-        if "running" in afrogscanstatus:
-            start_afrog_result = "afrog正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash ./finger.sh startafrogprocess')
-                if "running" in afrogscanstatus:
-                    start_afrog_result = "afrog已开启稍后查看结果"
-                else:
-                    start_afrog_result = "afrog正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        start_afrog_result = basic.startafrog_lib()
         message_json = {
             "start_afrog_result":start_afrog_result
         }
@@ -1272,17 +1258,12 @@ def startafrogscanprocess():
         return render_template('login.html')
 
 
-#结束afrog进程
+#关闭afrog漏洞扫描程序
 @app.route("/killafrogprocess/")
 def killafrogprocess():
     user = session.get('username')
     if str(user) == main_username:
-        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
-        os.popen('bash ./finger.sh killafrog')
-        if "stop" in afrogscanstatus:
-            kill_afrog_result = "已关闭afrog扫描程序"
-        else:
-            kill_afrog_result = "正在关闭中......"
+        kill_afrog_result = basic.stopafrog_lib()
 
         message_json = {
             "kill_afrog_result":kill_afrog_result
@@ -1299,12 +1280,7 @@ def killafrogprocess():
 def killnmapprocess():
     user = session.get('username')
     if str(user) == main_username:
-        nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
-        os.popen('bash ./finger.sh killnmap')
-        if "stop" in nmapstatus:
-            kill_nmap_result = "已关闭nmap扫描程序"
-        else:
-            kill_nmap_result = "正在关闭中......"
+        kill_nmap_result = basic.stopnmap_lib()
         message_json = {
             "kill_nmap_result":kill_nmap_result
         }
@@ -1315,48 +1291,6 @@ def killnmapprocess():
         return render_template('login.html')
     
 
-
-#结束vulmap进程
-@app.route("/killvulmapprocess/")
-def killvulmapprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
-        os.popen('bash ./finger.sh killvulmap')
-        if "stop" in vulmapscanstatus:
-            kill_vulmap_result = "已关闭vulmap扫描程序"
-        else:
-            kill_vulmap_result = "正在关闭中......"
-        message_json = {
-            "kill_vulmap_result":kill_vulmap_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
-
-
-#结束nuclei进程
-@app.route("/killnucleiprocess/")
-def killnucleiprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        nucleistatus =os.popen('bash ./finger.sh nucleistatus').read()
-
-        os.popen('bash ./finger.sh killnuclei')
-        if "stop" in nucleistatus:
-            kill_nuclei_result = "已关闭nuclei扫描程序"
-        else:
-            kill_nuclei_result = "正在关闭中......"
-        message_json = {
-            "kill_nuclei_result":kill_nuclei_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
     
 
 
@@ -1365,12 +1299,7 @@ def killnucleiprocess():
 def killbbscanprocess():
     user = session.get('username')
     if str(user) == main_username:
-        bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
-        os.popen('bash ./finger.sh killbbscan')
-        if "stop" in bbscanstatus:
-            kill_bbscan_result = "已关闭bbscan扫描程序"
-        else:
-            kill_bbscan_result = "正在关闭中......"
+        kill_bbscan_result = basic.stopbbscan_lib()
         message_json = {
             "kill_bbscan_result":kill_bbscan_result
         }
@@ -1407,22 +1336,7 @@ def startfcsaninterface():
         fscanpartname = request.form['fscanpartname']
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成fscan漏洞扫描')
-        # 删除历史fscan扫描数据
-        os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
-    
-        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
-        if "running" in fscanstatus:
-            fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                basic.batch_fscan_interface(fscanpartname)
-                
-                if "running" in fscanstatus:
-                    fscan_status_result = "fscan扫描程序已启动稍后查看扫描结果"
-                else:
-                    fscan_status_result = "fscan正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        fscan_status_result = basic.startfscan_lib(fscanpartname)
         message_json = {
             "fscan_status_result":fscan_status_result
         }
@@ -1436,12 +1350,7 @@ def startfcsaninterface():
 def killfscangprocess():
     user = session.get('username')
     if str(user) == main_username:
-        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
-        os.popen('bash ./finger.sh killfscan')
-        if "stop" in fscanstatus:
-            kill_fscan_result = "已关闭fscan扫描程序"
-        else:
-            kill_fscan_result = "正在关闭中......"
+        kill_fscan_result = basic.stopfscan_lib()
         message_json = {
             "kill_fscan_result":kill_fscan_result
         }
@@ -1492,15 +1401,7 @@ def startshirointerface():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成shiro漏洞扫描')
-        shiro_status = os.popen('bash ./finger.sh shiro_status').read()
-        if "running" in shiro_status:
-            shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                basic.shiro_scan()
-                shiro_status_result = "shiro扫描程序已开启稍后查看结果"
-            except Exception as e:
-                print("捕获到异常:", e)
+        shiro_status_result = basic.startshiro_lib()
         message_json = {
             "shiro_status_result":shiro_status_result
         }
@@ -1508,6 +1409,24 @@ def startshirointerface():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
+
+
+#关闭shiro漏洞扫描程序
+@app.route("/stop_shiro_poc_scan/")
+def stop_shiro_poc_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_shiro_result = basic.stopshiro_lib()
+
+        message_json = {
+            "kill_shiro_result":kill_shiro_result
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
     
 
 #识别重点资产
@@ -1608,23 +1527,29 @@ def start_springboot_vuln_scan():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成springboot漏洞扫描')
-        springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
-        if "running" in springboot_scan_status:
-            springboot_scan_status_result = "springboot扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-                if "running" in springboot_scan_status:
-                    springboot_scan_status_result = "springboot扫描程序已开启稍后查看结果"
-                else:
-                    springboot_scan_status_result = "springboot扫描程序正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        springboot_scan_status_result = basic.startspringboot_lib()
         
         message_json = {
             "springboot_scan_status_result":springboot_scan_status_result
         }
 
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
+#关闭spring_boot漏洞扫描程序
+@app.route("/stop_springboot_poc_scan/")
+def stop_springboot_poc_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_springboot_result = basic.stopspringboot_lib()
+
+        message_json = {
+            "kill_springboot_result":kill_springboot_result
+        }
+        
         return jsonify(message_json)
     else:
         return render_template('login.html')
@@ -1685,21 +1610,8 @@ def start_hydra_interface():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成hydra弱口令扫描')
-        # 调用url转ip函数写入文件
-        ip_list = basic.url_convert_ip()
-        f = open(file='/TIP/info_scan/result/hydra_ip.txt',mode='w')
-        for line in ip_list:
-            f.write(str(line)+"\n")
-
-        # 开启扫描
         hydrapart = request.form['hydrapart']
-        hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
-
-        if "running" in hydra_scan_status:
-            hydra_scan_result = "hydra扫描程序正在运行中请勿重复提交"
-        else:
-            basic.start_hydra_lib(hydrapart)
-            hydra_scan_result = "hydra扫描程序已开启稍后查看扫描结果"
+        hydra_scan_result = basic.starthydra_lib(hydrapart)
 
         message_json = {
             "hydra_scan_result":hydra_scan_result
@@ -1716,12 +1628,7 @@ def start_hydra_interface():
 def killhydraprocess():
     user = session.get('username')
     if str(user) == main_username:
-        os.popen('bash ./finger.sh killhydra')
-        hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
-        if "stop" in hydra_scan_status:
-            kill_hydra_result = "已关闭hydra扫描程序"
-        else:
-            kill_hydra_result = "正在关闭中......"
+        kill_hydra_result = basic.stophydra_lib()
         message_json = {
             "kill_hydra_result":kill_hydra_result
         }
@@ -1732,26 +1639,6 @@ def killhydraprocess():
         return render_template('login.html')
 
 
-
-#关闭urlfinder进程
-@app.route("/killurlfinderprocess/")
-def killurlfinderprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        os.popen('bash ./finger.sh killurlfinder')
-        urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
-        if "stop" in urlfinderstatus:
-            kill_urlfinder_result = "已关闭URLFinder扫描程序"
-        else:
-            kill_urlfinder_result = "正在关闭中......"
-        message_json = {
-            "kill_urlfinder_result":kill_urlfinder_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
     
 
 #关闭EHole进程
@@ -1759,12 +1646,7 @@ def killurlfinderprocess():
 def killEHoleprocess():
     user = session.get('username')
     if str(user) == main_username:
-        os.popen('bash ./finger.sh killEHole')
-        EHolestatus = os.popen('bash ./finger.sh ehole_status').read()
-        if "stop" in EHolestatus:
-            kill_EHole_result = "已关闭EHole扫描程序"
-        else:
-            kill_EHole_result = "正在关闭中......"
+        kill_EHole_result = basic.stopehole_lib()
         message_json = {
             "kill_EHole_result":kill_EHole_result
         }
@@ -2017,19 +1899,7 @@ def starttpscaninterface():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成thinkphp漏洞扫描')
-        tpscan_status = os.popen('bash ./finger.sh TPscan_status').read()
-        if "running" in tpscan_status:
-            thinkphp_status_result = "thinkphp扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                basic.thinkphp_scan()
-                if "running" in tpscan_status:
-                    thinkphp_status_result = "thinkphp扫描程序已开启稍后查看结果"
-                else:
-                    thinkphp_status_result = "thinkphp扫描程序正在后台启动中......"
- 
-            except Exception as e:
-                print("捕获到异常:", e)
+        thinkphp_status_result = basic.startthinkphp_lib()
         message_json = {
             "thinkphp_status_result":thinkphp_status_result
         }
@@ -2056,6 +1926,23 @@ def thinkphp_poc_report():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
+
+
+
+#关闭thinkphp漏洞扫描程序
+@app.route("/stop_thinkphp_poc_scan/")
+def stop_thinkphp_poc_scan():
+    user = session.get('username')
+    if str(user) == main_username:
+        kill_thinkphp_result = basic.stoptpscan_lib()
+
+        message_json = {
+            "kill_thinkphp_result":kill_thinkphp_result
+        }
+        
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
     
 
 
@@ -2067,19 +1954,7 @@ def startweavervulnscan():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成泛微OA漏洞扫描')
-        weaver_status = os.popen('bash ./finger.sh weaver_status').read()
-        if "running" in weaver_status:
-            weaver_status_result = "泛微OA漏洞扫描程序正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash ./finger.sh weaver_exp_scan')
-                weaver_status = os.popen('bash ./finger.sh weaver_status').read()
-                if "running" in weaver_status:
-                    weaver_status_result = "泛微OA漏洞扫描程序已开启稍后查看结果"
-                else:
-                    weaver_status_result = "泛微OA漏洞扫描程序正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        weaver_status_result = basic.startweaver_lib()
 
         message_json = {
             "weaver_status_result":weaver_status_result
@@ -2125,13 +2000,7 @@ def weaverresultshow():
 def killweavervulnscan():
     user = session.get('username')
     if str(user) == main_username:
-        weaver_status = os.popen('bash ./finger.sh weaver_status').read()
-        os.popen('bash ./finger.sh kill_weaver_scan')
-        if "stop" in weaver_status:
-            kill_weaver_result = "已关闭历史URL查询接口"
-        else:
-            kill_weaver_result = "正在关闭中......"
-
+        kill_weaver_result = basic.stopweaver_lib()
         message_json = {
             "kill_weaver_result":kill_weaver_result
         }
@@ -2368,14 +2237,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time1,1)
                     # 提交扫描任务
-
-                    struts2status = os.popen('bash ./finger.sh struts2_status').read()
-                    if "running" in struts2status:
-                        struts2status_result = "struts2扫描程序正在运行中请勿重复提交"
-                    else:
-                        # 执行poc扫描
-                        os.popen('bash ./finger.sh struts2_poc_scan')
-                        struts2status_result = "struts2扫描程序已开启稍后查看结果"
+                    struts2status_result = basic.startstruts2_lib()
                 else:
                     struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
@@ -2389,35 +2251,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time2,2)
                     # 提交扫描任务
-                    weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
-                    if "running" in weblogic_status:
-                        weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
-                    else:
-            
-                        # 遍历目标文件存入列表
-                        url_list = []
-                        url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
-                        for i in url_file.readlines():
-                            url_list.append(i.strip())
-                        
-                        # url中匹配出域名
-                        domain_list = []
-                        for url in url_list:
-                            pattern = r"https?://([^/]+)"
-                            urls_re_1 = re.search(pattern,url)
-                            urls_re = urls_re_1.group(1)
-                            domain_list.append(urls_re)
-                        
-                        # 域名写入到weblogic_poc目标
-                        weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
-                        for j in domain_list:
-                            weblogic_file.write(str(j)+"\n")
-                        weblogic_file.close()
-                
-                        # weblogic_poc开始扫描
-                        os.popen('bash ./finger.sh weblogic_poc_scan')
-                        weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
-                    
+                    weblogic_status_result = basic.startweblogic_lib()
                 else:
                     weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
@@ -2431,15 +2265,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time3,3)
                     # 提交扫描任务
-                    shiro_status = os.popen('bash ./finger.sh shiro_status').read()
-                    if "running" in shiro_status:
-                        shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            basic.shiro_scan()
-                            shiro_status_result = "shiro扫描程序已开启稍后查看结果"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    shiro_status_result = basic.startshiro_lib()
                     
                 else:
                     shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2454,18 +2280,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time4,4)
                     # 提交扫描任务
-                    springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
-                    if "running" in springboot_scan_status:
-                        springboot_scan_status_result = "springboot扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-                            if "running" in springboot_scan_status:
-                                springboot_scan_status_result = "springboot扫描程序已开启稍后查看结果"
-                            else:
-                                springboot_scan_status_result = "springboot扫描程序正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    springboot_scan_status_result = basic.startspringboot_lib()
                                 
                 else:
                     springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2479,19 +2294,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time5,5)
                     # 提交扫描任务
-                    tpscan_status = os.popen('bash ./finger.sh TPscan_status').read()
-                    if "running" in tpscan_status:
-                        thinkphp_status_result = "thinkphp扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            basic.thinkphp_scan()
-                            if "running" in tpscan_status:
-                                thinkphp_status_result = "thinkphp扫描程序已开启稍后查看结果"
-                            else:
-                                thinkphp_status_result = "thinkphp扫描程序正在后台启动中......"
-             
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    thinkphp_status_result = basic.startthinkphp_lib()
                                 
                 else:
                     thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2505,18 +2308,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time6,6)
                     # 提交扫描任务
-                    afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
-                    if "running" in afrogscanstatus:
-                        start_afrog_result = "afrog正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash ./finger.sh startafrogprocess')
-                            if "running" in afrogscanstatus:
-                                start_afrog_result = "afrog已开启稍后查看结果"
-                            else:
-                                start_afrog_result = "afrog正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    start_afrog_result = basic.startafrog_lib()
                                 
                 else:
                     start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2530,22 +2322,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time7,7)
                     # 提交扫描任务
-                    # 删除历史fscan扫描数据
-                    os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
-                
-                    fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
-                    if "running" in fscanstatus:
-                        fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            basic.batch_fscan_interface(fscanpartname)
-                            
-                            if "running" in fscanstatus:
-                                fscan_status_result = "fscan扫描程序已启动稍后查看扫描结果"
-                            else:
-                                fscan_status_result = "fscan正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    fscan_status_result = basic.startfscan_lib(fscanpartname)
                                 
                 else:
                     fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2559,20 +2336,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time8,8)
                     # 提交扫描任务
-                    # 调用url转ip函数写入文件
-                    ip_list = basic.url_convert_ip()
-                    f = open(file='/TIP/info_scan/result/hydra_ip.txt',mode='w')
-                    for line in ip_list:
-                        f.write(str(line)+"\n")
-                    
-                    # 开启扫描
-                    hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
-            
-                    if "running" in hydra_scan_status:
-                        hydra_scan_result = "hydra扫描程序正在运行中请勿重复提交"
-                    else:
-                        basic.start_hydra_lib(hydrapart)
-                        hydra_scan_result = "hydra扫描程序已开启稍后查看扫描结果"
+                    hydra_scan_result = basic.starthydra_lib(hydrapart)
                                             
                 else:
                     hydra_scan_result = "hydra扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2586,19 +2350,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time9,9)
                     # 提交扫描任务
-                    urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
-                    if "running" in urlfinder_status:
-                        urlfinder_status_result = "urlfinder扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash ./finger.sh urlfinder_start')
-                            urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
-                            if "running" in urlfinder_status:
-                                urlfinder_status_result = "urlfinder扫描程序已开启稍后查看结果"
-                            else:
-                                urlfinder_status_result = "urlfinder正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    urlfinder_status_result = basic.starturlfinder_lib()
                                             
                 else:
                     urlfinder_status_result = "urlfinder扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2612,18 +2364,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time10,10)
                     # 提交扫描任务
-                    vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
-                    if "running" in vulmapscanstatus:
-                        vummap_scan_result = "vulmap扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
-                            if "running" in vulmapscanstatus:
-                                vummap_scan_result = "vulmap扫描程序已启动稍后查看扫描结果"
-                            else:
-                                vummap_scan_result = "vulmap正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    vummap_scan_result = basic.startvulmap_lib(vulnname)
                                             
                 else:
                     vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2637,18 +2378,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time11,11)
                     # 提交扫描任务
-                    nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
-                    if "running" in nucleitatus:
-                        nuclei_status_result = "nuclei扫描程序正在运行中请勿重复提交"
-                    else:
-                        
-                        if int(history_switch) == 0:
-                            os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
-                            nuclei_status_result = "nuclei扫描程序已开启稍后查看结果"
-                        elif int(history_switch) ==1:
-                            os.popen('bash ./finger.sh startnuclei_result')
-                        else:
-                            print("配置文件history_switch字段只允许0/1")
+                    nuclei_status_result = basic.startnuclei_lib(poc_dir)
                                             
                 else:
                     nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2662,19 +2392,7 @@ def vulnscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time12,12)
                     # 提交扫描任务
-                    weaver_status = os.popen('bash ./finger.sh weaver_status').read()
-                    if "running" in weaver_status:
-                        weaver_status_result = "泛微OA漏洞扫描程序正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash ./finger.sh weaver_exp_scan')
-                            weaver_status = os.popen('bash ./finger.sh weaver_status').read()
-                            if "running" in weaver_status:
-                                weaver_status_result = "泛微OA漏洞扫描程序已开启稍后查看结果"
-                            else:
-                                weaver_status_result = "泛微OA漏洞扫描程序正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    weaver_status_result = basic.startweaver_lib()
                                             
                 else:
                     weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2895,43 +2613,18 @@ def stop_infoscan_back():
         # 遍历列表判断关闭哪个扫描器
         for j in info_value_list:
             if '1' in str(j):
-                bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
-                os.popen('bash ./finger.sh killbbscan')
-                if "stop" in bbscanstatus:
-                    kill_bbscan_result = "已关闭bbscan扫描程序"
-                else:
-                    kill_bbscan_result = "正在关闭中......"
+                kill_bbscan_result = basic.stopbbscan_lib()
             elif '2' in str(j):
-                os.popen('bash ./finger.sh killEHole')
-                EHolestatus = os.popen('bash ./finger.sh ehole_status').read()
-                if "stop" in EHolestatus:
-                    kill_EHole_result = "已关闭EHole扫描程序"
-                else:
-                    kill_EHole_result = "正在关闭中......"
+                kill_EHole_result = basic.stopehole_lib()
             elif '3' in str(j):
-                otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
-                os.popen('bash ./finger.sh kill_otx_domain_url_shell')
-                if "stop" in otx_domain_url_shell_status:
-                    kill_otx_url_result = "已关闭历史URL查询接口"
-                else:
-                    kill_otx_url_result = "正在关闭中......"
+                kill_otx_url_result = basic.stopotx_lib()
             elif '4' in str(j):
-                crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
-                os.popen('bash ./finger.sh kill_crt_subdomain_shell')
-                if "stop" in crt_subdomain_shell_status:
-                    kill_crt_subdomain_result = "已关闭历史URL查询接口"
-                else:
-                    kill_crt_subdomain_result = "正在关闭中......"
+                kill_crt_subdomain_result = basic.stopcrtsubdomain_lib()
             elif '5' in str(j):
-                nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
-                os.popen('bash ./finger.sh killnmap')
-                if "stop" in nmapstatus:
-                    kill_nmap_result = "已关闭nmap扫描程序"
-                else:
-                    kill_nmap_result = "正在关闭中......"
+                kill_nmap_result = basic.stopnmap_lib()
             else:
                 print("参数正在完善中...")
-
+        # 捕获异常
         try:
             kill_bbscan_result1 = kill_bbscan_result
         except:
@@ -2967,6 +2660,138 @@ def stop_infoscan_back():
             "dictkey31":dict['key31'],
             "dictkey41":dict['key41'],
             "dictkey51":dict['key51'],
+        }
+
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
+
+
+# 前端复选框批量关闭漏洞扫描接口
+@app.route("/stop_vulnscan_back/",methods=['post'])
+def stop_vulnscan_back():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 漏洞扫描器时间线更新
+        basic.vuln_scan_status_update('已完成批量关闭漏洞扫描')
+        # 使用 get_json 解析 JSON 请求体
+        data = request.get_json()  
+        vuln_front_list = data['vuln_front_list']
+        
+        # 遍历列表判断关闭哪个扫描器
+        for j in vuln_front_list:
+            if '1' in str(j):
+                kill_struts2_result = basic.stopstruts2_lib()
+            elif '2' in str(j):
+                kill_weblogic_result = basic.stopweblogic_lib()
+            elif '3' in str(j):
+                kill_shiro_result = basic.stopshiro_lib()
+            elif '4' in str(j):
+                kill_springboot_result = basic.stopspringboot_lib()
+            elif '5' in str(j):               
+                kill_thinkphp_result = basic.stoptpscan_lib()               
+            elif '6' in str(j):               
+                kill_afrog_result = basic.stopafrog_lib()               
+            elif '7' in str(j):               
+                kill_fscan_result = basic.stopfscan_lib()                
+            elif '8' in str(j):               
+                kill_hydra_result = basic.stophydra_lib()
+            elif '9' in str(j):                
+                kill_urlfinder_result = basic.stopurlfinder_lib()                
+            elif 'a' in str(j):                
+                kill_vulmap_result = basic.stopvulmap_lib()                
+            elif 'b' in str(j):                
+                kill_nuclei_result = basic.stopnuclei_lib()  
+            elif 'c' in str(j):                
+                kill_weaver_result = basic.stopweaver_lib()                
+            elif 'd' in str(j):                
+                kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
+        try:
+            kill_struts2_result1 = kill_struts2_result
+        except:
+            kill_struts2_result1 = ""
+
+        try:
+            kill_weblogic_result1 = kill_weblogic_result
+        except:
+            kill_weblogic_result1 = ""
+
+        try:
+            kill_shiro_result1 = kill_shiro_result
+        except:
+            kill_shiro_result1 = ""
+
+        try:
+            kill_springboot_result1 = kill_springboot_result
+        except:
+            kill_springboot_result1 = ""
+
+        try:
+            kill_thinkphp_result1 = kill_thinkphp_result
+        except:
+            kill_thinkphp_result1 = ""
+
+        try:
+            kill_afrog_result1 = kill_afrog_result
+        except:
+            kill_afrog_result1 = ""
+
+        try:
+            kill_fscan_result1 = kill_fscan_result
+        except:
+            kill_fscan_result1 = ""
+
+        try:
+            kill_hydra_result1 = kill_hydra_result
+        except:
+            kill_hydra_result1 = ""
+
+        try:
+            kill_urlfinder_result1 = kill_urlfinder_result
+        except:
+            kill_urlfinder_result1 = ""
+        
+        try:
+            kill_urlfinder_result1 = kill_urlfinder_result
+        except:
+            kill_urlfinder_result1 = ""
+
+        try:
+            kill_vulmap_result1 = kill_vulmap_result
+        except:
+            kill_vulmap_result1 = ""
+
+        try:
+            kill_nuclei_result1 = kill_nuclei_result
+        except:
+            kill_nuclei_result1 = ""
+
+        try:
+            kill_weaver_result1 = kill_weaver_result
+        except:
+            kill_weaver_result1 = ""
+
+        try:
+            kill_point_assset_result1 = kill_point_assset_result
+        except:
+            kill_point_assset_result1 = ""
+
+        message_json = {
+           "kill_struts2_result":kill_struts2_result1,
+           "kill_weblogic_result":kill_weblogic_result1,
+           "kill_shiro_result":kill_shiro_result1,
+           "kill_springboot_result":kill_springboot_result1,
+           "kill_thinkphp_result":kill_thinkphp_result1,
+           "kill_afrog_result":kill_afrog_result1,
+           "kill_fscan_result":kill_fscan_result1,
+           "kill_hydra_result":kill_hydra_result1,
+           "kill_urlfinder_result":kill_urlfinder_result1,
+           "kill_vulmap_result":kill_vulmap_result1,
+           "kill_nuclei_result":kill_nuclei_result1,
+           "kill_weaver_result":kill_weaver_result1,
+           "kill_point_assset_result":kill_point_assset_result1
         }
 
         return jsonify(message_json)

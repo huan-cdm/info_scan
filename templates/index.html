@@ -228,7 +228,9 @@
 			</table>
 			<br><br>
 
-			<strong style="color:coral">关键资产数量</strong>
+			<strong style="color:coral">关键资产数量</strong><br>
+			<span>1. 需先进行网站指纹识别,否则读取的是上一次的数据；</span><br>
+			<span>2. 规则名称是资产过滤规则,在资产过滤规则处进行编辑,然后点击识别关键资产,即可得到想要的资产；</span><br>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
 					<th>资产名称</th>
@@ -506,18 +508,21 @@
 							<input type="submit" value="struts2_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" id="button29" value="预览报告" onclick="struts2reportfunc()" disabled>
 							<input type="button" id="button30" value="启动程序" onclick="struts2scanfunc()" disabled>
+							<input type="button" id="button78" value="关闭程序" onclick="stopstruts2scanprocess()" disabled>
 						</span>
 
 						<span style="display: none;" id="point2">
 							<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
 							<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
+							<input type="button" id="button79" value="关闭程序" onclick="stopweblogicscanprocess()" disabled>
 						</span>
 
 						<span style="display: none;" id="point3">
 							<input type="submit" value="shiro_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
 							<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
+							<input type="button" id="button80" value="关闭程序" onclick="killshiroprocessfunc()" disabled>
 						</span>
 
 						<span style="display: none;" id="point4">
@@ -526,6 +531,7 @@
 								disabled>
 							<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()"
 								disabled>
+							<input type="button" id="button81" value="关闭程序" onclick="killspringbootprocessfunc()" disabled>
 						</span>
 
 						<span style="display: none;" id="point5">
@@ -533,6 +539,7 @@
 							<input type="button" id="button66" value="预览报告" onclick="thinkphp_report_show_func()"
 								disabled>
 							<input type="button" id="button67" value="启动程序" onclick="startthinkphpscanfunc()" disabled>
+							<input type="button" id="button82" value="关闭程序" onclick="killthinkphpprocessfunc()" disabled>
 						</span>
 
 						<span style="display: none;" id="point6">
@@ -700,9 +707,9 @@
 					<td colspan="2">
 						<input type="submit" id="button72" value="开启漏洞扫描" onclick="vulnxuanzhongscan()"
 							disabled>&nbsp;&nbsp;&nbsp;
-						<input type="submit" id="button76" value="关闭漏洞扫描" onclick=""
+						<input type="submit" id="button76" value="关闭漏洞扫描" onclick="vulnxuanzhongstopscanfunc()"
 							disabled>&nbsp;&nbsp;&nbsp;
-						<input type="submit" id="button77" value="开启报告预览" onclick=""
+						<input type="submit" id="button77" value="开启报告预览" onclick="vulnscanxuanzhongreportyulan()"
 							disabled>&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;
 						<span style="cursor: pointer;" onclick="vulnselectAll()">全选</span>&nbsp;&nbsp;<span
