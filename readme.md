@@ -17,7 +17,7 @@
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 
-系统使用说明<br><br>
+系统使用说明：
 1. 安装python3+MySQL数据库<br>
 2. 建议安装nginx反向代理web服务，部分接口会出现查询超时情况，可通过nginx控制超时时间，也可直接通过flask直接访问，只需修改scan_main_web.py和dirscanmain.py最后一行IP部分<br>
 3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下<br>
@@ -31,47 +31,42 @@
 11. 建议先执行 python3 scan_main_web.py（主系统）和python3 dirscanmain.py（目录扫描子系统），确保系统运行正常后在利用bash server_check.sh进行管理<br>
 12. nginx相关配置文件在nginx_conf目录下，将nginx.conf放到/etc/nginx目录下，将dirscan_nginx.conf和infoscan_nginx.conf放到/etc/nginx/conf.d目录下，执行nginx -t检查配置文件是否正确<br>
 13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
-14. pip3 install -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ 安装所需模块<br>
+14. pip3 install -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ 安装所需模块<br><br>
 
-项目目录结构<br><br>
+项目目录结构：
 ├── /TIP<br>
 │   ├── info_scan<br>
-│   ├── batch_scan_domain<br>
-
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br>
-
-程序文件<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br>
-
-服务启动参数<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br>
-
-
-部分功能截图<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/><br><br>
+│   ├── batch_scan_domain<br><br>
+项目部署目录<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br><br>
+程序文件<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br><br>
+服务启动参数<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br><br>
+系统登录<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/><br><br>
+IP基础信息查询<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/><br><br>
+系统折叠展开<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
+系统服务管理<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/><br><br>
+目录扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
-
-漏洞报告<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br>
-资产发现<br>
+漏洞报告<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br><br>
+资产发现<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br>
-弱口令扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br>
-总报告在线预览<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br>
-特殊字符校验<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br>
-一键扫描重点资产漏洞<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yijianscan.png" /><br>
-支持工具详情<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/tools_assemble.png" /><br>
-以复选框形式操作扫描器<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/infoscan_time.png" /><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br><br>
+弱口令扫描<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br><br>
+总报告在线预览<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br><br>
+特殊字符校验<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br><br>
+可选列表方式调用扫描器<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/infoscan_time.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br><br>
