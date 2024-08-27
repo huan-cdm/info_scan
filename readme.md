@@ -16,8 +16,14 @@
 保证系统正常运行需要2个项目：<br><br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
+##### 集成相关工具：
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA <br>
+综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei <br>
+信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名<br>
+相关工具逐步完善......
+<br><br>
 
-系统使用说明：
+系统使用说明
 1. 安装python3+MySQL数据库<br>
 2. 建议安装nginx反向代理web服务，部分接口会出现查询超时情况，可通过nginx控制超时时间，也可直接通过flask直接访问，只需修改scan_main_web.py和dirscanmain.py最后一行IP部分<br>
 3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下<br>
@@ -33,7 +39,7 @@
 13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
 14. pip3 install -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ 安装所需模块<br><br>
 
-项目目录结构：
+项目目录结构
 ├── /TIP<br>
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br><br>
