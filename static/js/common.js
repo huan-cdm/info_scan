@@ -1230,21 +1230,51 @@ function openModal() {
     function fetchData() {
         $.getJSON("/systemmanagement/",
             function (info) {
-                document.getElementById("spp1").innerHTML = info.nmapstatus;
-                document.getElementById("spp2").innerHTML = info.nucleistatus;
-                document.getElementById("spp3").innerHTML = info.xraystatus;
-                document.getElementById("spp4").innerHTML = info.radstatus;
-                document.getElementById("spp5").innerHTML = info.dirscanstatus;
-                document.getElementById("spp6").innerHTML = info.weblogicstatus;
-                document.getElementById("spp7").innerHTML = info.struts2status;
-                document.getElementById("spp8").innerHTML = info.bbscanstatus;
-                document.getElementById("spp9").innerHTML = info.vulmapscanstatus;
-                document.getElementById("spp10").innerHTML = info.afrogscanstatus;
-                document.getElementById("spp11").innerHTML = info.fscanstatus;
-                document.getElementById("spp12").innerHTML = info.shirostatus;
-                document.getElementById("spp13").innerHTML = info.httpxstatus;
+                // 运行状态显示绿色，停止状态显示红色
+                document.getElementById("spp1").innerHTML = info.nmapstatus1;
+                document.getElementById("spp1a").innerHTML = info.nmapstatus2;
+
+                document.getElementById("spp2").innerHTML = info.nucleistatus1;
+                document.getElementById("spp2a").innerHTML = info.nucleistatus2;
+
+                document.getElementById("spp3").innerHTML = info.xraystatus1;
+                document.getElementById("spp3a").innerHTML = info.xraystatus2;
+                
+                document.getElementById("spp4").innerHTML = info.radstatus1;
+                document.getElementById("spp4a").innerHTML = info.radstatus2;
+
+                document.getElementById("spp5").innerHTML = info.dirscanstatus1;
+                document.getElementById("spp5a").innerHTML = info.dirscanstatus2;
+
+                document.getElementById("spp6").innerHTML = info.weblogicstatus1;
+                document.getElementById("spp6a").innerHTML = info.weblogicstatus2;
+
+                document.getElementById("spp7").innerHTML = info.struts2status1;
+                document.getElementById("spp7a").innerHTML = info.struts2status2;
+
+                document.getElementById("spp8").innerHTML = info.bbscanstatus1;
+                document.getElementById("spp8a").innerHTML = info.bbscanstatus2;
+
+                document.getElementById("spp9").innerHTML = info.vulmapscanstatus1;
+                document.getElementById("spp9a").innerHTML = info.vulmapscanstatus2;
+
+                document.getElementById("spp10").innerHTML = info.afrogscanstatus1;
+                document.getElementById("spp10a").innerHTML = info.afrogscanstatus2;
+
+                document.getElementById("spp11").innerHTML = info.fscanstatus1;
+                document.getElementById("spp11a").innerHTML = info.fscanstatus2;
+
+                document.getElementById("spp12").innerHTML = info.shirostatus1;
+                document.getElementById("spp12a").innerHTML = info.shirostatus2;
+
+                document.getElementById("spp13").innerHTML = info.httpxstatus1;
+                document.getElementById("spp13a").innerHTML = info.httpxstatus2;
+
                 document.getElementById("spp14").innerHTML = info.url_file_num;
-                document.getElementById("spp15").innerHTML = info.eholestatus;
+
+                document.getElementById("spp15").innerHTML = info.eholestatus1;
+                document.getElementById("spp15a").innerHTML = info.eholestatus2;
+
                 document.getElementById("spp16").innerHTML = info.shiro_num;
                 document.getElementById("spp17").innerHTML = info.springboot_num;
                 document.getElementById("spp18").innerHTML = info.weblogic_num;
@@ -1257,27 +1287,42 @@ function openModal() {
                 document.getElementById("spp25").innerHTML = info.jboss_num;
                 document.getElementById("spp26").innerHTML = info.key_asset_rule;
                 document.getElementById("spp27").innerHTML = info.current_key_asset_num;
-                document.getElementById("spp28").innerHTML = info.springbootstatus;
-                document.getElementById("spp29").innerHTML = info.hydrastatus;
-                document.getElementById("spp30").innerHTML = info.urlfinderstatus;
+                document.getElementById("spp28").innerHTML = info.springbootstatus1;
+                document.getElementById("spp28a").innerHTML = info.springbootstatus2;
+                document.getElementById("spp29").innerHTML = info.hydrastatus1;
+                document.getElementById("spp29a").innerHTML = info.hydrastatus2;
+
+                document.getElementById("spp30").innerHTML = info.urlfinderstatus1;
+                document.getElementById("spp30a").innerHTML = info.urlfinderstatus2;
+
                 document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
                 document.getElementById("spp32").innerHTML = info.assets_status;
                 document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
                 document.getElementById("spp34").innerHTML = info.phpmyadmin_num;
                 document.getElementById("spp35").innerHTML = info.disk_read;
                 document.getElementById("spp36").innerHTML = info.disk_write;
-                document.getElementById("spp37").innerHTML = info.infoinfostatus;
-                document.getElementById("spp38").innerHTML = info.dirsub_sys_status;
-                document.getElementById("spp39").innerHTML = info.xray_report_status;
-                document.getElementById("spp40").innerHTML = info.urlfinder_report_status;
-                document.getElementById("spp41").innerHTML = info.afrog_report_status;
+                document.getElementById("spp37").innerHTML = info.infoinfostatus1;
+                document.getElementById("spp37a").innerHTML = info.infoinfostatus2;
+                document.getElementById("spp38").innerHTML = info.dirsub_sys_status1;
+                document.getElementById("spp38a").innerHTML = info.dirsub_sys_status2;
+                document.getElementById("spp39").innerHTML = info.xray_report_status1;
+                document.getElementById("spp39a").innerHTML = info.xray_report_status2;
+                document.getElementById("spp40").innerHTML = info.urlfinder_report_status1;
+                document.getElementById("spp40a").innerHTML = info.urlfinder_report_status2;
+                document.getElementById("spp41").innerHTML = info.afrog_report_status1;
+                document.getElementById("spp41a").innerHTML = info.afrog_report_status2;
                 document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
-                document.getElementById("spp43").innerHTML = info.thinkphpstatus;
-                document.getElementById("spp44").innerHTML = info.otx_status;
-                document.getElementById("spp45").innerHTML = info.crt_status;
+                document.getElementById("spp43").innerHTML = info.thinkphpstatus1;
+                document.getElementById("spp43a").innerHTML = info.thinkphpstatus2;
+                document.getElementById("spp44").innerHTML = info.otx_status1;
+                document.getElementById("spp44a").innerHTML = info.otx_status2;
+                document.getElementById("spp45").innerHTML = info.crt_status1;
+                document.getElementById("spp45a").innerHTML = info.crt_status2;
+
                 document.getElementById("spp46").innerHTML = info.nacos_num;
                 document.getElementById("spp47").innerHTML = info.fanwei_num;
-                document.getElementById("spp48").innerHTML = info.weaver_status;
+                document.getElementById("spp48").innerHTML = info.weaver_status1;
+                document.getElementById("spp48a").innerHTML = info.weaver_status2;
             });
     }
 

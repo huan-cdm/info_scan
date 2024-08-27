@@ -121,11 +121,11 @@ case "${1}" in
 
     #xray状态
     xraystatus)
-    num_xray=`ps -aux | grep xray-testphp | wc -l`
-    num_xray_status=`ps -aux | grep xray-testphp | grep html`
+    num_xray=`ps -aux | grep xray_linux_amd64 | wc -l`
+    
     if (( $num_xray > 1 ))
     then
-        echo "${num_xray_status}"
+        echo "running..."
     else
         echo "stop"
     
@@ -134,11 +134,10 @@ case "${1}" in
 
     #rad运行状态
     radstatus)
-    num_rad=`ps -aux | grep radscan.py | wc -l`
-    num_rad_status=`ps -aux | grep rad_engine/rad_linux_amd64 | grep http-proxy`
+    num_rad=`ps -aux | grep rad_linux_amd64 | wc -l`
     if (( $num_rad > 1 ))
     then
-        echo "${num_rad_status}"
+        echo "running..."
     else
         echo "stop"
     fi

@@ -463,25 +463,151 @@ def systemmanagement():
     user = session.get('username')
     if str(user) == main_username:
 
-        # 扫描器运行状态
+        # 扫描器运行状态，运行显示绿色，停止显示红色
         nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
+        if "running" in nmapstatus:
+            nmapstatus1 = nmapstatus
+            nmapstatus2 = ""
+        else:
+            nmapstatus1 = ""
+            nmapstatus2 = nmapstatus
+
         nucleistatus =os.popen('bash ./finger.sh nucleistatus').read()
+        if "running" in nucleistatus:
+            nucleistatus1 = nucleistatus
+            nucleistatus2 = ""
+        else:
+            nucleistatus1 = ""
+            nucleistatus2 = nucleistatus
+
         xraystatus = os.popen('bash ./finger.sh xraystatus').read()
+        if "running" in xraystatus:
+            xraystatus1 = xraystatus
+            xraystatus2 = ""
+        else:
+            xraystatus1 = ""
+            xraystatus2 = xraystatus
+
         radstatus =os.popen('bash ./finger.sh radstatus').read()
+        if "running" in  radstatus:
+            radstatus1 = radstatus
+            radstatus2 = ""
+        else:
+            radstatus1 = ""
+            radstatus2 = radstatus
+
         dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
+        if "running" in dirscanstatus:
+            dirscanstatus1 = dirscanstatus
+            dirscanstatus2 = ""
+        else:
+            dirscanstatus1 = ""
+            dirscanstatus2 = dirscanstatus
+
         weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
+        if "running" in weblogicstatus:
+            weblogicstatus1 = weblogicstatus
+            weblogicstatus2 = ""
+        else:
+            weblogicstatus1 = ""
+            weblogicstatus2 = weblogicstatus
+
         struts2status = os.popen('bash ./finger.sh struts2_status').read()
+        if "running" in struts2status:
+            struts2status1 = struts2status
+            struts2status2 = ""
+        else:
+            struts2status1 = ""
+            struts2status2 = struts2status
+
         bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
+        if "running" in bbscanstatus:
+            bbscanstatus1 = bbscanstatus
+            bbscanstatus2 = ""
+        else:
+            bbscanstatus1 = ""
+            bbscanstatus2 = bbscanstatus
+
         vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
+        if "running" in vulmapscanstatus:
+            vulmapscanstatus1 = vulmapscanstatus
+            vulmapscanstatus2 = ""
+        else:
+            vulmapscanstatus1 = ""
+            vulmapscanstatus2 = vulmapscanstatus
+
         afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
+        if "running" in afrogscanstatus:
+            afrogscanstatus1 = afrogscanstatus
+            afrogscanstatus2 = ""
+        else:
+            afrogscanstatus1 = ""
+            afrogscanstatus2 = afrogscanstatus
+
         fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
+        if "running" in fscanstatus:
+            fscanstatus1 = fscanstatus
+            fscanstatus2 = ""
+        else:
+            fscanstatus1 = ""
+            fscanstatus2 = fscanstatus
+
         shirostatus = os.popen('bash ./finger.sh shiro_status').read()
-        httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
+        if "running" in shirostatus:
+            shirostatus1 = shirostatus
+            shirostatus2 = ""
+        else:
+            shirostatus1 = ""
+            shirostatus2 = shirostatus
+
         eholestatus = os.popen('bash ./finger.sh ehole_status').read()
+        if "running" in eholestatus:
+            eholestatus1 = eholestatus
+            eholestatus2 = ""
+        else:
+            eholestatus1 = ""
+            eholestatus2 = eholestatus
+
+        httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
+        if "running" in httpxstatus:
+            httpxstatus1 = httpxstatus
+            httpxstatus2 = ""
+        else:
+            httpxstatus1 = ""
+            httpxstatus2 = httpxstatus
+
         springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
+        if "running" in springbootstatus:
+            springbootstatus1 = springbootstatus
+            springbootstatus2 = ""
+        else:
+            springbootstatus1 = ""
+            springbootstatus2 = springbootstatus
+
         hydrastatus = os.popen('bash ./finger.sh hydra_status').read()
+        if "running" in hydrastatus:
+            hydrastatus1 = hydrastatus
+            hydrastatus2 = ""
+        else:
+            hydrastatus1 = ""
+            hydrastatus2 = hydrastatus
+
         urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
+        if "running" in urlfinderstatus:
+            urlfinderstatus1 = urlfinderstatus
+            urlfinderstatus2 = ""
+        else:
+            urlfinderstatus1 = ""
+            urlfinderstatus2 = urlfinderstatus
+
         thinkphpstatus = os.popen('bash ./finger.sh TPscan_status').read()
+        if "running" in thinkphpstatus:
+            thinkphpstatus1 = thinkphpstatus
+            thinkphpstatus2 = ""
+        else:
+            thinkphpstatus1 = ""
+            thinkphpstatus2 = thinkphpstatus
+
         # 目标url行数
         url_file_num = os.popen('bash ./finger.sh url_file_num').read()
 
@@ -538,30 +664,99 @@ def systemmanagement():
 
         # python后端服务状态
         infoinfostatus = os.popen('bash ./finger.sh infoinfostatus').read()
+        if "running" in infoinfostatus:
+            infoinfostatus1 = infoinfostatus
+            infoinfostatus2 = ""
+        else:
+            infoinfostatus1 = ""
+            infoinfostatus2 = infoinfostatus
+
         dirsub_sys_status = os.popen('bash ./finger.sh dirsub_sys_status').read()
+        if "running" in dirsub_sys_status:
+            dirsub_sys_status1 = dirsub_sys_status
+            dirsub_sys_status2 = ""
+        else:
+            dirsub_sys_status1 = ""
+            dirsub_sys_status2 = dirsub_sys_status
+
         xray_report_status = os.popen('bash ./finger.sh xray_report_status').read()
+        if "running" in xray_report_status:
+            xray_report_status1 = xray_report_status
+            xray_report_status2 = ""
+        else:
+            xray_report_status1 = ""
+            xray_report_status2 = xray_report_status
+
         urlfinder_report_status = os.popen('bash ./finger.sh urlfinder_report_status').read()
+        if "running" in urlfinder_report_status:
+            urlfinder_report_status1 = urlfinder_report_status
+            urlfinder_report_status2 = ""
+        else:
+            urlfinder_report_status1 = ""
+            urlfinder_report_status2 = urlfinder_report_status
+
         afrog_report_status = os.popen('bash ./finger.sh afrog_report_status').read()
+        if "running" in afrog_report_status:
+            afrog_report_status1 = afrog_report_status
+            afrog_report_status2 = ""
+        else:
+            afrog_report_status1 = ""
+            afrog_report_status2 = afrog_report_status
 
         otx_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+        if "running" in otx_status:
+            otx_status1 = otx_status
+            otx_status2 = ""
+        else:
+            otx_status1 = ""
+            otx_status2 = otx_status
+
         crt_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+        if "running" in crt_status:
+            crt_status1 = crt_status
+            crt_status2 = ""
+        else:
+            crt_status1 = ""
+            crt_status2 = crt_status
+
         weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+        if "running" in weaver_status:
+            weaver_status1 = weaver_status
+            weaver_status2 = ""
+        else:
+            weaver_status1 = ""
+            weaver_status2 = weaver_status
+
         message_json = {
-            "nmapstatus":nmapstatus,
-            "nucleistatus":nucleistatus,
-            "xraystatus":xraystatus,
-            "radstatus":radstatus,
-            "dirscanstatus":dirscanstatus,
-            "weblogicstatus":weblogicstatus,
-            "struts2status":struts2status,
-            "bbscanstatus":bbscanstatus,
-            "vulmapscanstatus":vulmapscanstatus,
-            "afrogscanstatus":afrogscanstatus,
-            "fscanstatus":fscanstatus,
-            "shirostatus":shirostatus,
-            "httpxstatus":httpxstatus,
+            "nmapstatus1":nmapstatus1,
+            "nmapstatus2":nmapstatus2,
+            "nucleistatus1":nucleistatus1,
+            "nucleistatus2":nucleistatus2,
+            "xraystatus1":xraystatus1,
+            "xraystatus2":xraystatus2,
+            "radstatus1":radstatus1,
+            "radstatus2":radstatus2,
+            "dirscanstatus1":dirscanstatus1,
+            "dirscanstatus2":dirscanstatus2,
+            "weblogicstatus1":weblogicstatus1,
+            "weblogicstatus2":weblogicstatus2,
+            "struts2status1":struts2status1,
+            "struts2status2":struts2status2,
+            "bbscanstatus1":bbscanstatus1,
+            "bbscanstatus2":bbscanstatus2,
+            "vulmapscanstatus1":vulmapscanstatus1,
+            "vulmapscanstatus2":vulmapscanstatus2,
+            "afrogscanstatus1":afrogscanstatus1,
+            "afrogscanstatus2":afrogscanstatus2,
+            "fscanstatus1":fscanstatus1,
+            "fscanstatus2":fscanstatus2,
+            "shirostatus1":shirostatus1,
+            "shirostatus2":shirostatus2,
+            "httpxstatus1":httpxstatus1,
+            "httpxstatus2":httpxstatus2,
             "url_file_num":url_file_num,
-            "eholestatus":eholestatus,
+            "eholestatus1":eholestatus1,
+            "eholestatus2":eholestatus2,
             "shiro_num":str(shiro_num),
             "springboot_num":str(springboot_num),
             "weblogic_num":str(weblogic_num),
@@ -575,26 +770,38 @@ def systemmanagement():
             "phpmyadmin_num":str(phpmyadmin_num),
             "key_asset_rule":str(key_asset_rule),
             "current_key_asset_num":str(url_file_current_num),
-            "springbootstatus":springbootstatus,
-            "hydrastatus":hydrastatus,
-            "urlfinderstatus":urlfinderstatus,
+            "springbootstatus1":springbootstatus1,
+            "springbootstatus2":springbootstatus2,
+            "hydrastatus1":hydrastatus1,
+            "hydrastatus2":hydrastatus2,
+            "urlfinderstatus1":urlfinderstatus1,
+            "urlfinderstatus2":urlfinderstatus2,
             "key_asset_rule_origin":key_asset_rule_origin,
             "assets_status":"原始资产-------->"+assets_status,
             "vuln_scan_status_shijianxian":vuln_scan_status_shijianxian,
             "disk_read":str(disk_read)+" KB/s",
             "disk_write":str(disk_write)+" KB/s",
-            "infoinfostatus":infoinfostatus,
-            "dirsub_sys_status":dirsub_sys_status,
-            "xray_report_status":xray_report_status,
-            "urlfinder_report_status":urlfinder_report_status,
-            "afrog_report_status":afrog_report_status,
+            "infoinfostatus1":infoinfostatus1,
+            "infoinfostatus2":infoinfostatus2,
+            "dirsub_sys_status1":dirsub_sys_status1,
+            "dirsub_sys_status2":dirsub_sys_status2,
+            "xray_report_status1":xray_report_status1,
+            "xray_report_status2":xray_report_status2,
+            "urlfinder_report_status1":urlfinder_report_status1,
+            "urlfinder_report_status2":urlfinder_report_status2,
+            "afrog_report_status1":afrog_report_status1,
+            "afrog_report_status2":afrog_report_status2,
             "ThinkPHP_num":ThinkPHP_num,
-            "thinkphpstatus":thinkphpstatus,
-            "otx_status":otx_status,
-            "crt_status":crt_status,
+            "thinkphpstatus1":thinkphpstatus1,
+            "thinkphpstatus2":thinkphpstatus2,
+            "otx_status1":otx_status1,
+            "otx_status2":otx_status2,
+            "crt_status1":crt_status1,
+            "crt_status2":crt_status2,
             "nacos_num":str(nacos_num),
             "fanwei_num":str(fanwei_num),
-            "weaver_status":weaver_status
+            "weaver_status1":weaver_status1,
+            "weaver_status2":weaver_status2
 
         }
         return jsonify(message_json)
