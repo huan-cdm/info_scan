@@ -2,23 +2,18 @@
 Description:[系统调用第三方接口文件]
 Author:[huan666]
 Date:[2024/05/28]
-update:[2024/8/19]
+update:[2024/8/27]
 '''
 # shodan查询模块
 import shodan
 from config import shodankey
 import queue
 import subprocess 
-
 # icp备案查询
 from fake_useragent import UserAgent
 import random
-
-
 # 高德地图
 from config import amap_key_list
-
-
 # 通用模块
 import re
 import json
@@ -27,50 +22,38 @@ import base64
 import requests
 from bs4 import BeautifulSoup
 import time
-
-
 # IP属性判断
 from config import cloudserver
 from config import exitaddress
 from config import hotspot
 from config import datacenter
-
-
 # fofa 通过ip查询域名
 from config import fofanum
 from config import fofa_list_key
-
-
 # 提取根域名
 import tldextract  
-
-
 # 指纹自定义列表
 from config import finger_list
-
 # MySQL操作模块
 import pymysql
 from config import dict
 from config  import rule_options
-
-
 # 根据规则分别存入不同的文件
 from config import Shiro_rule
 from config import SpringBoot_rule
 from config import weblogic_rule
 from config import struts2_rule
-
 # 磁盘读写
 import psutil
-
 import sys
-
-
+# 线程
+import threading
 from config import history_switch
+
+
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
-
     apis = shodan.Shodan(shodankey)
     key = random.choice(fofa_list_key)
     # fofa接口
@@ -114,12 +97,9 @@ def shodan_api(ip):
         fofa_port_list_uniq_int = []
         for inti in fofa_port_list_uniq:
             fofa_port_list_uniq_int.append(int(inti))
-
         # fofa+shodan列表组合并去重
         total_list = list(set(fofa_port_list_uniq_int+port_list))
-
         return total_list
-        
     except:
         pass
 
@@ -1491,6 +1471,119 @@ def startweaver_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return weaver_status_result
+
+
+# 开启信息收集扫描程序
+def startbbscan_lib():
+    bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
+
+    if "running" in bbscan_status1:
+        bbscan_status_result = "敏感信息扫描程序正在运行中请勿重复提交"
+    else:
+        os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
+        # 执行敏感信息扫描
+        os.popen('bash ./finger.sh bbscan_shell')
+        if "running" in bbscan_status1:
+            bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
+        else:
+            bbscan_status_result = "bbscan正在后台启动中......"
+    return bbscan_status_result
+
+
+def startechole_lib():
+    finger_status = os.popen('bash ./finger.sh ehole_status').read()
+    if "running" in finger_status:
+        finger_status_result = "EHole程序正在运行中请勿重复提交"
+    else:
+        # 执行指纹识别扫描
+        os.popen('bash ./finger.sh ehole_finger_scan')
+        if "running" in finger_status:
+            finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
+        else:
+            finger_status_result = "EHole正在后台启动中......"
+    return finger_status_result
+
+
+
+def otxhistorydomain_lib():
+    # 每次启动前清空上次扫描结果
+    os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
+    os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
+    otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+    if "running" in otx_domain_url_shell_status:
+        otx_status_result = "历史URL查询接口正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell')
+            if "running" in otx_domain_url_shell_status:
+                otx_status_result = "历史URL查询接口已开启稍后查看结果"
+            else:
+                otx_status_result = "历史URL查询接口正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return otx_status_result
+
+
+def crtdomain_lib():
+    # 每次启动前清空上次扫描结果
+    os.popen('rm -rf /TIP/info_scan/result/subdomain.txt')
+    os.popen('touch /TIP/info_scan/result/subdomain.txt')
+    crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+    if "running" in crt_subdomain_shell_status:
+        crt_status_result = "基于证书查询子域名接口正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell')
+            
+            if "running" in crt_subdomain_shell_status:
+                crt_status_result = "基于证书查询子域名接口已开启稍后查看结果"
+            else:
+                crt_status_result = "基于证书查询子域名接口正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return crt_status_result
+
+
+
+def startnmap_lib():
+    os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
+    os.popen('touch /TIP/info_scan/result/nmap.txt')
+    namptatus = os.popen('bash ./finger.sh nmapstatus').read()
+    if "running" in namptatus:
+        nmap_status_result = "nmap正在运行中请勿重复提交"
+    
+    else:
+        try:
+            # 创建线程来运行nmap任务
+            nmap_thread = threading.Thread(target=ip_queue_nmap())
+            # 启动线程
+            nmap_thread.start()
+            if "running" in namptatus:
+                nmap_status_result = "nmap已开启稍后查看结果"
+            else:
+                nmap_status_result = "nmap正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return nmap_status_result
+
+
+
+# 资产管理相关函数
+def httpsurvival_lib():
+    httpx_status = os.popen('bash ./finger.sh httpx_status').read()
+    if "running" in httpx_status:
+        httpx_status_result = "httpx存活检测程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash ./finger.sh survivaldetection')
+            if "running" in httpx_status:
+                httpx_status_result = "httpx存活检测程序已开启稍后查看结果"
+            else:
+                httpx_status_result = "httpx存活检测程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return httpx_status_result
+
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 Description:[主系统]
 Author:[huan666]
 Date:[2023/11/15]
-update:[2024/8/19]
+update:[2024/8/27]
 '''
 from flask import Flask, render_template,request
 from flask import session
@@ -19,12 +19,9 @@ import report_total
 import pandas as pd
 from basic import root_domain_scan
 from config import ceye_key
-
 #主系统账号密码配置导入
 from config import main_username
 from config import main_password
-
-
 # 重点资产数量规则
 from config import Shiro_rule
 from config import SpringBoot_rule
@@ -42,23 +39,18 @@ from config import finger_list
 from config  import rule_options
 from config import dict
 from basic import select_rule
-
-
-
 import psutil
 import pymysql
-
 # 设置session过期时间
 from datetime import timedelta
-
-
 # 导入线程模块
 import threading
-
 # 导入时间模块
 import time
+import datetime
 from config import info_time_controls
 from config import vuln_time_controls
+
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -246,21 +238,7 @@ def historyshow():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成历史url查询')
-        # 每次启动前清空上次扫描结果
-        os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
-        os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
-        otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
-        if "running" in otx_domain_url_shell_status:
-            otx_status_result = "历史URL查询接口正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell')
-                if "running" in otx_domain_url_shell_status:
-                    otx_status_result = "历史URL查询接口已开启稍后查看结果"
-                else:
-                    otx_status_result = "历史URL查询接口正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        otx_status_result = basic.otxhistorydomain_lib()
         message_json = {
             "otx_status_result":otx_status_result
         }
@@ -675,18 +653,7 @@ def filterstatuscodebyhttpx():
     if str(user) == main_username:
         # 筛选后资产时间线更新
         basic.assets_status_update('存活检测已完成')
-        httpx_status = os.popen('bash ./finger.sh httpx_status').read()
-        if "running" in httpx_status:
-            httpx_status_result = "httpx存活检测程序正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash ./finger.sh survivaldetection')
-                if "running" in httpx_status:
-                    httpx_status_result = "httpx存活检测程序已开启稍后查看结果"
-                else:
-                    httpx_status_result = "httpx存活检测程序正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        httpx_status_result = basic.httpsurvival_lib()
         message_json = {
             "httpx_status_result":httpx_status_result
         }
@@ -973,17 +940,7 @@ def ehole_finger_scan():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成ehole指纹识别扫描')
-        finger_status = os.popen('bash ./finger.sh ehole_status').read()
-        if "running" in finger_status:
-            finger_status_result = "EHole程序正在运行中请勿重复提交"
-        else:
-            # 执行指纹识别扫描
-            os.popen('bash ./finger.sh ehole_finger_scan')
-            if "running" in finger_status:
-                finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
-            else:
-                finger_status_result = "EHole正在后台启动中......"
-
+        finger_status_result = basic.startechole_lib()
         message_json = {
             "finger_status_result":finger_status_result
         }
@@ -1000,20 +957,7 @@ def bbscan_info_scan():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成bbscan敏感信息扫描')
-        bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
-
-        if "running" in bbscan_status1:
-            bbscan_status_result = "敏感信息扫描程序正在运行中请勿重复提交"
-
-        else:
-            os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
-            # 执行敏感信息扫描
-            os.popen('bash ./finger.sh bbscan_shell')
-            if "running" in bbscan_status1:
-                bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
-            else:
-                bbscan_status_result = "bbscan正在后台启动中......"
-
+        bbscan_status_result = basic.startbbscan_lib()
         message_json = {
             "bbscan_status_result":bbscan_status_result
         }
@@ -1048,22 +992,7 @@ def batch_show_subdomain():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成子域名扫描')
-        # 每次启动前清空上次扫描结果
-        os.popen('rm -rf /TIP/info_scan/result/subdomain.txt')
-        os.popen('touch /TIP/info_scan/result/subdomain.txt')
-        crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
-        if "running" in crt_subdomain_shell_status:
-            crt_status_result = "基于证书查询子域名接口正在运行中请勿重复提交"
-        else:
-            try:
-                os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell')
-                
-                if "running" in crt_subdomain_shell_status:
-                    crt_status_result = "基于证书查询子域名接口已开启稍后查看结果"
-                else:
-                    crt_status_result = "基于证书查询子域名接口正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
+        crt_status_result = basic.crtdomain_lib()
         message_json = {
             "crt_status_result":crt_status_result
         }
@@ -1161,30 +1090,10 @@ def startbatchnmapscan():
     if str(user) == main_username:
         # 漏洞扫描器时间线更新
         basic.vuln_scan_status_update('已完成nmap端口扫描')
-        namptatus = os.popen('bash ./finger.sh nmapstatus').read()
-        if "running" in namptatus:
-            nmap_status_result = "nmap正在运行中请勿重复提交"
-        
-        else:
-
-            try:
-                # 创建线程来运行nmap任务
-                nmap_thread = threading.Thread(target=basic.ip_queue_nmap())
-
-                # 启动线程
-                nmap_thread.start()
-                
-                if "running" in namptatus:
-                    nmap_status_result = "nmap已开启稍后查看结果"
-                else:
-                    nmap_status_result = "nmap正在后台启动中......"
-            except Exception as e:
-                print("捕获到异常:", e)
-
+        nmap_status_result = basic.startnmap_lib()
         message_json = {
             "nmap_status_result":nmap_status_result
         }
-
         return jsonify(message_json)
 
         
@@ -2032,22 +1941,12 @@ def infoscan_check_back():
                 current_time = time.time()
                 # 当前时间和数据库中的作时间差
                 diff_time_minutes = basic.info_time_shijian_cha(1)
-
+                
                 if int(diff_time_minutes) > info_time_controls:
                     # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time,1)
                     # 提交扫描任务
-                    bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
-                    if "running" in bbscan_status1:
-                        bbscan_status_result = "敏感信息扫描程序正在运行中请勿重复提交"
-                    else:
-                        os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
-                        # 执行敏感信息扫描
-                        os.popen('bash ./finger.sh bbscan_shell')
-                        if "running" in bbscan_status1:
-                            bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
-                        else:
-                            bbscan_status_result = "bbscan正在后台启动中......"
+                    bbscan_status_result = basic.startbbscan_lib()
                 else:
                     bbscan_status_result = "bbscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 
@@ -2061,17 +1960,7 @@ def infoscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time2,2)
                     # 提交扫描任务
-
-                    finger_status = os.popen('bash ./finger.sh ehole_status').read()
-                    if "running" in finger_status:
-                        finger_status_result = "EHole程序正在运行中请勿重复提交"
-                    else:
-                        # 执行指纹识别扫描
-                        os.popen('bash ./finger.sh ehole_finger_scan')
-                        if "running" in finger_status:
-                            finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
-                        else:
-                            finger_status_result = "EHole正在后台启动中......"
+                    finger_status_result = basic.startechole_lib()
                 else:
                     finger_status_result = "EHole扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '3' in str(j):
@@ -2083,21 +1972,7 @@ def infoscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time3,3)
                     # 提交扫描任务
-                    # 每次启动前清空上次扫描结果
-                    os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
-                    os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
-                    otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
-                    if "running" in otx_domain_url_shell_status:
-                        otx_status_result = "历史URL查询接口正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell')
-                            if "running" in otx_domain_url_shell_status:
-                                otx_status_result = "历史URL查询接口已开启稍后查看结果"
-                            else:
-                                otx_status_result = "历史URL查询接口正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    otx_status_result = basic.otxhistorydomain_lib()
                 else:
                     otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '4' in str(j):
@@ -2109,22 +1984,7 @@ def infoscan_check_back():
                     # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time4,4)
                     # 提交扫描任务
-                    # 每次启动前清空上次扫描结果
-                    os.popen('rm -rf /TIP/info_scan/result/subdomain.txt')
-                    os.popen('touch /TIP/info_scan/result/subdomain.txt')
-                    crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
-                    if "running" in crt_subdomain_shell_status:
-                        crt_status_result = "基于证书查询子域名接口正在运行中请勿重复提交"
-                    else:
-                        try:
-                            os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell')
-                            
-                            if "running" in crt_subdomain_shell_status:
-                                crt_status_result = "基于证书查询子域名接口已开启稍后查看结果"
-                            else:
-                                crt_status_result = "基于证书查询子域名接口正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    crt_status_result = basic.crtdomain_lib()
                 else:
                     crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(j):
@@ -2137,28 +1997,7 @@ def infoscan_check_back():
                     basic.last_time_update_lib(current_time5,5)
                     # 提交扫描任务
                     # 每次启动前清空上次扫描结果
-                    os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
-                    os.popen('touch /TIP/info_scan/result/nmap.txt')
-                    namptatus = os.popen('bash ./finger.sh nmapstatus').read()
-                    if "running" in namptatus:
-                        nmap_status_result = "nmap正在运行中请勿重复提交"
-                    
-                    else:
-            
-                        try:
-                            
-                            # 创建线程来运行nmap任务
-                            nmap_thread = threading.Thread(target=basic.ip_queue_nmap())
-    
-                            # 启动线程
-                            nmap_thread.start()
-    
-                            if "running" in namptatus:
-                                nmap_status_result = "nmap已开启稍后查看结果"
-                            else:
-                                nmap_status_result = "nmap正在后台启动中......"
-                        except Exception as e:
-                            print("捕获到异常:", e)
+                    nmap_status_result = basic.startnmap_lib()
                 else:
                     nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             else:
