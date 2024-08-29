@@ -1,4 +1,4 @@
-##### 虚拟机安装：
+<h2>虚拟机安装：</h2>
 ##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
 虚拟机账号密码：huan/admin@123<br>
 1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件<br>
@@ -11,7 +11,7 @@
 - [info_scan虚拟机版](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)
 <br><br>
 
-##### 源码安装：
+<h2>源码安装：</h2>
 注意：<br><br>
 保证系统正常运行需要2个项目：<br><br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
@@ -118,7 +118,8 @@
 系统开发阶段......
 </li>
 </ul>
-系统使用说明
+
+<h2>系统使用说明：</h2>
 1. 安装python3+MySQL数据库<br>
 2. 建议安装nginx反向代理web服务，部分接口会出现查询超时情况，可通过nginx控制超时时间，也可直接通过flask直接访问，只需修改scan_main_web.py和dirscanmain.py最后一行IP部分<br>
 3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下<br>
@@ -167,7 +168,7 @@ IP基础信息查询<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br><br>
 特殊字符校验<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br><br>
-可选列表方式调用扫描器<br><br>
+批量扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/infoscan_time.png" /><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br><br>
