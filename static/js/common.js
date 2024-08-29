@@ -1323,6 +1323,8 @@ function openModal() {
                 document.getElementById("spp47").innerHTML = info.fanwei_num;
                 document.getElementById("spp48").innerHTML = info.weaver_status1;
                 document.getElementById("spp48a").innerHTML = info.weaver_status2;
+                document.getElementById("spp49").innerHTML = info.es_unauthorized_status1;
+                document.getElementById("spp49a").innerHTML = info.es_unauthorized_status2;
             });
     }
 
@@ -2656,7 +2658,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result+"\n"+info.es_status_result)
         },
 
         error: function (info) {
@@ -2907,6 +2909,8 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/springboot_report_show/", "_blank");
             window.open("/struts2_poc_report/", "_blank");
             window.open("/weblogic_poc_report/", "_blank");
+        }else if (vuln_front_list[i] == 'e'){
+            window.open("/es_unauthorized_report/", "_blank");
         }
     }
 }

@@ -277,7 +277,7 @@
 					<th>名称</th>
 					<td>基于OTX查询历史URL</td>
 					<td>基于证书查询子域名</td>
-					<td></td>
+					<td>ES未授权扫描</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -295,7 +295,10 @@
 						<span id="spp45" style="color:green"></span>
 						<span id="spp45a" style="color: red;"></span>
 					</td>
-					<td></td>
+					<td>
+						<span id="spp49" style="color:green"></span>
+						<span id="spp49a" style="color: red;"></span>
+					</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -820,7 +823,14 @@
 						<label for="option15">一键扫描重点资产</label>
 					</td>
 				</tr>
+				<!-- 漏洞扫描程序第二行 -->
 
+				<tr>
+					<td colspan="2">
+						<input type="checkbox" id="option16" name="option" value="e">
+						<label for="option16">Elasticsearch未授权</label>
+					</td>
+				</tr>
 				<tr>
 					<td colspan="2">
 						<input type="submit" id="button73" value="开启信息收集" onclick="infoxuanzhongscan()"

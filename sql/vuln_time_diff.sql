@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 23/08/2024 17:12:14
+ Date: 29/08/2024 09:44:13
 */
 
 SET NAMES utf8mb4;
@@ -25,23 +25,24 @@ CREATE TABLE `vuln_time_diff`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `time_diff` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vuln_time_diff
 -- ----------------------------
-INSERT INTO `vuln_time_diff` VALUES (1, '1724404283.4737413');
-INSERT INTO `vuln_time_diff` VALUES (2, '1724404283.5186772');
-INSERT INTO `vuln_time_diff` VALUES (3, '1724404283.621506');
-INSERT INTO `vuln_time_diff` VALUES (4, '1724404283.6919847');
-INSERT INTO `vuln_time_diff` VALUES (5, '1724404283.764939');
-INSERT INTO `vuln_time_diff` VALUES (6, '1724404283.8790371');
-INSERT INTO `vuln_time_diff` VALUES (7, '1724404283.9663506');
-INSERT INTO `vuln_time_diff` VALUES (8, '1724404284.1073413');
-INSERT INTO `vuln_time_diff` VALUES (9, '1724404284.2572255');
-INSERT INTO `vuln_time_diff` VALUES (10, '1724404284.3285947');
-INSERT INTO `vuln_time_diff` VALUES (11, '1724404265.546095');
-INSERT INTO `vuln_time_diff` VALUES (12, '1724404265.593695');
-INSERT INTO `vuln_time_diff` VALUES (13, '1724404265.66369');
+INSERT INTO `vuln_time_diff` VALUES (1, '1724838623.4747577');
+INSERT INTO `vuln_time_diff` VALUES (2, '1724740341.7877247');
+INSERT INTO `vuln_time_diff` VALUES (3, '1724661728.2483444');
+INSERT INTO `vuln_time_diff` VALUES (4, '1724658544.0025449');
+INSERT INTO `vuln_time_diff` VALUES (5, '1724658544.0690985');
+INSERT INTO `vuln_time_diff` VALUES (6, '1724741299.5538535');
+INSERT INTO `vuln_time_diff` VALUES (7, '1724663321.6490097');
+INSERT INTO `vuln_time_diff` VALUES (8, '1724664128.1036596');
+INSERT INTO `vuln_time_diff` VALUES (9, '1724658544.488516');
+INSERT INTO `vuln_time_diff` VALUES (10, '1724658544.6377418');
+INSERT INTO `vuln_time_diff` VALUES (11, '1724727845.795996');
+INSERT INTO `vuln_time_diff` VALUES (12, '1724658544.8673444');
+INSERT INTO `vuln_time_diff` VALUES (13, '1724404603.553185');
+INSERT INTO `vuln_time_diff` VALUES (14, '1724895239.151889');
 
 SET FOREIGN_KEY_CHECKS = 1;

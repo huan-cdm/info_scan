@@ -1,5 +1,5 @@
-#shodan key配置
-shodankey = ""
+#shodan key配置,可在列表中配置多个key
+shodankey = [""]
 
 # fofa相关配置，防止接口被耗尽，可配置单个key或者多个key
 fofanum = "10000"  # fofa查询条数

@@ -1083,18 +1083,38 @@ case "${1}" in
 	fi
     ;;
 
+
     # 关闭泛微OA漏洞扫描
     kill_weaver_scan)
 	weaver_pid=`ps -aux | grep "weaver_exp/main.py" |awk -F " " '{print $2}'`
     
     for ii in ${weaver_pid}
 	do
-		
 		kill -9 ${ii} 2>/dev/null
 	done
     ;;
 
+    # 启动es未授权检测脚本
+    start_es_shell)
+    python3 /TIP/info_scan/vuln_lib.py es_unauthorized > /TIP/info_scan/result/esunauthorized.txt
+    ;;
 
+    # es未授权检测脚本运行状态
+    es_unauthorized_status)
+    es_unauthorized_ps=`ps -aux | grep "vuln_lib.py es_unauthorized" | wc -l`
+	if (( $es_unauthorized_ps > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+
+    #es未授权访问漏洞数量
+    es_unautorized_num)
+    es_num=`cat /TIP/info_scan/result/esunauthorized.txt | wc -l`
+    echo "${es_num}"
+    ;;
     
-
 esac

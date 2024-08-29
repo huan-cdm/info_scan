@@ -54,7 +54,8 @@ from config import history_switch
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
-    apis = shodan.Shodan(shodankey)
+    shodankeyvalue = random.choice(shodankey)
+    apis = shodan.Shodan(shodankeyvalue)
     key = random.choice(fofa_list_key)
     # fofa接口
     fofa_first_argv= 'ip=' + ip + ''
@@ -1583,6 +1584,24 @@ def httpsurvival_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return httpx_status_result
+
+
+
+# 启动es未授权漏洞扫描
+def startunes_lib():
+    es_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
+    if "running" in es_status:
+        es_status_result = "ES未授权检测程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash ./finger.sh start_es_shell')
+            if "running" in es_status:
+                es_status_result = "ES未授权检测程序已开启稍后查看结果"
+            else:
+                es_status_result = "ES未授权检测程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return es_status_result
 
 
 

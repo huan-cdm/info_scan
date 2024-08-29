@@ -727,6 +727,15 @@ def systemmanagement():
             weaver_status1 = ""
             weaver_status2 = weaver_status
 
+        es_unauthorized_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
+        if "running" in es_unauthorized_status:
+            es_unauthorized_status1 = es_unauthorized_status
+            es_unauthorized_status2 = ""
+        else:
+            es_unauthorized_status1 = ""
+            es_unauthorized_status2 = es_unauthorized_status
+
+
         message_json = {
             "nmapstatus1":nmapstatus1,
             "nmapstatus2":nmapstatus2,
@@ -801,7 +810,9 @@ def systemmanagement():
             "nacos_num":str(nacos_num),
             "fanwei_num":str(fanwei_num),
             "weaver_status1":weaver_status1,
-            "weaver_status2":weaver_status2
+            "weaver_status2":weaver_status2,
+            "es_unauthorized_status1":es_unauthorized_status1,
+            "es_unauthorized_status2":es_unauthorized_status2
 
         }
         return jsonify(message_json)
@@ -2442,6 +2453,23 @@ def vulnscan_check_back():
                                             
                 else:
                     weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'e' in str(k):
+                print("ES未授权访问")
+                # 获取系统当前时间
+                current_time14 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes14 = basic.vuln_time_shijian_cha(14)
+                if int(diff_time_minutes14) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time14,14)
+                    # 提交扫描任务
+                    es_status_result = basic.startunes_lib()
+                                 
+                else:
+                    es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    
+
             elif 'd' in str(k):
                 print("重点资产")
                 # 获取系统当前时间
@@ -2620,6 +2648,12 @@ def vulnscan_check_back():
             point_all_result1 = point_all_result
         except:
             point_all_result1 = ""
+
+        try:
+            es_status_result1 = es_status_result
+        except:
+            es_status_result1 = ""
+
         message_json = {
             "struts2status_result":struts2status_result1,
             "weblogic_status_result":weblogic_status_result1,
@@ -2633,7 +2667,8 @@ def vulnscan_check_back():
             "vummap_scan_result":vummap_scan_result1,
             "nuclei_status_result":nuclei_status_result1,
             "weaver_status_result":weaver_status_result1,
-            "point_all_result":point_all_result1
+            "point_all_result":point_all_result1,
+            "es_status_result":es_status_result1
         }
 
         return jsonify(message_json)
@@ -2842,6 +2877,25 @@ def stop_vulnscan_back():
 
         return jsonify(message_json)
     
+    else:
+        return render_template('login.html')
+
+
+
+#es未授权访问漏洞报告预览
+@app.route("/es_unauthorized_report/")
+def es_unauthorized_report():
+    user = session.get('username')
+    if str(user) == main_username:
+        es_num = os.popen('bash /TIP/info_scan/finger.sh es_unautorized_num').read()
+        if int(es_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/esunauthorized.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
     else:
         return render_template('login.html')
 
