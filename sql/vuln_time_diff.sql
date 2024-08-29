@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 117.72.16.222
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
  Source Server Version : 80037
- Source Host           : 117.72.16.222:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : vuln_scan_database
 
  Target Server Type    : MySQL
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 29/08/2024 09:44:13
+ Date: 29/08/2024 15:18:50
 */
 
 SET NAMES utf8mb4;
@@ -43,6 +43,7 @@ INSERT INTO `vuln_time_diff` VALUES (10, '1724658544.6377418');
 INSERT INTO `vuln_time_diff` VALUES (11, '1724727845.795996');
 INSERT INTO `vuln_time_diff` VALUES (12, '1724658544.8673444');
 INSERT INTO `vuln_time_diff` VALUES (13, '1724404603.553185');
-INSERT INTO `vuln_time_diff` VALUES (14, '1724895239.151889');
+INSERT INTO `vuln_time_diff` VALUES (14, '1724911533.393815');
+INSERT INTO `vuln_time_diff` VALUES (15, '1724911533.393815');
 
 SET FOREIGN_KEY_CHECKS = 1;

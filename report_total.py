@@ -154,7 +154,18 @@ def report_xlsx():
         clean_text = pattern.sub('', weaver_line)
         weaver_report_list.append(clean_text.strip())
 
+     # es未授权访问
+    es_report_list = []
+    es_file = open("/TIP/info_scan/result/esunauthorized.txt",encoding='utf-8')
+    for es_line in es_file.readlines():
+        es_report_list.append(es_line.strip())
 
+
+    # nacos漏洞
+    nacos_report_list = []
+    nacos_file = open("/TIP/info_scan/result/nacosvuln.txt",encoding='utf-8')
+    for nacos_line in nacos_file.readlines():
+        nacos_report_list.append(nacos_line.strip())
     
     
     # 将列表转换为 pandas 的 DataFrame
@@ -178,6 +189,8 @@ def report_xlsx():
     df_s = pd.DataFrame(thinkphp_report_list, columns=['thinkphp'])
     df_t = pd.DataFrame(otx_url_report_list, columns=['历史url'])
     df_u = pd.DataFrame(weaver_report_list, columns=['泛微OA'])
+    df_v = pd.DataFrame(es_report_list, columns=['ES未授权'])
+    df_w = pd.DataFrame(nacos_report_list, columns=['nacos'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -203,3 +216,5 @@ def report_xlsx():
         df_s.to_excel(writer, sheet_name='thinkphp', index=False)
         df_t.to_excel(writer, sheet_name='历史url', index=False)
         df_u.to_excel(writer, sheet_name='泛微OA', index=False)
+        df_v.to_excel(writer, sheet_name='ES未授权', index=False)
+        df_w.to_excel(writer, sheet_name='nacos', index=False)

@@ -735,6 +735,15 @@ def systemmanagement():
             es_unauthorized_status1 = ""
             es_unauthorized_status2 = es_unauthorized_status
 
+        nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
+        if "running" in nacos_status:
+            nacos_status1 = nacos_status
+            nacos_status2 = ""
+        else:
+            nacos_status1 = ""
+            nacos_status2 = nacos_status
+        
+
 
         message_json = {
             "nmapstatus1":nmapstatus1,
@@ -812,7 +821,9 @@ def systemmanagement():
             "weaver_status1":weaver_status1,
             "weaver_status2":weaver_status2,
             "es_unauthorized_status1":es_unauthorized_status1,
-            "es_unauthorized_status2":es_unauthorized_status2
+            "es_unauthorized_status2":es_unauthorized_status2,
+            "nacos_status1":nacos_status1,
+            "nacos_status2":nacos_status2
 
         }
         return jsonify(message_json)
@@ -2469,6 +2480,20 @@ def vulnscan_check_back():
                 else:
                     es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                     
+            elif 'f' in str(k):
+                print("nacos漏洞扫描")
+                # 获取系统当前时间
+                current_time15 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes15 = basic.vuln_time_shijian_cha(15)
+                if int(diff_time_minutes15) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time15,15)
+                    # 提交扫描任务
+                    nacos_status_result = basic.startnacosscan_lib()
+                                 
+                else:
+                    nacos_status_result = "nacos漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -2654,6 +2679,11 @@ def vulnscan_check_back():
         except:
             es_status_result1 = ""
 
+        try:
+            nacos_status_result1 = nacos_status_result
+        except:
+            nacos_status_result1 = ""
+
         message_json = {
             "struts2status_result":struts2status_result1,
             "weblogic_status_result":weblogic_status_result1,
@@ -2668,7 +2698,8 @@ def vulnscan_check_back():
             "nuclei_status_result":nuclei_status_result1,
             "weaver_status_result":weaver_status_result1,
             "point_all_result":point_all_result1,
-            "es_status_result":es_status_result1
+            "es_status_result":es_status_result1,
+            "nacos_status_result":nacos_status_result1
         }
 
         return jsonify(message_json)
@@ -2788,7 +2819,9 @@ def stop_vulnscan_back():
             elif 'c' in str(j):                
                 kill_weaver_result = basic.stopweaver_lib()
             elif 'e' in str(j):                
-                kill_es_result = basic.stopesscan_lib()            
+                kill_es_result = basic.stopesscan_lib()    
+            elif 'f' in str(j):                
+                kill_nacos_result = basic.stopnacosscan_lib()      
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -2864,6 +2897,10 @@ def stop_vulnscan_back():
             kill_es_result1 = kill_es_result
         except:
             kill_es_result1 = ""
+        try:
+            kill_nacos_result1 = kill_nacos_result
+        except:
+            kill_nacos_result1 = ""
 
         message_json = {
            "kill_struts2_result":kill_struts2_result1,
@@ -2879,7 +2916,8 @@ def stop_vulnscan_back():
            "kill_nuclei_result":kill_nuclei_result1,
            "kill_weaver_result":kill_weaver_result1,
            "kill_point_assset_result":kill_point_assset_result1,
-           "kill_es_result":kill_es_result1
+           "kill_es_result":kill_es_result1,
+           "kill_nacos_result":kill_nacos_result1
         }
 
         return jsonify(message_json)
@@ -2905,6 +2943,25 @@ def es_unauthorized_report():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
+
+
+#nacos漏洞扫描报告预览
+@app.route("/nacos_scan_report/")
+def nacos_scan_report():
+    user = session.get('username')
+    if str(user) == main_username:
+        nacos_num = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_num').read()
+        if int(nacos_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/nacosvuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
 
 
 if __name__ == '__main__':  

@@ -1266,6 +1266,17 @@ def stopesscan_lib():
     return kill_es_result
 
 
+def stopnacosscan_lib():
+    nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
+    os.popen('bash ./finger.sh stop_nacos_scan')
+    if "stop" in nacos_status:
+        kill_nacos_result = "已关闭nacos漏洞扫描程序"
+    else:
+        kill_nacos_result = "正在关闭中......"
+    return kill_nacos_result
+
+
+
 # 开启漏洞扫描程序
 def startstruts2_lib():
     struts2status = os.popen('bash ./finger.sh struts2_status').read()
@@ -1611,6 +1622,23 @@ def startunes_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return es_status_result
+
+
+# 开启nacos漏洞扫描
+def startnacosscan_lib():
+    nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
+    if "running" in nacos_status:
+        nacos_status_result = "nacos漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash ./finger.sh start_nacos_scan_shell')
+            if "running" in nacos_status:
+                nacos_status_result = "nacos漏洞扫描程序已开启稍后查看结果"
+            else:
+                nacos_status_result = "nacos漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return nacos_status_result
 
 
 

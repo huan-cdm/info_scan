@@ -1127,5 +1127,39 @@ case "${1}" in
 		kill -9 ${ii} 2>/dev/null
 	done
     ;;
+
+
+    # 开启nacos漏洞检测工具
+    start_nacos_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py nacos_vuln_scan > /TIP/info_scan/result/nacosvuln.txt
+    ;;
+
+    # nacos漏洞扫描程序运行状态
+    nacos_vuln_scan_status)
+    nacos_scan_ps=`ps -aux | grep "vuln_lib.py nacos_vuln_scan" | wc -l`
+	if (( $nacos_scan_ps > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #nacos漏洞数量
+    nacos_vuln_num)
+    nacos_num=`cat /TIP/info_scan/result/nacosvuln.txt | wc -l`
+    echo "${nacos_num}"
+    ;;
+
+    
+    # 关闭nacos漏洞扫描程序
+    stop_nacos_scan)
+    nacos_pid=`ps -aux | grep "nacos_vuln_scan" |awk -F " " '{print $2}'`
+    
+    for ii in ${nacos_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
     
 esac
