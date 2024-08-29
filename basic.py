@@ -1256,6 +1256,15 @@ def stopnmap_lib():
     return kill_nmap_result
 
 
+def stopesscan_lib():
+    es_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
+    os.popen('bash ./finger.sh stopes_unauthorized')
+    if "stop" in es_status:
+        kill_es_result = "已关闭ES未授权扫描程序"
+    else:
+        kill_es_result = "正在关闭中......"
+    return kill_es_result
+
 
 # 开启漏洞扫描程序
 def startstruts2_lib():

@@ -2805,7 +2805,7 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json', 
         success: function (info) {
-            alert(info.kill_struts2_result+"\n"+info.kill_weblogic_result+"\n"+info.kill_shiro_result+"\n"+info.kill_springboot_result+"\n"+info.kill_thinkphp_result+"\n"+info.kill_afrog_result+"\n"+info.kill_fscan_result+"\n"+info.kill_hydra_result+"\n"+info.kill_urlfinder_result+"\n"+info.kill_vulmap_result+"\n"+info.kill_nuclei_result+"\n"+info.kill_weaver_result+"\n"+info.kill_point_assset_result)
+            alert(info.kill_struts2_result+"\n"+info.kill_weblogic_result+"\n"+info.kill_shiro_result+"\n"+info.kill_springboot_result+"\n"+info.kill_thinkphp_result+"\n"+info.kill_afrog_result+"\n"+info.kill_fscan_result+"\n"+info.kill_hydra_result+"\n"+info.kill_urlfinder_result+"\n"+info.kill_vulmap_result+"\n"+info.kill_nuclei_result+"\n"+info.kill_weaver_result+"\n"+info.kill_point_assset_result+"\n"+info.kill_es_result)
         },
 
         error: function (info) {

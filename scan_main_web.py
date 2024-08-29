@@ -2786,7 +2786,9 @@ def stop_vulnscan_back():
             elif 'b' in str(j):                
                 kill_nuclei_result = basic.stopnuclei_lib()  
             elif 'c' in str(j):                
-                kill_weaver_result = basic.stopweaver_lib()                
+                kill_weaver_result = basic.stopweaver_lib()
+            elif 'e' in str(j):                
+                kill_es_result = basic.stopesscan_lib()            
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -2858,6 +2860,10 @@ def stop_vulnscan_back():
             kill_point_assset_result1 = kill_point_assset_result
         except:
             kill_point_assset_result1 = ""
+        try:
+            kill_es_result1 = kill_es_result
+        except:
+            kill_es_result1 = ""
 
         message_json = {
            "kill_struts2_result":kill_struts2_result1,
@@ -2872,7 +2878,8 @@ def stop_vulnscan_back():
            "kill_vulmap_result":kill_vulmap_result1,
            "kill_nuclei_result":kill_nuclei_result1,
            "kill_weaver_result":kill_weaver_result1,
-           "kill_point_assset_result":kill_point_assset_result1
+           "kill_point_assset_result":kill_point_assset_result1,
+           "kill_es_result":kill_es_result1
         }
 
         return jsonify(message_json)

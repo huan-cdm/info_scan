@@ -37,7 +37,8 @@ def es_unauthorized():
         formatted_time = now.strftime("%H:%M:%S")
 
         try:
-            res = requests.get(url,headers=hearder,allow_redirects=False,timeout=2)
+            # 忽略ssl证书验证
+            res = requests.get(url,headers=hearder,allow_redirects=False,timeout=2,verify=False)
             res.encoding='utf-8'
             restext = res.text
             if 'cluster_name' and 'cluster_uuid' and 'version' in restext:

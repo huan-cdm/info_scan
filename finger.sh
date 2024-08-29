@@ -1116,5 +1116,16 @@ case "${1}" in
     es_num=`cat /TIP/info_scan/result/esunauthorized.txt | wc -l`
     echo "${es_num}"
     ;;
+
+
+    # 关闭es未授权访问扫描程序
+    stopes_unauthorized)
+    esscan_pid=`ps -aux | grep "es_unauthorized" |awk -F " " '{print $2}'`
+    
+    for ii in ${esscan_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
     
 esac
