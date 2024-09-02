@@ -202,6 +202,8 @@ def chandao_vuln_scan():
         except:
             pass
 
+
+
 # tomcat 相关漏洞扫描
 def tomcat_vuln_scan():
     # 获取当前时间
@@ -249,18 +251,17 @@ def tomcat_vuln_scan():
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
                 'Accept-Encoding': 'gzip, deflate',
                 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-                'Cookie': 'session=eyJfcGVybWFuZW50Ijp0cnVlLCJ1c2VybmFtZSI6Im1haW5hZG1pbiJ9.ZtGVgQ.kMYFZ3Q-TCESRxeGWA0SlNNDGr0',
                 'Connection': 'close'
             }
             
             # 捕获异常处理
             try:
                 # 发送GET请求
-                response_weakpassword_tomcat = requests.get(manager_url, headers=headers,allow_redirects=False,timeout=2,verify=False)
+                response_weakpassword_tomcat = requests.get(manager_url, headers=headers,allow_redirects=False,timeout=1,verify=False)
                 response_weakpassword_tomcat.encoding='utf-8'
                 response_weakpassword_tomcat_text = response_weakpassword_tomcat.text
                 if 'Tomcat Web应用程序管理者' and '启动' and '停止' and '重新加载' in response_weakpassword_tomcat_text:
-                    print("[+]"+" "+formatted_time+" "+"目标："+" "+manager_url+" "+"存在tomcat管理后台弱口令"+"弱口令:"+"("+username+"/"+password+")")
+                    print("[+]"+" "+formatted_time+" "+"目标："+" "+manager_url+" "+"存在tomcat管理后台弱口令:"+"("+username+"/"+password+")")
             except:
                 pass
   
