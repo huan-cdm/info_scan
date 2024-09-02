@@ -4,7 +4,8 @@ import basic
 import sys
 from datetime import datetime
 from base64 import b64encode
-
+from config import nacos_dict_list
+from config import tomcat_dict_list
 
 # es未授权访问漏洞批量检测
 
@@ -128,29 +129,9 @@ def nacos_vuln_scan():
 
         # nacos常见弱口令扫描
         weakpassword_dir = "/nacos/v1/auth/users/login"
-        data01 = {
-            'username':'test',
-            'password':'test'
-        }
-        data02 = {
-            'username':'nacos',
-            'password':'nacos'
-        }
-        data03 = {
-            'username':'admin',
-            'password':'123456'
-        }
-        data04 = {
-           'username':'admin',
-           'password':'admin@123456' 
-        }
-        data05 = {
-            "username":"nacos",
-            "password":"123456"
-        }
-        dict_list = [data01,data02,data03,data04,data05]
+        
         try:
-            for auth in dict_list:
+            for auth in nacos_dict_list:
                 # 发送POST请求,忽略ssl验证
                 response_weak = requests.post(url+weakpassword_dir, data=auth, headers=hearders,allow_redirects=False,timeout=2,verify=False)
                 response_weak.encoding='utf-8'
@@ -158,7 +139,7 @@ def nacos_vuln_scan():
     
                 if '200' and 'Authorization' and 'accessToken' and 'username' in response_weak_text:
                     
-                    print("[+]"+" "+formatted_time+" "+"目标："+" "+url+weakpassword_dir+" "+"存在弱口令风险:"+"("+auth['username']+"/"+auth['password']+")")
+                    print("[+]"+" "+formatted_time+" "+"目标："+" "+url+weakpassword_dir+" "+"存在nacos弱口令漏洞:"+"("+auth['username']+"/"+auth['password']+")")
         except:
             pass
 
@@ -217,25 +198,13 @@ def tomcat_vuln_scan():
     for url in url_list:
         manager_dir_list.append(url+"/manager/html")
     
-    data01 = {
-        'username':'tomcat',
-        'password':'tomcat'
-    }
-    data02 = {
-        'username':'admin',
-        'password':'123456'
-    }
-    data03 = {
-        'username':'test',
-        'password':'test'
-    }
-    dict_auth = [data01,data02,data03]
+    
     
     for manager_url in manager_dir_list:
 
 
         # 基本认证信息，用户名和密码
-        for auth in dict_auth:
+        for auth in tomcat_dict_list:
             username = auth['username']
             password = auth['password']
 
