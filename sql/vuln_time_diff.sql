@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 29/08/2024 15:18:50
+ Date: 03/09/2024 10:52:00
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `vuln_time_diff`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `time_diff` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vuln_time_diff
@@ -43,7 +43,8 @@ INSERT INTO `vuln_time_diff` VALUES (10, '1724658544.6377418');
 INSERT INTO `vuln_time_diff` VALUES (11, '1724727845.795996');
 INSERT INTO `vuln_time_diff` VALUES (12, '1724658544.8673444');
 INSERT INTO `vuln_time_diff` VALUES (13, '1724404603.553185');
-INSERT INTO `vuln_time_diff` VALUES (14, '1724911533.393815');
-INSERT INTO `vuln_time_diff` VALUES (15, '1724911533.393815');
+INSERT INTO `vuln_time_diff` VALUES (14, '1724917853.2583635');
+INSERT INTO `vuln_time_diff` VALUES (15, '1725243767.781577');
+INSERT INTO `vuln_time_diff` VALUES (16, '1725243767.781577');
 
 SET FOREIGN_KEY_CHECKS = 1;

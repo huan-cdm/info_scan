@@ -84,6 +84,7 @@ phpMyAdmin_rule = ["phpMyAdmin"]
 ThinkPHP_rule = ["ThinkPHP"]
 nacos_rule = ["Nacos"]
 fanwei_rule = ["泛微"]
+tomcat_rule = ["Tomcat"]
 
 
 # 信息收集类工具限制单位时间内禁止重复提交

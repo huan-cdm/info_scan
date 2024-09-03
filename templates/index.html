@@ -117,18 +117,18 @@
 					</td>
 				</tr>
 			</table>
-			<br><br>
+			<br>
 			<strong style="color:coral">python后端服务状态</strong>
 
 			<table border="1" style="width: 1500px; height: 100px;">
 
 				<tr>
 					<th>名称</th>
-					<td>主系统</td>
-					<td>子系统</td>
-					<td>xray报告</td>
-					<td>urlfinder报告</td>
-					<td>afrog报告</td>
+					<td>漏洞扫描主系统</td>
+					<td>目录扫描系统</td>
+					<td>xray报告访问服务</td>
+					<td>urlfinder报告访问服务</td>
+					<td>afrog报告访问服务</td>
 				</tr>
 				<tr>
 					<th>状态</th>
@@ -155,20 +155,20 @@
 				</tr>
 			</table>
 
-			<br><br>
+			<br>
 			<strong style="color:coral">扫描器状态</strong>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
 					<th>名称</th>
-					<td>nmap</td>
-					<td>nuclei</td>
-					<td>xray</td>
-					<td>rad</td>
-					<td>dirsearch</td>
-					<td>weblogic</td>
-					<td>struts2</td>
-					<td>bbscan</td>
-					<td>vulmap</td>
+					<td>端口扫描</td>
+					<td>nuclei POC扫描</td>
+					<td>xray扫描</td>
+					<td>rad扫描</td>
+					<td>目录扫描</td>
+					<td>weblogic漏洞扫描</td>
+					<td>struts2漏洞扫描</td>
+					<td>信息泄露扫描</td>
+					<td>vulmap综合扫描</td>
 				</tr>
 
 				<tr>
@@ -216,16 +216,16 @@
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
 					<th>名称</th>
-					<td>afrog</td>
-					<td>fscan</td>
-					<td>shiro</td>
-					<td>ehole</td>
-					<td>springboot</td>
-					<td>httpx</td>
-					<td>hydra</td>
-					<td>urlfinder</td>
-					<td>thinkphp</td>
-					<td>泛微OA</td>
+					<td>afrog综合扫描</td>
+					<td>fscan综合扫描</td>
+					<td>shiro漏洞扫描</td>
+					<td>指纹识别</td>
+					<td>springboot漏洞扫描</td>
+					<td>存活检测</td>
+					<td>弱口令扫描</td>
+					<td>api扫描</td>
+					<td>thinkphp漏洞扫描</td>
+					<td>泛微OA漏洞扫描</td>
 				</tr>
 				<tr>
 					<th>状态</th>
@@ -271,15 +271,15 @@
 					</td>
 				</tr>
 			</table>
-			<br><br>
+			<br>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
 					<th>名称</th>
-					<td>基于OTX查询历史URL</td>
-					<td>基于证书查询子域名</td>
+					<td>历史URL扫描</td>
+					<td>子域名扫描</td>
 					<td>ES未授权扫描</td>
-					<td>nacos扫描</td>
-					<td></td>
+					<td>nacos漏洞扫描</td>
+					<td>tomcat漏洞扫描</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -300,10 +300,13 @@
 						<span id="spp49a" style="color: red;"></span>
 					</td>
 					<td>
-						<span  id="spp50" style="color:green"></span>
+						<span id="spp50" style="color:green"></span>
 						<span id="spp50a" style="color: red;"></span>
 					</td>
-					<td></td>
+					<td>
+						<span id="spp51" style="color:green"></span>
+						<span id="spp51a" style="color: red;"></span>
+					</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -330,6 +333,7 @@
 					<td>thinkphp</td>
 					<td>nacos</td>
 					<td>泛微OA</td>
+					<td>tomcat</td>
 				</tr>
 				<!-- 规则名称 -->
 				<tr>
@@ -346,6 +350,7 @@
 					<td>ThinkPHP</td>
 					<td>Nacos</td>
 					<td>泛微</td>
+					<td>Tomcat</td>
 				</tr>
 				<tr>
 					<th>资产数量</th>
@@ -361,6 +366,7 @@
 					<td><span id="spp42"></span></td>
 					<td><span id="spp46"></span></td>
 					<td><span id="spp47"></span></td>
+					<td><span id="spp52"></span></td>
 				</tr>
 			</table><br>
 			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50"
@@ -599,7 +605,8 @@
 							<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
 							<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
 							<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
-							<input type="button" id="button79" value="关闭程序" onclick="stopweblogicscanprocess()" disabled>
+							<input type="button" id="button79" value="关闭程序" onclick="stopweblogicscanprocess()"
+								disabled>
 						</span>
 
 						<span style="display: none;" id="point3">
@@ -615,7 +622,8 @@
 								disabled>
 							<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()"
 								disabled>
-							<input type="button" id="button81" value="关闭程序" onclick="killspringbootprocessfunc()" disabled>
+							<input type="button" id="button81" value="关闭程序" onclick="killspringbootprocessfunc()"
+								disabled>
 						</span>
 
 						<span style="display: none;" id="point5">
@@ -623,7 +631,8 @@
 							<input type="button" id="button66" value="预览报告" onclick="thinkphp_report_show_func()"
 								disabled>
 							<input type="button" id="button67" value="启动程序" onclick="startthinkphpscanfunc()" disabled>
-							<input type="button" id="button82" value="关闭程序" onclick="killthinkphpprocessfunc()" disabled>
+							<input type="button" id="button82" value="关闭程序" onclick="killthinkphpprocessfunc()"
+								disabled>
 						</span>
 
 						<span style="display: none;" id="point6">
@@ -826,14 +835,16 @@
 						<label for="option15">一键扫描重点资产</label>
 					</td>
 				</tr>
-				<!-- 漏洞扫描程序第二行 -->
 
+				<!-- 漏洞扫描程序第二行 -->
 				<tr>
 					<td colspan="2">
 						<input type="checkbox" id="option16" name="option" value="e">
 						<label for="option16">Elasticsearch未授权</label>
 						<input type="checkbox" id="option17" name="option" value="f">
 						<label for="option17">nacos扫描</label>
+						<input type="checkbox" id="option18" name="option" value="g">
+						<label for="option18">tomcat扫描</label>
 					</td>
 				</tr>
 				<tr>

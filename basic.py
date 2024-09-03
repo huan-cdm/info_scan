@@ -1208,6 +1208,35 @@ def stopweaver_lib():
         kill_weaver_result = "正在关闭中......"
     return kill_weaver_result
 
+def stopesscan_lib():
+    es_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
+    os.popen('bash ./finger.sh stopes_unauthorized')
+    if "stop" in es_status:
+        kill_es_result = "已关闭ES未授权扫描程序"
+    else:
+        kill_es_result = "正在关闭中......"
+    return kill_es_result
+
+
+def stopnacosscan_lib():
+    nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
+    os.popen('bash ./finger.sh stop_nacos_scan')
+    if "stop" in nacos_status:
+        kill_nacos_result = "已关闭nacos漏洞扫描程序"
+    else:
+        kill_nacos_result = "正在关闭中......"
+    return kill_nacos_result
+
+def stoptomcatscan_lib():
+    tomcat_status = os.popen('bash ./finger.sh tomcat_vuln_scan_status').read()
+    os.popen('bash ./finger.sh stop_tomcat_scan')
+    if "stop" in tomcat_status:
+        kill_tomcat_result = "已关闭tomcat漏洞扫描程序"
+    else:
+        kill_tomcat_result = "正在关闭中......"
+    return kill_tomcat_result
+
+
 
 # 关闭信息收集工具
 def stopotx_lib():
@@ -1256,24 +1285,7 @@ def stopnmap_lib():
     return kill_nmap_result
 
 
-def stopesscan_lib():
-    es_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
-    os.popen('bash ./finger.sh stopes_unauthorized')
-    if "stop" in es_status:
-        kill_es_result = "已关闭ES未授权扫描程序"
-    else:
-        kill_es_result = "正在关闭中......"
-    return kill_es_result
 
-
-def stopnacosscan_lib():
-    nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
-    os.popen('bash ./finger.sh stop_nacos_scan')
-    if "stop" in nacos_status:
-        kill_nacos_result = "已关闭nacos漏洞扫描程序"
-    else:
-        kill_nacos_result = "正在关闭中......"
-    return kill_nacos_result
 
 
 
@@ -1639,6 +1651,22 @@ def startnacosscan_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return nacos_status_result
+
+# 开启tomcat漏洞扫描
+def starttomcatscan_lib():
+    tomcat_status = os.popen('bash ./finger.sh tomcat_vuln_scan_status').read()
+    if "running" in tomcat_status:
+        tomcat_status_result = "tomcat漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash ./finger.sh start_tomcat_scan_shell')
+            if "running" in tomcat_status:
+                tomcat_status_result = "tomcat漏洞扫描程序已开启稍后查看结果"
+            else:
+                tomcat_status_result = "tomcat漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return tomcat_status_result
 
 
 

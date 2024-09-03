@@ -1161,5 +1161,38 @@ case "${1}" in
 		kill -9 ${ii} 2>/dev/null
 	done
     ;;
+
+
+
+    # tomcat漏洞扫描程序运行状态
+    tomcat_vuln_scan_status)
+    tomcat_scan_ps=`ps -aux | grep "vuln_lib.py tomcat_vuln_scan" | wc -l`
+	if (( $tomcat_scan_ps > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭tomcat漏洞扫描程序
+    stop_tomcat_scan)
+    tomcat_pid=`ps -aux | grep "tomcat_vuln_scan" |awk -F " " '{print $2}'`
+    for ii in ${tomcat_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启tomcat漏洞扫描程序
+    start_tomcat_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py tomcat_vuln_scan > /TIP/info_scan/result/tomcat_vuln.txt
+    ;;
+
+    #tomcat漏洞数量
+    tomcat_vuln_num)
+    tomcat_num=`cat /TIP/info_scan/result/tomcat_vuln.txt | wc -l`
+    echo "${tomcat_num}"
+    ;;
     
 esac
