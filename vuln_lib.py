@@ -198,10 +198,7 @@ def tomcat_vuln_scan():
     for url in url_list:
         manager_dir_list.append(url+"/manager/html")
     
-    
-    
     for manager_url in manager_dir_list:
-
 
         # 基本认证信息，用户名和密码
         for auth in tomcat_dict_list:
@@ -233,8 +230,49 @@ def tomcat_vuln_scan():
                     print("[+]"+" "+formatted_time+" "+"目标："+" "+manager_url+" "+"存在tomcat管理后台弱口令:"+"("+username+"/"+password+")")
             except:
                 pass
-  
+    
+    # tomcat样例目录扫描
+    example_dir_list = []
+    for example_url in url_list:
+        example_dir_list.append(example_url+"/examples/")
+    headers_exam = {
+        'Cache-Control': 'max-age=0',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Connection': 'close'
+            }
+    for exam_urll in example_dir_list:
+        # 捕获异常处理
+        try:
+            # 发送GET请求
+            example_response = requests.get(exam_urll, headers=headers_exam,allow_redirects=False,timeout=1,verify=False)
+            example_response.encoding='utf-8'
+            example_response_text = example_response.text
+            if 'Servlets examples' and 'JSP Examples' and 'WebSocket Examples' in example_response_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+exam_urll+" "+"存在tomcat样例目录泄露漏洞")
+        except:
+            pass
+        
 
+    # tomcat远程代码执行漏洞 通过PUT写入文件
+    code_exec_dir = '/test.txt'
+    test_data = 'hello world'
+    # 遍历列表批量尝试上传文件
+    for exec_code_url in url_list:
+        try:
+            # 尝试上传测试文件
+            requests.put(exec_code_url+code_exec_dir+'/',data=test_data)
+            # 验证是否上传成功
+            code_res = requests.get(exec_code_url+code_exec_dir)
+            code_res.encoding='utf-8'
+            code_res_text = code_res.text
+            if 'hello world' in code_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+exec_code_url+code_exec_dir+" "+"存在tomcat远程代码执行漏洞")
+        except:
+            pass
 
 
 
