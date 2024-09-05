@@ -1,0 +1,5 @@
+123456
+nacos
+admin
+admin@123
+test

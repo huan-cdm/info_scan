@@ -93,39 +93,10 @@ info_time_controls = 5
 # 漏洞扫描类工具限制单位时间内禁止重复提交
 vuln_time_controls = 5
 
-# nacos弱口令扫描配置
-nacos_data01 = {
-            'username':'test',
-                'password':'test'
-                        }
-nacos_data02 = {
-            'username':'nacos',
-                'password':'nacos'
-                }
-nacos_data03 = {
-            'username':'admin',
-                'password':'123456'
-                }
-nacos_data04 = {
-           'username':'admin',
-              'password':'admin@123456' 
-              }
-nacos_data05 = {
-            "username":"nacos",
-                "password":"123456"
-                }
-nacos_dict_list = [nacos_data01,nacos_data02,nacos_data03,nacos_data04,nacos_data05]
+# tomcat后台爆破字典路径配置
+tomcat_user_dir = '/TIP/info_scan/dict/tomcat_user.txt'
+tomcat_pass_dir = '/TIP/info_scan/dict/tomcat_pass.txt'
 
-tomcat_data01 = {
-            'username':'tomcat',
-                'password':'tomcat'
-                    }
-tomcat_data02 = {
-            'username':'admin',
-                'password':'123456'
-                }
-tomcat_data03 = {
-            'username':'test',
-                'password':'test'
-                }
-tomcat_dict_list = [tomcat_data01,tomcat_data02,tomcat_data03]
+# nacos弱口令字典路径配置
+nacos_user_dir = '/TIP/info_scan/dict/nacos_user.txt'
+nacos_pass_dir = '/TIP/info_scan/dict/nacos_pass.txt'

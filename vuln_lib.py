@@ -4,8 +4,10 @@ import basic
 import sys
 from datetime import datetime
 from base64 import b64encode
-from config import nacos_dict_list
-from config import tomcat_dict_list
+from config import tomcat_user_dir
+from config import tomcat_pass_dir
+from config import nacos_user_dir
+from config import nacos_pass_dir
 
 # es未授权访问漏洞批量检测
 
@@ -49,7 +51,6 @@ def es_unauthorized():
 
 # nacos漏洞扫描
 def nacos_vuln_scan():
-
     hearders = {
         'User-Agent': 'Nacos-Server',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8',
@@ -129,6 +130,19 @@ def nacos_vuln_scan():
 
         # nacos常见弱口令扫描
         weakpassword_dir = "/nacos/v1/auth/users/login"
+
+        # 通过字典文件生成
+        user_list = []
+        file_user = open(nacos_user_dir,encoding='utf-8')
+        for userline in file_user.readlines():
+            user_list.append(userline.strip())
+    
+        pass_list = []
+        file_pass = open(nacos_pass_dir,encoding='utf-8')
+        for passline in file_pass.readlines():
+            pass_list.append(passline.strip())
+        # 使用列表推导式生成包含多个字典的列表
+        nacos_dict_list = [{'username': username, 'password': password} for username in user_list for password in pass_list]
         
         try:
             for auth in nacos_dict_list:
@@ -187,12 +201,25 @@ def chandao_vuln_scan():
 
 # tomcat 相关漏洞扫描
 def tomcat_vuln_scan():
+    # 通过字典文件生成
+    user_list = []
+    file_user = open(tomcat_user_dir,encoding='utf-8')
+    for userline in file_user.readlines():
+        user_list.append(userline.strip())
+
+    pass_list = []
+    file_pass = open(tomcat_pass_dir,encoding='utf-8')
+    for passline in file_pass.readlines():
+        pass_list.append(passline.strip())
+    # 使用列表推导式生成包含多个字典的列表
+    tomcat_dict_list = [{'username': username, 'password': password} for username in user_list for password in pass_list]
+    
     # 获取当前时间
     now = datetime.now()
     # 格式化时间，只保留时、分、秒
     formatted_time = now.strftime("%H:%M:%S")
     url_list = basic.url_file_ip_list()
-    # tomcat口令暴力破解
+    # tomcat后台口令暴力破解
     # 修改路径为/manager/html
     manager_dir_list = []
     for url in url_list:
@@ -257,7 +284,8 @@ def tomcat_vuln_scan():
             pass
         
 
-    # tomcat远程代码执行漏洞 通过PUT写入文件
+
+    # Tomcat PUT方法任意写文件漏洞
     code_exec_dir = '/test.txt'
     test_data = 'hello world'
     # 遍历列表批量尝试上传文件
@@ -270,7 +298,7 @@ def tomcat_vuln_scan():
             code_res.encoding='utf-8'
             code_res_text = code_res.text
             if 'hello world' in code_res_text:
-                print("[+]"+" "+formatted_time+" "+"目标："+" "+exec_code_url+code_exec_dir+" "+"存在tomcat远程代码执行漏洞")
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+exec_code_url+code_exec_dir+" "+"存在Tomcat PUT方法任意写文件漏洞")
         except:
             pass
 
