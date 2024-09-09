@@ -27,6 +27,7 @@
 <li>
 2024-09-08更新<br> 
 1. 新增Elasticsearch远程命令执行漏洞和插件目录穿越漏洞检测；<br>
+2. 新增JNDI服务管理；<br>
 </li>
 <li>
 2024-09-05更新<br> 
@@ -189,3 +190,5 @@ IP基础信息查询<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/infoscan_time.png" /><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br><br>
+JNDI服务管理<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>

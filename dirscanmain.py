@@ -66,7 +66,7 @@ def dirscanpage():
 
         
         #回显给前端的目录扫描数量
-        dirsearch_count_tmp = os.popen('bash ./finger.sh dirsearchscancount').read()
+        dirsearch_count_tmp = os.popen('bash /TIP/info_scan/finger.sh dirsearchscancount').read()
         if int(dirsearch_count_tmp) == -2:
             dirsearch_count = "筛选前："+"暂无数据"
         else:
@@ -74,7 +74,7 @@ def dirscanpage():
        
         
         #目录扫描同步后的数量
-        dirsearch_sync_value = os.popen('bash ./finger.sh dirsearchsyncresult').read()
+        dirsearch_sync_value = os.popen('bash /TIP/info_scan/finger.sh dirsearchsyncresult').read()
         if int(dirsearch_sync_value) == -2:
             dirsearch_sync_value_result = "筛选后："+"暂无数据"
         else:
@@ -175,12 +175,12 @@ def dirsearchscanfun():
         statuscode = request.form['statuscode']
         level = request.form['level']
         dict = request.form['dict']
-        dirsearchstatus_result = os.popen('bash ./finger.sh dirsearchstatus').read()
+        dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
         if "running" in dirsearchstatus_result:
 
             dirsearch_status_result = "目录扫描程序正在运行中稍后再开启扫描"
         else:
-            os.popen('bash ./finger.sh dirsearchscan'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
+            os.popen('bash /TIP/info_scan/finger.sh dirsearchscan'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
             dirsearch_status_result = "目录扫描程序已开启稍后查看结果"
         
         message_json = {
@@ -234,10 +234,10 @@ def killdirsearch():
     user1 = session.get('username1')
     if str(user1) == sub_username:
         try:
-            os.popen('bash ./finger.sh killdirsearch')
+            os.popen('bash /TIP/info_scan/finger.sh killdirsearch')
         except:
             pass
-        dirsearchstatus_result = os.popen('bash ./finger.sh dirsearchstatus').read()
+        dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
         if "stop" in dirsearchstatus_result:
             kill_dirsearch_result = "已关闭目录扫描程序"
         else:
@@ -281,7 +281,7 @@ def filterthresholdvalue():
             f.write(str(ii)+"\n")
     
         #调用shell脚本进行屏蔽操作
-        os.popen('bash ./finger.sh thresholdvaluefilter')
+        os.popen('bash /TIP/info_scan/finger.sh thresholdvaluefilter')
         return render_template('dirsearchscan.html')
     else:
         return render_template('sublogin.html')
@@ -471,7 +471,7 @@ def scanafterinsertinterfacebyajax():
 def blacklistsync():
     user1 = session.get('username1')
     if str(user1) == sub_username:
-        os.popen('bash ./finger.sh blacklistsyncshell')
+        os.popen('bash /TIP/info_scan/finger.sh blacklistsyncshell')
         return render_template('dirsearchscan.html')
     else:
         return render_template('sublogin.html')

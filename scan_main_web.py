@@ -117,7 +117,7 @@ def ipscaninterface():
     
         #操作系统识别
         try:
-            os_type = os.popen('bash ./finger.sh osscan'+' '+ip).read()
+            os_type = os.popen('bash /TIP/info_scan/finger.sh osscan'+' '+ip).read()
         except:
             pass
         
@@ -426,7 +426,7 @@ def submit_data():
                 for line in data:
                     f.write(str(line)+"\n")
                 f.close()
-                file_line = os.popen('bash ./finger.sh textarea_url_num').read()
+                file_line = os.popen('bash /TIP/info_scan/finger.sh textarea_url_num').read()
                 result_rule = "已成功添加"+str(file_line)+"条资产"
                 #资产备份
                 os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
@@ -465,7 +465,7 @@ def systemmanagement():
     if str(user) == main_username:
 
         # 扫描器运行状态，运行显示绿色，停止显示红色
-        nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
+        nmapstatus =os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
         if "running" in nmapstatus:
             nmapstatus1 = nmapstatus
             nmapstatus2 = ""
@@ -473,7 +473,7 @@ def systemmanagement():
             nmapstatus1 = ""
             nmapstatus2 = nmapstatus
 
-        nucleistatus =os.popen('bash ./finger.sh nucleistatus').read()
+        nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
             nucleistatus1 = nucleistatus
             nucleistatus2 = ""
@@ -481,7 +481,7 @@ def systemmanagement():
             nucleistatus1 = ""
             nucleistatus2 = nucleistatus
 
-        xraystatus = os.popen('bash ./finger.sh xraystatus').read()
+        xraystatus = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
         if "running" in xraystatus:
             xraystatus1 = xraystatus
             xraystatus2 = ""
@@ -489,7 +489,7 @@ def systemmanagement():
             xraystatus1 = ""
             xraystatus2 = xraystatus
 
-        radstatus =os.popen('bash ./finger.sh radstatus').read()
+        radstatus =os.popen('bash /TIP/info_scan/finger.sh radstatus').read()
         if "running" in  radstatus:
             radstatus1 = radstatus
             radstatus2 = ""
@@ -497,7 +497,7 @@ def systemmanagement():
             radstatus1 = ""
             radstatus2 = radstatus
 
-        dirscanstatus = os.popen('bash ./finger.sh dirsearchstatus').read()
+        dirscanstatus = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
         if "running" in dirscanstatus:
             dirscanstatus1 = dirscanstatus
             dirscanstatus2 = ""
@@ -505,7 +505,7 @@ def systemmanagement():
             dirscanstatus1 = ""
             dirscanstatus2 = dirscanstatus
 
-        weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
+        weblogicstatus = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
         if "running" in weblogicstatus:
             weblogicstatus1 = weblogicstatus
             weblogicstatus2 = ""
@@ -513,7 +513,7 @@ def systemmanagement():
             weblogicstatus1 = ""
             weblogicstatus2 = weblogicstatus
 
-        struts2status = os.popen('bash ./finger.sh struts2_status').read()
+        struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
         if "running" in struts2status:
             struts2status1 = struts2status
             struts2status2 = ""
@@ -521,7 +521,7 @@ def systemmanagement():
             struts2status1 = ""
             struts2status2 = struts2status
 
-        bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
+        bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
         if "running" in bbscanstatus:
             bbscanstatus1 = bbscanstatus
             bbscanstatus2 = ""
@@ -529,7 +529,7 @@ def systemmanagement():
             bbscanstatus1 = ""
             bbscanstatus2 = bbscanstatus
 
-        vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
+        vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
         if "running" in vulmapscanstatus:
             vulmapscanstatus1 = vulmapscanstatus
             vulmapscanstatus2 = ""
@@ -537,7 +537,7 @@ def systemmanagement():
             vulmapscanstatus1 = ""
             vulmapscanstatus2 = vulmapscanstatus
 
-        afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
+        afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
         if "running" in afrogscanstatus:
             afrogscanstatus1 = afrogscanstatus
             afrogscanstatus2 = ""
@@ -545,7 +545,7 @@ def systemmanagement():
             afrogscanstatus1 = ""
             afrogscanstatus2 = afrogscanstatus
 
-        fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
+        fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
         if "running" in fscanstatus:
             fscanstatus1 = fscanstatus
             fscanstatus2 = ""
@@ -553,7 +553,7 @@ def systemmanagement():
             fscanstatus1 = ""
             fscanstatus2 = fscanstatus
 
-        shirostatus = os.popen('bash ./finger.sh shiro_status').read()
+        shirostatus = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
         if "running" in shirostatus:
             shirostatus1 = shirostatus
             shirostatus2 = ""
@@ -561,7 +561,7 @@ def systemmanagement():
             shirostatus1 = ""
             shirostatus2 = shirostatus
 
-        eholestatus = os.popen('bash ./finger.sh ehole_status').read()
+        eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
         if "running" in eholestatus:
             eholestatus1 = eholestatus
             eholestatus2 = ""
@@ -569,7 +569,7 @@ def systemmanagement():
             eholestatus1 = ""
             eholestatus2 = eholestatus
 
-        httpxstatus = os.popen('bash ./finger.sh httpx_status').read()
+        httpxstatus = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
         if "running" in httpxstatus:
             httpxstatus1 = httpxstatus
             httpxstatus2 = ""
@@ -577,7 +577,7 @@ def systemmanagement():
             httpxstatus1 = ""
             httpxstatus2 = httpxstatus
 
-        springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
+        springbootstatus = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
         if "running" in springbootstatus:
             springbootstatus1 = springbootstatus
             springbootstatus2 = ""
@@ -585,7 +585,7 @@ def systemmanagement():
             springbootstatus1 = ""
             springbootstatus2 = springbootstatus
 
-        hydrastatus = os.popen('bash ./finger.sh hydra_status').read()
+        hydrastatus = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
         if "running" in hydrastatus:
             hydrastatus1 = hydrastatus
             hydrastatus2 = ""
@@ -593,7 +593,7 @@ def systemmanagement():
             hydrastatus1 = ""
             hydrastatus2 = hydrastatus
 
-        urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
+        urlfinderstatus = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
         if "running" in urlfinderstatus:
             urlfinderstatus1 = urlfinderstatus
             urlfinderstatus2 = ""
@@ -601,7 +601,7 @@ def systemmanagement():
             urlfinderstatus1 = ""
             urlfinderstatus2 = urlfinderstatus
 
-        thinkphpstatus = os.popen('bash ./finger.sh TPscan_status').read()
+        thinkphpstatus = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
         if "running" in thinkphpstatus:
             thinkphpstatus1 = thinkphpstatus
             thinkphpstatus2 = ""
@@ -609,8 +609,26 @@ def systemmanagement():
             thinkphpstatus1 = ""
             thinkphpstatus2 = thinkphpstatus
 
+
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        if "running" in jndi_status:
+            jndi_status1 = jndi_status
+            jndi_status2 = ""
+        else:
+            jndi_status1 = ""
+            jndi_status2 = jndi_status
+
+        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+        if "running" in jndi_python_status:
+            jndi_python_status1 = jndi_python_status
+            jndi_python_status2 = ""
+        else:
+            jndi_python_status1 = ""
+            jndi_python_status2 = jndi_python_status
+        
+
         # 目标url行数
-        url_file_num = os.popen('bash ./finger.sh url_file_num').read()
+        url_file_num = os.popen('bash /TIP/info_scan/finger.sh url_file_num').read()
 
         # 重点资产数量查询
        
@@ -651,7 +669,7 @@ def systemmanagement():
             key_asset_rule = ['参数只能为0/1']
 
         # 当前自查数量
-        url_file_current_num = os.popen('bash ./finger.sh current_url_file_num').read()
+        url_file_current_num = os.popen('bash /TIP/info_scan/finger.sh current_url_file_num').read()
 
         # 筛选后资产状态查询
         assets_status = basic.assets_status_show()
@@ -665,7 +683,7 @@ def systemmanagement():
         disk_write = basic.disk_read_write()[1]
 
         # python后端服务状态
-        infoinfostatus = os.popen('bash ./finger.sh infoinfostatus').read()
+        infoinfostatus = os.popen('bash /TIP/info_scan/finger.sh infoinfostatus').read()
         if "running" in infoinfostatus:
             infoinfostatus1 = infoinfostatus
             infoinfostatus2 = ""
@@ -673,7 +691,7 @@ def systemmanagement():
             infoinfostatus1 = ""
             infoinfostatus2 = infoinfostatus
 
-        dirsub_sys_status = os.popen('bash ./finger.sh dirsub_sys_status').read()
+        dirsub_sys_status = os.popen('bash /TIP/info_scan/finger.sh dirsub_sys_status').read()
         if "running" in dirsub_sys_status:
             dirsub_sys_status1 = dirsub_sys_status
             dirsub_sys_status2 = ""
@@ -681,7 +699,7 @@ def systemmanagement():
             dirsub_sys_status1 = ""
             dirsub_sys_status2 = dirsub_sys_status
 
-        xray_report_status = os.popen('bash ./finger.sh xray_report_status').read()
+        xray_report_status = os.popen('bash /TIP/info_scan/finger.sh xray_report_status').read()
         if "running" in xray_report_status:
             xray_report_status1 = xray_report_status
             xray_report_status2 = ""
@@ -689,7 +707,7 @@ def systemmanagement():
             xray_report_status1 = ""
             xray_report_status2 = xray_report_status
 
-        urlfinder_report_status = os.popen('bash ./finger.sh urlfinder_report_status').read()
+        urlfinder_report_status = os.popen('bash /TIP/info_scan/finger.sh urlfinder_report_status').read()
         if "running" in urlfinder_report_status:
             urlfinder_report_status1 = urlfinder_report_status
             urlfinder_report_status2 = ""
@@ -697,7 +715,7 @@ def systemmanagement():
             urlfinder_report_status1 = ""
             urlfinder_report_status2 = urlfinder_report_status
 
-        afrog_report_status = os.popen('bash ./finger.sh afrog_report_status').read()
+        afrog_report_status = os.popen('bash /TIP/info_scan/finger.sh afrog_report_status').read()
         if "running" in afrog_report_status:
             afrog_report_status1 = afrog_report_status
             afrog_report_status2 = ""
@@ -705,7 +723,7 @@ def systemmanagement():
             afrog_report_status1 = ""
             afrog_report_status2 = afrog_report_status
 
-        otx_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+        otx_status = os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell_status').read()
         if "running" in otx_status:
             otx_status1 = otx_status
             otx_status2 = ""
@@ -713,7 +731,7 @@ def systemmanagement():
             otx_status1 = ""
             otx_status2 = otx_status
 
-        crt_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+        crt_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
         if "running" in crt_status:
             crt_status1 = crt_status
             crt_status2 = ""
@@ -721,7 +739,7 @@ def systemmanagement():
             crt_status1 = ""
             crt_status2 = crt_status
 
-        weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+        weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
         if "running" in weaver_status:
             weaver_status1 = weaver_status
             weaver_status2 = ""
@@ -729,7 +747,7 @@ def systemmanagement():
             weaver_status1 = ""
             weaver_status2 = weaver_status
 
-        es_unauthorized_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
+        es_unauthorized_status = os.popen('bash /TIP/info_scan/finger.sh es_unauthorized_status').read()
         if "running" in es_unauthorized_status:
             es_unauthorized_status1 = es_unauthorized_status
             es_unauthorized_status2 = ""
@@ -737,7 +755,7 @@ def systemmanagement():
             es_unauthorized_status1 = ""
             es_unauthorized_status2 = es_unauthorized_status
 
-        nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
+        nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
         if "running" in nacos_status:
             nacos_status1 = nacos_status
             nacos_status2 = ""
@@ -745,7 +763,7 @@ def systemmanagement():
             nacos_status1 = ""
             nacos_status2 = nacos_status
         
-        tomcat_status = os.popen('bash ./finger.sh tomcat_vuln_scan_status').read()
+        tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
         if "running" in tomcat_status:
             tomcat_status1 = tomcat_status
             tomcat_status2 = ""
@@ -835,7 +853,11 @@ def systemmanagement():
             "nacos_status1":nacos_status1,
             "nacos_status2":nacos_status2,
             "tomcat_status1":tomcat_status1,
-            "tomcat_status2":tomcat_status2
+            "tomcat_status2":tomcat_status2,
+            "jndi_status1":jndi_status1,
+            "jndi_status2":jndi_status2,
+            "jndi_python_status1":jndi_python_status1,
+            "jndi_python_status2":jndi_python_status2
 
         }
         return jsonify(message_json)
@@ -875,12 +897,12 @@ def uniqdirsearchtargetinterface():
         if int(fileqingxiname) == 1:
             
             #文件去重，保留IP地址
-            os.popen('bash ./finger.sh withdrawip')
+            os.popen('bash /TIP/info_scan/finger.sh withdrawip')
             return render_template('dirsearchscan.html')
         else:
             
             #文件去重，保留所有
-            os.popen('bash ./finger.sh uniqfilterdirsearch')
+            os.popen('bash /TIP/info_scan/finger.sh uniqfilterdirsearch')
     
             return render_template('dirsearchscan.html')
     else:
@@ -1003,7 +1025,7 @@ def cdn_service_recogize():
             # 不存在cdn列表
             rule_nocdn_domain_list = []
             for domain in domain_list_result:
-                cdn_result = os.popen('bash ./finger.sh batch_cdn_scan'+' '+domain).read().strip() 
+                cdn_result = os.popen('bash /TIP/info_scan/finger.sh batch_cdn_scan'+' '+domain).read().strip() 
                 
                 cdn_result_origin = "有CDN"
                 if str(cdn_result) == str(cdn_result_origin):
@@ -1014,7 +1036,7 @@ def cdn_service_recogize():
             # 不存在cdn列表
             no_cdn_list_result = []
             for nocdn in rule_nocdn_domain_list:
-                nocdnresult = os.popen('bash ./finger.sh recognize_no_cdn'+' '+nocdn).read().strip()
+                nocdnresult = os.popen('bash /TIP/info_scan/finger.sh recognize_no_cdn'+' '+nocdn).read().strip()
                 no_cdn_list_result.append(nocdnresult)
             #列表写入到url.txt
             f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
@@ -1362,7 +1384,7 @@ def url_list_textarea_show():
 def ceye_dns_record():
     user = session.get('username')
     if str(user) == main_username:
-        result = os.popen('bash ./finger.sh ceye_dns'+' '+ceye_key).read()
+        result = os.popen('bash /TIP/info_scan/finger.sh ceye_dns'+' '+ceye_key).read()
         return result
     else:
         return render_template('login.html')
@@ -1374,7 +1396,7 @@ def ceye_dns_record():
 def ceye_http_record():
     user = session.get('username')
     if str(user) == main_username:
-        result = os.popen('bash ./finger.sh ceye_http'+' '+ceye_key).read()
+        result = os.popen('bash /TIP/info_scan/finger.sh ceye_http'+' '+ceye_key).read()
         return result
     else:
         return render_template('login.html')
@@ -1586,7 +1608,7 @@ def key_assets_withdraw():
     if str(user) == main_username:
 
         
-        eholestatus = os.popen('bash ./finger.sh ehole_status').read()
+        eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
         if "running" in eholestatus:
             key_assets_result = "指纹识别接口正在运行中请稍后再进行识别重点资产"
         else:
@@ -1860,8 +1882,8 @@ def report_download_interface():
 def restartsystemservice():
     user = session.get('username')
     if str(user) == main_username:
-        os.popen('bash ./finger.sh restartinfoscan')
-        infoscanstatus = os.popen('bash ./finger.sh infoscanstatus').read()
+        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+        infoscanstatus = os.popen('bash /TIP/info_scan/finger.sh infoscanstatus').read()
         if "running" in infoscanstatus:
             infoscanstatus = "服务已启动"
         else:
@@ -2521,6 +2543,21 @@ def vulnscan_check_back():
                                  
                 else:
                     tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'h' in str(k):
+                print("开启jndi服务")
+                # 获取系统当前时间
+                current_time17 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes17 = basic.vuln_time_shijian_cha(17)
+                if int(diff_time_minutes17) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time17,17)
+                    # 提交扫描任务
+                    jndi_status_result = basic.startjndi_lib()
+                                 
+                else:
+                    jndi_status_result = "JNDI服务程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -2536,12 +2573,12 @@ def vulnscan_check_back():
                     basic.asset_by_rule_handle()
                     
                     # 计算shiro_file文件行数，如果为0不开启，否则开启
-                    shiro_num =  os.popen('bash ./finger.sh zhongdian_file_num shiro_file.txt').read()
+                    shiro_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num shiro_file.txt').read()
                     if int(shiro_num) == 0:
                         all_shiro_status_result = "shiro资产为空无法开启扫描"
                     else:
                         # 开启shiro
-                        shiro_status = os.popen('bash ./finger.sh shiro_status').read()
+                        shiro_status = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
                         if "running" in shiro_status:
                             all_shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
                         else:
@@ -2556,12 +2593,12 @@ def vulnscan_check_back():
                     
             
                     # 计算springboot_file文件行数，如果为0不开启，否则开启
-                    springboot_num =  os.popen('bash ./finger.sh zhongdian_file_num springboot_file.txt').read()
+                    springboot_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num springboot_file.txt').read()
                     if int(springboot_num) == 0:
                         all_springboot_status_result = "springboot资产为空无法开启扫描"
                     else:
                         # 开启springboot
-                        springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
+                        springboot_scan_status = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
                         if "running" in springboot_scan_status:
                             all_springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
                         else:
@@ -2576,17 +2613,17 @@ def vulnscan_check_back():
             
             
                     # 计算struts2_file文件行数，如果为0不开启，否则开启
-                    struts2_num =  os.popen('bash ./finger.sh zhongdian_file_num struts2_file.txt').read()
+                    struts2_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num struts2_file.txt').read()
                     if int(struts2_num) == 0:
                         all_struts2_status_result = "struts2资产为空无法开启扫描"
                     else:
                         # 开启struts2
-                        struts2status = os.popen('bash ./finger.sh struts2_status').read()
+                        struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
                         if "running" in struts2status:
                             all_struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
                         else:
                             try:
-                                os.popen('bash ./finger.sh struts2_poc_scan')
+                                os.popen('bash /TIP/info_scan/finger.sh struts2_poc_scan')
                                 if "running" in struts2status:
                                     all_struts2_status_result = "struts2扫描程序已开启稍后查看结果"
                                 else:
@@ -2597,12 +2634,12 @@ def vulnscan_check_back():
             
             
                     # 计算weblogic_file文件行数，如果为0不开启，否则开启
-                    weblogic_num =  os.popen('bash ./finger.sh zhongdian_file_num weblogic_file.txt').read()
+                    weblogic_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num weblogic_file.txt').read()
                     if int(weblogic_num) == 0:
                         all_weblogic_status_result = "weblogic资产为空无法开启扫描"
                     else:
                         # 开启weblogic
-                        weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
+                        weblogic_status = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
                         if "running" in weblogic_status:
                             all_weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
                         else:
@@ -2628,7 +2665,7 @@ def vulnscan_check_back():
                             weblogic_file.close()
                     
                             # weblogic_poc开始扫描
-                            os.popen('bash ./finger.sh weblogic_poc_scan')
+                            os.popen('bash /TIP/info_scan/finger.sh weblogic_poc_scan')
                             if "running" in weblogic_status:
                                 all_weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
                             else:
@@ -2716,6 +2753,11 @@ def vulnscan_check_back():
         except:
             tomcat_status_result1 = ""
 
+        try:
+            jndi_status_result1 = jndi_status_result
+        except:
+            jndi_status_result1 = ""
+
         message_json = {
             "struts2status_result":struts2status_result1,
             "weblogic_status_result":weblogic_status_result1,
@@ -2732,7 +2774,8 @@ def vulnscan_check_back():
             "point_all_result":point_all_result1,
             "es_status_result":es_status_result1,
             "nacos_status_result":nacos_status_result1,
-            "tomcat_status_result":tomcat_status_result1
+            "tomcat_status_result":tomcat_status_result1,
+            "jndi_status_result":jndi_status_result1
         }
 
         return jsonify(message_json)
@@ -2856,7 +2899,9 @@ def stop_vulnscan_back():
             elif 'f' in str(j):                
                 kill_nacos_result = basic.stopnacosscan_lib()      
             elif 'g' in str(j):                
-                kill_tomcat_result = basic.stoptomcatscan_lib()    
+                kill_tomcat_result = basic.stoptomcatscan_lib()
+            elif 'h' in str(j):                
+                kill_jndi_result = basic.stopjndi_lib()    
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -2940,6 +2985,11 @@ def stop_vulnscan_back():
             kill_tomcat_result1 = kill_tomcat_result
         except:
             kill_tomcat_result1 = ""
+        
+        try:
+            kill_jndi_result1 = kill_jndi_result
+        except:
+            kill_jndi_result1 = ""
 
         message_json = {
            "kill_struts2_result":kill_struts2_result1,
@@ -2957,7 +3007,8 @@ def stop_vulnscan_back():
            "kill_point_assset_result":kill_point_assset_result1,
            "kill_es_result":kill_es_result1,
            "kill_nacos_result":kill_nacos_result1,
-           "kill_tomcat_result":kill_tomcat_result1
+           "kill_tomcat_result":kill_tomcat_result1,
+           "kill_jndi_result":kill_jndi_result1
         }
 
         return jsonify(message_json)
@@ -3014,6 +3065,24 @@ def tomcat_scan_report():
         else:
             lines = []
             with open('/TIP/info_scan/result/tomcat_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#jndi报告预览
+@app.route("/jndi_report_show/")
+def jndi_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndi_num = os.popen('bash /TIP/info_scan/finger.sh jndi_num').read()
+        if int(jndi_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/jndi_result.txt', 'r') as f:
                 for line in f:
                     lines.append(line.strip())
         return '<br>'.join(lines)

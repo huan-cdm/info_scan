@@ -304,7 +304,7 @@ def finger_scan(ip1):
         result = status_scan(ip1)
         finger_list = []
         for i in result:
-            result = os.popen('bash ./finger.sh finger'+''+' '+i).read()
+            result = os.popen('bash /TIP/info_scan/finger.sh finger'+''+' '+i).read()
             #页面显示优化
             pattern = re.compile(r'\x1b\[[0-9;]*m')
             clean_text = pattern.sub('', result)
@@ -405,7 +405,7 @@ def domain_scan(ip):
 # cdn识别
 def cdnscan(domain):
     try:
-        result = os.popen('bash ./finger.sh CDN_scan'+' '+domain).read()
+        result = os.popen('bash /TIP/info_scan/finger.sh CDN_scan'+' '+domain).read()
     except:
         pass
     return result
@@ -1085,8 +1085,8 @@ def vuln_time_shijian_cha(part):
 
 # 关闭漏洞扫描程序
 def stopstruts2_lib():
-    struts2status = os.popen('bash ./finger.sh struts2_status').read()
-    os.popen('bash ./finger.sh killstruts2process')
+    struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killstruts2process')
     if "stop" in struts2status:
         kill_struts2_result = "已关闭struts2漏洞扫描程序"
     else:
@@ -1094,9 +1094,21 @@ def stopstruts2_lib():
     return kill_struts2_result
 
 
+# 关闭jndi服务
+def stopjndi_lib():
+    jndi_status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_jndi_python')
+    if "stop" in jndi_status:
+        killjndi_result = "已关闭JNDI服务程序"
+    else:
+        killjndi_result = "正在关闭中......"
+    return killjndi_result
+
+
+
 def stopweblogic_lib():
-    weblogicstatus = os.popen('bash ./finger.sh weblogic_status').read()
-    os.popen('bash ./finger.sh killweblogicprocess')
+    weblogicstatus = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killweblogicprocess')
     if "stop" in weblogicstatus:
         kill_weblogic_result = "已关闭weblogic漏洞扫描程序"
     else:
@@ -1106,8 +1118,8 @@ def stopweblogic_lib():
 
 
 def stopshiro_lib():
-    shirostatus = os.popen('bash ./finger.sh shiro_status').read()
-    os.popen('bash ./finger.sh killshirovulnscanprocess')
+    shirostatus = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killshirovulnscanprocess')
     if "stop" in shirostatus:
         kill_shiro_result = "已关闭shiro漏洞扫描程序"
     else:
@@ -1115,8 +1127,8 @@ def stopshiro_lib():
     return kill_shiro_result
 
 def stopspringboot_lib():
-    springbootstatus = os.popen('bash ./finger.sh springboot_scan_status').read()
-    os.popen('bash ./finger.sh killspringbootvulnscanprocess')
+    springbootstatus = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killspringbootvulnscanprocess')
     if "stop" in springbootstatus:
         kill_springboot_result = "已关闭springboot漏洞扫描程序"
     else:
@@ -1125,8 +1137,8 @@ def stopspringboot_lib():
 
 
 def stoptpscan_lib():
-    tpscanstatus = os.popen('bash ./finger.sh TPscan_status').read()
-    os.popen('bash ./finger.sh killthinkphpprocess')
+    tpscanstatus = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killthinkphpprocess')
     if "stop" in tpscanstatus:
         kill_thinkphp_result = "已关闭thinkphp漏洞扫描程序"
     else:
@@ -1135,8 +1147,8 @@ def stoptpscan_lib():
 
 
 def stopafrog_lib():
-    afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
-    os.popen('bash ./finger.sh killafrog')
+    afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killafrog')
     if "stop" in afrogscanstatus:
         kill_afrog_result = "已关闭afrog扫描程序"
     else:
@@ -1146,8 +1158,8 @@ def stopafrog_lib():
 
 
 def stopfscan_lib():
-    fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
-    os.popen('bash ./finger.sh killfscan')
+    fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killfscan')
     if "stop" in fscanstatus:
         kill_fscan_result = "已关闭fscan扫描程序"
     else:
@@ -1157,8 +1169,8 @@ def stopfscan_lib():
 
 
 def stophydra_lib():
-    os.popen('bash ./finger.sh killhydra')
-    hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killhydra')
+    hydra_scan_status = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
     if "stop" in hydra_scan_status:
         kill_hydra_result = "已关闭hydra扫描程序"
     else:
@@ -1168,8 +1180,8 @@ def stophydra_lib():
 
 
 def stopurlfinder_lib():
-    os.popen('bash ./finger.sh killurlfinder')
-    urlfinderstatus = os.popen('bash ./finger.sh urlfinder_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killurlfinder')
+    urlfinderstatus = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
     if "stop" in urlfinderstatus:
         kill_urlfinder_result = "已关闭URLFinder扫描程序"
     else:
@@ -1178,8 +1190,8 @@ def stopurlfinder_lib():
 
 
 def stopvulmap_lib():
-    vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
-    os.popen('bash ./finger.sh killvulmap')
+    vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killvulmap')
     if "stop" in vulmapscanstatus:
         kill_vulmap_result = "已关闭vulmap扫描程序"
     else:
@@ -1189,8 +1201,8 @@ def stopvulmap_lib():
 
 
 def stopnuclei_lib():
-    nucleistatus =os.popen('bash ./finger.sh nucleistatus').read()
-    os.popen('bash ./finger.sh killnuclei')
+    nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
+    os.popen('bash /TIP/info_scan/finger.sh killnuclei')
     if "stop" in nucleistatus:
         kill_nuclei_result = "已关闭nuclei扫描程序"
     else:
@@ -1200,8 +1212,8 @@ def stopnuclei_lib():
 
 
 def stopweaver_lib():
-    weaver_status = os.popen('bash ./finger.sh weaver_status').read()
-    os.popen('bash ./finger.sh kill_weaver_scan')
+    weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh kill_weaver_scan')
     if "stop" in weaver_status:
         kill_weaver_result = "已关闭历史URL查询接口"
     else:
@@ -1209,8 +1221,8 @@ def stopweaver_lib():
     return kill_weaver_result
 
 def stopesscan_lib():
-    es_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
-    os.popen('bash ./finger.sh stopes_unauthorized')
+    es_status = os.popen('bash /TIP/info_scan/finger.sh es_unauthorized_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stopes_unauthorized')
     if "stop" in es_status:
         kill_es_result = "已关闭ES未授权扫描程序"
     else:
@@ -1219,8 +1231,8 @@ def stopesscan_lib():
 
 
 def stopnacosscan_lib():
-    nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
-    os.popen('bash ./finger.sh stop_nacos_scan')
+    nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_nacos_scan')
     if "stop" in nacos_status:
         kill_nacos_result = "已关闭nacos漏洞扫描程序"
     else:
@@ -1228,8 +1240,8 @@ def stopnacosscan_lib():
     return kill_nacos_result
 
 def stoptomcatscan_lib():
-    tomcat_status = os.popen('bash ./finger.sh tomcat_vuln_scan_status').read()
-    os.popen('bash ./finger.sh stop_tomcat_scan')
+    tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_tomcat_scan')
     if "stop" in tomcat_status:
         kill_tomcat_result = "已关闭tomcat漏洞扫描程序"
     else:
@@ -1240,8 +1252,8 @@ def stoptomcatscan_lib():
 
 # 关闭信息收集工具
 def stopotx_lib():
-    otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
-    os.popen('bash ./finger.sh kill_otx_domain_url_shell')
+    otx_domain_url_shell_status = os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh kill_otx_domain_url_shell')
     if "stop" in otx_domain_url_shell_status:
         kill_otx_url_result = "已关闭历史URL查询接口"
     else:
@@ -1249,8 +1261,8 @@ def stopotx_lib():
     return kill_otx_url_result
 
 def stopbbscan_lib():
-    bbscanstatus = os.popen('bash ./finger.sh bbscan_status').read()
-    os.popen('bash ./finger.sh killbbscan')
+    bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killbbscan')
     if "stop" in bbscanstatus:
         kill_bbscan_result = "已关闭bbscan扫描程序"
     else:
@@ -1258,8 +1270,8 @@ def stopbbscan_lib():
     return kill_bbscan_result
 
 def stopehole_lib():
-    os.popen('bash ./finger.sh killEHole')
-    EHolestatus = os.popen('bash ./finger.sh ehole_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh killEHole')
+    EHolestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
     if "stop" in EHolestatus:
         kill_EHole_result = "已关闭EHole扫描程序"
     else:
@@ -1267,8 +1279,8 @@ def stopehole_lib():
     return kill_EHole_result
 
 def stopcrtsubdomain_lib():
-    crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
-    os.popen('bash ./finger.sh kill_crt_subdomain_shell')
+    crt_subdomain_shell_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh kill_crt_subdomain_shell')
     if "stop" in crt_subdomain_shell_status:
         kill_crt_subdomain_result = "已关闭历史URL查询接口"
     else:
@@ -1276,8 +1288,8 @@ def stopcrtsubdomain_lib():
     return kill_crt_subdomain_result
 
 def stopnmap_lib():
-    nmapstatus =os.popen('bash ./finger.sh nmapstatus').read()
-    os.popen('bash ./finger.sh killnmap')
+    nmapstatus =os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
+    os.popen('bash /TIP/info_scan/finger.sh killnmap')
     if "stop" in nmapstatus:
         kill_nmap_result = "已关闭nmap扫描程序"
     else:
@@ -1291,18 +1303,18 @@ def stopnmap_lib():
 
 # 开启漏洞扫描程序
 def startstruts2_lib():
-    struts2status = os.popen('bash ./finger.sh struts2_status').read()
+    struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
     if "running" in struts2status:
         struts2status_result = "struts2扫描程序正在运行中请勿重复提交"
     else:
         # 执行poc扫描
-        os.popen('bash ./finger.sh struts2_poc_scan')
+        os.popen('bash /TIP/info_scan/finger.sh struts2_poc_scan')
         struts2status_result = "struts2扫描程序已开启稍后查看结果"
     return struts2status_result
 
 
 def startweblogic_lib():
-    weblogic_status = os.popen('bash ./finger.sh weblogic_status').read()
+    weblogic_status = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
     if "running" in weblogic_status:
         weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
     else:
@@ -1327,7 +1339,7 @@ def startweblogic_lib():
         weblogic_file.close()
 
         # weblogic_poc开始扫描
-        os.popen('bash ./finger.sh weblogic_poc_scan')
+        os.popen('bash /TIP/info_scan/finger.sh weblogic_poc_scan')
         if "running" in weblogic_status:
             weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
         else:
@@ -1337,7 +1349,7 @@ def startweblogic_lib():
 
 
 def startshiro_lib():
-    shiro_status = os.popen('bash ./finger.sh shiro_status').read()
+    shiro_status = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
     if "running" in shiro_status:
         shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
     else:
@@ -1350,7 +1362,7 @@ def startshiro_lib():
 
 
 def startspringboot_lib():
-    springboot_scan_status = os.popen('bash ./finger.sh springboot_scan_status').read()
+    springboot_scan_status = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
     if "running" in springboot_scan_status:
         springboot_scan_status_result = "springboot扫描程序正在运行中请勿重复提交"
     else:
@@ -1367,7 +1379,7 @@ def startspringboot_lib():
 
 
 def startthinkphp_lib():
-    tpscan_status = os.popen('bash ./finger.sh TPscan_status').read()
+    tpscan_status = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
     if "running" in tpscan_status:
         thinkphp_status_result = "thinkphp扫描程序正在运行中请勿重复提交"
     else:
@@ -1384,12 +1396,12 @@ def startthinkphp_lib():
 
 
 def startafrog_lib():
-    afrogscanstatus = os.popen('bash ./finger.sh afrogscan_status').read()
+    afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
     if "running" in afrogscanstatus:
         start_afrog_result = "afrog正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh startafrogprocess')
+            os.popen('bash /TIP/info_scan/finger.sh startafrogprocess')
             if "running" in afrogscanstatus:
                 start_afrog_result = "afrog已开启稍后查看结果"
             else:
@@ -1404,7 +1416,7 @@ def startfscan_lib(fscanpartname):
     # 删除历史fscan扫描数据
     os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
 
-    fscanstatus = os.popen('bash ./finger.sh fscan_status').read()
+    fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
     if "running" in fscanstatus:
         fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
     else:
@@ -1428,7 +1440,7 @@ def starthydra_lib(hydrapart):
     for line in ip_list:
         f.write(str(line)+"\n")
     # 开启扫描
-    hydra_scan_status = os.popen('bash ./finger.sh hydra_status').read()
+    hydra_scan_status = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
     if "running" in hydra_scan_status:
         hydra_scan_result = "hydra扫描程序正在运行中请勿重复提交"
     else:
@@ -1439,13 +1451,13 @@ def starthydra_lib(hydrapart):
 
 
 def starturlfinder_lib():
-    urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
+    urlfinder_status = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
     if "running" in urlfinder_status:
         urlfinder_status_result = "urlfinder扫描程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh urlfinder_start')
-            urlfinder_status = os.popen('bash ./finger.sh urlfinder_status').read()
+            os.popen('bash /TIP/info_scan/finger.sh urlfinder_start')
+            urlfinder_status = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
             if "running" in urlfinder_status:
                 urlfinder_status_result = "urlfinder扫描程序已开启稍后查看结果"
             else:
@@ -1457,12 +1469,12 @@ def starturlfinder_lib():
 
 
 def startvulmap_lib(vulnname):
-    vulmapscanstatus = os.popen('bash ./finger.sh vulmapscan_status').read()
+    vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
     if "running" in vulmapscanstatus:
         vummap_scan_result = "vulmap扫描程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh vulmapscan_shell'+' '+vulnname)
+            os.popen('bash /TIP/info_scan/finger.sh vulmapscan_shell'+' '+vulnname)
             if "running" in vulmapscanstatus:
                 vummap_scan_result = "vulmap扫描程序已启动稍后查看扫描结果"
             else:
@@ -1474,15 +1486,15 @@ def startvulmap_lib(vulnname):
 
 
 def startnuclei_lib(poc_dir):
-    nucleitatus = os.popen('bash ./finger.sh nucleistatus').read()
+    nucleitatus = os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
     if "running" in nucleitatus:
         nuclei_status_result = "nuclei扫描程序正在运行中请勿重复提交"
     else:
         if int(history_switch) == 0:
-            os.popen('bash ./finger.sh startnuclei_url'+' '+poc_dir)
+            os.popen('bash /TIP/info_scan/finger.sh startnuclei_url'+' '+poc_dir)
             nuclei_status_result = "nuclei扫描程序已开启稍后查看结果"
         elif int(history_switch) ==1:
-            os.popen('bash ./finger.sh startnuclei_result')
+            os.popen('bash /TIP/info_scan/finger.sh startnuclei_result')
         else:
             print("配置文件history_switch字段只允许0/1")
     return nuclei_status_result
@@ -1490,13 +1502,13 @@ def startnuclei_lib(poc_dir):
 
 
 def startweaver_lib():
-    weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+    weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
     if "running" in weaver_status:
         weaver_status_result = "泛微OA漏洞扫描程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh weaver_exp_scan')
-            weaver_status = os.popen('bash ./finger.sh weaver_status').read()
+            os.popen('bash /TIP/info_scan/finger.sh weaver_exp_scan')
+            weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
             if "running" in weaver_status:
                 weaver_status_result = "泛微OA漏洞扫描程序已开启稍后查看结果"
             else:
@@ -1506,16 +1518,38 @@ def startweaver_lib():
     return weaver_status_result
 
 
+# 开启jndi服务
+def startjndi_lib():
+    jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+    jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+    if "running" in jndi_status and "running" in jndi_python_status:
+        jndi_status_result = "JNDI服务正在运行中请勿重复提交"
+    else:
+        try:
+
+            os.popen('bash /TIP/info_scan/finger.sh start_jndi > /TIP/info_scan/result/jndi_result.txt')
+            
+            os.popen('bash /TIP/info_scan/finger.sh start_jndi_python')
+
+            if "running" in jndi_status and "running" in jndi_python_status:
+                jndi_status_result = "JNDI服务已开启稍后查看结果"
+            else:
+                jndi_status_result = "JNDI服务正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return jndi_status_result
+
+
 # 开启信息收集扫描程序
 def startbbscan_lib():
-    bbscan_status1 = os.popen('bash ./finger.sh bbscan_status').read()
+    bbscan_status1 = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
 
     if "running" in bbscan_status1:
         bbscan_status_result = "敏感信息扫描程序正在运行中请勿重复提交"
     else:
         os.popen('rm -rf /TIP/info_scan/BBScan/report/*')
         # 执行敏感信息扫描
-        os.popen('bash ./finger.sh bbscan_shell')
+        os.popen('bash /TIP/info_scan/finger.sh bbscan_shell')
         if "running" in bbscan_status1:
             bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
         else:
@@ -1524,12 +1558,12 @@ def startbbscan_lib():
 
 
 def startechole_lib():
-    finger_status = os.popen('bash ./finger.sh ehole_status').read()
+    finger_status = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
     if "running" in finger_status:
         finger_status_result = "EHole程序正在运行中请勿重复提交"
     else:
         # 执行指纹识别扫描
-        os.popen('bash ./finger.sh ehole_finger_scan')
+        os.popen('bash /TIP/info_scan/finger.sh ehole_finger_scan')
         if "running" in finger_status:
             finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
         else:
@@ -1542,7 +1576,7 @@ def otxhistorydomain_lib():
     # 每次启动前清空上次扫描结果
     os.popen('rm -rf /TIP/info_scan/result/otxhistoryurl.txt')
     os.popen('touch /TIP/info_scan/result/otxhistoryurl.txt')
-    otx_domain_url_shell_status = os.popen('bash ./finger.sh otx_domain_url_shell_status').read()
+    otx_domain_url_shell_status = os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell_status').read()
     if "running" in otx_domain_url_shell_status:
         otx_status_result = "历史URL查询接口正在运行中请勿重复提交"
     else:
@@ -1561,7 +1595,7 @@ def crtdomain_lib():
     # 每次启动前清空上次扫描结果
     os.popen('rm -rf /TIP/info_scan/result/subdomain.txt')
     os.popen('touch /TIP/info_scan/result/subdomain.txt')
-    crt_subdomain_shell_status = os.popen('bash ./finger.sh crt_subdomain_shell_status').read()
+    crt_subdomain_shell_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
     if "running" in crt_subdomain_shell_status:
         crt_status_result = "基于证书查询子域名接口正在运行中请勿重复提交"
     else:
@@ -1581,7 +1615,7 @@ def crtdomain_lib():
 def startnmap_lib():
     os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
     os.popen('touch /TIP/info_scan/result/nmap.txt')
-    namptatus = os.popen('bash ./finger.sh nmapstatus').read()
+    namptatus = os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
     if "running" in namptatus:
         nmap_status_result = "nmap正在运行中请勿重复提交"
     
@@ -1603,12 +1637,12 @@ def startnmap_lib():
 
 # 资产管理相关函数
 def httpsurvival_lib():
-    httpx_status = os.popen('bash ./finger.sh httpx_status').read()
+    httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
     if "running" in httpx_status:
         httpx_status_result = "httpx存活检测程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh survivaldetection')
+            os.popen('bash /TIP/info_scan/finger.sh survivaldetection')
             if "running" in httpx_status:
                 httpx_status_result = "httpx存活检测程序已开启稍后查看结果"
             else:
@@ -1621,12 +1655,12 @@ def httpsurvival_lib():
 
 # 启动es未授权漏洞扫描
 def startunes_lib():
-    es_status = os.popen('bash ./finger.sh es_unauthorized_status').read()
+    es_status = os.popen('bash /TIP/info_scan/finger.sh es_unauthorized_status').read()
     if "running" in es_status:
         es_status_result = "ES未授权检测程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh start_es_shell')
+            os.popen('bash /TIP/info_scan/finger.sh start_es_shell')
             if "running" in es_status:
                 es_status_result = "ES未授权检测程序已开启稍后查看结果"
             else:
@@ -1638,12 +1672,12 @@ def startunes_lib():
 
 # 开启nacos漏洞扫描
 def startnacosscan_lib():
-    nacos_status = os.popen('bash ./finger.sh nacos_vuln_scan_status').read()
+    nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
     if "running" in nacos_status:
         nacos_status_result = "nacos漏洞扫描程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh start_nacos_scan_shell')
+            os.popen('bash /TIP/info_scan/finger.sh start_nacos_scan_shell')
             if "running" in nacos_status:
                 nacos_status_result = "nacos漏洞扫描程序已开启稍后查看结果"
             else:
@@ -1654,12 +1688,12 @@ def startnacosscan_lib():
 
 # 开启tomcat漏洞扫描
 def starttomcatscan_lib():
-    tomcat_status = os.popen('bash ./finger.sh tomcat_vuln_scan_status').read()
+    tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
     if "running" in tomcat_status:
         tomcat_status_result = "tomcat漏洞扫描程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash ./finger.sh start_tomcat_scan_shell')
+            os.popen('bash /TIP/info_scan/finger.sh start_tomcat_scan_shell')
             if "running" in tomcat_status:
                 tomcat_status_result = "tomcat漏洞扫描程序已开启稍后查看结果"
             else:

