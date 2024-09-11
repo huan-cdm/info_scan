@@ -1248,6 +1248,15 @@ def stoptomcatscan_lib():
         kill_tomcat_result = "正在关闭中......"
     return kill_tomcat_result
 
+def stopfastjson_lib():
+    fastjson_status = os.popen('bash /TIP/info_scan/finger.sh fastjson_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_fastjson_scan')
+    if "stop" in fastjson_status:
+        kill_fastjson_result = "已关闭fastjson漏洞扫描程序"
+    else:
+        kill_fastjson_result = "正在关闭中......"
+    return kill_fastjson_result
+
 
 
 # 关闭信息收集工具
@@ -1701,6 +1710,23 @@ def starttomcatscan_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return tomcat_status_result
+
+
+# 开启fastjson漏洞扫描
+def startfastjson_lib():
+    fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
+    if "running" in fastjson_scan_status:
+        fastjson_status_result = "fastjson漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_fastjson_shell')
+            if "running" in fastjson_scan_status:
+                fastjson_status_result = "fastjson漏洞扫描程序已开启稍后查看结果"
+            else:
+                fastjson_status_result = "fastjson漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return fastjson_status_result
 
 
 

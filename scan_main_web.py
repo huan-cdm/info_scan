@@ -771,6 +771,13 @@ def systemmanagement():
             tomcat_status1 = ""
             tomcat_status2 = tomcat_status
 
+        fastjson_status = os.popen('bash /TIP/info_scan/finger.sh fastjson_scan_status').read()
+        if "running" in fastjson_status:
+            fastjson_status1 = fastjson_status
+            fastjson_status2 = ""
+        else:
+            fastjson_status1 = ""
+            fastjson_status2 = fastjson_status
 
         message_json = {
             "nmapstatus1":nmapstatus1,
@@ -857,7 +864,9 @@ def systemmanagement():
             "jndi_status1":jndi_status1,
             "jndi_status2":jndi_status2,
             "jndi_python_status1":jndi_python_status1,
-            "jndi_python_status2":jndi_python_status2
+            "jndi_python_status2":jndi_python_status2,
+            "fastjson_status1":fastjson_status1,
+            "fastjson_status2":fastjson_status2
 
         }
         return jsonify(message_json)
@@ -2557,7 +2566,20 @@ def vulnscan_check_back():
                                  
                 else:
                     jndi_status_result = "JNDI服务程序"+str(info_time_controls)+"分钟内不允许重复扫描"
-
+            elif 'i' in str(k):
+                print("开启fastjson漏洞扫描")
+                # 获取系统当前时间
+                current_time18 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes18 = basic.vuln_time_shijian_cha(18)
+                if int(diff_time_minutes18) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time18,18)
+                    # 提交扫描任务
+                    fastjson_status_result = basic.startfastjson_lib()
+                                 
+                else:
+                    fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -2758,6 +2780,11 @@ def vulnscan_check_back():
         except:
             jndi_status_result1 = ""
 
+        try:
+            fastjson_status_result1 = fastjson_status_result
+        except:
+            fastjson_status_result1 = ""
+
         message_json = {
             "struts2status_result":struts2status_result1,
             "weblogic_status_result":weblogic_status_result1,
@@ -2775,7 +2802,8 @@ def vulnscan_check_back():
             "es_status_result":es_status_result1,
             "nacos_status_result":nacos_status_result1,
             "tomcat_status_result":tomcat_status_result1,
-            "jndi_status_result":jndi_status_result1
+            "jndi_status_result":jndi_status_result1,
+            "fastjson_status_result":fastjson_status_result1
         }
 
         return jsonify(message_json)
@@ -2901,7 +2929,9 @@ def stop_vulnscan_back():
             elif 'g' in str(j):                
                 kill_tomcat_result = basic.stoptomcatscan_lib()
             elif 'h' in str(j):                
-                kill_jndi_result = basic.stopjndi_lib()    
+                kill_jndi_result = basic.stopjndi_lib()
+            elif 'i' in str(j):                
+                kill_fastjson_result = basic.stopfastjson_lib()    
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -2990,6 +3020,10 @@ def stop_vulnscan_back():
             kill_jndi_result1 = kill_jndi_result
         except:
             kill_jndi_result1 = ""
+        try:
+            kill_fastjson_result1 = kill_fastjson_result
+        except:
+            kill_fastjson_result1 = ""
 
         message_json = {
            "kill_struts2_result":kill_struts2_result1,
@@ -3008,7 +3042,8 @@ def stop_vulnscan_back():
            "kill_es_result":kill_es_result1,
            "kill_nacos_result":kill_nacos_result1,
            "kill_tomcat_result":kill_tomcat_result1,
-           "kill_jndi_result":kill_jndi_result1
+           "kill_jndi_result":kill_jndi_result1,
+           "kill_fastjson_result":kill_fastjson_result1
         }
 
         return jsonify(message_json)
@@ -3089,7 +3124,22 @@ def jndi_report_show():
     else:
         return render_template('login.html')
     
-
+#fastjson报告预览
+@app.route("/fastjson_report_show/")
+def fastjson_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndi_num = os.popen('bash /TIP/info_scan/finger.sh fastjson_vuln_num').read()
+        if int(jndi_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/fastjson_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

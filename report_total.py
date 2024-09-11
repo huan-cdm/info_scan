@@ -166,6 +166,24 @@ def report_xlsx():
     nacos_file = open("/TIP/info_scan/result/nacosvuln.txt",encoding='utf-8')
     for nacos_line in nacos_file.readlines():
         nacos_report_list.append(nacos_line.strip())
+
+    # JNDI日志
+    jndi_report_list = []
+    jndi_file = open("/TIP/info_scan/result/jndi_result.txt",encoding='utf-8')
+    for jndi_line in jndi_file.readlines():
+        jndi_report_list.append(jndi_line.strip())
+
+    # tomcat漏洞
+    tomcat_report_list = []
+    tomcat_file = open("/TIP/info_scan/result/tomcat_vuln.txt",encoding='utf-8')
+    for tomcat_line in tomcat_file.readlines():
+        tomcat_report_list.append(tomcat_line.strip())
+    
+    # fastjson漏洞
+    fastjson_report_list = []
+    fastjson_file = open("/TIP/info_scan/result/fastjson_vuln.txt",encoding='utf-8')
+    for fastjson_line in fastjson_file.readlines():
+        fastjson_report_list.append(fastjson_line.strip())
     
     
     # 将列表转换为 pandas 的 DataFrame
@@ -191,6 +209,9 @@ def report_xlsx():
     df_u = pd.DataFrame(weaver_report_list, columns=['泛微OA'])
     df_v = pd.DataFrame(es_report_list, columns=['ES未授权'])
     df_w = pd.DataFrame(nacos_report_list, columns=['nacos'])
+    df_x = pd.DataFrame(jndi_report_list, columns=['JNDI日志'])
+    df_y = pd.DataFrame(tomcat_report_list, columns=['tomcat'])
+    df_z = pd.DataFrame(fastjson_report_list, columns=['fastjson'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -218,3 +239,6 @@ def report_xlsx():
         df_u.to_excel(writer, sheet_name='泛微OA', index=False)
         df_v.to_excel(writer, sheet_name='ES未授权', index=False)
         df_w.to_excel(writer, sheet_name='nacos', index=False)
+        df_x.to_excel(writer, sheet_name='JNDI日志', index=False)
+        df_y.to_excel(writer, sheet_name='tomcat', index=False)
+        df_z.to_excel(writer, sheet_name='fastjson', index=False)

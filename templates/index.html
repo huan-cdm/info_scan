@@ -61,7 +61,7 @@
 				<span id="tishisp3" style="display: none; color: chocolate;">解锁按钮</span>
 				<span id="tishisp4" style="display: none; color: chocolate;">dnslog平台dns日志</span>
 				<span id="tishisp5" style="display: none; color: chocolate;">dnslog平台http日志</span>
-				<span id="tishisp6" style="display: none; color: chocolate;">报告整合</span>
+				<span id="tishisp6" style="display: none; color: chocolate;">报告整合,点击完需进行等待,提示整合完毕可进行报告的下载和在线预览</span>
 				<span id="tishisp7" style="display: none; color: chocolate;">报告预览</span>
 				<span id="tishisp8" style="display: none; color: chocolate;">报告下载</span>
 				<span id="tishisp9" style="display: none; color: chocolate;">系统管理</span>
@@ -287,10 +287,10 @@
 					<th>名称</th>
 					<td>历史URL扫描</td>
 					<td>子域名扫描</td>
-					<td>ES未授权扫描</td>
+					<td>elasticsearch漏洞扫描</td>
 					<td>nacos漏洞扫描</td>
 					<td>tomcat漏洞扫描</td>
-					<td></td>
+					<td>fastjson漏洞扫描</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -317,7 +317,10 @@
 						<span id="spp51" style="color:green"></span>
 						<span id="spp51a" style="color: red;"></span>
 					</td>
-					<td></td>
+					<td>
+						<span id="spp54" style="color:green"></span>
+						<span id="spp54a" style="color: red;"></span>
+					</td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -376,7 +379,7 @@
 					<td><span id="spp42"></span></td>
 					<td><span id="spp46"></span></td>
 					<td><span id="spp47"></span></td>
-					<td><span id="spp52"></span></td>
+					<td><span id="spp52t"></span></td>
 				</tr>
 			</table><br>
 			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50"
@@ -523,6 +526,9 @@
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
 		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
 		<div style="display:none;" id="vulnid1">
+			<span style="color:red">1. 单个扫描停止维护,请使用下面的批量扫描功能。</span><br>
+			<span style="color: red">2. fastjson扫描需先开启JNDI服务,否则会出现误报情况,可能会出现空报告情况,最终以JNDI服务日志为准。</span><br>
+			<span style="color: red">3. 按钮已加锁,需点击最上方的解锁按钮。</span><br>
 			<table border="1">
 				<tr>
 					<td>
@@ -658,13 +664,7 @@
 							<input type="button" id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
 							<input type="button" id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
 							<input type="button" id="button48" value="关闭程序" onclick="killfscanprocessfunc()"
-								disabled><br><br>
-							参数：&nbsp;&nbsp;
-							<select name="fscanpartname">
-								<option value="1">默认端口</option>
-								<option value="2">全部端口</option>
-								<option value="3">常见端口</option>
-							</select>
+								disabled>
 						</span>
 
 						<span style="display: none;" id="point8">
@@ -672,15 +672,7 @@
 							<input type="button" id="button59" value="预览报告" onclick="hydra_report_show_func()" disabled>
 							<input type="button" id="button60" value="启动程序" onclick="start_hydra_scan_func()" disabled>
 							<input type="button" id="button61" value="关闭程序" onclick="killhydraprocessfunc()" disabled>
-							<br><br>
-							参数：&nbsp;&nbsp;
-							<select name="hydrapart">
-								<option value="1">mysql</option>
-								<option value="2">ssh</option>
-								<option value="3">ftp</option>
-								<option value="4">redis</option>
-								<option value="5">mssql</option>
-							</select>
+							
 						</span>
 
 						<span style="display: none;" id="point9">
@@ -706,40 +698,6 @@
 							<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
 							<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
 							<input type="button" id="button55" value="关闭程序" onclick="killvulmapfunc()" disabled>
-							<br><br>
-							参数：
-							<select name="vulnname">
-								<option value="all">all</option>
-								<option value="activemq">检查站点是否存在activemq漏洞</option>
-								<option value="flink">检查站点是否存在flink漏洞</option>
-								<option value="shiro">检查站点是否存在shiro漏洞</option>
-								<option value="solr">检查站点是否存在solr漏洞</option>
-								<option value="struts2">检查站点是否存在struts2漏洞</option>
-								<option value="tomcat">检查站点是否存在tomcat漏洞</option>
-								<option value="unomi">检查站点是否存在unomi漏洞</option>
-								<option value="drupal">检查站点是否存在drupal漏洞</option>
-								<option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
-								<option value="fastjson">检查站点是否存在fastjson漏洞</option>
-								<option value="jenkins">检查站点是否存在jenkins漏洞</option>
-								<option value="laravel">检查站点是否存在laravel漏洞</option>
-								<option value="nexus">检查站点是否存在nexus漏洞</option>
-								<option value="weblogic">检查站点是否存在weblogic漏洞</option>
-								<option value="jboss">检查站点是否存在jboss漏洞</option>
-								<option value="spring">检查站点是否存在spring漏洞</option>
-								<option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
-								<option value="druid">检查站点是否存在druid漏洞</option>
-								<option value="exchange">检查站点是否存在exchange漏洞</option>
-								<option value="nodejs">检查站点是否存在nodejs漏洞</option>
-								<option value="saltstack">检查站点是否存在saltstack漏洞</option>
-								<option value="vmware">检查站点是否存在vmware漏洞</option>
-								<option value="bigip">检查站点是否存在bigip漏洞</option>
-								<option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
-								<option value="coremail">检查站点是否存在coremail漏洞</option>
-								<option value="ecology">检查站点是否存在ecology漏洞</option>
-								<option value="eyou">检查站点是否存在eyou漏洞</option>
-								<option value="qianxin">检查站点是否存在qianxin漏洞</option>
-								<option value="ruijie">检查站点是否存在ruijie漏洞</option>
-							</select>
 						</span>
 
 						<span style="display: none;" id="point13">
@@ -747,8 +705,41 @@
 							<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
 							<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
 							<input type="button" id="button56" value="关闭程序" onclick="killnucleifunc()" disabled>
-							<br><br>
-							参数：&nbsp;&nbsp;
+							
+						</span>
+
+
+						<span style="display: none;" id="point15">
+							<input type="submit" value="泛微OA：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button69" value="预览报告" onclick="weaverscanfunc()" disabled>
+							<input type="button" id="button70" value="启动程序" onclick="startweaverscanfunc()" disabled>
+							<input type="button" id="button71" value="关闭程序" onclick="killweaverscanfunc()" disabled>
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+						<input type="submit" id="button72" value="开启漏洞扫描" onclick="vulnxuanzhongscan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button76" value="关闭漏洞扫描" onclick="vulnxuanzhongstopscanfunc()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button77" value="开启报告预览" onclick="vulnscanxuanzhongreportyulan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="vulnselectAll()">全选</span>&nbsp;&nbsp;<span
+							style="cursor: pointer;" onclick="vulnunSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						fscan扫描参数：&nbsp;&nbsp;
+						<select name="fscanpartname">
+							<option value="1">默认端口</option>
+							<option value="2">全部端口</option>
+							<option value="3">常见端口</option>
+						</select><br>
+						nuclei扫描参数：&nbsp;&nbsp;
 							<select name="poc_dir">
 								<option value="/root/nuclei-templates/http">http</option>
 								<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
@@ -794,29 +785,56 @@
 
 							<br>
 							<span id="nucleibyid2"></span>
-						</span>
-
-
-						<span style="display: none;" id="point15">
-							<input type="submit" value="泛微OA：">&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="button" id="button69" value="预览报告" onclick="weaverscanfunc()" disabled>
-							<input type="button" id="button70" value="启动程序" onclick="startweaverscanfunc()" disabled>
-							<input type="button" id="button71" value="关闭程序" onclick="killweaverscanfunc()" disabled>
-						</span>
 					</td>
+					<td>
+						弱口令扫描参数：&nbsp;&nbsp;
+							<select name="hydrapart">
+								<option value="1">mysql</option>
+								<option value="2">ssh</option>
+								<option value="3">ftp</option>
+								<option value="4">redis</option>
+								<option value="5">mssql</option>
+							</select><br>
+							vulmap扫描参数：
+							<select name="vulnname">
+								<option value="all">all</option>
+								<option value="activemq">检查站点是否存在activemq漏洞</option>
+								<option value="flink">检查站点是否存在flink漏洞</option>
+								<option value="shiro">检查站点是否存在shiro漏洞</option>
+								<option value="solr">检查站点是否存在solr漏洞</option>
+								<option value="struts2">检查站点是否存在struts2漏洞</option>
+								<option value="tomcat">检查站点是否存在tomcat漏洞</option>
+								<option value="unomi">检查站点是否存在unomi漏洞</option>
+								<option value="drupal">检查站点是否存在drupal漏洞</option>
+								<option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
+								<option value="fastjson">检查站点是否存在fastjson漏洞</option>
+								<option value="jenkins">检查站点是否存在jenkins漏洞</option>
+								<option value="laravel">检查站点是否存在laravel漏洞</option>
+								<option value="nexus">检查站点是否存在nexus漏洞</option>
+								<option value="weblogic">检查站点是否存在weblogic漏洞</option>
+								<option value="jboss">检查站点是否存在jboss漏洞</option>
+								<option value="spring">检查站点是否存在spring漏洞</option>
+								<option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
+								<option value="druid">检查站点是否存在druid漏洞</option>
+								<option value="exchange">检查站点是否存在exchange漏洞</option>
+								<option value="nodejs">检查站点是否存在nodejs漏洞</option>
+								<option value="saltstack">检查站点是否存在saltstack漏洞</option>
+								<option value="vmware">检查站点是否存在vmware漏洞</option>
+								<option value="bigip">检查站点是否存在bigip漏洞</option>
+								<option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
+								<option value="coremail">检查站点是否存在coremail漏洞</option>
+								<option value="ecology">检查站点是否存在ecology漏洞</option>
+								<option value="eyou">检查站点是否存在eyou漏洞</option>
+								<option value="qianxin">检查站点是否存在qianxin漏洞</option>
+								<option value="ruijie">检查站点是否存在ruijie漏洞</option>
+							</select>
+					</td>
+					
 				</tr>
-
-				<tr>
+				<!-- 漏洞扫描第二行 -->
+				 <tr>
 					<td colspan="2">
-						<input type="submit" id="button72" value="开启漏洞扫描" onclick="vulnxuanzhongscan()"
-							disabled>&nbsp;&nbsp;&nbsp;
-						<input type="submit" id="button76" value="关闭漏洞扫描" onclick="vulnxuanzhongstopscanfunc()"
-							disabled>&nbsp;&nbsp;&nbsp;
-						<input type="submit" id="button77" value="开启报告预览" onclick="vulnscanxuanzhongreportyulan()"
-							disabled>&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;
-						<span style="cursor: pointer;" onclick="vulnselectAll()">全选</span>&nbsp;&nbsp;<span
-							style="cursor: pointer;" onclick="vulnunSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<span><strong>框架组件类：</strong></span>
 						<input type="checkbox" id="option1" name="option" value="1">
 						<label for="option1">struts2</label>
 						<input type="checkbox" id="option2" name="option" value="2">
@@ -827,6 +845,24 @@
 						<label for="option4">springboot</label>
 						<input type="checkbox" id="option5" name="option" value="5">
 						<label for="option5">thinkphp</label>
+						<input type="checkbox" id="option16" name="option" value="e">
+						<label for="option16">Elasticsearch未授权</label>
+						<input type="checkbox" id="option17" name="option" value="f">
+						<label for="option17">nacos扫描</label>
+						<input type="checkbox" id="option18" name="option" value="g">
+						<label for="option18">tomcat扫描</label>
+						<input type="checkbox" id="option20" name="option" value="i">
+						<label for="option20">fastjson扫描</label>
+						<input type="checkbox" id="option19" name="option" value="h">
+						<label for="option19">JNDI服务</label>
+						<input type="checkbox" id="option14" name="option" value="c">
+						<label for="option14">泛微OA</label>
+					</td>
+				 </tr>
+				<!-- 漏洞扫描程序第三行 -->
+				<tr>
+					<td colspan="2">
+						<span><strong>综合类：</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="option6" name="option" value="6">
 						<label for="option6">afrog</label>
 						<input type="checkbox" id="option7" name="option" value="7">
@@ -839,24 +875,8 @@
 						<label for="option11">vulmap</label>
 						<input type="checkbox" id="option12" name="option" value="b">
 						<label for="option12">nuclei</label>
-						<input type="checkbox" id="option14" name="option" value="c">
-						<label for="option14">泛微OA</label>
 						<input type="checkbox" id="option15" name="option" value="d">
 						<label for="option15">一键扫描重点资产</label>
-					</td>
-				</tr>
-
-				<!-- 漏洞扫描程序第二行 -->
-				<tr>
-					<td colspan="2">
-						<input type="checkbox" id="option16" name="option" value="e">
-						<label for="option16">Elasticsearch未授权</label>
-						<input type="checkbox" id="option17" name="option" value="f">
-						<label for="option17">nacos扫描</label>
-						<input type="checkbox" id="option18" name="option" value="g">
-						<label for="option18">tomcat扫描</label>
-						<input type="checkbox" id="option19" name="option" value="h">
-						<label for="option19">JNDI服务</label>
 					</td>
 				</tr>
 				<tr>
@@ -870,6 +890,12 @@
 						&nbsp;&nbsp;
 						<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;<span
 							style="cursor: pointer;" onclick="unSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span><strong>综合类：</strong></span>
 						<input type="checkbox" id="infooption1" name="info_option" value="1">
 						<label for="infooption1">敏感信息</label>
 						<input type="checkbox" id="infooption2" name="info_option" value="2">
@@ -880,10 +906,8 @@
 						<label for="infooption4">子域名</label>
 						<input type="checkbox" id="infooption5" name="info_option" value="5">
 						<label for="infooption5">端口扫描</label>
-
 					</td>
 				</tr>
-
 
 			</table>
 		</div>

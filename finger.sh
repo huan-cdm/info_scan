@@ -1257,5 +1257,37 @@ case "${1}" in
 	fi
     ;;
 
+
+     # fastjson漏洞扫描程序运行状态
+    fastjson_scan_status)
+    fastjson_ps=`ps -aux | grep "vuln_lib.py fastjson_vuln_scan" | wc -l`
+	if (( $fastjson_ps > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 开启fastjson漏洞扫描程序
+    start_fastjson_shell)
+    python3 /TIP/info_scan/vuln_lib.py fastjson_vuln_scan > /TIP/info_scan/result/fastjson_vuln.txt
+    ;;
+
+     # 关闭fastjson漏洞扫描程序
+    stop_fastjson_scan)
+    fastjson_pid=`ps -aux | grep "fastjson_vuln_scan" |awk -F " " '{print $2}'`
+    for ii in ${fastjson_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
+    #fastjson漏洞数量
+    fastjson_vuln_num)
+    fastjson_num=`cat /TIP/info_scan/result/fastjson_vuln.txt | wc -l`
+    echo "${fastjson_num}"
+    ;;
     
 esac
