@@ -1,6 +1,6 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
-ip_address="x.x.x.x"
+ip_address="117.72.16.222"
 case "${1}" in
 
     #指纹识别脚本
@@ -722,27 +722,27 @@ case "${1}" in
 
     # 调用hydra爆破mysql弱口令
     mysql_weak_password)
-    /usr/bin/hydra -L /TIP/info_scan/hydra/mysql/user.txt -P /TIP/info_scan/hydra/mysql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mysql > /TIP/info_scan/result/hydra_result.txt
+    /usr/bin/hydra -L /TIP/info_scan/dict/mysql/user.txt -P /TIP/info_scan/dict/mysql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mysql > /TIP/info_scan/result/hydra_result.txt
     ;;
     
     # 调用hydra爆破ssh弱口令
      ssh_weak_password)
-    /usr/bin/hydra -L /TIP/info_scan/hydra/ssh/user.txt -P /TIP/info_scan/hydra/ssh/pass.txt -M /TIP/info_scan/result/hydra_ip.txt ssh > /TIP/info_scan/result/hydra_result.txt
+    /usr/bin/hydra -L /TIP/info_scan/dict/ssh/user.txt -P /TIP/info_scan/dict/ssh/pass.txt -M /TIP/info_scan/result/hydra_ip.txt ssh > /TIP/info_scan/result/hydra_result.txt
     ;;
 
     # 调用hydra爆破ftp弱口令
      ftp_weak_password)
-    /usr/bin/hydra -L /TIP/info_scan/hydra/ftp/user.txt -P /TIP/info_scan/hydra/ftp/pass.txt -M /TIP/info_scan/result/hydra_ip.txt ftp > /TIP/info_scan/result/hydra_result.txt
+    /usr/bin/hydra -L /TIP/info_scan/dict/ftp/user.txt -P /TIP/info_scan/dict/ftp/pass.txt -M /TIP/info_scan/result/hydra_ip.txt ftp > /TIP/info_scan/result/hydra_result.txt
     ;;
 
     # 调用hydra爆破redis弱口令
      redis_weak_password)
-    /usr/bin/hydra  -P /TIP/info_scan/hydra/redis/pass.txt -M /TIP/info_scan/result/hydra_ip.txt redis > /TIP/info_scan/result/hydra_result.txt
+    /usr/bin/hydra  -P /TIP/info_scan/dict/redis/pass.txt -M /TIP/info_scan/result/hydra_ip.txt redis > /TIP/info_scan/result/hydra_result.txt
     ;;
 
     # 调用hydra爆破mssql弱口令
      mssql_weak_password)
-    /usr/bin/hydra -L /TIP/info_scan/hydra/mssql/user.txt -P /TIP/info_scan/hydra/mssql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mssql > /TIP/info_scan/result/hydra_result.txt
+    /usr/bin/hydra -L /TIP/info_scan/dict/mssql/user.txt -P /TIP/info_scan/dict/mssql/pass.txt -M /TIP/info_scan/result/hydra_ip.txt mssql > /TIP/info_scan/result/hydra_result.txt
     ;;
 
     # 前端软重启服务
