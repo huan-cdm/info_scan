@@ -9,7 +9,7 @@ from config import tomcat_pass_dir
 from config import nacos_user_dir
 from config import nacos_pass_dir
 import json
-
+import os
 from config import jndi_server
 
 
@@ -463,8 +463,35 @@ def lanlingoa_vuln_scan():
             pass
     
 
+# waf识别检测扫描
+def waf_tool_scan():
+    url_list = basic.url_file_ip_list()
+    # 获取当前时间
+    now = datetime.now()
+    # 格式化时间，只保留时、分、秒
+    formatted_time = now.strftime("%H:%M:%S")
+    # 存在WAF设备列表
+    waf_list = []
+    for url in url_list:
+    
+        try:
+            result = os.popen('bash /TIP/info_scan/finger.sh waf_scan_shell'+' '+url).read()
+            # 不存在WAF
+            if 'No WAF detected by the generic detection' in result:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在WAF防护设备")
+            # 存在WAF
+            else:
+                waf_list.append(url)
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"疑似存在WAF防护设备")
+        except:
+            pass
 
-
+    # 根据有WAF列表过滤待扫描文件
+    for url1 in waf_list:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh waf_filter'+' '+url1)
+        except:
+            pass
 
 
 
@@ -482,7 +509,9 @@ if __name__ == "__main__":
         elif func_name == 'fastjson_vuln_scan':
             fastjson_vuln_scan()
         elif func_name == 'lanlingoa_vuln_scan':
-            lanlingoa_vuln_scan()    
+            lanlingoa_vuln_scan()
+        elif func_name == 'waf_tool_scan':
+            waf_tool_scan()    
         else:
             print("Invalid function number")
     else:

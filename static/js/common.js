@@ -1338,6 +1338,8 @@ function openModal() {
                 document.getElementById("spp53a").innerHTML = info.jndi_python_status2;
                 document.getElementById("spp54").innerHTML = info.fastjson_status1;
                 document.getElementById("spp54a").innerHTML = info.fastjson_status2;
+                document.getElementById("spp55").innerHTML = info.waf_status1;
+                document.getElementById("spp55a").innerHTML = info.waf_status2;
             });
     }
 
@@ -2700,15 +2702,17 @@ function infoxuanzhongscan() {
     checkboxes.forEach((checkbox) => {
         info_front_list.push(checkbox.value);
     });
+    // 端口扫描传递给后端的参数：指定扫描端口
+    var portscan_part = $('select[name="portscan_part"]').val();
     $.ajax({
         url: '/infoscan_check_back/',
         method: 'POST',
-        data: JSON.stringify({ info_front_list: info_front_list }), // 发送 JSON 字符串
+        data: JSON.stringify({ info_front_list: info_front_list, portscan_part:portscan_part }), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5)
+            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5+"\n"+info.dictkey6)
         },
 
         error: function (info) {
@@ -2755,6 +2759,8 @@ function infoxuanzhongreportyulan() {
             window.open("/showsubdomainreport/", "_blank");
         } else if (info_front_list[i] == '5') {
             window.open("/nmapresultshow/", "_blank");
+        }else if (info_front_list[i] == '6') {
+            window.open("/waf_report_show/", "_blank");
         }
     }
 }
@@ -2781,7 +2787,7 @@ function infoxuanzhongstopscanfunc() {
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51)
+            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51+"\n"+info.dictkey61)
         },
 
         error: function (info) {
@@ -2934,4 +2940,11 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/fastjson_report_show/", "_blank");
         }
     }
+}
+
+
+// 端口扫描参数值查看
+function nmapportshowfunc(){
+    var portscan_part = $('select[name="portscan_part"]').val();
+    $('#myTextarea1').val(portscan_part);
 }

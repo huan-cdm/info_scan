@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 22/08/2024 16:37:18
+ Date: 13/09/2024 13:44:35
 */
 
 SET NAMES utf8mb4;
@@ -25,15 +25,20 @@ CREATE TABLE `info_time_diff`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `time_diff` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of info_time_diff
 -- ----------------------------
-INSERT INTO `info_time_diff` VALUES (1, '1724315792.1288743');
-INSERT INTO `info_time_diff` VALUES (2, '1724315792.1533124');
-INSERT INTO `info_time_diff` VALUES (3, '1724315792.1981115');
-INSERT INTO `info_time_diff` VALUES (4, '1724315792.25872');
-INSERT INTO `info_time_diff` VALUES (5, '1724315792.3501728');
+INSERT INTO `info_time_diff` VALUES (1, '1724744415.1523805');
+INSERT INTO `info_time_diff` VALUES (2, '1726022376.1907308');
+INSERT INTO `info_time_diff` VALUES (3, '1724744415.241787');
+INSERT INTO `info_time_diff` VALUES (4, '1724744415.3084066');
+INSERT INTO `info_time_diff` VALUES (5, '1726190650.8981938');
+INSERT INTO `info_time_diff` VALUES (6, '1726190650.8981938');
+INSERT INTO `info_time_diff` VALUES (7, '1726190650.8981938');
+INSERT INTO `info_time_diff` VALUES (8, '1726190650.8981938');
+INSERT INTO `info_time_diff` VALUES (9, '1726190650.8981938');
+INSERT INTO `info_time_diff` VALUES (10, '1726190650.8981938');
 
 SET FOREIGN_KEY_CHECKS = 1;

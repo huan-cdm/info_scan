@@ -185,6 +185,12 @@ def report_xlsx():
     for fastjson_line in fastjson_file.readlines():
         fastjson_report_list.append(fastjson_line.strip())
     
+    # WAF识别
+    waf_report_list = []
+    waf_file = open("/TIP/info_scan/result/waf_result.txt",encoding='utf-8')
+    for waf_line in waf_file.readlines():
+        waf_report_list.append(waf_line.strip())
+    
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -212,6 +218,7 @@ def report_xlsx():
     df_x = pd.DataFrame(jndi_report_list, columns=['JNDI日志'])
     df_y = pd.DataFrame(tomcat_report_list, columns=['tomcat'])
     df_z = pd.DataFrame(fastjson_report_list, columns=['fastjson'])
+    df_a1 = pd.DataFrame(waf_report_list, columns=['WAF'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -242,3 +249,4 @@ def report_xlsx():
         df_x.to_excel(writer, sheet_name='JNDI日志', index=False)
         df_y.to_excel(writer, sheet_name='tomcat', index=False)
         df_z.to_excel(writer, sheet_name='fastjson', index=False)
+        df_a1.to_excel(writer, sheet_name='WAF', index=False)

@@ -1,0 +1,4 @@
+root
+mysql
+admin
+test

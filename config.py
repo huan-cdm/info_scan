@@ -101,5 +101,9 @@ tomcat_pass_dir = '/TIP/info_scan/dict/tomcat_pass.txt'
 nacos_user_dir = '/TIP/info_scan/dict/nacos_user.txt'
 nacos_pass_dir = '/TIP/info_scan/dict/nacos_pass.txt'
 
+# phpmyadmin后台爆破字典配置
+phpmyadmin_user_dir = '/TIP/info_scan/dict/phpmyadmin_user.txt'
+phpmyadmin_pass_dir = '/TIP/info_scan/dict/phpmyadmin_pass.txt'
+
 # JNDI服务配置(配置IP)
 jndi_server = 'rmi://x.x.x.x:9999/TouchFile'

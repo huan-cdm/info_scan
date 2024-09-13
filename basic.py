@@ -1,9 +1,8 @@
-'''
-Description:[系统调用第三方接口文件]
-Author:[huan666]
-Date:[2024/05/28]
-update:[2024/8/27]
-'''
+# Description:[系统调用第三方接口文件]
+# Author:[huan666]
+# Date:[2024/05/28]
+# update:[2024/9/12]
+
 # shodan查询模块
 import shodan
 from config import shodankey
@@ -138,7 +137,7 @@ def url_file_ip_list():
 
 
 # 列表存入到队列中用于nmap扫描
-def ip_queue_nmap():
+def ip_queue_nmap(ip_queue_nmap):
     # 创建一个空队列
     q = queue.Queue()
     ip_list = url_convert_ip()
@@ -147,7 +146,7 @@ def ip_queue_nmap():
     # 取出并打印队列中的所有元素（先进先出）  
     while not q.empty():  
         ip_queue = q.get()
-        result = subprocess.run(["sh", "./finger.sh","nmap_port",ip_queue], stdout=subprocess.PIPE) 
+        result = subprocess.run(["sh", "./finger.sh","nmap_port",ip_queue,ip_queue_nmap], stdout=subprocess.PIPE) 
 
  
  # 生成一个随机的IPv4地址防止封禁IP  
@@ -1621,7 +1620,7 @@ def crtdomain_lib():
 
 
 
-def startnmap_lib():
+def startnmap_lib(portscan_part):
     os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
     os.popen('touch /TIP/info_scan/result/nmap.txt')
     namptatus = os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
@@ -1631,7 +1630,7 @@ def startnmap_lib():
     else:
         try:
             # 创建线程来运行nmap任务
-            nmap_thread = threading.Thread(target=ip_queue_nmap())
+            nmap_thread = threading.Thread(target=ip_queue_nmap(portscan_part))
             # 启动线程
             nmap_thread.start()
             if "running" in namptatus:
@@ -1727,6 +1726,36 @@ def startfastjson_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return fastjson_status_result
+
+
+# 开启WAF检测过滤掉存在WAF的资产
+def startwafrecognize_lib():
+    waf_scan_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
+    if "running" in waf_scan_status:
+        waf_status_result = "WAF扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_scan_waf')
+            if "running" in waf_scan_status:
+                waf_status_result = "WAF扫描程序已开启稍后查看结果"
+            else:
+                waf_status_result = "WAF扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return waf_status_result
+
+
+# 关闭WAF漏洞扫描程序
+def stopwafrecognize_lib():
+    waf_scan_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh kill_waf_scan')
+    if "stop" in waf_scan_status:
+        kill_waf_result = "已关闭WAF漏洞扫描程序"
+    else:
+        kill_waf_result = "正在关闭中......"
+    return kill_waf_result
+
+
 
 
 

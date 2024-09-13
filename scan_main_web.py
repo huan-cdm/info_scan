@@ -1,9 +1,8 @@
-'''
-Description:[主系统]
-Author:[huan666]
-Date:[2023/11/15]
-update:[2024/8/27]
-'''
+# Description:[主系统]
+# Author:[huan666]
+# Date:[2023/11/15]
+# update:[2024/9/12]
+
 from flask import Flask, render_template,request
 from flask import session
 from flask import redirect
@@ -779,6 +778,15 @@ def systemmanagement():
             fastjson_status1 = ""
             fastjson_status2 = fastjson_status
 
+        waf_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
+        if "running" in waf_status:
+            waf_status1 = waf_status
+            waf_status2 = ""
+        else:
+            waf_status1 = ""
+            waf_status2 = waf_status
+        
+
         message_json = {
             "nmapstatus1":nmapstatus1,
             "nmapstatus2":nmapstatus2,
@@ -866,7 +874,9 @@ def systemmanagement():
             "jndi_python_status1":jndi_python_status1,
             "jndi_python_status2":jndi_python_status2,
             "fastjson_status1":fastjson_status1,
-            "fastjson_status2":fastjson_status2
+            "fastjson_status2":fastjson_status2,
+            "waf_status1":waf_status1,
+            "waf_status2":waf_status2
 
         }
         return jsonify(message_json)
@@ -2201,6 +2211,7 @@ def infoscan_check_back():
         basic.vuln_scan_status_update('已完成开启批量信息收集')
         data = request.get_json()  # 使用 get_json 解析 JSON 请求体
         info_front_list = data['info_front_list']
+        portscan_part = data['portscan_part']
         # 接收前端传入的值转为int型
         info_value_list = []
         for i in info_front_list:
@@ -2269,9 +2280,23 @@ def infoscan_check_back():
                     basic.last_time_update_lib(current_time5,5)
                     # 提交扫描任务
                     # 每次启动前清空上次扫描结果
-                    nmap_status_result = basic.startnmap_lib()
+                    nmap_status_result = basic.startnmap_lib(portscan_part)
                 else:
                     nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+            elif '6' in str(j):
+                # 获取系统当前时间
+                current_time6 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes6 = basic.info_time_shijian_cha(6)
+                if int(diff_time_minutes6) > info_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.last_time_update_lib(current_time6,6)
+                    # 提交扫描任务
+                    # 每次启动前清空上次扫描结果
+                    waf_status_result = basic.startwafrecognize_lib()
+                else:
+                    waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             else:
                 print("参数正在完善中...")
 
@@ -2296,13 +2321,18 @@ def infoscan_check_back():
             nmap_status_result1 = nmap_status_result
         except:
             nmap_status_result1 = ""
+        try:
+            waf_status_result1 = waf_status_result
+        except:
+            waf_status_result1 = ""
         
         dict = {
             "key1":bbscan_status_result1,
             "key2":finger_status_result1,
             "key3":otx_status_result1,
             "key4":crt_status_result1,
-            "key5":nmap_status_result1
+            "key5":nmap_status_result1,
+            "key6":waf_status_result1
         }
         message_json = {
             "dictkey1":dict['key1'],
@@ -2310,6 +2340,7 @@ def infoscan_check_back():
             "dictkey3":dict['key3'],
             "dictkey4":dict['key4'],
             "dictkey5":dict['key5'],
+            "dictkey6":dict['key6'],
         }
 
         return jsonify(message_json)
@@ -2838,6 +2869,8 @@ def stop_infoscan_back():
                 kill_crt_subdomain_result = basic.stopcrtsubdomain_lib()
             elif '5' in str(j):
                 kill_nmap_result = basic.stopnmap_lib()
+            elif '6' in str(j):
+                kill_waf_result = basic.stopwafrecognize_lib()
             else:
                 print("参数正在完善中...")
         # 捕获异常
@@ -2862,13 +2895,18 @@ def stop_infoscan_back():
             kill_nmap_result1 = kill_nmap_result
         except:
             kill_nmap_result1 = ""
+        try:
+            kill_waf_result1 = kill_waf_result
+        except:
+            kill_waf_result1 = ""
         
         dict = {
             "key11":kill_bbscan_result1,
             "key21":kill_EHole_result1,
             "key31":kill_otx_url_result1,
             "key41":kill_crt_subdomain_result1,
-            "key51":kill_nmap_result1
+            "key51":kill_nmap_result1,
+            "key61":kill_waf_result1
         }
         message_json = {
             "dictkey11":dict['key11'],
@@ -2876,6 +2914,7 @@ def stop_infoscan_back():
             "dictkey31":dict['key31'],
             "dictkey41":dict['key41'],
             "dictkey51":dict['key51'],
+            "dictkey61":dict['key61']
         }
 
         return jsonify(message_json)
@@ -3135,6 +3174,24 @@ def fastjson_report_show():
         else:
             lines = []
             with open('/TIP/info_scan/result/fastjson_vuln.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#WAF报告预览
+@app.route("/waf_report_show/")
+def waf_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndi_num = os.popen('bash /TIP/info_scan/finger.sh waf_vuln_num').read()
+        if int(jndi_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/waf_result.txt', 'r') as f:
                 for line in f:
                     lines.append(line.strip())
         return '<br>'.join(lines)

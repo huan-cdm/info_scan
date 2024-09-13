@@ -1,6 +1,6 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
-ip_address="117.72.16.222"
+ip_address="x.x.x.x"
 case "${1}" in
 
     #指纹识别脚本
@@ -76,7 +76,7 @@ case "${1}" in
     current_time=$(date +"%Y-%m-%d %H:%M:%S")  
     echo "[+]$current_time" >> ./result/nmap.txt
     echo "[+]$2" >> ./result/nmap.txt
-    /usr/bin/nmap -Pn -sS -sV -T4  $2  -p 1-65535  --min-rate=10000 | grep "tcp"  >> ./result/nmap.txt
+    /usr/bin/nmap -Pn -sS -sV -T4  $2  -p $3  --min-rate=10000 | grep "tcp"  >> ./result/nmap.txt
     ;;
 
     #nmap队列扫描运行状态
@@ -1290,4 +1290,48 @@ case "${1}" in
     echo "${fastjson_num}"
     ;;
     
+
+    # WAF相关检测
+    waf_scan_shell)
+    /usr/bin/wafw00f $2
+    ;;
+
+    # 存在waf文件过滤
+    waf_filter)
+    cat /TIP/batch_scan_domain/url.txt | grep -v "$2" > /TIP/batch_scan_domain/url_tmp.txt
+    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+    ;;
+
+
+    # 开启waf设备扫描检测
+    start_scan_waf)
+    python3 /TIP/info_scan/vuln_lib.py waf_tool_scan > /TIP/info_scan/result/waf_result.txt
+    ;;
+
+    # WAF设备扫描运行状态
+    waf_scan_status)
+    waf_ps=`ps -aux | grep "vuln_lib.py waf_tool_scan" | wc -l`
+	if (( $waf_ps > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭WAF设备扫描检测
+    kill_waf_scan)
+    waf_pid=`ps -aux | grep "waf_tool_scan" |awk -F " " '{print $2}'`
+    for ii in ${waf_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    #WAF识别数量
+    waf_vuln_num)
+    waf_num=`cat /TIP/info_scan/result/waf_result.txt | wc -l`
+    echo "${waf_num}"
+    ;;
+
 esac
