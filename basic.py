@@ -1757,6 +1757,34 @@ def stopwafrecognize_lib():
 
 
 
+# 开启40xbypass fuzz工具
+def start40xbypass_lib():
+    bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh 40xbypassstatus').read()
+    url_list = url_file_ip_list()
+    if "running" in bypass_scan_status:
+        bypassx_status_result = "40xbypass扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            for url in url_list:
+                os.popen('bash /TIP/info_scan/finger.sh startbypass'+' '+url)
+            if "running" in bypass_scan_status:
+                bypassx_status_result = "40xbypass扫描程序已开启稍后查看结果"
+            else:
+                bypassx_status_result = "40xbypass扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return bypassx_status_result
+
+
+# 关闭40xbypass fuzz工具
+def stopbypass_lib():
+    bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh 40xbypassstatus').read()
+    os.popen('bash /TIP/info_scan/finger.sh stopbypass')
+    if "stop" in bypass_scan_status:
+        kill_bypass_result = "已关闭40xbypass漏洞扫描程序"
+    else:
+        kill_bypass_result = "正在关闭中......"
+    return kill_bypass_result
 
 
 if __name__ == "__main__":

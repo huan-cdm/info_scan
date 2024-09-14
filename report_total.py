@@ -190,6 +190,12 @@ def report_xlsx():
     waf_file = open("/TIP/info_scan/result/waf_result.txt",encoding='utf-8')
     for waf_line in waf_file.readlines():
         waf_report_list.append(waf_line.strip())
+
+    # 40Xbypass
+    bypass_report_list = []
+    bypass_file = open("/TIP/info_scan/result/403bypass_result.txt",encoding='utf-8')
+    for bypass_line in bypass_file.readlines():
+        bypass_report_list.append(bypass_line.strip())
     
     
     # 将列表转换为 pandas 的 DataFrame
@@ -219,7 +225,7 @@ def report_xlsx():
     df_y = pd.DataFrame(tomcat_report_list, columns=['tomcat'])
     df_z = pd.DataFrame(fastjson_report_list, columns=['fastjson'])
     df_a1 = pd.DataFrame(waf_report_list, columns=['WAF'])
-
+    df_b1 = pd.DataFrame(bypass_report_list, columns=['40Xbypass'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -250,3 +256,4 @@ def report_xlsx():
         df_y.to_excel(writer, sheet_name='tomcat', index=False)
         df_z.to_excel(writer, sheet_name='fastjson', index=False)
         df_a1.to_excel(writer, sheet_name='WAF', index=False)
+        df_b1.to_excel(writer, sheet_name='40Xbypass', index=False)

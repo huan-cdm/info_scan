@@ -1340,6 +1340,8 @@ function openModal() {
                 document.getElementById("spp54a").innerHTML = info.fastjson_status2;
                 document.getElementById("spp55").innerHTML = info.waf_status1;
                 document.getElementById("spp55a").innerHTML = info.waf_status2;
+                document.getElementById("spp56").innerHTML = info.bypass_status1;
+                document.getElementById("spp56a").innerHTML = info.bypass_status2;
             });
     }
 
@@ -2712,7 +2714,7 @@ function infoxuanzhongscan() {
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5+"\n"+info.dictkey6)
+            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5+"\n"+info.dictkey6+"\n"+info.dictkey7)
         },
 
         error: function (info) {
@@ -2761,6 +2763,8 @@ function infoxuanzhongreportyulan() {
             window.open("/nmapresultshow/", "_blank");
         }else if (info_front_list[i] == '6') {
             window.open("/waf_report_show/", "_blank");
+        }else if (info_front_list[i] == '7') {
+            window.open("/bypass_report_show/", "_blank");
         }
     }
 }
@@ -2787,7 +2791,7 @@ function infoxuanzhongstopscanfunc() {
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51+"\n"+info.dictkey61)
+            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51+"\n"+info.dictkey61+"\n"+info.dictkey71)
         },
 
         error: function (info) {

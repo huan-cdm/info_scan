@@ -786,6 +786,14 @@ def systemmanagement():
             waf_status1 = ""
             waf_status2 = waf_status
         
+        bypass_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
+        if "running" in bypass_status:
+            bypass_status1 = bypass_status
+            bypass_status2 = ""
+        else:
+            bypass_status1 = ""
+            bypass_status2 = bypass_status
+        
 
         message_json = {
             "nmapstatus1":nmapstatus1,
@@ -876,7 +884,9 @@ def systemmanagement():
             "fastjson_status1":fastjson_status1,
             "fastjson_status2":fastjson_status2,
             "waf_status1":waf_status1,
-            "waf_status2":waf_status2
+            "waf_status2":waf_status2,
+            "bypass_status1":bypass_status1,
+            "bypass_status2":bypass_status2
 
         }
         return jsonify(message_json)
@@ -2297,6 +2307,19 @@ def infoscan_check_back():
                     waf_status_result = basic.startwafrecognize_lib()
                 else:
                     waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '7' in str(j):
+                # 获取系统当前时间
+                current_time7 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes7 = basic.info_time_shijian_cha(7)
+                if int(diff_time_minutes7) > info_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.last_time_update_lib(current_time7,7)
+                    # 提交扫描任务
+                    # 每次启动前清空上次扫描结果
+                    bypass_status_result = basic.start40xbypass_lib()
+                else:
+                    bypass_status_result = "40xbypass扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             else:
                 print("参数正在完善中...")
 
@@ -2325,6 +2348,10 @@ def infoscan_check_back():
             waf_status_result1 = waf_status_result
         except:
             waf_status_result1 = ""
+        try:
+            bypass_status_result1 = bypass_status_result
+        except:
+            bypass_status_result1 = ""
         
         dict = {
             "key1":bbscan_status_result1,
@@ -2332,7 +2359,8 @@ def infoscan_check_back():
             "key3":otx_status_result1,
             "key4":crt_status_result1,
             "key5":nmap_status_result1,
-            "key6":waf_status_result1
+            "key6":waf_status_result1,
+            "key7":bypass_status_result1
         }
         message_json = {
             "dictkey1":dict['key1'],
@@ -2341,6 +2369,7 @@ def infoscan_check_back():
             "dictkey4":dict['key4'],
             "dictkey5":dict['key5'],
             "dictkey6":dict['key6'],
+            "dictkey7":dict['key7']
         }
 
         return jsonify(message_json)
@@ -2871,6 +2900,8 @@ def stop_infoscan_back():
                 kill_nmap_result = basic.stopnmap_lib()
             elif '6' in str(j):
                 kill_waf_result = basic.stopwafrecognize_lib()
+            elif '7' in str(j):
+                kill_bypass_result = basic.stopbypass_lib()
             else:
                 print("参数正在完善中...")
         # 捕获异常
@@ -2899,6 +2930,10 @@ def stop_infoscan_back():
             kill_waf_result1 = kill_waf_result
         except:
             kill_waf_result1 = ""
+        try:
+            kill_bypass_result1 = kill_bypass_result
+        except:
+            kill_bypass_result1 = ""
         
         dict = {
             "key11":kill_bbscan_result1,
@@ -2906,7 +2941,8 @@ def stop_infoscan_back():
             "key31":kill_otx_url_result1,
             "key41":kill_crt_subdomain_result1,
             "key51":kill_nmap_result1,
-            "key61":kill_waf_result1
+            "key61":kill_waf_result1,
+            "key71":kill_bypass_result1
         }
         message_json = {
             "dictkey11":dict['key11'],
@@ -2914,7 +2950,8 @@ def stop_infoscan_back():
             "dictkey31":dict['key31'],
             "dictkey41":dict['key41'],
             "dictkey51":dict['key51'],
-            "dictkey61":dict['key61']
+            "dictkey61":dict['key61'],
+            "dictkey71":dict['key71']
         }
 
         return jsonify(message_json)
@@ -3197,6 +3234,24 @@ def waf_report_show():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
+
+#40xbypass报告预览
+@app.route("/bypass_report_show/")
+def bypass_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndi_num = os.popen('bash /TIP/info_scan/finger.sh bypass_vuln_num').read()
+        if int(jndi_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/403bypass_result.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

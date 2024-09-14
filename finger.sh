@@ -1334,4 +1334,35 @@ case "${1}" in
     echo "${waf_num}"
     ;;
 
+    # 开启40xbypass扫描程序
+    startbypass)
+    /TIP/info_scan/40Xbypass/40xbypass -xD $2 > /TIP/info_scan/result/403bypass_result.txt
+    ;;
+
+    # 40xbypass扫描程序运行状态
+    bypassstatus)
+    bypass_ps=`ps -aux | grep "40xbypass" | wc -l`
+	if (( $bypass_ps > 1 ))
+	then
+		echo "running..."
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭40xbypass扫描程序
+    stopbypass)
+    bypass_pid=`ps -aux | grep "40xbypass" |awk -F " " '{print $2}'`
+    for ii in ${bypass_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    #40xbypass数量
+    bypass_vuln_num)
+    bypass_num=`cat /TIP/info_scan/result/403bypass_result.txt | wc -l`
+    echo "${bypass_num}"
+    ;;
+
 esac
