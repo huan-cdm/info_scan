@@ -1342,6 +1342,8 @@ function openModal() {
                 document.getElementById("spp55a").innerHTML = info.waf_status2;
                 document.getElementById("spp56").innerHTML = info.bypass_status1;
                 document.getElementById("spp56a").innerHTML = info.bypass_status2;
+                document.getElementById("spp57").innerHTML = info.crawlergo_status1;
+                document.getElementById("spp57a").innerHTML = info.crawlergo_status2;
             });
     }
 
@@ -2675,7 +2677,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result+"\n"+info.es_status_result+"\n"+info.nacos_status_result+"\n"+info.tomcat_status_result+"\n"+info.jndi_status_result+"\n"+info.fastjson_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result+"\n"+info.es_status_result+"\n"+info.nacos_status_result+"\n"+info.tomcat_status_result+"\n"+info.jndi_status_result+"\n"+info.fastjson_status_result+"\n"+info.xray_status_result)
         },
 
         error: function (info) {
@@ -2706,15 +2708,17 @@ function infoxuanzhongscan() {
     });
     // 端口扫描传递给后端的参数：指定扫描端口
     var portscan_part = $('select[name="portscan_part"]').val();
+    // 爬虫扫描传递给后端的参数
+    var pachongselectpart = $('select[name="pachongselectpart"]').val();
     $.ajax({
         url: '/infoscan_check_back/',
         method: 'POST',
-        data: JSON.stringify({ info_front_list: info_front_list, portscan_part:portscan_part }), // 发送 JSON 字符串
+        data: JSON.stringify({ info_front_list: info_front_list, portscan_part:portscan_part, pachongselectpart:pachongselectpart}), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5+"\n"+info.dictkey6+"\n"+info.dictkey7)
+            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5+"\n"+info.dictkey6+"\n"+info.dictkey7+"\n"+info.dictkey8)
         },
 
         error: function (info) {
@@ -2765,6 +2769,8 @@ function infoxuanzhongreportyulan() {
             window.open("/waf_report_show/", "_blank");
         }else if (info_front_list[i] == '7') {
             window.open("/bypass_report_show/", "_blank");
+        }else if (info_front_list[i] == '8') {
+            window.open("/crawlergo_report_show/", "_blank");
         }
     }
 }
@@ -2791,7 +2797,7 @@ function infoxuanzhongstopscanfunc() {
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51+"\n"+info.dictkey61+"\n"+info.dictkey71)
+            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51+"\n"+info.dictkey61+"\n"+info.dictkey71+"\n"+info.dictkey81)
         },
 
         error: function (info) {
@@ -2942,7 +2948,10 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/jndi_report_show/", "_blank");
         }else if (vuln_front_list[i] == 'i'){
             window.open("/fastjson_report_show/", "_blank");
+        }else if (vuln_front_list[i] == 'j'){
+            window.open(ipvalue + ":18888/", "_blank");
         }
+
     }
 }
 

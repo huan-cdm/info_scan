@@ -1,6 +1,8 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
 ip_address="x.x.x.x"
+# 爬虫流量代理地址
+proxy_ip="http://127.0.0.1:7777"
 case "${1}" in
 
     #指纹识别脚本
@@ -127,11 +129,24 @@ case "${1}" in
     
     if (( $num_xray > 1 ))
     then
-        echo "running..."
+        echo "running"
     else
         echo "stop"
     
     fi
+    ;;
+
+    # 开启xray
+    startxray_scan)
+    # 使用date命令生成当前的时间戳  
+    TIMESTAMP=$(date +"%Y%m%d%H%M%S")  
+    #拼接文件名  
+    OUTPUT_FILE="/TIP/batch_scan_domain/report/xray-testphp-${TIMESTAMP}.html" 
+    
+    nohup /TIP/batch_scan_domain/xray_engine/xray_linux_amd64 webscan --listen 127.0.0.1:7777 --html-output "$OUTPUT_FILE" > /dev/null 2>&1 &
+    # 打印出生成的文件名  
+    echo "HTML output saved to $OUTPUT_FILE"
+
     ;;
 
     #rad运行状态
@@ -1365,4 +1380,55 @@ case "${1}" in
     echo "${bypass_num}"
     ;;
 
+
+    # 开启crawlergo爬虫,不转发流量
+    start_crawlergo)
+    /TIP/info_scan/crawlergo_scan/crawlergo_linux_amd64 -c /usr/bin/google-chrome -t 10 $2 
+     ;;
+
+    start_crawlergo_shell)
+    python3 /TIP/info_scan/basic.py start_crawlergo_scan_lib >> /TIP/info_scan/result/crawlergo_result.txt
+    ;;
+
+
+
+    # 开启crawlergo爬虫,转发流量
+    start_crawlergo_proxy)
+    /TIP/info_scan/crawlergo_scan/crawlergo_linux_amd64 -c /usr/bin/google-chrome -t 10 --request-proxy ${proxy_ip} $2 
+    
+    ;;
+
+
+    start_crawlergo_proxy_shell)
+    python3 /TIP/info_scan/basic.py start_crawlergo_scan_proxy_lib >> /TIP/info_scan/result/crawlergo_result.txt
+    
+    ;;
+
+
+    # crawlergo运行状态
+    crawlergo_status)
+    crawlergo_ps=`ps -aux | grep "crawlergo_linux_amd64" | wc -l`
+	if (( $crawlergo_ps > 1 ))
+	then
+		echo "running (代理地址：http://127.0.0.1:7777)"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭crawlergo爬虫
+    stop_crawlergo)
+    crawlergo_pid=`ps -aux | grep "crawlergo_linux_amd64" |awk -F " " '{print $2}'`
+    for ii in ${crawlergo_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
+    # crawlergo爬取结果数量
+    crawlergo_num)
+    bypass_num_part=`cat /TIP/info_scan/result/crawlergo_result.txt | wc -l`
+    echo "${bypass_num_part}"
+    ;;
 esac

@@ -1762,15 +1762,15 @@ def start40xbypass_lib():
     bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh 40xbypassstatus').read()
     url_list = url_file_ip_list()
     if "running" in bypass_scan_status:
-        bypassx_status_result = "40xbypass扫描程序正在运行中请勿重复提交"
+        bypassx_status_result = "FUZZ扫描程序正在运行中请勿重复提交"
     else:
         try:
             for url in url_list:
                 os.popen('bash /TIP/info_scan/finger.sh startbypass'+' '+url)
             if "running" in bypass_scan_status:
-                bypassx_status_result = "40xbypass扫描程序已开启稍后查看结果"
+                bypassx_status_result = "FUZZ扫描程序已开启稍后查看结果"
             else:
-                bypassx_status_result = "40xbypass扫描程序正在后台启动中......"
+                bypassx_status_result = "FUZZ扫描程序正在后台启动中......"
         except Exception as e:
             print("捕获到异常:", e)
     return bypassx_status_result
@@ -1787,6 +1787,105 @@ def stopbypass_lib():
     return kill_bypass_result
 
 
+
+# crawlergo爬虫结果文件处理
+def crawlergo_file_lib():
+    crawlergo_file = open('/TIP/info_scan/result/crawlergo_result.txt',encoding='utf-8')
+    crawlergo_file_new = open(file='/TIP/info_scan/result/crawlergo_result_tmp.txt', mode='w')
+    try:
+        for line in crawlergo_file.readlines():
+            line1 = line.replace("GET","")
+            line2 = line1.replace("POST","")
+            line3 = line2.replace("HTTP/1.1","")
+            crawlergo_file_new.write(str(line3)+"\n".strip())
+        os.popen('mv /TIP/info_scan/result/crawlergo_result_tmp.txt /TIP/info_scan/result/crawlergo_result.txt')
+        
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+# 开启crawlergo爬虫程序
+def start_crawlergo_lib(pachongselectpart):
+    # 每次扫描前清空上一次扫描结果
+    os.popen('rm -rf /TIP/info_scan/result/crawlergo_result.txt')
+    os.popen('rm -rf /TIP/info_scan/result/crawlergo_tmp_result.txt')
+    
+    # pachongselectpart 值为1不转发流量，值为2转发流量
+    # poxry_ip_port 转发的流量和端口
+   
+    crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+    if "running" in crawlergo_status:
+        crawlergostatus_result = "爬虫程序正在运行中请勿重复提交"
+    else:
+        try:
+            if int(pachongselectpart) == 1:
+                os.popen('bash /TIP/info_scan/finger.sh start_crawlergo_shell')
+            elif int(pachongselectpart) == 2:
+                print("传入值为2")
+                os.popen('bash /TIP/info_scan/finger.sh start_crawlergo_proxy_shell')
+            else:
+                print("参数只为0/1")
+            if "running" in crawlergo_status:
+                crawlergostatus_result = "爬虫程序已开启稍后查看结果"
+            else:
+                crawlergostatus_result = "爬虫程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return crawlergostatus_result
+
+
+# 爬虫不开启流量转发
+def start_crawlergo_scan_lib():
+    try:
+        # url.txt转换为列表
+        url_list = url_file_ip_list()
+        for url in url_list:
+            result = os.popen('bash /TIP/info_scan/finger.sh start_crawlergo'+' '+url).read()
+            print(result)
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+# 爬虫开启流量转发
+def start_crawlergo_scan_proxy_lib():
+    try:
+        # url.txt转换为列表
+        url_list = url_file_ip_list()
+        for url in url_list:
+            result = os.popen('bash /TIP/info_scan/finger.sh start_crawlergo_proxy'+' '+url).read()
+            print(result)
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+# 关闭爬虫程序
+def stop_crawlergo_lib():
+    crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_crawlergo')
+    if "stop" in crawlergo_status:
+        kill_crawlergo_result = "已关闭爬虫扫描程序"
+    else:
+        kill_crawlergo_result = "正在关闭中......"
+    return kill_crawlergo_result
+
+
+# 开启xray
+def startxray_lib():
+    xraystatus = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+    if "running" in xraystatus:
+        xraystatus_result = "xray漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        # 执行poc扫描
+        result = os.popen('bash /TIP/info_scan/finger.sh startxray_scan').read()
+        print(result)
+        if "running" in xraystatus:
+            xraystatus_result = "xray扫描程序已开启稍后查看结果"
+        else:
+            xraystatus_result = "xray扫描程序正在后台启动中......"
+        xraystatus_result = "xray扫描程序已开启稍后查看结果"
+    return xraystatus_result
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         func_name = sys.argv[1]
@@ -1794,6 +1893,13 @@ if __name__ == "__main__":
             otx_domain_url_lib()
         elif func_name == 'crt_subdomain_lib':
             crt_subdomain_lib()
+        elif func_name == 'crawlergo_file_lib':
+            crawlergo_file_lib()
+        elif func_name == 'start_crawlergo_scan_lib':
+            start_crawlergo_scan_lib()
+        elif func_name == 'start_crawlergo_scan_proxy_lib':
+            start_crawlergo_scan_proxy_lib()
+        
         else:
             print("Invalid function number")
     else:

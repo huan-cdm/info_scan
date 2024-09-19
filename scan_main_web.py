@@ -794,6 +794,14 @@ def systemmanagement():
             bypass_status1 = ""
             bypass_status2 = bypass_status
         
+        crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+        if "running" in crawlergo_status:
+            crawlergo_status1 = crawlergo_status
+            crawlergo_status2 = ""
+        else:
+            crawlergo_status1 = ""
+            crawlergo_status2 = crawlergo_status
+
 
         message_json = {
             "nmapstatus1":nmapstatus1,
@@ -886,7 +894,9 @@ def systemmanagement():
             "waf_status1":waf_status1,
             "waf_status2":waf_status2,
             "bypass_status1":bypass_status1,
-            "bypass_status2":bypass_status2
+            "bypass_status2":bypass_status2,
+            "crawlergo_status1":crawlergo_status1,
+            "crawlergo_status2":crawlergo_status2
 
         }
         return jsonify(message_json)
@@ -2222,6 +2232,10 @@ def infoscan_check_back():
         data = request.get_json()  # 使用 get_json 解析 JSON 请求体
         info_front_list = data['info_front_list']
         portscan_part = data['portscan_part']
+        pachongselectpart = data['pachongselectpart']
+        # pachonginputid1 = data['pachonginputid1']
+        # pachonginputid2 = data['pachonginputid2']
+        # poxry_ip_port = "http://"+pachonginputid1+":"+pachonginputid2+"/"
         # 接收前端传入的值转为int型
         info_value_list = []
         for i in info_front_list:
@@ -2319,7 +2333,22 @@ def infoscan_check_back():
                     # 每次启动前清空上次扫描结果
                     bypass_status_result = basic.start40xbypass_lib()
                 else:
-                    bypass_status_result = "40xbypass扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif '8' in str(j):
+                # crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                
+                # 获取系统当前时间
+                current_time8 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes8 = basic.info_time_shijian_cha(8)
+                if int(diff_time_minutes8) > info_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.last_time_update_lib(current_time8,8)
+                    # 提交扫描任务
+                    # 每次启动前清空上次扫描结果
+                    crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                else:
+                    crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             else:
                 print("参数正在完善中...")
 
@@ -2352,6 +2381,10 @@ def infoscan_check_back():
             bypass_status_result1 = bypass_status_result
         except:
             bypass_status_result1 = ""
+        try:
+            crawlergo_status_result1 = crawlergo_status_result
+        except:
+            crawlergo_status_result1 = ""
         
         dict = {
             "key1":bbscan_status_result1,
@@ -2360,7 +2393,8 @@ def infoscan_check_back():
             "key4":crt_status_result1,
             "key5":nmap_status_result1,
             "key6":waf_status_result1,
-            "key7":bypass_status_result1
+            "key7":bypass_status_result1,
+            "key8":crawlergo_status_result1
         }
         message_json = {
             "dictkey1":dict['key1'],
@@ -2369,7 +2403,8 @@ def infoscan_check_back():
             "dictkey4":dict['key4'],
             "dictkey5":dict['key5'],
             "dictkey6":dict['key6'],
-            "dictkey7":dict['key7']
+            "dictkey7":dict['key7'],
+            "dictkey8":dict['key8']
         }
 
         return jsonify(message_json)
@@ -2640,6 +2675,21 @@ def vulnscan_check_back():
                                  
                 else:
                     fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'j' in str(k):
+                print("开启xray被动监听")
+                xray_status_result = basic.startxray_lib()
+                # # 获取系统当前时间
+                # current_time19 = time.time()
+                # # 当前时间和数据库中的作时间差
+                # diff_time_minutes19 = basic.vuln_time_shijian_cha(19)
+                # if int(diff_time_minutes19) > vuln_time_controls:
+                #     # 超过单位时间更新数据库中的时间
+                #     basic.vuln_last_time_update_lib(current_time19,19)
+                #     # 提交扫描任务
+                #     xray_status_result = basic.startxray_lib()
+                                 
+                # else:
+                #     xray_status_result = "xray漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -2844,6 +2894,10 @@ def vulnscan_check_back():
             fastjson_status_result1 = fastjson_status_result
         except:
             fastjson_status_result1 = ""
+        try:
+            xray_status_result1 = xray_status_result
+        except:
+            xray_status_result1 = ""
 
         message_json = {
             "struts2status_result":struts2status_result1,
@@ -2863,7 +2917,8 @@ def vulnscan_check_back():
             "nacos_status_result":nacos_status_result1,
             "tomcat_status_result":tomcat_status_result1,
             "jndi_status_result":jndi_status_result1,
-            "fastjson_status_result":fastjson_status_result1
+            "fastjson_status_result":fastjson_status_result1,
+            "xray_status_result":xray_status_result1
         }
 
         return jsonify(message_json)
@@ -2902,6 +2957,8 @@ def stop_infoscan_back():
                 kill_waf_result = basic.stopwafrecognize_lib()
             elif '7' in str(j):
                 kill_bypass_result = basic.stopbypass_lib()
+            elif '8' in str(j):
+                kill_crawlergo_result = basic.stop_crawlergo_lib()
             else:
                 print("参数正在完善中...")
         # 捕获异常
@@ -2934,6 +2991,10 @@ def stop_infoscan_back():
             kill_bypass_result1 = kill_bypass_result
         except:
             kill_bypass_result1 = ""
+        try:
+            kill_crawlergo_result1 = kill_crawlergo_result
+        except:
+            kill_crawlergo_result1 = ""
         
         dict = {
             "key11":kill_bbscan_result1,
@@ -2942,7 +3003,8 @@ def stop_infoscan_back():
             "key41":kill_crt_subdomain_result1,
             "key51":kill_nmap_result1,
             "key61":kill_waf_result1,
-            "key71":kill_bypass_result1
+            "key71":kill_bypass_result1,
+            "key81":kill_crawlergo_result1
         }
         message_json = {
             "dictkey11":dict['key11'],
@@ -2951,7 +3013,8 @@ def stop_infoscan_back():
             "dictkey41":dict['key41'],
             "dictkey51":dict['key51'],
             "dictkey61":dict['key61'],
-            "dictkey71":dict['key71']
+            "dictkey71":dict['key71'],
+            "dictkey81":dict['key81']
         }
 
         return jsonify(message_json)
@@ -3246,6 +3309,24 @@ def bypass_report_show():
         else:
             lines = []
             with open('/TIP/info_scan/result/403bypass_result.txt', 'r') as f:
+                for line in f:
+                    lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#crawlergo报告预览
+@app.route("/crawlergo_report_show/")
+def crawlergo_report_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        crawlergo_num = os.popen('bash /TIP/info_scan/finger.sh crawlergo_num').read()
+        if int(crawlergo_num) == 0:
+            lines = ["暂无数据"]
+        else:
+            lines = []
+            with open('/TIP/info_scan/result/crawlergo_result.txt', 'r') as f:
                 for line in f:
                     lines.append(line.strip())
         return '<br>'.join(lines)
