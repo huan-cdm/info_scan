@@ -17,9 +17,9 @@
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 <h2>集成相关工具：</h2> <br>
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos <br>
-综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei <br>
-信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo<br>
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat <br>
+综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
+信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
 相关工具逐步完善......
 <br><br>
 <h2>更新日志：</h2>
@@ -28,7 +28,7 @@
 2024-09-18更新<br> 
 1. 新增爬虫扫描；<br>
 2. 新增爬虫扫描流量代理；<br>
-3. xray网页启动正在开发中<br>
+3. xray+crawlergo联动批量扫描<br>
 4. 已知问题处理；<br>
 </li>
 <li>

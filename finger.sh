@@ -136,8 +136,20 @@ case "${1}" in
     fi
     ;;
 
+    # 关闭xray
+    stopxrayscan)
+    pidd=`ps -aux | grep xray_linux_amd64 |awk -F " " '{print $2}'`
+    
+    for ii in ${pidd}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
     # 开启xray
     startxray_scan)
+    # 需要进入下面的路径，否则无法启动程序
+    cd /TIP/batch_scan_domain/
     # 使用date命令生成当前的时间戳  
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")  
     #拼接文件名  

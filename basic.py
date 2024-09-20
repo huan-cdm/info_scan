@@ -1886,6 +1886,19 @@ def startxray_lib():
     return xraystatus_result
 
 
+
+# 关闭xray程序
+def stop_xray_lib():
+    xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+    os.popen('bash /TIP/info_scan/finger.sh stopxrayscan')
+    if "stop" in xray_status:
+        kill_xray_result = "已关闭xray监听程序"
+    else:
+        kill_xray_result = "正在关闭中......"
+    return kill_xray_result
+
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         func_name = sys.argv[1]

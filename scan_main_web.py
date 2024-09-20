@@ -2677,19 +2677,19 @@ def vulnscan_check_back():
                     fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'j' in str(k):
                 print("开启xray被动监听")
-                xray_status_result = basic.startxray_lib()
-                # # 获取系统当前时间
-                # current_time19 = time.time()
-                # # 当前时间和数据库中的作时间差
-                # diff_time_minutes19 = basic.vuln_time_shijian_cha(19)
-                # if int(diff_time_minutes19) > vuln_time_controls:
-                #     # 超过单位时间更新数据库中的时间
-                #     basic.vuln_last_time_update_lib(current_time19,19)
-                #     # 提交扫描任务
-                #     xray_status_result = basic.startxray_lib()
+                # xray_status_result = basic.startxray_lib()
+                # 获取系统当前时间
+                current_time19 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes19 = basic.vuln_time_shijian_cha(19)
+                if int(diff_time_minutes19) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time19,19)
+                    # 提交扫描任务
+                    xray_status_result = basic.startxray_lib()
                                  
-                # else:
-                #     xray_status_result = "xray漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                else:
+                    xray_status_result = "xray漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -3070,7 +3070,9 @@ def stop_vulnscan_back():
             elif 'h' in str(j):                
                 kill_jndi_result = basic.stopjndi_lib()
             elif 'i' in str(j):                
-                kill_fastjson_result = basic.stopfastjson_lib()    
+                kill_fastjson_result = basic.stopfastjson_lib()
+            elif 'j' in str(j):                
+                kill_fastjson_result = basic.stop_xray_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:

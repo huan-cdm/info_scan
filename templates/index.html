@@ -172,7 +172,7 @@
 					<th>名称</th>
 					<td>端口扫描</td>
 					<td>nuclei POC扫描</td>
-					<td>xray扫描</td>
+					<td>xray监听</td>
 					<td>rad扫描</td>
 					<td>目录扫描</td>
 					<td>weblogic漏洞扫描</td>
@@ -534,9 +534,9 @@
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
 		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
 		<div style="display:none;" id="vulnid1">
-			<span style="color:red">1. 单个扫描停止维护,请使用下面的批量扫描功能。</span><br>
-			<span style="color: red">2. fastjson扫描需先开启JNDI服务,否则会出现误报情况,可能会出现空报告情况,最终以JNDI服务日志为准。</span><br>
-			<span style="color: red">3. 按钮已加锁,需点击最上方的解锁按钮。</span><br>
+			<span style="color:red"><strong>1. 注意：单个扫描停止维护,请使用下面的批量扫描功能。按钮已加锁,需点击最上方的解锁按钮。</strong></span><br>
+			<span style="color: red"><strong>2. fastjson扫描：需先开启JNDI服务,点击最上方的系统管理查看JNDI服务运行情况,出现running,在开启fastjson漏洞扫描,fastjson可能会出现空报告清空,最终以JNDI请求日志为准。</strong></span><br>
+			<span style="color: red"><strong>3. xray+crawlergo批量扫描：需先开启xray监听,点击最上方的系统管理查看xray运行情况,出现running,然后在开启爬虫并且参数选择为转发爬虫流量,点击xray监听下的报告预览可查看扫描xray报告。</strong></span><br>
 			<table border="1">
 				<tr>
 					<td>
