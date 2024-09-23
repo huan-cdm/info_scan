@@ -3370,6 +3370,9 @@ def assetmanager_textarea_show():
         file = open(assetmanagerid1,encoding='utf-8')
         for line in file.readlines():
             url_list.append(line.strip())
+        # 判断数据是否为空
+        if len(url_list) == 0:
+            url_list.append("当前资产文件暂无数据！")
         message_json = {
             "url_list":url_list
         }
