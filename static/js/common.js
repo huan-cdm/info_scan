@@ -457,6 +457,10 @@ function startbutton() {
     button81.disabled = false;
     var button82 = document.getElementById("button82");
     button82.disabled = false;
+    var button83 = document.getElementById("button83");
+    button83.disabled = false;
+    var button84 = document.getElementById("button84");
+    button84.disabled = false;
 }
 
 //禁用按钮
@@ -609,6 +613,10 @@ function stopbutton() {
     button81.disabled = true;
     var button82 = document.getElementById("button82");
     button82.disabled = true;
+    var button83 = document.getElementById("button83");
+    button83.disabled = true;
+    var button84 = document.getElementById("button84");
+    button84.disabled = true;
 }
 
 
@@ -2960,4 +2968,54 @@ function vulnscanxuanzhongreportyulan() {
 function nmapportshowfunc(){
     var portscan_part = $('select[name="portscan_part"]').val();
     $('#myTextarea1').val(portscan_part);
+}
+
+
+//资产项目管理
+function assetmanagerfunc() {
+    var assetmanagerid1 = $('select[name="assetmanagerid1"]').val();
+    $.ajax({
+        url: '/assetmanager_textarea_show/',
+        method: 'POST',
+        data: {
+            assetmanagerid1: assetmanagerid1
+        },
+        success: function (info) {
+            // 假设info.textvalue是一个数组  
+            var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+
+            // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+            for (var i = 0; i < info.url_list.length; i++) {
+                textAreaContent += info.url_list[i] + '\n'; // 追加元素和换行符  
+            }
+
+            // 将textAreaContent的内容赋值给textarea  
+            $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+//清空fofa查询日志
+function clearfofashowlogfunc() {
+    $.ajax({
+        url: '/clearshowfofalog/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.assets_file_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
 }

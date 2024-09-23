@@ -49,7 +49,7 @@ import sys
 import threading
 from config import history_switch
 
-
+import datetime
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
@@ -692,6 +692,29 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
         for k in fofa_list_result_uniq:
             f.write(str(k)+"\n")
         f.close()
+
+        # 存入资产项目管理目录,前端通过下拉列表查看资产,以当前时间戳命名文件名
+        # 获取当前时间
+        now = datetime.datetime.now()
+        # 获取年月日时分秒，并确保月份和日期有两位数字
+        year = str(now.year)
+        month = now.month if now.month > 9 else f"0{now.month}"
+        day = now.day if now.day > 9 else f"0{now.day}"
+        hour = now.hour if now.hour > 9 else f"0{now.hour}"
+        minute = now.minute if now.minute > 9 else f"0{now.minute}"
+        second = now.second if now.second > 9 else f"0{now.second}"
+        
+        # 构建文件名
+        file_name = f"{year}/{month}/{day}{hour}:{minute}:{second}.txt"
+        file_name_result = f"/TIP/info_scan/result/assetmanager/{file_name}"
+        
+        # 确保目录存在
+        os.makedirs(os.path.dirname(file_name_result), exist_ok=True)
+        
+        # 打开文件并写入数据
+        with open(file=file_name_result, mode='w') as f21:
+            for line21 in fofa_list_result_uniq:
+                f21.write(str(line21) + "\n")
 
         # 资产备份
         os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
@@ -1896,6 +1919,17 @@ def stop_xray_lib():
     else:
         kill_xray_result = "正在关闭中......"
     return kill_xray_result
+
+
+# 资产管理遍历目录下的所有文件(绝对路径)
+def list_files_in_directory():
+    assset_file_list = []
+    root_dir = '/TIP/info_scan/result/assetmanager'
+    for root, dirs, files in os.walk(root_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            assset_file_list.append(file_path)
+    return assset_file_list
 
 
 

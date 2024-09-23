@@ -193,7 +193,8 @@ def ipscaninterface():
 def index():
     user = session.get('username')
     if str(user) == main_username:
-        return render_template('index.html',data20=str(user))
+        asset_file_list = basic.list_files_in_directory()
+        return render_template('index.html',data20=str(user),data21=asset_file_list)
     else:
         return render_template('login.html')
     
@@ -425,6 +426,29 @@ def submit_data():
                 for line in data:
                     f.write(str(line)+"\n")
                 f.close()
+                # 存入资产项目管理目录,前端通过下拉列表查看资产,以当前时间戳命名文件名
+                # 获取当前时间
+                now = datetime.datetime.now()
+                # 获取年月日时分秒，并确保月份和日期有两位数字
+                year = str(now.year)
+                month = now.month if now.month > 9 else f"0{now.month}"
+                day = now.day if now.day > 9 else f"0{now.day}"
+                hour = now.hour if now.hour > 9 else f"0{now.hour}"
+                minute = now.minute if now.minute > 9 else f"0{now.minute}"
+                second = now.second if now.second > 9 else f"0{now.second}"
+                
+                # 构建文件名
+                file_name = f"{year}/{month}/{day}{hour}:{minute}:{second}.txt"
+                file_name_result = f"/TIP/info_scan/result/assetmanager/{file_name}"
+                
+                # 确保目录存在
+                os.makedirs(os.path.dirname(file_name_result), exist_ok=True)
+                
+                # 打开文件并写入数据
+                with open(file=file_name_result, mode='w') as f21:
+                    for line21 in data:
+                        f21.write(str(line21) + "\n")
+
                 file_line = os.popen('bash /TIP/info_scan/finger.sh textarea_url_num').read()
                 result_rule = "已成功添加"+str(file_line)+"条资产"
                 #资产备份
@@ -3334,6 +3358,46 @@ def crawlergo_report_show():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
+
+
+#fofa查询日志
+@app.route("/assetmanager_textarea_show/",methods=['POST'])
+def assetmanager_textarea_show():
+    user = session.get('username')
+    if str(user) == main_username:
+        assetmanagerid1 = request.form['assetmanagerid1']
+        url_list = []
+        file = open(assetmanagerid1,encoding='utf-8')
+        for line in file.readlines():
+            url_list.append(line.strip())
+        message_json = {
+            "url_list":url_list
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 清空fofa查询日志
+@app.route("/clearshowfofalog/")
+def clearshowfofalog():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('rm -rf /TIP/info_scan/result/assetmanager/*')
+        assets_file_list = basic.list_files_in_directory()
+        if len(assets_file_list) == 0:
+            assets_file_result = "fofa查询日志已清空"
+        else:
+            assets_file_result = "fofa查询日志正在清空中......"
+        message_json = {
+            "assets_file_result":assets_file_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
 
 
 if __name__ == '__main__':  

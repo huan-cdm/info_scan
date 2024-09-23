@@ -1026,7 +1026,7 @@
 
 								<tr>
 									<td>
-										<textarea rows="9" cols="135" id="myTextarea">
+										<textarea rows="2" cols="152" id="myTextarea">
 ①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
 ②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；
 ③. 存活检测：资产存活情况探测；
@@ -1047,9 +1047,18 @@
 											<option value="1000">查询1000条</option>
 											<option value="10000">查询10000条</option>
 										</select>
-										<input type="submit" value="查询" onclick="fofa_search_assets_func()">
-										<input type="button" value="语法提示" onclick="fofayufa()">
+										<input type="submit" value="查询" onclick="fofa_search_assets_func()" id="button83" disabled>
+										<input type="button" value="语法提示" onclick="fofayufa()"><br>
+											<span>fofa查询日志：</span>
+											<select name="assetmanagerid1" onmouseenter="assetmanagerfunc()">
+												<option>刷新系统获取最新日志文件,选中文件会将数据显示到文本框</option>
+												{% for option in data21 %}
+												<option value="{{ option }}">{{option}}</option>
+												{% endfor %}
+											</select>
+											<input type="submit" value="清空日志" onclick="clearfofashowlogfunc()" id="button84" disabled>
 									</td>
+									
 								</tr>
 							</table>
 						</td>
