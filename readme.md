@@ -218,3 +218,5 @@ IP基础信息查询<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br><br>
 JNDI服务管理<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
+fofa搜索日志<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
