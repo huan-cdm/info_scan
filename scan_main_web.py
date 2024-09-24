@@ -1,7 +1,7 @@
 # Description:[主系统]
 # Author:[huan666]
 # Date:[2023/11/15]
-# update:[2024/9/12]
+# update:[2024/9/23]
 
 from flask import Flask, render_template,request
 from flask import session
@@ -3400,7 +3400,190 @@ def clearshowfofalog():
         return render_template('login.html')
 
 
+# 弱口令扫描字典配置
+@app.route("/dict_mysql_edit/")
+def dict_mysql_edit():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        mysql_user_dict_list = []
+        mysql_pass_dict_list = []
+        ssh_user_dict_list = []
+        ssh_pass_dict_list = []
+        ftp_user_dict_list = []
+        ftp_pass_dict_list = []
+        redis_pass_dict_list = []
+        mssql_user_dict_list = []
+        mssql_pass_dict_list = []
+        mysql_user = '/TIP/info_scan/dict/mysql/user.txt'
+        mysql_pass = '/TIP/info_scan/dict/mysql/pass.txt'
+        ssh_user = '/TIP/info_scan/dict/ssh/user.txt'
+        ssh_pass = '/TIP/info_scan/dict/ssh/pass.txt'
+        ftp_user = '/TIP/info_scan/dict/ftp/user.txt'
+        ftp_pass = '/TIP/info_scan/dict/ftp/pass.txt'
+        redis_pass = '/TIP/info_scan/dict/redis/pass.txt'
+        mssql_user = '/TIP/info_scan/dict/mssql/user.txt'
+        mssql_pass = '/TIP/info_scan/dict/mssql/pass.txt'
+        # mysql
+        file = open(mysql_user,encoding='utf-8')
+        for line in file.readlines():
+            mysql_user_dict_list.append(line.strip())
+        # 判断数据是否为空
+        if len(mysql_user_dict_list) == 0:
+            mysql_user_dict_list.append("暂无数据")
 
+        file1 = open(mysql_pass,encoding='utf-8')
+        for line1 in file1.readlines():
+            mysql_pass_dict_list.append(line1.strip())
+        # 判断数据是否为空
+        if len(mysql_pass_dict_list) == 0:
+            mysql_pass_dict_list.append("暂无数据")
+
+        # ssh
+        file2 = open(ssh_user,encoding='utf-8')
+        for line2 in file2.readlines():
+            ssh_user_dict_list.append(line2.strip())
+        # 判断数据是否为空
+        if len(ssh_user_dict_list) == 0:
+            ssh_user_dict_list.append("暂无数据")
+
+        file3 = open(ssh_pass,encoding='utf-8')
+        for line3 in file3.readlines():
+            ssh_pass_dict_list.append(line3.strip())
+        # 判断数据是否为空
+        if len(ssh_pass_dict_list) == 0:
+            ssh_pass_dict_list.append("暂无数据")
+
+        # ftp
+        file4 = open(ftp_user,encoding='utf-8')
+        for line4 in file4.readlines():
+            ftp_user_dict_list.append(line4.strip())
+        # 判断数据是否为空
+        if len(ftp_user_dict_list) == 0:
+            ftp_user_dict_list.append("暂无数据")
+        
+        file5 = open(ftp_pass,encoding='utf-8')
+        for line5 in file5.readlines():
+            ftp_pass_dict_list.append(line5.strip())
+        # 判断数据是否为空
+        if len(ftp_pass_dict_list) == 0:
+            ftp_pass_dict_list.append("暂无数据")
+
+        # redis
+        file7 = open(redis_pass,encoding='utf-8')
+        for line7 in file7.readlines():
+            redis_pass_dict_list.append(line7.strip())
+        # 判断数据是否为空
+        if len(redis_pass_dict_list) == 0:
+            redis_pass_dict_list.append("暂无数据")
+        
+        # mssql
+        file8 = open(mssql_user,encoding='utf-8')
+        for line8 in file8.readlines():
+            mssql_user_dict_list.append(line8.strip())
+        # 判断数据是否为空
+        if len(mssql_user_dict_list) == 0:
+            mssql_user_dict_list.append("暂无数据")
+        
+        file9 = open(mssql_pass,encoding='utf-8')
+        for line9 in file9.readlines():
+            mssql_pass_dict_list.append(line9.strip())
+        # 判断数据是否为空
+        if len(mssql_pass_dict_list) == 0:
+            mssql_pass_dict_list.append("暂无数据")
+
+        message_json = {
+            "mysql_user_dict_list":mysql_user_dict_list,
+            "mysql_pass_dict_list":mysql_pass_dict_list,
+            "ssh_user_dict_list":ssh_user_dict_list,
+            "ssh_pass_dict_list":ssh_pass_dict_list,
+            "ftp_user_dict_list":ftp_user_dict_list,
+            "ftp_pass_dict_list":ftp_pass_dict_list,
+            "redis_pass_dict_list":redis_pass_dict_list,
+            "mssql_user_dict_list":mssql_user_dict_list,
+            "mssql_pass_dict_list":mssql_pass_dict_list
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 弱口令扫描字典配置
+@app.route('/hydradictconfig/', methods=['POST'])  
+def hydradictconfig():
+    user = session.get('username')
+    if str(user) == main_username: 
+        # 筛选后资产时间线更新
+        basic.assets_status_update('弱口令扫描字典已更新')
+        data = request.get_json()
+
+        # mysql相关
+        line_mysqltextarea1 = data['line_mysqltextarea1']
+        line_mysqltextarea2 = data['line_mysqltextarea2']
+        
+        # 列表中数据存入文件中
+        f1 = open(file='/TIP/info_scan/dict/mysql/user.txt',mode='w')
+        for line1 in line_mysqltextarea1:
+            f1.write(str(line1)+"\n")
+        f1.close()
+        f2 = open(file='/TIP/info_scan/dict/mysql/pass.txt',mode='w')
+        for line2 in line_mysqltextarea2:
+            f2.write(str(line2)+"\n")
+        f2.close()
+
+        # ssh相关
+        line_sshtextarea1 = data['line_sshtextarea1']
+        line_sshtextarea2 = data['line_sshtextarea2']
+        f3 = open(file='/TIP/info_scan/dict/ssh/user.txt',mode='w')
+        for line3 in line_sshtextarea1:
+            f3.write(str(line3)+"\n")
+        f3.close()
+
+        f4 = open(file='/TIP/info_scan/dict/ssh/pass.txt',mode='w')
+        for line4 in line_sshtextarea2:
+            f4.write(str(line4)+"\n")
+        f4.close()
+
+        # ftp相关
+        line_ftptextarea1 = data['line_ftptextarea1']
+        line_ftptextarea2 = data['line_ftptextarea2']
+        f5 = open(file='/TIP/info_scan/dict/ftp/user.txt',mode='w')
+        for line5 in line_ftptextarea1:
+            f5.write(str(line5)+"\n")
+        f5.close()
+
+        f6 = open(file='/TIP/info_scan/dict/ftp/pass.txt',mode='w')
+        for line6 in line_ftptextarea2:
+            f6.write(str(line6)+"\n")
+        f6.close()
+
+        # redis相关
+        line_redistextarea2 = data['line_redistextarea2']
+        f7 = open(file='/TIP/info_scan/dict/redis/pass.txt',mode='w')
+        for line7 in line_redistextarea2:
+            f7.write(str(line7)+"\n")
+        f7.close()
+
+        # mssql相关
+        line_mssqltextarea1 = data['line_mssqltextarea1']
+        line_mssqltextarea2 = data['line_mssqltextarea2']
+        f8 = open(file='/TIP/info_scan/dict/mssql/user.txt',mode='w')
+        for line8 in line_mssqltextarea1:
+            f8.write(str(line8)+"\n")
+        f8.close()
+
+        f9 = open(file='/TIP/info_scan/dict/mssql/pass.txt',mode='w')
+        for line9 in line_mssqltextarea2:
+            f9.write(str(line9)+"\n")
+        f9.close()
+
+        message_json = {
+            "mysql_dict_result":"已保存成功！！！"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  

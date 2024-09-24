@@ -395,7 +395,7 @@
 		</div>
 	</div>
 
-
+	<!-- fofa语法提示 -->
 	<div id="modal1" class="modal1">
 		<div class="modal-content1">
 			<span class="close" onclick="closeModal1()">&times;</span>
@@ -411,6 +411,50 @@
 
 		</div>
 	</div>
+
+	<!-- 弱口令扫描字典配置 -->
+	<div id="moda22" class="moda22">
+		<div class="modal-content2">
+			<span class="close" onclick="closeModa22()">&times;</span>
+			<strong style="color: chocolate;">弱口令扫描字典配置,修改完点击保存即可</strong><br>
+			<span>mysql字典</span><br>
+			<div id="divdictid1" style="display: none;">
+				<textarea rows="3" cols="30" id="mysqltextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="mysqltextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+				<span>ssh字典</span><br>
+				<textarea rows="3" cols="30" id="sshtextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="sshtextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+
+				<span>ftp字典</span><br>
+				<textarea rows="3" cols="30" id="ftptextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="ftptextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+
+				<span>redis字典</span><br>
+				<textarea rows="3" cols="30" id="redistextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+
+				<span>mssql字典</span><br>
+				<textarea rows="3" cols="30" id="mssqltextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="mssqltextarea2" style="width: 729px; height: 89px;">
+				</textarea>
+				<span style="cursor: pointer;" onclick="hydra_dict_submit_func()">保存</span>
+			</div>
+
+		</div>
+	</div>
+
+
 
 	<h3>IP搜索</h3>
 	<div>
@@ -535,8 +579,10 @@
 		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
 		<div style="display:none;" id="vulnid1">
 			<span style="color:red"><strong>1. 注意：单个扫描停止维护,请使用下面的批量扫描功能。按钮已加锁,需点击最上方的解锁按钮。</strong></span><br>
-			<span style="color: red"><strong>2. fastjson扫描：需先开启JNDI服务,点击最上方的系统管理查看JNDI服务运行情况,出现running,在开启fastjson漏洞扫描,fastjson可能会出现空报告清空,最终以JNDI请求日志为准。</strong></span><br>
-			<span style="color: red"><strong>3. xray+crawlergo批量扫描：需先开启xray监听,点击最上方的系统管理查看xray运行情况,出现running,然后在开启爬虫并且参数选择为转发爬虫流量,点击xray监听下的报告预览可查看扫描xray报告。</strong></span><br>
+			<span style="color: red"><strong>2.
+					fastjson扫描：需先开启JNDI服务,点击最上方的系统管理查看JNDI服务运行情况,出现running,在开启fastjson漏洞扫描,fastjson可能会出现空报告清空,最终以JNDI请求日志为准。</strong></span><br>
+			<span style="color: red"><strong>3.
+					xray+crawlergo批量扫描：需先开启xray监听,点击最上方的系统管理查看xray运行情况,出现running,然后在开启爬虫并且参数选择为转发爬虫流量,点击xray监听下的报告预览可查看扫描xray报告。</strong></span><br>
 			<table border="1">
 				<tr>
 					<td>
@@ -821,7 +867,9 @@
 							<option value="3">ftp</option>
 							<option value="4">redis</option>
 							<option value="5">mssql</option>
-						</select><br>
+						</select>
+						<input type="button" value="配置字典" onclick="hydradictfunc()">
+						<br>
 						vulmap扫描参数：
 						<select name="vulnname">
 							<option value="all">all</option>
@@ -860,8 +908,8 @@
 							<option value="1">不转发爬虫流量</option>
 							<option value="2">转发爬虫流量</option>
 						</select>
-					
-						
+
+
 					</td>
 
 				</tr>
@@ -920,7 +968,7 @@
 						<span><strong>OA类：</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="option14" name="option" value="c">
 						<label for="option14">泛微OA</label>
-						
+
 					</td>
 				</tr>
 				<tr>
@@ -1047,18 +1095,20 @@
 											<option value="1000">查询1000条</option>
 											<option value="10000">查询10000条</option>
 										</select>
-										<input type="submit" value="查询" onclick="fofa_search_assets_func()" id="button83" disabled>
+										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
+											id="button83" disabled>
 										<input type="button" value="语法提示" onclick="fofayufa()"><br>
-											<span>fofa查询日志：</span>
-											<select name="assetmanagerid1" onmouseenter="assetmanagerfunc()">
-												<option>刷新系统获取最新日志文件,选中文件会将数据显示到文本框</option>
-												{% for option in data21 %}
-												<option value="{{ option }}">{{option}}</option>
-												{% endfor %}
-											</select>
-											<input type="submit" value="清空日志" onclick="clearfofashowlogfunc()" id="button84" disabled>
+										<span>fofa查询日志：</span>
+										<select name="assetmanagerid1" onmouseenter="assetmanagerfunc()">
+											<option>刷新系统获取最新日志文件,选中文件会将数据显示到文本框</option>
+											{% for option in data21 %}
+											<option value="{{ option }}">{{option}}</option>
+											{% endfor %}
+										</select>
+										<input type="submit" value="清空日志" onclick="clearfofashowlogfunc()" id="button84"
+											disabled>
 									</td>
-									
+
 								</tr>
 							</table>
 						</td>

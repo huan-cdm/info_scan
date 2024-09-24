@@ -25,6 +25,12 @@
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-09-23更新<br> 
+1. 新增弱口令扫描前端字典配置功能；<br>
+2. 前端页面优化；<br>
+3. 已知问题处理；<br>
+</li>
+<li>
 2024-09-22更新<br> 
 1. 新增fofa查询日志查看与删除；<br>
 2. 前端页面优化；<br>
@@ -220,3 +226,5 @@ JNDI服务管理<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
 fofa搜索日志<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
+弱口令扫描字典配置<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>

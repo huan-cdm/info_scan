@@ -143,9 +143,8 @@ function sendtextareadata() {
     });
 }
 
+
 //启动xray和rad提示
-
-
 function startradandxray() {
     alert("进入命令行分别开启xray和rad" + "\n" + "启动rad：python3 /TIP/batch_scan_domain/radscan.py" + "\n" +
         "启动xray：bash /TIP/batch_scan_domain/start.sh startxray")
@@ -1249,7 +1248,7 @@ function openModal() {
 
                 document.getElementById("spp3").innerHTML = info.xraystatus1;
                 document.getElementById("spp3a").innerHTML = info.xraystatus2;
-                
+
                 document.getElementById("spp4").innerHTML = info.radstatus1;
                 document.getElementById("spp4a").innerHTML = info.radstatus2;
 
@@ -1390,6 +1389,122 @@ function closeModal1() {
     var modal1 = document.getElementById("modal1");
     modal1.style.display = "none";
 }
+
+// 弱口令扫描字典配置
+function hydradictfunc() {
+    var moda22 = document.getElementById("moda22");
+    moda22.style.display = "block";
+
+    // 打开口令配置文本框
+    var divdictid1 = document.getElementById("divdictid1");
+    divdictid1.style.display = "block";
+
+
+    $.ajax({
+        url: '/dict_mysql_edit/',
+        method: 'GET',
+
+        success: function (info) {
+            // mysql相关
+            // 账号展示
+            // 假设info.textvalue是一个数组  
+            var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+
+            // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+            for (var i = 0; i < info.mysql_user_dict_list.length; i++) {
+                textAreaContent += info.mysql_user_dict_list[i] + '\n'; // 追加元素和换行符  
+            }
+
+            // 将textAreaContent的内容赋值给textarea  
+            $('#mysqltextarea1').val(textAreaContent); // 假设textarea的id是myTextarea  
+
+            // 密码展示
+            var textAreaContent1 = '';
+            for (var i = 0; i < info.mysql_pass_dict_list.length; i++) {
+                textAreaContent1 += info.mysql_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#mysqltextarea2').val(textAreaContent1);
+
+            // ssh相关
+            var textAreaContent2 = '';
+            for (var i = 0; i < info.ssh_user_dict_list.length; i++) {
+                textAreaContent2 += info.ssh_user_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#sshtextarea1').val(textAreaContent2);
+
+            var textAreaContent3 = '';
+            for (var i = 0; i < info.ssh_pass_dict_list.length; i++) {
+                textAreaContent3 += info.ssh_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#sshtextarea2').val(textAreaContent3);
+
+            // ftp相关
+            var textAreaContent4 = '';
+            for (var i = 0; i < info.ftp_user_dict_list.length; i++) {
+                textAreaContent4 += info.ftp_user_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#ftptextarea1').val(textAreaContent4);
+
+            var textAreaContent5 = '';
+            for (var i = 0; i < info.ftp_pass_dict_list.length; i++) {
+                textAreaContent5 += info.ftp_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#ftptextarea2').val(textAreaContent5);
+
+            // redis相关
+            var textAreaContent7 = '';
+            for (var i = 0; i < info.redis_pass_dict_list.length; i++) {
+                textAreaContent7 += info.redis_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#redistextarea2').val(textAreaContent7);
+
+            // mssql相关
+            var textAreaContent8 = '';
+            for (var i = 0; i < info.mssql_user_dict_list.length; i++) {
+                textAreaContent8 += info.mssql_user_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#mssqltextarea1').val(textAreaContent8);
+
+            var textAreaContent9 = '';
+            for (var i = 0; i < info.mssql_pass_dict_list.length; i++) {
+                textAreaContent9 += info.mssql_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#mssqltextarea2').val(textAreaContent9);
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+
+
+}
+function closeModa22() {
+    var moda22 = document.getElementById("moda22");
+    moda22.style.display = "none";
+    var divdictid1 = document.getElementById("divdictid1");
+    divdictid1.style.display = "none";
+}
+
+// function openmysqldictfunc() {
+//     var divdictid1 = document.getElementById("divdictid1");
+//     divdictid1.style.display = "block";
+
+
+// }
+
 
 
 
@@ -2685,7 +2800,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result+"\n"+info.es_status_result+"\n"+info.nacos_status_result+"\n"+info.tomcat_status_result+"\n"+info.jndi_status_result+"\n"+info.fastjson_status_result+"\n"+info.xray_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result)
         },
 
         error: function (info) {
@@ -2721,12 +2836,12 @@ function infoxuanzhongscan() {
     $.ajax({
         url: '/infoscan_check_back/',
         method: 'POST',
-        data: JSON.stringify({ info_front_list: info_front_list, portscan_part:portscan_part, pachongselectpart:pachongselectpart}), // 发送 JSON 字符串
+        data: JSON.stringify({ info_front_list: info_front_list, portscan_part: portscan_part, pachongselectpart: pachongselectpart }), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5+"\n"+info.dictkey6+"\n"+info.dictkey7+"\n"+info.dictkey8)
+            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5 + "\n" + info.dictkey6 + "\n" + info.dictkey7 + "\n" + info.dictkey8)
         },
 
         error: function (info) {
@@ -2773,11 +2888,11 @@ function infoxuanzhongreportyulan() {
             window.open("/showsubdomainreport/", "_blank");
         } else if (info_front_list[i] == '5') {
             window.open("/nmapresultshow/", "_blank");
-        }else if (info_front_list[i] == '6') {
+        } else if (info_front_list[i] == '6') {
             window.open("/waf_report_show/", "_blank");
-        }else if (info_front_list[i] == '7') {
+        } else if (info_front_list[i] == '7') {
             window.open("/bypass_report_show/", "_blank");
-        }else if (info_front_list[i] == '8') {
+        } else if (info_front_list[i] == '8') {
             window.open("/crawlergo_report_show/", "_blank");
         }
     }
@@ -2805,7 +2920,7 @@ function infoxuanzhongstopscanfunc() {
         dataType: 'json', // 期望服务器返回的数据类型
         // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51+"\n"+info.dictkey61+"\n"+info.dictkey71+"\n"+info.dictkey81)
+            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81)
         },
 
         error: function (info) {
@@ -2836,13 +2951,13 @@ function vulnxuanzhongstopscanfunc() {
         url: '/stop_vulnscan_back/',
         method: 'POST',
         // 发送 JSON 字符串
-        data: JSON.stringify({ vuln_front_list: vuln_front_list }), 
+        data: JSON.stringify({ vuln_front_list: vuln_front_list }),
         // 告诉服务器发送的数据是 JSON 格式
-        contentType: 'application/json', 
+        contentType: 'application/json',
         // 期望服务器返回的数据类型
-        dataType: 'json', 
+        dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result+"\n"+info.kill_weblogic_result+"\n"+info.kill_shiro_result+"\n"+info.kill_springboot_result+"\n"+info.kill_thinkphp_result+"\n"+info.kill_afrog_result+"\n"+info.kill_fscan_result+"\n"+info.kill_hydra_result+"\n"+info.kill_urlfinder_result+"\n"+info.kill_vulmap_result+"\n"+info.kill_nuclei_result+"\n"+info.kill_weaver_result+"\n"+info.kill_point_assset_result+"\n"+info.kill_es_result+"\n"+info.kill_nacos_result+"\n"+info.kill_tomcat_result+"\n"+info.kill_jndi_result+"\n"+info.kill_fastjson_result)
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result)
         },
 
         error: function (info) {
@@ -2946,17 +3061,17 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/springboot_report_show/", "_blank");
             window.open("/struts2_poc_report/", "_blank");
             window.open("/weblogic_poc_report/", "_blank");
-        }else if (vuln_front_list[i] == 'e'){
+        } else if (vuln_front_list[i] == 'e') {
             window.open("/es_unauthorized_report/", "_blank");
-        }else if (vuln_front_list[i] == 'f'){
+        } else if (vuln_front_list[i] == 'f') {
             window.open("/nacos_scan_report/", "_blank");
-        }else if (vuln_front_list[i] == 'g'){
+        } else if (vuln_front_list[i] == 'g') {
             window.open("/tomcat_scan_report/", "_blank");
-        }else if (vuln_front_list[i] == 'h'){
+        } else if (vuln_front_list[i] == 'h') {
             window.open("/jndi_report_show/", "_blank");
-        }else if (vuln_front_list[i] == 'i'){
+        } else if (vuln_front_list[i] == 'i') {
             window.open("/fastjson_report_show/", "_blank");
-        }else if (vuln_front_list[i] == 'j'){
+        } else if (vuln_front_list[i] == 'j') {
             window.open(ipvalue + ":18888/", "_blank");
         }
 
@@ -2965,7 +3080,7 @@ function vulnscanxuanzhongreportyulan() {
 
 
 // 端口扫描参数值查看
-function nmapportshowfunc(){
+function nmapportshowfunc() {
     var portscan_part = $('select[name="portscan_part"]').val();
     $('#myTextarea1').val(portscan_part);
 }
@@ -3018,4 +3133,46 @@ function clearfofashowlogfunc() {
 
         }
     })
+}
+
+
+// 弱口令扫描字典配置
+function hydra_dict_submit_func() {
+    // 获取textarea的值  
+    const mysqltextarea1 = document.getElementById('mysqltextarea1').value;
+    const mysqltextarea2 = document.getElementById('mysqltextarea2').value;
+    const sshtextarea1 = document.getElementById('sshtextarea1').value;
+    const sshtextarea2 = document.getElementById('sshtextarea2').value;
+    const ftptextarea1 = document.getElementById('ftptextarea1').value;
+    const ftptextarea2 = document.getElementById('ftptextarea2').value;
+    const redistextarea2 = document.getElementById('redistextarea2').value;
+    const mssqltextarea1 = document.getElementById('mssqltextarea1').value;
+    const mssqltextarea2 = document.getElementById('mssqltextarea2').value;
+    // 按换行符分割文本为数组  
+    const line_mysqltextarea1 = mysqltextarea1.split('\n');
+    const line_mysqltextarea2 = mysqltextarea2.split('\n');
+    const line_sshtextarea1 = sshtextarea1.split('\n');
+    const line_sshtextarea2 = sshtextarea2.split('\n');
+    const line_ftptextarea1 = ftptextarea1.split('\n');
+    const line_ftptextarea2 = ftptextarea2.split('\n');
+    const line_redistextarea2 = redistextarea2.split('\n');
+    const line_mssqltextarea1 = mssqltextarea1.split('\n');
+    const line_mssqltextarea2 = mssqltextarea2.split('\n');
+    // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
+    $.ajax({
+        url: '/hydradictconfig/',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2:line_mysqltextarea2,line_sshtextarea1:line_sshtextarea1, line_sshtextarea2:line_sshtextarea2,line_ftptextarea1:line_ftptextarea1,line_ftptextarea2:line_ftptextarea2,line_redistextarea2:line_redistextarea2,line_mssqltextarea1:line_mssqltextarea1,line_mssqltextarea2:line_mssqltextarea2}),
+        dataType: 'json',
+        success: function (info) {
+            alert(info.mysql_dict_result)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    });
 }
