@@ -1430,7 +1430,7 @@ case "${1}" in
 
     # 关闭crawlergo爬虫
     stop_crawlergo)
-    crawlergo_pid=`ps -aux | grep "crawlergo_linux_amd64" |awk -F " " '{print $2}'`
+    crawlergo_pid=`ps -aux | grep "crawlergo" |awk -F " " '{print $2}'`
     for ii in ${crawlergo_pid}
 	do
 		kill -9 ${ii} 2>/dev/null

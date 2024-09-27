@@ -2272,9 +2272,7 @@ def infoscan_check_back():
         info_front_list = data['info_front_list']
         portscan_part = data['portscan_part']
         pachongselectpart = data['pachongselectpart']
-        # pachonginputid1 = data['pachonginputid1']
-        # pachonginputid2 = data['pachonginputid2']
-        # poxry_ip_port = "http://"+pachonginputid1+":"+pachonginputid2+"/"
+        
         # 接收前端传入的值转为int型
         info_value_list = []
         for i in info_front_list:

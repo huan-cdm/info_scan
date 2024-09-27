@@ -1837,21 +1837,35 @@ def start_crawlergo_lib(pachongselectpart):
     # poxry_ip_port 转发的流量和端口
    
     crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+    xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
     if "running" in crawlergo_status:
         crawlergostatus_result = "爬虫程序正在运行中请勿重复提交"
     else:
         try:
             if int(pachongselectpart) == 1:
                 os.popen('bash /TIP/info_scan/finger.sh start_crawlergo_shell')
+                if "running" in crawlergo_status:
+                    crawlergostatus_result = "爬虫程序已开启稍后查看结果"
+                else:
+                    crawlergostatus_result = "爬虫程序正在后台启动中......"
             elif int(pachongselectpart) == 2:
                 print("传入值为2")
-                os.popen('bash /TIP/info_scan/finger.sh start_crawlergo_proxy_shell')
+                # 判断xray是否开启监听，未开启监听不允许提交爬虫转发的流量
+                if "running" in xray_status:
+                    os.popen('bash /TIP/info_scan/finger.sh start_crawlergo_proxy_shell')
+                    if "running" in crawlergo_status:
+                        crawlergostatus_result = "爬虫程序已开启稍后查看结果"
+                    else:
+                        crawlergostatus_result = "爬虫程序正在后台启动中......"
+                else:
+                    crawlergostatus_result = "xray未开启被动监听无法开启爬虫流量转发"
             else:
                 print("参数只为0/1")
-            if "running" in crawlergo_status:
-                crawlergostatus_result = "爬虫程序已开启稍后查看结果"
-            else:
-                crawlergostatus_result = "爬虫程序正在后台启动中......"
+
+            # if "running" in crawlergo_status:
+            #     crawlergostatus_result = "爬虫程序已开启稍后查看结果"
+            # else:
+            #     crawlergostatus_result = "爬虫程序正在后台启动中......"
         except Exception as e:
             print("捕获到异常:", e)
     return crawlergostatus_result
