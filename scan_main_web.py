@@ -43,13 +43,28 @@ import psutil
 import pymysql
 # 设置session过期时间
 from datetime import timedelta
-# 导入线程模块
-import threading
+
 # 导入时间模块
 import time
 import datetime
+
+# 扫面时间差控制
 from config import info_time_controls
 from config import vuln_time_controls
+
+# 弱口令扫描字典
+from config import mysql_dict_user_dir
+from config import mysql_dict_pass_dir
+from config import ssh_dict_user_dir
+from config import ssh_dict_pass_dir
+from config import ftp_dict_user_dir
+from config import ftp_dict_pass_dir
+from config import redis_dict_pass_dir
+from config import mssql_dict_user_dir
+from config import mssql_dict_pass_dir
+
+# 统计列表元素出现次数
+from collections import Counter
 
 
 app = Flask(__name__,template_folder='./templates') 
@@ -3400,7 +3415,7 @@ def clearshowfofalog():
         return render_template('login.html')
 
 
-# 弱口令扫描字典配置
+# 弱口令扫描字典配置编辑
 @app.route("/dict_mysql_edit/")
 def dict_mysql_edit():
     user = session.get('username')
@@ -3415,24 +3430,16 @@ def dict_mysql_edit():
         redis_pass_dict_list = []
         mssql_user_dict_list = []
         mssql_pass_dict_list = []
-        mysql_user = '/TIP/info_scan/dict/mysql/user.txt'
-        mysql_pass = '/TIP/info_scan/dict/mysql/pass.txt'
-        ssh_user = '/TIP/info_scan/dict/ssh/user.txt'
-        ssh_pass = '/TIP/info_scan/dict/ssh/pass.txt'
-        ftp_user = '/TIP/info_scan/dict/ftp/user.txt'
-        ftp_pass = '/TIP/info_scan/dict/ftp/pass.txt'
-        redis_pass = '/TIP/info_scan/dict/redis/pass.txt'
-        mssql_user = '/TIP/info_scan/dict/mssql/user.txt'
-        mssql_pass = '/TIP/info_scan/dict/mssql/pass.txt'
+        
         # mysql
-        file = open(mysql_user,encoding='utf-8')
+        file = open(mysql_dict_user_dir,encoding='utf-8')
         for line in file.readlines():
             mysql_user_dict_list.append(line.strip())
         # 判断数据是否为空
         if len(mysql_user_dict_list) == 0:
             mysql_user_dict_list.append("暂无数据")
 
-        file1 = open(mysql_pass,encoding='utf-8')
+        file1 = open(mysql_dict_pass_dir,encoding='utf-8')
         for line1 in file1.readlines():
             mysql_pass_dict_list.append(line1.strip())
         # 判断数据是否为空
@@ -3440,14 +3447,14 @@ def dict_mysql_edit():
             mysql_pass_dict_list.append("暂无数据")
 
         # ssh
-        file2 = open(ssh_user,encoding='utf-8')
+        file2 = open(ssh_dict_user_dir,encoding='utf-8')
         for line2 in file2.readlines():
             ssh_user_dict_list.append(line2.strip())
         # 判断数据是否为空
         if len(ssh_user_dict_list) == 0:
             ssh_user_dict_list.append("暂无数据")
 
-        file3 = open(ssh_pass,encoding='utf-8')
+        file3 = open(ssh_dict_pass_dir,encoding='utf-8')
         for line3 in file3.readlines():
             ssh_pass_dict_list.append(line3.strip())
         # 判断数据是否为空
@@ -3455,14 +3462,14 @@ def dict_mysql_edit():
             ssh_pass_dict_list.append("暂无数据")
 
         # ftp
-        file4 = open(ftp_user,encoding='utf-8')
+        file4 = open(ftp_dict_user_dir,encoding='utf-8')
         for line4 in file4.readlines():
             ftp_user_dict_list.append(line4.strip())
         # 判断数据是否为空
         if len(ftp_user_dict_list) == 0:
             ftp_user_dict_list.append("暂无数据")
         
-        file5 = open(ftp_pass,encoding='utf-8')
+        file5 = open(ftp_dict_pass_dir,encoding='utf-8')
         for line5 in file5.readlines():
             ftp_pass_dict_list.append(line5.strip())
         # 判断数据是否为空
@@ -3470,7 +3477,7 @@ def dict_mysql_edit():
             ftp_pass_dict_list.append("暂无数据")
 
         # redis
-        file7 = open(redis_pass,encoding='utf-8')
+        file7 = open(redis_dict_pass_dir,encoding='utf-8')
         for line7 in file7.readlines():
             redis_pass_dict_list.append(line7.strip())
         # 判断数据是否为空
@@ -3478,14 +3485,14 @@ def dict_mysql_edit():
             redis_pass_dict_list.append("暂无数据")
         
         # mssql
-        file8 = open(mssql_user,encoding='utf-8')
+        file8 = open(mssql_dict_user_dir,encoding='utf-8')
         for line8 in file8.readlines():
             mssql_user_dict_list.append(line8.strip())
         # 判断数据是否为空
         if len(mssql_user_dict_list) == 0:
             mssql_user_dict_list.append("暂无数据")
         
-        file9 = open(mssql_pass,encoding='utf-8')
+        file9 = open(mssql_dict_pass_dir,encoding='utf-8')
         for line9 in file9.readlines():
             mssql_pass_dict_list.append(line9.strip())
         # 判断数据是否为空
@@ -3509,7 +3516,7 @@ def dict_mysql_edit():
         return render_template('login.html')
 
 
-# 弱口令扫描字典配置
+# 弱口令扫描字典配置保存
 @app.route('/hydradictconfig/', methods=['POST'])  
 def hydradictconfig():
     user = session.get('username')
@@ -3523,11 +3530,11 @@ def hydradictconfig():
         line_mysqltextarea2 = data['line_mysqltextarea2']
         
         # 列表中数据存入文件中
-        f1 = open(file='/TIP/info_scan/dict/mysql/user.txt',mode='w')
+        f1 = open(file=mysql_dict_user_dir,mode='w')
         for line1 in line_mysqltextarea1:
             f1.write(str(line1)+"\n")
         f1.close()
-        f2 = open(file='/TIP/info_scan/dict/mysql/pass.txt',mode='w')
+        f2 = open(file=mysql_dict_pass_dir,mode='w')
         for line2 in line_mysqltextarea2:
             f2.write(str(line2)+"\n")
         f2.close()
@@ -3535,12 +3542,12 @@ def hydradictconfig():
         # ssh相关
         line_sshtextarea1 = data['line_sshtextarea1']
         line_sshtextarea2 = data['line_sshtextarea2']
-        f3 = open(file='/TIP/info_scan/dict/ssh/user.txt',mode='w')
+        f3 = open(file=ssh_dict_user_dir,mode='w')
         for line3 in line_sshtextarea1:
             f3.write(str(line3)+"\n")
         f3.close()
 
-        f4 = open(file='/TIP/info_scan/dict/ssh/pass.txt',mode='w')
+        f4 = open(file=ssh_dict_pass_dir,mode='w')
         for line4 in line_sshtextarea2:
             f4.write(str(line4)+"\n")
         f4.close()
@@ -3548,19 +3555,19 @@ def hydradictconfig():
         # ftp相关
         line_ftptextarea1 = data['line_ftptextarea1']
         line_ftptextarea2 = data['line_ftptextarea2']
-        f5 = open(file='/TIP/info_scan/dict/ftp/user.txt',mode='w')
+        f5 = open(file=ftp_dict_user_dir,mode='w')
         for line5 in line_ftptextarea1:
             f5.write(str(line5)+"\n")
         f5.close()
 
-        f6 = open(file='/TIP/info_scan/dict/ftp/pass.txt',mode='w')
+        f6 = open(file=ftp_dict_pass_dir,mode='w')
         for line6 in line_ftptextarea2:
             f6.write(str(line6)+"\n")
         f6.close()
 
         # redis相关
         line_redistextarea2 = data['line_redistextarea2']
-        f7 = open(file='/TIP/info_scan/dict/redis/pass.txt',mode='w')
+        f7 = open(file=redis_dict_pass_dir,mode='w')
         for line7 in line_redistextarea2:
             f7.write(str(line7)+"\n")
         f7.close()
@@ -3568,18 +3575,38 @@ def hydradictconfig():
         # mssql相关
         line_mssqltextarea1 = data['line_mssqltextarea1']
         line_mssqltextarea2 = data['line_mssqltextarea2']
-        f8 = open(file='/TIP/info_scan/dict/mssql/user.txt',mode='w')
+        f8 = open(file=mssql_dict_user_dir,mode='w')
         for line8 in line_mssqltextarea1:
             f8.write(str(line8)+"\n")
         f8.close()
 
-        f9 = open(file='/TIP/info_scan/dict/mssql/pass.txt',mode='w')
+        f9 = open(file=mssql_dict_pass_dir,mode='w')
         for line9 in line_mssqltextarea2:
             f9.write(str(line9)+"\n")
         f9.close()
 
+        # 判断数据是否添加成功
+        line_mysqltextarea1_list = []
+        file_a = open(mysql_dict_user_dir,encoding='utf-8')
+        for line_a in file_a.readlines():
+            line_mysqltextarea1_list.append(line_a.strip())
+        line_mysqltextarea2_list = []
+        file_b = open(mysql_dict_pass_dir,encoding='utf-8')
+        for line_b in file_b.readlines():
+            line_mysqltextarea2_list.append(line_b.strip())
+
+        line_sshtextarea1_list = []
+        file_c = open(ssh_dict_user_dir,encoding='utf-8')
+        for line_c in file_c.readlines():
+            line_sshtextarea1_list.append(line_c.strip())
+
+        if Counter(line_mysqltextarea1) == Counter(line_mysqltextarea1_list) and Counter(line_mysqltextarea2) == Counter(line_mysqltextarea2_list) and Counter(line_sshtextarea1) == Counter(line_sshtextarea1_list):
+            mysql_dict_result = "已保存成功！！！"
+        else:
+            mysql_dict_result = "保存失败！！！"
+
         message_json = {
-            "mysql_dict_result":"已保存成功！！！"
+            "mysql_dict_result":mysql_dict_result
         }
         return jsonify(message_json)
     else:

@@ -107,3 +107,14 @@ phpmyadmin_pass_dir = '/TIP/info_scan/dict/phpmyadmin_pass.txt'
 
 # JNDI服务配置(配置IP)
 jndi_server = 'rmi://x.x.x.x:9999/TouchFile'
+
+# 弱口令扫描字典路径配置
+mysql_dict_user_dir = '/TIP/info_scan/dict/mysql/user.txt'
+mysql_dict_pass_dir = '/TIP/info_scan/dict/mysql/pass.txt'
+ssh_dict_user_dir = '/TIP/info_scan/dict/ssh/user.txt'
+ssh_dict_pass_dir = '/TIP/info_scan/dict/ssh/pass.txt'
+ftp_dict_user_dir = '/TIP/info_scan/dict/ftp/user.txt'
+ftp_dict_pass_dir = '/TIP/info_scan/dict/ftp/pass.txt'
+redis_dict_pass_dir = '/TIP/info_scan/dict/redis/pass.txt'
+mssql_dict_user_dir = '/TIP/info_scan/dict/mssql/user.txt'
+mssql_dict_pass_dir = '/TIP/info_scan/dict/mssql/pass.txt'
