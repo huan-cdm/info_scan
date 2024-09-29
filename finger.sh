@@ -534,36 +534,10 @@ case "${1}" in
     cd /TIP/info_scan/fscan_tool/
     if [ -f ./fscan ]; then  
         # grep -vE  过滤多个参数
-        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
+        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc -p $2 | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
         echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"  
     fi  
     ;;
-
-    # fscan全部端口
-    startfscanprocessall)
-    cd /TIP/info_scan/fscan_tool/
-    if [ -f ./fscan ]; then  
-        # grep -vE  过滤多个参数
-        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc -p 1-65535 | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
-        echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"  
-    fi  
-    ;;
-
-    # fscan重点端口
-    startfscanprocesspoint)
-    cd /TIP/info_scan/fscan_tool/
-    if [ -f ./fscan ]; then  
-        # grep -vE  过滤多个参数
-        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc -p 80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000 | grep -vE 'start|已完成|扫描结束|alive' > /TIP/info_scan/result/fscan_vuln.txt
-        echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"  
-    fi  
-    ;;
-
-
-
-
-
-
 
 
 
@@ -1442,5 +1416,11 @@ case "${1}" in
     crawlergo_num)
     bypass_num_part=`cat /TIP/info_scan/result/crawlergo_result.txt | wc -l`
     echo "${bypass_num_part}"
+    ;;
+
+    # 资产管理文本框行数显示
+    assset_textarea_num)
+    assset_textarea_num_value=`cat $2 | wc -l`
+    echo "${assset_textarea_num_value}"
     ;;
 esac

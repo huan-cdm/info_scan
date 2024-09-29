@@ -240,43 +240,6 @@ function historyurlpreviewfunc() {
 }
 
 
-//文本框内容展示
-function textinfoshowfunc() {
-
-    // 定义一个函数来处理AJAX请求
-    function fetchData() {
-        $.ajax({
-            url: '/textareashowinterface/',
-            method: 'GET',
-            success: function (info) {
-
-                $('#opbyid3').empty();
-                for (var i = 0; i < info.textvalue.length; i++) {
-                    $('#opbyid3').append('<option>' + info.textvalue[i] + '</option><br>');
-                }
-                document.getElementById("span1").innerHTML = info.url_num;
-            },
-            error: function () {
-                alert('内部出错')
-
-            },
-            complete: function () {
-
-            }
-        })
-    }
-
-    // 调用fetchData函数初始化显示
-    fetchData();
-    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
-    var intervalId = setInterval(fetchData, 5000);
-}
-
-// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function () {
-    clearInterval(intervalId);
-});
-
 
 
 
@@ -334,8 +297,7 @@ function startbutton() {
     button15.disabled = false;
     var button16 = document.getElementById("button16");
     button16.disabled = false;
-    var button17 = document.getElementById("button17");
-    button17.disabled = false;
+    
     var button18 = document.getElementById("button18");
     button18.disabled = false;
     var button19 = document.getElementById("button19");
@@ -490,8 +452,7 @@ function stopbutton() {
     button15.disabled = true;
     var button16 = document.getElementById("button16");
     button16.disabled = true;
-    var button17 = document.getElementById("button17");
-    button17.disabled = true;
+    
     var button18 = document.getElementById("button18");
     button18.disabled = true;
     var button19 = document.getElementById("button19");
@@ -1146,6 +1107,12 @@ function batchfscanvulnfunc() {
     })
 }
 
+// fscan扫描参数值查看
+function fscanportshowfunc() {
+    var fscanpartname = $('select[name="fscanpartname"]').val();
+    $('#myTextarea2').val(fscanpartname);
+}
+
 
 //ajax异步关闭fscan进程
 function killfscanprocessfunc() {
@@ -1478,6 +1445,38 @@ function hydradictfunc() {
 
             }
             $('#mssqltextarea2').val(textAreaContent9);
+
+            // tomcat相关
+            var textAreaContent10 = '';
+            for (var i = 0; i < info.tomcat_user_dict_list.length; i++) {
+                textAreaContent10 += info.tomcat_user_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#tomcattextarea1').val(textAreaContent10);
+
+            var textAreaContent11 = '';
+            for (var i = 0; i < info.tomcat_pass_dict_list.length; i++) {
+                textAreaContent11 += info.tomcat_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#tomcattextarea2').val(textAreaContent11);
+
+            // nacos相关
+            var textAreaContent11 = '';
+            for (var i = 0; i < info.nacos_user_dict_list.length; i++) {
+                textAreaContent11 += info.nacos_user_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#nacostextarea1').val(textAreaContent11);
+
+            var textAreaContent12 = '';
+            for (var i = 0; i < info.nacos_pass_dict_list.length; i++) {
+                textAreaContent12 += info.nacos_pass_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#nacostextarea2').val(textAreaContent12);
+
+
 
         },
         error: function () {
@@ -3106,6 +3105,7 @@ function assetmanagerfunc() {
 
             // 将textAreaContent的内容赋值给textarea  
             $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+            document.getElementById("textareaspan1").innerHTML = info.textarea_num;
         },
         error: function () {
 
@@ -3148,6 +3148,10 @@ function hydra_dict_submit_func() {
     const redistextarea2 = document.getElementById('redistextarea2').value;
     const mssqltextarea1 = document.getElementById('mssqltextarea1').value;
     const mssqltextarea2 = document.getElementById('mssqltextarea2').value;
+    const tomcattextarea1 = document.getElementById('tomcattextarea1').value;
+    const tomcattextarea2 = document.getElementById('tomcattextarea2').value;
+    const nacostextarea1 = document.getElementById('nacostextarea1').value;
+    const nacostextarea2 = document.getElementById('nacostextarea2').value;
     // 按换行符分割文本为数组  
     const line_mysqltextarea1 = mysqltextarea1.split('\n');
     const line_mysqltextarea2 = mysqltextarea2.split('\n');
@@ -3158,12 +3162,16 @@ function hydra_dict_submit_func() {
     const line_redistextarea2 = redistextarea2.split('\n');
     const line_mssqltextarea1 = mssqltextarea1.split('\n');
     const line_mssqltextarea2 = mssqltextarea2.split('\n');
+    const line_tomcattextarea1 = tomcattextarea1.split('\n');
+    const line_tomcattextarea2 = tomcattextarea2.split('\n');
+    const line_nacostextarea1 = nacostextarea1.split('\n');
+    const line_nacostextarea2 = nacostextarea2.split('\n');
     // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
     $.ajax({
         url: '/hydradictconfig/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2:line_mysqltextarea2,line_sshtextarea1:line_sshtextarea1, line_sshtextarea2:line_sshtextarea2,line_ftptextarea1:line_ftptextarea1,line_ftptextarea2:line_ftptextarea2,line_redistextarea2:line_redistextarea2,line_mssqltextarea1:line_mssqltextarea1,line_mssqltextarea2:line_mssqltextarea2}),
+        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2:line_mysqltextarea2,line_sshtextarea1:line_sshtextarea1, line_sshtextarea2:line_sshtextarea2,line_ftptextarea1:line_ftptextarea1,line_ftptextarea2:line_ftptextarea2,line_redistextarea2:line_redistextarea2,line_mssqltextarea1:line_mssqltextarea1,line_mssqltextarea2:line_mssqltextarea2,line_tomcattextarea1:line_tomcattextarea1,line_tomcattextarea2:line_tomcattextarea2,line_nacostextarea1:line_nacostextarea1,line_nacostextarea2:line_nacostextarea2}),
         dataType: 'json',
         success: function (info) {
             alert(info.mysql_dict_result)

@@ -1,0 +1,1147 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
+	<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
+	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+	<title>漏洞扫描主系统</title>
+</head>
+
+<body>
+	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">登录用户：{{data20}}</span><br><br>
+	<a href="###" onclick="jumpdirscanpage()">目录扫描</a>
+
+	<table border="1">
+		<tr>
+			<td>
+
+				<img src="{{ url_for('static', filename='image/shuaxin.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="fanhui()" onmouseenter="caozuo1func()"
+					onmouseleave="caozuo11func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainsuoding.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="stopbutton()" onmouseenter="caozuo2func()"
+					onmouseleave="caozuo22func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainjiesuo.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="startbutton()" onmouseenter="caozuo3func()"
+					onmouseleave="caozuo33func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/maindns.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="ceyednsfunc()" onmouseenter="caozuo4func()"
+					onmouseleave="caozuo44func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainhttp.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="ceyehttpfunc()" onmouseenter="caozuo5func()"
+					onmouseleave="caozuo55func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/reportzhenghe.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="reporttotalfunc()" onmouseenter="caozuo6func()"
+					onmouseleave="caozuo66func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainyulanexcel.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="total_report_yulan_func()" onmouseenter="caozuo7func()"
+					onmouseleave="caozuo77func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/maindownloadreport.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="reportdownloadfunc()" onmouseenter="caozuo8func()"
+					onmouseleave="caozuo88func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/mainsystemoper.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="openModal()" onmouseenter="caozuo9func()"
+					onmouseleave="caozuo99func()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="signoutfunc()" onmouseenter="caozuo9afunc()"
+					onmouseleave="caozuo99afunc()">&nbsp;&nbsp;
+				<img src="{{ url_for('static', filename='image/restart.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="restart_service_func()" onmouseenter="caozuo9bfunc()"
+					onmouseleave="caozuo99bfunc()">
+
+				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
+					style="cursor: pointer;" onclick="stopbackservicefunc()" onmouseenter="caozuo9cfunc()"
+					onmouseleave="caozuo99cfunc()">
+				<br><br>
+				<span id="tishisp1" style="display: none; color: chocolate;">刷新系统按钮</span>
+				<span id="tishisp2" style="display: none; color: chocolate;">锁定按钮</span>
+				<span id="tishisp3" style="display: none; color: chocolate;">解锁按钮</span>
+				<span id="tishisp4" style="display: none; color: chocolate;">dnslog平台dns日志</span>
+				<span id="tishisp5" style="display: none; color: chocolate;">dnslog平台http日志</span>
+				<span id="tishisp6" style="display: none; color: chocolate;">报告整合,点击完需进行等待,提示整合完毕可进行报告的下载和在线预览</span>
+				<span id="tishisp7" style="display: none; color: chocolate;">报告预览</span>
+				<span id="tishisp8" style="display: none; color: chocolate;">报告下载</span>
+				<span id="tishisp9" style="display: none; color: chocolate;">系统管理</span>
+				<span id="tishisp9a" style="display: none; color: chocolate;">注销系统</span>
+				<span id="tishisp9b" style="display: none; color: chocolate;">系统变更代码软重启服务</span>
+				<span id="tishisp9c" style="display: none; color: chocolate;">关闭后端服务</span>
+			</td>
+		</tr>
+	</table>
+
+	<div id="modal" class="modal">
+		<div class="modal-content">
+
+			<strong style="color:coral">全局视角</strong>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>名称</th>
+					<td>CPU</td>
+					<td>内存</td>
+					<td>磁盘读速率</td>
+					<td>磁盘写速率</td>
+					<td>原始资产数量</td>
+					<td>筛选资产数量</td>
+					<td>资产过滤时间线</td>
+					<td>漏洞扫描时间线</td>
+					<td>
+						资产过滤规则&nbsp;&nbsp;
+
+						<span id="spp31"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>状态</th>
+					<td><span id="spp23"></span></td>
+					<td><span id="spp24"></span></td>
+					<td><span id="spp35"></span></td>
+					<td><span id="spp36"></span></td>
+					<td><span id="spp14"></span></td>
+					<td><span id="spp27"></span></td>
+					<td><span id="spp32" style="color:chocolate"></span></td>
+					<td><span id="spp33" style="color:springgreen"></span></td>
+					<td>
+						<span id="spp26"></span>
+						<p style="display: none;" id="idp1">
+							<input type="text" placeholder="指纹识别结果-输入关键字-点击新增-识别关键资产" id="rule_input_id1">
+							<input type="button" value="新增" onclick="add_rule_func()">
+							<input type="button" value="删除" onclick="delete_rule_func()">
+							<input type="button" value="返回" onclick="fanhuishuaixuanrule()">
+						</p>
+
+						<a href="###" onclick="shuaixuanrule()">编辑</a>&nbsp;
+						<a href="###" onclick="delete_rule_all_func()">清空</a>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<strong style="color:coral">后端服务状态</strong>
+
+			<table border="1" style="width: 1500px; height: 100px;">
+
+				<tr>
+					<th>名称</th>
+					<td>漏洞扫描主系统</td>
+					<td>目录扫描系统</td>
+					<td>xray报告访问服务</td>
+					<td>urlfinder报告访问服务</td>
+					<td>afrog报告访问服务</td>
+					<td>JNDI服务</td>
+					<td>JNDI恶意Java类加载服务</td>
+				</tr>
+				<tr>
+					<th>状态</th>
+					<td>
+						<span id="spp37" style="color:green"></span>
+						<span id="spp37a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp38" style="color:green"></span>
+						<span id="spp38a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp39" style="color:green"></span>
+						<span id="spp39a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp40" style="color:green"></span>
+						<span id="spp40a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp41" style="color:green"></span>
+						<span id="spp41a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp52" style="color:green"></span>
+						<span id="spp52a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp53" style="color:green"></span>
+						<span id="spp53a" style="color: red;"></span>
+					</td>
+				</tr>
+			</table>
+
+			<br>
+			<strong style="color:coral">扫描器状态</strong>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>名称</th>
+					<td>端口扫描</td>
+					<td>nuclei POC扫描</td>
+					<td>xray监听</td>
+					<td>rad扫描</td>
+					<td>目录扫描</td>
+					<td>weblogic漏洞扫描</td>
+					<td>struts2漏洞扫描</td>
+					<td>信息泄露扫描</td>
+					<td>vulmap综合扫描</td>
+				</tr>
+
+				<tr>
+					<th>状态</th>
+					<td>
+						<span id="spp1" style="color:green"></span>
+						<span id="spp1a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp2" style="color:green"></span>
+						<span id="spp2a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp3" style="color:green"></span>
+						<span id="spp3a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp4" style="color:green"></span>
+						<span id="spp4a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp5" style="color:green"></span>
+						<span id="spp5a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp6" style="color:green"></span>
+						<span id="spp6a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp7" style="color:green"></span>
+						<span id="spp7a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp8" style="color:green"></span>
+						<span id="spp8a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp9" style="color:green"></span>
+						<span id="spp9a" style="color: red;"></span>
+					</td>
+
+				</tr>
+			</table>
+			<br>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>名称</th>
+					<td>afrog综合扫描</td>
+					<td>fscan综合扫描</td>
+					<td>shiro漏洞扫描</td>
+					<td>指纹识别</td>
+					<td>springboot漏洞扫描</td>
+					<td>存活检测</td>
+					<td>弱口令扫描</td>
+					<td>api扫描</td>
+					<td>thinkphp漏洞扫描</td>
+					<td>泛微OA漏洞扫描</td>
+				</tr>
+				<tr>
+					<th>状态</th>
+					<td>
+						<span id="spp10" style="color:green"></span>
+						<span id="spp10a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp11" style="color:green"></span>
+						<span id="spp11a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp12" style="color:green"></span>
+						<span id="spp12a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp15" style="color:green"></span>
+						<span id="spp15a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp28" style="color:green"></span>
+						<span id="spp28a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp13" style="color:green"></span>
+						<span id="spp13a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp29" style="color:green"></span>
+						<span id="spp29a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp30" style="color:green"></span>
+						<span id="spp30a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp43" style="color:green"></span>
+						<span id="spp43a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp48" style="color:green"></span>
+						<span id="spp48a" style="color: red;"></span>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>名称</th>
+					<td>历史URL扫描</td>
+					<td>子域名扫描</td>
+					<td>elasticsearch漏洞扫描</td>
+					<td>nacos漏洞扫描</td>
+					<td>tomcat漏洞扫描</td>
+					<td>fastjson漏洞扫描</td>
+					<td>waf识别</td>
+					<td>FUZZ扫描</td>
+					<td>爬虫扫描</td>
+				</tr>
+				<tr>
+					<th>状态</th>
+					<td>
+						<span id="spp44" style="color:green"></span>
+						<span id="spp44a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp45" style="color:green"></span>
+						<span id="spp45a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp49" style="color:green"></span>
+						<span id="spp49a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp50" style="color:green"></span>
+						<span id="spp50a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp51" style="color:green"></span>
+						<span id="spp51a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp54" style="color:green"></span>
+						<span id="spp54a" style="color: red;"></span>
+					</td>
+					<td><span id="spp55" style="color:green"></span>
+						<span id="spp55a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp56" style="color:green"></span>
+						<span id="spp56a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="spp57" style="color:green"></span>
+						<span id="spp57a" style="color: red;"></span>
+					</td>
+				</tr>
+			</table>
+			<br><br>
+
+			<strong style="color:coral">关键资产数量</strong><br>
+			<span>1. 需先进行网站指纹识别,否则读取的是上一次的数据；</span><br>
+			<span>2. 规则名称是资产过滤规则,在资产过滤规则处进行编辑,然后点击识别关键资产,即可得到想要的资产；</span><br>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>资产名称</th>
+					<td>shiro</td>
+					<td>springboot</td>
+					<td>struts2</td>
+					<td>weblogic</td>
+					<td>宝塔面板</td>
+					<td>若依CMS</td>
+					<td>wordpress</td>
+					<td>jboss</td>
+					<td>phpmyadmin</td>
+					<td>thinkphp</td>
+					<td>nacos</td>
+					<td>泛微OA</td>
+					<td>tomcat</td>
+				</tr>
+				<!-- 规则名称 -->
+				<tr>
+					<th>规则名称</th>
+					<td>Shiro</td>
+					<td>spring-boot</td>
+					<td>Struts2</td>
+					<td>Weblogic</td>
+					<td>宝塔-BT</td>
+					<td>若依</td>
+					<td>WordPress</td>
+					<td>Jboss</td>
+					<td>phpMyAdmin</td>
+					<td>ThinkPHP</td>
+					<td>Nacos</td>
+					<td>泛微</td>
+					<td>Tomcat</td>
+				</tr>
+				<tr>
+					<th>资产数量</th>
+					<td><span id="spp16"></span></td>
+					<td><span id="spp17"></span></td>
+					<td><span id="spp21"></span></td>
+					<td><span id="spp18"></span></td>
+					<td><span id="spp19"></span></td>
+					<td><span id="spp20"></span></td>
+					<td><span id="spp22"></span></td>
+					<td><span id="spp25"></span></td>
+					<td><span id="spp34"></span></td>
+					<td><span id="spp42"></span></td>
+					<td><span id="spp46"></span></td>
+					<td><span id="spp47"></span></td>
+					<td><span id="spp52t"></span></td>
+				</tr>
+			</table><br>
+			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50"
+				style="cursor: pointer;" onclick="closeModal()">
+		</div>
+	</div>
+
+	<!-- fofa语法提示 -->
+	<div id="modal1" class="modal1">
+		<div class="modal-content1">
+			<span class="close" onclick="closeModal1()">&times;</span>
+			<P>ip="1.1.1.1" 通过单一IPv4地址进行查询</P>
+			<p>ip="220.181.111.1/24" 通过IPv4 C段进行查询</p>
+			<p>ip="2600:9000:202a:2600:18:4ab7:f600:93a1" 通过单一Ipv6地址进行查询</p>
+			<p> port="6379" 通过端口号进行查询</p>
+			<p>domain="qq.com" 通过根域名进行查询</p>
+			<p>title="beijing" 通过网站标题进行查询</p>
+			<p>body="网络空间测绘" 通过HTML正文进行查询</p>
+			<p>country="CN" 通过国家的简称代码进行查询</p>
+			<p>更多语法参考fofa官网<a href="https://fofa.info/" target="_blank">fofa</a></p>
+
+		</div>
+	</div>
+
+	<!-- 弱口令扫描字典配置 -->
+	<div id="moda22" class="moda22">
+		<div class="modal-content2">
+			<span class="close" onclick="closeModa22()">&times;</span>
+			<strong style="color: chocolate;">弱口令扫描字典配置,修改完点击保存即可</strong><br>
+			<span>mysql字典</span><br>
+			<div id="divdictid1" style="display: none;">
+				<textarea rows="3" cols="30" id="mysqltextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="mysqltextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+				<span>ssh字典</span><br>
+				<textarea rows="3" cols="30" id="sshtextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="sshtextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+
+				<span>ftp字典</span><br>
+				<textarea rows="3" cols="30" id="ftptextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="ftptextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+
+				<span>redis字典</span><br>
+				<textarea rows="3" cols="30" id="redistextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+
+				<span>mssql字典</span><br>
+				<textarea rows="3" cols="30" id="mssqltextarea1" style="width: 729px; height: 89px;">
+				</textarea>
+				<br>
+				<textarea rows="3" cols="30" id="mssqltextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+				<span>tomcat字典</span><br>
+				<textarea rows="3" cols="30" id="tomcattextarea1" style="width: 729px; height: 89px;"></textarea>
+				
+				<br>
+				<textarea rows="3" cols="30" id="tomcattextarea2" style="width: 729px; height: 89px;">
+				</textarea><br>
+				<span>nacos字典</span><br>
+				<textarea rows="3" cols="30" id="nacostextarea1" style="width: 729px; height: 89px;"></textarea>
+				
+				<br>
+				<textarea rows="3" cols="30" id="nacostextarea2" style="width: 729px; height: 89px;">
+				</textarea>
+				<span style="cursor: pointer;" onclick="hydra_dict_submit_func()">保存</span>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<h3>IP搜索</h3>
+	<div>
+		<form method="post" action="/ipscaninterface/">
+			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
+				required="required" id="myInput" />
+			<input type="submit" value="搜索">
+			<input type="button" value="ARCHIVE搜索" onclick="archiveurlshowfunc()">
+		</form>
+
+	</div>
+	<br>
+
+	<div class="div-container" style="background-color:#f2f2f2">
+		<div class="inner-div"><strong>IP</strong></div>
+		<div class="inner-div"><strong>位置</strong></div>
+		<div class="inner-div"><strong>属性</strong></div>
+		<div class="inner-div"><strong>操作系统</strong></div>
+		<div class="inner-div"><strong>端口</strong></div>
+		<div class="inner-div"><strong>公司</strong></div>
+		<div class="inner-div"><strong>公司位置</strong></div>
+	</div>
+	<div class="div-container">
+		<div class="inner-div">
+			{{data2}}
+		</div>
+		<div class="inner-div">
+			{{data5}}
+		</div>
+		<div class="inner-div">
+			{{data12}}
+		</div>
+		<div class="inner-div">
+			{{data8}}
+		</div>
+		<div class="inner-div">
+			{{data6}}
+		</div>
+		<div class="inner-div">
+			{% for kd in data4 %}
+			<tr>
+				<td>{{ kd }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+		<div class="inner-div">
+			{% for kdk in data13 %}
+			<tr>
+				<td>{{ kdk }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="div-container" style="background-color:#f2f2f2">
+		<div class="inner-div"><strong>历史URL</strong></div>
+		<div class="inner-div"><strong>存活URL</strong></div>
+		<div class="inner-div"><strong>CDN信息</strong></div>
+		<div class="inner-div"><strong>网站标题</strong></div>
+		<div class="inner-div"><strong>指纹</strong></div>
+		<div class="inner-div"><strong>子域名</strong></div>
+	</div>
+
+
+	<div class="div-container">
+		<div class="inner-div">
+			{% for kk in data7 %}
+			<tr>
+				<td>{{ kk }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+		<div class="inner-div">
+			{% for ii in data1 %}
+			<tr>
+				<td>{{ ii }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+		<div class="inner-div">
+			{% for cdnk in data9 %}
+			<tr>
+				<td>{{ cdnk }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+		<div class="inner-div">
+			{% for i10 in data10 %}
+			<tr>
+				<td>{{ i10 }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+		<div class="inner-div">
+			{% for i in data3 %}
+			<tr>
+				<td>{{ i }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+
+
+
+		<div class="inner-div">
+			{% for i11 in data11 %}
+			<tr>
+
+				<td>{{ i11 }}</td>
+				<br>
+			</tr>
+			{% endfor %}
+		</div>
+	</div>
+	<h3>漏洞管理</h3>
+	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
+		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
+		<div style="display:none;" id="vulnid1">
+			<span style="color:red"><strong>1. 注意：单个扫描停止维护,请使用下面的批量扫描功能。按钮已加锁,需点击最上方的解锁按钮。</strong></span><br>
+			<span style="color: red"><strong>2.
+					fastjson扫描：需先开启JNDI服务,点击最上方的系统管理查看JNDI服务运行情况,出现running,在开启fastjson漏洞扫描,fastjson可能会出现空报告清空,最终以JNDI请求日志为准。</strong></span><br>
+			<span style="color: red"><strong>3.
+					xray+crawlergo批量扫描：需先开启xray监听,点击最上方的系统管理查看xray运行情况,出现running,然后在开启爬虫并且参数选择为转发爬虫流量,点击xray监听下的报告预览可查看扫描xray报告。</strong></span><br>
+			<table border="1">
+				<tr>
+					<td>
+						<input type="submit" value="信息收集工具:">&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="spaninfomationname">
+							<option value="1">敏感信息</option>
+							<option value="2">网站指纹</option>
+							<option value="3">域名绑定URL</option>
+							<option value="4">子域名</option>
+							<option value="5">端口扫描</option>
+						</select>
+						<input type="button" value="显示" onclick="infoshoujitoolstart()">&nbsp;&nbsp;
+						<input type="button" value="重置" onclick="infoshoujitoolstop()">
+
+
+					</td>
+					<td>
+						<input type="submit" value="漏洞扫描工具:">&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="spanpointvalue">
+							<option value="1">struts2_poc</option>
+							<option value="2">weblogic_poc</option>
+							<option value="3">shiro_poc</option>
+							<option value="4">springboot_poc</option>
+							<option value="5">thinkphp_poc</option>
+							<option value="6">afrog_poc</option>
+							<option value="7">fscan_poc</option>
+							<option value="8">弱口令扫描</option>
+							<option value="9">api接口扫描</option>
+							<option value="10">xray_poc</option>
+							<option value="12">vulmap_poc</option>
+							<option value="13">nuclei_poc</option>
+							<option value="15">泛微OA</option>
+						</select>
+						<input type="button" value="显示" onclick="xianshipointfunc()">&nbsp;&nbsp;
+						<input type="button" value="重置" onclick="guanbipointfunc()">
+					</td>
+				</tr>
+
+
+				<tr>
+					<td>
+						<span id="infoscanspan1">
+							<input type="submit" value="敏感信息：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button33" value="预览报告" onclick="showbbscanreportfunc()" disabled>
+							<input type="button" id="button34" value="启动程序" onclick="bbscaninfofunc()" disabled>
+							<input type="button" id="button58" value="关闭程序" onclick="killbbscanfunc()" disabled>
+						</span>
+
+						<span id="infoscanspan2" style="display: none;">
+							<input type="submit" value="网站指纹：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button31" value="预览报告" onclick="eholefingerreportfunc()" disabled>
+							<input type="button" id="button32" value="启动程序" onclick="eholefingerfunc()" disabled>
+							<input type="button" id="button62" value="关闭程序" onclick="killEHoleprocessfunc()" disabled>
+						</span>
+
+						<span id="infoscanspan3" style="display: none;">
+							<input type="submit" value="域名绑定URL：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button7" value="报告预览" onclick="historyurlpreviewfunc()" disabled>
+							<input type="button" id="button6" value="启动程序" onclick="historyurlfunc()" disabled>
+							<input type="button" id="button8" value="关闭程序" onclick="killotxhistory_func()" disabled>
+
+						</span>
+
+						<span id="infoscanspan4" style="display: none;">
+							<input type="submit" value="子域名：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button35" value="预览报告" onclick="showsubdomainfunc()" disabled>
+							<input type="button" id="button36" value="启动程序" onclick="subdomainfindfunc()" disabled>
+							<input type="button" id="button68" value="关闭程序" onclick="kill_crt_subdomain_func()"
+								disabled>
+						</span>
+						<span id="infoscanspan5" style="display: none;">
+							<input type="submit" value="端口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button9" value="预览报告" onclick="nmapjumpfunc()" disabled>
+							<input type="button" id="button37" value="启动程序" onclick="batchnmapportscanfunc()" disabled>
+							<input type="button" id="button10" value="删除报告" onclick="deletenmapfunc()" disabled>
+							<input type="button" id="button54" value="关闭程序" onclick="killnmapfunc()" disabled>
+						</span>
+					</td>
+					<!-- 关键资产扫描开关选项详情 -->
+					<td id="pointid1">
+
+						<span id="point1">
+							<input type="submit" value="struts2_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button29" value="预览报告" onclick="struts2reportfunc()" disabled>
+							<input type="button" id="button30" value="启动程序" onclick="struts2scanfunc()" disabled>
+							<input type="button" id="button78" value="关闭程序" onclick="stopstruts2scanprocess()" disabled>
+						</span>
+
+						<span style="display: none;" id="point2">
+							<input type="submit" value="weblogic_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button27" value="预览报告" onclick="weblogicreportfunc()" disabled>
+							<input type="button" id="button28" value="启动程序" onclick="weblogicscanfunc()" disabled>
+							<input type="button" id="button79" value="关闭程序" onclick="stopweblogicscanprocess()"
+								disabled>
+						</span>
+
+						<span style="display: none;" id="point3">
+							<input type="submit" value="shiro_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button49" value="预览报告" onclick="shiroscanreprtfunc()" disabled>
+							<input type="button" id="button50" value="启动程序" onclick="batchshirovulnfunc()" disabled>
+							<input type="button" id="button80" value="关闭程序" onclick="killshiroprocessfunc()" disabled>
+						</span>
+
+						<span style="display: none;" id="point4">
+							<input type="submit" value="springboot_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button52" value="预览报告" onclick="springboot_report_show_func()"
+								disabled>
+							<input type="button" id="button53" value="启动程序" onclick="start_springboot_scan_func()"
+								disabled>
+							<input type="button" id="button81" value="关闭程序" onclick="killspringbootprocessfunc()"
+								disabled>
+						</span>
+
+						<span style="display: none;" id="point5">
+							<input type="submit" value="thinkphp_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button66" value="预览报告" onclick="thinkphp_report_show_func()"
+								disabled>
+							<input type="button" id="button67" value="启动程序" onclick="startthinkphpscanfunc()" disabled>
+							<input type="button" id="button82" value="关闭程序" onclick="killthinkphpprocessfunc()"
+								disabled>
+						</span>
+
+						<span style="display: none;" id="point6">
+							<input type="submit" value="afrog_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button40" value="预览报告" onclick="afrogreportfun()" disabled>
+							<input type="button" id="button42" value="启动程序" onclick="startafrogfunc()" disabled>
+							<input type="button" id="button41" value="删除报告" onclick="deleteafrogreportfunc()" disabled>
+							<input type="button" id="button43" value="关闭程序" onclick="killafrogprocessfunc()" disabled>
+						</span>
+
+						<span style="display: none;" id="point7">
+							<input type="submit" value="fscan_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button46" value="预览报告" onclick="fscanreprtfunc()" disabled>
+							<input type="button" id="button47" value="启动程序" onclick="batchfscanvulnfunc()" disabled>
+							<input type="button" id="button48" value="关闭程序" onclick="killfscanprocessfunc()" disabled>
+						</span>
+
+						<span style="display: none;" id="point8">
+							<input type="submit" value="弱口令扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button59" value="预览报告" onclick="hydra_report_show_func()" disabled>
+							<input type="button" id="button60" value="启动程序" onclick="start_hydra_scan_func()" disabled>
+							<input type="button" id="button61" value="关闭程序" onclick="killhydraprocessfunc()" disabled>
+
+						</span>
+
+						<span style="display: none;" id="point9">
+							<input type="submit" value="api接口扫描：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button22" value="预览报告" onclick="urlfinderreportshow()" disabled>
+							<input type="button" id="button21" value="启动程序" onclick="urlfinderscanfunc()" disabled>
+							<input type="button" id="button23" value="删除报告" onclick="deleteurlfinderreportfunc()"
+								disabled>
+							<input type="button" id="button18" value="关闭程序" onclick="killurlfinderprocessfunc()"
+								disabled>
+						</span>
+
+						<span style="display: none;" id="point10">
+							<input type="submit" value="xray_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button13" value="预览报告" onclick="xrayreportshow()" disabled>
+							<input type="button" id="button16" value="启动程序" onclick="startradandxray()" disabled>
+							<input type="button" id="button14" value="删除报告" onclick="xrayreportdelete()" disabled>
+							<input type="button" id="button15" value="关闭程序" onclick="killxrayandradfunc()" disabled>
+						</span>
+
+						<span style="display: none;" id="point12">
+							<input type="submit" value="vulmap_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button38" value="预览报告" onclick="vulmapscanreportfunc()" disabled>
+							<input type="button" id="button39" value="启动程序" onclick="startvulmapscanfunc()" disabled>
+							<input type="button" id="button55" value="关闭程序" onclick="killvulmapfunc()" disabled>
+						</span>
+
+						<span style="display: none;" id="point13">
+							<input type="submit" value="nuclei_poc：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button11" value="预览报告" onclick="nucleijumpfunc()" disabled>
+							<input type="button" id="button12" value="启动程序" onclick="startnucleifunc()" disabled>
+							<input type="button" id="button56" value="关闭程序" onclick="killnucleifunc()" disabled>
+
+						</span>
+
+
+						<span style="display: none;" id="point15">
+							<input type="submit" value="泛微OA：">&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="button" id="button69" value="预览报告" onclick="weaverscanfunc()" disabled>
+							<input type="button" id="button70" value="启动程序" onclick="startweaverscanfunc()" disabled>
+							<input type="button" id="button71" value="关闭程序" onclick="killweaverscanfunc()" disabled>
+						</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2">
+						<input type="submit" id="button72" value="开启漏洞扫描" onclick="vulnxuanzhongscan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button76" value="关闭漏洞扫描" onclick="vulnxuanzhongstopscanfunc()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button77" value="开启报告预览" onclick="vulnscanxuanzhongreportyulan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="vulnselectAll()">全选</span>&nbsp;&nbsp;<span
+							style="cursor: pointer;" onclick="vulnunSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						fscan扫描参数：&nbsp;&nbsp;
+						<select name="fscanpartname" onmouseout="fscanportshowfunc()">
+							
+							<option value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">默认端口</option>
+							<option value="1-65535">全部端口</option>
+							<option value="80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000">常见端口</option>
+							<option
+								value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
+								Web端口</option>
+							<option
+								value="21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017">
+								Top100端口</option>
+							<option
+								value="7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738">
+								Top1000端口</option>
+							<option
+								value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
+								常见RCE端口</option>
+							<option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
+						</select>
+						<textarea rows="3" cols="30" style="width: 335px; height: 57px;" id="myTextarea2">
+							21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017
+							</textarea>
+						<br>
+						nuclei扫描参数：&nbsp;&nbsp;
+						<select name="poc_dir">
+							<option value="/root/nuclei-templates/http">http</option>
+							<option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
+							<option value="/root/nuclei-templates/http/cves">http_cves</option>
+							<option value="/root/nuclei-templates/http/exposed-panels">http_exposed_panels</option>
+							<option value="/root/nuclei-templates/http/fuzzing">http_fuzzing</option>
+							<option value="/root/nuclei-templates/http/iot">http_iot</option>
+							<option value="/root/nuclei-templates/http/misconfiguration">http_misconfiguration
+							</option>
+							<option value="/root/nuclei-templates/http/takeovers">http_takeovers</option>
+							<option value="/root/nuclei-templates/http/token-spray">http_token_spray</option>
+							<option value="/root/nuclei-templates/http/credential-stuffing">http_credential_stuffing
+							</option>
+							<option value="/root/nuclei-templates/http/default-logins">http_default_logins</option>
+							<option value="/root/nuclei-templates/http/exposures">http_exposures</option>
+							<option value="/root/nuclei-templates/http/honeypot">http_honeypot</option>
+							<option value="/root/nuclei-templates/http/miscellaneous">http_miscellaneous</option>
+							<option value="/root/nuclei-templates/http/osint">http_osint</option>
+							<option value="/root/nuclei-templates/http/technologies">http_technologies</option>
+							<option value="/root/nuclei-templates/http/vulnerabilities">http_vulnerabilities
+							</option>
+							<option value="/root/nuclei-templates/dns">dns</option>
+							<option value="/root/nuclei-templates/helpers">helpers</option>
+							<option value="/root/nuclei-templates/miscellaneous">miscellaneous</option>
+							<option value="/root/nuclei-templates/technologies">technologies</option>
+							<option value="/root/nuclei-templates/workflows">workflows</option>
+							<option value="/root/nuclei-templates/file">file</option>
+							<option value="/root/nuclei-templates/cloud">cloud</option>
+							<option value="/root/nuclei-templates/misconfiguration">misconfiguration</option>
+							<option value="/root/nuclei-templates/default-logins">default-logins</option>
+							<option value="/root/nuclei-templates/headless">headless</option>
+							<option value="/root/nuclei-templates/network">network</option>
+							<option value="/root/nuclei-templates/ssl">ssl</option>
+							<option value="/root/nuclei-templates/javascript">javascript</option>
+							<option value="/root/nuclei-templates/config">config</option>
+							<option value="/root/nuclei-templates/code">code</option>
+						</select>
+						<select id="nucleibyid1">
+							<option>暂无数据</option>
+						</select>
+
+						<input type="button" id="button57" value="查询" onclick="nuclei_poc_show_func()" disabled>
+
+						<span id="nucleibyid2"></span><br>
+
+						端口扫描参数：&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="portscan_part" onmouseout="nmapportshowfunc()">
+							<option
+								value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
+								Web端口</option>
+							<option
+								value="21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017">
+								Top100端口</option>
+							<option
+								value="7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738">
+								Top1000端口</option>
+							<option
+								value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
+								常见RCE端口</option>
+							<option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
+							<option value="1-65535">全端口</option>
+						</select>
+						<textarea rows="3" cols="30" style="width: 335px; height: 57px;" id="myTextarea1">
+80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443
+</textarea>
+					</td>
+					<td>
+						弱口令扫描参数：&nbsp;&nbsp;
+						<select name="hydrapart">
+							<option value="1">mysql</option>
+							<option value="2">ssh</option>
+							<option value="3">ftp</option>
+							<option value="4">redis</option>
+							<option value="5">mssql</option>
+						</select>
+						<input type="button" value="配置字典" onclick="hydradictfunc()">
+						<br>
+						vulmap扫描参数：
+						<select name="vulnname">
+							<option value="all">all</option>
+							<option value="activemq">检查站点是否存在activemq漏洞</option>
+							<option value="flink">检查站点是否存在flink漏洞</option>
+							<option value="shiro">检查站点是否存在shiro漏洞</option>
+							<option value="solr">检查站点是否存在solr漏洞</option>
+							<option value="struts2">检查站点是否存在struts2漏洞</option>
+							<option value="tomcat">检查站点是否存在tomcat漏洞</option>
+							<option value="unomi">检查站点是否存在unomi漏洞</option>
+							<option value="drupal">检查站点是否存在drupal漏洞</option>
+							<option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
+							<option value="fastjson">检查站点是否存在fastjson漏洞</option>
+							<option value="jenkins">检查站点是否存在jenkins漏洞</option>
+							<option value="laravel">检查站点是否存在laravel漏洞</option>
+							<option value="nexus">检查站点是否存在nexus漏洞</option>
+							<option value="weblogic">检查站点是否存在weblogic漏洞</option>
+							<option value="jboss">检查站点是否存在jboss漏洞</option>
+							<option value="spring">检查站点是否存在spring漏洞</option>
+							<option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
+							<option value="druid">检查站点是否存在druid漏洞</option>
+							<option value="exchange">检查站点是否存在exchange漏洞</option>
+							<option value="nodejs">检查站点是否存在nodejs漏洞</option>
+							<option value="saltstack">检查站点是否存在saltstack漏洞</option>
+							<option value="vmware">检查站点是否存在vmware漏洞</option>
+							<option value="bigip">检查站点是否存在bigip漏洞</option>
+							<option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
+							<option value="coremail">检查站点是否存在coremail漏洞</option>
+							<option value="ecology">检查站点是否存在ecology漏洞</option>
+							<option value="eyou">检查站点是否存在eyou漏洞</option>
+							<option value="qianxin">检查站点是否存在qianxin漏洞</option>
+							<option value="ruijie">检查站点是否存在ruijie漏洞</option>
+						</select><br>
+						爬虫扫描参数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<select name="pachongselectpart">
+							<option value="1">爬虫流量不转发</option>
+							<option value="2">爬虫流量转发给xray</option>
+						</select>
+
+
+					</td>
+
+				</tr>
+				<!-- 漏洞扫描第一行 -->
+				<tr>
+					<td colspan="2">
+						<span><strong>框架组件类：</strong></span>
+						<input type="checkbox" id="option1" name="option" value="1">
+						<label for="option1">struts2</label>
+						<input type="checkbox" id="option2" name="option" value="2">
+						<label for="option2">weblogic</label>
+						<input type="checkbox" id="option3" name="option" value="3">
+						<label for="option3">shiro</label>
+						<input type="checkbox" id="option4" name="option" value="4">
+						<label for="option4">springboot</label>
+						<input type="checkbox" id="option5" name="option" value="5">
+						<label for="option5">thinkphp</label>
+						<input type="checkbox" id="option16" name="option" value="e">
+						<label for="option16">Elasticsearch未授权</label>
+						<input type="checkbox" id="option17" name="option" value="f">
+						<label for="option17">nacos扫描</label>
+						<input type="checkbox" id="option18" name="option" value="g">
+						<label for="option18">tomcat扫描</label>
+						<input type="checkbox" id="option20" name="option" value="i">
+						<label for="option20">fastjson扫描</label>
+						<input type="checkbox" id="option19" name="option" value="h">
+						<label for="option19">JNDI服务</label>
+
+					</td>
+				</tr>
+				<!-- 漏洞扫描程序第二行 -->
+				<tr>
+					<td colspan="2">
+						<span><strong>综合类：</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" id="option6" name="option" value="6">
+						<label for="option6">afrog</label>
+						<input type="checkbox" id="option7" name="option" value="7">
+						<label for="option7">fscan</label>
+						<input type="checkbox" id="option8" name="option" value="8">
+						<label for="option8">弱口令</label>
+						<input type="checkbox" id="option9" name="option" value="9">
+						<label for="option9">api接口</label>
+						<input type="checkbox" id="option11" name="option" value="a">
+						<label for="option11">vulmap</label>
+						<input type="checkbox" id="option12" name="option" value="b">
+						<label for="option12">nuclei</label>
+						<input type="checkbox" id="option21" name="option" value="j">
+						<label for="option21">xray监听</label>
+						<input type="checkbox" id="option15" name="option" value="d">
+						<label for="option15">一键扫描重点资产</label>
+					</td>
+				</tr>
+				<!-- 漏洞扫描程序第三行 -->
+				<tr>
+					<td colspan="2">
+						<span><strong>OA类：</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="checkbox" id="option14" name="option" value="c">
+						<label for="option14">泛微OA</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" id="button73" value="开启信息收集" onclick="infoxuanzhongscan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button75" value="关闭信息收集" onclick="infoxuanzhongstopscanfunc()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button74" value="开启报告预览" onclick="infoxuanzhongreportyulan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;<span
+							style="cursor: pointer;" onclick="unSelection()">取消</span>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span><strong>综合类：</strong></span>
+						<input type="checkbox" id="infooption1" name="info_option" value="1">
+						<label for="infooption1">敏感信息</label>
+						<input type="checkbox" id="infooption2" name="info_option" value="2">
+						<label for="infooption2">网站指纹</label>
+						<input type="checkbox" id="infooption3" name="info_option" value="3">
+						<label for="infooption3">域名绑定URL</label>
+						<input type="checkbox" id="infooption4" name="info_option" value="4">
+						<label for="infooption4">子域名</label>
+						<input type="checkbox" id="infooption5" name="info_option" value="5">
+						<label for="infooption5">端口扫描</label>
+						<input type="checkbox" id="infooption6" name="info_option" value="6">
+						<label for="infooption6">WAF识别</label>
+						<input type="checkbox" id="infooption7" name="info_option" value="7">
+						<label for="infooption7">FUZZ</label>
+						<input type="checkbox" id="infooption8" name="info_option" value="8">
+						<label for="infooption8">爬虫</label>
+					</td>
+				</tr>
+
+			</table>
+		</div>
+		<h3>资产管理</h3>
+		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;">展开</h3>
+			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;">收起</h5>
+			<div style="display:none;" id="assetid1">
+				<table border="1">
+					<tr>
+						<td>
+							<table border="1">
+								<tr>
+									<td>
+										<input type="button" id="button20" class="hover-color" name="commit"
+											value="存活检测" onclick="filterstatuscodefunc()" disabled> &nbsp;&nbsp;
+										<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()"
+											disabled>&nbsp;&nbsp;
+										<input type="button" id="button51" value="识别关键资产" onclick="key_data_tiqu_func()"
+											disabled>&nbsp;&nbsp;
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										
+										<span>fofa查询日志：</span>
+										<select name="assetmanagerid1" onmouseenter="assetmanagerfunc()">
+											<option>刷新系统获取最新日志文件,选中文件会将数据显示到文本框</option>
+											{% for option in data21 %}
+											<option value="{{ option }}">{{option}}</option>
+											{% endfor %}
+										</select>
+										<input type="submit" value="清空日志" onclick="clearfofashowlogfunc()" id="button84"
+											disabled>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<input type="button" id="button19" class="hover-color" name="commit"
+											value="资产去重" onclick="filedeweightingfunc()" disabled>
+										<select name="fileqingxiname">
+											<option value="2">保留所有资产</option>
+											<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
+										</select>
+									</td>
+								</tr>
+
+
+							</table>
+
+						</td>
+
+						<td>
+							<table border="1">
+								<tr>
+									<td>
+										<input type="button" id="button63" value="文本框重置"
+											onclick="textareachongzhifunc()" disabled> &nbsp;&nbsp;
+										<input type="button" id="button3" value="添加资产" onclick="sendtextareadata()"
+											disabled>&nbsp;&nbsp;
+										<input type="button" id="button2" value="编辑资产"
+											onclick="targeturlcopytextareafunc()" disabled>&nbsp;&nbsp;
+										<input type="button" id="button25" value="回退资产" onclick="assetsbackspacefunc()"
+											disabled>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>
+										<textarea rows="2" cols="152" id="myTextarea">
+①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
+②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；
+③. 存活检测：资产存活情况探测；
+④. CDN检测： 过滤掉部署CDN的资产；
+⑤. 识别关键资产：过滤网站指纹识别后的数据，过滤规则在系统管理模块下的筛选规则处添加；
+⑥. 资产去重：资产去重处理、提取url为IP组成的资产并去重；
+⑦. 编辑资产：异步获取上传到服务器的资产回显到文本框进行编辑；
+⑧. 回退资产：回退到未经处理前的资产；										</textarea>
+<span id="textareaspan1" style="color: crimson;"></span>
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										<input type="text" placeholder="fofa语法" id="inputfofaid" />
+										<select name="num_fofa">
+											<option value="10">查询10条</option>
+											<option value="100">查询100条</option>
+											<option value="1000">查询1000条</option>
+											<option value="10000">查询10000条</option>
+										</select>
+										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
+											id="button83" disabled>
+										<input type="button" value="语法提示" onclick="fofayufa()"><br>
+										
+										
+									</td>
+
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+</body>
+
+</html>

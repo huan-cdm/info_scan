@@ -469,12 +469,8 @@ def batch_fscan_interface(part):
     f.close()
 
     try:
-        if int(part) == 1:
-            os.popen('bash /TIP/info_scan/finger.sh startfscanprocessmoren')
-        elif int(part) ==2:
-            os.popen('bash /TIP/info_scan/finger.sh startfscanprocessall')
-        else:
-            os.popen('bash /TIP/info_scan/finger.sh startfscanprocesspoint')
+        os.popen('bash /TIP/info_scan/finger.sh startfscanprocessmoren'+' '+part)
+        
     except Exception as e:
             print("捕获到异常:", e)
 
@@ -1862,10 +1858,6 @@ def start_crawlergo_lib(pachongselectpart):
             else:
                 print("参数只为0/1")
 
-            # if "running" in crawlergo_status:
-            #     crawlergostatus_result = "爬虫程序已开启稍后查看结果"
-            # else:
-            #     crawlergostatus_result = "爬虫程序正在后台启动中......"
         except Exception as e:
             print("捕获到异常:", e)
     return crawlergostatus_result

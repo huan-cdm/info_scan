@@ -62,6 +62,10 @@ from config import ftp_dict_pass_dir
 from config import redis_dict_pass_dir
 from config import mssql_dict_user_dir
 from config import mssql_dict_pass_dir
+from config import tomcat_user_dir
+from config import tomcat_pass_dir
+from config import nacos_user_dir
+from config import nacos_pass_dir
 
 # 统计列表元素出现次数
 from collections import Counter
@@ -942,26 +946,7 @@ def systemmanagement():
     else:
         return render_template('login.html')
 
-    
 
-
-#文本框内容展示
-@app.route("/textareashowinterface/")
-def textareashowinterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        result_list = []
-        file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
-        for line in file.readlines():
-            result_list.append(line.strip())
-        url_num = os.popen('bash /TIP/info_scan/finger.sh textarea_url_num').read()
-        message_json = {
-            "textvalue":result_list,
-            "url_num":"总共查出"+str(url_num)+"条数据"
-        }
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
 
 
 #资产去重
@@ -2372,20 +2357,22 @@ def infoscan_check_back():
                 else:
                     bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '8' in str(j):
-                # crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
-                
-                # 获取系统当前时间
-                current_time8 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes8 = basic.info_time_shijian_cha(8)
-                if int(diff_time_minutes8) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time8,8)
-                    # 提交扫描任务
-                    # 每次启动前清空上次扫描结果
-                    crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+                if "running" in xray_status:
+                     # 获取系统当前时间
+                     current_time8 = time.time()
+                     # 当前时间和数据库中的作时间差
+                     diff_time_minutes8 = basic.info_time_shijian_cha(8)
+                     if int(diff_time_minutes8) > info_time_controls:
+                         # 超过单位时间更新数据库中的时间
+                         basic.last_time_update_lib(current_time8,8)
+                         # 提交扫描任务
+                         # 每次启动前清空上次扫描结果
+                         crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                     else:
+                         crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 else:
-                    crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
             else:
                 print("参数正在完善中...")
 
@@ -2463,7 +2450,7 @@ def vulnscan_check_back():
         # 使用 get_json 解析 JSON 请求体,接收前端传递过来的json
         data = request.get_json()  
         vuln_front_list = data['vuln_front_list']
-        fscanpartname = int(data['fscanpartname'])
+        fscanpartname = str(data['fscanpartname'])
         hydrapart = int(data['hydrapart'])
         vulnname = data['vulnname']
         poc_dir = data['poc_dir']
@@ -3386,8 +3373,13 @@ def assetmanager_textarea_show():
         # 判断数据是否为空
         if len(url_list) == 0:
             url_list.append("当前资产文件暂无数据！")
+        
+        # 文本框行数显示
+        textarea_num = os.popen('bash /TIP/info_scan/finger.sh assset_textarea_num'+' '+assetmanagerid1).read()
+
         message_json = {
-            "url_list":url_list
+            "url_list":url_list,
+            "textarea_num":"共"+str(textarea_num)+"行"
         }
         return jsonify(message_json)
     else:
@@ -3428,7 +3420,10 @@ def dict_mysql_edit():
         redis_pass_dict_list = []
         mssql_user_dict_list = []
         mssql_pass_dict_list = []
-        
+        tomcat_user_dict_list = []
+        tomcat_pass_dict_list = []
+        nacos_user_dict_list = []
+        nacos_pass_dict_list = []
         # mysql
         file = open(mysql_dict_user_dir,encoding='utf-8')
         for line in file.readlines():
@@ -3497,6 +3492,36 @@ def dict_mysql_edit():
         if len(mssql_pass_dict_list) == 0:
             mssql_pass_dict_list.append("暂无数据")
 
+        # tomcat
+        file10 = open(tomcat_user_dir,encoding='utf-8')
+        for line10 in file10.readlines():
+            tomcat_user_dict_list.append(line10.strip())
+        # 判断数据是否为空
+        if len(tomcat_user_dict_list) == 0:
+            tomcat_user_dict_list.append("暂无数据")
+
+        file11 = open(tomcat_pass_dir,encoding='utf-8')
+        for line11 in file11.readlines():
+            tomcat_pass_dict_list.append(line11.strip())
+        # 判断数据是否为空
+        if len(tomcat_pass_dict_list) == 0:
+            tomcat_pass_dict_list.append("暂无数据")
+
+        # nacos
+        file11 = open(nacos_user_dir,encoding='utf-8')
+        for line11 in file11.readlines():
+            nacos_user_dict_list.append(line11.strip())
+        # 判断数据是否为空
+        if len(nacos_user_dict_list) == 0:
+            nacos_user_dict_list.append("暂无数据")
+
+        file12 = open(nacos_pass_dir,encoding='utf-8')
+        for line12 in file12.readlines():
+            nacos_pass_dict_list.append(line12.strip())
+        # 判断数据是否为空
+        if len(nacos_pass_dict_list) == 0:
+            nacos_pass_dict_list.append("暂无数据")
+
         message_json = {
             "mysql_user_dict_list":mysql_user_dict_list,
             "mysql_pass_dict_list":mysql_pass_dict_list,
@@ -3506,7 +3531,11 @@ def dict_mysql_edit():
             "ftp_pass_dict_list":ftp_pass_dict_list,
             "redis_pass_dict_list":redis_pass_dict_list,
             "mssql_user_dict_list":mssql_user_dict_list,
-            "mssql_pass_dict_list":mssql_pass_dict_list
+            "mssql_pass_dict_list":mssql_pass_dict_list,
+            "tomcat_user_dict_list":tomcat_user_dict_list,
+            "tomcat_pass_dict_list":tomcat_pass_dict_list,
+            "nacos_user_dict_list":nacos_user_dict_list,
+            "nacos_pass_dict_list":nacos_pass_dict_list
         }
 
         return jsonify(message_json)
@@ -3582,6 +3611,30 @@ def hydradictconfig():
         for line9 in line_mssqltextarea2:
             f9.write(str(line9)+"\n")
         f9.close()
+
+        # tomcat相关
+        line_tomcattextarea1 = data['line_tomcattextarea1']
+        line_tomcattextarea2 = data['line_tomcattextarea2']
+        f10 = open(file=tomcat_user_dir,mode='w')
+        for line10 in line_tomcattextarea1:
+            f10.write(str(line10)+"\n")
+        f10.close()
+        f11 = open(file=tomcat_pass_dir,mode='w')
+        for line11 in line_tomcattextarea2:
+            f11.write(str(line11)+"\n")
+        f11.close()
+
+        # nacos相关
+        line_nacostextarea1 = data['line_nacostextarea1']
+        line_nacostextarea2 = data['line_nacostextarea2']
+        f12 = open(file=nacos_user_dir,mode='w')
+        for line12 in line_nacostextarea1:
+            f12.write(str(line12)+"\n")
+        f12.close()
+        f13 = open(file=nacos_pass_dir,mode='w')
+        for line13 in line_nacostextarea2:
+            f13.write(str(line13)+"\n")
+        f13.close()
 
         # 判断数据是否添加成功
         line_mysqltextarea1_list = []
