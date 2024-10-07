@@ -450,13 +450,13 @@
 				</textarea><br>
 				<span>tomcat字典</span><br>
 				<textarea rows="3" cols="30" id="tomcattextarea1" style="width: 729px; height: 89px;"></textarea>
-				
+
 				<br>
 				<textarea rows="3" cols="30" id="tomcattextarea2" style="width: 729px; height: 89px;">
 				</textarea><br>
 				<span>nacos字典</span><br>
 				<textarea rows="3" cols="30" id="nacostextarea1" style="width: 729px; height: 89px;"></textarea>
-				
+
 				<br>
 				<textarea rows="3" cols="30" id="nacostextarea2" style="width: 729px; height: 89px;">
 				</textarea>
@@ -588,7 +588,7 @@
 	</div>
 	<h3>漏洞管理</h3>
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
-		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
+
 		<div style="display:none;" id="vulnid1">
 			<span style="color:red"><strong>1. 注意：单个扫描停止维护,请使用下面的批量扫描功能。按钮已加锁,需点击最上方的解锁按钮。</strong></span><br>
 			<span style="color: red"><strong>2.
@@ -800,10 +800,14 @@
 					<td>
 						fscan扫描参数：&nbsp;&nbsp;
 						<select name="fscanpartname" onmouseout="fscanportshowfunc()">
-							
-							<option value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">默认端口</option>
+
+							<option
+								value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">
+								默认端口</option>
 							<option value="1-65535">全部端口</option>
-							<option value="80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000">常见端口</option>
+							<option
+								value="80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000">
+								常见端口</option>
 							<option
 								value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
 								Web端口</option>
@@ -1001,6 +1005,7 @@
 
 					</td>
 				</tr>
+
 				<tr>
 					<td colspan="2">
 						<input type="submit" id="button73" value="开启信息收集" onclick="infoxuanzhongscan()"
@@ -1039,9 +1044,10 @@
 
 			</table>
 		</div>
+		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
 		<h3>资产管理</h3>
 		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;">展开</h3>
-			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;">收起</h5>
+
 			<div style="display:none;" id="assetid1">
 				<table border="1">
 					<tr>
@@ -1060,7 +1066,7 @@
 
 								<tr>
 									<td>
-										
+
 										<span>fofa查询日志：</span>
 										<select name="assetmanagerid1" onmouseenter="assetmanagerfunc()">
 											<option>刷新系统获取最新日志文件,选中文件会将数据显示到文本框</option>
@@ -1116,7 +1122,7 @@
 ⑥. 资产去重：资产去重处理、提取url为IP组成的资产并去重；
 ⑦. 编辑资产：异步获取上传到服务器的资产回显到文本框进行编辑；
 ⑧. 回退资产：回退到未经处理前的资产；										</textarea>
-<span id="textareaspan1" style="color: crimson;"></span>
+										<span id="textareaspan1" style="color: crimson;"></span>
 									</td>
 								</tr>
 
@@ -1132,8 +1138,8 @@
 										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
 											id="button83" disabled>
 										<input type="button" value="语法提示" onclick="fofayufa()"><br>
-										
-										
+
+
 									</td>
 
 								</tr>
@@ -1142,6 +1148,7 @@
 					</tr>
 				</table>
 			</div>
+			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;">收起</h5>
 </body>
 
 </html>
