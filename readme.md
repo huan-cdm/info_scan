@@ -8,8 +8,8 @@
 5. 入口地址：http://虚拟机IP:19999/index/<br>
 6. 项目源码路径：/TIP/*
 网盘链接：<br>
--新版本(2024.10.07):https://pan.quark.cn/s/81003c01a616#/list/share<br>
--旧版本： [info_scan虚拟机版](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)
+- [info_scan_2024.10](https://pan.quark.cn/s/81003c01a616#/list/share)：2024.10.07更新，夸克网盘。
+- [info_scan_2024.08](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)：2024.08.14、2024.08.29更新，百度网盘。
 <br><br>
 
 <h2>源码安装：</h2>
