@@ -2687,18 +2687,25 @@ def vulnscan_check_back():
                     jndi_status_result = "JNDI服务程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'i' in str(k):
                 print("开启fastjson漏洞扫描")
-                # 获取系统当前时间
-                current_time18 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes18 = basic.vuln_time_shijian_cha(18)
-                if int(diff_time_minutes18) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time18,18)
-                    # 提交扫描任务
-                    fastjson_status_result = basic.startfastjson_lib()
-                                 
+                jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+                jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+                if "running" in jndi_status and "running" in jndi_python_status:
+                    print("2")
+                    # 获取系统当前时间
+                    current_time18 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes18 = basic.vuln_time_shijian_cha(18)
+                    if int(diff_time_minutes18) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time18,18)
+                        # 提交扫描任务
+                        fastjson_status_result = basic.startfastjson_lib()
+                                     
+                    else:
+                        fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 else:
-                    fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    fastjson_status_result = basic.startfastjson_lib()
+                    print("1")
             elif 'j' in str(k):
                 print("开启xray被动监听")
                 # xray_status_result = basic.startxray_lib()

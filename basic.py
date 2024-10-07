@@ -1737,11 +1737,17 @@ def startfastjson_lib():
         fastjson_status_result = "fastjson漏洞扫描程序正在运行中请勿重复提交"
     else:
         try:
-            os.popen('bash /TIP/info_scan/finger.sh start_fastjson_shell')
-            if "running" in fastjson_scan_status:
-                fastjson_status_result = "fastjson漏洞扫描程序已开启稍后查看结果"
+            # jndi服务开启允许开启fastjson扫描，否则禁止开启fastjson扫描
+            jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+            jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+            if "running" in jndi_status and "running" in jndi_python_status:
+                os.popen('bash /TIP/info_scan/finger.sh start_fastjson_shell')
+                if "running" in fastjson_scan_status:
+                    fastjson_status_result = "fastjson漏洞扫描程序已开启稍后查看结果"
+                else:
+                    fastjson_status_result = "fastjson漏洞扫描程序正在后台启动中......"
             else:
-                fastjson_status_result = "fastjson漏洞扫描程序正在后台启动中......"
+                fastjson_status_result = "jndi服务未开启,无法开启fastjson漏洞扫描程序"
         except Exception as e:
             print("捕获到异常:", e)
     return fastjson_status_result

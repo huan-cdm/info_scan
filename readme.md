@@ -1,14 +1,15 @@
 <h2>虚拟机安装：</h2>
 ##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
 虚拟机账号密码：huan/admin@123<br>
-1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件<br>
+1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件，不配置系统无法启动<br>
 2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行和第二行修改为自己虚拟机的IP地址<br>
-3. 项目开启命令：bash /TIP/info_scan/server_check.sh -h，nginx和mysql需执行service nginx start和service mysql start开启服务<br>
+3. 开启项目命令：bash /TIP/info_scan/server_check.sh -h，nginx和mysql需执行service nginx start和service mysql start开启服务<br>
 4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己虚拟机的IP地址，重启nginx服务器<br>
 5. 入口地址：http://虚拟机IP:19999/index/<br>
 6. 项目源码路径：/TIP/*
 网盘链接：<br>
-- [info_scan虚拟机版](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)
+-新版本(2024.10.07):https://pan.quark.cn/s/81003c01a616#/list/share<br>
+-旧版本： [info_scan虚拟机版](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)
 <br><br>
 
 <h2>源码安装：</h2>
@@ -24,6 +25,11 @@
 <br><br>
 <h2>更新日志：</h2>
 <ul>
+<li>
+2024-10-07更新<br> 
+1. 系统优化；<br>
+2. 虚拟机版更新；<br>
+</li>
 <li>
 2024-09-28更新<br> 
 1. 新增tomcat和nacos字典配置；<br>
