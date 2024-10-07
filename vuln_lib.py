@@ -8,9 +8,14 @@ from config import tomcat_user_dir
 from config import tomcat_pass_dir
 from config import nacos_user_dir
 from config import nacos_pass_dir
+from config import phpmyadmin_user_dir
+from config import phpmyadmin_pass_dir
 import json
 import os
 from config import jndi_server
+import random
+from fake_useragent import UserAgent
+from basic import generate_random_ip
 
 
 # elasticsearch数据库相关漏洞扫描
@@ -429,7 +434,8 @@ def fastjson_vuln_scan():
         except:
             pass
 
-# 蓝凌OA漏洞扫描，正在完善中
+
+# 蓝凌OA漏洞扫描，正在完善中还未接入系统
 def lanlingoa_vuln_scan():
     url_list = basic.url_file_ip_list()
    
@@ -494,6 +500,53 @@ def waf_tool_scan():
             pass
 
 
+# phpmyadmin相关漏洞扫描,完善中，未接入系统
+def phpmyadmin_vuln_scan():
+    UA = UserAgent()
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': UA.random,
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-Mode': 'navigate',
+        'X-Forwarded-For': generate_random_ip()
+    }
+    
+    url_list = basic.url_file_ip_list()
+    # 获取当前时间
+    now = datetime.now()
+    # 格式化时间，只保留时、分、秒
+    formatted_time = now.strftime("%H:%M:%S")
+    phpmyadmin_dir = "/index.php"
+
+    # 通过字典文件生成
+    user_list = []
+    file_user = open(phpmyadmin_user_dir,encoding='utf-8')
+    for userline in file_user.readlines():
+        user_list.append(userline.strip())
+
+    pass_list = []
+    file_pass = open(phpmyadmin_pass_dir,encoding='utf-8')
+    for passline in file_pass.readlines():
+        pass_list.append(passline.strip())
+    # 使用列表推导式生成包含多个字典的列表
+    phpmyadmin_dict_list = [{'pma_username': username, 'pma_password': password} for username in user_list for password in pass_list]
+    
+    for url in url_list:
+        for auth in phpmyadmin_dict_list:
+            try:
+                # 发送POST请求
+                phpmyadmin_response = requests.post(url+phpmyadmin_dir, headers=headers, data=auth,allow_redirects=False,verify=False,timeout=10)
+                print(auth)
+                phpmyadmin_response.encoding='utf-8'
+                phpmyadmin_response_text = phpmyadmin_response.text
+
+                if 'Location' and 'phpMyAdmin=' and 'pmaUser-1' in phpmyadmin_response_text:
+                    print("[+]"+" "+formatted_time+" "+"目标："+" "+url+" "+"存在弱口令漏洞")
+            except:
+                pass
+    
+    
+           
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -511,7 +564,9 @@ if __name__ == "__main__":
         elif func_name == 'lanlingoa_vuln_scan':
             lanlingoa_vuln_scan()
         elif func_name == 'waf_tool_scan':
-            waf_tool_scan()    
+            waf_tool_scan()
+        elif func_name == 'phpmyadmin_vuln_scan':
+            phpmyadmin_vuln_scan()        
         else:
             print("Invalid function number")
     else:
