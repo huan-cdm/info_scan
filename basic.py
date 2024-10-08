@@ -1300,7 +1300,7 @@ def stopehole_lib():
     os.popen('bash /TIP/info_scan/finger.sh killEHole')
     EHolestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
     if "stop" in EHolestatus:
-        kill_EHole_result = "已关闭EHole扫描程序"
+        kill_EHole_result = "已关闭指纹识别程序"
     else:
         kill_EHole_result = "正在关闭中......"
     return kill_EHole_result
@@ -1592,9 +1592,9 @@ def startechole_lib():
         # 执行指纹识别扫描
         os.popen('bash /TIP/info_scan/finger.sh ehole_finger_scan')
         if "running" in finger_status:
-            finger_status_result = "EHole扫描程序已启动稍后查看扫描结果"
+            finger_status_result = "指纹识别程序已启动稍后查看扫描结果"
         else:
-            finger_status_result = "EHole正在后台启动中......"
+            finger_status_result = "指纹识别程序正在后台启动中......"
     return finger_status_result
 
 
@@ -1944,6 +1944,34 @@ def list_files_in_directory():
     return assset_file_list
 
 
+# 扫描前是否进行指纹识别判断
+# 已进行指纹识别返回：1
+# 未进行指纹识别返回：2
+def assets_finger_compare():
+    # 资产列表
+    url_list = url_file_ip_list()
+    # 指纹识别结果列表
+    finger_list_1 = []
+    file = open("/TIP/info_scan/result/ehole_finger.txt",encoding='utf-8')
+    for line in file.readlines():
+        if 'http' in line:
+            finger_list_1.append(line.strip())
+    # 存在重点资产情况，去重列表
+    finger_list = list(set(finger_list_1))
+    
+    conut_list = []
+    for a in finger_list:
+        for b in url_list:
+            if b in a:
+                conut_list.append('存在')
+    if len(conut_list) > 0 and len(finger_list) >= len(conut_list):
+        conut_result = 1
+    else:
+        conut_result = 2
+    return conut_result
+    
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -1958,7 +1986,8 @@ if __name__ == "__main__":
             start_crawlergo_scan_lib()
         elif func_name == 'start_crawlergo_scan_proxy_lib':
             start_crawlergo_scan_proxy_lib()
-        
+        # elif func_name == 'assets_finger_compare':
+        #     assets_finger_compare()
         else:
             print("Invalid function number")
     else:

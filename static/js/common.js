@@ -954,7 +954,8 @@ function targeturlcopytextareafunc() {
             }
 
             // 将textAreaContent的内容赋值给textarea  
-            $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
+            $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea
+            document.getElementById("textareaspan1").innerHTML = info.lentextvalue;
         },
         error: function () {
 
@@ -1318,6 +1319,8 @@ function openModal() {
                 document.getElementById("spp56a").innerHTML = info.bypass_status2;
                 document.getElementById("spp57").innerHTML = info.crawlergo_status1;
                 document.getElementById("spp57a").innerHTML = info.crawlergo_status2;
+                document.getElementById("spp1h2").innerHTML = info.finger_jindu;
+                
             });
     }
 

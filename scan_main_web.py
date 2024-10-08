@@ -844,6 +844,16 @@ def systemmanagement():
         else:
             crawlergo_status1 = ""
             crawlergo_status2 = crawlergo_status
+        # 指纹识别进度
+        finger_part = basic.assets_finger_compare()
+        if finger_part == 2:
+            finger_jindu = "注：系统检测到有新增资产,目前未进行指纹识别,无法开启扫描程序！！！"
+        else:
+            eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
+            if "running" in eholestatus:
+                finger_jindu = "指纹识别程序正在运行中......,稍后开启扫描程序"
+            else:
+                finger_jindu = "已完成指纹识别,可以开启漏洞扫描程序！！！"
 
 
         message_json = {
@@ -939,7 +949,8 @@ def systemmanagement():
             "bypass_status1":bypass_status1,
             "bypass_status2":bypass_status2,
             "crawlergo_status1":crawlergo_status1,
-            "crawlergo_status2":crawlergo_status2
+            "crawlergo_status2":crawlergo_status2,
+            "finger_jindu":finger_jindu
 
         }
         return jsonify(message_json)
@@ -1435,7 +1446,8 @@ def url_list_textarea_show():
     if str(user) == main_username:
         textvalue = basic.url_file_ip_list()
         message_json = {
-            "textvalue":textvalue
+            "textvalue":textvalue,
+            "lentextvalue":"共"+str(len(textvalue))+"行"
         }
         return jsonify(message_json)
     else:
@@ -2266,18 +2278,23 @@ def infoscan_check_back():
         # 遍历列表判断调用哪个扫描器
         for j in info_value_list:
             if '1' in str(j):
-                # 获取系统当前时间
-                current_time = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes = basic.info_time_shijian_cha(1)
-                
-                if int(diff_time_minutes) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time,1)
-                    # 提交扫描任务
-                    bbscan_status_result = basic.startbbscan_lib()
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    bbscan_status_result = "未进行指纹识别无法开启bbscan扫描"
                 else:
-                    bbscan_status_result = "bbscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes = basic.info_time_shijian_cha(1)
+                    
+                    if int(diff_time_minutes) > info_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.last_time_update_lib(current_time,1)
+                        # 提交扫描任务
+                        bbscan_status_result = basic.startbbscan_lib()
+                    else:
+                        bbscan_status_result = "bbscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 
                 
             elif '2' in str(j):
@@ -2291,88 +2308,118 @@ def infoscan_check_back():
                     # 提交扫描任务
                     finger_status_result = basic.startechole_lib()
                 else:
-                    finger_status_result = "EHole扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    finger_status_result = "指纹识别程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '3' in str(j):
-                # 获取系统当前时间
-                current_time3 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes3 = basic.info_time_shijian_cha(3)
-                if int(diff_time_minutes3) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time3,3)
-                    # 提交扫描任务
-                    otx_status_result = basic.otxhistorydomain_lib()
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    otx_status_result = "未进行指纹识别无法开启历史URL查询"
                 else:
-                    otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time3 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes3 = basic.info_time_shijian_cha(3)
+                    if int(diff_time_minutes3) > info_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.last_time_update_lib(current_time3,3)
+                        # 提交扫描任务
+                        otx_status_result = basic.otxhistorydomain_lib()
+                    else:
+                        otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '4' in str(j):
-                # 获取系统当前时间
-                current_time4 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes4 = basic.info_time_shijian_cha(4)
-                if int(diff_time_minutes4) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time4,4)
-                    # 提交扫描任务
-                    crt_status_result = basic.crtdomain_lib()
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    crt_status_result = "未进行指纹识别无法开启查询子域名"
                 else:
-                    crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time4 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes4 = basic.info_time_shijian_cha(4)
+                    if int(diff_time_minutes4) > info_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.last_time_update_lib(current_time4,4)
+                        # 提交扫描任务
+                        crt_status_result = basic.crtdomain_lib()
+                    else:
+                        crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(j):
-                # 获取系统当前时间
-                current_time5 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes5 = basic.info_time_shijian_cha(5)
-                if int(diff_time_minutes5) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time5,5)
-                    # 提交扫描任务
-                    # 每次启动前清空上次扫描结果
-                    nmap_status_result = basic.startnmap_lib(portscan_part)
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    nmap_status_result = "未进行指纹识别无法开启nmap扫描"
                 else:
-                    nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time5 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes5 = basic.info_time_shijian_cha(5)
+                    if int(diff_time_minutes5) > info_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.last_time_update_lib(current_time5,5)
+                        # 提交扫描任务
+                        # 每次启动前清空上次扫描结果
+                        nmap_status_result = basic.startnmap_lib(portscan_part)
+                    else:
+                        nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '6' in str(j):
-                # 获取系统当前时间
-                current_time6 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes6 = basic.info_time_shijian_cha(6)
-                if int(diff_time_minutes6) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time6,6)
-                    # 提交扫描任务
-                    # 每次启动前清空上次扫描结果
-                    waf_status_result = basic.startwafrecognize_lib()
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    waf_status_result = "未进行指纹识别无法开启WAF扫描程序"
                 else:
-                    waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time6 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes6 = basic.info_time_shijian_cha(6)
+                    if int(diff_time_minutes6) > info_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.last_time_update_lib(current_time6,6)
+                        # 提交扫描任务
+                        # 每次启动前清空上次扫描结果
+                        waf_status_result = basic.startwafrecognize_lib()
+                    else:
+                        waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '7' in str(j):
-                # 获取系统当前时间
-                current_time7 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes7 = basic.info_time_shijian_cha(7)
-                if int(diff_time_minutes7) > info_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.last_time_update_lib(current_time7,7)
-                    # 提交扫描任务
-                    # 每次启动前清空上次扫描结果
-                    bypass_status_result = basic.start40xbypass_lib()
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    bypass_status_result = "未进行指纹识别无法开启FUZZ扫描程序"
                 else:
-                    bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time7 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes7 = basic.info_time_shijian_cha(7)
+                    if int(diff_time_minutes7) > info_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.last_time_update_lib(current_time7,7)
+                        # 提交扫描任务
+                        # 每次启动前清空上次扫描结果
+                        bypass_status_result = basic.start40xbypass_lib()
+                    else:
+                        bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '8' in str(j):
-                xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
-                if "running" in xray_status:
-                     # 获取系统当前时间
-                     current_time8 = time.time()
-                     # 当前时间和数据库中的作时间差
-                     diff_time_minutes8 = basic.info_time_shijian_cha(8)
-                     if int(diff_time_minutes8) > info_time_controls:
-                         # 超过单位时间更新数据库中的时间
-                         basic.last_time_update_lib(current_time8,8)
-                         # 提交扫描任务
-                         # 每次启动前清空上次扫描结果
-                         crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
-                     else:
-                         crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    crawlergo_status_result = "未进行指纹识别无法开启爬虫程序"
                 else:
-                    crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                    xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+                    if "running" in xray_status:
+                         # 获取系统当前时间
+                         current_time8 = time.time()
+                         # 当前时间和数据库中的作时间差
+                         diff_time_minutes8 = basic.info_time_shijian_cha(8)
+                         if int(diff_time_minutes8) > info_time_controls:
+                             # 超过单位时间更新数据库中的时间
+                             basic.last_time_update_lib(current_time8,8)
+                             # 提交扫描任务
+                             # 每次启动前清空上次扫描结果
+                             crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                         else:
+                             crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    else:
+                        crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
             else:
                 print("参数正在完善中...")
 
@@ -2459,220 +2506,311 @@ def vulnscan_check_back():
         for k in vuln_front_list:
             if '1' in str(k):
                 print("struts2")
-                # 获取系统当前时间
-                current_time1 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes1 = basic.vuln_time_shijian_cha(1)
-                if int(diff_time_minutes1) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time1,1)
-                    # 提交扫描任务
-                    struts2status_result = basic.startstruts2_lib()
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    struts2status_result = "未进行指纹识别无法开启struts2扫描"
                 else:
-                    struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time1 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes1 = basic.vuln_time_shijian_cha(1)
+                    if int(diff_time_minutes1) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time1,1)
+                        # 提交扫描任务
+                        struts2status_result = basic.startstruts2_lib()
+                    else:
+                        struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '2' in str(k):
                 print("weblogic")
-                # 获取系统当前时间
-                current_time2 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes2 = basic.vuln_time_shijian_cha(2)
-                if int(diff_time_minutes2) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time2,2)
-                    # 提交扫描任务
-                    weblogic_status_result = basic.startweblogic_lib()
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    weblogic_status_result = "未进行指纹识别无法开启weblogic扫描"
                 else:
-                    weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time2 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes2 = basic.vuln_time_shijian_cha(2)
+                    if int(diff_time_minutes2) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time2,2)
+                        # 提交扫描任务
+                        weblogic_status_result = basic.startweblogic_lib()
+                    else:
+                        weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '3' in str(k):
                 print("shiro")
-                # 获取系统当前时间
-                current_time3 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes3 = basic.vuln_time_shijian_cha(3)
-                if int(diff_time_minutes3) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time3,3)
-                    # 提交扫描任务
-                    shiro_status_result = basic.startshiro_lib()
-                    
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    shiro_status_result = "未进行指纹识别无法开启shiro扫描"
                 else:
-                    shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time3 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes3 = basic.vuln_time_shijian_cha(3)
+                    if int(diff_time_minutes3) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time3,3)
+                        # 提交扫描任务
+                        shiro_status_result = basic.startshiro_lib()
+                        
+                    else:
+                        shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '4' in str(k):
                 print("springboot")
-                # 获取系统当前时间
-                current_time4 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes4 = basic.vuln_time_shijian_cha(4)
-                if int(diff_time_minutes4) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time4,4)
-                    # 提交扫描任务
-                    springboot_scan_status_result = basic.startspringboot_lib()
-                                
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    springboot_scan_status_result = "未进行指纹识别无法开启springboot扫描"
                 else:
-                    springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time4 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes4 = basic.vuln_time_shijian_cha(4)
+                    if int(diff_time_minutes4) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time4,4)
+                        # 提交扫描任务
+                        springboot_scan_status_result = basic.startspringboot_lib()
+                                    
+                    else:
+                        springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(k):
                 print("thinkphp")
-                # 获取系统当前时间
-                current_time5 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes5 = basic.vuln_time_shijian_cha(5)
-                if int(diff_time_minutes5) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time5,5)
-                    # 提交扫描任务
-                    thinkphp_status_result = basic.startthinkphp_lib()
-                                
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    thinkphp_status_result = "未进行指纹识别无法开启thinkphp扫描"
                 else:
-                    thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time5 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes5 = basic.vuln_time_shijian_cha(5)
+                    if int(diff_time_minutes5) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time5,5)
+                        # 提交扫描任务
+                        thinkphp_status_result = basic.startthinkphp_lib()
+                                    
+                    else:
+                        thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '6' in str(k):
                 print("afrog")
-                # 获取系统当前时间
-                current_time6 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes6 = basic.vuln_time_shijian_cha(6)
-                if int(diff_time_minutes6) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time6,6)
-                    # 提交扫描任务
-                    start_afrog_result = basic.startafrog_lib()
-                                
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    start_afrog_result = "未进行指纹识别无法开启afrog扫描"
                 else:
-                    start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time6 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes6 = basic.vuln_time_shijian_cha(6)
+                    if int(diff_time_minutes6) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time6,6)
+                        # 提交扫描任务
+                        start_afrog_result = basic.startafrog_lib()
+                                    
+                    else:
+                        start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '7' in str(k):
                 print("fscan")
-                # 获取系统当前时间
-                current_time7 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes7 = basic.vuln_time_shijian_cha(7)
-                if int(diff_time_minutes7) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time7,7)
-                    # 提交扫描任务
-                    fscan_status_result = basic.startfscan_lib(fscanpartname)
-                                
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    fscan_status_result = "未进行指纹识别无法开启fscan扫描"
                 else:
-                    fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time7 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes7 = basic.vuln_time_shijian_cha(7)
+                    if int(diff_time_minutes7) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time7,7)
+                        # 提交扫描任务
+                        fscan_status_result = basic.startfscan_lib(fscanpartname)
+                                    
+                    else:
+                        fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '8' in str(k):
                 print("弱口令")
-                # 获取系统当前时间
-                current_time8 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes8 = basic.vuln_time_shijian_cha(8)
-                if int(diff_time_minutes8) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time8,8)
-                    # 提交扫描任务
-                    hydra_scan_result = basic.starthydra_lib(hydrapart)
-                                            
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    hydra_scan_result = "未进行指纹识别无法开启弱口令扫描"
                 else:
-                    hydra_scan_result = "hydra扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time8 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes8 = basic.vuln_time_shijian_cha(8)
+                    if int(diff_time_minutes8) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time8,8)
+                        # 提交扫描任务
+                        hydra_scan_result = basic.starthydra_lib(hydrapart)
+                                                
+                    else:
+                        hydra_scan_result = "hydra扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '9' in str(k):
                 print("api接口")
-                # 获取系统当前时间
-                current_time9 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes9 = basic.vuln_time_shijian_cha(9)
-                if int(diff_time_minutes9) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time9,9)
-                    # 提交扫描任务
-                    urlfinder_status_result = basic.starturlfinder_lib()
-                                            
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    urlfinder_status_result = "未进行指纹识别无法开启api接口扫描"
                 else:
-                    urlfinder_status_result = "urlfinder扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time9 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes9 = basic.vuln_time_shijian_cha(9)
+                    if int(diff_time_minutes9) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time9,9)
+                        # 提交扫描任务
+                        urlfinder_status_result = basic.starturlfinder_lib()
+                                                
+                    else:
+                        urlfinder_status_result = "urlfinder扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'a' in str(k):
                 print("vulmap")
-                # 获取系统当前时间
-                current_time10 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes10 = basic.vuln_time_shijian_cha(10)
-                if int(diff_time_minutes10) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time10,10)
-                    # 提交扫描任务
-                    vummap_scan_result = basic.startvulmap_lib(vulnname)
-                                            
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    vummap_scan_result = "未进行指纹识别无法开启vulmap扫描"
                 else:
-                    vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time10 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes10 = basic.vuln_time_shijian_cha(10)
+                    if int(diff_time_minutes10) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time10,10)
+                        # 提交扫描任务
+                        vummap_scan_result = basic.startvulmap_lib(vulnname)
+                                                
+                    else:
+                        vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'b' in str(k):
                 print("nuclei")
-                # 获取系统当前时间
-                current_time11 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes11 = basic.vuln_time_shijian_cha(11)
-                if int(diff_time_minutes11) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time11,11)
-                    # 提交扫描任务
-                    nuclei_status_result = basic.startnuclei_lib(poc_dir)
-                                            
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    nuclei_status_result = "未进行指纹识别无法开启nuclei扫描"
                 else:
-                    nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time11 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes11 = basic.vuln_time_shijian_cha(11)
+                    if int(diff_time_minutes11) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time11,11)
+                        # 提交扫描任务
+                        nuclei_status_result = basic.startnuclei_lib(poc_dir)
+                                                
+                    else:
+                        nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'c' in str(k):
                 print("泛微OA")
-                # 获取系统当前时间
-                current_time12 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes12 = basic.vuln_time_shijian_cha(12)
-                if int(diff_time_minutes12) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time12,12)
-                    # 提交扫描任务
-                    weaver_status_result = basic.startweaver_lib()
-                                            
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    weaver_status_result = "未进行指纹识别无法开启泛微OA扫描"
                 else:
-                    weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time12 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes12 = basic.vuln_time_shijian_cha(12)
+                    if int(diff_time_minutes12) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time12,12)
+                        # 提交扫描任务
+                        weaver_status_result = basic.startweaver_lib()
+                                                
+                    else:
+                        weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             
             elif 'e' in str(k):
                 print("ES未授权访问")
-                # 获取系统当前时间
-                current_time14 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes14 = basic.vuln_time_shijian_cha(14)
-                if int(diff_time_minutes14) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time14,14)
-                    # 提交扫描任务
-                    es_status_result = basic.startunes_lib()
-                                 
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    es_status_result = "未进行指纹识别无法开启ES相关漏洞扫描"
                 else:
-                    es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time14 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes14 = basic.vuln_time_shijian_cha(14)
+                    if int(diff_time_minutes14) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time14,14)
+                        # 提交扫描任务
+                        es_status_result = basic.startunes_lib()
+                                 
+                    else:
+                        es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                     
             elif 'f' in str(k):
                 print("nacos漏洞扫描")
-                # 获取系统当前时间
-                current_time15 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes15 = basic.vuln_time_shijian_cha(15)
-                if int(diff_time_minutes15) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time15,15)
-                    # 提交扫描任务
-                    nacos_status_result = basic.startnacosscan_lib()
-                                 
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    nacos_status_result = "未进行指纹识别无法开启nacos漏洞扫描"
                 else:
-                    nacos_status_result = "nacos漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time15 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes15 = basic.vuln_time_shijian_cha(15)
+                    if int(diff_time_minutes15) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time15,15)
+                        # 提交扫描任务
+                        nacos_status_result = basic.startnacosscan_lib()
+                                     
+                    else:
+                        nacos_status_result = "nacos漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             
             elif 'g' in str(k):
                 print("tomcat漏洞扫描")
-                # 获取系统当前时间
-                current_time16 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes16 = basic.vuln_time_shijian_cha(16)
-                if int(diff_time_minutes16) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time16,16)
-                    # 提交扫描任务
-                    tomcat_status_result = basic.starttomcatscan_lib()
-                                 
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    tomcat_status_result = "未进行指纹识别无法开启tomcat漏洞扫描"
                 else:
-                    tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time16 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes16 = basic.vuln_time_shijian_cha(16)
+                    if int(diff_time_minutes16) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time16,16)
+                        # 提交扫描任务
+                        tomcat_status_result = basic.starttomcatscan_lib()
+                                     
+                    else:
+                        tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'h' in str(k):
                 print("开启jndi服务")
+                
                 # 获取系统当前时间
                 current_time17 = time.time()
                 # 当前时间和数据库中的作时间差
@@ -2687,25 +2825,31 @@ def vulnscan_check_back():
                     jndi_status_result = "JNDI服务程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'i' in str(k):
                 print("开启fastjson漏洞扫描")
-                jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
-                jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
-                if "running" in jndi_status and "running" in jndi_python_status:
-                    print("2")
-                    # 获取系统当前时间
-                    current_time18 = time.time()
-                    # 当前时间和数据库中的作时间差
-                    diff_time_minutes18 = basic.vuln_time_shijian_cha(18)
-                    if int(diff_time_minutes18) > vuln_time_controls:
-                        # 超过单位时间更新数据库中的时间
-                        basic.vuln_last_time_update_lib(current_time18,18)
-                        # 提交扫描任务
-                        fastjson_status_result = basic.startfastjson_lib()
-                                     
-                    else:
-                        fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    fastjson_status_result = "未进行指纹识别无法开启fastjson漏洞扫描"
                 else:
-                    fastjson_status_result = basic.startfastjson_lib()
-                    print("1")
+                    jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+                    jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+                    if "running" in jndi_status and "running" in jndi_python_status:
+                        print("2")
+                        # 获取系统当前时间
+                        current_time18 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes18 = basic.vuln_time_shijian_cha(18)
+                        if int(diff_time_minutes18) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time18,18)
+                            # 提交扫描任务
+                            fastjson_status_result = basic.startfastjson_lib()
+                                         
+                        else:
+                            fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    else:
+                        fastjson_status_result = basic.startfastjson_lib()
+                    
             elif 'j' in str(k):
                 print("开启xray被动监听")
                 # xray_status_result = basic.startxray_lib()
@@ -2724,120 +2868,126 @@ def vulnscan_check_back():
 
             elif 'd' in str(k):
                 print("重点资产")
-                # 获取系统当前时间
-                current_time13 = time.time()
-                # 当前时间和数据库中的作时间差
-                diff_time_minutes13 = basic.vuln_time_shijian_cha(13)
-                if int(diff_time_minutes13) > vuln_time_controls:
-                    # 超过单位时间更新数据库中的时间
-                    basic.vuln_last_time_update_lib(current_time13,13)
-                    # 提交扫描任务
-                    # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
-                    basic.asset_by_rule_handle()
-                    
-                    # 计算shiro_file文件行数，如果为0不开启，否则开启
-                    shiro_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num shiro_file.txt').read()
-                    if int(shiro_num) == 0:
-                        all_shiro_status_result = "shiro资产为空无法开启扫描"
-                    else:
-                        # 开启shiro
-                        shiro_status = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
-                        if "running" in shiro_status:
-                            all_shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
-                        else:
-                            try:
-                                basic.shiro_scan()
-                                if "running" in shiro_status:
-                                    all_shiro_status_result = "shiro扫描程序已开启稍后查看结果"
-                                else:
-                                    all_shiro_status_result = "shiro扫描程序正在后台启动中......"
-                            except Exception as e:
-                                print("捕获到异常:", e)
-                    
-            
-                    # 计算springboot_file文件行数，如果为0不开启，否则开启
-                    springboot_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num springboot_file.txt').read()
-                    if int(springboot_num) == 0:
-                        all_springboot_status_result = "springboot资产为空无法开启扫描"
-                    else:
-                        # 开启springboot
-                        springboot_scan_status = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
-                        if "running" in springboot_scan_status:
-                            all_springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
-                        else:
-                            try:
-                                os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-                                if "running" in springboot_scan_status:
-                                    all_springboot_status_result = "springboot扫描程序已开启稍后查看结果"
-                                else:
-                                    all_springboot_status_result = "springboot扫描程序正在后台启动中......"
-                            except Exception as e:
-                                print("捕获到异常:", e)
-            
-            
-                    # 计算struts2_file文件行数，如果为0不开启，否则开启
-                    struts2_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num struts2_file.txt').read()
-                    if int(struts2_num) == 0:
-                        all_struts2_status_result = "struts2资产为空无法开启扫描"
-                    else:
-                        # 开启struts2
-                        struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
-                        if "running" in struts2status:
-                            all_struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
-                        else:
-                            try:
-                                os.popen('bash /TIP/info_scan/finger.sh struts2_poc_scan')
-                                if "running" in struts2status:
-                                    all_struts2_status_result = "struts2扫描程序已开启稍后查看结果"
-                                else:
-                                    all_struts2_status_result = "struts2扫描程序正在后台启动中......"
-                            except Exception as e:
-                                print("捕获到异常:", e)
-                            
-            
-            
-                    # 计算weblogic_file文件行数，如果为0不开启，否则开启
-                    weblogic_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num weblogic_file.txt').read()
-                    if int(weblogic_num) == 0:
-                        all_weblogic_status_result = "weblogic资产为空无法开启扫描"
-                    else:
-                        # 开启weblogic
-                        weblogic_status = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
-                        if "running" in weblogic_status:
-                            all_weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
-                        else:
-                
-                            # 遍历目标文件存入列表
-                            url_list = []
-                            url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
-                            for i in url_file.readlines():
-                                url_list.append(i.strip())
-                            
-                            # url中匹配出域名
-                            domain_list = []
-                            for url in url_list:
-                                pattern = r"https?://([^/]+)"
-                                urls_re_1 = re.search(pattern,url)
-                                urls_re = urls_re_1.group(1)
-                                domain_list.append(urls_re)
-                            
-                            # 域名写入到weblogic_poc目标
-                            weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
-                            for j in domain_list:
-                                weblogic_file.write(str(j)+"\n")
-                            weblogic_file.close()
-                    
-                            # weblogic_poc开始扫描
-                            os.popen('bash /TIP/info_scan/finger.sh weblogic_poc_scan')
-                            if "running" in weblogic_status:
-                                all_weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
-                            else:
-                                all_weblogic_status_result = "weblogic扫描程序正在后台启动中......"
 
-                    point_all_result = all_shiro_status_result+" "+all_springboot_status_result+" "+all_struts2_status_result+" "+all_weblogic_status_result
-                                            
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    point_all_result = "未进行指纹识别无法开启重点资产漏洞扫描"
                 else:
-                    point_all_result = "重点资产扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    # 获取系统当前时间
+                    current_time13 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes13 = basic.vuln_time_shijian_cha(13)
+                    if int(diff_time_minutes13) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time13,13)
+                        # 提交扫描任务
+                        # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
+                        basic.asset_by_rule_handle()
+                        
+                        # 计算shiro_file文件行数，如果为0不开启，否则开启
+                        shiro_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num shiro_file.txt').read()
+                        if int(shiro_num) == 0:
+                            all_shiro_status_result = "shiro资产为空无法开启扫描"
+                        else:
+                            # 开启shiro
+                            shiro_status = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
+                            if "running" in shiro_status:
+                                all_shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
+                            else:
+                                try:
+                                    basic.shiro_scan()
+                                    if "running" in shiro_status:
+                                        all_shiro_status_result = "shiro扫描程序已开启稍后查看结果"
+                                    else:
+                                        all_shiro_status_result = "shiro扫描程序正在后台启动中......"
+                                except Exception as e:
+                                    print("捕获到异常:", e)
+                        
+                
+                        # 计算springboot_file文件行数，如果为0不开启，否则开启
+                        springboot_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num springboot_file.txt').read()
+                        if int(springboot_num) == 0:
+                            all_springboot_status_result = "springboot资产为空无法开启扫描"
+                        else:
+                            # 开启springboot
+                            springboot_scan_status = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
+                            if "running" in springboot_scan_status:
+                                all_springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
+                            else:
+                                try:
+                                    os.popen('bash /TIP/info_scan/finger.sh start_springboot')
+                                    if "running" in springboot_scan_status:
+                                        all_springboot_status_result = "springboot扫描程序已开启稍后查看结果"
+                                    else:
+                                        all_springboot_status_result = "springboot扫描程序正在后台启动中......"
+                                except Exception as e:
+                                    print("捕获到异常:", e)
+                
+                
+                        # 计算struts2_file文件行数，如果为0不开启，否则开启
+                        struts2_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num struts2_file.txt').read()
+                        if int(struts2_num) == 0:
+                            all_struts2_status_result = "struts2资产为空无法开启扫描"
+                        else:
+                            # 开启struts2
+                            struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+                            if "running" in struts2status:
+                                all_struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
+                            else:
+                                try:
+                                    os.popen('bash /TIP/info_scan/finger.sh struts2_poc_scan')
+                                    if "running" in struts2status:
+                                        all_struts2_status_result = "struts2扫描程序已开启稍后查看结果"
+                                    else:
+                                        all_struts2_status_result = "struts2扫描程序正在后台启动中......"
+                                except Exception as e:
+                                    print("捕获到异常:", e)
+                                
+                
+                
+                        # 计算weblogic_file文件行数，如果为0不开启，否则开启
+                        weblogic_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num weblogic_file.txt').read()
+                        if int(weblogic_num) == 0:
+                            all_weblogic_status_result = "weblogic资产为空无法开启扫描"
+                        else:
+                            # 开启weblogic
+                            weblogic_status = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
+                            if "running" in weblogic_status:
+                                all_weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
+                            else:
+                    
+                                # 遍历目标文件存入列表
+                                url_list = []
+                                url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+                                for i in url_file.readlines():
+                                    url_list.append(i.strip())
+                                
+                                # url中匹配出域名
+                                domain_list = []
+                                for url in url_list:
+                                    pattern = r"https?://([^/]+)"
+                                    urls_re_1 = re.search(pattern,url)
+                                    urls_re = urls_re_1.group(1)
+                                    domain_list.append(urls_re)
+                                
+                                # 域名写入到weblogic_poc目标
+                                weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+                                for j in domain_list:
+                                    weblogic_file.write(str(j)+"\n")
+                                weblogic_file.close()
+                        
+                                # weblogic_poc开始扫描
+                                os.popen('bash /TIP/info_scan/finger.sh weblogic_poc_scan')
+                                if "running" in weblogic_status:
+                                    all_weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
+                                else:
+                                    all_weblogic_status_result = "weblogic扫描程序正在后台启动中......"
+    
+                        point_all_result = all_shiro_status_result+" "+all_springboot_status_result+" "+all_struts2_status_result+" "+all_weblogic_status_result
+                                                
+                    else:
+                        point_all_result = "重点资产扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             else:
                 print("其他扫描器正在完善中......")
         try:

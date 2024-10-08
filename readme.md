@@ -34,6 +34,9 @@
 2024-10-07更新<br> 
 1. 系统优化；<br>
 2. 虚拟机版更新；<br>
+3. 系统管理新增指纹识别结果提示；<br>
+4. 新增扫描前判断是否进行指纹识别,未进行指纹识别无法开启扫描程序；<br>
+5. 新增标题图标；<br>
 </li>
 <li>
 2024-09-28更新<br> 
@@ -255,3 +258,5 @@ fofa搜索日志<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
 弱口令扫描字典配置<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
+elasticsearch漏洞扫描<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" />
