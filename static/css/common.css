@@ -124,23 +124,29 @@
 			text-align: left;
 			cursor: pointer;
 		}
+
+		/* 系统管理 */
 		.modal {  
 			display: none; /* 隐藏弹窗 */  
-			position:static; /* 弹窗固定在视口 */  
+			/* position:static; 弹窗固定在视口   */
+			position: static; 
 			z-index: 1; /* 弹窗位于其他元素之上 */  
 			left: 0;  
 			top: 0;  
 			width: 100%; /* 宽度为全屏 */  
 			height: 100%; /* 高度为全屏 */  
 			overflow:auto; /*启用滚动条  */ 
-			background-color: rgba(0, 0, 0, 0.5); /* 黑色背景，半透明 */  
+			/* background-color: rgba(0, 0, 0, 0.5); 黑色背景，半透明   */
+			background-color: rgba(255, 255, 255, 0.987);
+			
 		}  
 		  
 		.modal-content {  
 			background-color: #fefefe;  
 			margin: 0% auto; /* 垂直居中，水平居中  */
 			
-			padding: 200px;  
+
+			padding: 5px;  
 			border: 10px solid #888;  
 			width: 100%; /* 弹窗宽度可以根据需要调整 */  
 			border: 5px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
@@ -202,6 +208,8 @@
 		}
 
 
+
+
 		/* 弱口令扫描字典配置 */
 		.moda22 {  
 			display: none; /* 隐藏弹窗 */  
@@ -218,7 +226,8 @@
 		.modal-content2 {  
 			background-color: #fefefe;  
 			margin: 0% auto; /* 垂直居中，水平居中  */
-			padding: 250px;  
+
+			padding: 5px;  /*内边距*/
 			border: 10px solid #888;  
 			width: 50%; /* 弹窗宽度可以根据需要调整 */  
 			border: 2px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 

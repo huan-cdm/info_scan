@@ -1320,7 +1320,19 @@ function openModal() {
                 document.getElementById("spp57").innerHTML = info.crawlergo_status1;
                 document.getElementById("spp57a").innerHTML = info.crawlergo_status2;
                 document.getElementById("spp1h2").innerHTML = info.finger_jindu;
-                
+
+                document.getElementById("successsp1").innerHTML = info.fofa_inter_num_success;
+                document.getElementById("failsp1").innerHTML = info.fofa_inter_num_fail;
+                document.getElementById("successsp2").innerHTML = info.shodan_inter_num_success;
+                document.getElementById("failsp2").innerHTML = info.shodan_inter_num_fail;
+                document.getElementById("successsp3").innerHTML = info.crt_inter_num_success;
+                document.getElementById("failsp3").innerHTML = info.crt_inter_num_fail;
+                document.getElementById("successsp4").innerHTML = info.icp_inter_num_success;
+                document.getElementById("failsp4").innerHTML = info.icp_inter_num_fail;
+                document.getElementById("successsp5").innerHTML = info.gd_inter_num_success;
+                document.getElementById("failsp5").innerHTML = info.gd_inter_num_fail;
+                document.getElementById("successsp6").innerHTML = info.otx_inter_num_success;
+                document.getElementById("failsp6").innerHTML = info.otx_inter_num_fail;
             });
     }
 
@@ -1342,6 +1354,7 @@ window.addEventListener("beforeunload", function () {
 function closeModal() {
     var modal = document.getElementById("modal");
     modal.style.display = "none";
+   
 }
 
 

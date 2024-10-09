@@ -13,8 +13,7 @@
 
 <body>
 	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">登录用户：{{data20}}</span><br><br>
-	<a href="###" onclick="jumpdirscanpage()">目录扫描</a>
-
+	<a href="###" onclick="jumpdirscanpage()" style="text-decoration: none;">目录扫描</a>
 	<table border="1">
 		<tr>
 			<td>
@@ -75,6 +74,7 @@
 
 	<div id="modal" class="modal">
 		<div class="modal-content">
+			<a href="/index/" target="_blank" style="text-decoration: none;">跳转首页</a>
 			<h2 style="color: darkorange;" id="spp1h2"></h2>
 			<strong style="color:coral">全局视角</strong>
 			<table border="1" style="width: 1500px; height: 100px;">
@@ -103,7 +103,7 @@
 					<td><span id="spp14"></span></td>
 					<td><span id="spp27"></span></td>
 					<td><span id="spp32" style="color:chocolate"></span></td>
-					<td><span id="spp33" style="color:springgreen"></span></td>
+					<td><span id="spp33" style="color:green"></span></td>
 					<td>
 						<span id="spp26"></span>
 						<p style="display: none;" id="idp1">
@@ -335,8 +335,7 @@
 					</td>
 				</tr>
 			</table>
-			<br><br>
-
+			<br>
 			<strong style="color:coral">关键资产数量</strong><br>
 			<span>1. 需先进行网站指纹识别,否则读取的是上一次的数据；</span><br>
 			<span>2. 规则名称是资产过滤规则,在资产过滤规则处进行编辑,然后点击识别关键资产,即可得到想要的资产；</span><br>
@@ -391,6 +390,36 @@
 					<td><span id="spp52t"></span></td>
 				</tr>
 			</table><br>
+			<strong style="color:coral">第三方接口查询数量统计</strong><br>
+			<table border="1" style="width: 1500px; height: 100px;">
+				<tr>
+					<th>接口名称</th>
+					<td>fofa接口</td>
+					<td>shodan接口</td>
+					<td>crt接口</td>
+					<td>icp接口</td>
+					<td>高德地图接口</td>
+					<td>otx接口</td>
+				</tr>
+				<tr>
+					<th>成功次数</th>
+					<td><span id="successsp1" style="color: green;"></span></td>
+					<td><span id="successsp2" style="color: green;"></span></td>
+					<td><span id="successsp3" style="color: green;"></span></td>
+					<td><span id="successsp4" style="color: green;"></span></td>
+					<td><span id="successsp5" style="color: green;"></span></td>
+					<td><span id="successsp6" style="color: green;"></span></td>
+				</tr>
+				<tr>
+					<th>失败次数</th>
+					<td><span id="failsp1" style="color: red;"></span></td>
+					<td><span id="failsp2" style="color: red;"></span></td>
+					<td><span id="failsp3" style="color: red;"></span></td>
+					<td><span id="failsp4" style="color: red;"></span></td>
+					<td><span id="failsp5" style="color: red;"></span></td>
+					<td><span id="failsp6" style="color: red;"></span></td>
+				</tr>
+			</table>
 			<img src="{{ url_for('static', filename='image/zhedie.png') }}" width="50" height="50"
 				style="cursor: pointer;" onclick="closeModal()">
 		</div>
@@ -417,7 +446,7 @@
 	<div id="moda22" class="moda22">
 		<div class="modal-content2">
 			<span class="close" onclick="closeModa22()">&times;</span>
-			<strong style="color: chocolate;">弱口令扫描字典配置,修改完点击保存即可</strong><br>
+			<strong style="color: chocolate;">字典配置</strong><br>
 			<span>mysql字典</span><br>
 			<div id="divdictid1" style="display: none;">
 				<textarea rows="3" cols="30" id="mysqltextarea1" style="width: 729px; height: 89px;">
@@ -953,17 +982,17 @@
 					<td colspan="2">
 						<span><strong>框架组件类：</strong></span>
 						<input type="checkbox" id="option1" name="option" value="1">
-						<label for="option1">struts2</label>
+						<label for="option1">struts2扫描</label>
 						<input type="checkbox" id="option2" name="option" value="2">
-						<label for="option2">weblogic</label>
+						<label for="option2">weblogic扫描</label>
 						<input type="checkbox" id="option3" name="option" value="3">
-						<label for="option3">shiro</label>
+						<label for="option3">shiro扫描</label>
 						<input type="checkbox" id="option4" name="option" value="4">
-						<label for="option4">springboot</label>
+						<label for="option4">springboot扫描</label>
 						<input type="checkbox" id="option5" name="option" value="5">
-						<label for="option5">thinkphp</label>
+						<label for="option5">thinkphp扫描</label>
 						<input type="checkbox" id="option16" name="option" value="e">
-						<label for="option16">Elasticsearch未授权</label>
+						<label for="option16">elasticsearch扫描</label>
 						<input type="checkbox" id="option17" name="option" value="f">
 						<label for="option17">nacos扫描</label>
 						<input type="checkbox" id="option18" name="option" value="g">
@@ -980,21 +1009,21 @@
 					<td colspan="2">
 						<span><strong>综合类：</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="checkbox" id="option6" name="option" value="6">
-						<label for="option6">afrog</label>
+						<label for="option6">afrog扫描</label>
 						<input type="checkbox" id="option7" name="option" value="7">
-						<label for="option7">fscan</label>
+						<label for="option7">fscan扫描</label>
 						<input type="checkbox" id="option8" name="option" value="8">
-						<label for="option8">弱口令</label>
+						<label for="option8">弱口令扫描</label>
 						<input type="checkbox" id="option9" name="option" value="9">
-						<label for="option9">api接口</label>
+						<label for="option9">api接口扫描</label>
 						<input type="checkbox" id="option11" name="option" value="a">
-						<label for="option11">vulmap</label>
+						<label for="option11">vulmap扫描</label>
 						<input type="checkbox" id="option12" name="option" value="b">
-						<label for="option12">nuclei</label>
+						<label for="option12">nuclei扫描</label>
 						<input type="checkbox" id="option21" name="option" value="j">
 						<label for="option21">xray监听</label>
 						<input type="checkbox" id="option15" name="option" value="d">
-						<label for="option15">一键扫描重点资产</label>
+						<label for="option15">重点资产扫描</label>
 					</td>
 				</tr>
 				<!-- 漏洞扫描程序第三行 -->
@@ -1024,22 +1053,22 @@
 				<tr>
 					<td colspan="2">
 						<span><strong>综合类：</strong></span>
-						<input type="checkbox" id="infooption1" name="info_option" value="1">
-						<label for="infooption1">敏感信息</label>
 						<input type="checkbox" id="infooption2" name="info_option" value="2">
-						<label for="infooption2">网站指纹</label>
+						<label for="infooption2">网站指纹扫描</label>
+						<input type="checkbox" id="infooption1" name="info_option" value="1">
+						<label for="infooption1">敏感信息扫描</label>
 						<input type="checkbox" id="infooption3" name="info_option" value="3">
-						<label for="infooption3">域名绑定URL</label>
+						<label for="infooption3">域名绑定URL扫描</label>
 						<input type="checkbox" id="infooption4" name="info_option" value="4">
-						<label for="infooption4">子域名</label>
+						<label for="infooption4">子域名扫描</label>
 						<input type="checkbox" id="infooption5" name="info_option" value="5">
 						<label for="infooption5">端口扫描</label>
 						<input type="checkbox" id="infooption6" name="info_option" value="6">
-						<label for="infooption6">WAF识别</label>
+						<label for="infooption6">WAF识别扫描</label>
 						<input type="checkbox" id="infooption7" name="info_option" value="7">
-						<label for="infooption7">FUZZ</label>
+						<label for="infooption7">网站FUZZ</label>
 						<input type="checkbox" id="infooption8" name="info_option" value="8">
-						<label for="infooption8">爬虫</label>
+						<label for="infooption8">爬虫扫描</label>
 					</td>
 				</tr>
 

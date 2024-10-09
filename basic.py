@@ -196,8 +196,10 @@ def icp_info(ip):
             except:
                 icp_name_list.append("None")
         icp_name_list_uniq = list(set(icp_name_list))
+        success_third_party_port_addone(4)
     except:
         icp_name_list_uniq = ["None"]
+        fail_third_party_port_addone(4)
     return icp_name_list_uniq
 
 
@@ -945,6 +947,7 @@ def otx_domain_url_lib():
         print("[+]"+domain)
         time.sleep(2)
         try:
+            success_third_party_port_addone(6)
             url = "https://otx.alienvault.com/api/v1/indicators/domain/" + domain + "/url_list?limit=500&page=1"  
             headers={
             'Cookie':'Hm_lvt_ecdd6f3afaa488ece3938bcdbb89e8da=1615729527; Hm_lvt_d39191a0b09bb1eb023933edaa468cd5=1617883004,1617934903,1618052897,1618228943; Hm_lpvt_d39191a0b09bb1eb023933edaa468cd5=1618567746',
@@ -962,6 +965,7 @@ def otx_domain_url_lib():
                 url_text = item.get('url','')
                 print(url_text)
         except Exception as e:
+            fail_third_party_port_addone(6)
             # 出现异常继续下一下
             print("捕获到异常:", e)
             continue
@@ -986,6 +990,7 @@ def crt_subdomain_lib():
                     subdomain_list = []
                     time.sleep(1)
                     subdomain = subdomain_scan(i)
+                    success_third_party_port_addone(3)
                     subdomain_list.append(subdomain)
                     subdomain_list_all = []
                     for item in subdomain_list:
@@ -995,6 +1000,7 @@ def crt_subdomain_lib():
                 except Exception as e:
                     print("捕获到异常:", e)
     except Exception as e:
+        fail_third_party_port_addone(3)
         print("捕获到异常:", e)
 
 
@@ -1971,6 +1977,70 @@ def assets_finger_compare():
     return conut_result
     
 
+# 第三方接口成功次数,每查询一次数据库增加1次
+def success_third_party_port_addone(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE interfacenum_table SET successnum = successnum + 1 where interid = '%s' "%(id)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+# 第三方接口失败次数,每查询一次数据库增加1次
+def fail_third_party_port_addone(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE interfacenum_table SET failnum = failnum + 1 where interid = '%s' "%(id)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+# 统计第三方接口成功次数
+def total_port_success_num(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select successnum from interfacenum_table where interid = '%s' "%(id)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+    except:
+        list_result = ['MySQL连接失败']
+
+    return list_result[0]
+
+
+# 统计第三方接口失败次数
+def total_port_fail_num(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select failnum from interfacenum_table where interid = '%s' "%(id)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+    except:
+        list_result = ['MySQL连接失败']
+
+    return list_result[0]
+
 
 
 if __name__ == "__main__":
@@ -1986,8 +2056,6 @@ if __name__ == "__main__":
             start_crawlergo_scan_lib()
         elif func_name == 'start_crawlergo_scan_proxy_lib':
             start_crawlergo_scan_proxy_lib()
-        # elif func_name == 'assets_finger_compare':
-        #     assets_finger_compare()
         else:
             print("Invalid function number")
     else:

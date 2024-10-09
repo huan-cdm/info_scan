@@ -104,8 +104,10 @@ def ipscaninterface():
         #公司位置信息
         try:
             companylocation = basic.amapscan(data4)
+            basic.success_third_party_port_addone(5)
         except:
             companylocation = "接口异常"
+            basic.fail_third_party_port_addone(5)
         
         #ip归属地
         try:
@@ -124,8 +126,11 @@ def ipscaninterface():
         #端口信息
         try:
             port = basic.shodan_api(ip)
+            basic.success_third_party_port_addone(1)
+            basic.success_third_party_port_addone(2)
         except:
-            pass
+            basic.fail_third_party_port_addone(1)
+            basic.fail_third_party_port_addone(2)
     
         #历史域名
         try:
@@ -847,16 +852,41 @@ def systemmanagement():
         # 指纹识别进度
         finger_part = basic.assets_finger_compare()
         if finger_part == 2:
-            finger_jindu = "注：系统检测到有新增资产,目前未进行指纹识别,无法开启扫描程序！！！"
+            finger_jindu = "温馨提示：系统检测到有新增资产,目前未进行指纹识别,无法开启扫描程序！！！"
         else:
             eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
             if "running" in eholestatus:
-                finger_jindu = "指纹识别程序正在运行中......,稍后开启扫描程序"
+                finger_jindu = "温馨提示：指纹识别程序正在运行中,稍后开启扫描程序！！！"
             else:
-                finger_jindu = "已完成指纹识别,可以开启漏洞扫描程序！！！"
+                finger_jindu = "温馨提示：已完成指纹识别,可以开启漏洞扫描程序！！！"
 
+        # 统计第三方接口查询成功和失败次数
+        fofa_inter_num_success = basic.total_port_success_num(1)
+        fofa_inter_num_fail = basic.total_port_fail_num(1)
+        shodan_inter_num_success = basic.total_port_success_num(2)
+        shodan_inter_num_fail = basic.total_port_fail_num(2)
+        crt_inter_num_success = basic.total_port_success_num(3)
+        crt_inter_num_fail = basic.total_port_fail_num(3)
+        icp_inter_num_success = basic.total_port_success_num(4)
+        icp_inter_num_fail = basic.total_port_fail_num(4)
+        gd_inter_num_success = basic.total_port_success_num(5)
+        gd_inter_num_fail = basic.total_port_fail_num(5)
+        otx_inter_num_success = basic.total_port_success_num(6)
+        otx_inter_num_fail = basic.total_port_fail_num(6)
 
         message_json = {
+            "fofa_inter_num_success":fofa_inter_num_success+"次",
+            "fofa_inter_num_fail":fofa_inter_num_fail+"次",
+            "shodan_inter_num_success":shodan_inter_num_success+"次",
+            "shodan_inter_num_fail":shodan_inter_num_fail+"次",
+            "crt_inter_num_success":crt_inter_num_success+"次",
+            "crt_inter_num_fail":crt_inter_num_fail+"次",
+            "icp_inter_num_success":icp_inter_num_success+"次",
+            "icp_inter_num_fail":icp_inter_num_fail+"次",
+            "gd_inter_num_success":gd_inter_num_success+"次",
+            "gd_inter_num_fail":gd_inter_num_fail+"次",
+            "otx_inter_num_success":otx_inter_num_success+"次",
+            "otx_inter_num_fail":otx_inter_num_fail+"次",
             "nmapstatus1":nmapstatus1,
             "nmapstatus2":nmapstatus2,
             "nucleistatus1":nucleistatus1,
@@ -906,7 +936,7 @@ def systemmanagement():
             "urlfinderstatus1":urlfinderstatus1,
             "urlfinderstatus2":urlfinderstatus2,
             "key_asset_rule_origin":key_asset_rule_origin,
-            "assets_status":"原始资产-------->"+assets_status,
+            "assets_status":assets_status,
             "vuln_scan_status_shijianxian":vuln_scan_status_shijianxian,
             "disk_read":str(disk_read)+" KB/s",
             "disk_write":str(disk_write)+" KB/s",
@@ -1821,8 +1851,12 @@ def fofa_search_assets_service():
         if 'alert' in part or 'select' in part or '<' in part or '>' in part or 'union' in part:
             asset_len_list = "请勿进行安全测试！"
         else:
-            asset_len_list_1 = basic.fofa_search_assets_service_lib(part,num_fofa)
-            asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
+            try:
+                asset_len_list_1 = basic.fofa_search_assets_service_lib(part,num_fofa)
+                basic.success_third_party_port_addone(1)
+                asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
+            except:
+                basic.fail_third_party_port_addone(1)
         message_json = {
             "asset_len_list":asset_len_list
         }

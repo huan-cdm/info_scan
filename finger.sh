@@ -841,7 +841,7 @@ case "${1}" in
     infopid=`ps -aux | grep  scan_main_web.py |awk -F " " '{print $2}' | wc -l`
     if (( $infopid > 1 ))
 	then
-		echo -e "running  (端口：19999)" 
+		echo -e "running  (19999)" 
 	else
 		echo -e "stop"
 	fi
@@ -851,7 +851,7 @@ case "${1}" in
     xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
     if (( $xraypid > 1 ))
 	then
-		echo -e "running  (端口：18888)" 
+		echo -e "running  (18888)" 
 	else
 		echo -e "stop"
 	fi
@@ -861,7 +861,7 @@ case "${1}" in
     urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
     if (( $urlfinderpid > 1 ))
 	then
-		echo -e "running  (端口：16666)" 
+		echo -e "running  (16666)" 
 	else
 		echo -e "stop"
 	fi
@@ -871,7 +871,8 @@ case "${1}" in
     dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
     if (( $dirscanpid > 1 ))
 	then
-		echo -e "running  (端口：17777)" 
+		echo -e "running  (17777)" 
+       
 	else
 		echo -e "stop"
 	fi
@@ -881,7 +882,7 @@ case "${1}" in
     afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
     if (( $afrogpid > 1 ))
 	then
-		echo -e "running  (端口：15555)" 
+		echo -e "running  (15555)" 
 	else
 		echo -e "stop"
 	fi
@@ -1242,7 +1243,7 @@ case "${1}" in
     jndi_ps=`ps -aux | grep "9999" | wc -l`
 	if (( $jndi_ps > 1 ))
 	then
-		echo "running  (端口：9999)"
+		echo "running  (9999)"
 	else
 		echo "stop"
 	fi
@@ -1252,7 +1253,7 @@ case "${1}" in
     jndi_python_ps=`ps -aux | grep "9991" | wc -l`
 	if (( $jndi_python_ps > 1 ))
 	then
-		echo "running  (端口：9998)"
+		echo "running  (9998)"
 	else
 		echo "stop"
 	fi
