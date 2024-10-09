@@ -436,7 +436,7 @@ def status_scan(ip1):
     
         #判断状态码为200的url
         try:
-            output = subprocess.check_output(["sh", "./httpxstatus.sh"], stderr=subprocess.STDOUT)
+            output = subprocess.check_output(["sh", "./finger.sh","httpxfilterstatus"], stderr=subprocess.STDOUT)
             output_list = output.decode().splitlines()
         except Exception as e:
             print("捕获到异常:", e)

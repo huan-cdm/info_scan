@@ -1424,4 +1424,9 @@ case "${1}" in
     assset_textarea_num_value=`cat $2 | wc -l`
     echo "${assset_textarea_num_value}"
     ;;
+
+    # 过滤状态码为200的url
+    httpxfilterstatus)
+    /TIP/info_scan/httpx_server/httpx -l /TIP/info_scan/result/domain.txt -mc 200 
+    ;;
 esac
