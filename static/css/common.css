@@ -186,7 +186,7 @@
 		.modal-content1 {  
 			background-color: #fefefe;  
 			margin: 0% auto; /* 垂直居中，水平居中  */
-			padding: 250px;  
+			padding: 5px;  
 			border: 10px solid #888;  
 			width: 50%; /* 弹窗宽度可以根据需要调整 */  
 			border: 2px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 

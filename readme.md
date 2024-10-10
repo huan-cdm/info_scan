@@ -31,10 +31,11 @@
 <h2>更新日志：</h2>
 <ul>
 <li>
-2024-10-08更新<br> 
+2024-10-09更新<br> 
 1. 统计第三方接口查询次数；<br>
 2. 已知问题处理；<br>
-3. 前端页面优化；<br>
+3. 前端页面布局调整；<br>
+4. 扫描器参数配置调整为通过弹窗显示；<br>
 </li>
 <li>
 2024-10-07更新<br> 
@@ -239,6 +240,7 @@ IP基础信息查询<br><br>
 系统折叠展开<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/partconfigpage.png"/><br><br>
 系统服务管理<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
 目录扫描<br><br>

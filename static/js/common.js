@@ -370,8 +370,6 @@ function startbutton() {
     button55.disabled = false;
     var button56 = document.getElementById("button56");
     button56.disabled = false;
-    var button57 = document.getElementById("button57");
-    button57.disabled = false;
     var button58 = document.getElementById("button58");
     button58.disabled = false;
     var button59 = document.getElementById("button59");
@@ -525,8 +523,6 @@ function stopbutton() {
     button55.disabled = true;
     var button56 = document.getElementById("button56");
     button56.disabled = true;
-    var button57 = document.getElementById("button57");
-    button57.disabled = true;
     var button58 = document.getElementById("button58");
     button58.disabled = true;
     var button59 = document.getElementById("button59");
@@ -1373,6 +1369,19 @@ function closeModal1() {
     modal1.style.display = "none";
 }
 
+
+// 打开扫描器配置页面
+function startscanconfigpagefunc() {
+    var modal2 = document.getElementById("modal2");
+    modal2.style.display = "block";
+
+}
+
+function stopscanconfigpagefunc() {
+    var modal2 = document.getElementById("modal2");
+    modal2.style.display = "none";
+}
+
 // 弱口令扫描字典配置
 function hydradictfunc() {
     var moda22 = document.getElementById("moda22");
@@ -1533,11 +1542,22 @@ function nuclei_poc_show_func() {
             poc_dir: poc_dir
         },
         success: function (info) {
-            $('#nucleibyid1').empty();
-            for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
-                $('#nucleibyid1').append('<option>' + info.nuclei_poc_list_global[i] + '</option><br>');
-            }
+
+            // 列表写入到textarea中
+             // 假设info.textvalue是一个数组  
+             var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+
+             // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+             for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
+                 textAreaContent += info.nuclei_poc_list_global[i] + '\n'; // 追加元素和换行符  
+             }
+ 
+             // 将textAreaContent的内容赋值给textarea  
+             $('#myTextarea3').val(textAreaContent); // 假设textarea的id是myTextarea  
+            //  document.getElementById("textareaspan1").innerHTML = info.textarea_num;
+             
             document.getElementById("nucleibyid2").innerHTML = info.nuclei_poc_list_len;
+
         },
         error: function () {
 
@@ -3199,4 +3219,18 @@ function hydra_dict_submit_func() {
 
         }
     });
+}
+
+
+// 资产文本框鼠标悬停变大
+function textarea_onhover(){
+    var textarea = document.getElementById('myTextarea');
+    textarea.rows = 20;
+    textarea.cols = 152;
+}
+// 资产文本框鼠标移出变小
+function textarea_onout(){
+    var textarea = document.getElementById('myTextarea');
+    textarea.rows = 2;
+    textarea.cols = 152;
 }
