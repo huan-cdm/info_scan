@@ -1,5 +1,5 @@
 // 上线后需替换为自己的服务器IP地址
-var ipvalue = "http://117.72.16.222"
+var ipvalue = "http://x.x.x.x"
 
 
 function fanhui() {
