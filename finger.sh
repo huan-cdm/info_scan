@@ -1,6 +1,6 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
-ip_address="117.72.16.222"
+ip_address="x.x.x.x"
 # 爬虫流量代理地址
 proxy_ip="http://127.0.0.1:7777"
 case "${1}" in

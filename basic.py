@@ -48,6 +48,7 @@ import sys
 # 线程
 import threading
 from config import history_switch
+from config import interface_num
 
 import datetime
 
@@ -185,16 +186,18 @@ def icp_info(ip):
         if len(domain_list_uniq) == 0:
             icp_name_list.append("None")
         else:
+            
             try:
                 for jii in domain_list_uniq:
                     res = requests.get(url+str(jii),headers=hearder,allow_redirects=False)
                     res.encoding = 'utf-8'
                     soup=BeautifulSoup(res.text,'html.parser')
+                    
                     soup_td = soup.find_all('td')
                     icp_name = soup_td[25].text
                     icp_name_list.append(icp_name)
             except:
-                icp_name_list.append("None")
+                icp_name_list.append("icp备案查询接口内部错误")
         icp_name_list_uniq = list(set(icp_name_list))
         success_third_party_port_addone(4)
     except:
@@ -2040,6 +2043,40 @@ def total_port_fail_num(id):
         list_result = ['MySQL连接失败']
 
     return list_result[0]
+
+
+# 初始化第三方接口次数
+def initinterface_num_lib():
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="update interfacenum_table set successnum = 0 and failnum = 0"
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+        # 判断数据是否初始化成功
+        sql="select successnum,failnum FROM interfacenum_table"
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        success_result_list = []
+        for i in list_data:
+            success_result_list.append(i[0])
+        fail_result_list = []
+        for j in list_data:
+            fail_result_list.append(j[1])
+        success_result_list_num = success_result_list.count('0')
+        fail_result_list_num = fail_result_list.count('0')
+        # 判断数据是否清空
+        if success_result_list_num == interface_num and fail_result_list_num == interface_num:
+            result = "已完成数据初始化"
+        else:
+            result = "正在初始化中"
+    except:
+        result = "MySQL连接失败"
+    return result
+
 
 
 

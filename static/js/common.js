@@ -1,5 +1,5 @@
 // 上线后需替换为自己的服务器IP地址
-var ipvalue = "http://x.x.x.x"
+var ipvalue = "http://117.72.16.222"
 
 
 function fanhui() {
@@ -1329,6 +1329,20 @@ function openModal() {
                 document.getElementById("failsp5").innerHTML = info.gd_inter_num_fail;
                 document.getElementById("successsp6").innerHTML = info.otx_inter_num_success;
                 document.getElementById("failsp6").innerHTML = info.otx_inter_num_fail;
+                // 第三方接口额度查看
+                document.getElementById("totalsp1").innerHTML = info.fofa_max_num;
+                document.getElementById("totalsp2").innerHTML = info.shodan_max_num;
+                document.getElementById("totalsp3").innerHTML = info.crt_max_num;
+                document.getElementById("totalsp4").innerHTML = info.icp_max_num;
+                document.getElementById("totalsp5").innerHTML = info.amap_max_num;
+                document.getElementById("totalsp6").innerHTML = info.otx_max_num;
+                // 第三方接口剩余额度查询
+                document.getElementById("overtotalsp1").innerHTML = info.fofa_remaining_num;
+                document.getElementById("overtotalsp2").innerHTML = info.shodan_remaining_num;
+                document.getElementById("overtotalsp3").innerHTML = info.crt_remaining_num;
+                document.getElementById("overtotalsp4").innerHTML = info.icp_remaining_num;
+                document.getElementById("overtotalsp5").innerHTML = info.amap_remaining_num;
+                document.getElementById("overtotalsp6").innerHTML = info.otx_remaining_num;
             });
     }
 
@@ -3295,4 +3309,22 @@ function crawlergo_part_show() {
         document.getElementById("crawlergo_part_show_part1").innerHTML = "";
         document.getElementById("crawlergo_part_show_part2").innerHTML = "爬虫流量已转发给xray,扫描前需先开启xray被动监听";
     }
+}
+
+
+//第三方接口查询次数初始化
+function initinterfacefunc() {
+    $.ajax({
+        url: '/interface_init/',
+        method: 'GET',
+        success: function (info) {
+            alert(info.initresult);
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
 }

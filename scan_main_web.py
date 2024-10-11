@@ -70,6 +70,14 @@ from config import nacos_pass_dir
 # 统计列表元素出现次数
 from collections import Counter
 
+# 统计第三方接口查询次数
+from config import fofa_max_num
+from config import otx_max_num
+from config import amap_max_num
+from config import crt_max_num
+from config import shodan_max_num
+from config import icp_max_num
+
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -102,12 +110,20 @@ def ipscaninterface():
             pass
     
         #公司位置信息
-        try:
-            companylocation = basic.amapscan(data4)
-            basic.success_third_party_port_addone(5)
-        except:
-            companylocation = "接口异常"
-            basic.fail_third_party_port_addone(5)
+        gd_inter_num_success = basic.total_port_success_num(5)
+        gd_inter_num_fail = basic.total_port_fail_num(5)
+        amap_total = int(gd_inter_num_success) + int(gd_inter_num_fail)
+        if amap_total > int(amap_max_num):
+            companylocation = ["高德地图接口次数已超过额度"+str(amap_max_num)+"次,无法继续查询,请后台修改额度继续查询"]
+        else:
+            try:
+               
+    
+                companylocation = basic.amapscan(data4)
+                basic.success_third_party_port_addone(5)
+            except:
+                companylocation = "接口异常"
+                basic.fail_third_party_port_addone(5)
         
         #ip归属地
         try:
@@ -874,7 +890,57 @@ def systemmanagement():
         otx_inter_num_success = basic.total_port_success_num(6)
         otx_inter_num_fail = basic.total_port_fail_num(6)
 
+        # 剩余接口额度
+        tatal_fofa_num = int(fofa_inter_num_success) + int(fofa_inter_num_fail)
+        fofa_remaining_num_1 =  int(fofa_max_num) - tatal_fofa_num
+        if fofa_remaining_num_1 < 0:
+            fofa_remaining_num = 0
+        else:
+            fofa_remaining_num = fofa_remaining_num_1
+
+        total_shodan_num = int(shodan_inter_num_success) + int(shodan_inter_num_fail)
+        shodan_remaining_num_1 = int(shodan_max_num) - total_shodan_num
+        if shodan_remaining_num_1 < 0:
+            shodan_remaining_num = 0
+        else:
+            shodan_remaining_num = shodan_remaining_num_1
+
+        tatal_crt_num = int(crt_inter_num_success) + int(crt_inter_num_fail)
+        crt_remaining_num_1 =  int(crt_max_num) - tatal_crt_num
+        if crt_remaining_num_1 < 0:
+            crt_remaining_num = 0
+        else:
+            crt_remaining_num = crt_remaining_num_1
+
+        tatal_icp_num = int(icp_inter_num_success) + int(icp_inter_num_fail)
+        icp_remaining_num_1 =  int(icp_max_num) - tatal_icp_num
+        if icp_remaining_num_1 < 0:
+            icp_remaining_num = 0
+        else:
+            icp_remaining_num = icp_remaining_num_1
+
+        tatal_amap_num = int(gd_inter_num_success) + int(gd_inter_num_fail)
+        amap_remaining_num_1 =  int(amap_max_num) - tatal_amap_num
+        if amap_remaining_num_1 < 0:
+            amap_remaining_num = 0
+        else:
+            amap_remaining_num = amap_remaining_num_1
+        
+        tatal_otx_num = int(otx_inter_num_success) + int(otx_inter_num_fail)
+        otx_remaining_num_1 =  int(otx_max_num) - tatal_otx_num
+        if otx_remaining_num_1 < 0:
+            otx_remaining_num = 0
+        else:
+            otx_remaining_num = otx_remaining_num_1
+
         message_json = {
+            # 剩余额度
+            "fofa_remaining_num":str(fofa_remaining_num)+"次",
+            "shodan_remaining_num":str(shodan_remaining_num)+"次",
+            "crt_remaining_num":str(crt_remaining_num)+"次",
+            "icp_remaining_num":str(icp_remaining_num)+"次",
+            "amap_remaining_num":str(amap_remaining_num)+"次",
+            "otx_remaining_num":str(otx_remaining_num)+"次",
             "fofa_inter_num_success":fofa_inter_num_success+"次",
             "fofa_inter_num_fail":fofa_inter_num_fail+"次",
             "shodan_inter_num_success":shodan_inter_num_success+"次",
@@ -980,7 +1046,14 @@ def systemmanagement():
             "bypass_status2":bypass_status2,
             "crawlergo_status1":crawlergo_status1,
             "crawlergo_status2":crawlergo_status2,
-            "finger_jindu":finger_jindu
+            "finger_jindu":finger_jindu,
+            # 第三方接口额度查看
+            "fofa_max_num":str(fofa_max_num)+"次",
+            "otx_max_num":str(otx_max_num)+"次",
+            "amap_max_num":str(amap_max_num)+"次",
+            "crt_max_num":str(crt_max_num)+"次",
+            "shodan_max_num":str(shodan_max_num)+"次",
+            "icp_max_num":str(icp_max_num)+"次"
 
         }
         return jsonify(message_json)
@@ -1851,12 +1924,19 @@ def fofa_search_assets_service():
         if 'alert' in part or 'select' in part or '<' in part or '>' in part or 'union' in part:
             asset_len_list = "请勿进行安全测试！"
         else:
-            try:
-                asset_len_list_1 = basic.fofa_search_assets_service_lib(part,num_fofa)
-                basic.success_third_party_port_addone(1)
-                asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
-            except:
-                basic.fail_third_party_port_addone(1)
+            # 第三方接口限额配置
+            fofa_inter_num_success = basic.total_port_success_num(1)
+            fofa_inter_num_fail = basic.total_port_fail_num(1)
+            fofa_total = int(fofa_inter_num_success) + int(fofa_inter_num_fail)
+            if fofa_total > int(fofa_max_num):
+                asset_len_list = "fofa接口次数已超过额度"+str(fofa_max_num)+"次,无法继续查询,请后台修改额度继续查询"
+            else:
+                try:
+                    asset_len_list_1 = basic.fofa_search_assets_service_lib(part,num_fofa)
+                    basic.success_third_party_port_addone(1)
+                    asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
+                except:
+                    basic.fail_third_party_port_addone(1)
         message_json = {
             "asset_len_list":asset_len_list
         }
@@ -2349,34 +2429,47 @@ def infoscan_check_back():
                 if finger_part == 2:
                     otx_status_result = "未进行指纹识别无法开启历史URL查询"
                 else:
-                    # 获取系统当前时间
-                    current_time3 = time.time()
-                    # 当前时间和数据库中的作时间差
-                    diff_time_minutes3 = basic.info_time_shijian_cha(3)
-                    if int(diff_time_minutes3) > info_time_controls:
-                        # 超过单位时间更新数据库中的时间
-                        basic.last_time_update_lib(current_time3,3)
-                        # 提交扫描任务
-                        otx_status_result = basic.otxhistorydomain_lib()
+                    # 限定第三方接口otx额度
+                    otx_inter_num_success = basic.total_port_success_num(6)
+                    otx_inter_num_fail = basic.total_port_fail_num(6)
+                    otx_total = int(otx_inter_num_success) + int(otx_inter_num_fail)
+                    if int(otx_total) > int(otx_max_num):
+                        otx_status_result = "otx接口次数已超过额度"+str(otx_max_num)+"次,无法继续查询,请后台修改额度继续查询"
                     else:
-                        otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        # 获取系统当前时间
+                        current_time3 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes3 = basic.info_time_shijian_cha(3)
+                        if int(diff_time_minutes3) > info_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time3,3)
+                            # 提交扫描任务
+                            otx_status_result = basic.otxhistorydomain_lib()
+                        else:
+                            otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '4' in str(j):
                 # 判断是否已进行指纹识别
                 finger_part = basic.assets_finger_compare()
                 if finger_part == 2:
                     crt_status_result = "未进行指纹识别无法开启查询子域名"
                 else:
-                    # 获取系统当前时间
-                    current_time4 = time.time()
-                    # 当前时间和数据库中的作时间差
-                    diff_time_minutes4 = basic.info_time_shijian_cha(4)
-                    if int(diff_time_minutes4) > info_time_controls:
-                        # 超过单位时间更新数据库中的时间
-                        basic.last_time_update_lib(current_time4,4)
-                        # 提交扫描任务
-                        crt_status_result = basic.crtdomain_lib()
+                    crt_inter_num_success = basic.total_port_success_num(3)
+                    crt_inter_num_fail = basic.total_port_fail_num(3)
+                    crt_total = int(crt_inter_num_success) + int(crt_inter_num_fail)
+                    if crt_total > int(crt_max_num):
+                        crt_status_result = "子域名查询接口次数已超过额度"+str(crt_max_num)+"次,无法继续查询,请后台修改额度继续查询"
                     else:
-                        crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        # 获取系统当前时间
+                        current_time4 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes4 = basic.info_time_shijian_cha(4)
+                        if int(diff_time_minutes4) > info_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time4,4)
+                            # 提交扫描任务
+                            crt_status_result = basic.crtdomain_lib()
+                        else:
+                            crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(j):
                 # 判断是否已进行指纹识别
                 finger_part = basic.assets_finger_compare()
@@ -3851,6 +3944,22 @@ def hydradictconfig():
             "mysql_dict_result":mysql_dict_result
         }
         return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 第三方接口查询次数初始化
+@app.route("/interface_init/", methods=['GET'])
+def interface_init():
+    user = session.get('username')
+    if str(user) == main_username:
+        initresult = basic.initinterface_num_lib()
+        message_json = {
+            "initresult":initresult
+        }
+
+        return jsonify(message_json)
+    
     else:
         return render_template('login.html')
 
