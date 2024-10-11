@@ -1,6 +1,6 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
-ip_address="x.x.x.x"
+ip_address="117.72.16.222"
 # 爬虫流量代理地址
 proxy_ip="http://127.0.0.1:7777"
 case "${1}" in
@@ -86,7 +86,7 @@ case "${1}" in
 	ps_nmap=`ps -aux | grep /usr/bin/nmap | wc -l`
 	if (( $ps_nmap > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -117,7 +117,7 @@ case "${1}" in
     ps_nuclei=`ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l`
 	if (( $ps_nuclei > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -166,7 +166,7 @@ case "${1}" in
     num_rad=`ps -aux | grep rad_linux_amd64 | wc -l`
     if (( $num_rad > 1 ))
     then
-        echo "running..."
+        echo "running"
     else
         echo "stop"
     fi
@@ -192,7 +192,7 @@ case "${1}" in
 	ps_dirsearch=`ps -aux | grep dirsearch.py | wc -l`
 	if (( $ps_dirsearch > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -203,7 +203,7 @@ case "${1}" in
 	ps_fileclean=`ps -aux | grep filterdirsearchdata.sh | wc -l`
 	if (( $ps_fileclean > 2 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -316,7 +316,7 @@ case "${1}" in
     ps_urlfinder_scan=`ps -aux | grep  "URLFinder"  | wc -l`
 	if (( $ps_urlfinder_scan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -356,7 +356,7 @@ case "${1}" in
 	ps_weblogic=`ps -aux | grep WeblogicScan.py | wc -l`
 	if (( $ps_weblogic > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -393,7 +393,7 @@ case "${1}" in
 	ps_struts2=`ps -aux | grep Struts2Scan.py | wc -l`
 	if (( $ps_struts2 > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -425,7 +425,7 @@ case "${1}" in
 	ps_bbscan=`ps -aux | grep BBScan.py | wc -l`
 	if (( $ps_bbscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -444,7 +444,7 @@ case "${1}" in
 	ps_vulmapscan=`ps -aux | grep vulmap.py | wc -l`
 	if (( $ps_vulmapscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -486,7 +486,7 @@ case "${1}" in
 	ps_afrogscan=`ps -aux | grep startafrogprocess | wc -l`
 	if (( $ps_afrogscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -556,7 +556,7 @@ case "${1}" in
 	ps_fscanscan=`ps -aux | grep startfscanprocess | wc -l`
 	if (( $ps_fscanscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -572,7 +572,7 @@ case "${1}" in
 	ps_shiroscan=`ps -aux | grep shiro-exploit.py | wc -l`
 	if (( $ps_shiroscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -594,7 +594,7 @@ case "${1}" in
 	ps_httpxscan=`ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l`
 	if (( $ps_httpxscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -624,7 +624,7 @@ case "${1}" in
 	ps_eholescan=`ps -aux | grep EHole | wc -l`
 	if (( $ps_eholescan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -649,7 +649,7 @@ case "${1}" in
 	ps_springbootscan=`ps -aux | grep ssp_linux_amd64 | wc -l`
 	if (( $ps_springbootscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -684,7 +684,7 @@ case "${1}" in
     ps_hydra_scan=`ps -aux | grep  "/usr/bin/hydra"  | wc -l`
 	if (( $ps_hydra_scan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -900,7 +900,7 @@ case "${1}" in
 	ps_tpscan=`ps -aux | grep TPscan.py | wc -l`
 	if (( $ps_tpscan > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -934,7 +934,7 @@ case "${1}" in
 	crt_subdomain_shell_lib=`ps -aux | grep "crt_subdomain_lib" | wc -l`
 	if (( $crt_subdomain_shell_lib > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -946,7 +946,7 @@ case "${1}" in
 	ps_otx_domain_url_lib=`ps -aux | grep "otx_domain_url_lib" | wc -l`
 	if (( $ps_otx_domain_url_lib > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1087,7 +1087,7 @@ case "${1}" in
     weaver_lib=`ps -aux | grep "weaver_exp/main.py" | wc -l`
 	if (( $weaver_lib > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1114,7 +1114,7 @@ case "${1}" in
     es_unauthorized_ps=`ps -aux | grep "vuln_lib.py es_unauthorized" | wc -l`
 	if (( $es_unauthorized_ps > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1149,7 +1149,7 @@ case "${1}" in
     nacos_scan_ps=`ps -aux | grep "vuln_lib.py nacos_vuln_scan" | wc -l`
 	if (( $nacos_scan_ps > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1179,7 +1179,7 @@ case "${1}" in
     tomcat_scan_ps=`ps -aux | grep "vuln_lib.py tomcat_vuln_scan" | wc -l`
 	if (( $tomcat_scan_ps > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1265,7 +1265,7 @@ case "${1}" in
     fastjson_ps=`ps -aux | grep "vuln_lib.py fastjson_vuln_scan" | wc -l`
 	if (( $fastjson_ps > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1315,7 +1315,7 @@ case "${1}" in
     waf_ps=`ps -aux | grep "vuln_lib.py waf_tool_scan" | wc -l`
 	if (( $waf_ps > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi
@@ -1346,7 +1346,7 @@ case "${1}" in
     bypass_ps=`ps -aux | grep "40xbypass" | wc -l`
 	if (( $bypass_ps > 1 ))
 	then
-		echo "running..."
+		echo "running"
 	else
 		echo "stop"
 	fi

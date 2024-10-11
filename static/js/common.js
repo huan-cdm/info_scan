@@ -1,5 +1,5 @@
 // 上线后需替换为自己的服务器IP地址
-var ipvalue = "http://x.x.x.x"
+var ipvalue = "http://117.72.16.222"
 
 
 function fanhui() {
@@ -297,7 +297,7 @@ function startbutton() {
     button15.disabled = false;
     var button16 = document.getElementById("button16");
     button16.disabled = false;
-    
+
     var button18 = document.getElementById("button18");
     button18.disabled = false;
     var button19 = document.getElementById("button19");
@@ -450,7 +450,7 @@ function stopbutton() {
     button15.disabled = true;
     var button16 = document.getElementById("button16");
     button16.disabled = true;
-    
+
     var button18 = document.getElementById("button18");
     button18.disabled = true;
     var button19 = document.getElementById("button19");
@@ -1350,7 +1350,7 @@ window.addEventListener("beforeunload", function () {
 function closeModal() {
     var modal = document.getElementById("modal");
     modal.style.display = "none";
-   
+
 }
 
 
@@ -1367,6 +1367,12 @@ function fofayufa() {
 function closeModal1() {
     var modal1 = document.getElementById("modal1");
     modal1.style.display = "none";
+}
+
+// 关闭系统管理
+function closesystemanager() {
+    var modal = document.getElementById("modal");
+    modal.style.display = "none";
 }
 
 
@@ -1544,18 +1550,18 @@ function nuclei_poc_show_func() {
         success: function (info) {
 
             // 列表写入到textarea中
-             // 假设info.textvalue是一个数组  
-             var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
+            // 假设info.textvalue是一个数组  
+            var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
 
-             // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
-             for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
-                 textAreaContent += info.nuclei_poc_list_global[i] + '\n'; // 追加元素和换行符  
-             }
- 
-             // 将textAreaContent的内容赋值给textarea  
-             $('#myTextarea3').val(textAreaContent); // 假设textarea的id是myTextarea  
+            // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
+            for (var i = 0; i < info.nuclei_poc_list_global.length; i++) {
+                textAreaContent += info.nuclei_poc_list_global[i] + '\n'; // 追加元素和换行符  
+            }
+
+            // 将textAreaContent的内容赋值给textarea  
+            $('#myTextarea3').val(textAreaContent); // 假设textarea的id是myTextarea  
             //  document.getElementById("textareaspan1").innerHTML = info.textarea_num;
-             
+
             document.getElementById("nucleibyid2").innerHTML = info.nuclei_poc_list_len;
 
         },
@@ -3207,7 +3213,7 @@ function hydra_dict_submit_func() {
         url: '/hydradictconfig/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2:line_mysqltextarea2,line_sshtextarea1:line_sshtextarea1, line_sshtextarea2:line_sshtextarea2,line_ftptextarea1:line_ftptextarea1,line_ftptextarea2:line_ftptextarea2,line_redistextarea2:line_redistextarea2,line_mssqltextarea1:line_mssqltextarea1,line_mssqltextarea2:line_mssqltextarea2,line_tomcattextarea1:line_tomcattextarea1,line_tomcattextarea2:line_tomcattextarea2,line_nacostextarea1:line_nacostextarea1,line_nacostextarea2:line_nacostextarea2}),
+        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2 }),
         dataType: 'json',
         success: function (info) {
             alert(info.mysql_dict_result)
@@ -3223,14 +3229,70 @@ function hydra_dict_submit_func() {
 
 
 // 资产文本框鼠标悬停变大
-function textarea_onhover(){
+function textarea_onhover() {
     var textarea = document.getElementById('myTextarea');
     textarea.rows = 20;
     textarea.cols = 152;
 }
 // 资产文本框鼠标移出变小
-function textarea_onout(){
+function textarea_onout() {
     var textarea = document.getElementById('myTextarea');
     textarea.rows = 2;
     textarea.cols = 152;
+}
+
+// fscan参数配置鼠标悬停变大
+function fscantextarea_onhover() {
+    var myTextarea2 = document.getElementById('myTextarea2');
+    myTextarea2.rows = 15;
+    myTextarea2.cols = 80;
+}
+
+// fscan参数配置鼠标移出变小
+function fscantextarea_onout() {
+    var myTextarea2 = document.getElementById('myTextarea2');
+    myTextarea2.rows = 3;
+    myTextarea2.cols = 80;
+}
+
+
+// nuclei参数配置鼠标悬停变大
+function nucleitextarea_onhover() {
+    var myTextarea3 = document.getElementById('myTextarea3');
+    myTextarea3.rows = 15;
+    myTextarea3.cols = 80;
+}
+
+// nuclei参数配置鼠标移出变小
+function nucleitextarea_onout() {
+    var myTextarea3 = document.getElementById('myTextarea3');
+    myTextarea3.rows = 3;
+    myTextarea3.cols = 80;
+}
+
+// 端口扫描参数配置鼠标悬停变大
+function nmaptextarea_onhover() {
+    var myTextarea1 = document.getElementById('myTextarea1');
+    myTextarea1.rows = 15;
+    myTextarea1.cols = 80;
+}
+
+// 端口扫描参数配置鼠标移出变小
+function nmaptextarea_onout() {
+    var myTextarea1 = document.getElementById('myTextarea1');
+    myTextarea1.rows = 3;
+    myTextarea1.cols = 80;
+}
+
+
+// 爬虫扫描参数详情
+function crawlergo_part_show() {
+    var pachongselectpart = $('select[name="pachongselectpart"]').val();
+    if (pachongselectpart == 1) {
+        document.getElementById("crawlergo_part_show_part2").innerHTML = "";
+        document.getElementById("crawlergo_part_show_part1").innerHTML = "爬虫流量不转发给被动流量扫描器";
+    } else if (pachongselectpart == 2) {
+        document.getElementById("crawlergo_part_show_part1").innerHTML = "";
+        document.getElementById("crawlergo_part_show_part2").innerHTML = "爬虫流量已转发给xray,扫描前需先开启xray被动监听";
+    }
 }
