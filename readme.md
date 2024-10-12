@@ -1,8 +1,8 @@
-<h2>虚拟机安装：</h2>
-##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 
 <br><br><br>
 哔哩哔哩: https://www.bilibili.com/video/BV1Gt28YFEr3
 <br><br><br>
+<h2>虚拟机安装：</h2>
+##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 
 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
 虚拟机账号密码：huan/admin@123<br>
 1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件，不配置系统无法启动<br>
