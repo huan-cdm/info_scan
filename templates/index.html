@@ -61,12 +61,12 @@
 				<span id="tishisp3" style="display: none; color: chocolate;">解锁按钮</span>
 				<span id="tishisp4" style="display: none; color: chocolate;">dnslog平台dns日志</span>
 				<span id="tishisp5" style="display: none; color: chocolate;">dnslog平台http日志</span>
-				<span id="tishisp6" style="display: none; color: chocolate;">报告整合,点击完需进行等待,提示整合完毕可进行报告的下载和在线预览</span>
+				<span id="tishisp6" style="display: none; color: chocolate;">报告整合</span>
 				<span id="tishisp7" style="display: none; color: chocolate;">报告预览</span>
 				<span id="tishisp8" style="display: none; color: chocolate;">报告下载</span>
 				<span id="tishisp9" style="display: none; color: chocolate;">系统管理</span>
 				<span id="tishisp9a" style="display: none; color: chocolate;">注销系统</span>
-				<span id="tishisp9b" style="display: none; color: chocolate;">系统变更代码软重启服务</span>
+				<span id="tishisp9b" style="display: none; color: chocolate;">系统软重启</span>
 				<span id="tishisp9c" style="display: none; color: chocolate;">关闭后端服务</span>
 			</td>
 		</tr>
@@ -134,6 +134,7 @@
 					<td>afrog报告访问服务</td>
 					<td>JNDI服务</td>
 					<td>JNDI恶意Java类加载服务</td>
+					<td>报告整合服务</td>
 				</tr>
 				<tr>
 					<th>状态</th>
@@ -164,6 +165,10 @@
 					<td>
 						<span id="spp53" style="color:green"></span>
 						<span id="spp53a" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="totalspp1" style="color: green;"></span>
+						<span id="totalspp2" style="color: red;"></span>
 					</td>
 				</tr>
 			</table>
@@ -404,23 +409,35 @@
 					<td>otx接口</td>
 				</tr>
 				<tr>
-					<th>成功次数</th>
-					<td><span id="successsp1" style="color: green;"></span></td>
-					<td><span id="successsp2" style="color: green;"></span></td>
-					<td><span id="successsp3" style="color: green;"></span></td>
-					<td><span id="successsp4" style="color: green;"></span></td>
-					<td><span id="successsp5" style="color: green;"></span></td>
-					<td><span id="successsp6" style="color: green;"></span></td>
+					<th>成功次数/失败次数</th>
+					<td>
+						<span id="successsp1" style="color: green;"></span>/
+						<span id="failsp1" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="successsp2" style="color: green;"></span>/
+						<span id="failsp2" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="successsp3" style="color: green;"></span>/
+						<span id="failsp3" style="color: red;"></span>
+
+					</td>
+					<td>
+						<span id="successsp4" style="color: green;"></span>/
+						<span id="failsp4" style="color: red;"></span>
+					</td>
+					<td>
+						<span id="successsp5" style="color: green;"></span>/
+						<span id="failsp5" style="color: red;"></span>
+
+					</td>
+					<td>
+						<span id="successsp6" style="color: green;"></span>/
+						<span id="failsp6" style="color: red;"></span>
+					</td>
 				</tr>
-				<tr>
-					<th>失败次数</th>
-					<td><span id="failsp1" style="color: red;"></span></td>
-					<td><span id="failsp2" style="color: red;"></span></td>
-					<td><span id="failsp3" style="color: red;"></span></td>
-					<td><span id="failsp4" style="color: red;"></span></td>
-					<td><span id="failsp5" style="color: red;"></span></td>
-					<td><span id="failsp6" style="color: red;"></span></td>
-				</tr>
+				
 				<tr>
 					<th>接口额度</th>
 					<td><span id="totalsp1" style="color:deepskyblue;"></span></td>

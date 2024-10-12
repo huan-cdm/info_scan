@@ -14,23 +14,30 @@ def report_xlsx():
     # 每次执行清空历史报告，生成新数据
     os.popen('rm -rf /TIP/info_scan/result/vuln_report.xlsx')
 
+    # 新增列表为空判断
     # weblogic
     weblogic_report_list = []
     weblogic_file = open("/TIP/info_scan/result/weblogic_poc.txt",encoding='utf-8')
     for weblogic_line in weblogic_file.readlines():
         weblogic_report_list.append(weblogic_line.strip())
-    
+    if len(weblogic_report_list) == 0:
+        weblogic_report_list.append("暂无数据")
+
     # nmap
     nmap_report_list = []
     nmap_file = open("/TIP/info_scan/result/nmap.txt",encoding='utf-8')
     for nmap_line in nmap_file.readlines():
         nmap_report_list.append(nmap_line.strip())
+    if len(nmap_report_list) == 0:
+        nmap_report_list.append("暂无数据")
     
     # struts2
     struts2_report_list = []
     struts2_file = open("/TIP/info_scan/result/struts2_poc.txt",encoding='utf-8')
     for struts2_line in struts2_file.readlines():
         struts2_report_list.append(struts2_line.strip())
+    if len(struts2_report_list) == 0:
+        struts2_report_list.append("暂无数据")
 
     # nuclei
     nuclei_report_list = []
@@ -40,6 +47,8 @@ def report_xlsx():
         pattern = re.compile(r'\x1b\[[0-9;]*m')
         clean_text = pattern.sub('', nuclei_line)
         nuclei_report_list.append(clean_text.strip())
+    if len(nuclei_report_list) == 0:
+        nuclei_report_list.append("暂无数据")
 
     # Ehole
     ehole_report_list = []
@@ -49,20 +58,24 @@ def report_xlsx():
         patternq = re.compile(r'\x1b\[[0-9;]*m')
         cleanq_text = patternq.sub('', ehole_line)
         ehole_report_list.append(cleanq_text.strip())
-
+    if len(ehole_report_list) == 0:
+        ehole_report_list.append("暂无数据")
 
     # bbscan
     bbscan_report_list = []
     bbscan_file = open("/TIP/info_scan/result/bbscan_info.txt",encoding='utf-8')
     for bbscan_line in bbscan_file.readlines():
         bbscan_report_list.append(bbscan_line.strip())
+    if len(bbscan_report_list) == 0:
+        bbscan_report_list.append("暂无数据")
 
     # subdomain
     subdomain_report_list = []
     subdomain_file = open("/TIP/info_scan/result/subdomain.txt",encoding='utf-8')
     for subdomain_line in subdomain_file.readlines():
         subdomain_report_list.append(subdomain_line.strip())
-
+    if len(subdomain_report_list) == 0:
+        subdomain_report_list.append("暂无数据")
 
     # vulmap
     vulmap_report_list = []
@@ -72,6 +85,8 @@ def report_xlsx():
         patternq = re.compile(r'\x1b\[[0-9;]*m')
         cleanq_text = patternq.sub('', vulmap_line)
         vulmap_report_list.append(cleanq_text.strip())
+    if len(vulmap_report_list) == 0:
+        vulmap_report_list.append("暂无数据")
 
     # xray
     xray_report_list = ["xray_poc-->预览报告-->查看报告"]
@@ -96,6 +111,8 @@ def report_xlsx():
     fscan_file = open("/TIP/info_scan/result/fscan_vuln.txt",encoding='utf-8')
     for fscan_line in fscan_file.readlines():
         fscan_report_list.append(fscan_line.strip())
+    if len(fscan_report_list) == 0:
+        fscan_report_list.append("暂无数据")
 
 
     # shiro报告
@@ -116,26 +133,32 @@ def report_xlsx():
     for fi in filtered_list:
         result = fi.replace("","")
         filtered_list_new.append(result)
+    if len(filtered_list_new) == 0:
+        filtered_list_new.append("暂无数据")
 
      # springboot
     springboot_report_list = []
     springboot_file = open("/TIP/info_scan/result/springboot_result.txt",encoding='utf-8')
     for springboot_line in springboot_file.readlines():
         springboot_report_list.append(springboot_line.strip())   
-
+    if len(springboot_report_list) == 0:
+        springboot_report_list.append("暂无数据")
 
     # hydra弱口令
     hydra_report_list = []
     hydra_file = open("/TIP/info_scan/result/hydra_result.txt",encoding='utf-8')
     for hydra_line in hydra_file.readlines():
         hydra_report_list.append(hydra_line.strip())
-    
+    if len(hydra_report_list) == 0:
+        hydra_report_list.append("暂无数据")
 
     # thinkphp
     thinkphp_report_list = []
     thinkphp_file = open("/TIP/info_scan/result/thinkphp_vuln.txt",encoding='utf-8')
     for thinkphp_line in thinkphp_file.readlines():
         thinkphp_report_list.append(thinkphp_line.strip())
+    if len(thinkphp_report_list) == 0:
+        thinkphp_report_list.append("暂无数据")
 
 
     # 历史url
@@ -143,6 +166,8 @@ def report_xlsx():
     otx_url_file = open("/TIP/info_scan/result/otxhistoryurl.txt",encoding='utf-8')
     for otx_url_line in otx_url_file.readlines():
         otx_url_report_list.append(otx_url_line.strip())
+    if len(otx_url_report_list) == 0:
+        otx_url_report_list.append("暂无数据")
 
     
     # weaver
@@ -153,12 +178,16 @@ def report_xlsx():
         pattern = re.compile(r'\x1b\[[0-9;]*m')
         clean_text = pattern.sub('', weaver_line)
         weaver_report_list.append(clean_text.strip())
+    if len(weaver_report_list) == 0:
+        weaver_report_list.append("暂无数据")
 
      # es未授权访问
     es_report_list = []
     es_file = open("/TIP/info_scan/result/esunauthorized.txt",encoding='utf-8')
     for es_line in es_file.readlines():
         es_report_list.append(es_line.strip())
+    if len(es_report_list) == 0:
+        es_report_list.append("暂无数据")
 
 
     # nacos漏洞
@@ -166,37 +195,56 @@ def report_xlsx():
     nacos_file = open("/TIP/info_scan/result/nacosvuln.txt",encoding='utf-8')
     for nacos_line in nacos_file.readlines():
         nacos_report_list.append(nacos_line.strip())
+    if len(nacos_report_list) == 0:
+        nacos_report_list.append("暂无数据")
 
     # JNDI日志
     jndi_report_list = []
     jndi_file = open("/TIP/info_scan/result/jndi_result.txt",encoding='utf-8')
     for jndi_line in jndi_file.readlines():
         jndi_report_list.append(jndi_line.strip())
+    if len(jndi_report_list) == 0:
+        jndi_report_list.append("暂无数据")
 
     # tomcat漏洞
     tomcat_report_list = []
     tomcat_file = open("/TIP/info_scan/result/tomcat_vuln.txt",encoding='utf-8')
     for tomcat_line in tomcat_file.readlines():
         tomcat_report_list.append(tomcat_line.strip())
+    if len(tomcat_report_list) == 0:
+        tomcat_report_list.append("暂无数据")
     
     # fastjson漏洞
     fastjson_report_list = []
     fastjson_file = open("/TIP/info_scan/result/fastjson_vuln.txt",encoding='utf-8')
     for fastjson_line in fastjson_file.readlines():
         fastjson_report_list.append(fastjson_line.strip())
+    if len(fastjson_report_list) == 0:
+        fastjson_report_list.append("暂无数据")
     
     # WAF识别
     waf_report_list = []
     waf_file = open("/TIP/info_scan/result/waf_result.txt",encoding='utf-8')
     for waf_line in waf_file.readlines():
         waf_report_list.append(waf_line.strip())
+    if len(waf_report_list) == 0:
+        waf_report_list.append("暂无数据")
 
-    # 40Xbypass
+    # fuzz
     bypass_report_list = []
     bypass_file = open("/TIP/info_scan/result/403bypass_result.txt",encoding='utf-8')
     for bypass_line in bypass_file.readlines():
         bypass_report_list.append(bypass_line.strip())
+    if len(bypass_report_list) == 0:
+        bypass_report_list.append("暂无数据")
     
+    # crawlergo
+    crawlergo_report_list = []
+    crawlergo_file = open("/TIP/info_scan/result/crawlergo_result.txt",encoding='utf-8')
+    for crawlergo_line in crawlergo_file.readlines():
+        crawlergo_report_list.append(crawlergo_line.strip())
+    if len(crawlergo_report_list) == 0:
+        crawlergo_report_list.append("暂无数据")
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -225,7 +273,9 @@ def report_xlsx():
     df_y = pd.DataFrame(tomcat_report_list, columns=['tomcat'])
     df_z = pd.DataFrame(fastjson_report_list, columns=['fastjson'])
     df_a1 = pd.DataFrame(waf_report_list, columns=['WAF'])
-    df_b1 = pd.DataFrame(bypass_report_list, columns=['40Xbypass'])
+    df_b1 = pd.DataFrame(bypass_report_list, columns=['FUZZ'])
+    df_c1 = pd.DataFrame(crawlergo_report_list, columns=['crawlergo'])
+
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -256,4 +306,5 @@ def report_xlsx():
         df_y.to_excel(writer, sheet_name='tomcat', index=False)
         df_z.to_excel(writer, sheet_name='fastjson', index=False)
         df_a1.to_excel(writer, sheet_name='WAF', index=False)
-        df_b1.to_excel(writer, sheet_name='40Xbypass', index=False)
+        df_b1.to_excel(writer, sheet_name='FUZZ', index=False)
+        df_c1.to_excel(writer, sheet_name='crawlergo', index=False)

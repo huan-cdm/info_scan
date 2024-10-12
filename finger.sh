@@ -1429,4 +1429,10 @@ case "${1}" in
     httpxfilterstatus)
     /TIP/info_scan/httpx_server/httpx -l /TIP/info_scan/result/domain.txt -mc 200 
     ;;
+
+    # 汇总报告生成状态
+    totalreport_num)
+    num=`ls /TIP/info_scan/result/*xlsx | wc -l`
+    echo "${num}"
+    ;;
 esac

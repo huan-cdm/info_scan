@@ -78,7 +78,8 @@ from config import crt_max_num
 from config import shodan_max_num
 from config import icp_max_num
 
-
+# 多线程操作模块
+import threading
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
@@ -932,8 +933,20 @@ def systemmanagement():
             otx_remaining_num = 0
         else:
             otx_remaining_num = otx_remaining_num_1
-
+        
+        # 汇总报告生成状态
+        total_report_status = os.popen('bash /TIP/info_scan/finger.sh totalreport_num').read()
+        if int(total_report_status) == 2:
+            total_report_status_result2 = "报告已整合完成"
+            total_report_status_result1 = ""
+        elif int(total_report_status) == 1:
+            total_report_status_result1 = "报告正在整合中"
+            total_report_status_result2 = ""
+       
         message_json = {
+            # 报告整合状态
+            "total_report_status_result1":total_report_status_result1,
+            "total_report_status_result2":total_report_status_result2,
             # 剩余额度
             "fofa_remaining_num":str(fofa_remaining_num)+"次",
             "shodan_remaining_num":str(shodan_remaining_num)+"次",
@@ -1338,14 +1351,30 @@ def stop_struts2_poc_scan():
     else:
         return render_template('login.html')
 
+
 # 报告整合
 @app.route("/report_total_interface/")
 def report_total_interface():
     user = session.get('username')
     if str(user) == main_username:
-        # 执行报告整合脚本
-        report_total.report_xlsx()
-        return render_template('index.html')
+        total_report_status = os.popen('bash /TIP/info_scan/finger.sh totalreport_num').read()
+        if int(total_report_status) == 1:
+            total_report_status_result = "报告正在整合中不要重复点击"
+        else:
+            # 创建一个新线程来执行报告整合脚本
+            def run_report():
+                # 执行报告整合脚本
+                report_total.report_xlsx()
+            threading.Thread(target=run_report).start()
+            if int(total_report_status) == 2:
+                total_report_status_result = "报告已整合完成"
+            elif int(total_report_status) == 1:
+                total_report_status_result = "报告正在整合中"
+        message_json = {
+            "total_result":total_report_status_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 

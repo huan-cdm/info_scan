@@ -793,15 +793,14 @@ function reporttotalfunc() {
     $.ajax({
         url: '/report_total_interface/',
         method: 'GET',
-
-        success: function () {
-
+        success: function (info) {
+            alert(info.total_result)
         },
         error: function () {
             alert('内部出错')
         },
         complete: function () {
-            alert('已完成整合点击报告下载进行预览')
+            
         }
     })
 }
@@ -1201,53 +1200,38 @@ function openModal() {
     function fetchData() {
         $.getJSON("/systemmanagement/",
             function (info) {
-
+                
 
                 // 运行状态显示绿色，停止状态显示红色
                 document.getElementById("spp1").innerHTML = info.nmapstatus1;
-                document.getElementById("spp1a").innerHTML = info.nmapstatus2;
-
+                document.getElementById("spp1a").innerHTML = info.nmapstatus2;               
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
-
                 document.getElementById("spp3").innerHTML = info.xraystatus1;
                 document.getElementById("spp3a").innerHTML = info.xraystatus2;
-
                 document.getElementById("spp4").innerHTML = info.radstatus1;
                 document.getElementById("spp4a").innerHTML = info.radstatus2;
-
                 document.getElementById("spp5").innerHTML = info.dirscanstatus1;
                 document.getElementById("spp5a").innerHTML = info.dirscanstatus2;
-
                 document.getElementById("spp6").innerHTML = info.weblogicstatus1;
                 document.getElementById("spp6a").innerHTML = info.weblogicstatus2;
-
                 document.getElementById("spp7").innerHTML = info.struts2status1;
                 document.getElementById("spp7a").innerHTML = info.struts2status2;
-
                 document.getElementById("spp8").innerHTML = info.bbscanstatus1;
                 document.getElementById("spp8a").innerHTML = info.bbscanstatus2;
-
                 document.getElementById("spp9").innerHTML = info.vulmapscanstatus1;
                 document.getElementById("spp9a").innerHTML = info.vulmapscanstatus2;
-
                 document.getElementById("spp10").innerHTML = info.afrogscanstatus1;
                 document.getElementById("spp10a").innerHTML = info.afrogscanstatus2;
-
                 document.getElementById("spp11").innerHTML = info.fscanstatus1;
                 document.getElementById("spp11a").innerHTML = info.fscanstatus2;
-
                 document.getElementById("spp12").innerHTML = info.shirostatus1;
                 document.getElementById("spp12a").innerHTML = info.shirostatus2;
-
                 document.getElementById("spp13").innerHTML = info.httpxstatus1;
                 document.getElementById("spp13a").innerHTML = info.httpxstatus2;
-
                 document.getElementById("spp14").innerHTML = info.url_file_num;
-
                 document.getElementById("spp15").innerHTML = info.eholestatus1;
                 document.getElementById("spp15a").innerHTML = info.eholestatus2;
-
                 document.getElementById("spp16").innerHTML = info.shiro_num;
                 document.getElementById("spp17").innerHTML = info.springboot_num;
                 document.getElementById("spp18").innerHTML = info.weblogic_num;
@@ -1264,10 +1248,8 @@ function openModal() {
                 document.getElementById("spp28a").innerHTML = info.springbootstatus2;
                 document.getElementById("spp29").innerHTML = info.hydrastatus1;
                 document.getElementById("spp29a").innerHTML = info.hydrastatus2;
-
                 document.getElementById("spp30").innerHTML = info.urlfinderstatus1;
                 document.getElementById("spp30a").innerHTML = info.urlfinderstatus2;
-
                 document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
                 document.getElementById("spp32").innerHTML = info.assets_status;
                 document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
@@ -1291,7 +1273,6 @@ function openModal() {
                 document.getElementById("spp44a").innerHTML = info.otx_status2;
                 document.getElementById("spp45").innerHTML = info.crt_status1;
                 document.getElementById("spp45a").innerHTML = info.crt_status2;
-
                 document.getElementById("spp46").innerHTML = info.nacos_num;
                 document.getElementById("spp47").innerHTML = info.fanwei_num;
                 document.getElementById("spp52t").innerHTML = info.tomcat_num;
@@ -1316,7 +1297,6 @@ function openModal() {
                 document.getElementById("spp57").innerHTML = info.crawlergo_status1;
                 document.getElementById("spp57a").innerHTML = info.crawlergo_status2;
                 document.getElementById("spp1h2").innerHTML = info.finger_jindu;
-
                 document.getElementById("successsp1").innerHTML = info.fofa_inter_num_success;
                 document.getElementById("failsp1").innerHTML = info.fofa_inter_num_fail;
                 document.getElementById("successsp2").innerHTML = info.shodan_inter_num_success;
@@ -1343,6 +1323,8 @@ function openModal() {
                 document.getElementById("overtotalsp4").innerHTML = info.icp_remaining_num;
                 document.getElementById("overtotalsp5").innerHTML = info.amap_remaining_num;
                 document.getElementById("overtotalsp6").innerHTML = info.otx_remaining_num;
+                document.getElementById("totalspp2").innerHTML = info.total_report_status_result2;
+                document.getElementById("totalspp1").innerHTML = info.total_report_status_result1;
             });
     }
 
