@@ -1,4 +1,4 @@
-哔哩哔哩: https://www.bilibili.com/video/BV1Gt28YFEr3
+bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <br>
 <h2>虚拟机安装：</h2>
 ##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 
