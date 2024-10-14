@@ -273,21 +273,6 @@ def logininterface():
     
 
 
-#历史URL查询
-@app.route("/historyshow/")
-def historyshow():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成历史url查询')
-        otx_status_result = basic.otxhistorydomain_lib()
-        message_json = {
-            "otx_status_result":otx_status_result
-        }
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
 
 #历史URL预览
 @app.route("/previewhistoryurl/")
@@ -306,37 +291,7 @@ def previewhistoryurl():
     else:
         return render_template('login.html')
     
-
-
-#关闭历史URL查询接口
-@app.route("/killotxhistory/")
-def killotxhistory():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_otx_url_result = basic.stopotx_lib()
-        message_json = {
-            "kill_otx_url_result":kill_otx_url_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
     
-
-
-#关闭基于证书查询子域名接口
-@app.route("/kill_crt_subdomain_shell/")
-def kill_crt_subdomain_shell():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_crt_subdomain_result = basic.stopcrtsubdomain_lib()
-        message_json = {
-            "kill_crt_subdomain_result":kill_crt_subdomain_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
 
 
 #nmap接口预览
@@ -385,22 +340,6 @@ def nucleiresultshow():
 
 
 
-#结束nuclei进程
-@app.route("/killnucleiprocess/")
-def killnucleiprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_nuclei_result = basic.stopnuclei_lib()
-        message_json = {
-            "kill_nuclei_result":kill_nuclei_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-
-
 #清空数据
 @app.route("/deletenmapresult/")
 def deletenmapresult():
@@ -420,17 +359,6 @@ def deletexrayreport():
     user = session.get('username')
     if str(user) == main_username:
         os.popen('rm -rf /TIP/batch_scan_domain/report/*')
-        return render_template('index.html')
-    else:
-        return render_template('login.html')
-
-
-#结束进程
-@app.route("/killprocess/")
-def killprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        os.popen('bash ./server_check.sh killscan')
         return render_template('index.html')
     else:
         return render_template('login.html')
@@ -498,24 +426,6 @@ def submit_data():
         message_json = {
             "file_line":result_rule
         }
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
-
-#启动nuclei
-@app.route("/startnuclei/", methods=['POST'])
-def startnuclei():
-    user = session.get('username')
-    if str(user) == main_username:
-        poc_dir = request.form['poc_dir']
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成nuclei漏洞扫描')
-        nuclei_status_result = basic.startnuclei_lib(poc_dir)
-        message_json = {
-            "nuclei_status_result":nuclei_status_result
-        }
-
         return jsonify(message_json)
     else:
         return render_template('login.html')
@@ -1114,23 +1024,6 @@ def filterstatuscodebyhttpx():
     else:
         return render_template('login.html')
 
-#链接扫描
-@app.route("/starturlfinderinterface/",methods=['GET'])
-def starturlfinderinterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成urlfinder链接扫描')
-        urlfinder_status_result = basic.starturlfinder_lib()
-
-        message_json = {
-            "urlfinder_status_result":urlfinder_status_result
-        }
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-
 
 #清空链接扫描报告
 @app.route("/deleteurlfinderreport/")
@@ -1145,22 +1038,6 @@ def deleteurlfinderreport():
     else:
         return render_template('login.html')
 
-
-
-#关闭urlfinder进程
-@app.route("/killurlfinderprocess/")
-def killurlfinderprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_urlfinder_result = basic.stopurlfinder_lib()
-        message_json = {
-            "kill_urlfinder_result":kill_urlfinder_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
 
 
 #跳转登录页
@@ -1250,22 +1127,6 @@ def assetsbackspaceinterface():
     else:
         return render_template('login.html')
     
-
-#weblogic_poc扫描
-@app.route("/weblogicscaninterface/",methods=['get'])
-def weblogicscaninterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成weblogic漏洞扫描')
-        weblogic_status_result = basic.startweblogic_lib()
-        message_json = {
-            "weblogic_status_result":weblogic_status_result
-        }
-        return jsonify(message_json)
-            
-    else:
-        return render_template('login.html')
     
 
 #weblogic_poc扫描结果预览
@@ -1286,38 +1147,6 @@ def weblogic_poc_report():
         return render_template('login.html')
 
 
-#关闭weblogic漏洞扫描程序
-@app.route("/stop_weblogic_poc_scan/")
-def stop_weblogic_poc_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_weblogic_result = basic.stopweblogic_lib()
-
-        message_json = {
-            "kill_weblogic_result":kill_weblogic_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-    
-
-# 开启struts2漏洞扫描程序
-@app.route("/struts2_poc_scan/")
-def struts2_poc_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成struts2漏洞扫描')
-        struts2status_result = basic.startstruts2_lib()
-        message_json = {
-            "struts2status_result":struts2status_result
-        }
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-    
-
 
 #struts2漏洞扫描结果预览
 @app.route("/struts2_poc_report/")
@@ -1337,19 +1166,6 @@ def struts2_poc_report():
         return render_template('login.html')
     
 
-#关闭struts2漏洞扫描程序
-@app.route("/stop_struts2_poc_scan/")
-def stop_struts2_poc_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_struts2_result = basic.stopstruts2_lib()
-        message_json = {
-            "kill_struts2_result":kill_struts2_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
 
 
 # 报告整合
@@ -1402,38 +1218,7 @@ def ehole_finger_report():
     else:
         return render_template('login.html')
     
-# 启动EHole
-@app.route("/ehole_finger_scan/")
-def ehole_finger_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成ehole指纹识别扫描')
-        finger_status_result = basic.startechole_lib()
-        message_json = {
-            "finger_status_result":finger_status_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
     
-
-# bbscan_info_scan扫描
-@app.route("/bbscan_info_scan/")
-def bbscan_info_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成bbscan敏感信息扫描')
-        bbscan_status_result = basic.startbbscan_lib()
-        message_json = {
-            "bbscan_status_result":bbscan_status_result
-        }
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
 
 
 #bbscan扫描预览报告
@@ -1454,20 +1239,6 @@ def showbbscanreport():
         return render_template('login.html')
     
 
-#通过证书批量查询目标子域名
-@app.route("/batch_show_subdomain/",methods=['get'])
-def batch_show_subdomain():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成子域名扫描')
-        crt_status_result = basic.crtdomain_lib()
-        message_json = {
-            "crt_status_result":crt_status_result
-        }
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
     
 
 #子域名预览报告
@@ -1514,60 +1285,6 @@ def vulmapscanreport():
     else:
         return render_template('login.html')
 
-
-
-#启动vulmap漏扫程序
-@app.route("/startvulmapinterface/",methods=['POST'])
-def startvulmapinterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成vulmap漏洞扫描')
-        vulnname = request.form['vulnname']
-        vummap_scan_result = basic.startvulmap_lib(vulnname)
-
-        message_json = {
-            "vummap_scan_result":vummap_scan_result
-        }
-        return jsonify(message_json)
-
-    else:
-        return render_template('login.html')
-
-
-#结束vulmap进程
-@app.route("/killvulmapprocess/")
-def killvulmapprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_vulmap_result = basic.stopvulmap_lib()
-        message_json = {
-            "kill_vulmap_result":kill_vulmap_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-    
-
-
-
-#启动nmap批量端口扫描
-@app.route("/startbatchnmapscan/",methods=['get'])
-def startbatchnmapscan():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成nmap端口扫描')
-        nmap_status_result = basic.startnmap_lib()
-        message_json = {
-            "nmap_status_result":nmap_status_result
-        }
-        return jsonify(message_json)
-
-        
-    else:
-        return render_template('login.html')
     
 
 
@@ -1618,58 +1335,6 @@ def deleteafrogreport():
         return render_template('index.html')
     else:
         return render_template('login.html')
-
-
-#启动afrog漏扫程序
-@app.route("/startafrogscanprocess/",methods=['get'])
-def startafrogscanprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成afrog漏洞扫描')
-        start_afrog_result = basic.startafrog_lib()
-        message_json = {
-            "start_afrog_result":start_afrog_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
-
-#关闭afrog漏洞扫描程序
-@app.route("/killafrogprocess/")
-def killafrogprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_afrog_result = basic.stopafrog_lib()
-
-        message_json = {
-            "kill_afrog_result":kill_afrog_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-    
-
-
-#关闭nmap进程
-@app.route("/killnmapprocess/")
-def killnmapprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_nmap_result = basic.stopnmap_lib()
-        message_json = {
-            "kill_nmap_result":kill_nmap_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-    
-
     
 
 
@@ -1707,40 +1372,6 @@ def fscanreportyulan():
         return render_template('login.html')
 
 
-#启动fscan程序
-@app.route("/startfcsaninterface/",methods=['POST'])
-def startfcsaninterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        fscanpartname = request.form['fscanpartname']
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成fscan漏洞扫描')
-        fscan_status_result = basic.startfscan_lib(fscanpartname)
-        message_json = {
-            "fscan_status_result":fscan_status_result
-        }
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-    
-
-#结束fscan进程
-@app.route("/killfscangprocess/")
-def killfscangprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_fscan_result = basic.stopfscan_lib()
-        message_json = {
-            "kill_fscan_result":kill_fscan_result
-        }
-
-        return jsonify(message_json)
-        
-    else:
-        return render_template('login.html')
-
-
-
 #shiro报告预览
 @app.route("/shiro_report_show/")
 def shiro_report_show():
@@ -1772,39 +1403,6 @@ def shiro_report_show():
     else:
         return render_template('login.html')
 
-
-#启动shiro程序
-@app.route("/startshirointerface/")
-def startshirointerface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成shiro漏洞扫描')
-        shiro_status_result = basic.startshiro_lib()
-        message_json = {
-            "shiro_status_result":shiro_status_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
-
-
-#关闭shiro漏洞扫描程序
-@app.route("/stop_shiro_poc_scan/")
-def stop_shiro_poc_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_shiro_result = basic.stopshiro_lib()
-
-        message_json = {
-            "kill_shiro_result":kill_shiro_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
     
     
 
@@ -1899,40 +1497,6 @@ def springboot_report_show():
 
 
 
-#启动springboot漏洞扫描程序
-@app.route("/start_springboot_vuln_scan/")
-def start_springboot_vuln_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成springboot漏洞扫描')
-        springboot_scan_status_result = basic.startspringboot_lib()
-        
-        message_json = {
-            "springboot_scan_status_result":springboot_scan_status_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
-
-
-#关闭spring_boot漏洞扫描程序
-@app.route("/stop_springboot_poc_scan/")
-def stop_springboot_poc_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_springboot_result = basic.stopspringboot_lib()
-
-        message_json = {
-            "kill_springboot_result":kill_springboot_result
-        }
-        
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
 
 # 通过fofa发现资产
 @app.route("/fofa_search_assets_service/",methods=['POST'])
@@ -1990,61 +1554,7 @@ def hydra_report_show():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
-    
 
-
-# 启动hydra弱口令扫描工具
-@app.route("/start_hydra_interface/",methods=['POST'])
-def start_hydra_interface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成hydra弱口令扫描')
-        hydrapart = request.form['hydrapart']
-        hydra_scan_result = basic.starthydra_lib(hydrapart)
-
-        message_json = {
-            "hydra_scan_result":hydra_scan_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
-
-    
-
-#关闭hydra进程
-@app.route("/killhydraprocess/")
-def killhydraprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_hydra_result = basic.stophydra_lib()
-        message_json = {
-            "kill_hydra_result":kill_hydra_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-
-
-    
-
-#关闭EHole进程
-@app.route("/killEHoleprocess/")
-def killEHoleprocess():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_EHole_result = basic.stopehole_lib()
-        message_json = {
-            "kill_EHole_result":kill_EHole_result
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
     
 
 # 报告预览
@@ -2278,25 +1788,6 @@ def delete_point_rule_interface():
     
     else:
         return render_template('login.html')
-
-
-
-
-#启动tpscan程序
-@app.route("/starttpscaninterface/")
-def starttpscaninterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成thinkphp漏洞扫描')
-        thinkphp_status_result = basic.startthinkphp_lib()
-        message_json = {
-            "thinkphp_status_result":thinkphp_status_result
-        }
-
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
     
 
 
@@ -2316,43 +1807,7 @@ def thinkphp_poc_report():
         return '<br>'.join(lines)
     else:
         return render_template('login.html')
-
-
-
-#关闭thinkphp漏洞扫描程序
-@app.route("/stop_thinkphp_poc_scan/")
-def stop_thinkphp_poc_scan():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_thinkphp_result = basic.stoptpscan_lib()
-
-        message_json = {
-            "kill_thinkphp_result":kill_thinkphp_result
-        }
-        
-        return jsonify(message_json)
-    else:
-        return render_template('login.html')
     
-
-
-
-#开启泛微OA漏洞扫描
-@app.route("/startweavervulnscan/",methods=['GET'])
-def startweavervulnscan():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 漏洞扫描器时间线更新
-        basic.vuln_scan_status_update('已完成泛微OA漏洞扫描')
-        weaver_status_result = basic.startweaver_lib()
-
-        message_json = {
-            "weaver_status_result":weaver_status_result
-        }
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
 
 
 
@@ -2380,22 +1835,6 @@ def weaverresultshow():
                 liness.append(clean_text)
             
         return '<br>'.join(liness)
-    else:
-        return render_template('login.html')
-
-
-
-#关闭泛微OA漏洞扫描程序
-@app.route("/killweavervulnscan/")
-def killweavervulnscan():
-    user = session.get('username')
-    if str(user) == main_username:
-        kill_weaver_result = basic.stopweaver_lib()
-        message_json = {
-            "kill_weaver_result":kill_weaver_result
-        }
-
-        return jsonify(message_json)
     else:
         return render_template('login.html')
 
@@ -2437,7 +1876,7 @@ def infoscan_check_back():
                         # 提交扫描任务
                         bbscan_status_result = basic.startbbscan_lib()
                     else:
-                        bbscan_status_result = "bbscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        bbscan_status_result = "信息泄露扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 
                 
             elif '2' in str(j):

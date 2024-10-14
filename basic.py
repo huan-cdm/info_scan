@@ -1587,9 +1587,9 @@ def startbbscan_lib():
         # 执行敏感信息扫描
         os.popen('bash /TIP/info_scan/finger.sh bbscan_shell')
         if "running" in bbscan_status1:
-            bbscan_status_result = "bbscan扫描程序已启动稍后查看扫描结果"
+            bbscan_status_result = "信息泄露扫描程序已启动稍后查看扫描结果"
         else:
-            bbscan_status_result = "bbscan正在后台启动中......"
+            bbscan_status_result = "信息泄露扫描程序正在后台启动中......"
     return bbscan_status_result
 
 

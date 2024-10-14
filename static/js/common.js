@@ -99,25 +99,6 @@ function deleteurlfinderreportfunc() {
 
 
 
-//ajax异步关闭xray和rad引擎进程
-function killxrayandradfunc() {
-    $.ajax({
-        url: '/killprocess/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已关闭xray和rad引擎')
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-            alert('已关闭xray和rad引擎')
-        }
-    })
-}
-
-
 //文本框内容添加
 function sendtextareadata() {
     // 获取textarea的值  
@@ -143,93 +124,6 @@ function sendtextareadata() {
     });
 }
 
-
-//启动xray和rad提示
-function startradandxray() {
-    alert("进入命令行分别开启xray和rad" + "\n" + "启动rad：python3 /TIP/batch_scan_domain/radscan.py" + "\n" +
-        "启动xray：bash /TIP/batch_scan_domain/start.sh startxray")
-}
-
-
-//ajax异步启动nuclei
-function startnucleifunc() {
-    var poc_dir = $('select[name="poc_dir"]').val();
-    $.ajax({
-        url: '/startnuclei/',
-        method: 'POST',
-        data: {
-            poc_dir: poc_dir
-        },
-        success: function (info) {
-            alert(info.nuclei_status_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步查看历史url
-function historyurlfunc() {
-    $.ajax({
-        url: '/historyshow/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.otx_status_result)
-        },
-        error: function () {
-            alert('内部出错')
-
-        },
-        complete: function () {
-
-        }
-    })
-
-}
-
-
-
-
-//ajax异步关闭otx历史url查询接口
-function killotxhistory_func() {
-    $.ajax({
-        url: '/killotxhistory/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_otx_url_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭基于证书查询子域名接口
-function kill_crt_subdomain_func() {
-    $.ajax({
-        url: '/kill_crt_subdomain_shell/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_crt_subdomain_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 
@@ -275,125 +169,18 @@ function startbutton() {
     button2.disabled = false;
     var button3 = document.getElementById("button3");
     button3.disabled = false;
-    var button6 = document.getElementById("button6");
-    button6.disabled = false;
-    var button7 = document.getElementById("button7");
-    button7.disabled = false;
-    var button8 = document.getElementById("button8");
-    button8.disabled = false;
-    var button9 = document.getElementById("button9");
-    button9.disabled = false;
-    var button10 = document.getElementById("button10");
-    button10.disabled = false;
-    var button11 = document.getElementById("button11");
-    button11.disabled = false;
-    var button12 = document.getElementById("button12");
-    button12.disabled = false;
-    var button13 = document.getElementById("button13");
-    button13.disabled = false;
-    var button14 = document.getElementById("button14");
-    button14.disabled = false;
-    var button15 = document.getElementById("button15");
-    button15.disabled = false;
-    var button16 = document.getElementById("button16");
-    button16.disabled = false;
-
-    var button18 = document.getElementById("button18");
-    button18.disabled = false;
     var button19 = document.getElementById("button19");
     button19.disabled = false;
     var button20 = document.getElementById("button20");
     button20.disabled = false;
-    var button21 = document.getElementById("button21");
-    button21.disabled = false;
-    var button22 = document.getElementById("button22");
-    button22.disabled = false;
-    var button23 = document.getElementById("button23");
-    button23.disabled = false;
     var button24 = document.getElementById("button24");
     button24.disabled = false;
     var button25 = document.getElementById("button25");
     button25.disabled = false;
-    var button27 = document.getElementById("button27");
-    button27.disabled = false;
-    var button28 = document.getElementById("button28");
-    button28.disabled = false;
-    var button29 = document.getElementById("button29");
-    button29.disabled = false;
-    var button30 = document.getElementById("button30");
-    button30.disabled = false;
-    var button31 = document.getElementById("button31");
-    button31.disabled = false;
-    var button32 = document.getElementById("button32");
-    button32.disabled = false;
-    var button33 = document.getElementById("button33");
-    button33.disabled = false;
-    var button34 = document.getElementById("button34");
-    button34.disabled = false;
-    var button35 = document.getElementById("button35");
-    button35.disabled = false;
-    var button36 = document.getElementById("button36");
-    button36.disabled = false;
-    var button37 = document.getElementById("button37");
-    button37.disabled = false;
-    var button38 = document.getElementById("button38");
-    button38.disabled = false;
-    var button39 = document.getElementById("button39");
-    button39.disabled = false;
-    var button40 = document.getElementById("button40");
-    button40.disabled = false;
-    var button41 = document.getElementById("button41");
-    button41.disabled = false;
-    var button42 = document.getElementById("button42");
-    button42.disabled = false;
-    var button43 = document.getElementById("button43");
-    button43.disabled = false;
-    var button46 = document.getElementById("button46");
-    button46.disabled = false;
-    var button47 = document.getElementById("button47");
-    button47.disabled = false;
-    var button48 = document.getElementById("button48");
-    button48.disabled = false;
-    var button49 = document.getElementById("button49");
-    button49.disabled = false;
-    var button50 = document.getElementById("button50");
-    button50.disabled = false;
     var button51 = document.getElementById("button51");
     button51.disabled = false;
-    var button52 = document.getElementById("button52");
-    button52.disabled = false;
-    var button53 = document.getElementById("button53");
-    button53.disabled = false;
-    var button54 = document.getElementById("button54");
-    button54.disabled = false;
-    var button55 = document.getElementById("button55");
-    button55.disabled = false;
-    var button56 = document.getElementById("button56");
-    button56.disabled = false;
-    var button58 = document.getElementById("button58");
-    button58.disabled = false;
-    var button59 = document.getElementById("button59");
-    button59.disabled = false;
-    var button60 = document.getElementById("button60");
-    button60.disabled = false;
-    var button61 = document.getElementById("button61");
-    button61.disabled = false;
-    var button62 = document.getElementById("button62");
-    button62.disabled = false;
     var button63 = document.getElementById("button63");
     button63.disabled = false;
-    var button66 = document.getElementById("button66");
-    button66.disabled = false;
-    var button67 = document.getElementById("button67");
-    button67.disabled = false;
-    var button68 = document.getElementById("button68");
-    button68.disabled = false;
-    var button69 = document.getElementById("button69");
-    button69.disabled = false;
-    var button70 = document.getElementById("button70");
-    button70.disabled = false;
-    var button71 = document.getElementById("button71");
-    button71.disabled = false;
     var button72 = document.getElementById("button72");
     button72.disabled = false;
     var button73 = document.getElementById("button73");
@@ -406,16 +193,6 @@ function startbutton() {
     button76.disabled = false;
     var button77 = document.getElementById("button77");
     button77.disabled = false;
-    var button78 = document.getElementById("button78");
-    button78.disabled = false;
-    var button79 = document.getElementById("button79");
-    button79.disabled = false;
-    var button80 = document.getElementById("button80");
-    button80.disabled = false;
-    var button81 = document.getElementById("button81");
-    button81.disabled = false;
-    var button82 = document.getElementById("button82");
-    button82.disabled = false;
     var button83 = document.getElementById("button83");
     button83.disabled = false;
     var button84 = document.getElementById("button84");
@@ -428,125 +205,18 @@ function stopbutton() {
     button2.disabled = true;
     var button3 = document.getElementById("button3");
     button3.disabled = true;
-    var button6 = document.getElementById("button6");
-    button6.disabled = true;
-    var button7 = document.getElementById("button7");
-    button7.disabled = true;
-    var button8 = document.getElementById("button8");
-    button8.disabled = true;
-    var button9 = document.getElementById("button9");
-    button9.disabled = true;
-    var button10 = document.getElementById("button10");
-    button10.disabled = true;
-    var button11 = document.getElementById("button11");
-    button11.disabled = true;
-    var button12 = document.getElementById("button12");
-    button12.disabled = true;
-    var button13 = document.getElementById("button13");
-    button13.disabled = true;
-    var button14 = document.getElementById("button14");
-    button14.disabled = true;
-    var button15 = document.getElementById("button15");
-    button15.disabled = true;
-    var button16 = document.getElementById("button16");
-    button16.disabled = true;
-
-    var button18 = document.getElementById("button18");
-    button18.disabled = true;
     var button19 = document.getElementById("button19");
     button19.disabled = true;
     var button20 = document.getElementById("button20");
     button20.disabled = true;
-    var button21 = document.getElementById("button21");
-    button21.disabled = true;
-    var button22 = document.getElementById("button22");
-    button22.disabled = true;
-    var button23 = document.getElementById("button23");
-    button23.disabled = true;
     var button24 = document.getElementById("button24");
     button24.disabled = true;
     var button25 = document.getElementById("button25");
     button25.disabled = true;
-    var button27 = document.getElementById("button27");
-    button27.disabled = true;
-    var button28 = document.getElementById("button28");
-    button28.disabled = true;
-    var button29 = document.getElementById("button29");
-    button29.disabled = true;
-    var button30 = document.getElementById("button30");
-    button30.disabled = true;
-    var button31 = document.getElementById("button31");
-    button31.disabled = true;
-    var button32 = document.getElementById("button32");
-    button32.disabled = true;
-    var button33 = document.getElementById("button33");
-    button33.disabled = true;
-    var button34 = document.getElementById("button34");
-    button34.disabled = true;
-    var button35 = document.getElementById("button35");
-    button35.disabled = true;
-    var button36 = document.getElementById("button36");
-    button36.disabled = true;
-    var button37 = document.getElementById("button37");
-    button37.disabled = true;
-    var button38 = document.getElementById("button38");
-    button38.disabled = true;
-    var button39 = document.getElementById("button39");
-    button39.disabled = true;
-    var button40 = document.getElementById("button40");
-    button40.disabled = true;
-    var button41 = document.getElementById("button41");
-    button41.disabled = true;
-    var button42 = document.getElementById("button42");
-    button42.disabled = true;
-    var button43 = document.getElementById("button43");
-    button43.disabled = true;
-    var button46 = document.getElementById("button46");
-    button46.disabled = true;
-    var button47 = document.getElementById("button47");
-    button47.disabled = true;
-    var button48 = document.getElementById("button48");
-    button48.disabled = true;
-    var button49 = document.getElementById("button49");
-    button49.disabled = true;
-    var button50 = document.getElementById("button50");
-    button50.disabled = true;
     var button51 = document.getElementById("button51");
     button51.disabled = true;
-    var button52 = document.getElementById("button52");
-    button52.disabled = true;
-    var button53 = document.getElementById("button53");
-    button53.disabled = true;
-    var button54 = document.getElementById("button54");
-    button54.disabled = true;
-    var button55 = document.getElementById("button55");
-    button55.disabled = true;
-    var button56 = document.getElementById("button56");
-    button56.disabled = true;
-    var button58 = document.getElementById("button58");
-    button58.disabled = true;
-    var button59 = document.getElementById("button59");
-    button59.disabled = true;
-    var button60 = document.getElementById("button60");
-    button60.disabled = true;
-    var button61 = document.getElementById("button61");
-    button61.disabled = true;
-    var button62 = document.getElementById("button62");
-    button62.disabled = true;
     var button63 = document.getElementById("button63");
     button63.disabled = true;
-    var button66 = document.getElementById("button66");
-    button66.disabled = true;
-    var button67 = document.getElementById("button67");
-    button67.disabled = true;
-    var button68 = document.getElementById("button68");
-    button68.disabled = true;
-    var button69 = document.getElementById("button69");
-    button69.disabled = true;
-    var button70 = document.getElementById("button70");
-    button70.disabled = true;
-    var button71 = document.getElementById("button71");
-    button71.disabled = true;
     var button72 = document.getElementById("button72");
     button72.disabled = true;
     var button73 = document.getElementById("button73");
@@ -559,16 +229,6 @@ function stopbutton() {
     button76.disabled = true;
     var button77 = document.getElementById("button77");
     button77.disabled = true;
-    var button78 = document.getElementById("button78");
-    button78.disabled = true;
-    var button79 = document.getElementById("button79");
-    button79.disabled = true;
-    var button80 = document.getElementById("button80");
-    button80.disabled = true;
-    var button81 = document.getElementById("button81");
-    button81.disabled = true;
-    var button82 = document.getElementById("button82");
-    button82.disabled = true;
     var button83 = document.getElementById("button83");
     button83.disabled = true;
     var button84 = document.getElementById("button84");
@@ -622,22 +282,6 @@ function filterstatuscodefunc() {
     })
 }
 
-//api接口扫描
-function urlfinderscanfunc() {
-    $.ajax({
-        url: '/starturlfinderinterface/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.urlfinder_status_result)
-        },
-        error: function () {
-            alert('api接口扫描出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 //ajax异步启动注销系统
 function signoutfunc() {
@@ -698,28 +342,7 @@ function assetsbackspacefunc() {
     })
 }
 
-//weblogic_poc 扫描
-function weblogicscanfunc() {
-    $.ajax({
-        url: '/weblogicscaninterface/',
-        method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-
-        },
-        error: function () {
-            alert('weblogic_poc扫描出错')
-        },
-        complete: function () {
-
-        }
-    })
-    $.getJSON("/weblogicscaninterface/",
-        function (info) {
-            alert(info.weblogic_status_result)
-        })
-}
 
 //weblogic_poc报告预览
 function weblogicreportfunc() {
@@ -727,65 +350,12 @@ function weblogicreportfunc() {
 }
 
 
-//ajax异步关闭weblogic漏洞扫描程序
-function stopweblogicscanprocess() {
-    $.ajax({
-        url: '/stop_weblogic_poc_scan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_weblogic_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 //struts2_poc报告预览
 function struts2reportfunc() {
     window.open("/struts2_poc_report/", "_blank");
 }
 
-
-//struts2_poc 扫描
-function struts2scanfunc() {
-    $.ajax({
-        url: '/struts2_poc_scan/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.struts2status_result)
-
-        },
-        error: function () {
-            alert('struts2_poc扫描出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭struts2漏洞扫描程序
-function stopstruts2scanprocess() {
-    $.ajax({
-        url: '/stop_struts2_poc_scan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_struts2_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 //报告整合
@@ -816,50 +386,6 @@ function eholefingerreportfunc() {
 }
 
 
-//启动EHole
-function eholefingerfunc() {
-    $.ajax({
-        url: '/ehole_finger_scan/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.finger_status_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//bbscan敏感信息扫描
-function bbscaninfofunc() {
-    $.ajax({
-        url: '/bbscan_info_scan/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.bbscan_status_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-//bbscan报告预览
-function showbbscanreportfunc() {
-    window.open("/showbbscanreport/", "_blank");
-}
-
-
 //子域名结果预览
 function showsubdomainfunc() {
     window.open("/showsubdomainreport/");
@@ -867,71 +393,11 @@ function showsubdomainfunc() {
 
 
 
-//子域名探测
-function subdomainfindfunc() {
-    $.ajax({
-        url: '/batch_show_subdomain/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.crt_status_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
 //vulmap漏扫报告预览
 function vulmapscanreportfunc() {
     window.open("/vulmapscanreport/");
 }
 
-
-//启动vulmap漏扫接口
-function startvulmapscanfunc() {
-    var vulnname = $('select[name="vulnname"]').val();
-    $.ajax({
-        url: '/startvulmapinterface/',
-        method: 'POST',
-        data: {
-            vulnname: vulnname
-        },
-        success: function (info) {
-            alert(info.vummap_scan_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//批量端口扫描
-function batchnmapportscanfunc() {
-    $.ajax({
-        url: '/startbatchnmapscan/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.nmap_status_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 //目标url的值赋值给 textarea 文本框
@@ -960,49 +426,7 @@ function targeturlcopytextareafunc() {
 
         }
     })
-
-
-
-    // // 定义一个函数来处理AJAX请求
-    // function fetchData() {
-    //     $.ajax({
-    //         url: '/url_list_textarea_show/',
-    //         method: 'GET',
-    //         success: function (info) {
-    //             // 假设info.textvalue是一个数组  
-    //             var textAreaContent = ''; // 初始化一个空字符串来保存textarea的内容  
-
-    //             // 遍历info.textvalue数组，为每个元素添加换行符并追加到textAreaContent  
-    //             for (var i = 0; i < info.textvalue.length; i++) {
-    //                 textAreaContent += info.textvalue[i] + '\n'; // 追加元素和换行符  
-    //             }
-
-    //             // 将textAreaContent的内容赋值给textarea  
-    //             $('#myTextarea').val(textAreaContent); // 假设textarea的id是myTextarea  
-    //         },
-    //         error: function () {
-
-
-    //         },
-    //         complete: function () {
-
-    //         }
-    //     })
-    // }
-
-    // // 调用fetchData函数初始化显示
-    // fetchData();
-    // // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
-    // var intervalId = setInterval(fetchData, 5000);
 }
-
-// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function () {
-    clearInterval(intervalId);
-});
-
-
-
 
 
 //afrog报告预览
@@ -1040,68 +464,11 @@ function deleteafrogreportfunc() {
 }
 
 
-//启动afrog漏扫接口
-function startafrogfunc() {
-
-    $.ajax({
-        url: '/startafrogscanprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.start_afrog_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭afrog进程
-function killafrogprocessfunc() {
-    $.ajax({
-        url: '/killafrogprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_afrog_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
 //fscan扫描结果预览
 function fscanreprtfunc() {
     window.open("/fscanreportyulan/");
 }
 
-//批量fscan漏洞扫描
-function batchfscanvulnfunc() {
-    var fscanpartname = $('select[name="fscanpartname"]').val();
-    $.ajax({
-        url: '/startfcsaninterface/',
-        method: 'POST',
-        data: {
-            fscanpartname: fscanpartname
-        },
-        success: function (info) {
-            alert(info.fscan_status_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 // fscan扫描参数值查看
 function fscanportshowfunc() {
@@ -1110,66 +477,11 @@ function fscanportshowfunc() {
 }
 
 
-//ajax异步关闭fscan进程
-function killfscanprocessfunc() {
-    $.ajax({
-        url: '/killfscangprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_fscan_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
 //shiro扫描结果预览
 function shiroscanreprtfunc() {
     window.open("/shiro_report_show/");
 }
 
-
-//shiro漏洞扫描
-function batchshirovulnfunc() {
-    $.ajax({
-        url: '/startshirointerface/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.shiro_status_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭shiro漏洞扫描程序
-function killshiroprocessfunc() {
-    $.ajax({
-        url: '/stop_shiro_poc_scan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_shiro_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 
@@ -1607,94 +919,6 @@ function springboot_report_show_func() {
     window.open("/springboot_report_show/");
 }
 
-//springboot漏洞扫描
-function start_springboot_scan_func() {
-    $.ajax({
-        url: '/start_springboot_vuln_scan/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.springboot_scan_status_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭springboot漏洞扫描程序
-function killspringbootprocessfunc() {
-    $.ajax({
-        url: '/stop_springboot_poc_scan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_springboot_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-//ajax异步关闭nmap进程
-function killnmapfunc() {
-    $.ajax({
-        url: '/killnmapprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_nmap_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-//ajax异步关闭vulmap进程
-function killvulmapfunc() {
-    $.ajax({
-        url: '/killvulmapprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_vulmap_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭nuclei进程
-function killnucleifunc() {
-    $.ajax({
-        url: '/killnucleiprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_nuclei_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 //ajax异步关闭bbscan进程
@@ -1748,81 +972,6 @@ function hydra_report_show_func() {
 }
 
 
-// 启用hydra扫描
-function start_hydra_scan_func() {
-    var hydrapart = $('select[name="hydrapart"]').val();
-    $.ajax({
-        url: '/start_hydra_interface/',
-        method: 'POST',
-        data: {
-            hydrapart: hydrapart
-        },
-        success: function (info) {
-            // 当请求成功时调用  
-            alert(info.hydra_scan_result);
-        },
-        error: function () {
-            alert('接口内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭hydra进程
-function killhydraprocessfunc() {
-    $.ajax({
-        url: '/killhydraprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_hydra_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭urlfinder进程
-function killurlfinderprocessfunc() {
-    $.ajax({
-        url: '/killurlfinderprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_urlfinder_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-//ajax异步关闭EHole进程
-function killEHoleprocessfunc() {
-    $.ajax({
-        url: '/killEHoleprocess/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_EHole_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 //总报告预览
@@ -2207,25 +1356,6 @@ function textareachongzhifunc() {
 }
 
 
-//thinkphp漏洞扫描
-function startthinkphpscanfunc() {
-    $.ajax({
-        url: '/starttpscaninterface/',
-        method: 'GET',
-
-        success: function (info) {
-            alert(info.thinkphp_status_result)
-
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
 
 //thinkphp报告预览
 function thinkphp_report_show_func() {
@@ -2234,551 +1364,6 @@ function thinkphp_report_show_func() {
 }
 
 
-//ajax异步关闭thinkphp漏洞扫描程序
-function killthinkphpprocessfunc() {
-    $.ajax({
-        url: '/stop_thinkphp_poc_scan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_thinkphp_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-// 漏洞扫描工具集合
-function xianshipointfunc() {
-    var pointid1 = document.getElementById("pointid1");
-    pointid1.style.display = "block";
-
-    var spanpointvalue = $('select[name="spanpointvalue"]').val();
-    if (spanpointvalue == 1) {
-
-        var point1 = document.getElementById("point1");
-        point1.style.display = "block";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-
-    } else if (spanpointvalue == 2) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "block";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-
-    } else if (spanpointvalue == 3) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "block";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-
-    } else if (spanpointvalue == 4) {
-
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "block";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 6) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "block";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-
-    } else if (spanpointvalue == 7) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "block";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 8) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "block";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 9) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "block";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 10) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "block";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 11) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 12) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "block";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 13) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "block";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 5) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "block";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "none";
-    } else if (spanpointvalue == 15) {
-        var point1 = document.getElementById("point1");
-        point1.style.display = "none";
-        var point2 = document.getElementById("point2");
-        point2.style.display = "none";
-        var point3 = document.getElementById("point3");
-        point3.style.display = "none";
-        var point4 = document.getElementById("point4");
-        point4.style.display = "none";
-        var point5 = document.getElementById("point5");
-        point5.style.display = "none";
-        var point6 = document.getElementById("point6");
-        point6.style.display = "none";
-        var point7 = document.getElementById("point7");
-        point7.style.display = "none";
-        var point8 = document.getElementById("point8");
-        point8.style.display = "none";
-        var point9 = document.getElementById("point9");
-        point9.style.display = "none";
-        var point10 = document.getElementById("point10");
-        point10.style.display = "none";
-        var point12 = document.getElementById("point12");
-        point12.style.display = "none";
-        var point13 = document.getElementById("point13");
-        point13.style.display = "none";
-        var point15 = document.getElementById("point15");
-        point15.style.display = "block";
-    }
-}
-
-
-function guanbipointfunc() {
-    // 将select选项值重置
-    var spanpointvalue = document.querySelector('select[name="spanpointvalue"]');
-    spanpointvalue.selectedIndex = 0; // 将第一个选项设置为选中状态
-
-    var point1 = document.getElementById("point1");
-    point1.style.display = "block";
-    var point2 = document.getElementById("point2");
-    point2.style.display = "none";
-    var point3 = document.getElementById("point3");
-    point3.style.display = "none";
-    var point4 = document.getElementById("point4");
-    point4.style.display = "none";
-    var point5 = document.getElementById("point5");
-    point5.style.display = "none";
-    var point6 = document.getElementById("point6");
-    point6.style.display = "none";
-    var point7 = document.getElementById("point7");
-    point7.style.display = "none";
-    var point8 = document.getElementById("point8");
-    point8.style.display = "none";
-    var point9 = document.getElementById("point9");
-    point9.style.display = "none";
-    var point10 = document.getElementById("point10");
-    point10.style.display = "none";
-    var point12 = document.getElementById("point12");
-    point12.style.display = "none";
-    var point13 = document.getElementById("point13");
-    point13.style.display = "none";
-    var point15 = document.getElementById("point15");
-    point15.style.display = "none";
-}
-
-
-// 打开信息收集工具集合
-function infoshoujitoolstart() {
-    var spaninfomationname = $('select[name="spaninfomationname"]').val();
-    if (spaninfomationname == 1) {
-        var infoscanspan1 = document.getElementById("infoscanspan1");
-        infoscanspan1.style.display = "block";
-        var infoscanspan2 = document.getElementById("infoscanspan2");
-        infoscanspan2.style.display = "none";
-        var infoscanspan3 = document.getElementById("infoscanspan3");
-        infoscanspan3.style.display = "none";
-        var infoscanspan4 = document.getElementById("infoscanspan4");
-        infoscanspan4.style.display = "none";
-        var infoscanspan5 = document.getElementById("infoscanspan5");
-        infoscanspan5.style.display = "none";
-    } else if (spaninfomationname == 2) {
-        var infoscanspan1 = document.getElementById("infoscanspan1");
-        infoscanspan1.style.display = "none";
-        var infoscanspan2 = document.getElementById("infoscanspan2");
-        infoscanspan2.style.display = "block";
-        var infoscanspan3 = document.getElementById("infoscanspan3");
-        infoscanspan3.style.display = "none";
-        var infoscanspan4 = document.getElementById("infoscanspan4");
-        infoscanspan4.style.display = "none";
-        var infoscanspan5 = document.getElementById("infoscanspan5");
-        infoscanspan5.style.display = "none";
-    } else if (spaninfomationname == 3) {
-        var infoscanspan1 = document.getElementById("infoscanspan1");
-        infoscanspan1.style.display = "none";
-        var infoscanspan2 = document.getElementById("infoscanspan2");
-        infoscanspan2.style.display = "none";
-        var infoscanspan3 = document.getElementById("infoscanspan3");
-        infoscanspan3.style.display = "block";
-        var infoscanspan4 = document.getElementById("infoscanspan4");
-        infoscanspan4.style.display = "none";
-        var infoscanspan5 = document.getElementById("infoscanspan5");
-        infoscanspan5.style.display = "none";
-    } else if (spaninfomationname == 4) {
-        var infoscanspan1 = document.getElementById("infoscanspan1");
-        infoscanspan1.style.display = "none";
-        var infoscanspan2 = document.getElementById("infoscanspan2");
-        infoscanspan2.style.display = "none";
-        var infoscanspan3 = document.getElementById("infoscanspan3");
-        infoscanspan3.style.display = "none";
-        var infoscanspan4 = document.getElementById("infoscanspan4");
-        infoscanspan4.style.display = "block";
-        var infoscanspan5 = document.getElementById("infoscanspan5");
-        infoscanspan5.style.display = "none";
-    } else if (spaninfomationname == 5) {
-        var infoscanspan1 = document.getElementById("infoscanspan1");
-        infoscanspan1.style.display = "none";
-        var infoscanspan2 = document.getElementById("infoscanspan2");
-        infoscanspan2.style.display = "none";
-        var infoscanspan3 = document.getElementById("infoscanspan3");
-        infoscanspan3.style.display = "none";
-        var infoscanspan4 = document.getElementById("infoscanspan4");
-        infoscanspan4.style.display = "none";
-        var infoscanspan5 = document.getElementById("infoscanspan5");
-        infoscanspan5.style.display = "block";
-    }
-}
-
-// 关闭信息收集工具集合
-function infoshoujitoolstop() {
-    // 将select选项值重置
-    var selectElement = document.querySelector('select[name="spaninfomationname"]');
-    selectElement.selectedIndex = 0; // 将第一个选项设置为选中状态
-    var infoscanspan1 = document.getElementById("infoscanspan1");
-    infoscanspan1.style.display = "block";
-    var infoscanspan2 = document.getElementById("infoscanspan2");
-    infoscanspan2.style.display = "none";
-    var infoscanspan3 = document.getElementById("infoscanspan3");
-    infoscanspan3.style.display = "none";
-    var infoscanspan4 = document.getElementById("infoscanspan4");
-    infoscanspan4.style.display = "none";
-    var infoscanspan5 = document.getElementById("infoscanspan5");
-    infoscanspan5.style.display = "none";
-}
-
-
-
-//ajax异步开启泛微OA漏洞扫描
-function startweaverscanfunc() {
-    $.ajax({
-        url: '/startweavervulnscan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.weaver_status_result)
-        },
-        error: function () {
-            alert('内部出错')
-
-        },
-        complete: function () {
-
-        }
-    })
-
-}
-
 
 //weaver扫描结果预览
 function weaverscanfunc() {
@@ -2786,23 +1371,6 @@ function weaverscanfunc() {
     window.open("/weaverresultshow/");
 }
 
-
-//ajax异步关闭泛微OA漏洞扫描程序
-function killweaverscanfunc() {
-    $.ajax({
-        url: '/killweavervulnscan/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.kill_weaver_result)
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 // 漏洞扫描集合选中扫描
