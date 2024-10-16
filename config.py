@@ -120,10 +120,18 @@ mssql_dict_user_dir = '/TIP/info_scan/dict/mssql/user.txt'
 mssql_dict_pass_dir = '/TIP/info_scan/dict/mssql/pass.txt'
 
 # 第三方接口限额相关配置
-interface_num = 6 #第三方接口总量,不要随便修改
-fofa_max_num = 30 #fofa
-otx_max_num = 30 #otx查询域名绑定历史url
-amap_max_num = 1 #高德地图
-crt_max_num = 1 #基于证书查询子域名
-shodan_max_num = 1 #shodan
-icp_max_num = 1 #icp备案
+interface_num = 3000 #第三方接口总量,不要随便修改
+fofa_max_num = 3000 #fofa
+otx_max_num = 3000 #otx查询域名绑定历史url
+amap_max_num = 3000 #高德地图
+crt_max_num = 3000 #基于证书查询子域名
+shodan_max_num = 3000 #shodan
+icp_max_num = 3000 #icp备案
+
+
+# 删除漏洞扫描报告二次验证
+recheck_username = "root"
+recheck_password = "root"
+
+
+

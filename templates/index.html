@@ -45,16 +45,14 @@
 				<img src="{{ url_for('static', filename='image/mainsystemoper.png') }}" width="50" height="50"
 					style="cursor: pointer;" onclick="openModal()" onmouseenter="caozuo9func()"
 					onmouseleave="caozuo99func()">&nbsp;&nbsp;
-				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="signoutfunc()" onmouseenter="caozuo9afunc()"
-					onmouseleave="caozuo99afunc()">&nbsp;&nbsp;
+
 				<img src="{{ url_for('static', filename='image/restart.png') }}" width="50" height="50"
 					style="cursor: pointer;" onclick="restart_service_func()" onmouseenter="caozuo9bfunc()"
-					onmouseleave="caozuo99bfunc()">
-
+					onmouseleave="caozuo99bfunc()">&nbsp;&nbsp;
 				<img src="{{ url_for('static', filename='image/stopservice.png') }}" width="50" height="50"
-					style="cursor: pointer;" onclick="stopbackservicefunc()" onmouseenter="caozuo9cfunc()"
-					onmouseleave="caozuo99cfunc()">
+					style="cursor: pointer;" onclick="signoutfunc()" onmouseenter="caozuo9afunc()"
+					onmouseleave="caozuo99afunc()">
+
 				<br><br>
 				<span id="tishisp1" style="display: none; color: chocolate;">刷新系统按钮</span>
 				<span id="tishisp2" style="display: none; color: chocolate;">锁定按钮</span>
@@ -67,19 +65,19 @@
 				<span id="tishisp9" style="display: none; color: chocolate;">系统管理</span>
 				<span id="tishisp9a" style="display: none; color: chocolate;">注销系统</span>
 				<span id="tishisp9b" style="display: none; color: chocolate;">系统软重启</span>
-				<span id="tishisp9c" style="display: none; color: chocolate;">关闭后端服务</span>
+
 			</td>
 		</tr>
 	</table>
 
 	<div id="modal" class="modal">
-		
+
 		<div class="modal-content">
 			<h2 style="color: darkorange;" id="spp1h2"></h2>
 			<strong style="color:coral">全局视角</strong>
 			<span class="close" onclick="closesystemanager()">&times;</span>
 			<table border="1" style="width: 1500px; height: 100px;">
-			
+
 				<tr>
 					<th>名称</th>
 					<td>CPU</td>
@@ -397,7 +395,8 @@
 					<td><span id="spp52t"></span></td>
 				</tr>
 			</table><br>
-			<strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp; <span style="cursor: pointer; color: deepskyblue;" onclick="initinterfacefunc()">初始化</span><br>
+			<strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp; <span
+				style="cursor: pointer; color: deepskyblue;" onclick="initinterfacefunc()">初始化</span><br>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
 					<th>接口名称</th>
@@ -437,7 +436,7 @@
 						<span id="failsp6" style="color: red;"></span>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<th>接口额度</th>
 					<td><span id="totalsp1" style="color:deepskyblue;"></span></td>
@@ -458,7 +457,7 @@
 					<td><span id="overtotalsp6" style="color:blueviolet;"></span></td>
 				</tr>
 			</table>
-			
+
 		</div>
 	</div>
 
@@ -479,23 +478,35 @@
 		</div>
 	</div>
 
+	<!-- 删除日志确认页面 -->
+	<div id="modal3" class="modal3">
+		<div class="modal-content3">
+			<span class="close3" onclick="stopverifychearlogfunc()">&times;</span>
+			<h3>二次验证</h3>
+			<input type="text" placeholder="账号" id="inputmodel1" /><br>
+			<input type="text" placeholder="密码" id="inputmodel2" /><br>
+			<input type="hidden"  id="inputmodel3" /><br>
+			<input type="button" value="提交" onclick="comfirmclearlogfunc()">
+		</div>
+	</div>
+
 	<!-- 扫描器参数配置 -->
-	
+
 	<div id="modal2" class="modal1">
 		<div class="modal-content1">
-			
 			<strong style="color: chocolate;">扫描参数配置</strong><br>
-					<span style="cursor: pointer;" onclick="deleteafrogreportfunc()">清空afrog日志</span>&nbsp;&nbsp;					
-					<span style="cursor: pointer;" onclick="deleteurlfinderreportfunc()">清空api接口日志</span>&nbsp;&nbsp;								
-					<span style="cursor: pointer;" onclick="xrayreportdelete()">清空xray日志</span>
-				
+			<!-- 分别传入1、2、3、4给input框，隐藏属性，在将这个值传给后端 -->
+			<span style="cursor: pointer;" onclick="startverifychearlogfunc('1')">清空afrog报告</span>&nbsp;&nbsp;
+			<span style="cursor: pointer;" onclick="startverifychearlogfunc('2')">清空api接口报告</span>&nbsp;&nbsp;
+			<span style="cursor: pointer;" onclick="startverifychearlogfunc('3')">清空xray报告</span>&nbsp;&nbsp;
+			<span style="cursor: pointer;" onclick="startverifychearlogfunc('4')">清空端口扫描报告</span>
 			</tr>
 			<span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
 			<table border="1">
 				<tr>
 					<td>
 						fscan扫描参数：&nbsp;&nbsp;
-						<select name="fscanpartname" onmouseout="fscanportshowfunc()" >
+						<select name="fscanpartname" onmouseout="fscanportshowfunc()">
 
 							<option
 								value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">
@@ -518,8 +529,8 @@
 								常见RCE端口</option>
 							<option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
 						</select>
-						<textarea rows="3" cols="80"  id="myTextarea2" onmouseover="fscantextarea_onhover()"
-						onmouseout="fscantextarea_onout()">
+						<textarea rows="3" cols="80" id="myTextarea2" onmouseover="fscantextarea_onhover()"
+							onmouseout="fscantextarea_onout()">
 							21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017</textarea>
 					</td>
 				</tr>
@@ -563,8 +574,8 @@
 							<option value="/root/nuclei-templates/config">config</option>
 							<option value="/root/nuclei-templates/code">code</option>
 						</select>
-						<textarea rows="3" cols="80"  id="myTextarea3" onmouseover="nucleitextarea_onhover()"
-						onmouseout="nucleitextarea_onout()">
+						<textarea rows="3" cols="80" id="myTextarea3" onmouseover="nucleitextarea_onhover()"
+							onmouseout="nucleitextarea_onout()">
 poc显示区域</textarea>
 						<br>
 						<span id="nucleibyid2" style="color: darksalmon;"></span>
@@ -590,9 +601,9 @@ poc显示区域</textarea>
 							<option value="1-65535">全端口</option>
 						</select>
 						<textarea rows="3" cols="80" id="myTextarea1" onmouseover="nmaptextarea_onhover()"
-						onmouseout="nmaptextarea_onout()">
+							onmouseout="nmaptextarea_onout()">
 80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443
-</textarea>&nbsp;&nbsp;<span onclick="deletenmapfunc()" style="cursor: pointer;">清空日志</span>
+</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -605,8 +616,8 @@ poc显示区域</textarea>
 							<option value="4">redis</option>
 							<option value="5">mssql</option>
 						</select>
-						
-					
+
+
 					</td>
 				</tr>
 				<tr>
@@ -656,10 +667,10 @@ poc显示区域</textarea>
 						<span style="color: goldenrod;" id="crawlergo_part_show_part2"></span>
 					</td>
 				</tr>
-				
-			
+
+
 			</table>
-			
+
 
 		</div>
 	</div>
@@ -847,8 +858,8 @@ poc显示区域</textarea>
 					fastjson扫描：需先开启JNDI服务,点击最上方的系统管理查看JNDI服务运行情况,出现running,在开启fastjson漏洞扫描,fastjson可能会出现空报告清空,最终以JNDI请求日志为准。</strong></span><br>
 			<span style="color: red"><strong>2.
 					xray+crawlergo批量扫描：需先开启xray监听,点击最上方的系统管理查看xray运行情况,出现running,然后在开启爬虫并且参数选择为转发爬虫流量,点击xray监听下的报告预览可查看扫描xray报告。</strong></span><br>
-			
-				<table  style=" border: 5px solid red ; border-collapse: collapse;">
+
+			<table style=" border: 5px solid red ; border-collapse: collapse;">
 				<tr>
 					<td colspan="2">
 						<h3>漏洞扫描</h3>
@@ -864,8 +875,8 @@ poc显示区域</textarea>
 						<span onclick="hydradictfunc()" style="cursor: pointer;">字典配置</span>
 					</td>
 				</tr>
-				
-				
+
+
 				<!-- 漏洞扫描第一行 -->
 				<tr>
 					<td colspan="2">
@@ -924,49 +935,49 @@ poc显示区域</textarea>
 
 					</td>
 				</tr>
-				</table>
-				<br>
-				<!-- 设置表格边框颜色 -->
-				<table style=" border: 5px solid blue ; border-collapse: collapse;">
-					<tr>
-						<td colspan="2">
-							<h3>信息收集</h3>
-							<input type="submit" id="button73" value="批量开启" onclick="infoxuanzhongscan()"
-								disabled>&nbsp;&nbsp;&nbsp;
-							<input type="submit" id="button75" value="批量关闭" onclick="infoxuanzhongstopscanfunc()"
-								disabled>&nbsp;&nbsp;&nbsp;
-							<input type="submit" id="button74" value="打开报告" onclick="infoxuanzhongreportyulan()"
-								disabled>&nbsp;&nbsp;&nbsp;
-							
-							<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;
-							<span style="cursor: pointer;" onclick="unSelection()">取消</span>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<span><strong>综合类：</strong></span>
-							<input type="checkbox" id="infooption2" name="info_option" value="2">
-							<label for="infooption2">网站指纹扫描</label>
-							<input type="checkbox" id="infooption1" name="info_option" value="1">
-							<label for="infooption1">敏感信息扫描</label>
-							<input type="checkbox" id="infooption3" name="info_option" value="3">
-							<label for="infooption3">域名绑定URL扫描</label>
-							<input type="checkbox" id="infooption4" name="info_option" value="4">
-							<label for="infooption4">子域名扫描</label>
-							<input type="checkbox" id="infooption5" name="info_option" value="5">
-							<label for="infooption5">端口扫描</label>
-							<input type="checkbox" id="infooption6" name="info_option" value="6">
-							<label for="infooption6">WAF识别扫描</label>
-							<input type="checkbox" id="infooption7" name="info_option" value="7">
-							<label for="infooption7">网站FUZZ</label>
-							<input type="checkbox" id="infooption8" name="info_option" value="8">
-							<label for="infooption8">爬虫扫描</label>
-						</td>
-					</tr>
-				</table>
-				
+			</table>
+			<br>
+			<!-- 设置表格边框颜色 -->
+			<table style=" border: 5px solid blue ; border-collapse: collapse;">
+				<tr>
+					<td colspan="2">
+						<h3>信息收集</h3>
+						<input type="submit" id="button73" value="批量开启" onclick="infoxuanzhongscan()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button75" value="批量关闭" onclick="infoxuanzhongstopscanfunc()"
+							disabled>&nbsp;&nbsp;&nbsp;
+						<input type="submit" id="button74" value="打开报告" onclick="infoxuanzhongreportyulan()"
+							disabled>&nbsp;&nbsp;&nbsp;
 
-			
+						<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="unSelection()">取消</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span><strong>综合类：</strong></span>
+						<input type="checkbox" id="infooption2" name="info_option" value="2">
+						<label for="infooption2">网站指纹扫描</label>
+						<input type="checkbox" id="infooption1" name="info_option" value="1">
+						<label for="infooption1">敏感信息扫描</label>
+						<input type="checkbox" id="infooption3" name="info_option" value="3">
+						<label for="infooption3">域名绑定URL扫描</label>
+						<input type="checkbox" id="infooption4" name="info_option" value="4">
+						<label for="infooption4">子域名扫描</label>
+						<input type="checkbox" id="infooption5" name="info_option" value="5">
+						<label for="infooption5">端口扫描</label>
+						<input type="checkbox" id="infooption6" name="info_option" value="6">
+						<label for="infooption6">WAF识别扫描</label>
+						<input type="checkbox" id="infooption7" name="info_option" value="7">
+						<label for="infooption7">网站FUZZ</label>
+						<input type="checkbox" id="infooption8" name="info_option" value="8">
+						<label for="infooption8">爬虫扫描</label>
+					</td>
+				</tr>
+			</table>
+
+
+
 		</div>
 		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
 		<h3>资产管理</h3>

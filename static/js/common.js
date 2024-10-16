@@ -23,31 +23,6 @@ function nucleijumpfunc() {
 }
 
 
-
-
-
-//ajax异步清除数据
-function deletenmapfunc() {
-    var input = document.getElementById("myInput");
-    input.value = "";
-    $.ajax({
-        url: '/deletenmapresult/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已删除端口扫描报告')
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-            alert('已删除端口扫描报告')
-        }
-    })
-}
-
-
-
 //xray报告预览
 function xrayreportshow() {
     window.open(ipvalue + ":18888/", "_blank");
@@ -58,45 +33,6 @@ function xrayreportshow() {
 function urlfinderreportshow() {
     window.open(ipvalue + ":16666/", "_blank");
 }
-
-
-//ajax异步删除xray报告
-function xrayreportdelete() {
-    $.ajax({
-        url: '/deletexrayreport/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已删除xray报告')
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-            alert('已删除xray报告')
-        }
-    })
-}
-
-
-//ajax异步删除api接口扫描报告
-function deleteurlfinderreportfunc() {
-    $.ajax({
-        url: '/deleteurlfinderreport/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已删除api接口报告')
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-            alert('已删除api接口报告')
-        }
-    })
-}
-
 
 
 //文本框内容添加
@@ -370,7 +306,7 @@ function reporttotalfunc() {
             alert('内部出错')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -445,24 +381,6 @@ function ceyehttpfunc() {
     window.open("/ceye_http_record/", "_blank");
 }
 
-//ajax异步删除afrog报告
-function deleteafrogreportfunc() {
-    $.ajax({
-        url: '/deleteafrogreport/',
-        method: 'GET',
-        success: function (res) {
-            console.log(res)
-            console.log('已删除afrog报告')
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-            alert('已删除afrog报告')
-        }
-    })
-}
-
 
 //fscan扫描结果预览
 function fscanreprtfunc() {
@@ -512,11 +430,11 @@ function openModal() {
     function fetchData() {
         $.getJSON("/systemmanagement/",
             function (info) {
-                
+
 
                 // 运行状态显示绿色，停止状态显示红色
                 document.getElementById("spp1").innerHTML = info.nmapstatus1;
-                document.getElementById("spp1a").innerHTML = info.nmapstatus2;               
+                document.getElementById("spp1a").innerHTML = info.nmapstatus2;
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
                 document.getElementById("spp3").innerHTML = info.xraystatus1;
@@ -1032,61 +950,6 @@ function restart_service_func() {
 }
 
 
-
-// 关闭后端服务
-function stopbackservicefunc() {
-    $.ajax({
-        url: '/stopbackserviceinterface/',
-        method: 'GET',
-        success: function (info) {
-            // 参数1：确认操作
-            // 参数2：取消操作
-            if (confirm(info.backcomfirm)) {
-                $.ajax({
-                    url: '/confirm_stop_service/',
-                    method: 'POST',
-                    data: {
-                        action: 1
-                    },
-                    success: function (info) {
-                        alert(info.result_status)
-                        window.location.href = "/index/";
-                    },
-                    error: function () {
-                        alert('内部出错');
-                    }
-                });
-            } else {
-
-                $.ajax({
-                    url: '/confirm_stop_service/',
-                    method: 'POST',
-                    data: {
-                        action: 2
-                    },
-                    success: function (info) {
-                        alert(info.result_status)
-                        window.location.href = "/index/";
-                    },
-                    error: function () {
-                        alert('内部出错');
-                    }
-                });
-
-            }
-
-        },
-        // 关闭所有服务nginx会返回502
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
 // 弹出编辑筛选规则页面
 function shuaixuanrule() {
     var idp1 = document.getElementById("idp1");
@@ -1335,12 +1198,6 @@ function caozuo99bfunc() {
     }, 500);
 }
 
-function caozuo9cfunc() {
-    setTimeout(function () {
-        var tishisp9c = document.getElementById("tishisp9c");
-        tishisp9c.style.display = "block";
-    }, 500);
-}
 
 function caozuo99cfunc() {
     setTimeout(function () {
@@ -1794,9 +1651,13 @@ function hydra_dict_submit_func() {
 
 // 资产文本框鼠标悬停变大
 function textarea_onhover() {
-    var textarea = document.getElementById('myTextarea');
-    textarea.rows = 20;
-    textarea.cols = 152;
+    setTimeout(function () {
+        var textarea = document.getElementById('myTextarea');
+        textarea.rows = 20;
+        textarea.cols = 152;
+    }, 1000);
+
+
 }
 // 资产文本框鼠标移出变小
 function textarea_onout() {
@@ -1825,6 +1686,8 @@ function nucleitextarea_onhover() {
     var myTextarea3 = document.getElementById('myTextarea3');
     myTextarea3.rows = 15;
     myTextarea3.cols = 80;
+
+
 }
 
 // nuclei参数配置鼠标移出变小
@@ -1877,4 +1740,55 @@ function initinterfacefunc() {
 
         }
     })
+}
+
+
+// 打开删除报告二次验证弹窗
+function startverifychearlogfunc(dataToSet) {
+    var modal3 = document.getElementById("modal3");
+    modal3.style.display = "block";
+    var inputmodel1 = document.getElementById("inputmodel1");
+    inputmodel1.value = "";
+    var inputmodel2 = document.getElementById("inputmodel2");
+    inputmodel2.value = "";
+    var inputmodel3 = document.getElementById("inputmodel3");
+    inputmodel3.value = "";
+    // 获取input元素
+    var inputmodel3 = document.getElementById('inputmodel3');
+    // 为input元素赋值
+    inputmodel3.value = dataToSet;
+}
+
+
+// 关闭删除报告二次验证弹窗
+function stopverifychearlogfunc() {
+    var modal3 = document.getElementById("modal3");
+    modal3.style.display = "none";
+}
+
+// 确认删除报告
+function comfirmclearlogfunc() {
+    var inputmodel1 = document.getElementById('inputmodel1').value;
+    var inputmodel2 = document.getElementById('inputmodel2').value;
+    var inputmodel3 = document.getElementById('inputmodel3').value;
+    $.ajax({
+        url: '/comfirmclearloginterface/',
+        method: 'POST',
+        data: {
+            inputmodel1: inputmodel1,
+            inputmodel2: inputmodel2,
+            inputmodel3: inputmodel3
+        },
+        success: function (info) {
+            alert(info.recheck_result)
+        },
+        error: function () {
+
+        },
+        complete: function () {
+
+        }
+    })
+    var modal3 = document.getElementById("modal3");
+    modal3.style.display = "none";
 }

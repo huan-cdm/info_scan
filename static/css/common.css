@@ -1,249 +1,336 @@
 		input {
-		    transition: all 0.30s ease-in-out;
-		    -webkit-transition: all 0.30s ease-in-out;
-		    -moz-transition: all 0.30s ease-in-out;
+			transition: all 0.30s ease-in-out;
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
 
-		    border: #35a5e5 3px solid;
-		    border-radius: 3px;
-		    outline: none;
+			border: #35a5e5 3px solid;
+			border-radius: 3px;
+			outline: none;
 
 		}
 
 		input:focus {
-		    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-		    -webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-		    -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+			box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+			-webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+			-moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 		}
 
-		table{
-			height:10px;
+		table {
+			height: 10px;
 			width: 10px;
 		}
 
 		input[type="submit"] {
-		    background-color:rgb(32, 178, 171);
-		    border-radius: 3px;
-		    -webkit-transition: all linear 0.30s;
-		    -moz-transition: all linear 0.30s;
-		    transition: all linear 0.30s;
-		    height: 50px;
-		    width: 120px;
-			font-weight: bold; /* 加粗字体 */
+			background-color: rgb(32, 178, 171);
+			border-radius: 3px;
+			-webkit-transition: all linear 0.30s;
+			-moz-transition: all linear 0.30s;
+			transition: all linear 0.30s;
+			height: 50px;
+			width: 120px;
+			font-weight: bold;
+			/* 加粗字体 */
 		}
 
 		input[type="button"] {
-		    background-color:#35a5e5;
-		    border-radius: 3px;
-		    -webkit-transition: all linear 0.30s;
-		    -moz-transition: all linear 0.30s;
-		    transition: all linear 0.30s;
-		    height: 50px;
-		    width: 100px;
-			font-weight: bold; /* 加粗字体 */
+			background-color: #35a5e5;
+			border-radius: 3px;
+			-webkit-transition: all linear 0.30s;
+			-moz-transition: all linear 0.30s;
+			transition: all linear 0.30s;
+			height: 50px;
+			width: 100px;
+			font-weight: bold;
+			/* 加粗字体 */
 		}
 
 
 		input[type="text"] {
-		    height: 40px;
-		    width: 700px;
-		    font-size: 20px;
+			height: 40px;
+			width: 700px;
+			font-size: 20px;
 		}
 
 		input[type="submit"]:hover {
-		    background-color: rgb(207, 33, 193);
+			background-color: rgb(207, 33, 193);
 			cursor: pointer;
 		}
 
 		input[type="button"]:hover {
-		    background-color: rgb(207, 100, 33);
+			background-color: rgb(207, 100, 33);
 			cursor: pointer;
 		}
 
 		table {
-		    width: 100%;
-		    border-collapse: collapse;
+			width: 100%;
+			border-collapse: collapse;
 		}
 
 		th,
 		td {
-		    border: 1px solid #ccc;
-		    padding: 8px;
-		    text-align: left;
+			border: 1px solid #ccc;
+			padding: 8px;
+			text-align: left;
 		}
 
 		th {
-		    background-color: #f2f2f2;
+			background-color: #f2f2f2;
 		}
 
 		/* 使用ID选择器来设置进度条的颜色 */
 		#progress-bar {
-		    background-color: #4CAF50;
-		    /* 绿色背景 */
-		    width: 0%;
-		    /* 初始宽度为0 */
-		    height: 20px;
-		    /* 高度 */
-		    transition: width 0.5s;
-		    /* 过渡效果 */
+			background-color: #4CAF50;
+			/* 绿色背景 */
+			width: 0%;
+			/* 初始宽度为0 */
+			height: 20px;
+			/* 高度 */
+			transition: width 0.5s;
+			/* 过渡效果 */
 		}
 
 		.div-container {
-		    display: flex;
-		    align-items: center;
-		    border: 1px solid #000;
+			display: flex;
+			align-items: center;
+			border: 1px solid #000;
 		}
 
 		.inner-div {
-		    flex: 1;
-		    border-right: 1px solid #000;
+			flex: 1;
+			border-right: 1px solid #000;
 		}
 
 		.inner-div:last-child {
-		    border-right: none;
+			border-right: none;
 		}
 
-		select {  
-            width: 230px; /* 设置宽度为200像素 */  
-            height: 50px; /* 设置高度为40像素 */  
-            padding: 5px; /* 设置内边距为5像素，这可以增加选项之间的空间 */  
-            font-size: 16px; /* 设置字体大小为16像素 */  
-            border: 1px solid #ccc; /* 设置边框为1像素宽，颜色为#ccc */  
-            border-radius: 5px; /* 设置边框圆角为5像素 */  
-        }  
+		select {
+			width: 230px;
+			/* 设置宽度为200像素 */
+			height: 50px;
+			/* 设置高度为40像素 */
+			padding: 5px;
+			/* 设置内边距为5像素，这可以增加选项之间的空间 */
+			font-size: 16px;
+			/* 设置字体大小为16像素 */
+			border: 1px solid #ccc;
+			/* 设置边框为1像素宽，颜色为#ccc */
+			border-radius: 5px;
+			/* 设置边框圆角为5像素 */
+		}
 
 		#span1 {
-			color:orange;
-		  }
+			color: orange;
+		}
 
-		h3 {  
-			color:chocolate;  
-		}  
+		h3 {
+			color: chocolate;
+		}
 
-		h2 {  
-			color:darkorange;  
+		h2 {
+			color: darkorange;
 			text-align: left;
 			cursor: pointer;
 		}
 
 		/* 系统管理 */
-		.modal {  
-			display: none; /* 隐藏弹窗 */  
+		.modal {
+			display: none;
+			/* 隐藏弹窗 */
 			/* position:static; 弹窗固定在视口   */
-			position: static; 
-			z-index: 1; /* 弹窗位于其他元素之上 */  
-			left: 0;  
-			top: 0;  
-			width: 100%; /* 宽度为全屏 */  
-			height: 100%; /* 高度为全屏 */  
-			overflow:auto; /*启用滚动条  */ 
+			position: static;
+			z-index: 1;
+			/* 弹窗位于其他元素之上 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度为全屏 */
+			height: 100%;
+			/* 高度为全屏 */
+			overflow: auto;
+			/*启用滚动条  */
 			/* background-color: rgba(0, 0, 0, 0.5); 黑色背景，半透明   */
 			background-color: rgba(255, 255, 255, 0.987);
-			
-		}  
-		  
-		.modal-content {  
-			background-color: #fefefe;  
-			margin: 0% auto; /* 垂直居中，水平居中  */
-			
 
-			padding: 5px;  
-			border: 10px solid #888;  
-			width: 90%; /* 弹窗宽度可以根据需要调整 */  
-			border: 5px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
-		}  
-		  
-		.close {  
-			color: #aaa;  
-			float: right;  
-			font-size: 28px;  
-			font-weight: bold;  
-			cursor: pointer;  
-		}  
-		  
-		.close:hover,  
-		.close:focus {  
-			color: black;  
-			text-decoration: none;  
-			cursor: pointer;  
+		}
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: 0% auto;
+			/* 垂直居中，水平居中  */
+
+
+			padding: 5px;
+			border: 10px solid #888;
+			width: 90%;
+			/* 弹窗宽度可以根据需要调整 */
+			border: 5px solid #007BFF;
+			/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
+		}
+
+		.close {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
 		}
 
 
 
 		/* fofa查询语法 */
 
-		.modal1 {  
-			display: none; /* 隐藏弹窗 */  
-			position: fixed; /* 弹窗固定在视口 */  
-			z-index: 1; /* 弹窗位于其他元素之上 */  
-			left: 0;  
-			top: 0;  
-			width: 100%; /* 宽度为全屏 */  
-			height: 100%; /* 高度为全屏 */  
-			overflow: auto; /* 启用滚动条 */  
-			background-color: rgba(0, 0, 0, 0.5); /* 黑色背景，半透明 */  
-		}  
-		  
-		.modal-content1 {  
-			background-color: #fefefe;  
-			margin: 0% auto; /* 垂直居中，水平居中  */
-			padding: 5px;  
-			border: 10px solid #888;  
-			width: 80%; /* 弹窗宽度可以根据需要调整 */  
-			border: 2px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
-		}  
+		.modal1 {
+			display: none;
+			/* 隐藏弹窗 */
+			position: fixed;
+			/* 弹窗固定在视口 */
+			z-index: 1;
+			/* 弹窗位于其他元素之上 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度为全屏 */
+			height: 100%;
+			/* 高度为全屏 */
+			overflow: auto;
+			/* 启用滚动条 */
+			background-color: rgba(0, 0, 0, 0.5);
+			/* 黑色背景，半透明 */
+		}
 
-		.close1 {  
-			color: #aaa;  
-			float: right;  
-			font-size: 98px;  
-			font-weight: bold;  
-			cursor: pointer;  
-		}  
-		  
-		.close1:hover,  
-		.close1:focus {  
-			color: black;  
-			text-decoration: none;  
-			cursor: pointer;  
+		.modal-content1 {
+			background-color: #fefefe;
+			margin: 0% auto;
+			/* 垂直居中，水平居中  */
+			padding: 5px;
+			border: 10px solid #888;
+			width: 80%;
+			/* 弹窗宽度可以根据需要调整 */
+			border: 2px solid #007BFF;
+			/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
+		}
+
+		.close1 {
+			color: #aaa;
+			float: right;
+			font-size: 98px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.close1:hover,
+		.close1:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
 		}
 
 
 
 
 		/* 弱口令扫描字典配置 */
-		.moda22 {  
-			display: none; /* 隐藏弹窗 */  
-			position: fixed; /* 弹窗固定在视口 */  
-			z-index: 1; /* 弹窗位于其他元素之上 */  
-			left: 0;  
-			top: 0;  
-			width: 100%; /* 宽度为全屏 */  
-			height: 100%; /* 高度为全屏 */  
-			overflow: auto; /* 启用滚动条 */  
-			background-color: rgba(0, 0, 0, 0.5); /* 黑色背景，半透明 */  
-		}  
-		  
-		.modal-content2 {  
-			background-color: #fefefe;  
-			margin: 0% auto; /* 垂直居中，水平居中  */
+		.moda22 {
+			display: none;
+			/* 隐藏弹窗 */
+			position: fixed;
+			/* 弹窗固定在视口 */
+			z-index: 1;
+			/* 弹窗位于其他元素之上 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度为全屏 */
+			height: 100%;
+			/* 高度为全屏 */
+			overflow: auto;
+			/* 启用滚动条 */
+			background-color: rgba(0, 0, 0, 0.5);
+			/* 黑色背景，半透明 */
+		}
 
-			padding: 5px;  /*内边距*/
-			border: 10px solid #888;  
-			width: 50%; /* 弹窗宽度可以根据需要调整 */  
-			border: 2px solid #007BFF; /* 设置边框宽度为2px，样式为实线，颜色为蓝色 */ 
-		}  
+		.modal-content2 {
+			background-color: #fefefe;
+			margin: 0% auto;
+			/* 垂直居中，水平居中  */
 
-		.close2 {  
-			color: #aaa;  
-			float: right;  
-			font-size: 98px;  
-			font-weight: bold;  
-			cursor: pointer;  
-		}  
-		  
-		.close2:hover,  
-		.close2:focus {  
-			color: black;  
-			text-decoration: none;  
-			cursor: pointer;  
+			padding: 5px;
+			/*内边距*/
+			border: 10px solid #888;
+			width: 50%;
+			/* 弹窗宽度可以根据需要调整 */
+			border: 2px solid #007BFF;
+			/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
+		}
+
+		.close2 {
+			color: #aaa;
+			float: right;
+			font-size: 98px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.close2:hover,
+		.close2:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+
+		/* 日志删除确认页面 */
+
+		.modal3 {
+			display: none;
+			/* 隐藏弹窗 */
+			position: fixed;
+			/* 弹窗固定在视口 */
+			/* 如果弹窗往上叠加，将此值调大即可  */
+			z-index: 2;
+			/* 弹窗位于其他元素之上 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度为全屏 */
+			height: 100%;
+			/* 高度为全屏 */
+			overflow: auto;
+			/* 启用滚动条 */
+			background-color: rgba(0, 0, 0, 0.5);
+			/* 黑色背景，半透明 */
+		}
+
+		.modal-content3 {
+			background-color: #fefefe;
+			margin: 0% auto;
+			/* 垂直居中，水平居中  */
+			padding: 5px;
+			border: 10px solid #888;
+			width: 40%;
+			/* 弹窗宽度可以根据需要调整 */
+			border: 2px solid #007BFF;
+			/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
+		}
+
+		.close3 {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.close3:hover,
+		.close3:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
 		}

@@ -32,9 +32,10 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
-2024-10-13更新<br> 
+2024-10-15更新<br> 
 1. 下线单个扫描入口；<br>
 2. 已知问题处理与优化；<br>
+3. 新增删除报告二次验证；<br>
 </li>
 <li>
 2024-10-11更新<br> 
@@ -281,3 +282,5 @@ fofa搜索日志<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
 elasticsearch漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" />
+报告删除二次验证<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" />

@@ -1435,4 +1435,28 @@ case "${1}" in
     num=`ls /TIP/info_scan/result/*xlsx | wc -l`
     echo "${num}"
     ;;
+
+    # afrog报告数量
+    afrognum)
+    num=`ls /TIP/info_scan/afrog_scan/reports/ | wc -l`
+    echo "${num}"
+    ;;
+
+    # api接口报告数量
+    apinum)
+    num=`ls /TIP/info_scan/urlfinder_server/report/ | wc -l`
+    echo "${num}"
+    ;;
+
+    # xray报告数量
+    xraynum)
+    num=`ls /TIP/batch_scan_domain/report/ | wc -l`
+    echo "${num}"
+    ;;
+
+    # nmap报告数量
+    nmapnum)
+    num=`cat /TIP/info_scan/result/nmap.txt | wc -l`
+    echo "${num}"
+    ;;
 esac

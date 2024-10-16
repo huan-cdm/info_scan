@@ -80,6 +80,11 @@ from config import icp_max_num
 
 # 多线程操作模块
 import threading
+
+# 删除漏洞扫描报告二次验证
+from config import recheck_username
+from config import recheck_password
+
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
@@ -335,31 +340,6 @@ def nucleiresultshow():
                 liness.append(clean_text)
             
         return '<br>'.join(liness)
-    else:
-        return render_template('login.html')
-
-
-
-#清空数据
-@app.route("/deletenmapresult/")
-def deletenmapresult():
-    user = session.get('username')
-    if str(user) == main_username:
-        os.popen('rm -rf ./result/nmap.txt')
-        os.popen('touch ./result/nmap.txt')
-        return render_template('index.html')
-    else:
-        return render_template('login.html')
-
-
-
-#清空xray报告
-@app.route("/deletexrayreport/")
-def deletexrayreport():
-    user = session.get('username')
-    if str(user) == main_username:
-        os.popen('rm -rf /TIP/batch_scan_domain/report/*')
-        return render_template('index.html')
     else:
         return render_template('login.html')
 
@@ -1025,21 +1005,6 @@ def filterstatuscodebyhttpx():
         return render_template('login.html')
 
 
-#清空链接扫描报告
-@app.route("/deleteurlfinderreport/")
-def deleteurlfinderreport():
-    user = session.get('username')
-    if str(user) == main_username:
-        try:
-            os.popen('rm -rf /TIP/info_scan/urlfinder_server/report/*')
-        except Exception as e:
-            print("捕获到异常:",e)
-        return render_template('index.html')
-    else:
-        return render_template('login.html')
-
-
-
 #跳转登录页
 @app.route("/loginpage/")
 def loginpage():
@@ -1326,17 +1291,6 @@ def ceye_http_record():
         return render_template('login.html')
     
 
-#清空afrog报告
-@app.route("/deleteafrogreport/")
-def deleteafrogreport():
-    user = session.get('username')
-    if str(user) == main_username:
-        os.popen('rm -rf /TIP/info_scan/afrog_scan/reports/*')
-        return render_template('index.html')
-    else:
-        return render_template('login.html')
-    
-
 
 #关闭bbscan程序
 @app.route("/killbbscanprocess/")
@@ -1619,44 +1573,6 @@ def restartsystemservice():
         message_json = {
             "infoscanstatus":infoscanstatus,
             "comfirm":"确定重新启动服务吗?"
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-
-
-
-# 关闭后端所有服务
-@app.route("/stopbackserviceinterface/")
-def stopbackserviceinterface():
-    user = session.get('username')
-    if str(user) == main_username:
-
-        message_json = {
-            "backcomfirm":"确定关闭所有后端服务吗?请谨慎操作，重启需登录服务器后台操作！"
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-    
-# 确认关闭后端所有服务
-@app.route("/confirm_stop_service/",methods=['post'])
-def confirm_stop_service():
-    user = session.get('username')
-    if str(user) == main_username:
-        action = request.form['action']
-        if action == '1':
-            os.popen('bash /TIP/info_scan/finger.sh stopallserver')
-            result_status = "关闭后端服务指令已开启"
-        else:
-            result_status = "关闭后端服务指令已取消"
-
-        message_json = {
-            "result_status":result_status
         }
 
         return jsonify(message_json)
@@ -3428,6 +3344,62 @@ def interface_init():
 
         return jsonify(message_json)
     
+    else:
+        return render_template('login.html')
+
+
+
+# 通过二次验证确认删除报告
+@app.route("/comfirmclearloginterface/",methods=['POST'])
+def comfirmclearloginterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        inputmodel1 = request.form['inputmodel1']
+        inputmodel2 = request.form['inputmodel2']
+        inputmodel3 = request.form['inputmodel3']
+        if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
+            if int(inputmodel3) == 1:
+                print("afrog")
+                os.popen('rm -rf /TIP/info_scan/afrog_scan/reports/*')
+                afrog_num = os.popen('bash /TIP/info_scan/finger.sh afrognum').read()
+                if int(afrog_num) == 0:
+                    recheck_result = "afrog报告已删除"
+                else:
+                    recheck_result = "afrog报告正在删除中"
+            elif int(inputmodel3) ==2:
+                print("api")
+                os.popen('rm -rf /TIP/info_scan/urlfinder_server/report/*')
+                api_num = os.popen('bash /TIP/info_scan/finger.sh apinum').read()
+                if int(api_num) == 0:
+                    recheck_result = "api接口报告已删除"
+                else:
+                    recheck_result = "api接口报告正在删除中"
+            elif int(inputmodel3) ==3:
+                print("xray")
+                os.popen('rm -rf /TIP/batch_scan_domain/report/*')
+                xray_num = os.popen('bash /TIP/info_scan/finger.sh xraynum').read()
+                if int(xray_num) == 0:
+                    recheck_result = "xray报告已删除"
+                else:
+                    recheck_result = "xray报告正在删除中"
+            elif int(inputmodel3) ==4:
+                print("nmap")
+                os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
+                os.popen('touch /TIP/info_scan/result/nmap.txt')
+                nmapnum = os.popen('bash /TIP/info_scan/finger.sh nmapnum').read()
+                if int(nmapnum) == 0:
+                    recheck_result = "端口扫描报告已删除"
+                else:
+                    recheck_result = "端口扫描报告正在删除中"
+            else:
+                print("其他")
+
+        else:
+            recheck_result = "账号或者密码错误验证失败"
+        message_json = {
+            "recheck_result":recheck_result
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
