@@ -1649,24 +1649,24 @@ def crtdomain_lib():
 
 
 def startnmap_lib(portscan_part):
-    os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
-    os.popen('touch /TIP/info_scan/result/nmap.txt')
     namptatus = os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
     if "running" in namptatus:
-        nmap_status_result = "nmap正在运行中请勿重复提交"
+        nmap_status_result = "端口扫描程序正在运行中请勿重复提交"
     
     else:
-        try:
-            # 创建线程来运行nmap任务
-            nmap_thread = threading.Thread(target=ip_queue_nmap(portscan_part))
-            # 启动线程
-            nmap_thread.start()
-            if "running" in namptatus:
-                nmap_status_result = "nmap已开启稍后查看结果"
-            else:
-                nmap_status_result = "nmap正在后台启动中......"
-        except Exception as e:
-            print("捕获到异常:", e)
+        # 创建一个新的线程启动端口扫描程序
+        def run_portscan_process():
+            print("已开启一个新的线程用于端口扫描")
+            try:
+                ip_queue_nmap(portscan_part)
+            except Exception as e:
+                print("捕获到异常:", e)
+        threading.Thread(target=run_portscan_process).start()
+        if "running" in namptatus:
+            nmap_status_result = "端口扫描程序已开启稍后查看结果"
+        else:
+            nmap_status_result = "端口扫描程序正在后台启动中......"
+    
     return nmap_status_result
 
 
