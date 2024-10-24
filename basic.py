@@ -1793,7 +1793,7 @@ def stopwafrecognize_lib():
 
 # 开启40xbypass fuzz工具
 def start40xbypass_lib():
-    bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh 40xbypassstatus').read()
+    bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
     url_list = url_file_ip_list()
     if "running" in bypass_scan_status:
         bypassx_status_result = "FUZZ扫描程序正在运行中请勿重复提交"
@@ -1812,7 +1812,7 @@ def start40xbypass_lib():
 
 # 关闭40xbypass fuzz工具
 def stopbypass_lib():
-    bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh 40xbypassstatus').read()
+    bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
     os.popen('bash /TIP/info_scan/finger.sh stopbypass')
     if "stop" in bypass_scan_status:
         kill_bypass_result = "已关闭40xbypass漏洞扫描程序"
@@ -2078,6 +2078,155 @@ def initinterface_num_lib():
     return result
 
 
+# 扫描器用时情况统计
+# 获取扫描器开始时间戳存入数据库,并清空当前的扫描器结束时间
+def scan_total_time_start_time(partid):
+    try:
+        current_time = time.time()
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE scan_total_time_table SET starttime = '%s' WHERE typeid = '%s'"%(current_time,partid)
+        cur.execute(sql)
+        # 清空当前扫描器结束时间
+        sql1="UPDATE scan_total_time_table SET endtime = '' WHERE typeid = '%s'"%(partid)
+        cur.execute(sql1)
+        db.commit()
+        db.rollback()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+# 获取扫描器结束时间戳存入数据库
+def scan_total_time_end_time(partid):
+    try:
+        current_time = time.time()
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE scan_total_time_table SET endtime = '%s' WHERE typeid = '%s'"%(current_time,partid)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+    except Exception as e:
+        print("捕获到异常:", e)
+
+
+# 判断扫描器结束时间是否为空,为空返回0,不为空返回1
+def scan_total_time_endtimeisnull(partid):
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="select endtime from scan_total_time_table where typeid = '%s' "%(partid)
+    cur.execute(sql)
+    data = cur.fetchall()
+    list_data = list(data)
+    list_result = []
+    for i in list_data:
+        list_result.append(i[0])
+    # 使用列表推导移除空数据
+    filtered_list = [item for item in list_result if item]
+    if len(filtered_list) ==0:
+        resultvalue = 0
+    else:
+        resultvalue = 1
+    return resultvalue
+
+
+# 扫描器开始时间和结束时间做差
+def scan_end_start_time(partid):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select starttime,endtime from scan_total_time_table where typeid = '%s' "%(partid)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        starttime = []
+        endtime = []
+        for i in list_data:
+            starttime.append(i[0])
+            endtime.append(i[1])
+        diff_time = float(endtime[0]) - float(starttime[0])
+        diff_time_result = str(int(diff_time))
+    except:
+        diff_time_result = "时间差计算错误"
+    return diff_time_result
+    
+    
+
+# 扫描器结束时间,当扫描器关闭状态and扫描器截止时间为空为真时,更新扫描器截止时间
+def scan_total_time_final_end_time(typepart):
+    if int(typepart) == 1:
+        print("获取端口扫描最终截止时间")
+        nmapstatus =os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
+        nmapisnull = scan_total_time_endtimeisnull(1)
+        if "stop" in nmapstatus and nmapisnull == 0:
+            scan_total_time_end_time(1)
+        else:
+            print("端口扫描程序运行时间正在计算中...")
+    elif int(typepart) == 2:
+        print("获取指纹识别扫描最终截止时间")
+        finger_status = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
+        fingerisnull = scan_total_time_endtimeisnull(2)
+        if "stop" in finger_status and fingerisnull == 0:
+            scan_total_time_end_time(2)
+        else:
+            print("指纹识别程序运行时间正在计算中...")
+    elif int(typepart) == 3:
+        print("获取敏感信息扫描最终截止时间")
+        bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
+        bbscanisnull = scan_total_time_endtimeisnull(3)
+        if "stop" in bbscanstatus and bbscanisnull == 0:
+            scan_total_time_end_time(3)
+        else:
+            print("敏感信息扫描程序运行时间正在计算中...")
+    elif int(typepart) == 4:
+        print("域名绑定URL扫描最终截止时间")
+        otx_domain_url_shell_status = os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell_status').read()
+        otxisnull = scan_total_time_endtimeisnull(4)
+        if "stop" in otx_domain_url_shell_status and otxisnull == 0:
+            scan_total_time_end_time(4)
+        else:
+            print("域名绑定URL扫描程序运行时间正在计算中...")
+    elif int(typepart) == 5:
+        print("子域名扫描最终截止时间")
+        crt_subdomain_shell_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
+        crtisnull = scan_total_time_endtimeisnull(5)
+        if "stop" in crt_subdomain_shell_status and crtisnull == 0:
+            scan_total_time_end_time(5)
+        else:
+            print("子域名扫描程序运行时间正在计算中...")
+    elif int(typepart) == 6:
+        print("WAF识别扫描最终截止时间")
+        waf_scan_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
+        wafisnull = scan_total_time_endtimeisnull(6)
+        if "stop" in waf_scan_status and wafisnull == 0:
+            scan_total_time_end_time(6)
+        else:
+            print("WAF识别扫描程序运行时间正在计算中...")
+    elif int(typepart) == 7:
+        print("网站FUZZ扫描最终截止时间")
+        bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
+        fuzzisnull = scan_total_time_endtimeisnull(7)
+        if "stop" in bypass_scan_status and fuzzisnull == 0:
+            scan_total_time_end_time(7)
+        else:
+            print("网站FUZZ扫描程序运行时间正在计算中...")
+    elif int(typepart) == 8:
+        print("爬虫扫描程序最终截止时间")
+        crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+        crawlergoisnull = scan_total_time_endtimeisnull(8)
+        if "stop" in crawlergo_status and crawlergoisnull == 0:
+            scan_total_time_end_time(8)
+        else:
+            print("爬虫扫描程序运行时间正在计算中...")
+
+    else:
+        print("开发中...")
+
+
 
 
 if __name__ == "__main__":
@@ -2093,6 +2242,18 @@ if __name__ == "__main__":
             start_crawlergo_scan_lib()
         elif func_name == 'start_crawlergo_scan_proxy_lib':
             start_crawlergo_scan_proxy_lib()
+        
+
+        # 函数测试
+        # elif func_name == 'scan_total_time_final_end_time':
+        #     # result = scan_total_time_final_end_time(1)
+        #     # print(result)
+        #     scan_total_time_final_end_time(1)
+        # elif func_name == 'scan_end_start_time':
+        #     c = scan_end_start_time(1)
+        #     print(c)
+
+
         else:
             print("Invalid function number")
     else:

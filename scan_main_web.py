@@ -423,9 +423,12 @@ def systemmanagement():
         if "running" in nmapstatus:
             nmapstatus1 = nmapstatus
             nmapstatus2 = ""
+            nmapcontime = "计算中："
+
         else:
             nmapstatus1 = ""
             nmapstatus2 = nmapstatus
+            nmapcontime = basic.scan_end_start_time(1)
 
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
@@ -479,9 +482,11 @@ def systemmanagement():
         if "running" in bbscanstatus:
             bbscanstatus1 = bbscanstatus
             bbscanstatus2 = ""
+            bbscancontime = "计算中："
         else:
             bbscanstatus1 = ""
             bbscanstatus2 = bbscanstatus
+            bbscancontime = basic.scan_end_start_time(3)
 
         vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
         if "running" in vulmapscanstatus:
@@ -519,9 +524,11 @@ def systemmanagement():
         if "running" in eholestatus:
             eholestatus1 = eholestatus
             eholestatus2 = ""
+            eholecontime = "计算中："
         else:
             eholestatus1 = ""
             eholestatus2 = eholestatus
+            eholecontime = basic.scan_end_start_time(2)
 
         httpxstatus = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
         if "running" in httpxstatus:
@@ -681,17 +688,21 @@ def systemmanagement():
         if "running" in otx_status:
             otx_status1 = otx_status
             otx_status2 = ""
+            otxcontime = "计算中："
         else:
             otx_status1 = ""
             otx_status2 = otx_status
+            otxcontime = basic.scan_end_start_time(4)
 
         crt_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
         if "running" in crt_status:
             crt_status1 = crt_status
             crt_status2 = ""
+            crtcontime = "计算中："
         else:
             crt_status1 = ""
             crt_status2 = crt_status
+            crtcontime = basic.scan_end_start_time(5)
 
         weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
         if "running" in weaver_status:
@@ -737,25 +748,31 @@ def systemmanagement():
         if "running" in waf_status:
             waf_status1 = waf_status
             waf_status2 = ""
+            wafcontime = "计算中："
         else:
             waf_status1 = ""
             waf_status2 = waf_status
-        
+            wafcontime = basic.scan_end_start_time(6)
+
         bypass_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
         if "running" in bypass_status:
             bypass_status1 = bypass_status
             bypass_status2 = ""
+            bypasscontime = "计算中："
         else:
             bypass_status1 = ""
             bypass_status2 = bypass_status
+            bypasscontime = basic.scan_end_start_time(7)
         
         crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
         if "running" in crawlergo_status:
             crawlergo_status1 = crawlergo_status
             crawlergo_status2 = ""
+            crawlergocontime = "计算中："
         else:
             crawlergo_status1 = ""
             crawlergo_status2 = crawlergo_status
+            crawlergocontime = basic.scan_end_start_time(8)
         # 指纹识别进度
         finger_part = basic.assets_finger_compare()
         if finger_part == 2:
@@ -834,6 +851,15 @@ def systemmanagement():
             total_report_status_result2 = ""
        
         message_json = {
+            # 扫描器耗时统计
+            "nmapcontime":nmapcontime+"秒",
+            "eholecontime":eholecontime+"秒",
+            "bbscancontime":bbscancontime+"秒",
+            "otxcontime":otxcontime+"秒",
+            "crtcontime":crtcontime+"秒",
+            "wafcontime":wafcontime+"秒",
+            "bypasscontime":bypasscontime+"秒",
+            "crawlergocontime":crawlergocontime+"秒",
             # 报告整合状态
             "total_report_status_result1":total_report_status_result1,
             "total_report_status_result2":total_report_status_result2,
@@ -1789,8 +1815,18 @@ def infoscan_check_back():
                     if int(diff_time_minutes) > info_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.last_time_update_lib(current_time,1)
+                        # 指纹识别程序用时统计相关
+                        basic.scan_total_time_start_time(3)
+
                         # 提交扫描任务
                         bbscan_status_result = basic.startbbscan_lib()
+
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def bbscanscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(3)
+                        threading.Thread(target=bbscanscanendtime).start()
                     else:
                         bbscan_status_result = "信息泄露扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 
@@ -1803,8 +1839,19 @@ def infoscan_check_back():
                 if int(diff_time_minutes2) > info_time_controls:
                     # 超过单位时间更新数据库中的时间
                     basic.last_time_update_lib(current_time2,2)
+
+                    # 指纹识别程序用时统计相关
+                    basic.scan_total_time_start_time(2)
+
                     # 提交扫描任务
                     finger_status_result = basic.startechole_lib()
+
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def fingerscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(2)
+                    threading.Thread(target=fingerscanendtime).start()
                 else:
                     finger_status_result = "指纹识别程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '3' in str(j):
@@ -1827,8 +1874,19 @@ def infoscan_check_back():
                         if int(diff_time_minutes3) > info_time_controls:
                             # 超过单位时间更新数据库中的时间
                             basic.last_time_update_lib(current_time3,3)
+
+                            # 指纹识别程序用时统计相关
+                            basic.scan_total_time_start_time(4)
                             # 提交扫描任务
                             otx_status_result = basic.otxhistorydomain_lib()
+
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def otxscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(4)
+                            threading.Thread(target=otxscanendtime).start()
+
                         else:
                             otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '4' in str(j):
@@ -1850,8 +1908,19 @@ def infoscan_check_back():
                         if int(diff_time_minutes4) > info_time_controls:
                             # 超过单位时间更新数据库中的时间
                             basic.last_time_update_lib(current_time4,4)
+                            # 指纹识别程序用时统计相关
+                            basic.scan_total_time_start_time(5)
+
                             # 提交扫描任务
                             crt_status_result = basic.crtdomain_lib()
+
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def crtscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(5)
+                            threading.Thread(target=crtscanendtime).start()
+
                         else:
                             crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(j):
@@ -1867,9 +1936,18 @@ def infoscan_check_back():
                     if int(diff_time_minutes5) > info_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.last_time_update_lib(current_time5,5)
+                        # 端口扫描程序用时统计相关
+                        basic.scan_total_time_start_time(1)
                         # 提交扫描任务
                         # 每次启动前清空上次扫描结果
                         nmap_status_result = basic.startnmap_lib(portscan_part)
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def portscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(1)
+                        threading.Thread(target=portscanendtime).start()
+
                     else:
                         nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
@@ -1886,9 +1964,19 @@ def infoscan_check_back():
                     if int(diff_time_minutes6) > info_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.last_time_update_lib(current_time6,6)
+                        # waf扫描程序用时统计相关
+                        basic.scan_total_time_start_time(6)
                         # 提交扫描任务
                         # 每次启动前清空上次扫描结果
                         waf_status_result = basic.startwafrecognize_lib()
+
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def wafscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(6)
+                        threading.Thread(target=wafscanendtime).start()
+
                     else:
                         waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '7' in str(j):
@@ -1904,9 +1992,19 @@ def infoscan_check_back():
                     if int(diff_time_minutes7) > info_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.last_time_update_lib(current_time7,7)
+                        # fuzz扫描程序用时统计相关
+                        basic.scan_total_time_start_time(7)
                         # 提交扫描任务
                         # 每次启动前清空上次扫描结果
                         bypass_status_result = basic.start40xbypass_lib()
+
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def fuzzscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(7)
+                        threading.Thread(target=fuzzscanendtime).start()
+
                     else:
                         bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '8' in str(j):
@@ -1922,11 +2020,20 @@ def infoscan_check_back():
                          # 当前时间和数据库中的作时间差
                          diff_time_minutes8 = basic.info_time_shijian_cha(8)
                          if int(diff_time_minutes8) > info_time_controls:
-                             # 超过单位时间更新数据库中的时间
-                             basic.last_time_update_lib(current_time8,8)
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time8,8)
+                            
+                            # 爬虫扫描程序用时统计相关
+                            basic.scan_total_time_start_time(8)
                              # 提交扫描任务
                              # 每次启动前清空上次扫描结果
-                             crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                            crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def crawlergoscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(8)
+                            threading.Thread(target=crawlergoscanendtime).start()
                          else:
                              crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                     else:
@@ -3402,6 +3509,7 @@ def comfirmclearloginterface():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
 
 
 if __name__ == '__main__':  

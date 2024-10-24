@@ -555,6 +555,16 @@ function openModal() {
                 document.getElementById("overtotalsp6").innerHTML = info.otx_remaining_num;
                 document.getElementById("totalspp2").innerHTML = info.total_report_status_result2;
                 document.getElementById("totalspp1").innerHTML = info.total_report_status_result1;
+                // 扫描器耗时统计
+                document.getElementById("diffnmapid").innerHTML = info.nmapcontime;
+                document.getElementById("diffeholeid").innerHTML = info.eholecontime;
+                document.getElementById("diffbbscanid").innerHTML = info.bbscancontime;
+                document.getElementById("diffotxid").innerHTML = info.otxcontime;
+                document.getElementById("diffcrtid").innerHTML = info.crtcontime;
+                document.getElementById("diffwafid").innerHTML = info.wafcontime;
+                document.getElementById("difffuzzid").innerHTML = info.bypasscontime;
+                document.getElementById("diffcrawlergoid").innerHTML = info.crawlergocontime;
+                
             });
     }
 
@@ -1314,6 +1324,11 @@ function infoxuanzhongscan() {
         }
     })
 
+    // 定义一个函数来处理AJAX请求
+    function fetchData() {
+        
+    }
+
 }
 
 // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
@@ -1792,3 +1807,8 @@ function comfirmclearlogfunc() {
     var modal3 = document.getElementById("modal3");
     modal3.style.display = "none";
 }
+
+// 计算扫描器运行时间,网页加载会自动加载
+window.onload = function() {
+    // alert("11")
+};
