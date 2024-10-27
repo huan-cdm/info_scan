@@ -564,7 +564,22 @@ function openModal() {
                 document.getElementById("diffwafid").innerHTML = info.wafcontime;
                 document.getElementById("difffuzzid").innerHTML = info.bypasscontime;
                 document.getElementById("diffcrawlergoid").innerHTML = info.crawlergocontime;
-                
+                document.getElementById("diffstruts2id").innerHTML = info.struts2contime;
+                document.getElementById("diffweblogicid").innerHTML = info.weblogiccontime;
+                document.getElementById("diffshiroid").innerHTML = info.shirocontime;
+                document.getElementById("diffspringbootid").innerHTML = info.springbootcontime;
+                document.getElementById("diffthinkphpid").innerHTML = info.thinkphpcontime;
+                document.getElementById("diffesid").innerHTML = info.esccontime;
+                document.getElementById("diffnacosid").innerHTML = info.nacoscontime;
+                document.getElementById("difftomcatid").innerHTML = info.tomcatcontime;
+                document.getElementById("difffastjsonid").innerHTML = info.fastjsoncontime;
+                document.getElementById("diffafrogid").innerHTML = info.afrogcontime;
+                document.getElementById("difffscanid").innerHTML = info.fscancontime;
+                document.getElementById("diffweakpassid").innerHTML = info.weakpasscontime;
+                document.getElementById("diffapiscanid").innerHTML = info.apiintersacecontime;
+                document.getElementById("diffvulmapid").innerHTML = info.vulmapcontime;
+                document.getElementById("diffnucleiid").innerHTML = info.nucleicontime;
+                document.getElementById("difffanweioaid").innerHTML = info.weavercontime;
             });
     }
 

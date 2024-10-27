@@ -1199,7 +1199,7 @@ def stophydra_lib():
     os.popen('bash /TIP/info_scan/finger.sh killhydra')
     hydra_scan_status = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
     if "stop" in hydra_scan_status:
-        kill_hydra_result = "已关闭hydra扫描程序"
+        kill_hydra_result = "已关闭弱口令扫描程序"
     else:
         kill_hydra_result = "正在关闭中......"
 
@@ -1210,7 +1210,7 @@ def stopurlfinder_lib():
     os.popen('bash /TIP/info_scan/finger.sh killurlfinder')
     urlfinderstatus = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
     if "stop" in urlfinderstatus:
-        kill_urlfinder_result = "已关闭URLFinder扫描程序"
+        kill_urlfinder_result = "已关闭api接口扫描程序"
     else:
         kill_urlfinder_result = "正在关闭中......"
     return kill_urlfinder_result
@@ -1420,7 +1420,7 @@ def startthinkphp_lib():
         thinkphp_status_result = "thinkphp扫描程序正在运行中请勿重复提交"
     else:
         try:
-            basic.thinkphp_scan()
+            thinkphp_scan()
             if "running" in tpscan_status:
                 thinkphp_status_result = "thinkphp扫描程序已开启稍后查看结果"
             else:
@@ -1478,10 +1478,10 @@ def starthydra_lib(hydrapart):
     # 开启扫描
     hydra_scan_status = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
     if "running" in hydra_scan_status:
-        hydra_scan_result = "hydra扫描程序正在运行中请勿重复提交"
+        hydra_scan_result = "弱口令扫描程序正在运行中请勿重复提交"
     else:
         start_hydra_lib(hydrapart)
-        hydra_scan_result = "hydra扫描程序已开启稍后查看扫描结果"
+        hydra_scan_result = "弱口令扫描程序已开启稍后查看扫描结果"
     return hydra_scan_result
 
 
@@ -1489,15 +1489,15 @@ def starthydra_lib(hydrapart):
 def starturlfinder_lib():
     urlfinder_status = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
     if "running" in urlfinder_status:
-        urlfinder_status_result = "urlfinder扫描程序正在运行中请勿重复提交"
+        urlfinder_status_result = "api接口扫描程序正在运行中请勿重复提交"
     else:
         try:
             os.popen('bash /TIP/info_scan/finger.sh urlfinder_start')
             urlfinder_status = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
             if "running" in urlfinder_status:
-                urlfinder_status_result = "urlfinder扫描程序已开启稍后查看结果"
+                urlfinder_status_result = "api接口扫描程序已开启稍后查看结果"
             else:
-                urlfinder_status_result = "urlfinder正在后台启动中......"
+                urlfinder_status_result = "api接口扫描程序正在后台启动中......"
         except Exception as e:
             print("捕获到异常:", e)
     return urlfinder_status_result
@@ -2151,7 +2151,7 @@ def scan_end_start_time(partid):
         diff_time = float(endtime[0]) - float(starttime[0])
         diff_time_result = str(int(diff_time))
     except:
-        diff_time_result = "时间差计算错误"
+        diff_time_result = "初始状态："
     return diff_time_result
     
     
@@ -2222,6 +2222,135 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(8)
         else:
             print("爬虫扫描程序运行时间正在计算中...")
+    elif int(typepart) == 9:
+        print("struts2扫描程序最终截止时间")
+        struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+        struts2scanisnull = scan_total_time_endtimeisnull(9)
+        if "stop" in struts2status and struts2scanisnull == 0:
+            scan_total_time_end_time(9)
+        else:
+            print("struts2扫描程序运行时间正在计算中...")
+    elif int(typepart) == 10:
+        print("weblogic扫描程序最终截止时间")
+        weblogicstatus = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
+        weblogicscanisnull = scan_total_time_endtimeisnull(10)
+        if "stop" in weblogicstatus and weblogicscanisnull == 0:
+            scan_total_time_end_time(10)
+        else:
+            print("weblogic扫描程序运行时间正在计算中...")
+    elif int(typepart) == 11:
+        print("shiro扫描程序最终截止时间")
+        shirostatus = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
+        shiroscanisnull = scan_total_time_endtimeisnull(11)
+        if "stop" in shirostatus and shiroscanisnull == 0:
+            scan_total_time_end_time(11)
+        else:
+            print("shiro扫描程序运行时间正在计算中...")
+    elif int(typepart) == 12:
+        print("springboot扫描程序最终截止时间")
+        springbootstatus = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
+        springbootscanisnull = scan_total_time_endtimeisnull(12)
+        if "stop" in springbootstatus and springbootscanisnull == 0:
+            scan_total_time_end_time(12)
+        else:
+            print("springboot扫描程序运行时间正在计算中...")
+    elif int(typepart) == 13:
+        print("thinkphp扫描程序最终截止时间")
+        tpscanstatus = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
+        thinkphpscanisnull = scan_total_time_endtimeisnull(13)
+        if "stop" in tpscanstatus and thinkphpscanisnull == 0:
+            scan_total_time_end_time(13)
+        else:
+            print("springboot扫描程序运行时间正在计算中...")
+    elif int(typepart) == 14:
+        print("elasticsearch扫描程序最终截止时间")
+        es_unauthorized_status = os.popen('bash /TIP/info_scan/finger.sh es_unauthorized_status').read()
+        esscanisnull = scan_total_time_endtimeisnull(14)
+        if "stop" in es_unauthorized_status and esscanisnull == 0:
+            scan_total_time_end_time(14)
+        else:
+            print("es扫描程序运行时间正在计算中...")
+    elif int(typepart) == 15:
+        print("nacos扫描程序最终截止时间")
+        nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
+        nacosscanisnull = scan_total_time_endtimeisnull(15)
+        if "stop" in nacos_status and nacosscanisnull == 0:
+            scan_total_time_end_time(15)
+        else:
+            print("nacos扫描程序运行时间正在计算中...")
+    elif int(typepart) == 16:
+        print("tomcat扫描程序最终截止时间")
+        tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
+        tomcatscanisnull = scan_total_time_endtimeisnull(16)
+        if "stop" in tomcat_status and tomcatscanisnull == 0:
+            scan_total_time_end_time(16)
+        else:
+            print("tomcat扫描程序运行时间正在计算中...")
+    elif int(typepart) == 17:
+        print("fastjson扫描程序最终截止时间")
+        fastjson_status = os.popen('bash /TIP/info_scan/finger.sh fastjson_scan_status').read()
+        fastjsonscanisnull = scan_total_time_endtimeisnull(17)
+        if "stop" in fastjson_status and fastjsonscanisnull == 0:
+            scan_total_time_end_time(17)
+        else:
+            print("fastjson扫描程序运行时间正在计算中...")
+    elif int(typepart) == 18:
+        print("afrog扫描程序最终截止时间")
+        afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
+        afrogscanisnull = scan_total_time_endtimeisnull(18)
+        if "stop" in afrogscanstatus and afrogscanisnull == 0:
+            scan_total_time_end_time(18)
+        else:
+            print("afrog扫描程序运行时间正在计算中...")
+    elif int(typepart) == 19:
+        print("fscan扫描程序最终截止时间")
+        fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
+        fscanscanisnull = scan_total_time_endtimeisnull(19)
+        if "stop" in fscanstatus and fscanscanisnull == 0:
+            scan_total_time_end_time(19)
+        else:
+            print("fscan扫描程序运行时间正在计算中...")
+    elif int(typepart) == 20:
+        print("弱口令扫描程序最终截止时间")
+        hydra_scan_status = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
+        hydrascanisnull = scan_total_time_endtimeisnull(20)
+        if "stop" in hydra_scan_status and hydrascanisnull == 0:
+            scan_total_time_end_time(20)
+        else:
+            print("弱口令扫描程序运行时间正在计算中...")
+    elif int(typepart) == 21:
+        print("api接口扫描程序最终截止时间")
+        urlfinderstatus = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
+        urlfinderscanisnull = scan_total_time_endtimeisnull(21)
+        if "stop" in urlfinderstatus and urlfinderscanisnull == 0:
+            scan_total_time_end_time(21)
+        else:
+            print("弱口令扫描程序运行时间正在计算中...")
+    elif int(typepart) == 22:
+        print("vulmap扫描程序最终截止时间")
+        vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
+        vulmapscanisnull = scan_total_time_endtimeisnull(22)
+        if "stop" in vulmapscanstatus and vulmapscanisnull == 0:
+            scan_total_time_end_time(22)
+        else:
+            print("vulmap扫描程序运行时间正在计算中...")
+    elif int(typepart) == 23:
+        print("nuclei扫描程序最终截止时间")
+        nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
+        nucleiscanisnull = scan_total_time_endtimeisnull(23)
+        if "stop" in nucleistatus and nucleiscanisnull == 0:
+            scan_total_time_end_time(23)
+        else:
+            print("nuclei扫描程序运行时间正在计算中...")
+    elif int(typepart) == 24:
+        print("泛微OA扫描程序最终截止时间")
+        weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
+        weaveroascanisnull = scan_total_time_endtimeisnull(24)
+        if "stop" in weaver_status and weaveroascanisnull == 0:
+            scan_total_time_end_time(24)
+        else:
+            print("泛微OA扫描程序运行时间正在计算中...")
+    
 
     else:
         print("开发中...")
@@ -2242,18 +2371,6 @@ if __name__ == "__main__":
             start_crawlergo_scan_lib()
         elif func_name == 'start_crawlergo_scan_proxy_lib':
             start_crawlergo_scan_proxy_lib()
-        
-
-        # 函数测试
-        # elif func_name == 'scan_total_time_final_end_time':
-        #     # result = scan_total_time_final_end_time(1)
-        #     # print(result)
-        #     scan_total_time_final_end_time(1)
-        # elif func_name == 'scan_end_start_time':
-        #     c = scan_end_start_time(1)
-        #     print(c)
-
-
         else:
             print("Invalid function number")
     else:

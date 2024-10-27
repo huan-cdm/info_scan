@@ -434,9 +434,11 @@ def systemmanagement():
         if "running" in nucleistatus:
             nucleistatus1 = nucleistatus
             nucleistatus2 = ""
+            nucleicontime = "计算中："
         else:
             nucleistatus1 = ""
             nucleistatus2 = nucleistatus
+            nucleicontime = basic.scan_end_start_time(23)
 
         xraystatus = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
         if "running" in xraystatus:
@@ -466,17 +468,21 @@ def systemmanagement():
         if "running" in weblogicstatus:
             weblogicstatus1 = weblogicstatus
             weblogicstatus2 = ""
+            weblogiccontime = "计算中："
         else:
             weblogicstatus1 = ""
             weblogicstatus2 = weblogicstatus
+            weblogiccontime = basic.scan_end_start_time(10)
 
         struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
         if "running" in struts2status:
             struts2status1 = struts2status
             struts2status2 = ""
+            struts2contime = "计算中："
         else:
             struts2status1 = ""
             struts2status2 = struts2status
+            struts2contime = basic.scan_end_start_time(9)
 
         bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
         if "running" in bbscanstatus:
@@ -492,33 +498,41 @@ def systemmanagement():
         if "running" in vulmapscanstatus:
             vulmapscanstatus1 = vulmapscanstatus
             vulmapscanstatus2 = ""
+            vulmapcontime = "计算中："
         else:
             vulmapscanstatus1 = ""
             vulmapscanstatus2 = vulmapscanstatus
+            vulmapcontime = basic.scan_end_start_time(22)
 
         afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
         if "running" in afrogscanstatus:
             afrogscanstatus1 = afrogscanstatus
             afrogscanstatus2 = ""
+            afrogcontime = "计算中："
         else:
             afrogscanstatus1 = ""
             afrogscanstatus2 = afrogscanstatus
+            afrogcontime = basic.scan_end_start_time(18)
 
         fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
         if "running" in fscanstatus:
             fscanstatus1 = fscanstatus
             fscanstatus2 = ""
+            fscancontime = "计算中："
         else:
             fscanstatus1 = ""
             fscanstatus2 = fscanstatus
+            fscancontime = basic.scan_end_start_time(19)
 
         shirostatus = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
         if "running" in shirostatus:
             shirostatus1 = shirostatus
             shirostatus2 = ""
+            shirocontime = "计算中："
         else:
             shirostatus1 = ""
             shirostatus2 = shirostatus
+            shirocontime = basic.scan_end_start_time(11)
 
         eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
         if "running" in eholestatus:
@@ -542,33 +556,41 @@ def systemmanagement():
         if "running" in springbootstatus:
             springbootstatus1 = springbootstatus
             springbootstatus2 = ""
+            springbootcontime = "计算中："
         else:
             springbootstatus1 = ""
             springbootstatus2 = springbootstatus
+            springbootcontime = basic.scan_end_start_time(12)
 
         hydrastatus = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
         if "running" in hydrastatus:
             hydrastatus1 = hydrastatus
             hydrastatus2 = ""
+            weakpasscontime = "计算中："
         else:
             hydrastatus1 = ""
             hydrastatus2 = hydrastatus
+            weakpasscontime = basic.scan_end_start_time(20)
 
         urlfinderstatus = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
         if "running" in urlfinderstatus:
             urlfinderstatus1 = urlfinderstatus
             urlfinderstatus2 = ""
+            apiintersacecontime = "计算中："
         else:
             urlfinderstatus1 = ""
             urlfinderstatus2 = urlfinderstatus
+            apiintersacecontime = basic.scan_end_start_time(21)
 
         thinkphpstatus = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
         if "running" in thinkphpstatus:
             thinkphpstatus1 = thinkphpstatus
             thinkphpstatus2 = ""
+            thinkphpcontime = "计算中："
         else:
             thinkphpstatus1 = ""
             thinkphpstatus2 = thinkphpstatus
+            thinkphpcontime = basic.scan_end_start_time(13)
 
 
         jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
@@ -708,41 +730,51 @@ def systemmanagement():
         if "running" in weaver_status:
             weaver_status1 = weaver_status
             weaver_status2 = ""
+            weavercontime = "计算中："
         else:
             weaver_status1 = ""
             weaver_status2 = weaver_status
+            weavercontime = basic.scan_end_start_time(24)
 
         es_unauthorized_status = os.popen('bash /TIP/info_scan/finger.sh es_unauthorized_status').read()
         if "running" in es_unauthorized_status:
             es_unauthorized_status1 = es_unauthorized_status
             es_unauthorized_status2 = ""
+            esccontime = "计算中："
         else:
             es_unauthorized_status1 = ""
             es_unauthorized_status2 = es_unauthorized_status
+            esccontime = basic.scan_end_start_time(14)
 
         nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
         if "running" in nacos_status:
             nacos_status1 = nacos_status
             nacos_status2 = ""
+            nacoscontime = "计算中："
         else:
             nacos_status1 = ""
             nacos_status2 = nacos_status
+            nacoscontime = basic.scan_end_start_time(15)
         
         tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
         if "running" in tomcat_status:
             tomcat_status1 = tomcat_status
             tomcat_status2 = ""
+            tomcatcontime = "计算中："
         else:
             tomcat_status1 = ""
             tomcat_status2 = tomcat_status
+            tomcatcontime = basic.scan_end_start_time(16)
 
         fastjson_status = os.popen('bash /TIP/info_scan/finger.sh fastjson_scan_status').read()
         if "running" in fastjson_status:
             fastjson_status1 = fastjson_status
             fastjson_status2 = ""
+            fastjsoncontime = "计算中："
         else:
             fastjson_status1 = ""
             fastjson_status2 = fastjson_status
+            fastjsoncontime = basic.scan_end_start_time(17)
 
         waf_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
         if "running" in waf_status:
@@ -860,6 +892,22 @@ def systemmanagement():
             "wafcontime":wafcontime+"秒",
             "bypasscontime":bypasscontime+"秒",
             "crawlergocontime":crawlergocontime+"秒",
+            "struts2contime":struts2contime+"秒",
+            "weblogiccontime":weblogiccontime+"秒",
+            "shirocontime":shirocontime+"秒",
+            "springbootcontime":springbootcontime+"秒",
+            "thinkphpcontime":thinkphpcontime+"秒",
+            "esccontime":esccontime+"秒",
+            "nacoscontime":nacoscontime+"秒",
+            "tomcatcontime":tomcatcontime+"秒",
+            "fastjsoncontime":fastjsoncontime+"秒",
+            "afrogcontime":afrogcontime+"秒",
+            "fscancontime":fscancontime+"秒",
+            "weakpasscontime":weakpasscontime+"秒",
+            "apiintersacecontime":apiintersacecontime+"秒",
+            "vulmapcontime":vulmapcontime+"秒",
+            "nucleicontime":nucleicontime+"秒",
+            "weavercontime":weavercontime+"秒",
             # 报告整合状态
             "total_report_status_result1":total_report_status_result1,
             "total_report_status_result2":total_report_status_result2,
@@ -2137,8 +2185,17 @@ def vulnscan_check_back():
                     if int(diff_time_minutes1) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time1,1)
+                        # struts2扫描程序用时统计相关
+                        basic.scan_total_time_start_time(9)
                         # 提交扫描任务
                         struts2status_result = basic.startstruts2_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def struts2scanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(9)
+                        threading.Thread(target=struts2scanendtime).start()
+
                     else:
                         struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
@@ -2157,8 +2214,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes2) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time2,2)
+                        # struts2扫描程序用时统计相关
+                        basic.scan_total_time_start_time(10)
                         # 提交扫描任务
                         weblogic_status_result = basic.startweblogic_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def weblogicscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(10)
+                        threading.Thread(target=weblogicscanendtime).start()
                     else:
                         weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
@@ -2177,8 +2242,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes3) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time3,3)
+                        # shiro扫描程序用时统计相关
+                        basic.scan_total_time_start_time(11)
                         # 提交扫描任务
                         shiro_status_result = basic.startshiro_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def shiroscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(11)
+                        threading.Thread(target=shiroscanendtime).start()
                         
                     else:
                         shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2198,8 +2271,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes4) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time4,4)
+                        # springboot扫描程序用时统计相关
+                        basic.scan_total_time_start_time(12)
                         # 提交扫描任务
                         springboot_scan_status_result = basic.startspringboot_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def springbootscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(12)
+                        threading.Thread(target=springbootscanendtime).start()
                                     
                     else:
                         springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2218,8 +2299,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes5) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time5,5)
+                        # thinkphp扫描程序用时统计相关
+                        basic.scan_total_time_start_time(13)
                         # 提交扫描任务
                         thinkphp_status_result = basic.startthinkphp_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def thinkphpscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(13)
+                        threading.Thread(target=thinkphpscanendtime).start()
                                     
                     else:
                         thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2238,8 +2327,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes6) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time6,6)
+                        # afrog扫描程序用时统计相关
+                        basic.scan_total_time_start_time(18)
                         # 提交扫描任务
                         start_afrog_result = basic.startafrog_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def afrogscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(18)
+                        threading.Thread(target=afrogscanendtime).start()
                                     
                     else:
                         start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2258,8 +2355,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes7) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time7,7)
+                        # fscan扫描程序用时统计相关
+                        basic.scan_total_time_start_time(19)
                         # 提交扫描任务
                         fscan_status_result = basic.startfscan_lib(fscanpartname)
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def fscanscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(19)
+                        threading.Thread(target=fscanscanendtime).start()
                                     
                     else:
                         fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2278,11 +2383,19 @@ def vulnscan_check_back():
                     if int(diff_time_minutes8) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time8,8)
+                        # 弱口令扫描程序用时统计相关
+                        basic.scan_total_time_start_time(20)
                         # 提交扫描任务
                         hydra_scan_result = basic.starthydra_lib(hydrapart)
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def weakpassscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(20)
+                        threading.Thread(target=weakpassscanendtime).start()
                                                 
                     else:
-                        hydra_scan_result = "hydra扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        hydra_scan_result = "弱口令扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '9' in str(k):
                 print("api接口")
 
@@ -2298,11 +2411,19 @@ def vulnscan_check_back():
                     if int(diff_time_minutes9) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time9,9)
+                        # api接口扫描程序用时统计相关
+                        basic.scan_total_time_start_time(21)
                         # 提交扫描任务
                         urlfinder_status_result = basic.starturlfinder_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def apiinterfacescanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(21)
+                        threading.Thread(target=apiinterfacescanendtime).start()
                                                 
                     else:
-                        urlfinder_status_result = "urlfinder扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        urlfinder_status_result = "api接口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'a' in str(k):
                 print("vulmap")
 
@@ -2318,8 +2439,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes10) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time10,10)
+                        # vulmap扫描程序用时统计相关
+                        basic.scan_total_time_start_time(22)
                         # 提交扫描任务
                         vummap_scan_result = basic.startvulmap_lib(vulnname)
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def vulmapscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(22)
+                        threading.Thread(target=vulmapscanendtime).start()
                                                 
                     else:
                         vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2338,8 +2467,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes11) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time11,11)
+                        # nuclei扫描程序用时统计相关
+                        basic.scan_total_time_start_time(23)
                         # 提交扫描任务
                         nuclei_status_result = basic.startnuclei_lib(poc_dir)
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def nucleiscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(23)
+                        threading.Thread(target=nucleiscanendtime).start()
                                                 
                     else:
                         nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2358,8 +2495,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes12) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time12,12)
+                        # 泛微OA扫描程序用时统计相关
+                        basic.scan_total_time_start_time(24)
                         # 提交扫描任务
                         weaver_status_result = basic.startweaver_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def fanweioascanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(24)
+                        threading.Thread(target=fanweioascanendtime).start()
                                                 
                     else:
                         weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2379,8 +2524,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes14) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time14,14)
+                        # es扫描程序用时统计相关
+                        basic.scan_total_time_start_time(14)
                         # 提交扫描任务
                         es_status_result = basic.startunes_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def esscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(14)
+                        threading.Thread(target=esscanendtime).start()
                                  
                     else:
                         es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2400,8 +2553,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes15) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time15,15)
+                        # Nacos扫描程序用时统计相关
+                        basic.scan_total_time_start_time(15)
                         # 提交扫描任务
                         nacos_status_result = basic.startnacosscan_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def nacosscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(15)
+                        threading.Thread(target=nacosscanendtime).start()
                                      
                     else:
                         nacos_status_result = "nacos漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2421,8 +2582,16 @@ def vulnscan_check_back():
                     if int(diff_time_minutes16) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time16,16)
+                        # tomcat扫描程序用时统计相关
+                        basic.scan_total_time_start_time(16)
                         # 提交扫描任务
                         tomcat_status_result = basic.starttomcatscan_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def tomcatscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(16)
+                        threading.Thread(target=tomcatscanendtime).start()
                                      
                     else:
                         tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
@@ -2460,8 +2629,16 @@ def vulnscan_check_back():
                         if int(diff_time_minutes18) > vuln_time_controls:
                             # 超过单位时间更新数据库中的时间
                             basic.vuln_last_time_update_lib(current_time18,18)
+                            # fastjson扫描程序用时统计相关
+                            basic.scan_total_time_start_time(17)
                             # 提交扫描任务
                             fastjson_status_result = basic.startfastjson_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def fastjsonscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(17)
+                            threading.Thread(target=fastjsonscanendtime).start()
                                          
                         else:
                             fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
