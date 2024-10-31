@@ -2350,6 +2350,15 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(24)
         else:
             print("泛微OA扫描程序运行时间正在计算中...")
+
+    elif int(typepart) == 25:
+        print("存活检测程序最终截止时间")
+        httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
+        httpxscanisnull = scan_total_time_endtimeisnull(25)
+        if "stop" in httpx_status and httpxscanisnull == 0:
+            scan_total_time_end_time(25)
+        else:
+            print("存活检测程序运行时间正在计算中...")
     
 
     else:

@@ -306,7 +306,7 @@
 					<td><span id="diffshiroid"></span></td>
 					<td><span id="diffeholeid"></span></td>
 					<td><span id="diffspringbootid"></span></td>
-					<td></td>
+					<td><span id="diffhttpxscanid"></span></td>
 					<td><span id="diffweakpassid"></span></td>
 					<td><span id="diffapiscanid"></span></td>
 					<td><span id="diffthinkphpid"></span></td>
@@ -433,8 +433,8 @@
 					<td><span id="spp52t"></span></td>
 				</tr>
 			</table><br>
-			<strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp; <span
-				style="cursor: pointer; color: deepskyblue;" onclick="initinterfacefunc()">初始化</span><br>
+			<strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp; 
+			<span style="cursor: pointer; color: deepskyblue;" onclick="startverifychearlogfunc('5')">初始化</span><br>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
 					<th>接口名称</th>
@@ -1086,8 +1086,7 @@ poc显示区域</textarea>
 
 								<tr>
 									<td>
-										<textarea rows="2" cols="152" id="myTextarea" onmouseover="textarea_onhover()"
-											onmouseout="textarea_onout()">
+										<textarea rows="3" cols="152" id="myTextarea" >
 ①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
 ②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；
 ③. 存活检测：资产存活情况探测；

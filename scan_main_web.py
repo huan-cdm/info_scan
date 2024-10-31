@@ -548,9 +548,11 @@ def systemmanagement():
         if "running" in httpxstatus:
             httpxstatus1 = httpxstatus
             httpxstatus2 = ""
+            httpxcontime = "计算中："
         else:
             httpxstatus1 = ""
             httpxstatus2 = httpxstatus
+            httpxcontime = basic.scan_end_start_time(25)
 
         springbootstatus = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
         if "running" in springbootstatus:
@@ -908,6 +910,7 @@ def systemmanagement():
             "vulmapcontime":vulmapcontime+"秒",
             "nucleicontime":nucleicontime+"秒",
             "weavercontime":weavercontime+"秒",
+            "httpxcontime":httpxcontime+"秒",
             # 报告整合状态
             "total_report_status_result1":total_report_status_result1,
             "total_report_status_result2":total_report_status_result2,
@@ -1070,7 +1073,16 @@ def filterstatuscodebyhttpx():
     if str(user) == main_username:
         # 筛选后资产时间线更新
         basic.assets_status_update('存活检测已完成')
+        # 存活检测程序用时统计相关
+        basic.scan_total_time_start_time(25)
         httpx_status_result = basic.httpsurvival_lib()
+        # 在后台单独启动1个线程实时判断扫描器停止时间
+        def httxscanendtime():
+            while True:
+                time.sleep(1)
+                basic.scan_total_time_final_end_time(25)
+        threading.Thread(target=httxscanendtime).start()
+
         message_json = {
             "httpx_status_result":httpx_status_result
         }
@@ -3616,22 +3628,6 @@ def hydradictconfig():
         return render_template('login.html')
 
 
-# 第三方接口查询次数初始化
-@app.route("/interface_init/", methods=['GET'])
-def interface_init():
-    user = session.get('username')
-    if str(user) == main_username:
-        initresult = basic.initinterface_num_lib()
-        message_json = {
-            "initresult":initresult
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
-
-
 
 # 通过二次验证确认删除报告
 @app.route("/comfirmclearloginterface/",methods=['POST'])
@@ -3675,6 +3671,9 @@ def comfirmclearloginterface():
                     recheck_result = "端口扫描报告已删除"
                 else:
                     recheck_result = "端口扫描报告正在删除中"
+            elif int(inputmodel3) ==5:
+                print("接口额度初始化")
+                recheck_result = basic.initinterface_num_lib()
             else:
                 print("其他")
 

@@ -580,6 +580,7 @@ function openModal() {
                 document.getElementById("diffvulmapid").innerHTML = info.vulmapcontime;
                 document.getElementById("diffnucleiid").innerHTML = info.nucleicontime;
                 document.getElementById("difffanweioaid").innerHTML = info.weavercontime;
+                document.getElementById("diffhttpxscanid").innerHTML = info.httpxcontime;
             });
     }
 
@@ -1679,23 +1680,6 @@ function hydra_dict_submit_func() {
 }
 
 
-// 资产文本框鼠标悬停变大
-function textarea_onhover() {
-    setTimeout(function () {
-        var textarea = document.getElementById('myTextarea');
-        textarea.rows = 20;
-        textarea.cols = 152;
-    }, 1000);
-
-
-}
-// 资产文本框鼠标移出变小
-function textarea_onout() {
-    var textarea = document.getElementById('myTextarea');
-    textarea.rows = 2;
-    textarea.cols = 152;
-}
-
 // fscan参数配置鼠标悬停变大
 function fscantextarea_onhover() {
     var myTextarea2 = document.getElementById('myTextarea2');
@@ -1754,23 +1738,6 @@ function crawlergo_part_show() {
     }
 }
 
-
-//第三方接口查询次数初始化
-function initinterfacefunc() {
-    $.ajax({
-        url: '/interface_init/',
-        method: 'GET',
-        success: function (info) {
-            alert(info.initresult);
-        },
-        error: function () {
-            alert('内部出错')
-        },
-        complete: function () {
-
-        }
-    })
-}
 
 
 // 打开删除报告二次验证弹窗
