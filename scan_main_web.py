@@ -444,9 +444,11 @@ def systemmanagement():
         if "running" in xraystatus:
             xraystatus1 = xraystatus
             xraystatus2 = ""
+            xraycontime = "计算中："
         else:
             xraystatus1 = ""
             xraystatus2 = xraystatus
+            xraycontime = basic.scan_end_start_time(26)
 
         radstatus =os.popen('bash /TIP/info_scan/finger.sh radstatus').read()
         if "running" in  radstatus:
@@ -911,6 +913,7 @@ def systemmanagement():
             "nucleicontime":nucleicontime+"秒",
             "weavercontime":weavercontime+"秒",
             "httpxcontime":httpxcontime+"秒",
+            "xraycontime":xraycontime+"秒",
             # 报告整合状态
             "total_report_status_result1":total_report_status_result1,
             "total_report_status_result2":total_report_status_result2,
@@ -2667,8 +2670,16 @@ def vulnscan_check_back():
                 if int(diff_time_minutes19) > vuln_time_controls:
                     # 超过单位时间更新数据库中的时间
                     basic.vuln_last_time_update_lib(current_time19,19)
+                    # xray扫描程序用时统计相关
+                    basic.scan_total_time_start_time(26)
                     # 提交扫描任务
                     xray_status_result = basic.startxray_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def xrayscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(26)
+                    threading.Thread(target=xrayscanendtime).start()
                                  
                 else:
                     xray_status_result = "xray漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"

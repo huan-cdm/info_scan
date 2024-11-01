@@ -21,27 +21,27 @@
 		}
 
 		input[type="submit"] {
-			background-color: rgb(32, 178, 171);
+			background-color: rgb(177, 163, 116);
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
 			transition: all linear 0.30s;
 			height: 50px;
 			width: 120px;
-			font-weight: bold;
-			/* 加粗字体 */
+			color: white;
+			font-family: 'SimSun', '宋体', sans-serif;
 		}
 
 		input[type="button"] {
-			background-color: #35a5e5;
+			background-color:blue;
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
 			transition: all linear 0.30s;
 			height: 50px;
 			width: 100px;
-			font-weight: bold;
-			/* 加粗字体 */
+			color: white;
+			font-family: 'SimSun', '宋体', sans-serif;
 		}
 
 

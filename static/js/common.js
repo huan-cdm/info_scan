@@ -581,6 +581,7 @@ function openModal() {
                 document.getElementById("diffnucleiid").innerHTML = info.nucleicontime;
                 document.getElementById("difffanweioaid").innerHTML = info.weavercontime;
                 document.getElementById("diffhttpxscanid").innerHTML = info.httpxcontime;
+                document.getElementById("diffxrayid").innerHTML = info.xraycontime;
             });
     }
 

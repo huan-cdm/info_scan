@@ -2359,6 +2359,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(25)
         else:
             print("存活检测程序运行时间正在计算中...")
+    elif int(typepart) == 26:
+        print("xray被动扫描程序最终截止时间")
+        xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+        xrayscanisnull = scan_total_time_endtimeisnull(26)
+        if "stop" in xray_status and xrayscanisnull == 0:
+            scan_total_time_end_time(26)
+        else:
+            print("xray被动扫描程序运行时间正在计算中...")
     
 
     else:

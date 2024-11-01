@@ -35,7 +35,8 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 2024-10-30更新<br> 
 1. 存活检测程序运行时间统计；<br>
 2. 接口额度初始化添加二次验证；<br>
-3. 已知问题处理与优化；<br>
+3. xray监听运行时间统计；<br>
+4. 已知问题处理与优化；<br>
 </li>
 <li>
 2024-10-27更新<br> 
@@ -257,6 +258,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 ├── /TIP<br>
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/index.png"/><br><br>
 项目部署目录<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br><br>
 程序文件<br><br>
