@@ -266,14 +266,13 @@ function assetsbackspacefunc() {
         method: 'GET',
 
         success: function (res) {
-            console.log(res)
-            console.log('资产回退成功点击文本查看最新数据')
+            alert('资产回退成功点击编辑资产查看最新数据')
         },
         error: function () {
-            alert('资产回退出现错误')
+            alert('内部错误')
         },
         complete: function () {
-            alert('资产回退成功点击文本查看最新数据')
+            
         }
     })
 }
@@ -1343,7 +1342,7 @@ function infoxuanzhongscan() {
 
     // 定义一个函数来处理AJAX请求
     function fetchData() {
-        
+
     }
 
 }
@@ -1792,6 +1791,67 @@ function comfirmclearlogfunc() {
 }
 
 // 计算扫描器运行时间,网页加载会自动加载
-window.onload = function() {
+window.onload = function () {
     // alert("11")
 };
+
+// 打开关键字检索文本框
+function asssets_jiansuo() {
+    var divjiansuo1 = document.getElementById("divjiansuo1");
+    divjiansuo1.style.display = "block";
+
+
+
+
+}
+
+function stop_asssets_jiansuo() {
+    var divjiansuo1 = document.getElementById("divjiansuo1");
+    divjiansuo1.style.display = "none";
+
+}
+
+// 通过关键字检索资产
+function assets_key_jiansuo() {
+    var myinputid = document.getElementById("my-input-id").value;
+    $.ajax({
+        url: '/searchassetsbykey/',
+        method: 'POST',
+        data: {
+            myinputid: myinputid
+        },
+        success: function (info) {
+            // 当请求成功时调用  
+            alert(info.search_result);
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 通过关键字检索资产
+function excude_assets_key_jiansuo() {
+    var myinputid = document.getElementById("my-input-id").value;
+    $.ajax({
+        url: '/excludesearchassetsbykey/',
+        method: 'POST',
+        data: {
+            myinputid: myinputid
+        },
+        success: function (info) {
+            // 当请求成功时调用  
+            alert(info.search_result);
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}

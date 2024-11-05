@@ -107,7 +107,8 @@
 					<td>
 						<span id="spp26"></span>
 						<p style="display: none;" id="idp1">
-							<input type="text" placeholder="指纹识别结果-输入关键字-点击新增-识别关键资产" id="rule_input_id1">
+							<input type="text" placeholder="指纹识别结果-输入关键字-点击新增-识别关键资产" id="rule_input_id1"
+								class="my-input-text">
 							<input type="button" value="新增" onclick="add_rule_func()">
 							<input type="button" value="删除" onclick="delete_rule_func()">
 							<input type="button" value="返回" onclick="fanhuishuaixuanrule()">
@@ -192,7 +193,7 @@
 					<td>
 						<span id="spp1" style="color:green"></span>
 						<span id="spp1a" style="color: red;"></span><br>
-						
+
 					</td>
 					<td>
 						<span id="spp2" style="color:green"></span>
@@ -433,7 +434,7 @@
 					<td><span id="spp52t"></span></td>
 				</tr>
 			</table><br>
-			<strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp; 
+			<strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp;
 			<span style="cursor: pointer; color: deepskyblue;" onclick="startverifychearlogfunc('5')">初始化</span><br>
 			<table border="1" style="width: 1500px; height: 100px;">
 				<tr>
@@ -521,9 +522,9 @@
 		<div class="modal-content3">
 			<span class="close3" onclick="stopverifychearlogfunc()">&times;</span>
 			<h3>二次验证</h3>
-			<input type="text" placeholder="账号" id="inputmodel1" /><br>
-			<input type="text" placeholder="密码" id="inputmodel2" /><br>
-			<input type="hidden"  id="inputmodel3" /><br>
+			<input type="text" placeholder="账号" id="inputmodel1" class="my-input-text1" /><br>
+			<input type="text" placeholder="密码" id="inputmodel2" class="my-input-text1" /><br>
+			<input type="hidden" id="inputmodel3" /><br>
 			<input type="button" value="提交" onclick="comfirmclearlogfunc()">
 		</div>
 	</div>
@@ -774,7 +775,7 @@ poc显示区域</textarea>
 	<div>
 		<form method="post" action="/ipscaninterface/">
 			<input type="text" name="ip" placeholder="输入ip点击搜索查询基础信息或者输入域名点击archive查询历史URL信息" value="{{data2}}"
-				required="required" id="myInput" />
+				required="required" id="myInput" class="my-input-text" />
 			<input type="submit" value="搜索">
 			<input type="button" value="ARCHIVE搜索" onclick="archiveurlshowfunc()">
 		</form>
@@ -889,9 +890,13 @@ poc显示区域</textarea>
 		</div>
 	</div>
 	<h3>扫描模块</h3>
+
 	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
 
 		<div style="display:none;" id="vulnid1">
+			<span onclick="startscanconfigpagefunc()" style="cursor: pointer;"
+				class="my-spanconfig">参数配置</span>&nbsp;&nbsp;
+			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig">字典配置</span><br><br>
 			<span style="color: red"><strong>1.
 					fastjson扫描：需先开启JNDI服务,点击最上方的系统管理查看JNDI服务运行情况,出现running,在开启fastjson漏洞扫描,fastjson可能会出现空报告清空,最终以JNDI请求日志为准。</strong></span><br>
 			<span style="color: red"><strong>2.
@@ -907,10 +912,10 @@ poc显示区域</textarea>
 							disabled>&nbsp;&nbsp;&nbsp;
 						<input type="submit" id="button77" value="打开报告" onclick="vulnscanxuanzhongreportyulan()"
 							disabled>&nbsp;&nbsp;
-						<span style="cursor: pointer;" onclick="vulnselectAll()">全选</span>&nbsp;&nbsp;
-						<span style="cursor: pointer;" onclick="vulnunSelection()">取消</span>&nbsp;&nbsp;
-						<span onclick="startscanconfigpagefunc()" style="cursor: pointer;">扫描参数配置</span>&nbsp;&nbsp;
-						<span onclick="hydradictfunc()" style="cursor: pointer;">字典配置</span>
+
+						<br><br>
+						<span style="cursor: pointer;" onclick="vulnselectAll()" class="my-span">全选</span>&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="vulnunSelection()" class="my-span">反选</span>&nbsp;&nbsp;
 					</td>
 				</tr>
 
@@ -986,9 +991,9 @@ poc显示区域</textarea>
 							disabled>&nbsp;&nbsp;&nbsp;
 						<input type="submit" id="button74" value="打开报告" onclick="infoxuanzhongreportyulan()"
 							disabled>&nbsp;&nbsp;&nbsp;
-
-						<span style="cursor: pointer;" onclick="selectAll()">全选</span>&nbsp;&nbsp;
-						<span style="cursor: pointer;" onclick="unSelection()">取消</span>
+						<br><br>
+						<span style="cursor: pointer;" onclick="selectAll()" class="my-span">全选</span>&nbsp;&nbsp;
+						<span style="cursor: pointer;" onclick="unSelection()" class="my-span">反选</span>
 					</td>
 				</tr>
 				<tr>
@@ -1022,27 +1027,29 @@ poc显示区域</textarea>
 		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;">展开</h3>
 
 			<div style="display:none;" id="assetid1">
+
 				<table border="1">
 					<tr>
 						<td>
 							<table border="1">
 								<tr>
-									<td>
+									<td colspan="2">
 										<input type="button" id="button20" class="hover-color" name="commit"
 											value="存活检测" onclick="filterstatuscodefunc()" disabled> &nbsp;&nbsp;
 										<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()"
 											disabled>&nbsp;&nbsp;
 										<input type="button" id="button51" value="识别关键资产" onclick="key_data_tiqu_func()"
-											disabled>&nbsp;&nbsp;
-									</td>
-								</tr>
+											disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-								<tr>
-									<td>
-
-										<span>fofa查询日志：</span>
+										<select name="fileqingxiname">
+											<option value="2">保留所有资产</option>
+											<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
+										</select>
+										<input type="button" id="button19" class="hover-color" name="commit"
+											value="资产去重" onclick="filedeweightingfunc()"
+											disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<select name="assetmanagerid1" onmouseenter="assetmanagerfunc()">
-											<option>刷新系统获取最新日志文件,选中文件会将数据显示到文本框</option>
+											<option>fofa查询日志</option>
 											{% for option in data21 %}
 											<option value="{{ option }}">{{option}}</option>
 											{% endfor %}
@@ -1050,24 +1057,10 @@ poc显示区域</textarea>
 										<input type="submit" value="清空日志" onclick="clearfofashowlogfunc()" id="button84"
 											disabled>
 									</td>
-								</tr>
-
-								<tr>
-									<td>
-										<input type="button" id="button19" class="hover-color" name="commit"
-											value="资产去重" onclick="filedeweightingfunc()" disabled>
-										<select name="fileqingxiname">
-											<option value="2">保留所有资产</option>
-											<option value="1">保留IP资产(http://1.1.1.1:80/1.txt)</option>
-										</select>
-									</td>
-								</tr>
-
-
 							</table>
-
 						</td>
-
+					</tr>
+					<tr>
 						<td>
 							<table border="1">
 								<tr>
@@ -1080,13 +1073,34 @@ poc显示区域</textarea>
 											onclick="targeturlcopytextareafunc()" disabled>&nbsp;&nbsp;
 										<input type="button" id="button25" value="回退资产" onclick="assetsbackspacefunc()"
 											disabled>
+										&nbsp;&nbsp;
+										<input type="button" id="button25" value="资产优化"
+											onclick="asssets_jiansuo()"><br><br>
+										<div style="display: none;" id="divjiansuo1">
+											<input type="text" class="my-input" placeholder="检索和排除资产" value=""
+												id="my-input-id">
+											<span class="my-span" onclick="assets_key_jiansuo()">检索</span>
+											<span class="my-spann" onclick="excude_assets_key_jiansuo()">排除</span>
+											<span class="my-spannn" onclick="stop_asssets_jiansuo()">取消</span>
+										</div>
 									</td>
 								</tr>
 
 
 								<tr>
 									<td>
-										<textarea rows="3" cols="152" id="myTextarea" >
+										<input type="text" placeholder="通过fofa获取资产,搜索语法点击语法提示或者参考fofa官网"
+											id="inputfofaid" class="my-input-text" />
+										<select name="num_fofa">
+											<option value="10">查询10条</option>
+											<option value="100">查询100条</option>
+											<option value="1000">查询1000条</option>
+											<option value="10000">查询10000条</option>
+										</select>
+										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
+											id="button83" disabled>
+										<input type="button" value="语法提示" onclick="fofayufa()"><br>
+										<textarea rows="3" cols="152" id="myTextarea">
 ①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
 ②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；
 ③. 存活检测：资产存活情况探测；
@@ -1097,24 +1111,6 @@ poc显示区域</textarea>
 ⑧. 回退资产：回退到未经处理前的资产；										</textarea>
 										<span id="textareaspan1" style="color: crimson;"></span>
 									</td>
-								</tr>
-
-								<tr>
-									<td>
-										<input type="text" placeholder="fofa语法" id="inputfofaid" />
-										<select name="num_fofa">
-											<option value="10">查询10条</option>
-											<option value="100">查询100条</option>
-											<option value="1000">查询1000条</option>
-											<option value="10000">查询10000条</option>
-										</select>
-										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
-											id="button83" disabled>
-										<input type="button" value="语法提示" onclick="fofayufa()"><br>
-
-
-									</td>
-
 								</tr>
 							</table>
 						</td>

@@ -3698,6 +3698,55 @@ def comfirmclearloginterface():
         return render_template('login.html')
 
 
+# 通过关键字检索资产
+@app.route("/searchassetsbykey/",methods=['POST'])
+def searchassetsbykey():
+    user = session.get('username')
+    if str(user) == main_username:
+
+        myinputid = request.form['myinputid']
+        url_list = basic.url_file_ip_list()
+        asset_url_list = []
+        f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+        for url in url_list:
+            if myinputid in url:
+                asset_url_list.append(url)
+                f.write(str(url)+"\n")
+        f.close()
+        message_json = {
+            "search_result":"已检索出"+str(len(asset_url_list))+"条资产"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
+# 通过关键字排除资产
+@app.route("/excludesearchassetsbykey/",methods=['POST'])
+def excludesearchassetsbykey():
+    user = session.get('username')
+    if str(user) == main_username:
+
+        myinputid = request.form['myinputid']
+        url_list = basic.url_file_ip_list()
+        asset_url_list = []
+        f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+        for url in url_list:
+            if myinputid not in url:
+                asset_url_list.append(url)
+                f.write(str(url)+"\n")
+        f.close()
+        # 计算排除资产数量
+        result = int(len(url_list)) - int(len(asset_url_list))
+        message_json = {
+            "search_result":"已排除出"+str(result)+"条资产"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+                
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

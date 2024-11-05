@@ -21,35 +21,48 @@
 		}
 
 		input[type="submit"] {
-			background-color: rgb(235, 102, 13);
+			background-color:rgba(255, 115, 0, 0.365);
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
 			transition: all linear 0.30s;
 			height: 50px;
 			width: 120px;
-			color: white;
+			/* color: white; */
 			font-family: 'SimSun', '宋体', sans-serif;
 		}
 
 		input[type="button"] {
-			background-color:blue;
+			background-color:rgba(255, 115, 0, 0.365);
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
 			transition: all linear 0.30s;
 			height: 50px;
 			width: 100px;
-			color: white;
+			/* color: white; */
 			font-family: 'SimSun', '宋体', sans-serif;
 		}
 
 
-		input[type="text"] {
+		/* input[type="text"] {
+			height: 40px;
+			width: 700px;
+			font-size: 20px;
+		} */
+
+		.my-input-text {
 			height: 40px;
 			width: 700px;
 			font-size: 20px;
 		}
+
+		.my-input-text1 {
+			height: 40px;
+			width: 300px;
+			font-size: 20px;
+		}
+
 
 		input[type="submit"]:hover {
 			background-color: rgb(207, 33, 193);
@@ -334,3 +347,46 @@
 			text-decoration: none;
 			cursor: pointer;
 		}
+
+		.my-span {
+			display: inline-block; /* 使span可以设置宽高 */
+			width:40px; 
+			height: 30px; 
+			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
+			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+		  }
+		.my-input {
+			height: 40px;
+			width: 200px;
+			font-size: medium;
+		}
+		.my-spann {
+			display: inline-block; /* 使span可以设置宽高 */
+			width:40px; 
+			height: 30px; 
+			background-color: rgb(140, 255, 0); /* 背景颜色设置为橙色 */
+			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+		  }
+		  .my-spannn {
+			display: inline-block; /* 使span可以设置宽高 */
+			width:40px; 
+			height: 30px; 
+			background-color: rgb(225, 0, 255); /* 背景颜色设置为橙色 */
+			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+		  }
+
+		  .my-spanconfig {
+			display: inline-block; /* 使span可以设置宽高 */
+			width:100px; 
+			height: 30px; 
+			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
+			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+		  }
