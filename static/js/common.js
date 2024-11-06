@@ -1855,3 +1855,9 @@ function excude_assets_key_jiansuo() {
         }
     })
 }
+
+
+//资产下载
+function assetdownloadfunc() {
+    window.open("/assetsdownload/", "_blank");
+}

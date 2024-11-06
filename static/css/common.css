@@ -350,8 +350,8 @@
 
 		.my-span {
 			display: inline-block; /* 使span可以设置宽高 */
-			width:40px; 
-			height: 30px; 
+			width:35px; 
+			height: 25px; 
 			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
 			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
@@ -383,10 +383,17 @@
 
 		  .my-spanconfig {
 			display: inline-block; /* 使span可以设置宽高 */
-			width:100px; 
+			width:70px; 
 			height: 30px; 
 			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
 			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
+			cursor: pointer;
+		  } 
+		  .my-label {
+			color: coral;
+			font-weight: bold;
+			text-decoration: underline;
+			font-style: italic;
 			cursor: pointer;
 		  }

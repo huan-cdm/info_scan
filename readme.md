@@ -36,6 +36,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 1. 前端页面优化；<br>
 2. 新增资产优化功能,可通过关键字对资产进行过滤与排除；<br>
 3. 已知问题处理；<br>
+4. 新增资产文件下载功能；<br>
 </li>
 <li>
 2024-10-30更新<br> 

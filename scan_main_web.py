@@ -3745,6 +3745,35 @@ def excludesearchassetsbykey():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
+# 资产下载
+@app.route("/assetsdownload/",methods=['GET'])
+def assetsdownload():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        url_result = basic.url_file_ip_list()
+        # 删除空元素
+        if '' in url_result:
+            url_result.remove('')
+        
+        if len(url_result) == 0:
+            url_result.append("暂无资产信息")
+            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+            for line in url_result:
+                f.write(str(line)+"\n")
+            f.close()
+            # 判断url.txt文件是否存在
+            file_path = '/TIP/batch_scan_domain/url.txt'
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                return send_file(file_path, as_attachment=True, download_name='url.txt')
+        else:
+            # 判断url.txt文件是否存在
+            file_path = '/TIP/batch_scan_domain/url.txt'
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                return send_file(file_path, as_attachment=True, download_name='url.txt')
+    else:
+        return render_template('login.html')
                 
 
 
