@@ -1,6 +1,6 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
-ip_address="x.x.x.x"
+ip_address="117.72.16.222"
 # 爬虫流量代理地址
 proxy_ip="http://127.0.0.1:7777"
 case "${1}" in
@@ -1204,6 +1204,38 @@ case "${1}" in
     tomcat_num=`cat /TIP/info_scan/result/tomcat_vuln.txt | wc -l`
     echo "${tomcat_num}"
     ;;
+
+    # 致远OA漏洞扫描程序运行状态
+    seeyon_vuln_scan_status)
+    seeyon_scan_ps=`ps -aux | grep "vuln_lib.py seeyon_vuln_scan" | wc -l`
+	if (( $seeyon_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭致远OA漏洞扫描程序
+    stop_seeyon_scan)
+    seeyon_pid=`ps -aux | grep "seeyon_vuln_scan" |awk -F " " '{print $2}'`
+    for ii in ${seeyon_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启致远OA漏洞扫描程序
+    start_seeyon_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py seeyon_vuln_scan > /TIP/info_scan/result/seeyon_vuln.txt
+    ;;
+
+    #致远OA漏洞数量
+    seeyon_vuln_num)
+    seeyon_num=`cat /TIP/info_scan/result/seeyon_vuln.txt | wc -l`
+    echo "${seeyon_num}"
+    ;;
+
 
 
     # 开启jndi服务

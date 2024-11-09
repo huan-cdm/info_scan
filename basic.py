@@ -1738,6 +1738,33 @@ def starttomcatscan_lib():
             print("捕获到异常:", e)
     return tomcat_status_result
 
+# 开启致远OA漏洞扫描
+def startseeyonscan_lib():
+    seeyon_status = os.popen('bash /TIP/info_scan/finger.sh seeyon_vuln_scan_status').read()
+    if "running" in seeyon_status:
+        seeyon_status_result = "致远OA漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_seeyon_scan_shell')
+            if "running" in seeyon_status:
+                seeyon_status_result = "致远OA漏洞扫描程序已开启稍后查看结果"
+            else:
+                seeyon_status_result = "致远OA漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return seeyon_status_result
+
+
+# 关闭致远OA漏洞扫描程序
+def stopseeyonvuln_lib():
+    seeyon_status = os.popen('bash /TIP/info_scan/finger.sh seeyon_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_seeyon_scan')
+    if "stop" in seeyon_status:
+        kill_seeyon_result = "已关闭致远OA漏洞扫描程序"
+    else:
+        kill_seeyon_result = "正在关闭中......"
+    return kill_seeyon_result
+
 
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
@@ -1788,6 +1815,7 @@ def stopwafrecognize_lib():
     else:
         kill_waf_result = "正在关闭中......"
     return kill_waf_result
+
 
 
 
@@ -2367,6 +2395,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(26)
         else:
             print("xray被动扫描程序运行时间正在计算中...")
+    elif int(typepart) == 27:
+        print("致远OA扫描程序最终截止时间")
+        seeyon_status = os.popen('bash /TIP/info_scan/finger.sh seeyon_vuln_scan_status').read()
+        seeyonscanisnull = scan_total_time_endtimeisnull(27)
+        if "stop" in seeyon_status and seeyonscanisnull == 0:
+            scan_total_time_end_time(27)
+        else:
+            print("致远OA漏洞扫描程序运行时间正在计算中...")
     
 
     else:

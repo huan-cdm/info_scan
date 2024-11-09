@@ -1,5 +1,5 @@
 // 上线后需替换为自己的服务器IP地址
-var ipvalue = "http://x.x.x.x"
+var ipvalue = "http://117.72.16.222"
 
 
 function fanhui() {
@@ -525,6 +525,9 @@ function openModal() {
                 document.getElementById("spp56a").innerHTML = info.bypass_status2;
                 document.getElementById("spp57").innerHTML = info.crawlergo_status1;
                 document.getElementById("spp57a").innerHTML = info.crawlergo_status2;
+                document.getElementById("spp58").innerHTML = info.seeyonstatus1;
+                document.getElementById("spp58a").innerHTML = info.seeyonstatus2;
+
                 document.getElementById("spp1h2").innerHTML = info.finger_jindu;
                 document.getElementById("successsp1").innerHTML = info.fofa_inter_num_success;
                 document.getElementById("failsp1").innerHTML = info.fofa_inter_num_fail;
@@ -563,6 +566,7 @@ function openModal() {
                 document.getElementById("diffwafid").innerHTML = info.wafcontime;
                 document.getElementById("difffuzzid").innerHTML = info.bypasscontime;
                 document.getElementById("diffcrawlergoid").innerHTML = info.crawlergocontime;
+                document.getElementById("diffseeyonid").innerHTML = info.seeyoncontime;
                 document.getElementById("diffstruts2id").innerHTML = info.struts2contime;
                 document.getElementById("diffweblogicid").innerHTML = info.weblogiccontime;
                 document.getElementById("diffshiroid").innerHTML = info.shirocontime;
@@ -1288,7 +1292,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result+"\n"+info.seeyon_status_result)
         },
 
         error: function (info) {
@@ -1450,7 +1454,7 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result)
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result+"\n"+info.kill_seeyon_result)
         },
 
         error: function (info) {
@@ -1566,6 +1570,8 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/fastjson_report_show/", "_blank");
         } else if (vuln_front_list[i] == 'j') {
             window.open(ipvalue + ":18888/", "_blank");
+        }else if (vuln_front_list[i] == 'k') {
+            window.open("/seeyonreportyulan/", "_blank");
         }
 
     }
