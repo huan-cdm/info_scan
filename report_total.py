@@ -245,6 +245,14 @@ def report_xlsx():
         crawlergo_report_list.append(crawlergo_line.strip())
     if len(crawlergo_report_list) == 0:
         crawlergo_report_list.append("暂无数据")
+
+    # 致远OA
+    seeyon_report_list = []
+    seeyon_file = open("/TIP/info_scan/result/seeyon_vuln.txt",encoding='utf-8')
+    for seeyon_line in seeyon_file.readlines():
+        seeyon_report_list.append(seeyon_line.strip())
+    if len(seeyon_report_list) == 0:
+        seeyon_report_list.append("暂无数据")
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -275,6 +283,7 @@ def report_xlsx():
     df_a1 = pd.DataFrame(waf_report_list, columns=['WAF'])
     df_b1 = pd.DataFrame(bypass_report_list, columns=['FUZZ'])
     df_c1 = pd.DataFrame(crawlergo_report_list, columns=['crawlergo'])
+    df_d1 = pd.DataFrame(seeyon_report_list, columns=['致远OA'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -308,3 +317,4 @@ def report_xlsx():
         df_a1.to_excel(writer, sheet_name='WAF', index=False)
         df_b1.to_excel(writer, sheet_name='FUZZ', index=False)
         df_c1.to_excel(writer, sheet_name='crawlergo', index=False)
+        df_d1.to_excel(writer, sheet_name='致远OA', index=False)
