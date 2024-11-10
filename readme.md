@@ -24,7 +24,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 <h2>集成相关工具：</h2> <br>
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat <br>
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
 信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
 相关工具逐步完善......
@@ -311,7 +311,7 @@ fofa搜索日志<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
 弱口令扫描字典配置<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
-elasticsearch漏洞扫描<br><br>
+ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" />
 报告删除二次验证<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" />

