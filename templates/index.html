@@ -897,7 +897,9 @@ poc显示区域</textarea>
 	</div>
 	<h3>扫描模块</h3>
 
-	<h5 onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;">展开</h3>
+	
+		<span onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;" class="zhankaizhedie">展开条件</span>
+		<span onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;" class="zhankaizhedie">收起条件</span>
 		<div style="display:none;" id="vulnid1">
 			<span onclick="startscanconfigpagefunc()" style="cursor: pointer;"
 				class="my-spanconfig">参数配置</span>&nbsp;&nbsp;
@@ -977,6 +979,8 @@ poc显示区域</textarea>
 						<label for="option14" class="my-label">泛微OA</label>
 						<input type="checkbox" id="option22" name="option" value="k">
 						<label for="option22" class="my-label">致远OA</label>
+						<input type="checkbox" id="option23" name="option" value="l">
+						<label for="option23" class="my-label">用友OA</label>
 
 					</td>
 				</tr>
@@ -1024,10 +1028,10 @@ poc显示区域</textarea>
 
 
 		</div>
-		<h5 onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;">收起</h5>
+		
 		<h3>资产管理</h3>
-		<h5 onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;">展开</h3>
-
+		<span onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;" class="zhankaizhedie">展开条件</span>
+		<span onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;" class="zhankaizhedie">收起条件</span>
 			<div style="display:none;" id="assetid1">
 				<span class="my-spanconfig" onclick="assetdownloadfunc()">资产下载</span>
 				
@@ -1123,7 +1127,7 @@ poc显示区域</textarea>
 					</tr>
 				</table>
 			</div>
-			<h5 onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;">收起</h5>
+			
 </body>
 
 </html>

@@ -270,7 +270,6 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 ├── /TIP<br>
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/index.png"/><br><br>
 项目部署目录<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br><br>
 程序文件<br><br>
@@ -282,7 +281,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/><br><br>
 IP基础信息查询<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/><br><br>
-系统折叠展开<br><br>
+展开收起<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/partconfigpage.png"/><br><br>

@@ -356,6 +356,7 @@
 			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
 			cursor: pointer;
+			line-height: 25px;
 		  }
 		.my-input {
 			height: 40px;
@@ -385,6 +386,7 @@
 			display: inline-block; /* 使span可以设置宽高 */
 			width:70px; 
 			height: 30px; 
+			line-height: 30px;
 			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
 			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
@@ -397,3 +399,14 @@
 			font-style: italic;
 			cursor: pointer;
 		  }
+
+		  .zhankaizhedie {
+			display: inline-block; /* 使span可以设置宽高 */
+			width:70px; 
+			height: 30px; 
+			background-color: rgb(36, 92, 182); /* 背景颜色设置为橙色 */
+			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+			line-height: 30px;
+		  } 
