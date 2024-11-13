@@ -253,6 +253,14 @@ def report_xlsx():
         seeyon_report_list.append(seeyon_line.strip())
     if len(seeyon_report_list) == 0:
         seeyon_report_list.append("暂无数据")
+
+    # 用友OA
+    yonsuite_report_list = []
+    yonsuite_file = open("/TIP/info_scan/result/yonsuite_vuln.txt",encoding='utf-8')
+    for yonsuite_line in yonsuite_file.readlines():
+        yonsuite_report_list.append(yonsuite_line.strip())
+    if len(yonsuite_report_list) == 0:
+        yonsuite_report_list.append("暂无数据")
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -284,6 +292,7 @@ def report_xlsx():
     df_b1 = pd.DataFrame(bypass_report_list, columns=['FUZZ'])
     df_c1 = pd.DataFrame(crawlergo_report_list, columns=['crawlergo'])
     df_d1 = pd.DataFrame(seeyon_report_list, columns=['致远OA'])
+    df_e1 = pd.DataFrame(yonsuite_report_list, columns=['用友OA'])
 
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
@@ -318,3 +327,4 @@ def report_xlsx():
         df_b1.to_excel(writer, sheet_name='FUZZ', index=False)
         df_c1.to_excel(writer, sheet_name='crawlergo', index=False)
         df_d1.to_excel(writer, sheet_name='致远OA', index=False)
+        df_e1.to_excel(writer, sheet_name='用友OA', index=False)
