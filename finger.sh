@@ -1237,6 +1237,39 @@ case "${1}" in
     ;;
 
 
+    # 用友OA漏洞扫描程序运行状态
+    yonsuite_vuln_scan_status)
+    yonsuite_scan_ps=`ps -aux | grep "vuln_lib.py yonsuite_vuln_scan" | wc -l`
+	if (( $yonsuite_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭用友OA漏洞扫描程序
+    stop_yonsuite_scan)
+    yonsuite_pid=`ps -aux | grep "yonsuite_vuln_scan" |awk -F " " '{print $2}'`
+    for ii in ${yonsuite_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
+    # 开启用友OA漏洞扫描程序
+    start_yonsuite_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py yonsuite_vuln_scan > /TIP/info_scan/result/yonsuite_vuln.txt
+    ;;
+
+
+    #用友OA漏洞数量
+    yonsuite_vuln_num)
+    yonsuite_num=`cat /TIP/info_scan/result/yonsuite_vuln.txt | wc -l`
+    echo "${yonsuite_num}"
+    ;;
+
 
     # 开启jndi服务
     start_jndi_python)

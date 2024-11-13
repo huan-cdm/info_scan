@@ -1766,6 +1766,35 @@ def stopseeyonvuln_lib():
     return kill_seeyon_result
 
 
+
+# 开启用友OA漏洞扫描
+def startyonsuitescan_lib():
+    yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+    if "running" in yonsuite_status:
+        yonsuite_status_result = "用友OA漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_yonsuite_scan_shell')
+            if "running" in yonsuite_status:
+                yonsuite_status_result = "用友OA漏洞扫描程序已开启稍后查看结果"
+            else:
+                yonsuite_status_result = "用友OA漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return yonsuite_status_result
+
+
+# 关闭用友OA漏洞扫描程序
+def stopyonsuitevuln_lib():
+    yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_yonsuite_scan')
+    if "stop" in yonsuite_status:
+        kill_yonsuite_result = "已关闭用友OA漏洞扫描程序"
+    else:
+        kill_yonsuite_result = "正在关闭中......"
+    return kill_yonsuite_result
+
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2403,6 +2432,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(27)
         else:
             print("致远OA漏洞扫描程序运行时间正在计算中...")
+    elif int(typepart) == 28:
+        print("用友OA扫描程序最终截止时间")
+        yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+        yonsuitescanisnull = scan_total_time_endtimeisnull(28)
+        if "stop" in yonsuite_status and yonsuitescanisnull == 0:
+            scan_total_time_end_time(28)
+        else:
+            print("用友OA漏洞扫描程序运行时间正在计算中...")
     
 
     else:
