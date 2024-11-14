@@ -24,7 +24,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 <h2>集成相关工具：</h2> <br>
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA <br>
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
 信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
 相关工具逐步完善......
@@ -35,7 +35,8 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 2024-11-13更新<br> 
 1. 新增致远OA漏洞扫描功能；<br>
 2. 新增用友OA漏洞扫描功能；<br>
-3. 已知问题处理；<br>
+3. 新增金蝶OA漏洞扫描功能；<br>
+4. 已知问题处理；<br>
 </li>
 <li>
 2024-11-04更新<br> 
@@ -319,3 +320,5 @@ ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/seeyonscan.png" />
 用友OA漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yonsuitescan.png" />
+金蝶OA漏洞扫描<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/kingdeescan.png" />

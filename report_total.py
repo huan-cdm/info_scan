@@ -261,6 +261,14 @@ def report_xlsx():
         yonsuite_report_list.append(yonsuite_line.strip())
     if len(yonsuite_report_list) == 0:
         yonsuite_report_list.append("暂无数据")
+
+    # 金蝶OA
+    kingdee_report_list = []
+    kingdee_file = open("/TIP/info_scan/result/kingdee_vuln.txt",encoding='utf-8')
+    for kingdee_line in kingdee_file.readlines():
+        kingdee_report_list.append(kingdee_line.strip())
+    if len(kingdee_report_list) == 0:
+        kingdee_report_list.append("暂无数据")
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -293,7 +301,7 @@ def report_xlsx():
     df_c1 = pd.DataFrame(crawlergo_report_list, columns=['crawlergo'])
     df_d1 = pd.DataFrame(seeyon_report_list, columns=['致远OA'])
     df_e1 = pd.DataFrame(yonsuite_report_list, columns=['用友OA'])
-
+    df_f1 = pd.DataFrame(kingdee_report_list, columns=['金蝶OA'])
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -328,3 +336,4 @@ def report_xlsx():
         df_c1.to_excel(writer, sheet_name='crawlergo', index=False)
         df_d1.to_excel(writer, sheet_name='致远OA', index=False)
         df_e1.to_excel(writer, sheet_name='用友OA', index=False)
+        df_f1.to_excel(writer, sheet_name='金蝶OA', index=False)

@@ -1795,6 +1795,36 @@ def stopyonsuitevuln_lib():
     return kill_yonsuite_result
 
 
+# 开启金蝶OA漏洞扫描
+def startkingdeescan_lib():
+    kingdee_status = os.popen('bash /TIP/info_scan/finger.sh kingdee_vuln_scan_status').read()
+    if "running" in kingdee_status:
+        kingdee_status_result = "金蝶OA漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_kingdee_scan_shell')
+            if "running" in kingdee_status:
+                kingdee_status_result = "金蝶OA漏洞扫描程序已开启稍后查看结果"
+            else:
+                kingdee_status_result = "金蝶OA漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return kingdee_status_result
+
+
+
+# 关闭金蝶OA漏洞扫描程序
+def stopkingdeevuln_lib():
+    kingdee_status = os.popen('bash /TIP/info_scan/finger.sh kingdee_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_kingdee_scan')
+    if "stop" in kingdee_status:
+        kill_kingdee_result = "已关闭金蝶OA漏洞扫描程序"
+    else:
+        kill_kingdee_result = "正在关闭中......"
+    return kill_kingdee_result
+
+
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2440,6 +2470,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(28)
         else:
             print("用友OA漏洞扫描程序运行时间正在计算中...")
+    elif int(typepart) == 29:
+        print("金蝶OA扫描程序最终截止时间")
+        kingdee_status = os.popen('bash /TIP/info_scan/finger.sh kingdee_vuln_scan_status').read()
+        kingdeescanisnull = scan_total_time_endtimeisnull(29)
+        if "stop" in kingdee_status and kingdeescanisnull == 0:
+            scan_total_time_end_time(29)
+        else:
+            print("金蝶OA漏洞扫描程序运行时间正在计算中...")
     
 
     else:

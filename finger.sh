@@ -1271,6 +1271,40 @@ case "${1}" in
     ;;
 
 
+    # 金蝶OA漏洞扫描程序运行状态
+    kingdee_vuln_scan_status)
+    kingdee_scan_ps=`ps -aux | grep "vuln_lib.py kingdeeoa_vuln_scan" | wc -l`
+	if (( $kingdee_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # 关闭金蝶OA漏洞扫描程序
+    stop_kingdee_scan)
+    kingdee_pid=`ps -aux | grep "kingdeeoa_vuln_scan" |awk -F " " '{print $2}'`
+    for ii in ${kingdee_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
+    # 开启金蝶OA漏洞扫描程序
+    start_kingdee_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py kingdeeoa_vuln_scan > /TIP/info_scan/result/kingdee_vuln.txt
+    ;;
+
+
+    #金蝶OA漏洞数量
+    kingdee_vuln_num)
+    kingdee_num=`cat /TIP/info_scan/result/kingdee_vuln.txt | wc -l`
+    echo "${kingdee_num}"
+    ;;
+
+
     # 开启jndi服务
     start_jndi_python)
     cd /TIP/info_scan/jndi_server/malice_web
