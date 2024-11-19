@@ -21,7 +21,7 @@
 		}
 
 		input[type="submit"] {
-			background-color:rgba(255, 115, 0, 0.365);
+			background-color: rgba(255, 115, 0, 0.365);
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
@@ -33,7 +33,7 @@
 		}
 
 		input[type="button"] {
-			background-color:rgba(255, 115, 0, 0.365);
+			background-color: rgba(255, 115, 0, 0.365);
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
@@ -151,7 +151,7 @@
 			display: none;
 			/* 隐藏弹窗 */
 			/* position:static; 弹窗固定在视口   */
-			position:static;
+			position: static;
 			z-index: 1;
 			/* 弹窗位于其他元素之上 */
 			left: 0;
@@ -346,64 +346,95 @@
 		}
 
 		.my-span {
-			display: inline-block; /* 使span可以设置宽高 */
-			width:35px; 
-			height: 25px; 
-			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
-			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+			display: inline-block;
+			/* 使span可以设置宽高 */
+			width: 35px;
+			height: 25px;
+			background-color: rgb(255, 51, 0);
+			/* 背景颜色设置为橙色 */
+			color: white;
+			/* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
 			cursor: pointer;
 			line-height: 25px;
-		  }
+		}
+
 		.my-input {
-			height: 40px;
+			height: 25px;
 			width: 200px;
 			font-size: medium;
 		}
-		.my-spann {
-			display: inline-block; /* 使span可以设置宽高 */
-			width:40px; 
-			height: 30px; 
-			background-color: rgb(140, 255, 0); /* 背景颜色设置为橙色 */
-			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
-			text-align: center;
-			cursor: pointer;
-		  }
-		  .my-spannn {
-			display: inline-block; /* 使span可以设置宽高 */
-			width:40px; 
-			height: 30px; 
-			background-color: rgb(225, 0, 255); /* 背景颜色设置为橙色 */
-			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
-			text-align: center;
-			cursor: pointer;
-		  }
 
-		  .my-spanconfig {
-			display: inline-block; /* 使span可以设置宽高 */
-			width:70px; 
-			height: 30px; 
-			line-height: 30px;
-			background-color: rgb(255, 51, 0); /* 背景颜色设置为橙色 */
-			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+		.my-spann {
+			display: inline-block;
+			/* 使span可以设置宽高 */
+			width: 40px;
+			height: 25px;
+			background-color: rgb(140, 255, 0);
+			/* 背景颜色设置为橙色 */
+			color: white;
+			/* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
 			cursor: pointer;
-		  } 
-		  .my-label {
+			line-height: 25px;
+		}
+
+		.my-spannn {
+			display: inline-block;
+			/* 使span可以设置宽高 */
+			width: 40px;
+			height: 25px;
+			background-color: rgb(225, 0, 255);
+			/* 背景颜色设置为橙色 */
+			color: white;
+			/* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+			line-height: 25px;
+		}
+
+		.my-spanconfig {
+			display: inline-block;
+			/* 使span可以设置宽高 */
+			width: 70px;
+			height: 30px;
+			line-height: 30px;
+			background-color: rgb(255, 51, 0);
+			/* 背景颜色设置为橙色 */
+			color: white;
+			/* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.my-label {
 			color: coral;
 			font-weight: bold;
 			text-decoration: underline;
 			font-style: italic;
 			cursor: pointer;
-		  }
+		}
 
-		  .zhankaizhedie {
-			display: inline-block; /* 使span可以设置宽高 */
-			width:70px; 
-			height: 30px; 
-			background-color: rgb(36, 92, 182); /* 背景颜色设置为橙色 */
-			color: white; /* 文本颜色设置为白色，以便在橙色背景上可见 */
+		.zhankaizhedie {
+			display: inline-block;
+			/* 使span可以设置宽高 */
+			width: 70px;
+			height: 30px;
+			background-color: rgb(36, 92, 182);
+			/* 背景颜色设置为橙色 */
+			color: white;
+			/* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
 			cursor: pointer;
 			line-height: 30px;
-		  } 
+		}
+
+		.routestatus {
+			color: #fff;
+			background: -webkit-linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-fill-color: transparent;
+			animation: glow 3s infinite alternate;
+		}

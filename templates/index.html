@@ -1098,7 +1098,7 @@ poc显示区域</textarea>
 										<input type="button" id="button25" value="资产优化"
 											onclick="asssets_jiansuo()"><br><br>
 										<div style="display: none;" id="divjiansuo1">
-											<input type="text" class="my-input" placeholder="检索和排除资产" value=""
+											<input type="text" class="my-input" placeholder="关键字检索和排除资产" value=""
 												id="my-input-id">
 											<span class="my-span" onclick="assets_key_jiansuo()">检索</span>
 											<span class="my-spann" onclick="excude_assets_key_jiansuo()">排除</span>
@@ -1121,7 +1121,8 @@ poc显示区域</textarea>
 										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
 											id="button83" disabled>
 
-										<input type="button" value="语法提示" onclick="fofayufa()">
+										<input type="button" value="语法提示" onclick="fofayufa()">&nbsp;&nbsp;
+										<span id="routestatus1" class="routestatus"></span>
 										<br>
 
 										<textarea rows="3" cols="152" id="myTextarea">

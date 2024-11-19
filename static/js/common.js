@@ -916,6 +916,19 @@ function fofa_search_assets_func() {
         }
     })
 
+    // 路由状态查询
+    function routestatus() {
+        $.getJSON("/inter_route_status/",
+            function (info) {
+                document.getElementById("routestatus1").innerHTML = info.fofa_status;
+            });
+    }
+    // 调用routestatus函数初始化显示
+    routestatus();
+
+    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
+    var intervalId = setInterval(routestatus, 1000);
+
 }
 
 

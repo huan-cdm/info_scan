@@ -1099,7 +1099,22 @@ def systemmanagement():
         return render_template('login.html')
 
 
-
+# 实时查询路由运行状态
+@app.route("/inter_route_status/")
+def inter_route_status():
+    user = session.get('username')
+    if str(user) == main_username:
+        fofa_status = basic.route_status_show_lib(1)
+        if int(fofa_status) == 0:
+            fofa_status_result = "资产正在收集中"
+        elif int(fofa_status) == 1:
+            fofa_status_result = "资产已收集完"
+        message_json = {
+            "fofa_status":fofa_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 #资产去重
 @app.route("/uniqdirsearchtargetinterface/",methods=['POST'])
@@ -1704,7 +1719,7 @@ def fofa_search_assets_service():
     if str(user) == main_username:
         # 筛选后资产时间线更新
         basic.assets_status_update('通过fofa平台获取资产完成')
-
+        basic.route_status_update_lib(0,1)
         part = request.form['part']
         num_fofa = request.form['num_fofa']
         if '' in  part:
@@ -1726,6 +1741,7 @@ def fofa_search_assets_service():
                 try:
                     asset_len_list_1 = basic.fofa_search_assets_service_lib(part,num_fofa)
                     basic.success_third_party_port_addone(1)
+                    basic.route_status_update_lib(1,1)
                     asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
                 except:
                     basic.fail_third_party_port_addone(1)

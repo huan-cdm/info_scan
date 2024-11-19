@@ -32,6 +32,11 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-11-18更新<br> 
+1. fofa资产发现进度查询；<br>
+2. 已知问题处理；<br>
+</li>
+<li>
 2024-11-13更新<br> 
 1. 新增致远OA漏洞扫描功能；<br>
 2. 新增用友OA漏洞扫描功能；<br>

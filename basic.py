@@ -2478,10 +2478,42 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(29)
         else:
             print("金蝶OA漏洞扫描程序运行时间正在计算中...")
-    
-
     else:
         print("开发中...")
+
+
+# 路由状态表更新
+def route_status_update_lib(part1,part2):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE route_status SET typevalue = '%s' WHERE id = '%s'"%(part1,part2)
+        cur.execute(sql)
+        db.commit()
+        db.rollback()
+        
+    except Exception as e:
+        print("捕获到异常:", e)
+
+# 路由状态表查询
+def route_status_show_lib(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select typevalue from route_status where id = '%s' "%(id)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+    except:
+        list_result = ['MySQL连接失败']
+
+    return list_result[0]
+
 
 
 

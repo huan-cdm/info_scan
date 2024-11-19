@@ -133,5 +133,5 @@ icp_max_num = 3000 #icp备案
 recheck_username = "root"
 recheck_password = "root"
 
-
-
+# 自定义扫描器超时时间配置
+custom_poc_timeout = 3
