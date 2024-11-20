@@ -272,7 +272,7 @@ function assetsbackspacefunc() {
             alert('内部错误')
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -905,7 +905,7 @@ function fofa_search_assets_func() {
         },
         success: function (info) {
             // 当请求成功时调用  
-            alert(info.asset_len_list);
+            document.getElementById("routestatus3").innerHTML = info.asset_len_list;
 
         },
         error: function () {
@@ -914,13 +914,18 @@ function fofa_search_assets_func() {
         complete: function () {
 
         }
+
     })
+
+
 
     // 路由状态查询
     function routestatus() {
         $.getJSON("/inter_route_status/",
             function (info) {
-                document.getElementById("routestatus1").innerHTML = info.fofa_status;
+                document.getElementById("routestatus1").innerHTML = info.fofa_status1;
+                document.getElementById("routestatus2").innerHTML = info.fofa_status2;
+               
             });
     }
     // 调用routestatus函数初始化显示
@@ -1009,6 +1014,27 @@ function shuaixuanrule() {
 function fanhuishuaixuanrule() {
     var idp1 = document.getElementById("idp1");
     idp1.style.display = "none";
+
+}
+
+// 初始状态
+function yincangtishifun() {
+    var routestatus1 = document.getElementById("routestatus1");
+    routestatus1.style.display = "none";
+    var routestatus2 = document.getElementById("routestatus2");
+    routestatus2.style.display = "none";
+    var routestatus3 = document.getElementById("routestatus3");
+    routestatus3.style.display = "none";
+
+    document.getElementById('vulnid1').style.display = "block";
+    document.getElementById('vulnid3').style.display = "block";
+    document.getElementById('vulnid2').style.display = "none";
+
+
+    document.getElementById('assetid1').style.display = "block";
+    document.getElementById('assetid3').style.display = "block";
+    document.getElementById('assetid2').style.display = "none";
+
 
 }
 
@@ -1310,7 +1336,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result+"\n"+info.seeyon_status_result+"\n"+info.yonsuite_status_result+"\n"+info.kingdee_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result)
         },
 
         error: function (info) {
@@ -1472,7 +1498,7 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result+"\n"+info.kill_seeyon_result+"\n"+info.kill_yonsuite_result+"\n"+info.kill_kingdee_result)
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result)
         },
 
         error: function (info) {
@@ -1588,9 +1614,9 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/fastjson_report_show/", "_blank");
         } else if (vuln_front_list[i] == 'j') {
             window.open(ipvalue + ":18888/", "_blank");
-        }else if (vuln_front_list[i] == 'k') {
+        } else if (vuln_front_list[i] == 'k') {
             window.open("/seeyonreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'l') {
+        } else if (vuln_front_list[i] == 'l') {
             window.open("/yonsuitereportyulan/", "_blank");
         }
         else if (vuln_front_list[i] == 'm') {

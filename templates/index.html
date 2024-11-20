@@ -13,7 +13,9 @@
 
 <body>
 	<span align="left">欢迎访问漏洞扫描平台！</span> <span align="right">登录用户：{{data20}}</span><br><br>
-	<a href="###" onclick="jumpdirscanpage()" style="text-decoration: none;">目录扫描</a>
+	<span class="my-spanconfig11" onclick="jumpdirscanpage()">目录扫描</span>&nbsp;&nbsp;
+	<span class="my-spanconfig11" onclick="yincangtishifun()">初始状态</span>&nbsp;&nbsp;
+	
 	<table border="1">
 		<tr>
 			<td>
@@ -65,6 +67,8 @@
 				<span id="tishisp9" style="display: none; color: chocolate;">系统管理</span>
 				<span id="tishisp9a" style="display: none; color: chocolate;">注销系统</span>
 				<span id="tishisp9b" style="display: none; color: chocolate;">系统软重启</span>
+
+				<span id="routestatus4" style="color: chocolate;"></span>
 
 			</td>
 		</tr>
@@ -910,12 +914,12 @@ poc显示区域</textarea>
 	<h3>扫描模块</h3>
 
 	
-		<span onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;" class="zhankaizhedie">展开条件</span>
-		<span onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;" class="zhankaizhedie">收起条件</span>
+		<span onclick="vulnmanagerzhankaifunc()" id="vulnid2" style="cursor: pointer;" class="my-spanconfig11">展开条件</span>
+		<span onclick="vulnmanagerzhediefunc()" id="vulnid3" style="display:none; cursor: pointer;" class="my-spanconfig11">收起条件</span>
 		<div style="display:none;" id="vulnid1">
 			<span onclick="startscanconfigpagefunc()" style="cursor: pointer;"
-				class="my-spanconfig">参数配置</span>&nbsp;&nbsp;
-			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig">字典配置</span>
+				class="my-spanconfig11">参数配置</span>&nbsp;&nbsp;
+			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig11">字典配置</span>
 			<table style=" border: 2px solid red ; border-collapse: collapse;">
 				<tr>
 					<td colspan="2">
@@ -1044,10 +1048,10 @@ poc显示区域</textarea>
 		</div>
 		
 		<h3>资产管理</h3>
-		<span onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;" class="zhankaizhedie">展开条件</span>
-		<span onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;" class="zhankaizhedie">收起条件</span>
+		<span onclick="assetmanagerzhankaifunc()" id="assetid2" style="cursor: pointer;" class="my-spanconfig11">展开条件</span>
+		<span onclick="assetmanagerzhediefunc()" id="assetid3" style="display:none;cursor: pointer;" class="my-spanconfig11">收起条件</span>
 			<div style="display:none;" id="assetid1">
-				<span class="my-spanconfig" onclick="assetdownloadfunc()">资产下载</span>
+				<span class="my-spanconfig11" onclick="assetdownloadfunc()">资产下载</span>
 				
 				<table border="1" style=" border: 2px solid red ; border-collapse: collapse;">
 					<tr>
@@ -1122,7 +1126,10 @@ poc显示区域</textarea>
 											id="button83" disabled>
 
 										<input type="button" value="语法提示" onclick="fofayufa()">&nbsp;&nbsp;
-										<span id="routestatus1" class="routestatus"></span>
+										<span id="routestatus1" style="color: greenyellow;"></span>
+										<span id="routestatus2"  style="color: red;"></span>
+										
+										<span id="routestatus3" style="color: lightblue;"></span>
 										<br>
 
 										<textarea rows="3" cols="152" id="myTextarea">

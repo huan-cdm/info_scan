@@ -1106,11 +1106,14 @@ def inter_route_status():
     if str(user) == main_username:
         fofa_status = basic.route_status_show_lib(1)
         if int(fofa_status) == 0:
-            fofa_status_result = "资产正在收集中"
+            fofa_status_result1 = "资产正在收集中"
+            fofa_status_result2 = ""
         elif int(fofa_status) == 1:
-            fofa_status_result = "资产已收集完"
+            fofa_status_result1 = ""
+            fofa_status_result2 = "资产已收集完"
         message_json = {
-            "fofa_status":fofa_status_result
+            "fofa_status1":fofa_status_result1,
+            "fofa_status2":fofa_status_result2
         }
         return jsonify(message_json)
     else:

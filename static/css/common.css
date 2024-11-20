@@ -350,7 +350,7 @@
 			/* 使span可以设置宽高 */
 			width: 35px;
 			height: 25px;
-			background-color: rgb(255, 51, 0);
+			background-color:  chocolate;
 			/* 背景颜色设置为橙色 */
 			color: white;
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
@@ -393,13 +393,14 @@
 			line-height: 25px;
 		}
 
-		.my-spanconfig {
+
+		.my-spanconfig11 {
 			display: inline-block;
 			/* 使span可以设置宽高 */
 			width: 70px;
 			height: 30px;
 			line-height: 30px;
-			background-color: rgb(255, 51, 0);
+			background-color:  chocolate;
 			/* 背景颜色设置为橙色 */
 			color: white;
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
@@ -413,28 +414,4 @@
 			text-decoration: underline;
 			font-style: italic;
 			cursor: pointer;
-		}
-
-		.zhankaizhedie {
-			display: inline-block;
-			/* 使span可以设置宽高 */
-			width: 70px;
-			height: 30px;
-			background-color: rgb(36, 92, 182);
-			/* 背景颜色设置为橙色 */
-			color: white;
-			/* 文本颜色设置为白色，以便在橙色背景上可见 */
-			text-align: center;
-			cursor: pointer;
-			line-height: 30px;
-		}
-
-		.routestatus {
-			color: #fff;
-			background: -webkit-linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-			text-fill-color: transparent;
-			animation: glow 3s infinite alternate;
 		}
