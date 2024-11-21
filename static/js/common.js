@@ -1026,16 +1026,6 @@ function yincangtishifun() {
     var routestatus3 = document.getElementById("routestatus3");
     routestatus3.style.display = "none";
 
-    document.getElementById('vulnid1').style.display = "block";
-    document.getElementById('vulnid3').style.display = "block";
-    document.getElementById('vulnid2').style.display = "none";
-
-
-    document.getElementById('assetid1').style.display = "block";
-    document.getElementById('assetid3').style.display = "block";
-    document.getElementById('assetid2').style.display = "none";
-
-
 }
 
 

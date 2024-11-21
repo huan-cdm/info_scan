@@ -21,7 +21,7 @@
 		}
 
 		input[type="submit"] {
-			background-color: rgba(255, 115, 0, 0.365);
+			background-color: coral;
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
@@ -33,7 +33,7 @@
 		}
 
 		input[type="button"] {
-			background-color: rgba(255, 115, 0, 0.365);
+			background-color: coral;
 			border-radius: 3px;
 			-webkit-transition: all linear 0.30s;
 			-moz-transition: all linear 0.30s;
@@ -361,7 +361,7 @@
 
 		.my-input {
 			height: 25px;
-			width: 200px;
+			width: 700px;
 			font-size: medium;
 		}
 
@@ -400,7 +400,7 @@
 			width: 70px;
 			height: 30px;
 			line-height: 30px;
-			background-color:  chocolate;
+			background-color:  coral;
 			/* 背景颜色设置为橙色 */
 			color: white;
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
