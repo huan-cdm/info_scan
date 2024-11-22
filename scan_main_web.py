@@ -85,6 +85,9 @@ import threading
 from config import recheck_username
 from config import recheck_password
 
+
+import json
+
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
@@ -1460,22 +1463,14 @@ def ceye_dns_record():
     user = session.get('username')
     if str(user) == main_username:
         result = os.popen('bash /TIP/info_scan/finger.sh ceye_dns'+' '+ceye_key).read()
-        return result
+        result_dict = json.loads(result)
+        message_json = {
+            "resultdict":result_dict['data']
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 
-
-
-#ceye_http记录
-@app.route("/ceye_http_record/")
-def ceye_http_record():
-    user = session.get('username')
-    if str(user) == main_username:
-        result = os.popen('bash /TIP/info_scan/finger.sh ceye_http'+' '+ceye_key).read()
-        return result
-    else:
-        return render_template('login.html')
-    
 
 
 #关闭bbscan程序

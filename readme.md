@@ -32,9 +32,10 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
-2024-11-18更新<br> 
+2024-11-21更新<br> 
 1. fofa资产发现进度查询；<br>
 2. 已知问题处理；<br>
+3. dnslog查询功能优化,通过弹窗异步显示到表格中；<br>
 </li>
 <li>
 2024-11-13更新<br> 
@@ -327,3 +328,5 @@ ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yonsuitescan.png" />
 金蝶OA漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/kingdeescan.png" />
+dnslog<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" />

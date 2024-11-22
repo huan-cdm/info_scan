@@ -397,12 +397,12 @@
 		.my-spanconfig11 {
 			display: inline-block;
 			/* 使span可以设置宽高 */
-			width: 70px;
-			height: 30px;
-			line-height: 30px;
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
 			background-color:  coral;
 			/* 背景颜色设置为橙色 */
-			color: white;
+			color: rgba(8, 0, 0, 0.946);
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
 			text-align: center;
 			cursor: pointer;

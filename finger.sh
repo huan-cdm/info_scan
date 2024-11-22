@@ -461,16 +461,6 @@ case "${1}" in
     ;;
 
 
-    # ceye_http记录
-    ceye_http)
-    ceye_http_result=`curl -s "http://api.ceye.io/v1/records?token=${2}&type=http"`
-    if [ -n "${ceye_http_result}" ];then
-        echo "${ceye_http_result}"
-    else
-        echo "Error: Failed to retrieve CEYE HTTP records." 
-    fi
-    ;;
-
     # 启动afrog程序
     startafrogprocess)
     cd /TIP/info_scan/afrog_scan/  

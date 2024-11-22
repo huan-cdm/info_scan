@@ -370,17 +370,6 @@ function afrogreportfun() {
 }
 
 
-//ceye dns记录
-function ceyednsfunc() {
-    window.open("/ceye_dns_record/", "_blank");
-}
-
-//ceye http记录
-function ceyehttpfunc() {
-    window.open("/ceye_http_record/", "_blank");
-}
-
-
 //fscan扫描结果预览
 function fscanreprtfunc() {
     window.open("/fscanreportyulan/");
@@ -629,6 +618,61 @@ function closeModal1() {
     var modal1 = document.getElementById("modal1");
     modal1.style.display = "none";
 }
+
+// dns日志查询
+function dnslogfunc() {
+    var modal4 = document.getElementById("modal4");
+    modal4.style.display = "block";
+
+    $.ajax({
+        url: '/ceye_dns_record/',
+        method: 'GET',
+        success: function (info) {
+            const tableBody = document.querySelector('#data-table tbody');
+
+            info.resultdict.forEach(item => {
+                const row = document.createElement('tr'); // 创建新的行
+
+                // 创建单元格并填充数据
+                const idCell = document.createElement('td');
+                idCell.textContent = item.id;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.name;
+                row.appendChild(nameCell);
+
+                const addrCell = document.createElement('td');
+                addrCell.textContent = item.remote_addr;
+                row.appendChild(addrCell);
+
+                const dateCell = document.createElement('td');
+                dateCell.textContent = item.created_at;
+                row.appendChild(dateCell);
+
+                tableBody.appendChild(row); // 将行添加到表格体中
+            });
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+
+}
+
+// 关闭dns日志
+function closeModal4() {
+    var modal4 = document.getElementById("modal4");
+    modal4.style.display = "none";
+}
+
+
+
 
 // 关闭系统管理
 function closesystemanager() {
@@ -925,7 +969,7 @@ function fofa_search_assets_func() {
             function (info) {
                 document.getElementById("routestatus1").innerHTML = info.fofa_status1;
                 document.getElementById("routestatus2").innerHTML = info.fofa_status2;
-               
+
             });
     }
     // 调用routestatus函数初始化显示
