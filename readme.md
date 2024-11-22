@@ -309,9 +309,8 @@ IP基础信息查询<br><br>
 特殊字符校验<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br><br>
 批量扫描<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/checkinfoscan.png" /><br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/infoscan_time.png" /><br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/vulnscan_time.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang1scan.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang2scan.png" /><br><br>
 JNDI服务管理<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
 fofa搜索日志<br><br>
