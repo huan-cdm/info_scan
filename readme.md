@@ -32,6 +32,11 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-11-24更新<br> 
+1. fofa查询日志优化,修改为通过搜索语法查询历史资产；<br>
+2. 已知问题处理与优化；<br>
+</li>
+<li>
 2024-11-21更新<br> 
 1. fofa资产发现进度查询；<br>
 2. 已知问题处理；<br>
@@ -313,7 +318,7 @@ IP基础信息查询<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang2scan.png" /><br><br>
 JNDI服务管理<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
-fofa搜索日志<br><br>
+fofa语法日志<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
 弱口令扫描字典配置<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>

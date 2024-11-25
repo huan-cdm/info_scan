@@ -707,8 +707,9 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
         
         # 构建文件名
         file_name = f"{year}/{month}/{day}{hour}:{minute}:{second}.txt"
-        file_name_result = f"/TIP/info_scan/result/assetmanager/{file_name}"
         
+        file_name_result = f"/TIP/info_scan/result/assetmanager/{file_name}"
+        insert_fofa_log_lib(parameter,file_name_result)
         # 确保目录存在
         os.makedirs(os.path.dirname(file_name_result), exist_ok=True)
         
@@ -716,7 +717,7 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
         with open(file=file_name_result, mode='w') as f21:
             for line21 in fofa_list_result_uniq:
                 f21.write(str(line21) + "\n")
-
+        
         # 资产备份
         os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
     except:
@@ -2515,6 +2516,72 @@ def route_status_show_lib(id):
     return list_result[0]
 
 
+# fofa查询日志文件绝对路径和fofa语法名称存库
+def insert_fofa_log_lib(fofa_name,file_dir):
+    
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    
+    sql_insert = "INSERT INTO fofa_log (fofa_grammar, file_path) VALUES ('%s', '%s')" % (fofa_name, file_dir)
+    
+    try:
+        cur.execute(sql_insert)
+        db.commit()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+        db.rollback() 
+
+
+# fofa日志搜索语法查询（去重）
+def fofa_grammar_lib():
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="SELECT DISTINCT fofa_grammar FROM fofa_log"
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+    except:
+        list_result = ['MySQL连接失败']
+    return list_result
+
+# fofa日志查询根据语法查询路径
+def fofa_grammar_by_dir_lib(grame):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="SELECT file_path FROM fofa_log WHERE fofa_grammar = '%s' LIMIT 0,1"%(grame)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+        list_result1 = list_result[0]
+       
+    except:
+        list_result1 = "MySQL连接失败"
+    return list_result1
+    
+
+# 删除fofa查询日志表
+def deletefofalog_lib():
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="DELETE FROM fofa_log"
+    try:
+        cur.execute(sql)
+        db.commit()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+        db.rollback()
 
 
 

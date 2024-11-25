@@ -87,6 +87,7 @@ from config import recheck_password
 
 
 import json
+import requests
 
 app = Flask(__name__,template_folder='./templates') 
 app.secret_key = "DragonFire"
@@ -242,7 +243,8 @@ def ipscaninterface():
 def index():
     user = session.get('username')
     if str(user) == main_username:
-        asset_file_list = basic.list_files_in_directory()
+        # asset_file_list = basic.list_files_in_directory()
+        asset_file_list = basic.fofa_grammar_lib()
         return render_template('index.html',data20=str(user),data21=asset_file_list)
     else:
         return render_template('login.html')
@@ -404,7 +406,6 @@ def submit_data():
                 # 构建文件名
                 file_name = f"{year}/{month}/{day}{hour}:{minute}:{second}.txt"
                 file_name_result = f"/TIP/info_scan/result/assetmanager/{file_name}"
-                
                 # 确保目录存在
                 os.makedirs(os.path.dirname(file_name_result), exist_ok=True)
                 
@@ -1470,6 +1471,8 @@ def ceye_dns_record():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
+
 
 
 
@@ -3675,8 +3678,11 @@ def assetmanager_textarea_show():
     user = session.get('username')
     if str(user) == main_username:
         assetmanagerid1 = request.form['assetmanagerid1']
+        
+        # 通过fofa语法查询日志
+        fofalog_gramme = basic.fofa_grammar_by_dir_lib(assetmanagerid1)
         url_list = []
-        file = open(assetmanagerid1,encoding='utf-8')
+        file = open(fofalog_gramme,encoding='utf-8')
         for line in file.readlines():
             url_list.append(line.strip())
         # 判断数据是否为空
@@ -3684,7 +3690,7 @@ def assetmanager_textarea_show():
             url_list.append("当前资产文件暂无数据！")
         
         # 文本框行数显示
-        textarea_num = os.popen('bash /TIP/info_scan/finger.sh assset_textarea_num'+' '+assetmanagerid1).read()
+        textarea_num = os.popen('bash /TIP/info_scan/finger.sh assset_textarea_num'+' '+fofalog_gramme).read()
 
         message_json = {
             "url_list":url_list,
@@ -3700,6 +3706,7 @@ def assetmanager_textarea_show():
 def clearshowfofalog():
     user = session.get('username')
     if str(user) == main_username:
+        basic.deletefofalog_lib()
         os.popen('rm -rf /TIP/info_scan/result/assetmanager/*')
         assets_file_list = basic.list_files_in_directory()
         if len(assets_file_list) == 0:
