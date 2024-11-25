@@ -646,6 +646,17 @@ def systemmanagement():
             kingdee_status1 = ""
             kingdee_status2 = kingdee_status
             kingdeecontime = basic.scan_end_start_time(29)
+        
+        wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+        if "running" in wanhu_status:
+            wanhu_status1 = wanhu_status
+            wanhu_status2 = ""
+            wanhucontime = "计算中："
+            
+        else:
+            wanhu_status1 = ""
+            wanhu_status2 = wanhu_status
+            wanhucontime = basic.scan_end_start_time(30)
 
         jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
         if "running" in jndi_status:
@@ -967,6 +978,7 @@ def systemmanagement():
             "seeyoncontime":seeyoncontime+"秒",
             "yonsuitecontime":yonsuitecontime+"秒",
             "kingdeecontime":kingdeecontime+"秒",
+            "wanhucontime":wanhucontime+"秒",
             # 报告整合状态
             "total_report_status_result1":total_report_status_result1,
             "total_report_status_result2":total_report_status_result2,
@@ -1062,6 +1074,8 @@ def systemmanagement():
             "yonsuite_status2":yonsuite_status2,
             "kingdee_status1":kingdee_status1,
             "kingdee_status2":kingdee_status2,
+            "wanhu_status1":wanhu_status1,
+            "wanhu_status2":wanhu_status2,
             "otx_status1":otx_status1,
             "otx_status2":otx_status2,
             "crt_status1":crt_status1,
@@ -1572,6 +1586,28 @@ def kingdeereportyulan():
             else:
                 lines = []
                 with open('/TIP/info_scan/result/kingdee_vuln.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#万户OA报告预览
+@app.route("/wanhureportyulan/")
+def wanhureportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+        if "running" in wanhu_status:
+            lines = ["正在扫描中......"]
+        else:
+            wanhu_num = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_num').read()
+            if int(wanhu_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result//wanhu_vuln.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -2949,6 +2985,33 @@ def vulnscan_check_back():
                                                 
                     else:
                         kingdee_status_result = "金蝶OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'n' in str(k):
+                print("开启万户OA漏洞扫描")
+                # 判断是否已进行指纹识别
+                finger_part = basic.assets_finger_compare()
+                if finger_part == 2:
+                    wanhu_status_result = "未进行指纹识别无法开启万户OA扫描"
+                else:
+                    # 获取系统当前时间
+                    current_time23 = time.time()
+                    # 当前时间和数据库中的作时间差
+                    diff_time_minutes23 = basic.vuln_time_shijian_cha(23)
+                    if int(diff_time_minutes23) > vuln_time_controls:
+                        # 超过单位时间更新数据库中的时间
+                        basic.vuln_last_time_update_lib(current_time23,23)
+                        # 金蝶OA扫描程序用时统计相关
+                        basic.scan_total_time_start_time(30)
+                        # 提交扫描任务
+                        wanhu_status_result = basic.startwanhuscan_lib()
+                        # 在后台单独启动1个线程实时判断扫描器停止时间
+                        def wanhuscanendtime():
+                            while True:
+                                time.sleep(1)
+                                basic.scan_total_time_final_end_time(30)
+                        threading.Thread(target=wanhuscanendtime).start()
+                                                
+                    else:
+                        wanhu_status_result = "万户OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -3127,6 +3190,11 @@ def vulnscan_check_back():
             kingdee_status_result1 = ""
 
         try:
+            wanhu_status_result1 = wanhu_status_result
+        except:
+            wanhu_status_result1 = ""
+
+        try:
             urlfinder_status_result1 = urlfinder_status_result
         except:
             urlfinder_status_result1 = ""
@@ -3201,7 +3269,8 @@ def vulnscan_check_back():
             "xray_status_result":xray_status_result1,
             "seeyon_status_result":seeyon_status_result1,
             "yonsuite_status_result":yonsuite_status_result1,
-            "kingdee_status_result":kingdee_status_result1
+            "kingdee_status_result":kingdee_status_result1,
+            "wanhu_status_result":wanhu_status_result1
         }
 
         return jsonify(message_json)
@@ -3362,6 +3431,8 @@ def stop_vulnscan_back():
                 kill_yonsuite_result = basic.stopyonsuitevuln_lib()
             elif 'm' in str(j):                
                 kill_kingdee_result = basic.stopkingdeevuln_lib()
+            elif 'n' in str(j):                
+                kill_wanhu_result = basic.stopwanhuvuln_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -3392,6 +3463,13 @@ def stop_vulnscan_back():
             kill_kingdee_result1 = kill_kingdee_result
         except:
             kill_kingdee_result1 = ""
+
+        try:
+            kill_wanhu_result1 = kill_wanhu_result
+        except:
+            kill_wanhu_result1 = ""
+
+        
         
 
         try:
@@ -3491,7 +3569,8 @@ def stop_vulnscan_back():
            "kill_fastjson_result":kill_fastjson_result1,
            "kill_seeyon_result":kill_seeyon_result1,
            "kill_yonsuite_result":kill_yonsuite_result1,
-           "kill_kingdee_result":kill_kingdee_result1
+           "kill_kingdee_result":kill_kingdee_result1,
+           "kill_wanhu_result":kill_wanhu_result1
         }
 
         return jsonify(message_json)

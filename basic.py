@@ -1826,6 +1826,36 @@ def stopkingdeevuln_lib():
 
 
 
+# 开启万户OA漏洞扫描
+def startwanhuscan_lib():
+    wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+    if "running" in wanhu_status:
+        wanhu_status_result = "万户OA漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_wanhu_scan_shell')
+            if "running" in wanhu_status:
+                wanhu_status_result = "万户OA漏洞扫描程序已开启稍后查看结果"
+            else:
+                wanhu_status_result = "万户OA漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return wanhu_status_result
+
+
+
+# 关闭万户OA漏洞扫描程序
+def stopwanhuvuln_lib():
+    wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_wanhu_scan')
+    if "stop" in wanhu_status:
+        kill_wanhu_result = "已关闭万户OA漏洞扫描程序"
+    else:
+        kill_wanhu_result = "正在关闭中......"
+    return kill_wanhu_result
+
+
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2479,6 +2509,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(29)
         else:
             print("金蝶OA漏洞扫描程序运行时间正在计算中...")
+    elif int(typepart) == 30:
+        print("万户OA扫描程序最终截止时间")
+        wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+        wanhuscanisnull = scan_total_time_endtimeisnull(30)
+        if "stop" in wanhu_status and wanhuscanisnull == 0:
+            scan_total_time_end_time(30)
+        else:
+            print("万户OA漏洞扫描程序运行时间正在计算中...")
     else:
         print("开发中...")
 

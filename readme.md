@@ -35,6 +35,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 2024-11-24更新<br> 
 1. fofa查询日志优化,修改为通过搜索语法查询历史资产；<br>
 2. 已知问题处理与优化；<br>
+3. 新增万户OA漏洞扫描；<br>
 </li>
 <li>
 2024-11-21更新<br> 
@@ -332,5 +333,7 @@ ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yonsuitescan.png" />
 金蝶OA漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/kingdeescan.png" />
+万户OA漏洞扫描<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" />
 dnslog<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" />

@@ -520,6 +520,8 @@ function openModal() {
                 document.getElementById("spp59a").innerHTML = info.yonsuite_status2;
                 document.getElementById("spp60").innerHTML = info.kingdee_status1;
                 document.getElementById("spp60a").innerHTML = info.kingdee_status2;
+                document.getElementById("spp61").innerHTML = info.wanhu_status1;
+                document.getElementById("spp61a").innerHTML = info.wanhu_status2;
                 document.getElementById("spp1h2").innerHTML = info.finger_jindu;
                 document.getElementById("successsp1").innerHTML = info.fofa_inter_num_success;
                 document.getElementById("failsp1").innerHTML = info.fofa_inter_num_fail;
@@ -579,6 +581,8 @@ function openModal() {
                 document.getElementById("difffanweioaid").innerHTML = info.weavercontime;
                 document.getElementById("diffhttpxscanid").innerHTML = info.httpxcontime;
                 document.getElementById("diffxrayid").innerHTML = info.xraycontime;
+                document.getElementById("diffwanhuoaid").innerHTML = info.wanhucontime;
+
             });
     }
 
@@ -1370,7 +1374,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result+"\n"+info.wanhu_status_result)
         },
 
         error: function (info) {
@@ -1532,7 +1536,7 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result)
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result+"\n"+info.kill_wanhu_result)
         },
 
         error: function (info) {
@@ -1655,6 +1659,9 @@ function vulnscanxuanzhongreportyulan() {
         }
         else if (vuln_front_list[i] == 'm') {
             window.open("/kingdeereportyulan/", "_blank");
+        }
+        else if (vuln_front_list[i] == 'n') {
+            window.open("/wanhureportyulan/", "_blank");
         }
 
     }

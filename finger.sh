@@ -1295,6 +1295,39 @@ case "${1}" in
     ;;
 
 
+     # 万户OA漏洞扫描程序运行状态
+    wanhu_vuln_scan_status)
+    wanhu_scan_ps=`ps -aux | grep "vuln_lib.py wanhuoa_vuln_scan" | wc -l`
+	if (( $wanhu_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+     # 关闭万户OA漏洞扫描程序
+    stop_wanhu_scan)
+    wanhu_pid=`ps -aux | grep "wanhuoa_vuln_scan" |awk -F " " '{print $2}'`
+    for ii in ${wanhu_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
+    # 开启万户OA漏洞扫描程序
+    start_wanhu_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py wanhuoa_vuln_scan > /TIP/info_scan/result/wanhu_vuln.txt
+    ;;
+
+    #万户OA漏洞数量
+    wanhu_vuln_num)
+    wanhu_num=`cat /TIP/info_scan/result/wanhu_vuln.txt | wc -l`
+    echo "${wanhu_num}"
+    ;;
+
+
     # 开启jndi服务
     start_jndi_python)
     cd /TIP/info_scan/jndi_server/malice_web
@@ -1306,6 +1339,8 @@ case "${1}" in
     nohup java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "http://${ip_address}:9998/#TouchFile" 9999 > /TIP/info_scan/result/jndi_result.txt 2>&1 &
     echo "${jndi_result}"
     ;;
+
+   
 
 
     # 关闭jndi服务
