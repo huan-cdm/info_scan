@@ -248,7 +248,9 @@ def index():
         return render_template('index.html',data20=str(user),data21=asset_file_list)
     else:
         return render_template('login.html')
-    
+
+
+
 #主系统登录实现
 @app.route('/logininterface/',methods=['post'])
 def logininterface():
@@ -257,8 +259,10 @@ def logininterface():
     
     # 登录判断
     if str(username) == str(main_username) and str(password) == str(main_password):
+
         session['username'] = username
-        session.permanent_session_lifetime = timedelta(minutes=30)  # 设置会话过期时间为30分钟
+        session.permanent = True  # 确保会话是永久的
+        session.permanent_session_lifetime = timedelta(minutes=0.5)  # 设置会话过期时间为30分钟
 
         login_status = "账号密码正确确认登录系统吗？"
         redirecturl = '/index/'
@@ -1816,25 +1820,29 @@ def hydra_report_show():
 # 报告预览
 @app.route('/totalreportyulan/')
 def totalreportyulan():
-    file_path = '/TIP/info_scan/result/vuln_report.xlsx'
-    file_path_warn = '/TIP/info_scan/result/vuln_report_warn.xlsx'
-    if os.path.exists(file_path) and os.path.isfile(file_path):
-        # 读取Excel文件的所有sheets
-        xls = pd.ExcelFile(file_path)
-        result_data = {sheet_name: pd.read_excel(file_path, sheet_name=sheet_name).to_dict(orient='records') 
-                       for sheet_name in xls.sheet_names}
+    user = session.get('username')
+    if str(user) == main_username:
+        file_path = '/TIP/info_scan/result/vuln_report.xlsx'
+        file_path_warn = '/TIP/info_scan/result/vuln_report_warn.xlsx'
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            # 读取Excel文件的所有sheets
+            xls = pd.ExcelFile(file_path)
+            result_data = {sheet_name: pd.read_excel(file_path, sheet_name=sheet_name).to_dict(orient='records') 
+                           for sheet_name in xls.sheet_names}
+        else:
+            text_list = ["{\"status\":\"failed\",\"errorcode\":500,\"describe\":\"正在进行报告整合...\"}"]
+            df_a = pd.DataFrame(text_list, columns=['警告信息'])
+            with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
+            # 将 DataFrame 写入不同的工作表  
+                df_a.to_excel(writer, sheet_name='正在整合中...', index=False)
+            # 读取Excel文件的所有sheets
+            xls = pd.ExcelFile(file_path_warn)
+            result_data = {sheet_name: pd.read_excel(file_path_warn, sheet_name=sheet_name).to_dict(orient='records') 
+                           for sheet_name in xls.sheet_names}
+        # 使用模板渲染HTML表格
+        return render_template('preview.html', data=result_data)
     else:
-        text_list = ["{\"status\":\"failed\",\"errorcode\":500,\"describe\":\"正在进行报告整合...\"}"]
-        df_a = pd.DataFrame(text_list, columns=['警告信息'])
-        with pd.ExcelWriter('/TIP/info_scan/result/vuln_report_warn.xlsx', engine='openpyxl') as writer:
-        # 将 DataFrame 写入不同的工作表  
-            df_a.to_excel(writer, sheet_name='正在整合中...', index=False)
-        # 读取Excel文件的所有sheets
-        xls = pd.ExcelFile(file_path_warn)
-        result_data = {sheet_name: pd.read_excel(file_path_warn, sheet_name=sheet_name).to_dict(orient='records') 
-                       for sheet_name in xls.sheet_names}
-    # 使用模板渲染HTML表格
-    return render_template('preview.html', data=result_data)
+        return render_template('login.html')
 
 
 
