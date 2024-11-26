@@ -90,6 +90,7 @@ import json
 import requests
 
 app = Flask(__name__,template_folder='./templates') 
+app.config.from_pyfile('config_session.py')
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
 
@@ -261,9 +262,7 @@ def logininterface():
     if str(username) == str(main_username) and str(password) == str(main_password):
 
         session['username'] = username
-        session.permanent = True  # 确保会话是永久的
-        session.permanent_session_lifetime = timedelta(minutes=0.5)  # 设置会话过期时间为30分钟
-
+        # session.permanent = True  # 确保会话是永久的
         login_status = "账号密码正确确认登录系统吗？"
         redirecturl = '/index/'
 

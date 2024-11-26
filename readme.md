@@ -36,6 +36,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 1. fofa查询日志优化,修改为通过搜索语法查询历史资产；<br>
 2. 已知问题处理与优化；<br>
 3. 新增万户OA漏洞扫描；<br>
+4. 新增会话过期时间限制，通过配置文件配置；<br>
 </li>
 <li>
 2024-11-21更新<br> 
