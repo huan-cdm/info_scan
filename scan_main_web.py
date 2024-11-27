@@ -13,7 +13,6 @@ import subprocess
 import os
 import re
 from flask import jsonify
-from config import history_switch
 import report_total
 import pandas as pd
 from basic import root_domain_scan
@@ -41,8 +40,7 @@ from config import dict
 from basic import select_rule
 import psutil
 import pymysql
-# 设置session过期时间
-from datetime import timedelta
+
 
 # 导入时间模块
 import time
@@ -87,7 +85,6 @@ from config import recheck_password
 
 
 import json
-import requests
 
 app = Flask(__name__,template_folder='./templates') 
 app.config.from_pyfile('config_session.py')
@@ -246,7 +243,8 @@ def index():
     if str(user) == main_username:
         # asset_file_list = basic.list_files_in_directory()
         asset_file_list = basic.fofa_grammar_lib()
-        return render_template('index.html',data20=str(user),data21=asset_file_list)
+        session_time = basic.select_session_time_lib(1)
+        return render_template('index.html',data20=str(user),data21=asset_file_list,data22=str(session_time))
     else:
         return render_template('login.html')
 
@@ -1873,7 +1871,8 @@ def report_download_interface():
 def restartsystemservice():
     user = session.get('username')
     if str(user) == main_username:
-        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+        # os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+        basic.restart_infoscan_lib()
         infoscanstatus = os.popen('bash /TIP/info_scan/finger.sh infoscanstatus').read()
         if "running" in infoscanstatus:
             infoscanstatus = "服务已启动"
@@ -4075,6 +4074,7 @@ def comfirmclearloginterface():
         inputmodel1 = request.form['inputmodel1']
         inputmodel2 = request.form['inputmodel2']
         inputmodel3 = request.form['inputmodel3']
+        sessionid1 = request.form['sessionid1']
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
                 print("afrog")
@@ -4112,6 +4112,9 @@ def comfirmclearloginterface():
             elif int(inputmodel3) ==5:
                 print("接口额度初始化")
                 recheck_result = basic.initinterface_num_lib()
+            elif int(inputmodel3) ==6:
+                print("配置会话过期时间")
+                recheck_result = basic.update_session_time_lib(sessionid1,1)
             else:
                 print("其他")
 

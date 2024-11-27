@@ -415,3 +415,9 @@
 			font-style: italic;
 			cursor: pointer;
 		}
+
+		.button-container {
+			
+			background-color: #f0f0f0; /* 标题区域的背景色 */
+			
+		}

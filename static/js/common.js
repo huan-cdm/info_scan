@@ -1840,6 +1840,7 @@ function crawlergo_part_show() {
 function startverifychearlogfunc(dataToSet) {
     var modal3 = document.getElementById("modal3");
     modal3.style.display = "block";
+
     var inputmodel1 = document.getElementById("inputmodel1");
     inputmodel1.value = "";
     var inputmodel2 = document.getElementById("inputmodel2");
@@ -1864,13 +1865,15 @@ function comfirmclearlogfunc() {
     var inputmodel1 = document.getElementById('inputmodel1').value;
     var inputmodel2 = document.getElementById('inputmodel2').value;
     var inputmodel3 = document.getElementById('inputmodel3').value;
+    var sessionid1 = document.getElementById('sessionid1').value;
     $.ajax({
         url: '/comfirmclearloginterface/',
         method: 'POST',
         data: {
             inputmodel1: inputmodel1,
             inputmodel2: inputmodel2,
-            inputmodel3: inputmodel3
+            inputmodel3: inputmodel3,
+            sessionid1:  sessionid1
         },
         success: function (info) {
             alert(info.recheck_result)

@@ -13,7 +13,10 @@
 
 <body>
 	<span align="left">欢迎访问漏洞扫描平台！</span> <br>
-	<span align="right">登录用户：{{data20}}</span> <br><br>
+	<span align="right">登录用户：{{data20}}</span> &nbsp;&nbsp;&nbsp;
+	<spap>会话有效期：{{data22}} 分钟</spap>
+	<br><br>
+	<div class="button-container">
 	<span class="my-spanconfig11" onclick="fanhui()">刷新页面</span>&nbsp;
 	<span class="my-spanconfig11" onclick="jumpdirscanpage()">目录扫描</span>&nbsp;
 	<span class="my-spanconfig11" onclick="stopbutton()">按钮锁定</span>&nbsp;
@@ -29,7 +32,8 @@
 
 	<span onclick="startscanconfigpagefunc()" style="cursor: pointer;" class="my-spanconfig11">参数配置</span>&nbsp;
 	<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig11">字典配置</span>
-
+	
+	</di>
 
 	<div id="modal" class="modal">
 
@@ -719,12 +723,26 @@ poc显示区域</textarea>
 					</td>
 				</tr>
 
-
+				<tr>
+					<td>
+						<strong style="color: chocolate;">系统配置</strong><br>
+						
+					</td>
+					
+				</tr>
+				<tr>
+					<td>
+						会话过期时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="my-input" placeholder="配置分钟，例如：30" value="" id="sessionid1">
+						<span class="my-span" onclick="startverifychearlogfunc('6')">提交</span>
+					</td>
+				</tr>
 			</table>
 
 
 		</div>
 	</div>
+	
 	<!-- 扫描器参数配置 -->
 
 	<!-- 弱口令扫描字典配置 -->

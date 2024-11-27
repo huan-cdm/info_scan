@@ -2571,6 +2571,59 @@ def insert_fofa_log_lib(fofa_name,file_dir):
         db.rollback() 
 
 
+def restart_infoscan_lib():
+    try:
+        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+    except Exception as e:
+        print("执行重启语句时发生错误：", e)
+
+
+# 会话过期时间相关配置
+# 时间更新
+def update_session_time_lib(part1,part2):
+    if not part1.isdigit():
+        return_result = "只允许配置数字,其他配置不生效"
+    else:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE sys_conf SET info_session_time = '%s' WHERE id = '%s'"%(part1,part2)
+        try:
+            cur.execute(sql)
+            db.commit()
+        except Exception as e:
+            print("执行SQL语句时发生错误：", e)
+            db.rollback()
+        
+        # 配置生效需重启服务
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+        except Exception as e:
+            print("执行重启语句时发生错误：", e)
+        return_result = "已更改会话过期时间"
+
+    return return_result
+
+
+def select_session_time_lib(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select info_session_time from sys_conf where id = '%s' "%(id)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result = []
+        for i in list_data:
+            list_result.append(i[0])
+    except:
+        list_result = ['MySQL连接失败']
+
+    return list_result[0]
+
+    
+
 # fofa日志搜索语法查询（去重）
 def fofa_grammar_lib():
     try:
@@ -2620,6 +2673,7 @@ def deletefofalog_lib():
     except Exception as e:
         print("执行SQL语句时发生错误：", e)
         db.rollback()
+
 
 
 

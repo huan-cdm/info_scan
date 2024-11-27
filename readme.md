@@ -32,6 +32,11 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-11-25更新<br> 
+1. 新增前端配置会话过期时间，并自动加载配置；<br>
+2. 已知问题处理与优化；<br>
+</li>
+<li>
 2024-11-24更新<br> 
 1. fofa查询日志优化,修改为通过搜索语法查询历史资产；<br>
 2. 已知问题处理与优化；<br>
@@ -338,3 +343,5 @@ ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" />
 dnslog<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" />
+会话过期时间配置<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/session_time.png" />
