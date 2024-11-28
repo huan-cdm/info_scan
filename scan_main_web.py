@@ -4075,6 +4075,8 @@ def comfirmclearloginterface():
         inputmodel2 = request.form['inputmodel2']
         inputmodel3 = request.form['inputmodel3']
         sessionid1 = request.form['sessionid1']
+        sessionid2 = request.form['sessionid2']
+        sessionid3 = request.form['sessionid3']
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
                 print("afrog")
@@ -4115,6 +4117,9 @@ def comfirmclearloginterface():
             elif int(inputmodel3) ==6:
                 print("配置会话过期时间")
                 recheck_result = basic.update_session_time_lib(sessionid1,1)
+            elif int(inputmodel3) ==7:
+                print("配置fofa邮箱和key")
+                recheck_result = basic.update_fofakey_lib(sessionid2,sessionid3,2)
             else:
                 print("其他")
 
@@ -4204,6 +4209,31 @@ def assetsdownload():
                 return send_file(file_path, as_attachment=True, download_name='url.txt')
     else:
         return render_template('login.html')
+
+
+
+# 获取系统配置数据
+@app.route("/system_config_data/",methods=['get'])
+def system_config_data():
+    user = session.get('username')
+    if str(user) == main_username:
+        session_time = basic.select_session_time_lib(1)
+        fofa_conf = basic.select_fofakey_lib(2)
+        fofa_email = fofa_conf[0]
+        fofa_key = fofa_conf[1]
+        fofa_email_tuomin = basic.mask_data(fofa_email)
+        fofa_key_tuomin = basic.mask_data(fofa_key)
+        message_json = {
+            "search_result":str(session_time),
+            "fofa_email":str(fofa_email_tuomin),
+            "fofa_key":str(fofa_key_tuomin)
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
                 
 
 

@@ -421,3 +421,9 @@
 			background-color: #f0f0f0; /* 标题区域的背景色 */
 			
 		}
+
+		.my-input5 {
+			height: 22px;
+			width: 300px;
+			font-size: medium;
+		}

@@ -690,6 +690,28 @@ function startscanconfigpagefunc() {
     var modal2 = document.getElementById("modal2");
     modal2.style.display = "block";
 
+    // 获取input元素
+    var sessionid1 = document.getElementById('sessionid1');
+    var sessionid2 = document.getElementById('sessionid2');
+    var sessionid3 = document.getElementById('sessionid3');
+   
+    $.ajax({
+        url: '/system_config_data/',
+        method: 'GET',
+        success: function (info) {
+             // 为input元素赋值
+             sessionid1.value = info.search_result;
+             sessionid2.value = info.fofa_email;
+             sessionid3.value = info.fofa_key;
+
+        },
+        error: function () {
+
+        },
+        complete: function () {
+        }
+    })
+
 }
 
 function stopscanconfigpagefunc() {
@@ -1374,7 +1396,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result+"\n"+info.wanhu_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result)
         },
 
         error: function (info) {
@@ -1536,7 +1558,7 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result+"\n"+info.kill_wanhu_result)
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result)
         },
 
         error: function (info) {
@@ -1866,6 +1888,8 @@ function comfirmclearlogfunc() {
     var inputmodel2 = document.getElementById('inputmodel2').value;
     var inputmodel3 = document.getElementById('inputmodel3').value;
     var sessionid1 = document.getElementById('sessionid1').value;
+    var sessionid2 = document.getElementById('sessionid2').value;
+    var sessionid3 = document.getElementById('sessionid3').value;
     $.ajax({
         url: '/comfirmclearloginterface/',
         method: 'POST',
@@ -1873,7 +1897,9 @@ function comfirmclearlogfunc() {
             inputmodel1: inputmodel1,
             inputmodel2: inputmodel2,
             inputmodel3: inputmodel3,
-            sessionid1:  sessionid1
+            sessionid1: sessionid1,
+            sessionid2: sessionid2,
+            sessionid3: sessionid3
         },
         success: function (info) {
             alert(info.recheck_result)

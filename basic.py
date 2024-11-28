@@ -28,7 +28,7 @@ from config import hotspot
 from config import datacenter
 # fofa 通过ip查询域名
 from config import fofanum
-from config import fofa_list_key
+
 # 提取根域名
 import tldextract  
 # 指纹自定义列表
@@ -56,7 +56,10 @@ import datetime
 def shodan_api(ip):
     shodankeyvalue = random.choice(shodankey)
     apis = shodan.Shodan(shodankeyvalue)
-    key = random.choice(fofa_list_key)
+    fofa_conf = select_fofakey_lib(2)
+    fofa_email = fofa_conf[0]
+    fofa_key = fofa_conf[1]
+    key = {"email":str(fofa_email),"key":str(fofa_key)}
     # fofa接口
     fofa_first_argv= 'ip=' + ip + ''
     fofa_first_argv_utf8 = fofa_first_argv.encode('utf-8')
@@ -368,7 +371,10 @@ def ipstatus_scan(ip):
 
 # fofa查询模块通过IP反查域名
 def domain_scan(ip):
-    key = random.choice(fofa_list_key)
+    fofa_conf = select_fofakey_lib(2)
+    fofa_email = fofa_conf[0]
+    fofa_key = fofa_conf[1]
+    key = {"email":str(fofa_email),"key":str(fofa_key)}
     fofa_first_argv= 'ip=' + ip + ''
     fofa_first_argv_utf8 = fofa_first_argv.encode('utf-8')
     fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
@@ -655,8 +661,11 @@ def key_point_assets_file(assets_finger_list):
 
 # fofa资产发现，查询数量通过前端传入
 def fofa_search_assets_service_lib(parameter,num_fofa):
-    # 随机key
-    key = random.choice(fofa_list_key)
+    fofa_conf = select_fofakey_lib(2)
+    fofa_email = fofa_conf[0]
+    fofa_key = fofa_conf[1]
+    key = {"email":str(fofa_email),"key":str(fofa_key)}
+    
     
     fofa_first_argv_utf8 = parameter.encode('utf-8')
     fofa_first_argv_base64=base64.b64encode(fofa_first_argv_utf8)
@@ -2600,7 +2609,11 @@ def update_session_time_lib(part1,part2):
             os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
         except Exception as e:
             print("执行重启语句时发生错误：", e)
-        return_result = "已更改会话过期时间"
+        sess_time_1 = select_session_time_lib(1)
+
+        if int(part1) == int(sess_time_1):
+
+            return_result = "已更改会话过期时间"
 
     return return_result
 
@@ -2621,6 +2634,63 @@ def select_session_time_lib(id):
         list_result = ['MySQL连接失败']
 
     return list_result[0]
+
+
+# fofa邮箱和key前端配置相关
+# 更新配置
+def update_fofakey_lib(part1,part2,part3):
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="UPDATE sys_conf SET fofa_email = '%s' , fofa_key = '%s' WHERE id = '%s'"%(part1,part2,part3)
+    try:
+        cur.execute(sql)
+        db.commit()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+        db.rollback()
+    # 配置生效需重启服务
+    try:
+        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+    except Exception as e:
+        print("执行重启语句时发生错误：", e)
+
+    # 判断是否更新成功
+    fofa_conf = select_fofakey_lib(2)
+    fofa_email = fofa_conf[0]
+    fofa_key = fofa_conf[1]
+    
+    if str(part1) == str(fofa_email) and str(part2) == str(fofa_key):
+        return_result = "fofa配置已更新"
+    return return_result
+
+
+def select_fofakey_lib(id):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select fofa_email,fofa_key from sys_conf where id = '%s' "%(id)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        list_result_1 = []
+        list_result_2 = []
+        for i in list_data:
+            list_result_1.append(i[0])
+        for j in list_data:
+            list_result_2.append(i[1])
+        list_result = list_result_1+list_result_2
+        
+    except:
+        list_result = ['MySQL连接失败']
+
+    return list_result
+
+
+# 涉敏数据脱敏函数
+def mask_data(data, mask_length=4):
+    return data[:mask_length] + '*' * (len(data) - mask_length)
 
     
 

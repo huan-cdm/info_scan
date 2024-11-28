@@ -1,18 +1,8 @@
 #shodan key配置,可在列表中配置多个key
 shodankey = [""]
 
-# fofa相关配置，防止接口被耗尽，可配置单个key或者多个key
+# fofa相关配置
 fofanum = "10000"  # fofa查询条数
-# ①. 多个key配置
-dict_key1 = {"email":"","key":""}
-dict_key2 = {"email":"","key":""}
-fofa_list_key = [dict_key1,dict_key2]
-
-
-# ②. 单个key配置
-# dict_key1 = {"email":"","key":""}
-# fofa_list_key = [dict_key1]
-
 
 
 #命令行查询入口

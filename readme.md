@@ -35,6 +35,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 2024-11-25更新<br> 
 1. 新增前端配置会话过期时间，并自动加载配置；<br>
 2. 已知问题处理与优化；<br>
+3. 新增前端fofa配置，并自动加载配置；<br>
 </li>
 <li>
 2024-11-24更新<br> 
@@ -343,5 +344,5 @@ ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" />
 dnslog<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" />
-会话过期时间配置<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/session_time.png" />
+系统参数配置<br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" />

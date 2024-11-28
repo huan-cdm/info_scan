@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 27/11/2024 17:16:36
+ Date: 28/11/2024 16:51:45
 */
 
 SET NAMES utf8mb4;
@@ -24,12 +24,9 @@ DROP TABLE IF EXISTS `sys_conf`;
 CREATE TABLE `sys_conf`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `info_session_time` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `fofa_email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `fofa_key` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_conf
--- ----------------------------
-INSERT INTO `sys_conf` VALUES (1, '30');
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
