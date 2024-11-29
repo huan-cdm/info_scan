@@ -16,7 +16,6 @@ from flask import jsonify
 import report_total
 import pandas as pd
 from basic import root_domain_scan
-from config import ceye_key
 #主系统账号密码配置导入
 from config import main_username
 from config import main_password
@@ -1478,6 +1477,7 @@ def url_list_textarea_show():
 def ceye_dns_record():
     user = session.get('username')
     if str(user) == main_username:
+        ceye_key = basic.select_session_time_lib(5)
         result = os.popen('bash /TIP/info_scan/finger.sh ceye_dns'+' '+ceye_key).read()
         result_dict = json.loads(result)
         message_json = {
@@ -4077,6 +4077,10 @@ def comfirmclearloginterface():
         sessionid1 = request.form['sessionid1']
         sessionid2 = request.form['sessionid2']
         sessionid3 = request.form['sessionid3']
+        sessionid4 = request.form['sessionid4']
+        sessionid5 = request.form['sessionid5']
+        sessionid6 = request.form['sessionid6']
+
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
                 print("afrog")
@@ -4120,6 +4124,15 @@ def comfirmclearloginterface():
             elif int(inputmodel3) ==7:
                 print("配置fofa邮箱和key")
                 recheck_result = basic.update_fofakey_lib(sessionid2,sessionid3,2)
+            elif int(inputmodel3) ==8:
+                print("配置shodankey")
+                recheck_result = basic.update_session_time_lib(sessionid4,3)
+            elif int(inputmodel3) ==9:
+                print("配置amapkey")
+                recheck_result = basic.update_session_time_lib(sessionid5,4)
+            elif int(inputmodel3) ==10:
+                print("配置ceyekey")
+                recheck_result = basic.update_session_time_lib(sessionid6,5)
             else:
                 print("其他")
 
@@ -4221,12 +4234,25 @@ def system_config_data():
         fofa_conf = basic.select_fofakey_lib(2)
         fofa_email = fofa_conf[0]
         fofa_key = fofa_conf[1]
+
+
+        shodan_key = basic.select_session_time_lib(3)
+        amap_key = basic.select_session_time_lib(4)
+        ceye_key =  basic.select_session_time_lib(5)
+        shodan_key_tuomin = basic.mask_data(shodan_key)
+        amap_key_tuomin = basic.mask_data(amap_key)
+        ceye_key_tuomin = basic.mask_data(ceye_key)
         fofa_email_tuomin = basic.mask_data(fofa_email)
         fofa_key_tuomin = basic.mask_data(fofa_key)
+
+
         message_json = {
             "search_result":str(session_time),
             "fofa_email":str(fofa_email_tuomin),
-            "fofa_key":str(fofa_key_tuomin)
+            "fofa_key":str(fofa_key_tuomin),
+            "shodan_key":str(shodan_key_tuomin),
+            "amap_key":str(amap_key_tuomin),
+            "ceye_key":str(ceye_key_tuomin)
         }
         return jsonify(message_json)
     else:

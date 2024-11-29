@@ -694,6 +694,9 @@ function startscanconfigpagefunc() {
     var sessionid1 = document.getElementById('sessionid1');
     var sessionid2 = document.getElementById('sessionid2');
     var sessionid3 = document.getElementById('sessionid3');
+    var sessionid4 = document.getElementById('sessionid4');
+    var sessionid5 = document.getElementById('sessionid5');
+    var sessionid6 = document.getElementById('sessionid6');
    
     $.ajax({
         url: '/system_config_data/',
@@ -703,6 +706,9 @@ function startscanconfigpagefunc() {
              sessionid1.value = info.search_result;
              sessionid2.value = info.fofa_email;
              sessionid3.value = info.fofa_key;
+             sessionid4.value = info.shodan_key;
+             sessionid5.value = info.amap_key;
+             sessionid6.value = info.ceye_key;
 
         },
         error: function () {
@@ -1890,6 +1896,9 @@ function comfirmclearlogfunc() {
     var sessionid1 = document.getElementById('sessionid1').value;
     var sessionid2 = document.getElementById('sessionid2').value;
     var sessionid3 = document.getElementById('sessionid3').value;
+    var sessionid4 = document.getElementById('sessionid4').value;
+    var sessionid5 = document.getElementById('sessionid5').value;
+    var sessionid6 = document.getElementById('sessionid6').value;
     $.ajax({
         url: '/comfirmclearloginterface/',
         method: 'POST',
@@ -1899,7 +1908,10 @@ function comfirmclearlogfunc() {
             inputmodel3: inputmodel3,
             sessionid1: sessionid1,
             sessionid2: sessionid2,
-            sessionid3: sessionid3
+            sessionid3: sessionid3,
+            sessionid4: sessionid4,
+            sessionid5: sessionid5,
+            sessionid6: sessionid6
         },
         success: function (info) {
             alert(info.recheck_result)

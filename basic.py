@@ -5,14 +5,11 @@
 
 # shodan查询模块
 import shodan
-from config import shodankey
 import queue
 import subprocess 
 # icp备案查询
 from fake_useragent import UserAgent
 import random
-# 高德地图
-from config import amap_key_list
 # 通用模块
 import re
 import json
@@ -54,7 +51,8 @@ import datetime
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
-    shodankeyvalue = random.choice(shodankey)
+    
+    shodankeyvalue = select_session_time_lib(3)
     apis = shodan.Shodan(shodankeyvalue)
     fofa_conf = select_fofakey_lib(2)
     fofa_email = fofa_conf[0]
@@ -244,7 +242,7 @@ def title_scan(url_list):
 
 # 调用高德地图接口查询公司位置信息
 def amapscan(company_list_list):
-    key = random.choice(amap_key_list)
+    key = select_session_time_lib(4)
     hearder={
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
         }
@@ -2590,32 +2588,40 @@ def restart_infoscan_lib():
 # 会话过期时间相关配置
 # 时间更新
 def update_session_time_lib(part1,part2):
-    if not part1.isdigit():
-        return_result = "只允许配置数字,其他配置不生效"
+
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="UPDATE sys_conf SET info_session_time = '%s' WHERE id = '%s'"%(part1,part2)
+    try:
+        cur.execute(sql)
+        db.commit()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+        db.rollback()
+    
+    # 配置生效需重启服务
+    try:
+        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+    except Exception as e:
+        print("执行重启语句时发生错误：", e)
+    sess_time_1 = select_session_time_lib(1)
+    shodan_key = select_session_time_lib(3)
+    amap_key = select_session_time_lib(4)
+    ceye_key = select_session_time_lib(5)
+    if int(part1) == int(sess_time_1):
+        return_result = "已更改会话过期时间"
+    elif str(part1) == str(shodan_key):
+        return_result = "已更改shodan配置"
+    elif str(part1) == str(amap_key):
+        return_result = "已更改amap配置"
+    elif str(part1) == str(ceye_key):
+        return_result = "已更改ceye配置"
     else:
-        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        sql="UPDATE sys_conf SET info_session_time = '%s' WHERE id = '%s'"%(part1,part2)
-        try:
-            cur.execute(sql)
-            db.commit()
-        except Exception as e:
-            print("执行SQL语句时发生错误：", e)
-            db.rollback()
-        
-        # 配置生效需重启服务
-        try:
-            os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
-        except Exception as e:
-            print("执行重启语句时发生错误：", e)
-        sess_time_1 = select_session_time_lib(1)
-
-        if int(part1) == int(sess_time_1):
-
-            return_result = "已更改会话过期时间"
-
+        return_result = "其他配置"
     return return_result
+        
+
 
 
 def select_session_time_lib(id):

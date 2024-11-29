@@ -5,9 +5,9 @@ Date:[2024/05/31]
 pip install pandas openpyxl
 '''
 import pandas as pd
-from config import ceye_key
 import os
 import re
+import basic
 
 def report_xlsx():
 
@@ -98,6 +98,7 @@ def report_xlsx():
     afrog_report_list = ["afrog_poc-->预览报告-->查看报告"]
 
     # ceye_dns
+    ceye_key = basic.select_session_time_lib(5)
     ceye_dns = os.popen('bash ./finger.sh ceye_dns'+' '+ceye_key).read()
     ceye_dns_list = [ceye_dns]
 

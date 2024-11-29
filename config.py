@@ -1,6 +1,3 @@
-#shodan key配置,可在列表中配置多个key
-shodankey = [""]
-
 # fofa相关配置
 fofanum = "10000"  # fofa查询条数
 
@@ -21,13 +18,6 @@ hotspot = ["移动数据上网公共出口","中国电信北京研究院"]
 
 #数据中心
 datacenter = ["公司","数据中心"]
-
-
-#高德地图API列表(可添加多个key)
-amap_key_list = ["",""]
-
-# ceye_key配置
-ceye_key = ""
 
 
 #判断直接扫描URL还是通过调用OTX接口查询的历史URL作为扫描目标

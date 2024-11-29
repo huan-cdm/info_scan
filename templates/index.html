@@ -537,11 +537,12 @@
 	<div id="modal3" class="modal3">
 		<div class="modal-content3">
 			<span class="close3" onclick="stopverifychearlogfunc()">&times;</span>
-			<h3>二次验证</h3>
+			<h3>复核界面</h3>
 			<input type="text" placeholder="账号" id="inputmodel1" class="my-input-text1" /><br>
-			<input type="text" placeholder="密码" id="inputmodel2" class="my-input-text1" /><br>
-			<input type="hidden" id="inputmodel3" /><br>
-			<input type="button" value="提交" onclick="comfirmclearlogfunc()">
+			<input type="text" placeholder="密码" id="inputmodel2" class="my-input-text1" />
+			<input type="hidden" id="inputmodel3" />
+			<span class="my-spanconfig11" onclick="comfirmclearlogfunc()">复核</span>
+			
 		</div>
 	</div>
 
@@ -549,15 +550,26 @@
 
 	<div id="modal2" class="modal1">
 		<div class="modal-content1">
-			<strong style="color: chocolate;">扫描参数配置</strong><br>
-			<!-- 分别传入1、2、3、4给input框，隐藏属性，在将这个值传给后端 -->
-			<span class="my-label" onclick="startverifychearlogfunc('1')">清空afrog报告</span>&nbsp;&nbsp;
-			<span class="my-label" onclick="startverifychearlogfunc('2')">清空api接口报告</span>&nbsp;&nbsp;
-			<span class="my-label" onclick="startverifychearlogfunc('3')">清空xray报告</span>&nbsp;&nbsp;
-			<span class="my-label" onclick="startverifychearlogfunc('4')">清空端口扫描报告</span>
-			</tr>
+
 			<span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
 			<table border="1">
+				<tr>
+					<td>
+						<strong style="color: chocolate;">清空报告</strong><br>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="my-spanconfig11" onclick="startverifychearlogfunc('1')">afrog</span>&nbsp;&nbsp;
+					<span class="my-spanconfig11" onclick="startverifychearlogfunc('2')">api接口</span>&nbsp;&nbsp;
+					<span class="my-spanconfig11" onclick="startverifychearlogfunc('3')">xray</span>&nbsp;&nbsp;
+					<span class="my-spanconfig11" onclick="startverifychearlogfunc('4')">端口扫描</span></td>
+				</tr>
+
+				<tr>
+					<td>
+						<strong style="color: chocolate;">扫描参数配置</strong><br>
+					</td>
+				</tr>
 				<tr>
 					<td>
 						fscan扫描参数：&nbsp;&nbsp;
@@ -740,9 +752,34 @@ poc显示区域</textarea>
 				<tr>
 					<td>
 						fofakey：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" class="my-input5"  value="" id="sessionid2">
+						<input type="text" class="my-input5"  value="" id="sessionid2"><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" class="my-input5"  value="" id="sessionid3">
 						<span class="my-span" onclick="startverifychearlogfunc('7')">提交</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						shodankey：&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="my-input5"  value="" id="sessionid4">
+						<span class="my-span" onclick="startverifychearlogfunc('8')">提交</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						amapkey：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="my-input5"  value="" id="sessionid5">
+						<span class="my-span" onclick="startverifychearlogfunc('9')">提交</span>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						ceyekey：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="my-input5"  value="" id="sessionid6">
+						<span class="my-span" onclick="startverifychearlogfunc('10')">提交</span>
 					</td>
 				</tr>
 			</table>

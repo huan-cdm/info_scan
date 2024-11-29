@@ -122,7 +122,7 @@
 			/* 设置宽度为200像素 */
 			height: 50px;
 			/* 设置高度为40像素 */
-			padding: 5px;
+			padding: 0px;
 			/* 设置内边距为5像素，这可以增加选项之间的空间 */
 			font-size: 16px;
 			/* 设置字体大小为16像素 */
@@ -130,6 +130,26 @@
 			/* 设置边框为1像素宽，颜色为#ccc */
 			border-radius: 5px;
 			/* 设置边框圆角为5像素 */
+		}
+		textarea {
+			width: 230px;
+			/* 设置宽度为200像素 */
+			height: 50px;
+			/* 设置高度为40像素 */
+			padding: 0px;
+			/* 设置内边距为5像素，这可以增加选项之间的空间 */
+			font-size: 16px;
+			/* 设置字体大小为16像素 */
+			border: 1px solid #ccc;
+			/* 设置边框为1像素宽，颜色为#ccc */
+			border-radius: 5px;
+			/* 设置边框圆角为5像素 */
+		}
+
+		/* 移除 option 元素的内边距 */
+		option {
+			padding-left: 0;
+			/* 只移除左侧内边距 */
 		}
 
 		#span1 {
@@ -350,7 +370,7 @@
 			/* 使span可以设置宽高 */
 			width: 35px;
 			height: 25px;
-			background-color:  chocolate;
+			background-color: chocolate;
 			/* 背景颜色设置为橙色 */
 			color: white;
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
@@ -400,7 +420,7 @@
 			width: 100px;
 			height: 40px;
 			line-height: 40px;
-			background-color:  coral;
+			background-color: coral;
 			/* 背景颜色设置为橙色 */
 			color: rgba(8, 0, 0, 0.946);
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
@@ -417,9 +437,10 @@
 		}
 
 		.button-container {
-			
-			background-color: #f0f0f0; /* 标题区域的背景色 */
-			
+
+			background-color: #f0f0f0;
+			/* 标题区域的背景色 */
+
 		}
 
 		.my-input5 {
