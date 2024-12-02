@@ -306,7 +306,7 @@ IP基础信息查询<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/partconfigpage.png"/><br><br>
-系统服务管理<br><br>
+数据展示<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
 目录扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
@@ -332,7 +332,7 @@ fofa语法日志<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
 ES数据库漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" />
-报告删除二次验证<br><br>
+复核界面<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" />
 致远OA漏洞扫描<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/seeyonscan.png" />
