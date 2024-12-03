@@ -170,7 +170,6 @@
 		.modal {
 			display: none;
 			/* 隐藏弹窗 */
-			/* position:static; 弹窗固定在视口   */
 			position: absolute;
 			z-index: 1;
 			/* 弹窗位于其他元素之上 */
@@ -329,7 +328,7 @@
 		.modal3 {
 			display: none;
 			/* 隐藏弹窗 */
-			position: static;
+			position: absolute;
 			/* 弹窗固定在视口 */
 			/* 如果弹窗往上叠加，将此值调大即可  */
 			z-index: 2;
