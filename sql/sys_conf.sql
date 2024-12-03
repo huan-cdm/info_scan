@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 29/11/2024 15:48:46
+ Date: 03/12/2024 22:49:25
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,15 @@ CREATE TABLE `sys_conf`  (
   `fofa_email` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `fofa_key` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_conf
+-- ----------------------------
+INSERT INTO `sys_conf` VALUES (1, '120', NULL, NULL);
+INSERT INTO `sys_conf` VALUES (2, NULL, '111111111111111111111', '111111111111111111111');
+INSERT INTO `sys_conf` VALUES (3, '111111111111111111111', NULL, '');
+INSERT INTO `sys_conf` VALUES (4, '111111111111111111111', NULL, '');
+INSERT INTO `sys_conf` VALUES (5, '111111111111111111111', NULL, '');
 
 SET FOREIGN_KEY_CHECKS = 1;
