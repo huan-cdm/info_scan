@@ -4260,6 +4260,16 @@ def system_config_data():
 
 
 
+#网站导航
+@app.route("/siteroute/")
+def siteroute():
+    user = session.get('username')
+    if str(user) == main_username:
+        return render_template('navigation.html')
+    else:
+        return render_template('login.html')
+
+
                 
 
 

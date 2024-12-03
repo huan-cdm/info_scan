@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
+    <title>信息安全类网站导航</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #navbar {
+            width: 200px;
+
+            /* 导航栏宽度 */
+            float: left;
+            /* 左浮动 */
+            /* background-color: #f0f0f0; */
+            background-color: rgb(173, 216, 230);
+            /* 背景颜色 */
+        }
+
+        #navbar ul {
+            list-style-type: none;
+            /* 移除列表项的默认样式 */
+            padding: 0;
+        }
+
+        #navbar li {
+            padding: 10px;
+        }
+
+        #navbar a {
+            text-decoration: none;
+            /* 移除下划线 */
+            color: #333;
+        }
+
+        #navbar a:hover {
+            background-color: #ddd;
+            /* 鼠标悬停时的背景颜色 */
+        }
+
+        #content {
+            margin-left: 210px;
+            /* 内容区与导航栏的间距 */
+            padding: 10px;
+        }
+
+        .content-item {
+            display: none;
+            /* 默认所有内容不显示 */
+        }
+
+        .content-item.active {
+            display: block;
+            /* 显示活动的内容区域 */
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+            font-size: 26px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar">
+        <ul>
+            <li><a href="#" onclick="showContent('content1')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;信息收集</a></li>
+            <li><a href="#" onclick="showContent('content2')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;漏洞平台</a></li>
+            <li><a href="#" onclick="showContent('content3')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;博客文库</a></li>
+            <li><a href="#" onclick="showContent('content4')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;威胁情报</a></li>
+            <li><a href="#" onclick="showContent('content5')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;国内大模型</a></li>
+            <li><a href="#" onclick="showContent('content6')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;云安全</a></li>
+            <li><a href="#" onclick="showContent('content7')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;Google</a></li>
+            <li><a href="#" onclick="showContent('content8')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;Github</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <h1>欢迎访问信息安全类网站导航页</h1>
+        <div id="content1" class="content-item">
+            <table border="1" style="width: 1400px; height: 100px;">
+                <tr>
+                    <td><a href="https://fofa.info/" target="_blank">Fofa</a></td>
+                    <td><a href="https://hunter.qianxin.com/" target="_blank">hunter</a></td>
+                    <td><a href="https://quake.360.net/quake/#/index" target="_blank">360quake</a></td>
+                    <td><a href="https://0.zone/" target="_blank">零零信安</a></td>
+                    <td><a href="https://www.zoomeye.org/" target="_blank">钟馗之眼</a></td>
+
+                </tr>
+                <tr>
+                    <td><a href="https://www.shodan.io/" target="_blank">shodan</a></td>
+                    <td><a href="https://censys.com/" target="_blank">censys</a></td>
+                    <td><a href="https://x.threatbook.com/" target="_blank">微步</a></td>
+                    <td><a href="https://www.qcc.com/" target="_blank">企查查</a></td>
+                    <td><a href="https://www.tianyancha.com/" target="_blank">天眼查</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.qixin.com/" target="_blank">企信宝</a></td>
+                    <td><a href="https://aiqicha.baidu.com/" target="_blank">爱企查</a></td>
+                    <td><a href="https://www.xiaolanben.com/" target="_blank">小蓝本</a></td>
+                    <td><a href="https://beian.miit.gov.cn/?vt=4&pos=108&his=0" target="_blank">备案查询</a></td>
+                    <td><a href="https://pansoso.com/" target="_blank">盘搜搜</a></td>
+
+                </tr>
+                <tr>
+                    <td><a href="https://www.lingfengyun.com/" target="_blank">凌风云</a></td>
+                    <td><a href="http://wp.soshoulu.com/" target="_blank">网盘搜索</a></td>
+                    <td><a href="http://www.repanso.com/" target="_blank">热盘搜</a></td>
+                    <td><a href="https://www.xiaobaipan.com/" target="_blank">小白盘</a></td>
+                    <td><a href="https://www.qimai.cn/" target="_blank">七麦数据</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://crt.sh/" target="_blank">证书查询</a></td>
+                    <td><a href="https://tools.ipip.net/newping.php" target="_blank">多地ping</a></td>
+                    <td><a href="https://urlscan.watcherlab.com/login" target="_blank">暴露面管理平台</a></td>
+
+                </tr>
+            </table>
+        </div>
+        <div id="content2" class="content-item">
+            <table border="1" style="width: 1400px; height: 100px;">
+                <tr>
+                    <td>
+                        <a href="https://www.cnvd.org.cn/" target="_blank">CNVD</a>
+                    </td>
+                    <td>
+                        <a href="https://www.butian.net/" target="_blank">补天</a>
+                    </td>
+                    <td>
+                        <a href="https://www.vulbox.com/" target="_blank">漏洞盒子</a>
+                    </td>
+                    <td>
+                        <a href="https://www.bugbank.cn/" target="_blank">漏洞银行</a>
+                    </td>
+                    <td>
+                        <a href="https://zhongce.360.net/" target="_blank">360众测平台</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="https://www.hackerone.com/" target="_blank">hackerone</a>
+                    </td>
+                    <td>
+                        <a href="https://www.bountyteam.com/" target="_blank">雷神众测</a>
+                    </td>
+                    <td>
+                        <a href="https://security.bytedance.com/" target="_blank">字节跳动安全中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.jd.com/" target="_blank">京东安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.alibaba.com/" target="_blank">阿里安全应急响应中心</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="https://bsrc.baidu.com/v2/#/home" target="_blank">百度安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.tencent.com/" target="_blank">腾讯安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.alipay.com/" target="_blank">蚂蚁应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://sfsrc.sf-express.com/home" target="_blank">顺丰安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://sec.ctrip.com/" target="_blank">携程安全应急响应中心</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="https://sec.xiaomi.com/" target="_blank">小米安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.bilibili.com/" target="_blank">哔哩哔哩安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.iqiyi.com/" target="_blank">爱奇艺应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://security.ke.com/" target="_blank">贝壳安全应急响应中心</a>
+                    </td>
+                    <td>
+                        <a href="https://src.sjtu.edu.cn/" target="_blank">教育漏洞报告平台</a>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+        <div id="content3" class="content-item">
+            <table border="1" style="width: 1400px; height: 100px;">
+                <tr>
+                    <td>
+                        <a href="https://wy.zone.ci/bugs.php" target="_blank">乌云</a>
+                    </td>
+                    <td>
+                        <a href="https://xz.aliyun.com/" target="_blank">先知社区</a>
+                    </td>
+                    <td>
+                        <a href="https://stack.chaitin.com/" target="_blank">CT Stack安全社区</a>
+                    </td>
+                    <td>
+                        <a href="https://www.freebuf.com/" target="_blank">Freebuf</a>
+                    </td>
+                    <td>
+                        <a href="https://bbs.zkaq.cn/" target="_blank">Track 安全社区</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="https://www.leavesongs.com/" target="_blank">phith0博客</a>
+                    </td>
+                    <td>
+                        <a href="https://peiqi.wgpsec.org/" target="_blank">PeiQi文库</a>
+                    </td>
+                    <td>
+                        <a href="https://www.t00ls.com/" target="_blank">T00ls</a>
+                    </td>
+                    <td>
+                        <a href="https://www.sec-wiki.com/index.php" target="_blank">SecWiKi</a>
+                    </td>
+                    <td>
+                        <a href="https://www.hackjie.com/" target="_blank">黑客街</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="https://forum.butian.net/" target="_blank">奇安信攻防社区</a>
+                    </td>
+                    <td>
+                        <a href="https://www.anquanke.com/" target="_blank">安全客</a>
+                    </td>
+                    <td>
+                        <a href="https://www.bookstack.cn/read/LyleMi-Learn-Web-Hacking/sec.md"
+                            target="_blank">Web安全学习笔记</a>
+                    </td>
+                    <td>
+                        <a href="https://www.shentoushi.top/" target="_blank">渗透师导航</a>
+                    </td>
+                    <td>
+                        <a href="https://tttang.com/" target="_blank">跳跳糖</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="https://github.com/wy876/POC" target="_blank">wy876-POC整理</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/ReAbout/web-sec" target="_blank">WEB安全手册</a>
+                    </td>
+                    <td>
+                        <a href="https://www.kanxue.com/chm.htm" target="_blank">看雪知识库</a>
+                    </td>
+                    <td>
+                        <a href="https://www.moonsec.com/" target="_blank">暗月博客</a>
+                    </td>
+                    <td>
+                        <a href="http://www.xiaodi8.com/" target="_blank">小迪渗透吧</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="content4" class="content-item">
+            <table border="1" style="width: 1400px; height: 100px;">
+                <tr>
+                    <td>
+                        <a href="https://ti.360.net/" target="_blank">360安全大脑</a>
+                    </td>
+                    <td>
+                        <a href="http://www.cntd.org.cn/" target="_blank">CNTD网络安全威胁情报共享平台</a>
+                    </td>
+                    <td>
+                        <a href="https://ti.sangfor.com.cn/analysis-platform" target="_blank">深信服威胁情报中心</a>
+                    </td>
+                    <td>
+                        <a href="https://ti.hillstonenet.com.cn/main" target="_blank">山石网科威胁情报中心</a>
+                    </td>
+                    <td>
+                        <a href="https://ti.nsfocus.com/" target="_blank">绿盟威胁情报云</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="https://ti.dbappsecurity.com.cn/" target="_blank">安恒安全星图平台</a>
+                    </td>
+                    <td>
+                        <a href="https://ti.qianxin.com/" target="_blank">奇安信威胁情报中心</a>
+                    </td>
+                    <td>
+                        <a href="https://isecurity.huawei.com/sec/web/urlClassification.do#"
+                            target="_blank">华为安全中心平台</a>
+                    </td>
+                    <td>
+                        <a href="https://x.threatbook.com/" target="_blank">微步在线X情报社区</a>
+                    </td>
+                    <td>
+                        <a href="https://exchange.xforce.ibmcloud.com/" target="_blank">IBM威胁情报平台</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <a href="https://www.venuseye.com.cn/" target="_blank">启明星辰威胁情报中心</a>
+                    </td>
+                    <td>
+                        <a href="https://tix.qq.com/" target="_blank">腾讯安全威胁情报中心</a>
+                    </td>
+                    <td>
+                        <a href="https://www.antiycloud.com/#/antiy/index" target="_blank">安天威胁情报中心</a>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+        <div id="content5" class="content-item">
+            <table border="1" style="width: 1400px; height: 100px;">
+                <tr>
+                    <td>
+                        <a href="https://n.cn/" target="_blank">纳米搜索</a>
+                    </td>
+                    <td>
+                        <a href="https://chat.360.com/" target="_blank">360智脑</a>
+                    </td>
+                    <td>
+                        <a href="https://yiyan.baidu.com/" target="_blank">文心一言</a>
+                    </td>
+                    <td>
+                        <a href="https://www.doubao.com/chat/" target="_blank">豆包</a>
+                    </td>
+                    <td>
+                        <a href="https://kimi.moonshot.cn/" target="_blank">Kimi</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <a href="https://chatglm.cn/" target="_blank">智谱清言</a>
+                    </td>
+                    <td>
+                        <a href="https://beta.tiangong.cn/" target="_blank">天工AI</a>
+                    </td>
+                    <td>
+                        <a href="https://xinghuo.xfyun.cn/" target="_blank">讯飞星火大模型</a>
+                    </td>
+                    <td>
+                        <a href="https://tongyi.aliyun.com/qianwen/" target="_blank">通义千问</a>
+                    </td>
+                    <td>
+                        <a href="https://hunyuan.tencent.com/" target="_blank">腾讯混元大模型</a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+
+        <div id="content6" class="content-item">
+            <table border="1" style="width: 1400px; height: 100px;">
+                <tr>
+                    <td>
+                        <a href="https://wiki.teamssix.com/about/" target="_blank">云安全知识库</a>
+                    </td>
+                    <td>
+                        <a href="https://www.alibabacloud.com/help/zh/oss/developer-reference/install-and-log-on-to-ossbrowser#p-4ca-yxe-p7r"
+                            target="_blank">阿里云官方ossbrowser图形化工具</a>
+                    </td>
+                    <td>
+                        <a href="https://yun.cloudbility.com/login.html" target="_blank">行云管家</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/UzJu/Cloud-Bucket-Leak-Detection-Tools"
+                            target="_blank">Cloud-Bucket-Leak-Detection-Tools</a>
+                    </td>
+                    <td>
+                        <a href="https://github.com/jdr2021/OSSFileBrowse" target="_blank">存储桶遍历漏洞利用工具</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="content7" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
+            <span style="color: white;">
+                域名<br>
+                site:test.com<br><br>
+
+                title关键词<br>
+                site:test.com
+                intitle:身份证|sfz|学号|xh|登录|注册|管理|平台|验证码|账号|系统|手册|默认密码|初始密码|password|联系电话|操作手册|vpn|名单<br><br>
+
+                body关键词<br>
+                site:test.com
+                intext:身份证|sfz|学号|xh|登录|注册|管理|平台|验证码|账号|系统|手册|默认密码|初始密码|password|联系电话|操作手册|vpn|名单<br><br>
+
+                文件类型（文件类型不支持｜，需要拆分出来单独查询）<br>
+                site:test.com filetype:pdf|xls|xlsx|docx|doc|text|ini|mdb|txt<br><br>
+
+                SQL注入<br>
+                site:test.com inurl:aspx|asp|php|jsp|do|.action|html<br><br>
+
+                文件路径<br>
+                site:test.com
+                inurl:login|admin|manage|sysadmin|system|master|admin_login|cms|data|templates|index<br><br>
+
+                文件上传<br>
+                site:test.com inurl:file|upload|uploadfile|ewebeditor|kindediter|Ueditor|file|choosefile<br><br>
+
+                -----------------------------目录穿越-----------------------------<br>
+                intitle:index.of "parent directory"<br>
+                intitle:index of /ppt<br>
+                intitle:index of /password<br>
+                intext:转到父目录/转到父路径<br>
+                intext:to parent directory<br><br>
+
+                -----------------------------业务相关性-----------------------------<br>
+                site:test.com "审计报告" "身份证" "SFZ"<br>
+                site:test.com "财务报告" "身份证" "SFZ"<br>
+                site:test.com "科技奖" "身份证" "SFZ"<br>
+                site:test.com "发明专利" "身份证" "SFZ"<br>
+                site:test.com "财务报告" "身份证" "SFZ"<br>
+                site:test.com "无犯罪记录" "身份证" "SFZ"<br>
+                site:test.com "特发此证" "身份证" "SFZ"<br>
+                site:test.com "出版合同" "身份证" "SFZ"<br>
+                site:test.com "甲方代表" "身份证" "SFZ"<br>
+                site:test.com "乙方代表" "身份证" "SFZ"<br>
+                site:test.com "籍贯" "身份证" "SFZ"<br>
+                site:test.com "汉族" "身份证" "SFZ"<br>
+                site:test.com "职称" "身份证" "SFZ"<br>
+            </span>
+        </div>
+
+        <div id="content8" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
+            <span style="color: white;">
+                -----------------------------在github上搜索-----------------------------<br><br>
+
+                按关键字搜索<br>
+                test.com root<br>
+                test.com 默认账号<br>
+                test.com 密码<br>
+                test.com VPN 账号<br><br>
+
+                按域名与代码片段搜索：<br>
+                test.com "/main/13527222.js"<br><br>
+
+                按github搜语法搜索：<br>
+                in:name test.com #仓库标题搜索含有关键字<br>
+                in:descripton test.com #仓库描述搜索含有关键字<br>
+                in:readme test.com #Readme文件搜素含有关键字<br>
+                stars:>3000 test.com #stars数量大于3000的搜索关键字<br>
+                stars:1000..3000 test.com #stars数量大于1000小于3000的搜索关键字<br>
+                forks:>1000 test.com #forks数量大于1000的搜索关键字<br>
+                forks:1000..3000 test.com #forks数量大于1000小于3000的搜索关键字<br>
+                size:>=5000 test.com #指定仓库大于5000k(5M)的搜索关键字<br>
+                pushed:>2019-02-12 test.com #发布时间大于2019-02-12的搜索关键字<br>
+                created:>2019-02-12 test.com #创建时间大于2019-02-12的搜索关键字<br>
+                user:test.com #用户名搜素<br>
+                license:apache-2.0 test.com #明确仓库的 LICENSE 搜索关键字<br>
+                language:java test.com #在java语言的代码中搜索关键字<br>
+                user:test in:name test.com #组合搜索,用户名test的标题含有test的<br><br>
+
+                -----------------------------在谷歌上搜索github-----------------------------<br><br>
+
+                邮箱配置信息泄露<br>
+                site:github.com "test.com" smtp password<br>
+                site:github.com "test.com" smtp @126.com<br>
+                site:github.com "test.com" String password smtp<br><br>
+
+
+                数据库信息泄露<br>
+                site:github.com "test.com" root password<br>
+                site:github.com "test.com" sa password<br>
+                site:github.com "test.com" User ID='sa';Password<br><br>
+
+                svn信息泄露<br>
+                site:github.com "test.com" svn<br>
+                site:github.com "test.com" svn password<br>
+                site:github.com "test.com" svn username<br>
+                site:github.com "test.com" svn username password<br><br>
+
+                数据库备份文件<br>
+                site:github.com "test.com" inurl:sql<br><br>
+
+
+                综合信息泄露<br>
+                site:github.com "test.com" password<br>
+                site:github.com "test.com" ftp ftppassword<br>
+                site:github.com "test.com" 密码<br>
+                site:github.com "test.com" 内部<br>
+            </span>
+        </div>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+            var contents = document.querySelectorAll('.content-item');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            document.getElementById(contentId).classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>

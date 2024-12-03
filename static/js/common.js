@@ -627,7 +627,9 @@ function closeModal1() {
 function dnslogfunc() {
     var modal4 = document.getElementById("modal4");
     modal4.style.display = "block";
-
+    // 清空表格体中的所有行
+    const tableBody = document.querySelector('#data-table tbody');
+    tableBody.innerHTML = '';
     $.ajax({
         url: '/ceye_dns_record/',
         method: 'GET',
