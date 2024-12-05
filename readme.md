@@ -32,8 +32,8 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
-2024-12-01更新<br> 
-1. 新增网站导航和相关搜索语法提示；<br>
+2024-12-05更新<br> 
+1. 新增网站导航和渗透测试常用命令；<br>
 2. 已知问题处理与优化；<br>
 </li>
 <li>
@@ -351,5 +351,5 @@ dnslog<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" />
 系统参数配置<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" />
-信息安全网站导航<br><br>
+网站导航<br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" />

