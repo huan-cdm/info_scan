@@ -32,6 +32,11 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-12-09更新<br> 
+1. 新增MSF Builder；<br>
+2. 已知问题处理与优化；<br>
+</li>
+<li>
 2024-12-05更新<br> 
 1. 新增网站导航和渗透测试常用命令；<br>
 2. 已知问题处理与优化；<br>
