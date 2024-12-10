@@ -82,6 +82,8 @@ import threading
 from config import recheck_username
 from config import recheck_password
 
+from config_session import PERMANENT_SESSION_LIFETIME
+
 
 import json
 
@@ -90,6 +92,13 @@ app.config.from_pyfile('config_session.py')
 app.secret_key = "DragonFire"
 bootstrap = Bootstrap(app)
 
+
+# 执行任何请求之前先执行此函数
+@app.before_request
+def before_request():
+    # 在每个请求之前调用，更新session的过期时间
+    session.permanent = True
+    app.permanent_session_lifetime = PERMANENT_SESSION_LIFETIME
 
 #IP基础信息查询
 @app.route("/ipscaninterface/",methods=['post'])
@@ -4266,6 +4275,37 @@ def siteroute():
     user = session.get('username')
     if str(user) == main_username:
         return render_template('navigation.html')
+    else:
+        return render_template('login.html')
+    
+
+
+#资产扩展
+@app.route("/assets_extend/",methods=['GET'])
+def assets_extend():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 筛选后资产时间线更新
+        basic.assets_status_update('资产扩展已完成')
+
+        # 创建一个新的线程启动资产扩展程序
+        def run_asset_extend_process():
+            print("已开启一个新的线程用于资产扩展")
+            try:
+                basic.expand_range_asset_lib()
+            except Exception as e:
+                print("捕获到异常:", e)
+        threading.Thread(target=run_asset_extend_process).start()
+        httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
+        subfinder_status = os.popen('bash /TIP/info_scan/finger.sh subfinder_status').read()
+        if "running" in httpx_status or "running" in subfinder_status:
+            assets_extend_status = "资产扩展程序正在运行中请勿重复提交"
+        else:
+            assets_extend_status = "资产扩展程序已开启稍后查看最新资产"
+        message_json = {
+            "assets_extend_status":assets_extend_status
+        }
+        return jsonify(message_json)
     else:
         return render_template('login.html')
 

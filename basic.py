@@ -2750,6 +2750,30 @@ def deletefofalog_lib():
         print("执行SQL语句时发生错误：", e)
         db.rollback()
 
+# 扩大资产范围
+def expand_range_asset_lib():
+    # url.txt转换为列表
+    url_list = url_file_ip_list()
+    # 提取根域名
+    root_domain_list = root_domain_scan(url_list)
+    # 根域名去重
+    root_domain_list_uniq = list(set(root_domain_list))
+
+    f = open(file='/TIP/info_scan/result/subfinder_target.txt', mode='w')
+    for k in root_domain_list_uniq:
+        f.write(str(k)+"\n")
+    f.close()
+
+    # 调用subfinder
+    try:
+        subprocess.run(['bash', '/TIP/info_scan/finger.sh', 'startsubfinder'], check=True)
+    except Exception as e:
+        print("错误信息：", e)
+    # 调用httpx
+    try:
+        subprocess.run(['bash', '/TIP/info_scan/finger.sh', 'subfinder_httpx'], check=True)
+    except Exception as e:
+        print("错误信息：", e)
 
 
 

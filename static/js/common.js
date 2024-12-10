@@ -2000,3 +2000,22 @@ function excude_assets_key_jiansuo() {
 function assetdownloadfunc() {
     window.open("/assetsdownload/", "_blank");
 }
+
+
+//资产扩展程序
+function assets_extend_func() {
+    $.ajax({
+        url: '/assets_extend/',
+        method: 'GET',
+
+        success: function (info) {
+            alert(info.assets_extend_status)
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}

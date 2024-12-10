@@ -1583,4 +1583,27 @@ case "${1}" in
     num=`cat /TIP/info_scan/result/nmap.txt | wc -l`
     echo "${num}"
     ;;
+
+    # 扩大资产范围
+    startsubfinder)
+    /TIP/info_scan/subfinder-scan/subfinder -dL /TIP/info_scan/result/subfinder_target.txt > /TIP/info_scan/result/subfinder_result.txt
+    ;;
+
+    subfinder_httpx)
+    /TIP/info_scan/httpx_server/httpx -l /TIP/info_scan/result/subfinder_result.txt -mc 200 > /TIP/batch_scan_domain/url_tmp.txt
+    # 删除空行
+    sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt > /TIP/batch_scan_domain/url.txt
+    ;;
+
+     # subfinder运行状态
+    subfinder_status)
+	ps_subfinderscan=`ps -aux | grep /TIP/info_scan/subfinder-scan/subfinder | wc -l`
+	if (( $ps_subfinderscan > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+	;;
+
 esac

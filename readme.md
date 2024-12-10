@@ -35,6 +35,9 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 2024-12-09更新<br> 
 1. 新增MSF Builder；<br>
 2. 已知问题处理与优化；<br>
+3. 新增接口请求自动刷新session,接口不请求情况下按照配置的时间失效；<br>
+4. 新增资产扩展,扩大资产范围，提高漏洞数目；<br>
+5. 新增subfinder扩展；<br>
 </li>
 <li>
 2024-12-05更新<br> 
