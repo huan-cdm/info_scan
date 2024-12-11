@@ -2524,6 +2524,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(30)
         else:
             print("万户OA漏洞扫描程序运行时间正在计算中...")
+    elif int(typepart) == 31:
+        print("subfinder扫描程序最终截止时间")
+        subfinder_status = os.popen('bash /TIP/info_scan/finger.sh subfinder_status').read()
+        subfinderscanisnull = scan_total_time_endtimeisnull(31)
+        if "stop" in subfinder_status and subfinderscanisnull == 0:
+            scan_total_time_end_time(31)
+        else:
+            print("subfinder扫描程序运行时间正在计算中...")
     else:
         print("开发中...")
 
@@ -2760,16 +2768,37 @@ def expand_range_asset_lib():
     root_domain_list_uniq = list(set(root_domain_list))
 
     f = open(file='/TIP/info_scan/result/subfinder_target.txt', mode='w')
+    # 定义域名常用后缀，用于过滤掉IP资产，IP不存在子域名信息
+    domain_suffix = ['com','net','org','info','xyz','top','gov','edu','mil','pub','cn']
     for k in root_domain_list_uniq:
-        f.write(str(k)+"\n")
+        for j in domain_suffix:
+            if j in k:
+                f.write(str(k)+"\n")
     f.close()
 
-    # 调用subfinder
+    # 调用subfinder获取子域名
     try:
         subprocess.run(['bash', '/TIP/info_scan/finger.sh', 'startsubfinder'], check=True)
     except Exception as e:
         print("错误信息：", e)
-    # 调用httpx
+
+    # 把子域名和资产备份中的IP合成一个列表存入文件，得到最终的资产
+    ip_list = []
+    file = open("/TIP/batch_scan_domain/url_back.txt",encoding='utf-8')
+    for line in file.readlines():
+        ip_list.append(line.strip())
+
+    subfinder_result_list = []
+    file1 = open("/TIP/info_scan/result/subfinder_result.txt",encoding='utf-8')
+    for line1 in file1.readlines():
+        subfinder_result_list.append(line1.strip())
+    domainiplist = ip_list + subfinder_result_list
+    file3 = open(file='/TIP/info_scan/result/subfinder_result.txt',mode='w')
+    for line2 in domainiplist:
+        file3.write(str(line2)+"\n")
+    file3.close()
+    
+    # 调用httpx把子域名中存活的提取出来并带协议
     try:
         subprocess.run(['bash', '/TIP/info_scan/finger.sh', 'subfinder_httpx'], check=True)
     except Exception as e:

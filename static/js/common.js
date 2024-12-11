@@ -113,6 +113,10 @@ function startbutton() {
     button24.disabled = false;
     var button25 = document.getElementById("button25");
     button25.disabled = false;
+    var button26 = document.getElementById("button26");
+    button26.disabled = false;
+    var button27 = document.getElementById("button27");
+    button27.disabled = false;
     var button51 = document.getElementById("button51");
     button51.disabled = false;
     var button63 = document.getElementById("button63");
@@ -149,6 +153,10 @@ function stopbutton() {
     button24.disabled = true;
     var button25 = document.getElementById("button25");
     button25.disabled = true;
+    var button26 = document.getElementById("button26");
+    button26.disabled = true;
+    var button27 = document.getElementById("button27");
+    button27.disabled = true;
     var button51 = document.getElementById("button51");
     button51.disabled = true;
     var button63 = document.getElementById("button63");
@@ -423,6 +431,8 @@ function openModal() {
                 // 运行状态显示绿色，停止状态显示红色
                 document.getElementById("spp1").innerHTML = info.nmapstatus1;
                 document.getElementById("spp1a").innerHTML = info.nmapstatus2;
+                document.getElementById("spp62").innerHTML = info.subfinder_status1;
+                document.getElementById("spp62a").innerHTML = info.subfinder_status2;
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
                 document.getElementById("spp3").innerHTML = info.xraystatus1;
@@ -553,6 +563,8 @@ function openModal() {
                 document.getElementById("totalspp1").innerHTML = info.total_report_status_result1;
                 // 扫描器耗时统计
                 document.getElementById("diffnmapid").innerHTML = info.nmapcontime;
+                document.getElementById("diffsubfinderid").innerHTML = info.subfindercontime;
+                
                 document.getElementById("diffeholeid").innerHTML = info.eholecontime;
                 document.getElementById("diffbbscanid").innerHTML = info.bbscancontime;
                 document.getElementById("diffotxid").innerHTML = info.otxcontime;

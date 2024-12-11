@@ -237,6 +237,7 @@
 							<td>指纹识别</td>
 							<td>springboot漏洞扫描</td>
 							<td>存活检测</td>
+							<td>subfinder扫描</td>
 							<td>弱口令扫描</td>
 							<td>api扫描</td>
 							<td>thinkphp漏洞扫描</td>
@@ -270,6 +271,10 @@
 								<span id="spp13a" style="color: red;"></span>
 							</td>
 							<td>
+								<span id="spp62" style="color:green"></span>
+								<span id="spp62a" style="color: red;"></span>
+							</td>
+							<td>
 								<span id="spp29" style="color:green"></span>
 								<span id="spp29a" style="color: red;"></span>
 							</td>
@@ -298,6 +303,7 @@
 							<td><span id="diffeholeid"></span></td>
 							<td><span id="diffspringbootid"></span></td>
 							<td><span id="diffhttpxscanid"></span></td>
+							<td><span id="diffsubfinderid"></span></td>
 							<td><span id="diffweakpassid"></span></td>
 							<td><span id="diffapiscanid"></span></td>
 							<td><span id="diffthinkphpid"></span></td>
@@ -1172,10 +1178,10 @@ poc显示区域</textarea>
 										<input type="button" id="button25" value="回退资产" onclick="assetsbackspacefunc()"
 											disabled>
 										&nbsp;&nbsp;
-										<input type="button" id="button25" value="资产优化"
-											onclick="asssets_jiansuo()">&nbsp;&nbsp;
-											<input type="button"  value="资产扩展"
-											onclick="assets_extend_func()">
+										<input type="button" id="button26" value="资产优化"
+											onclick="asssets_jiansuo()" disabled>&nbsp;&nbsp;
+											<input type="button" id="button27" value="资产扩展"
+											onclick="assets_extend_func()" disabled>
 										<br><br>
 										<div style="display: none;" id="divjiansuo1">
 											<input type="text" class="my-input" placeholder="关键字检索和排除资产" value=""

@@ -454,6 +454,16 @@ def systemmanagement():
             nmapstatus1 = ""
             nmapstatus2 = nmapstatus
             nmapcontime = basic.scan_end_start_time(1)
+        
+        subfinder_status = os.popen('bash /TIP/info_scan/finger.sh subfinder_status').read()
+        if "running" in subfinder_status:
+            subfinder_status1 = subfinder_status
+            subfinder_status2 = ""
+            subfindercontime = "计算中"
+        else:
+            subfinder_status1 = ""
+            subfinder_status2 = subfinder_status
+            subfindercontime = basic.scan_end_start_time(31)
 
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
@@ -959,6 +969,7 @@ def systemmanagement():
         message_json = {
             # 扫描器耗时统计
             "nmapcontime":nmapcontime+"秒",
+            "subfindercontime":subfindercontime+"秒",
             "eholecontime":eholecontime+"秒",
             "bbscancontime":bbscancontime+"秒",
             "otxcontime":otxcontime+"秒",
@@ -1012,6 +1023,8 @@ def systemmanagement():
             "otx_inter_num_fail":otx_inter_num_fail+"次",
             "nmapstatus1":nmapstatus1,
             "nmapstatus2":nmapstatus2,
+            "subfinder_status1":subfinder_status1,
+            "subfinder_status2":subfinder_status2,
             "nucleistatus1":nucleistatus1,
             "nucleistatus2":nucleistatus2,
             "xraystatus1":xraystatus1,
@@ -4287,7 +4300,8 @@ def assets_extend():
     if str(user) == main_username:
         # 筛选后资产时间线更新
         basic.assets_status_update('资产扩展已完成')
-
+        # subfinder程序用时统计相关
+        basic.scan_total_time_start_time(31)
         # 创建一个新的线程启动资产扩展程序
         def run_asset_extend_process():
             print("已开启一个新的线程用于资产扩展")
@@ -4296,6 +4310,13 @@ def assets_extend():
             except Exception as e:
                 print("捕获到异常:", e)
         threading.Thread(target=run_asset_extend_process).start()
+        # 在后台单独启动1个线程实时判断扫描器停止时间
+        def subfinderscanendtime():
+            while True:
+                time.sleep(1)
+                basic.scan_total_time_final_end_time(31)
+        threading.Thread(target=subfinderscanendtime).start()
+
         httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
         subfinder_status = os.popen('bash /TIP/info_scan/finger.sh subfinder_status').read()
         if "running" in httpx_status or "running" in subfinder_status:
@@ -4308,7 +4329,6 @@ def assets_extend():
         return jsonify(message_json)
     else:
         return render_template('login.html')
-
 
                 
 
