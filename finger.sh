@@ -72,11 +72,6 @@ case "${1}" in
 
     #nmap端口扫描
     nmap_port)
-    echo "" >> ./result/nmap.txt
-    echo "" >> ./result/nmap.txt
-    # 输出当前时间  
-    current_time=$(date +"%Y-%m-%d %H:%M:%S")  
-    echo "[+]$current_time" >> ./result/nmap.txt
     echo "[+]$2" >> ./result/nmap.txt
     /usr/bin/nmap -Pn -sS -sV -T4  $2  -p $3  --min-rate=10000 | grep "tcp"  >> ./result/nmap.txt
     ;;

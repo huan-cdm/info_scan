@@ -4132,6 +4132,8 @@ def comfirmclearloginterface():
                 print("nmap")
                 os.popen('rm -rf /TIP/info_scan/result/nmap.txt')
                 os.popen('touch /TIP/info_scan/result/nmap.txt')
+                os.popen('rm -rf /TIP/info_scan/result/nmap_ip.txt')
+                os.popen('touch /TIP/info_scan/result/nmap_ip.txt')
                 nmapnum = os.popen('bash /TIP/info_scan/finger.sh nmapnum').read()
                 if int(nmapnum) == 0:
                     recheck_result = "端口扫描报告已删除"
