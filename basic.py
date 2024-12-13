@@ -156,7 +156,7 @@ def generate_random_ip():
     return '.'.join(str(random.randint(0, 255)) for _ in range(4)) 
 
 
-# icp备案查询公司名称
+# ICP备案查询返回列表
 def icp_info(ip):
     try:
         UA = UserAgent()
@@ -190,21 +190,24 @@ def icp_info(ip):
             
             try:
                 for jii in domain_list_uniq:
+                    print(jii)
                     res = requests.get(url+str(jii),headers=hearder,allow_redirects=False)
                     res.encoding = 'utf-8'
                     soup=BeautifulSoup(res.text,'html.parser')
-                    
                     soup_td = soup.find_all('td')
                     icp_name = soup_td[25].text
                     icp_name_list.append(icp_name)
             except:
-                icp_name_list.append("icp备案查询接口内部错误")
+                icp_name_list.append("ICP备案接口正在更新维护中")
         icp_name_list_uniq = list(set(icp_name_list))
+        print(type(icp_name_list_uniq))
         success_third_party_port_addone(4)
     except:
         icp_name_list_uniq = ["None"]
         fail_third_party_port_addone(4)
     return icp_name_list_uniq
+
+
 
 
 # 网站标题

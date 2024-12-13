@@ -134,8 +134,12 @@ def ipscaninterface():
         else:
             try:
                
-    
-                companylocation = basic.amapscan(data4)
+                # 判断传递过来的公司名称是否有效
+                company_name = data4[0]
+                if company_name == "ICP备案接口正在更新维护中":
+                    companylocation = ["未获取到公司名称,无法查询地理位置信息"]
+                else:
+                    companylocation = basic.amapscan(data4)
                 basic.success_third_party_port_addone(5)
             except:
                 companylocation = "接口异常"

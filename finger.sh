@@ -1588,6 +1588,9 @@ case "${1}" in
     /TIP/info_scan/httpx_server/httpx -l /TIP/info_scan/result/subfinder_result.txt -mc 200 > /TIP/batch_scan_domain/url_tmp.txt
     # 删除空行
     sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt > /TIP/batch_scan_domain/url.txt
+    # 去重
+    sort /TIP/batch_scan_domain/url.txt | uniq > /TIP/batch_scan_domain/url_tmp.txt
+    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
     ;;
 
      # subfinder运行状态
