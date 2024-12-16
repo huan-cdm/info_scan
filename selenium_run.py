@@ -14,12 +14,11 @@ chrome_options.add_argument("--no-sandbox")  # 允许Chrome在没有沙箱环境
 chrome_options.add_argument("--disable-dev-shm-usage")  # 避免使用/dev/shm
 chrome_options.add_argument("--disable-gpu")  # 禁用GPU硬件加速
 chrome_options.add_argument("--headless")  # 无头模式
-
-# 设置ChromeDriver路径
-s = Service('/usr/bin/chromedriver')  # 确保这里的路径是ChromeDriver的实际路径
-
-# 初始化WebDriver
-# driver = webdriver.Chrome(service=s, options=chrome_options)
+chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+cookies = {
+    'Cookie':'_ga=GA1.1.1110716225.1734258983; Hm_lvt_b420ace1c5d07333ada549fcfc62c11b=1734258983; HMACCOUNT=B54EE7741933AFAC; PHPSESSID=vuupkm484tip0balp6l2l0bdon; ip=101.198.192.116; token=6da8780405ecd96eb4df7d87e327f601; recognition=6c54daf836522d41eb2327eec2c4d647; Hm_lpvt_b420ace1c5d07333ada549fcfc62c11b=1734259394; _ga_CWE059XRGV=GS1.1.1734258982.1.1.1734259398.0.0.0'
+}
+chrome_options.add_argument(cookies)
 
 # 初始化浏览器
 driver = webdriver.Chrome(options=chrome_options)
@@ -29,7 +28,6 @@ driver.get("https://www.icpapi.com/")
 # 设置显式等待
 wait = WebDriverWait(driver, 20)  # 等待最长20秒
 
-# 定位到输入框并输入字符串"test"
 # 定位到输入框，这里需要替换"input_id"为实际的输入框ID
 input_box = driver.find_element(By.ID, "searchInput")
 

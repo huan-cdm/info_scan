@@ -2816,15 +2816,6 @@ def expand_range_asset_lib():
 # ICP查询
 def icp_info_new(ip):
     try:
-        UA = UserAgent()
-        url = "https://www.icpapi.com/"
-        hearder = {
-            'Cookie':'_ga=GA1.1.1110716225.1734258983; Hm_lvt_b420ace1c5d07333ada549fcfc62c11b=1734258983; HMACCOUNT=B54EE7741933AFAC; PHPSESSID=vuupkm484tip0balp6l2l0bdon; ip=101.198.192.116; token=6da8780405ecd96eb4df7d87e327f601; recognition=6c54daf836522d41eb2327eec2c4d647; Hm_lpvt_b420ace1c5d07333ada549fcfc62c11b=1734259394; _ga_CWE059XRGV=GS1.1.1734258982.1.1.1734259398.0.0.0',
-            'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8',
-            'User-Agent':UA.random,
-            'Host':'www.icpapi.com',
-            'X-Forwarded-For': generate_random_ip()
-            }
         #历史URL列表
         domain_value = domain_scan(ip)
         
