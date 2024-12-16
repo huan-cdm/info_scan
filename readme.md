@@ -1,5 +1,11 @@
-bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
-<br>
+<h2>nginx配置401认证：</h2>
+配置方法：<br>
+1. sudo apt-get install apache2-utils  #安装apache2-utils工具包<br>
+2. sudo htpasswd -c /etc/nginx/htpasswd username #按照提示输入密码，username是你想要添加的用户名<br>
+3. cp info_scan/nginx_conf/nginx_401.conf /etc/nginx/conf.d/ #将项目中关于401认证的配置文件复制到nginx自定义目录下，/etc/nginx/conf.d/目录会通过nginx.conf加载<br>
+4. service nginx restart #重启服务生效<br>
+bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3<br>
+
 <h2>虚拟机安装：</h2>
 ##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 
 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
@@ -36,6 +42,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 1. 更改ICP备案查询接口；<br>
 2. 通过selenium库模拟用户点击行为防止被封禁；<br>
 3. 已知问题处理与优化；<br>
+4. 新增401认证；<br>
 </li>
 <li>
 2024-12-09更新<br> 
@@ -310,60 +317,62 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3
 ├── /TIP<br>
 │   ├── info_scan<br>
 │   ├── batch_scan_domain<br><br>
-项目部署目录<br><br>
+项目部署目录<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br><br>
-程序文件<br><br>
+程序文件<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br><br>
-服务启动参数<br><br>
+服务启动参数<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br><br>
-系统登录<br><br>
+系统登录<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login1.jpg"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/><br><br>
-IP基础信息查询<br><br>
+IP基础信息查询<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/><br><br>
-展开收起<br><br>
+展开收起<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/partconfigpage.png"/><br><br>
-数据展示<br><br>
+数据展示<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
-目录扫描<br><br>
+目录扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
-漏洞报告<br><br>
+漏洞报告<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br><br>
-资产发现<br><br>
+资产发现<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br><br>
-弱口令扫描<br><br>
+弱口令扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br><br>
-总报告在线预览<br><br>
+总报告在线预览<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br><br>
-特殊字符校验<br><br>
+特殊字符校验<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br><br>
-批量扫描<br><br>
+批量扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang1scan.png" /><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang2scan.png" /><br><br>
-JNDI服务管理<br><br>
+JNDI服务管理<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
-fofa语法日志<br><br>
+fofa语法日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
-弱口令扫描字典配置<br><br>
+弱口令扫描字典配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
-ES数据库漏洞扫描<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" />
-复核界面<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" />
-致远OA漏洞扫描<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/seeyonscan.png" />
-用友OA漏洞扫描<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yonsuitescan.png" />
-金蝶OA漏洞扫描<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/kingdeescan.png" />
-万户OA漏洞扫描<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" />
-dnslog<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" />
-系统参数配置<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" />
-网站导航<br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" />
+ES数据库漏洞扫描<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" /><br><br>
+复核界面<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" /><br><br>
+致远OA漏洞扫描<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/seeyonscan.png" /><br><br>
+用友OA漏洞扫描<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yonsuitescan.png" /><br><br>
+金蝶OA漏洞扫描<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/kingdeescan.png" /><br><br>
+万户OA漏洞扫描<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" /><br><br>
+dnslog<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" /><br><br>
+系统参数配置<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" /><br><br>
+网站导航<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" /><br><br>
+401认证<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/401_auth.png" /><br><br>
