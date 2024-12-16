@@ -121,7 +121,8 @@ def ipscaninterface():
     
         #icp备案信息-列表返回
         try:
-            data4 = basic.icp_info(ip)
+            # data4 = basic.icp_info(ip)
+            data4 = basic.icp_info_new(ip)
         except:
             pass
     

@@ -61,3 +61,4 @@ BeautifulSoup4
 motor
 httpx
 dnspython
+selenium

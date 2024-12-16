@@ -49,6 +49,10 @@ from config import interface_num
 
 import datetime
 
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
     
@@ -2806,6 +2810,65 @@ def expand_range_asset_lib():
         subprocess.run(['bash', '/TIP/info_scan/finger.sh', 'subfinder_httpx'], check=True)
     except Exception as e:
         print("错误信息：", e)
+
+
+
+# ICP查询
+def icp_info_new(ip):
+    try:
+        UA = UserAgent()
+        url = "https://www.icpapi.com/"
+        hearder = {
+            'Cookie':'_ga=GA1.1.1110716225.1734258983; Hm_lvt_b420ace1c5d07333ada549fcfc62c11b=1734258983; HMACCOUNT=B54EE7741933AFAC; PHPSESSID=vuupkm484tip0balp6l2l0bdon; ip=101.198.192.116; token=6da8780405ecd96eb4df7d87e327f601; recognition=6c54daf836522d41eb2327eec2c4d647; Hm_lpvt_b420ace1c5d07333ada549fcfc62c11b=1734259394; _ga_CWE059XRGV=GS1.1.1734258982.1.1.1734259398.0.0.0',
+            'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8',
+            'User-Agent':UA.random,
+            'Host':'www.icpapi.com',
+            'X-Forwarded-For': generate_random_ip()
+            }
+        #历史URL列表
+        domain_value = domain_scan(ip)
+        
+        # 提取带域名后缀以cn或者com的列表，过滤掉IP的URL
+        domain_list = []
+        for ii in domain_value:
+            if 'cn' in ii or 'com' in ii:
+                domain_list.append(ii)
+        
+        # 列表去重
+        try:
+            domain_list_uniq1 = []
+            domain_list_uniq = list(set(domain_list))
+            for ji in domain_list_uniq:
+                ji1 = ji.replace("https://","")
+                ji2 = ji1.replace("http://","")
+                ji3 = ji2.replace("www.","")
+                domain_list_uniq1.append(ji3)
+            
+            domain_list_uniq2 = list(set(domain_list_uniq1))
+        except:
+            pass
+    
+        icp_name_list = []
+        if len(domain_list_uniq2) == 0:
+            icp_name_list.append("None")
+        else:
+            
+            try:
+                for jii in domain_list_uniq2:
+                    icpname = os.popen('python3 /TIP/info_scan/selenium_run.py'+' '+jii).read()
+                    icp_name_list.append(icpname)
+            except:
+                icp_name_list.append("ICP备案接口正在更新维护中")
+        icp_name_list_uniq = list(set(icp_name_list))
+        
+        success_third_party_port_addone(4)
+    except:
+        icp_name_list_uniq = ["None"]
+        fail_third_party_port_addone(4)
+    return icp_name_list_uniq
+
+
+
 
 
 
