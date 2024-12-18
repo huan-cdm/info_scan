@@ -402,10 +402,11 @@ def submit_data():
         else:
             # 2024.8.2更新  校验非URL资产
             result_rule = ""
-            for ii in data:
-                if "http://"  not in ii and "https://" not in ii:
-                    result_rule = "请勿输入非URL字段！"
-                    break
+            # 注销掉不会校验输入格式
+            # for ii in data:
+            #     if "http://"  not in ii and "https://" not in ii:
+            #         result_rule = "请勿输入非URL字段！"
+            #         break
             if not result_rule:
                 # 列表中数据存入文件中
                 f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
@@ -475,6 +476,78 @@ def systemmanagement():
             subfinder_status1 = ""
             subfinder_status2 = subfinder_status
             subfindercontime = basic.scan_end_start_time(31)
+        
+        redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+        if "running" in redis_status:
+            redis_status1 = redis_status
+            redis_status2 = ""
+            rediscontime = "计算中"
+        else:
+            redis_status1 = ""
+            redis_status2 = redis_status
+            rediscontime = basic.scan_end_start_time(32)
+
+        mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+        if "running" in mongodb_status:
+            mongodb_status1 = mongodb_status
+            mongodb_status2 = ""
+            mongodbcontime = "计算中"
+        else:
+            mongodb_status1 = ""
+            mongodb_status2 = mongodb_status
+            mongodbcontime = basic.scan_end_start_time(33)
+
+
+        memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+        if "running" in memcached_status:
+            memcached_status1 = memcached_status
+            memcached_status2 = ""
+            memcachedcontime = "计算中"
+        else:
+            memcached_status1 = ""
+            memcached_status2 = memcached_status
+            memcachedcontime = basic.scan_end_start_time(34)
+
+        zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+        if "running" in zookeeper_status:
+            zookeeper_status1 = zookeeper_status
+            zookeeper_status2 = ""
+            zookeepercontime = "计算中"
+        else:
+            zookeeper_status1 = ""
+            zookeeper_status2 = zookeeper_status
+            zookeepercontime = basic.scan_end_start_time(35)
+
+        ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+        if "running" in ftp_status:
+            ftp_status1 = ftp_status
+            ftp_status2 = ""
+            ftpcontime = "计算中"
+        else:
+            ftp_status1 = ""
+            ftp_status2 = ftp_status
+            ftpcontime = basic.scan_end_start_time(36)
+
+
+        couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+        if "running" in couchdb_status:
+            couchdb_status1 = couchdb_status
+            couchdb_status2 = ""
+            couchdbcontime = "计算中"
+        else:
+            couchdb_status1 = ""
+            couchdb_status2 = couchdb_status
+            couchdbcontime = basic.scan_end_start_time(37)
+
+        docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+        if "running" in docker_status:
+            docker_status1 = docker_status
+            docker_status2 = ""
+            dockercontime = "计算中"
+        else:
+            docker_status1 = ""
+            docker_status2 = docker_status
+            dockercontime = basic.scan_end_start_time(38)
 
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
@@ -981,6 +1054,13 @@ def systemmanagement():
             # 扫描器耗时统计
             "nmapcontime":nmapcontime+"秒",
             "subfindercontime":subfindercontime+"秒",
+            "rediscontime":rediscontime+"秒",
+            "mongodbcontime":mongodbcontime+"秒",
+            "memcachedcontime":memcachedcontime+"秒",
+            "zookeepercontime":zookeepercontime+"秒",
+            "ftpcontime":ftpcontime+"秒",
+            "couchdbcontime":couchdbcontime+"秒",
+            "dockercontime":dockercontime+"秒",
             "eholecontime":eholecontime+"秒",
             "bbscancontime":bbscancontime+"秒",
             "otxcontime":otxcontime+"秒",
@@ -1036,6 +1116,20 @@ def systemmanagement():
             "nmapstatus2":nmapstatus2,
             "subfinder_status1":subfinder_status1,
             "subfinder_status2":subfinder_status2,
+            "redis_status1":redis_status1,
+            "redis_status2":redis_status2,
+            "mongodb_status1":mongodb_status1,
+            "mongodb_status2":mongodb_status2,
+            "memcached_status1":memcached_status1,
+            "memcached_status2":memcached_status2,
+            "zookeeper_status1":zookeeper_status1,
+            "zookeeper_status2":zookeeper_status2,
+            "ftp_status1":ftp_status1,
+            "ftp_status2":ftp_status2,
+            "couchdb_status1":couchdb_status1,
+            "couchdb_status2":couchdb_status2,
+            "docker_status1":docker_status1,
+            "docker_status2":docker_status2,
             "nucleistatus1":nucleistatus1,
             "nucleistatus2":nucleistatus2,
             "xraystatus1":xraystatus1,
@@ -1641,7 +1735,163 @@ def wanhureportyulan():
                 lines = ["未发现漏洞"]
             else:
                 lines = []
-                with open('/TIP/info_scan/result//wanhu_vuln.txt', 'r') as f:
+                with open('/TIP/info_scan/result/wanhu_vuln.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#redis未授权报告预览
+@app.route("/unredisreportyulan/")
+def unredisreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+        if "running" in redis_status:
+            lines = ["正在扫描中......"]
+        else:
+            redis_num = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_num').read()
+            if int(redis_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/redis_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+
+#mongodb未授权报告预览
+@app.route("/unmongodbreportyulan/")
+def unmongodbreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+        if "running" in mongodb_status:
+            lines = ["正在扫描中......"]
+        else:
+            mongodb_num = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_num').read()
+            if int(mongodb_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/mongodb_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+
+#memcached未授权报告预览
+@app.route("/unmemcachedreportyulan/")
+def unmemcachedreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+        if "running" in memcached_status:
+            lines = ["正在扫描中......"]
+        else:
+            memcached_num = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_num').read()
+            if int(memcached_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/memcached_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+#zookeeper未授权报告预览
+@app.route("/unzookeeperreportyulan/")
+def unzookeeperreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+        if "running" in zookeeper_status:
+            lines = ["正在扫描中......"]
+        else:
+            zookeeper_num = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_num').read()
+            if int(zookeeper_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/zookeeper_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#ftp未授权报告预览
+@app.route("/unftpreportyulan/")
+def unftpreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+        if "running" in ftp_status:
+            lines = ["正在扫描中......"]
+        else:
+            ftp_num = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_num').read()
+            if int(ftp_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/ftp_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+#couchdb未授权报告预览
+@app.route("/uncouchdbreportyulan/")
+def uncouchdbreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+        if "running" in couchdb_status:
+            lines = ["正在扫描中......"]
+        else:
+            couchdb_num = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_num').read()
+            if int(couchdb_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/couchdb_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+#docker未授权报告预览
+@app.route("/undockerreportyulan/")
+def undockerreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+        if "running" in docker_status:
+            lines = ["正在扫描中......"]
+        else:
+            docker_num = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_num').read()
+            if int(docker_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/docker_unauthorized.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -3051,6 +3301,174 @@ def vulnscan_check_back():
                                                 
                     else:
                         wanhu_status_result = "万户OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'o' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启redis未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time24 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes24 = basic.vuln_time_shijian_cha(24)
+                if int(diff_time_minutes24) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time24,24)
+                    # 金蝶OA扫描程序用时统计相关
+                    basic.scan_total_time_start_time(32)
+                    # 提交扫描任务
+                    redis_status_result = basic.startunredisscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def redisscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(32)
+                    threading.Thread(target=redisscanendtime).start()
+                                            
+                else:
+                    redis_status_result = "redis未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                    
+            elif 'p' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启mongodb未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time25 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes25 = basic.vuln_time_shijian_cha(25)
+                if int(diff_time_minutes25) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time25,25)
+                    # 金蝶OA扫描程序用时统计相关
+                    basic.scan_total_time_start_time(33)
+                    # 提交扫描任务
+                    mongodb_status_result = basic.startunrmongodbscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def mongodbscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(33)
+                    threading.Thread(target=mongodbscanendtime).start()
+                                            
+                else:
+                    mongodb_status_result = "mongodb未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'q' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启memcached未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time26 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes26 = basic.vuln_time_shijian_cha(26)
+                if int(diff_time_minutes26) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time26,26)
+                    # memcached扫描程序用时统计相关
+                    basic.scan_total_time_start_time(34)
+                    # 提交扫描任务
+                    memcached_status_result = basic.startunmemcachedscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def memcachedscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(34)
+                    threading.Thread(target=memcachedscanendtime).start()
+                                            
+                else:
+                    memcached_status_result = "memcached未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'r' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启zookeeper未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time27 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes27 = basic.vuln_time_shijian_cha(27)
+                if int(diff_time_minutes27) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time27,27)
+                    # zookeeper扫描程序用时统计相关
+                    basic.scan_total_time_start_time(35)
+                    # 提交扫描任务
+                    zookeeper_status_result = basic.startunzookeeperscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def zookeeperscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(35)
+                    threading.Thread(target=zookeeperscanendtime).start()
+                                            
+                else:
+                    zookeeper_status_result = "zookeeper未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+            elif 's' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启ftp未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time28 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes28 = basic.vuln_time_shijian_cha(28)
+                if int(diff_time_minutes28) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time28,28)
+                    # ftp扫描程序用时统计相关
+                    basic.scan_total_time_start_time(36)
+                    # 提交扫描任务
+                    ftp_status_result = basic.startunftpscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def ftpscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(36)
+                    threading.Thread(target=ftpscanendtime).start()
+                                            
+                else:
+                    ftp_status_result = "ftp未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 't' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启couchdb未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time29 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes29 = basic.vuln_time_shijian_cha(29)
+                if int(diff_time_minutes29) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time29,29)
+                    # couchdb扫描程序用时统计相关
+                    basic.scan_total_time_start_time(37)
+                    # 提交扫描任务
+                    couchdb_status_result = basic.startuncouchdbscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def couchdbscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(37)
+                    threading.Thread(target=couchdbscanendtime).start()
+                                            
+                else:
+                    couchdb_status_result = "couchdb未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'u' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启docker未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time30 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes30 = basic.vuln_time_shijian_cha(30)
+                if int(diff_time_minutes30) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time30,30)
+                    # docker扫描程序用时统计相关
+                    basic.scan_total_time_start_time(38)
+                    # 提交扫描任务
+                    docker_status_result = basic.startundockerscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def dockerscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(38)
+                    threading.Thread(target=dockerscanendtime).start()
+                                            
+                else:
+                    docker_status_result = "docker未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -3234,6 +3652,43 @@ def vulnscan_check_back():
             wanhu_status_result1 = ""
 
         try:
+            redis_status_result1 = redis_status_result
+        except:
+            redis_status_result1 = ""
+        try:
+            mongodb_status_result1 = mongodb_status_result
+        except:
+            mongodb_status_result1 = ""
+
+        try:
+            memcached_status_result1 = memcached_status_result
+        except:
+            memcached_status_result1 = ""
+        
+        try:
+            zookeeper_status_result1 = zookeeper_status_result
+        except:
+            zookeeper_status_result1 = ""
+        
+        
+        try:
+            ftp_status_result1 = ftp_status_result
+        except:
+            ftp_status_result1 = ""
+        
+        try:
+            couchdb_status_result1 = couchdb_status_result
+        except:
+            couchdb_status_result1 = ""
+
+        try:
+            docker_status_result1 = docker_status_result
+        except:
+            docker_status_result1 = ""
+        
+
+        
+        try:
             urlfinder_status_result1 = urlfinder_status_result
         except:
             urlfinder_status_result1 = ""
@@ -3309,7 +3764,14 @@ def vulnscan_check_back():
             "seeyon_status_result":seeyon_status_result1,
             "yonsuite_status_result":yonsuite_status_result1,
             "kingdee_status_result":kingdee_status_result1,
-            "wanhu_status_result":wanhu_status_result1
+            "wanhu_status_result":wanhu_status_result1,
+            "redis_status_result":redis_status_result1,
+            "mongodb_status_result":mongodb_status_result1,
+            "memcached_status_result":memcached_status_result1,
+            "zookeeper_status_result":zookeeper_status_result1,
+            "ftp_status_result":ftp_status_result1,
+            "couchdb_status_result":couchdb_status_result1,
+            "docker_status_result":docker_status_result1
         }
 
         return jsonify(message_json)
@@ -3472,6 +3934,20 @@ def stop_vulnscan_back():
                 kill_kingdee_result = basic.stopkingdeevuln_lib()
             elif 'n' in str(j):                
                 kill_wanhu_result = basic.stopwanhuvuln_lib()
+            elif 'o' in str(j):                
+                kill_redis_result = basic.stopunredisvuln_lib()
+            elif 'p' in str(j):                
+                kill_mongodb_result = basic.stopunmongodbvuln_lib()
+            elif 'q' in str(j):                
+                kill_memcached_result = basic.stopunmemcachedvuln_lib()
+            elif 'r' in str(j):                
+                kill_zookeeper_result = basic.stopunzookeepervuln_lib()
+            elif 's' in str(j):                
+                kill_ftp_result = basic.stopunftpvuln_lib()
+            elif 't' in str(j):                
+                kill_couchdb_result = basic.stopuncouchdbvuln_lib()
+            elif 'u' in str(j):                
+                kill_docker_result = basic.stopundockervuln_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -3507,10 +3983,43 @@ def stop_vulnscan_back():
             kill_wanhu_result1 = kill_wanhu_result
         except:
             kill_wanhu_result1 = ""
+        try:
+            kill_redis_result1 = kill_redis_result
+        except:
+            kill_redis_result1 = ""
+        
+        try:
+            kill_mongodb_result1 = kill_mongodb_result
+        except:
+            kill_mongodb_result1 = ""
 
+        try:
+            kill_memcached_result1 = kill_memcached_result
+        except:
+            kill_memcached_result1 = ""
+        
+        try:
+            kill_zookeeper_result1 = kill_zookeeper_result
+        except:
+            kill_zookeeper_result1 = ""
+        
+        try:
+            kill_ftp_result1 = kill_ftp_result
+        except:
+            kill_ftp_result1 = ""
+        
+        try:
+            kill_couchdb_result1 = kill_couchdb_result
+        except:
+            kill_couchdb_result1 = ""
+
+        try:
+            kill_docker_result1 = kill_docker_result
+        except:
+            kill_docker_result1 = ""
         
         
-
+        
         try:
             kill_springboot_result1 = kill_springboot_result
         except:
@@ -3609,7 +4118,14 @@ def stop_vulnscan_back():
            "kill_seeyon_result":kill_seeyon_result1,
            "kill_yonsuite_result":kill_yonsuite_result1,
            "kill_kingdee_result":kill_kingdee_result1,
-           "kill_wanhu_result":kill_wanhu_result1
+           "kill_wanhu_result":kill_wanhu_result1,
+           "kill_redis_result":kill_redis_result1,
+           "kill_mongodb_result":kill_mongodb_result1,
+           "kill_memcached_result":kill_memcached_result1,
+           "kill_zookeeper_result":kill_zookeeper_result1,
+           "kill_ftp_result":kill_ftp_result1,
+           "kill_couchdb_result":kill_couchdb_result1,
+           "kill_docker_result":kill_docker_result1
         }
 
         return jsonify(message_json)

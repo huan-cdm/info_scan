@@ -383,6 +383,77 @@
 						</tr>
 					</table>
 					<br>
+					<table border="1" style="width: 1400px; height: 100px;">
+						<tr>
+							<th>名称</th>
+							<td>redis</td>
+							<td>mongodb</td>
+							<td>memcached</td>
+							<td>zookeeper</td>
+							<td>ftp</td>
+							<td>CouchDB</td>
+							<td>docker</td>
+							<td>Hadoop</td>
+						</tr>
+						<tr>
+							<th>状态</th>
+							<td>
+								<span id="spp63" style="color:green"></span>
+								<span id="spp63a" style="color: red;"></span>
+							</td>
+							<td>
+								<span id="spp64" style="color:green"></span>
+								<span id="spp64a" style="color: red;"></span>
+							</td>
+							<td>
+								<span id="spp65" style="color:green"></span>
+								<span id="spp65a" style="color: red;"></span>
+							</td>
+							<td>
+								<span id="spp66" style="color:green"></span>
+								<span id="spp66a" style="color: red;"></span>
+							</td>
+							<td>
+								<span id="spp67" style="color:green"></span>
+								<span id="spp67a" style="color: red;"></span>
+							</td>
+							<td>
+								<span id="spp68" style="color:green"></span>
+								<span id="spp68a" style="color: red;"></span>
+							</td>
+							<td>
+								<span id="spp69" style="color:green"></span>
+								<span id="spp69a" style="color: red;"></span>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>耗时</th>
+							<td>
+								<span id="diffredisid"></span>
+							</td>
+							<td>
+								<span id="diffmongodbid"></span>
+							</td>
+							<td>
+								<span id="diffmemcachedid"></span>
+							</td>
+							<td>
+								<span id="diffzookeeperid"></span>
+							</td>
+							<td>
+								<span id="diffftpid"></span>
+							</td>
+							<td>
+								<span id="diffcouchdbid"></span>
+							</td>
+							<td>
+								<span id="diffdockerid"></span>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+					<br>
 					<strong style="color:coral">关键资产数量</strong><br>
 					<span>1. 需先进行网站指纹识别,否则读取的是上一次的数据；</span><br>
 					<span>2. 规则名称是资产过滤规则,在资产过滤规则处进行编辑,然后点击识别关键资产,即可得到想要的资产；</span><br>
@@ -1080,6 +1151,28 @@ poc显示区域</textarea>
 
 						</td>
 					</tr>
+					<!-- 漏洞扫描程序第四行 -->
+					 <tr>
+						<td colspan="2">
+							<span><strong>未授权专项类：</strong></span>
+							<input type="checkbox" id="option26" name="option" value="o">
+							<label for="option26" class="my-label">redis</label>
+							<input type="checkbox" id="option27" name="option" value="p">
+							<label for="option27" class="my-label">mongodb</label>
+							<input type="checkbox" id="option28" name="option" value="q">
+							<label for="option28" class="my-label">memcached</label>
+							<input type="checkbox" id="option29" name="option" value="r">
+							<label for="option29" class="my-label">zookeeper</label>
+							<input type="checkbox" id="option30" name="option" value="s">
+							<label for="option30" class="my-label">ftp</label>
+							<input type="checkbox" id="option31" name="option" value="t">
+							<label for="option31" class="my-label">CouchDB</label>
+							<input type="checkbox" id="option32" name="option" value="u">
+							<label for="option32" class="my-label">docker</label>
+							<input type="checkbox" id="option33" name="option" value="v">
+							<label for="option33" class="my-label">Hadoop</label>
+						</td>
+					 </tr>
 				</table>
 				<br>
 				<!-- 设置表格边框颜色 -->

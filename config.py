@@ -115,3 +115,6 @@ recheck_password = "root"
 
 # 自定义扫描器超时时间配置
 custom_poc_timeout = 3
+
+# 未授权类漏洞采用线程池，线程数量配置，服务器配置低尽量不要将此值调大
+threadnum=50

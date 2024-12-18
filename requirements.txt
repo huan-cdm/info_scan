@@ -62,3 +62,4 @@ motor
 httpx
 dnspython
 selenium
+pymongo

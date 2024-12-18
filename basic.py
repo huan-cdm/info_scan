@@ -1869,6 +1869,205 @@ def stopwanhuvuln_lib():
     return kill_wanhu_result
 
 
+# 开启redis未授权漏洞扫描
+def startunredisscan_lib():
+    redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+    if "running" in redis_status:
+        redis_status_result = "redis未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_redis_scan_shell')
+            if "running" in redis_status:
+                redis_status_result = "redis未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                redis_status_result = "redis未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return redis_status_result
+
+
+# 关闭redis漏洞扫描程序
+def stopunredisvuln_lib():
+    redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_redis_scan')
+    if "stop" in redis_status:
+        kill_unredis_result = "已关闭redis未授权漏洞扫描程序"
+    else:
+        kill_unredis_result = "正在关闭中......"
+    return kill_unredis_result
+
+
+# 开启mongodb未授权漏洞扫描
+def startunrmongodbscan_lib():
+    mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+    if "running" in mongodb_status:
+        mongodb_status_result = "mongodb未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_mongodb_scan_shell')
+            if "running" in mongodb_status:
+                mongodb_status_result = "mongodb未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                mongodb_status_result = "mongodb未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return mongodb_status_result
+
+
+# 关闭mongodb漏洞扫描程序
+def stopunmongodbvuln_lib():
+    mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_mongodb_scan')
+    if "stop" in mongodb_status:
+        kill_unmongodb_result = "已关闭mongodb未授权漏洞扫描程序"
+    else:
+        kill_unmongodb_result = "正在关闭中......"
+    return kill_unmongodb_result
+
+
+
+# 开启memcached未授权漏洞扫描
+def startunmemcachedscan_lib():
+    memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+    if "running" in memcached_status:
+        memcached_status_result = "memcached未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_memcached_scan_shell')
+            if "running" in memcached_status:
+                memcached_status_result = "memcached未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                memcached_status_result = "memcached未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return memcached_status_result
+
+
+
+# 关闭memcached漏洞扫描程序
+def stopunmemcachedvuln_lib():
+    memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_memcached_scan')
+    if "stop" in memcached_status:
+        kill_unmemcached_result = "已关闭memcached未授权漏洞扫描程序"
+    else:
+        kill_unmemcached_result = "正在关闭中......"
+    return kill_unmemcached_result
+
+
+# 开启zookeeper未授权漏洞扫描
+def startunzookeeperscan_lib():
+    zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+    if "running" in zookeeper_status:
+        zookeeper_status_result = "zookeeper未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_zookeeper_scan_shell')
+            if "running" in zookeeper_status:
+                zookeeper_status_result = "zookeeper未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                zookeeper_status_result = "zookeeper未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return zookeeper_status_result
+
+
+# 关闭zookeeper漏洞扫描程序
+def stopunzookeepervuln_lib():
+    zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_zookeeper_scan')
+    if "stop" in zookeeper_status:
+        kill_zookeeper_result = "已关闭zookeeper未授权漏洞扫描程序"
+    else:
+        kill_zookeeper_result = "正在关闭中......"
+    return kill_zookeeper_result
+
+
+# 开启ftp未授权漏洞扫描
+def startunftpscan_lib():
+    ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+    if "running" in ftp_status:
+        ftp_status_result = "ftp未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_ftp_scan_shell')
+            if "running" in ftp_status:
+                ftp_status_result = "ftp未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                ftp_status_result = "ftp未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return ftp_status_result
+
+
+# 关闭ftp漏洞扫描程序
+def stopunftpvuln_lib():
+    ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_ftp_scan')
+    if "stop" in ftp_status:
+        kill_ftp_result = "已关闭ftp未授权漏洞扫描程序"
+    else:
+        kill_ftp_result = "正在关闭中......"
+    return kill_ftp_result
+
+
+
+# 开启couchdb未授权漏洞扫描
+def startuncouchdbscan_lib():
+    couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+    if "running" in couchdb_status:
+        couchdb_status_result = "couchdb未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_couchdb_scan_shell')
+            if "running" in couchdb_status:
+                couchdb_status_result = "couchdb未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                couchdb_status_result = "couchdb未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return couchdb_status_result
+
+
+# 关闭couchdb漏洞扫描程序
+def stopuncouchdbvuln_lib():
+    couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_couchdb_scan')
+    if "stop" in couchdb_status:
+        kill_couchdb_result = "已关闭couchdb未授权漏洞扫描程序"
+    else:
+        kill_couchdb_result = "正在关闭中......"
+    return kill_couchdb_result
+
+
+
+# 开启docker未授权漏洞扫描
+def startundockerscan_lib():
+    docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+    if "running" in docker_status:
+        docker_status_result = "docker未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_docker_scan_shell')
+            if "running" in docker_status:
+                docker_status_result = "docker未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                docker_status_result = "docker未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return docker_status_result
+
+
+# 关闭docker漏洞扫描程序
+def stopundockervuln_lib():
+    docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_docker_scan')
+    if "stop" in docker_status:
+        kill_docker_result = "已关闭docker未授权漏洞扫描程序"
+    else:
+        kill_docker_result = "正在关闭中......"
+    return kill_docker_result
+
 
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
@@ -2539,6 +2738,62 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(31)
         else:
             print("subfinder扫描程序运行时间正在计算中...")
+    elif int(typepart) == 32:
+        print("redis扫描程序最终截止时间")
+        redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+        redisscanisnull = scan_total_time_endtimeisnull(32)
+        if "stop" in redis_status and redisscanisnull == 0:
+            scan_total_time_end_time(32)
+        else:
+            print("redis未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 33:
+        print("mongodb扫描程序最终截止时间")
+        mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+        mongodbscanisnull = scan_total_time_endtimeisnull(33)
+        if "stop" in mongodb_status and mongodbscanisnull == 0:
+            scan_total_time_end_time(33)
+        else:
+            print("mongodb未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 34:
+        print("memcached扫描程序最终截止时间")
+        memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+        memcachedscanisnull = scan_total_time_endtimeisnull(34)
+        if "stop" in memcached_status and memcachedscanisnull == 0:
+            scan_total_time_end_time(34)
+        else:
+            print("memcached未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 35:
+        print("zookeeper扫描程序最终截止时间")
+        zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+        zookeeperscanisnull = scan_total_time_endtimeisnull(35)
+        if "stop" in zookeeper_status and zookeeperscanisnull == 0:
+            scan_total_time_end_time(35)
+        else:
+            print("zookeeper未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 36:
+        print("ftp扫描程序最终截止时间")
+        ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+        ftpscanisnull = scan_total_time_endtimeisnull(36)
+        if "stop" in ftp_status and ftpscanisnull == 0:
+            scan_total_time_end_time(36)
+        else:
+            print("ftp未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 37:
+        print("couchdb扫描程序最终截止时间")
+        couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+        couchdbscanisnull = scan_total_time_endtimeisnull(37)
+        if "stop" in couchdb_status and couchdbscanisnull == 0:
+            scan_total_time_end_time(37)
+        else:
+            print("couchdb未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 38:
+        print("docker扫描程序最终截止时间")
+        docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+        dockerscanisnull = scan_total_time_endtimeisnull(38)
+        if "stop" in docker_status and dockerscanisnull == 0:
+            scan_total_time_end_time(38)
+        else:
+            print("docker未授权扫描程序运行时间正在计算中...")
     else:
         print("开发中...")
 

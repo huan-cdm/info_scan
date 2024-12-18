@@ -1157,6 +1157,236 @@ case "${1}" in
 	done
     ;;
 
+    # ---------------未授权访问类漏洞专项---------------
+    # 开启redis未授权扫描
+    start_redis_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py redis_unauthorizedset_scan_lib > /TIP/info_scan/result/redis_unauthorized.txt
+    ;;
+
+    # redis未授权扫描程序运行状态
+    redis_vuln_scan_status)
+    redis_scan_ps=`ps -aux | grep "vuln_lib.py redis_unauthorizedset_scan_lib" | wc -l`
+	if (( $redis_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #redis未授权漏洞数量
+    redis_vuln_num)
+    redis_num=`cat /TIP/info_scan/result/redis_unauthorized.txt | wc -l`
+    echo "${redis_num}"
+    ;;
+
+    # 关闭redis漏洞扫描程序
+    stop_redis_scan)
+    redis_pid=`ps -aux | grep "redis_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${redis_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启mongodb未授权扫描
+    start_mongodb_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py mongodb_unauthorizedset_scan_lib > /TIP/info_scan/result/mongodb_unauthorized.txt
+    ;;
+
+    # mongodb未授权扫描程序运行状态
+    mongodb_vuln_scan_status)
+    mongodb_scan_ps=`ps -aux | grep "vuln_lib.py mongodb_unauthorizedset_scan_lib" | wc -l`
+	if (( $mongodb_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #mongodb未授权漏洞数量
+    mongodb_vuln_num)
+    mongodb_num=`cat /TIP/info_scan/result/mongodb_unauthorized.txt | wc -l`
+    echo "${mongodb_num}"
+    ;;
+
+    # 关闭mongodb漏洞扫描程序
+    stop_mongodb_scan)
+    mongodb_pid=`ps -aux | grep "mongodb_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${mongodb_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启memcached未授权扫描
+    start_memcached_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py memcached_unauthorizedset_scan_lib > /TIP/info_scan/result/memcached_unauthorized.txt
+    ;;
+
+    # memcached未授权扫描程序运行状态
+    memcached_vuln_scan_status)
+    memcached_scan_ps=`ps -aux | grep "vuln_lib.py memcached_unauthorizedset_scan_lib" | wc -l`
+	if (( $memcached_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #memcached未授权漏洞数量
+    memcached_vuln_num)
+    memcached_num=`cat /TIP/info_scan/result/memcached_unauthorized.txt | wc -l`
+    echo "${memcached_num}"
+    ;;
+
+    # 关闭memcached漏洞扫描程序
+    stop_memcached_scan)
+    memcached_pid=`ps -aux | grep "memcached_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${memcached_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+
+    # 开启zookeeper未授权扫描
+    start_zookeeper_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py zookeeper_unauthorizedset_scan_lib > /TIP/info_scan/result/zookeeper_unauthorized.txt
+    ;;
+
+    # zookeeper未授权扫描程序运行状态
+    zookeeper_vuln_scan_status)
+    zookeeper_scan_ps=`ps -aux | grep "vuln_lib.py zookeeper_unauthorizedset_scan_lib" | wc -l`
+	if (( $zookeeper_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #zookeeper未授权漏洞数量
+    zookeeper_vuln_num)
+    zookeeper_num=`cat /TIP/info_scan/result/zookeeper_unauthorized.txt | wc -l`
+    echo "${zookeeper_num}"
+    ;;
+
+
+    # 关闭zookeeper漏洞扫描程序
+    stop_zookeeper_scan)
+    zookeeper_pid=`ps -aux | grep "zookeeper_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${zookeeper_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启ftp未授权扫描
+    start_ftp_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py ftp_unauthorizedset_scan_lib > /TIP/info_scan/result/ftp_unauthorized.txt
+    ;;
+
+    # ftp未授权扫描程序运行状态
+    ftp_vuln_scan_status)
+    ftp_scan_ps=`ps -aux | grep "vuln_lib.py ftp_unauthorizedset_scan_lib" | wc -l`
+	if (( $ftp_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #ftp未授权漏洞数量
+    ftp_vuln_num)
+    ftp_num=`cat /TIP/info_scan/result/ftp_unauthorized.txt | wc -l`
+    echo "${ftp_num}"
+    ;;
+
+    # 关闭ftp漏洞扫描程序
+    stop_ftp_scan)
+    ftp_pid=`ps -aux | grep "ftp_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${ftp_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启couchdb未授权扫描
+    start_couchdb_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py couchdb_unauthorizedset_scan_lib > /TIP/info_scan/result/couchdb_unauthorized.txt
+    ;;
+
+    # couchdb未授权扫描程序运行状态
+    couchdb_vuln_scan_status)
+    couchdb_scan_ps=`ps -aux | grep "vuln_lib.py couchdb_unauthorizedset_scan_lib" | wc -l`
+	if (( $couchdb_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+
+    #couchdb未授权漏洞数量
+    couchdb_vuln_num)
+    couchdb_num=`cat /TIP/info_scan/result/couchdb_unauthorized.txt | wc -l`
+    echo "${couchdb_num}"
+    ;;
+
+    # 关闭couchdb漏洞扫描程序
+    stop_couchdb_scan)
+    couchdb_pid=`ps -aux | grep "couchdb_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${couchdb_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启docker未授权扫描
+    start_docker_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py docker_unauthorizedset_scan_lib > /TIP/info_scan/result/docker_unauthorized.txt
+    ;;
+
+    # docker未授权扫描程序运行状态
+    docker_vuln_scan_status)
+    docker_scan_ps=`ps -aux | grep "vuln_lib.py docker_unauthorizedset_scan_lib" | wc -l`
+	if (( $docker_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #docker未授权漏洞数量
+    docker_vuln_num)
+    docker_num=`cat /TIP/info_scan/result/docker_unauthorized.txt | wc -l`
+    echo "${docker_num}"
+    ;;
+
+    # 关闭docker漏洞扫描程序
+    stop_docker_scan)
+    docker_pid=`ps -aux | grep "docker_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${docker_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # ---------------未授权访问类漏洞专项---------------
+
 
 
     # tomcat漏洞扫描程序运行状态

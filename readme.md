@@ -38,6 +38,11 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-12-17更新<br> 
+1. 新增redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker未授权漏洞扫描；<br>
+2. 已知问题处理与优化；<br>
+</li>
+<li>
 2024-12-15更新<br> 
 1. 更改ICP备案查询接口；<br>
 2. 通过selenium库模拟用户点击行为防止被封禁；<br>
@@ -376,3 +381,5 @@ dnslog<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" /><br><br>
 401认证<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/401_auth.png" /><br><br>
+未授权专项<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weishouquan.png" /><br><br>

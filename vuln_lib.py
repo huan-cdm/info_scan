@@ -7,6 +7,14 @@
 4. fastjson漏洞POC
 5. 致远OA漏洞POC
 6. 用友OA漏洞POC
+7. redis未授权
+8. mongodb未授权
+9. memcached 未授权
+10. zookeeper未授权
+11. ftp匿名未授权
+12. CouchDB未授权
+13.  docker未授权
+14. Hadoop未授权
 '''
 
 import requests
@@ -28,6 +36,12 @@ from fake_useragent import UserAgent
 from basic import generate_random_ip
 import re
 from config import custom_poc_timeout
+import socket
+import pymongo
+from concurrent.futures import ThreadPoolExecutor
+from config import threadnum
+import ftplib
+import logging
 
 # elasticsearch数据库相关漏洞扫描
 def es_unauthorized():
@@ -939,7 +953,103 @@ def wanhuoa_vuln_scan():
             pass
 
 
+# redis未授权访问扫描
+def redis_unauthorizedset_scan_lib(ip):
+    try:
+        socket.setdefaulttimeout(5)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ip, 6379))
+        s.send(bytes("INFO\r\n", 'UTF-8'))
+        result = s.recv(1024).decode()
+        if "redis_version" in result:
+            print(ip + ":6379 存在redis未授权访问漏洞")
+        s.close()
+    except:
+        pass
+        
 
+# mongodb未授权访问扫描
+def mongodb_unauthorizedset_scan_lib(ip):
+    try:
+        conn = pymongo.MongoClient(ip, 27017, socketTimeoutMS=100)
+        dbname = conn.list_database_names()
+        if len(dbname) >= 1:
+            print(ip + ":27017 存在mongodb未授权访问漏洞")
+        conn.close()
+    except:
+        pass
+        
+
+# memcached未授权访问扫描
+def memcached_unauthorizedset_scan_lib(ip):
+    try:
+        socket.setdefaulttimeout(5)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ip, 11211))
+        s.send(bytes('stats\r\n', 'UTF-8'))
+        result = s.recv(1024).decode()
+        if "version" in result:
+            print(ip + ":11211 存在memcached未授权访问漏洞")
+        s.close()
+    except:
+        pass
+        
+# zookeeper未授权访问扫描
+def zookeeper_unauthorizedset_scan_lib(ip):
+    try:
+        socket.setdefaulttimeout(5)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ip, 2181))
+        s.send(bytes('envi\r\n', 'UTF-8'))
+        result = s.recv(1024).decode()
+        if "Environment" in result:
+            print(ip + ":2181 存在zookeeper未授权访问漏洞")
+        s.close()
+    except:
+        pass
+
+# ftp未授权访问扫描
+def ftp_unauthorizedset_scan_lib(ip):
+    try:
+        
+        ftp = ftplib.FTP.connect(ip,21,timeout=5)
+        ftp.login('anonymous', '12345678')
+        print(ip + ":21 存在FTP未授权访问漏洞")
+    except:
+        pass
+
+
+# CouchDB未授权扫描
+def couchdb_unauthorizedset_scan_lib(ip):
+    try:
+        url = 'http://' + ip + ':5984'+'/_utils/'
+        r = requests.get(url, timeout=5)
+        if 'couchdb-logo' in r.content.decode():
+            print(ip + ":5984/_utils 存在CouchDB未授权访问漏洞")
+    except:
+        pass
+
+
+# docker未授权扫描
+def docker_unauthorizedset_scan_lib(ip):
+    try:
+        url = 'http://' + ip + ':2375'+'/version'
+        r = requests.get(url, timeout=5)
+        if 'ApiVersion' in r.content.decode():
+            print(ip + ":2375/version 存在docker api未授权访问漏洞")
+    except:
+        pass
+
+
+# hadoop未授权扫描
+def hadoop_unauthorizedset_scan_lib(ip):
+    try:
+        url = 'http://' + ip + ':50070'+'/dfshealth.html'
+        r = requests.get(url, timeout=5)
+        if 'hadoop.css' in r.content.decode():
+            print(ip + ":50070/dfshealth.html 存在Hadoop未授权访问漏洞")
+    except:
+        pass
 
 
 
@@ -970,7 +1080,80 @@ if __name__ == "__main__":
             kingdeeoa_vuln_scan()   
         elif func_name == 'wanhuoa_vuln_scan':
             wanhuoa_vuln_scan()
-                         
+        elif func_name == 'redis_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(redis_unauthorizedset_scan_lib, target)
+        elif func_name == 'mongodb_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(mongodb_unauthorizedset_scan_lib, target)
+        elif func_name == 'memcached_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(memcached_unauthorizedset_scan_lib, target)
+        elif func_name == 'zookeeper_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(zookeeper_unauthorizedset_scan_lib, target)
+        elif func_name == 'ftp_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(ftp_unauthorizedset_scan_lib, target)
+        elif func_name == 'couchdb_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(couchdb_unauthorizedset_scan_lib, target)
+        
+        elif func_name == 'docker_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(docker_unauthorizedset_scan_lib, target)
+        elif func_name == 'hadoop_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(hadoop_unauthorizedset_scan_lib, target)
+                                    
         else:
             print("Invalid function number")
     else:

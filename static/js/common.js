@@ -433,6 +433,24 @@ function openModal() {
                 document.getElementById("spp1a").innerHTML = info.nmapstatus2;
                 document.getElementById("spp62").innerHTML = info.subfinder_status1;
                 document.getElementById("spp62a").innerHTML = info.subfinder_status2;
+                document.getElementById("spp63").innerHTML = info.redis_status1;
+                document.getElementById("spp63a").innerHTML = info.redis_status2;
+                document.getElementById("spp64").innerHTML = info.mongodb_status1;
+                document.getElementById("spp64a").innerHTML = info.mongodb_status2;
+                document.getElementById("spp65").innerHTML = info.memcached_status1;
+                document.getElementById("spp65a").innerHTML = info.memcached_status2;
+
+                document.getElementById("spp66").innerHTML = info.zookeeper_status1;
+                document.getElementById("spp66a").innerHTML = info.zookeeper_status2;
+                document.getElementById("spp67").innerHTML = info.ftp_status1;
+                document.getElementById("spp67a").innerHTML = info.ftp_status2;
+
+                document.getElementById("spp68").innerHTML = info.couchdb_status1;
+                document.getElementById("spp68a").innerHTML = info.couchdb_status2;
+
+                document.getElementById("spp69").innerHTML = info.docker_status1;
+                document.getElementById("spp69a").innerHTML = info.docker_status2;
+
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
                 document.getElementById("spp3").innerHTML = info.xraystatus1;
@@ -595,6 +613,13 @@ function openModal() {
                 document.getElementById("diffxrayid").innerHTML = info.xraycontime;
                 document.getElementById("diffwanhuoaid").innerHTML = info.wanhucontime;
 
+                document.getElementById("diffredisid").innerHTML = info.rediscontime;
+                document.getElementById("diffmongodbid").innerHTML = info.mongodbcontime;
+                document.getElementById("diffmemcachedid").innerHTML = info.memcachedcontime;
+                document.getElementById("diffzookeeperid").innerHTML = info.zookeepercontime;
+                document.getElementById("diffftpid").innerHTML = info.ftpcontime;
+                document.getElementById("diffcouchdbid").innerHTML = info.couchdbcontime;
+                document.getElementById("diffdockerid").innerHTML = info.dockercontime;
             });
     }
 
@@ -1416,7 +1441,7 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result)
+            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result+"\n"+info.redis_status_result+"\n"+info.mongodb_status_result+"\n"+info.memcached_status_result+"\n"+info.zookeeper_status_result+"\n"+info.ftp_status_result+"\n"+info.couchdb_status_result+"\n"+info.docker_status_result)
         },
 
         error: function (info) {
@@ -1578,7 +1603,7 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result)
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result + "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result+"\n"+info.kill_redis_result+"\n"+info.kill_mongodb_result+"\n"+info.kill_memcached_result+"\n"+info.kill_zookeeper_result+"\n"+info.kill_ftp_result+"\n"+info.kill_couchdb_result+"\n"+info.kill_docker_result)
         },
 
         error: function (info) {
@@ -1704,6 +1729,20 @@ function vulnscanxuanzhongreportyulan() {
         }
         else if (vuln_front_list[i] == 'n') {
             window.open("/wanhureportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 'o') {
+            window.open("/unredisreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 'p') {
+            window.open("/unmongodbreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 'q') {
+            window.open("/unmemcachedreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 'r') {
+            window.open("/unzookeeperreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 's') {
+            window.open("/unftpreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 't') {
+            window.open("/uncouchdbreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 'u') {
+            window.open("/undockerreportyulan/", "_blank");
         }
 
     }
