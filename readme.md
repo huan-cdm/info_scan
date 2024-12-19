@@ -30,17 +30,18 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3<br>
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
 <h2>集成相关工具：</h2> <br>
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA <br>
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
 信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
-相关工具逐步完善......
+未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）
 <br><br>
 <h2>更新日志：</h2>
 <ul>
 <li>
 2024-12-17更新<br> 
-1. 新增redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker未授权漏洞扫描；<br>
+1. 新增redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、hadoop、NFS未授权漏洞扫描；<br>
 2. 已知问题处理与优化；<br>
+3. 新增资产校验开关；<br>
 </li>
 <li>
 2024-12-15更新<br> 

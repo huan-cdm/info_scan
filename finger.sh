@@ -1385,6 +1385,71 @@ case "${1}" in
 	done
     ;;
 
+
+    # 开启hadoop未授权扫描
+    start_hadoop_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py hadoop_unauthorizedset_scan_lib > /TIP/info_scan/result/hadoop_unauthorized.txt
+    ;;
+
+     # hadoop未授权扫描程序运行状态
+    hadoop_vuln_scan_status)
+    hadoop_scan_ps=`ps -aux | grep "vuln_lib.py hadoop_unauthorizedset_scan_lib" | wc -l`
+	if (( $hadoop_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    #hadoop未授权漏洞数量
+    hadoop_vuln_num)
+    hadoop_num=`cat /TIP/info_scan/result/hadoop_unauthorized.txt | wc -l`
+    echo "${hadoop_num}"
+    ;;
+
+    # 关闭hadoop漏洞扫描程序
+    stop_hadoop_scan)
+    hadoop_pid=`ps -aux | grep "hadoop_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${hadoop_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
+    # 开启NFS未授权扫描
+    start_nfs_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py nfs_unauthorizedset_scan_lib | grep "存在" > /TIP/info_scan/result/nfs_unauthorized.txt
+    ;;
+
+     # nfs未授权扫描程序运行状态
+    nfs_vuln_scan_status)
+    nfs_scan_ps=`ps -aux | grep "vuln_lib.py nfs_unauthorizedset_scan_lib" | wc -l`
+	if (( $nfs_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+    # nfs未授权漏洞数量
+    nfs_vuln_num)
+    nfs_num=`cat /TIP/info_scan/result/nfs_unauthorized.txt | wc -l`
+    echo "${nfs_num}"
+    ;;
+
+    # 关闭nfs漏洞扫描程序
+    stop_nfs_scan)
+    nfs_pid=`ps -aux | grep "nfs_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${nfs_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
+
     # ---------------未授权访问类漏洞专项---------------
 
 

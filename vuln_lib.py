@@ -1051,6 +1051,17 @@ def hadoop_unauthorizedset_scan_lib(ip):
     except:
         pass
 
+# NFS未授权扫描
+def nfs_unauthorizedset_scan_lib(ip):
+    try:
+        nfstext = "showmount  -e  " + ip
+        result = os.popen(nfstext)
+        for line in result:
+            if "Export list" in line:
+                print(ip + "存在NFS未授权访问漏洞")
+    except:
+        pass
+
 
 
 if __name__ == "__main__":
@@ -1153,6 +1164,16 @@ if __name__ == "__main__":
                 for target in ip_list_uniq:
                     target=target.strip()
                     pool.submit(hadoop_unauthorizedset_scan_lib, target)
+
+        elif func_name == 'nfs_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(nfs_unauthorizedset_scan_lib, target)
                                     
         else:
             print("Invalid function number")

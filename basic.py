@@ -2069,6 +2069,63 @@ def stopundockervuln_lib():
     return kill_docker_result
 
 
+# 开启hadoop未授权漏洞扫描
+def startunhadoopscan_lib():
+    hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+    if "running" in hadoop_status:
+        hadoop_status_result = "hadoop未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_hadoop_scan_shell')
+            if "running" in hadoop_status:
+                hadoop_status_result = "hadoop未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                hadoop_status_result = "hadoop未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return hadoop_status_result
+
+
+# 关闭hadoop漏洞扫描程序
+def stopunhadoopvuln_lib():
+    hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_hadoop_scan')
+    if "stop" in hadoop_status:
+        kill_hadoop_result = "已关闭hadoop未授权漏洞扫描程序"
+    else:
+        kill_hadoop_result = "正在关闭中......"
+    return kill_hadoop_result
+
+
+
+# 开启nfs未授权漏洞扫描
+def startunnfsscan_lib():
+    nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+    if "running" in nfs_status:
+        nfs_status_result = "NFS未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_nfs_scan_shell')
+            if "running" in nfs_status:
+                nfs_status_result = "NFS未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                nfs_status_result = "NFS未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return nfs_status_result
+
+
+# 关闭NFS漏洞扫描程序
+def stopunnfsvuln_lib():
+    nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_nfs_scan')
+    if "stop" in nfs_status:
+        kill_nfs_result = "已关闭NFS未授权漏洞扫描程序"
+    else:
+        kill_nfs_result = "正在关闭中......"
+    return kill_nfs_result
+
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2794,6 +2851,22 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(38)
         else:
             print("docker未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 39:
+        print("hadoop扫描程序最终截止时间")
+        hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+        hadoopscanisnull = scan_total_time_endtimeisnull(39)
+        if "stop" in hadoop_status and hadoopscanisnull == 0:
+            scan_total_time_end_time(39)
+        else:
+            print("hadoop未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 40:
+        print("NFS扫描程序最终截止时间")
+        nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+        nfsscanisnull = scan_total_time_endtimeisnull(40)
+        if "stop" in nfs_status and nfsscanisnull == 0:
+            scan_total_time_end_time(40)
+        else:
+            print("NFS未授权扫描程序运行时间正在计算中...")
     else:
         print("开发中...")
 

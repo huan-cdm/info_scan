@@ -84,7 +84,7 @@ from config import recheck_password
 
 from config_session import PERMANENT_SESSION_LIFETIME
 
-
+from config import assetverification
 import json
 
 app = Flask(__name__,template_folder='./templates') 
@@ -402,11 +402,11 @@ def submit_data():
         else:
             # 2024.8.2更新  校验非URL资产
             result_rule = ""
-            # 注销掉不会校验输入格式
-            # for ii in data:
-            #     if "http://"  not in ii and "https://" not in ii:
-            #         result_rule = "请勿输入非URL字段！"
-            #         break
+            if int(assetverification) == 1:
+                for ii in data:
+                    if "http://"  not in ii and "https://" not in ii:
+                        result_rule = "请勿输入非URL字段！"
+                        break
             if not result_rule:
                 # 列表中数据存入文件中
                 f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
@@ -548,6 +548,27 @@ def systemmanagement():
             docker_status1 = ""
             docker_status2 = docker_status
             dockercontime = basic.scan_end_start_time(38)
+
+        
+        hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+        if "running" in hadoop_status:
+            hadoop_status1 = hadoop_status
+            hadoop_status2 = ""
+            hadoopcontime = "计算中"
+        else:
+            hadoop_status1 = ""
+            hadoop_status2 = hadoop_status
+            hadoopcontime = basic.scan_end_start_time(39)
+
+        nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+        if "running" in nfs_status:
+            nfs_status1 = nfs_status
+            nfs_status2 = ""
+            nfscontime = "计算中"
+        else:
+            nfs_status1 = ""
+            nfs_status2 = nfs_status
+            nfscontime = basic.scan_end_start_time(40)
 
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
@@ -1061,6 +1082,8 @@ def systemmanagement():
             "ftpcontime":ftpcontime+"秒",
             "couchdbcontime":couchdbcontime+"秒",
             "dockercontime":dockercontime+"秒",
+            "hadoopcontime":hadoopcontime+"秒",
+            "nfscontime":nfscontime+"秒",
             "eholecontime":eholecontime+"秒",
             "bbscancontime":bbscancontime+"秒",
             "otxcontime":otxcontime+"秒",
@@ -1130,6 +1153,10 @@ def systemmanagement():
             "couchdb_status2":couchdb_status2,
             "docker_status1":docker_status1,
             "docker_status2":docker_status2,
+            "hadoop_status1":hadoop_status1,
+            "hadoop_status2":hadoop_status2,
+            "nfs_status1":nfs_status1,
+            "nfs_status2":nfs_status2,
             "nucleistatus1":nucleistatus1,
             "nucleistatus2":nucleistatus2,
             "xraystatus1":xraystatus1,
@@ -1892,6 +1919,51 @@ def undockerreportyulan():
             else:
                 lines = []
                 with open('/TIP/info_scan/result/docker_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+
+#hadoop未授权报告预览
+@app.route("/unhadoopreportyulan/")
+def unhadoopreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+        if "running" in hadoop_status:
+            lines = ["正在扫描中......"]
+        else:
+            hadoop_num = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_num').read()
+            if int(hadoop_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/hadoop_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+    
+
+#NFS未授权报告预览
+@app.route("/unnfsreportyulan/")
+def unnfsreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+        if "running" in nfs_status:
+            lines = ["正在扫描中......"]
+        else:
+            nfs_num = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_num').read()
+            if int(nfs_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/nfs_unauthorized.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -3469,6 +3541,54 @@ def vulnscan_check_back():
                                             
                 else:
                     docker_status_result = "docker未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'v' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启hadoop未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time31 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes31 = basic.vuln_time_shijian_cha(31)
+                if int(diff_time_minutes31) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time31,31)
+                    # hadoop扫描程序用时统计相关
+                    basic.scan_total_time_start_time(39)
+                    # 提交扫描任务
+                    hadoop_status_result = basic.startunhadoopscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def hadoopscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(39)
+                    threading.Thread(target=hadoopscanendtime).start()
+                                            
+                else:
+                    hadoop_status_result = "hadoop未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+
+            elif 'w' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启NFS未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time32 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes32 = basic.vuln_time_shijian_cha(32)
+                if int(diff_time_minutes32) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time32,32)
+                    # NFS扫描程序用时统计相关
+                    basic.scan_total_time_start_time(40)
+                    # 提交扫描任务
+                    nfs_status_result = basic.startunnfsscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def nfsscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(40)
+                    threading.Thread(target=nfsscanendtime).start()
+                                            
+                else:
+                    nfs_status_result = "NFS未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -3686,7 +3806,16 @@ def vulnscan_check_back():
         except:
             docker_status_result1 = ""
         
-
+        try:
+            hadoop_status_result1 = hadoop_status_result
+        except:
+            hadoop_status_result1 = ""
+        
+        try:
+            nfs_status_result1 = nfs_status_result
+        except:
+            nfs_status_result1 = ""
+        
         
         try:
             urlfinder_status_result1 = urlfinder_status_result
@@ -3771,7 +3900,9 @@ def vulnscan_check_back():
             "zookeeper_status_result":zookeeper_status_result1,
             "ftp_status_result":ftp_status_result1,
             "couchdb_status_result":couchdb_status_result1,
-            "docker_status_result":docker_status_result1
+            "docker_status_result":docker_status_result1,
+            "hadoop_status_result":hadoop_status_result1,
+            "nfs_status_result":nfs_status_result1
         }
 
         return jsonify(message_json)
@@ -3948,6 +4079,10 @@ def stop_vulnscan_back():
                 kill_couchdb_result = basic.stopuncouchdbvuln_lib()
             elif 'u' in str(j):                
                 kill_docker_result = basic.stopundockervuln_lib()
+            elif 'v' in str(j):                
+                kill_hadoop_result = basic.stopunhadoopvuln_lib()
+            elif 'w' in str(j):                
+                kill_nfs_result = basic.stopunnfsvuln_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -4018,6 +4153,16 @@ def stop_vulnscan_back():
         except:
             kill_docker_result1 = ""
         
+        try:
+            kill_hadoop_result1 = kill_hadoop_result
+        except:
+            kill_hadoop_result1 = ""
+
+        
+        try:
+            kill_nfs_result1 = kill_nfs_result
+        except:
+            kill_nfs_result1 = ""
         
         
         try:
@@ -4125,7 +4270,9 @@ def stop_vulnscan_back():
            "kill_zookeeper_result":kill_zookeeper_result1,
            "kill_ftp_result":kill_ftp_result1,
            "kill_couchdb_result":kill_couchdb_result1,
-           "kill_docker_result":kill_docker_result1
+           "kill_docker_result":kill_docker_result1,
+           "kill_hadoop_result":kill_hadoop_result1,
+           "kill_nfs_result":kill_nfs_result1
         }
 
         return jsonify(message_json)
