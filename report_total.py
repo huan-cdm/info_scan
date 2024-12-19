@@ -278,6 +278,79 @@ def report_xlsx():
         wanhu_report_list.append(wanhu_line.strip())
     if len(wanhu_report_list) == 0:
         wanhu_report_list.append("暂无数据")
+
+    # redis
+    redis_report_list = []
+    redis_file = open("/TIP/info_scan/result/redis_unauthorized.txt",encoding='utf-8')
+    for redis_line in redis_file.readlines():
+        redis_report_list.append(redis_line.strip())
+    if len(redis_report_list) == 0:
+        redis_report_list.append("暂无数据")
+
+    # mongodb
+    mongodb_report_list = []
+    mongodb_file = open("/TIP/info_scan/result/mongodb_unauthorized.txt",encoding='utf-8')
+    for mongodb_line in mongodb_file.readlines():
+        mongodb_report_list.append(mongodb_line.strip())
+    if len(mongodb_report_list) == 0:
+        mongodb_report_list.append("暂无数据")
+
+    # memcached
+    memcached_report_list = []
+    memcached_file = open("/TIP/info_scan/result/memcached_unauthorized.txt",encoding='utf-8')
+    for memcached_line in memcached_file.readlines():
+        memcached_report_list.append(memcached_line.strip())
+    if len(memcached_report_list) == 0:
+        memcached_report_list.append("暂无数据")
+
+    # zookeeper
+    zookeeper_report_list = []
+    zookeeper_file = open("/TIP/info_scan/result/zookeeper_unauthorized.txt",encoding='utf-8')
+    for zookeeper_line in zookeeper_file.readlines():
+        zookeeper_report_list.append(zookeeper_line.strip())
+    if len(zookeeper_report_list) == 0:
+        zookeeper_report_list.append("暂无数据")
+
+     # ftp
+    ftp_report_list = []
+    ftp_file = open("/TIP/info_scan/result/ftp_unauthorized.txt",encoding='utf-8')
+    for ftp_line in ftp_file.readlines():
+        ftp_report_list.append(ftp_line.strip())
+    if len(ftp_report_list) == 0:
+        ftp_report_list.append("暂无数据")
+
+
+    # CouchDB
+    CouchDB_report_list = []
+    CouchDB_file = open("/TIP/info_scan/result/couchdb_unauthorized.txt",encoding='utf-8')
+    for CouchDB_line in CouchDB_file.readlines():
+        CouchDB_report_list.append(CouchDB_line.strip())
+    if len(CouchDB_report_list) == 0:
+        CouchDB_report_list.append("暂无数据")
+
+    # docker
+    docker_report_list = []
+    docker_file = open("/TIP/info_scan/result/docker_unauthorized.txt",encoding='utf-8')
+    for docker_line in docker_file.readlines():
+        docker_report_list.append(docker_line.strip())
+    if len(docker_report_list) == 0:
+        docker_report_list.append("暂无数据")
+    
+    # hadoop
+    hadoop_report_list = []
+    hadoop_file = open("/TIP/info_scan/result/hadoop_unauthorized.txt",encoding='utf-8')
+    for hadoop_line in hadoop_file.readlines():
+        hadoop_report_list.append(hadoop_line.strip())
+    if len(hadoop_report_list) == 0:
+        hadoop_report_list.append("暂无数据")
+
+    # nfs
+    nfs_report_list = []
+    nfs_file = open("/TIP/info_scan/result/nfs_unauthorized.txt",encoding='utf-8')
+    for nfs_line in nfs_file.readlines():
+        nfs_report_list.append(nfs_line.strip())
+    if len(nfs_report_list) == 0:
+        nfs_report_list.append("暂无数据")
     
     # 将列表转换为 pandas 的 DataFrame
     df_a = pd.DataFrame(weblogic_report_list, columns=['weblogic'])
@@ -312,6 +385,16 @@ def report_xlsx():
     df_e1 = pd.DataFrame(yonsuite_report_list, columns=['用友OA'])
     df_f1 = pd.DataFrame(kingdee_report_list, columns=['金蝶OA'])
     df_g1 = pd.DataFrame(wanhu_report_list, columns=['万户OA'])
+    df_h1 = pd.DataFrame(redis_report_list, columns=['redis'])
+    df_i1 = pd.DataFrame(mongodb_report_list, columns=['mongodb'])
+    df_j1 = pd.DataFrame(memcached_report_list, columns=['memcached'])
+    df_k1 = pd.DataFrame(zookeeper_report_list, columns=['zookeeper'])
+    df_l1 = pd.DataFrame(ftp_report_list, columns=['ftp'])
+    df_m1 = pd.DataFrame(CouchDB_report_list, columns=['CouchDB'])
+    df_n1 = pd.DataFrame(docker_report_list, columns=['docker'])
+    df_o1 = pd.DataFrame(hadoop_report_list, columns=['hadoop'])
+    df_p1 = pd.DataFrame(nfs_report_list, columns=['NFS'])
+
 
     # 创建一个 ExcelWriter 对象，用于写入 Excel 文件  
     with pd.ExcelWriter('/TIP/info_scan/result/vuln_report.xlsx', engine='openpyxl') as writer:
@@ -348,3 +431,12 @@ def report_xlsx():
         df_e1.to_excel(writer, sheet_name='用友OA', index=False)
         df_f1.to_excel(writer, sheet_name='金蝶OA', index=False)
         df_g1.to_excel(writer, sheet_name='万户OA', index=False)
+        df_h1.to_excel(writer, sheet_name='redis', index=False)
+        df_i1.to_excel(writer, sheet_name='mongodb', index=False)
+        df_j1.to_excel(writer, sheet_name='memcached', index=False)
+        df_k1.to_excel(writer, sheet_name='zookeeper', index=False)
+        df_l1.to_excel(writer, sheet_name='ftp', index=False)
+        df_m1.to_excel(writer, sheet_name='CouchDB', index=False)
+        df_n1.to_excel(writer, sheet_name='docker', index=False)
+        df_o1.to_excel(writer, sheet_name='hadoop', index=False)
+        df_p1.to_excel(writer, sheet_name='NFS', index=False)
