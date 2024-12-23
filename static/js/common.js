@@ -456,6 +456,8 @@ function openModal() {
 
                 document.getElementById("spp71").innerHTML = info.nfs_status1;
                 document.getElementById("spp71a").innerHTML = info.nfs_status2;
+                document.getElementById("spp72").innerHTML = info.rsync_status1;
+                document.getElementById("spp72a").innerHTML = info.rsync_status2;
 
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
@@ -588,7 +590,7 @@ function openModal() {
                 // 扫描器耗时统计
                 document.getElementById("diffnmapid").innerHTML = info.nmapcontime;
                 document.getElementById("diffsubfinderid").innerHTML = info.subfindercontime;
-                
+
                 document.getElementById("diffeholeid").innerHTML = info.eholecontime;
                 document.getElementById("diffbbscanid").innerHTML = info.bbscancontime;
                 document.getElementById("diffotxid").innerHTML = info.otxcontime;
@@ -628,6 +630,7 @@ function openModal() {
                 document.getElementById("diffdockerid").innerHTML = info.dockercontime;
                 document.getElementById("diffhadoopid").innerHTML = info.hadoopcontime;
                 document.getElementById("diffnfsid").innerHTML = info.nfscontime;
+                document.getElementById("diffrsyncid").innerHTML = info.rsynccontime;
             });
     }
 
@@ -744,18 +747,18 @@ function startscanconfigpagefunc() {
     var sessionid4 = document.getElementById('sessionid4');
     var sessionid5 = document.getElementById('sessionid5');
     var sessionid6 = document.getElementById('sessionid6');
-   
+
     $.ajax({
         url: '/system_config_data/',
         method: 'GET',
         success: function (info) {
-             // 为input元素赋值
-             sessionid1.value = info.search_result;
-             sessionid2.value = info.fofa_email;
-             sessionid3.value = info.fofa_key;
-             sessionid4.value = info.shodan_key;
-             sessionid5.value = info.amap_key;
-             sessionid6.value = info.ceye_key;
+            // 为input元素赋值
+            sessionid1.value = info.search_result;
+            sessionid2.value = info.fofa_email;
+            sessionid3.value = info.fofa_key;
+            sessionid4.value = info.shodan_key;
+            sessionid5.value = info.amap_key;
+            sessionid6.value = info.ceye_key;
 
         },
         error: function () {
@@ -1420,6 +1423,9 @@ function weaverscanfunc() {
 // 漏洞扫描集合选中扫描
 function vulnxuanzhongscan() {
 
+    var myModal = document.getElementById("myModal");
+    myModal.style.display = "block";
+
     const checkboxes = document.querySelectorAll('input[name="option"]:checked');
     const vuln_front_list = [];
 
@@ -1449,10 +1455,14 @@ function vulnxuanzhongscan() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result + 
-                "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result + 
-                "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result+
-                "\n"+info.redis_status_result+"\n"+info.mongodb_status_result+"\n"+info.memcached_status_result+"\n"+info.zookeeper_status_result+"\n"+info.ftp_status_result+"\n"+info.couchdb_status_result+"\n"+info.docker_status_result+"\n"+info.hadoop_status_result+"\n"+info.nfs_status_result)
+
+            var message = info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result +
+                "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result +
+                "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result +
+                "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result;
+
+            document.getElementById('vulnscan1').innerText = message;
+
         },
 
         error: function (info) {
@@ -1465,6 +1475,13 @@ function vulnxuanzhongscan() {
 
 }
 
+
+// 关闭漏洞扫描弹窗
+function closevulnscan() {
+    var myModal = document.getElementById("myModal");
+    myModal.style.display = "none";
+
+}
 
 
 // 信息收集集合复选框选中开启扫描
@@ -1595,6 +1612,7 @@ function vulnxuanzhongstopscanfunc() {
     const checkboxes = document.querySelectorAll('input[name="option"]:checked');
     const vuln_front_list = [];
 
+
     if (checkboxes.length === 0) {
         alert('请至少选择一个选项');
         return;
@@ -1614,17 +1632,19 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result + 
-                "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result + 
+            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result +
+                "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result +
                 "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result +
-                 "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result + 
-                 "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result + 
-                 "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result + 
-                 "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result + 
-                 "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result+"\n"+info.kill_redis_result+"\n"+info.kill_mongodb_result+
-                 "\n"+info.kill_memcached_result+"\n"+info.kill_zookeeper_result+"\n"+info.kill_ftp_result+
-                 "\n"+info.kill_couchdb_result+"\n"+info.kill_docker_result+"\n"+info.kill_hadoop_result+"\n"+info.kill_nfs_result)
+                "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result +
+                "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result +
+                "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result +
+                "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result +
+                "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result + "\n" + info.kill_redis_result + "\n" + info.kill_mongodb_result +
+                "\n" + info.kill_memcached_result + "\n" + info.kill_zookeeper_result + "\n" + info.kill_ftp_result +
+                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result)
+
         },
+
 
         error: function (info) {
             alert("内部出错")
@@ -1749,24 +1769,26 @@ function vulnscanxuanzhongreportyulan() {
         }
         else if (vuln_front_list[i] == 'n') {
             window.open("/wanhureportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'o') {
+        } else if (vuln_front_list[i] == 'o') {
             window.open("/unredisreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'p') {
+        } else if (vuln_front_list[i] == 'p') {
             window.open("/unmongodbreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'q') {
+        } else if (vuln_front_list[i] == 'q') {
             window.open("/unmemcachedreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'r') {
+        } else if (vuln_front_list[i] == 'r') {
             window.open("/unzookeeperreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 's') {
+        } else if (vuln_front_list[i] == 's') {
             window.open("/unftpreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 't') {
+        } else if (vuln_front_list[i] == 't') {
             window.open("/uncouchdbreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'u') {
+        } else if (vuln_front_list[i] == 'u') {
             window.open("/undockerreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'v') {
+        } else if (vuln_front_list[i] == 'v') {
             window.open("/unhadoopreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'w') {
+        } else if (vuln_front_list[i] == 'w') {
             window.open("/unnfsreportyulan/", "_blank");
+        } else if (vuln_front_list[i] == 'x') {
+            window.open("/unrsyncreportyulan/", "_blank");
         }
 
     }

@@ -1423,7 +1423,7 @@ case "${1}" in
     python3 /TIP/info_scan/vuln_lib.py nfs_unauthorizedset_scan_lib | grep "存在" > /TIP/info_scan/result/nfs_unauthorized.txt
     ;;
 
-     # nfs未授权扫描程序运行状态
+    # nfs未授权扫描程序运行状态
     nfs_vuln_scan_status)
     nfs_scan_ps=`ps -aux | grep "vuln_lib.py nfs_unauthorizedset_scan_lib" | wc -l`
 	if (( $nfs_scan_ps > 1 ))
@@ -1450,6 +1450,39 @@ case "${1}" in
 	done
     ;;
 
+    # 开启rsync未授权扫描
+    start_rsync_scan_shell)
+    python3 /TIP/info_scan/vuln_lib.py rsync_unauthorizedset_scan_lib > /TIP/info_scan/result/rsync_unauthorized.txt
+    ;;
+
+
+    # rsync未授权扫描程序运行状态
+    rsync_vuln_scan_status)
+    rsync_scan_ps=`ps -aux | grep "vuln_lib.py rsync_unauthorizedset_scan_lib" | wc -l`
+	if (( $rsync_scan_ps > 1 ))
+	then
+		echo "running"
+	else
+		echo "stop"
+	fi
+    ;;
+
+
+    # rsync未授权漏洞数量
+    rsync_vuln_num)
+    rsync_num=`cat /TIP/info_scan/result/rsync_unauthorized.txt | wc -l`
+    echo "${rsync_num}"
+    ;;
+
+    # 关闭rsync漏洞扫描程序
+    stop_rsync_scan)
+    rsync_pid=`ps -aux | grep "rsync_unauthorizedset_scan_lib" |awk -F " " '{print $2}'`
+    
+    for ii in ${rsync_pid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+    ;;
     # ---------------未授权访问类漏洞专项---------------
 
 

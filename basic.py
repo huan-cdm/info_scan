@@ -2126,6 +2126,35 @@ def stopunnfsvuln_lib():
     return kill_nfs_result
 
 
+
+# 开启rsync未授权漏洞扫描
+def startunrsyncscan_lib():
+    rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+    if "running" in rsync_status:
+        rsync_status_result = "rsync未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_rsync_scan_shell')
+            if "running" in rsync_status:
+                rsync_status_result = "rsync未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                rsync_status_result = "rsync未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return rsync_status_result
+
+
+# 关闭rsync漏洞扫描程序
+def stopunrsyncvuln_lib():
+    rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_rsync_scan')
+    if "stop" in rsync_status:
+        kill_rsync_result = "已关闭rsync未授权漏洞扫描程序"
+    else:
+        kill_rsync_result = "正在关闭中......"
+    return kill_rsync_result
+
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2867,6 +2896,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(40)
         else:
             print("NFS未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 41:
+        print("rsync扫描程序最终截止时间")
+        rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+        rsyncscanisnull = scan_total_time_endtimeisnull(41)
+        if "stop" in rsync_status and rsyncscanisnull == 0:
+            scan_total_time_end_time(41)
+        else:
+            print("rsync未授权扫描程序运行时间正在计算中...")
     else:
         print("开发中...")
 

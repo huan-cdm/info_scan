@@ -570,6 +570,16 @@ def systemmanagement():
             nfs_status2 = nfs_status
             nfscontime = basic.scan_end_start_time(40)
 
+        rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+        if "running" in rsync_status:
+            rsync_status1 = rsync_status
+            rsync_status2 = ""
+            rsynccontime = "计算中"
+        else:
+            rsync_status1 = ""
+            rsync_status2 = rsync_status
+            rsynccontime = basic.scan_end_start_time(41)
+
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
             nucleistatus1 = nucleistatus
@@ -1084,6 +1094,7 @@ def systemmanagement():
             "dockercontime":dockercontime+"秒",
             "hadoopcontime":hadoopcontime+"秒",
             "nfscontime":nfscontime+"秒",
+            "rsynccontime":rsynccontime+"秒",
             "eholecontime":eholecontime+"秒",
             "bbscancontime":bbscancontime+"秒",
             "otxcontime":otxcontime+"秒",
@@ -1157,6 +1168,8 @@ def systemmanagement():
             "hadoop_status2":hadoop_status2,
             "nfs_status1":nfs_status1,
             "nfs_status2":nfs_status2,
+            "rsync_status1":rsync_status1,
+            "rsync_status2":rsync_status2,
             "nucleistatus1":nucleistatus1,
             "nucleistatus2":nucleistatus2,
             "xraystatus1":xraystatus1,
@@ -1964,6 +1977,29 @@ def unnfsreportyulan():
             else:
                 lines = []
                 with open('/TIP/info_scan/result/nfs_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+
+#rsync未授权报告预览
+@app.route("/unrsyncreportyulan/")
+def unrsyncreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+        if "running" in rsync_status:
+            lines = ["正在扫描中......"]
+        else:
+            rsync_num = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_num').read()
+            if int(rsync_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/rsync_unauthorized.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -3589,6 +3625,29 @@ def vulnscan_check_back():
                                             
                 else:
                     nfs_status_result = "NFS未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            elif 'x' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启rsync未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time33 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes33 = basic.vuln_time_shijian_cha(33)
+                if int(diff_time_minutes33) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time33,33)
+                    # rsync扫描程序用时统计相关
+                    basic.scan_total_time_start_time(41)
+                    # 提交扫描任务
+                    rsync_status_result = basic.startunrsyncscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def rsyncscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(41)
+                    threading.Thread(target=rsyncscanendtime).start()
+                                            
+                else:
+                    rsync_status_result = "rsync未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
                 print("重点资产")
@@ -3815,6 +3874,12 @@ def vulnscan_check_back():
             nfs_status_result1 = nfs_status_result
         except:
             nfs_status_result1 = ""
+
+        
+        try:
+            rsync_status_result1 = rsync_status_result
+        except:
+            rsync_status_result1 = ""
         
         
         try:
@@ -3902,7 +3967,8 @@ def vulnscan_check_back():
             "couchdb_status_result":couchdb_status_result1,
             "docker_status_result":docker_status_result1,
             "hadoop_status_result":hadoop_status_result1,
-            "nfs_status_result":nfs_status_result1
+            "nfs_status_result":nfs_status_result1,
+            "rsync_status_result":rsync_status_result1
         }
 
         return jsonify(message_json)
@@ -4083,6 +4149,8 @@ def stop_vulnscan_back():
                 kill_hadoop_result = basic.stopunhadoopvuln_lib()
             elif 'w' in str(j):                
                 kill_nfs_result = basic.stopunnfsvuln_lib()
+            elif 'x' in str(j):                
+                kill_rsync_result = basic.stopunrsyncvuln_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -4163,6 +4231,12 @@ def stop_vulnscan_back():
             kill_nfs_result1 = kill_nfs_result
         except:
             kill_nfs_result1 = ""
+
+        try:
+            kill_rsync_result1 = kill_rsync_result
+        except:
+            kill_rsync_result1 = ""
+        
         
         
         try:
@@ -4272,7 +4346,8 @@ def stop_vulnscan_back():
            "kill_couchdb_result":kill_couchdb_result1,
            "kill_docker_result":kill_docker_result1,
            "kill_hadoop_result":kill_hadoop_result1,
-           "kill_nfs_result":kill_nfs_result1
+           "kill_nfs_result":kill_nfs_result1,
+           "kill_rsync_result":kill_rsync_result1
         }
 
         return jsonify(message_json)

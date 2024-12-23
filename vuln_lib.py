@@ -42,6 +42,7 @@ from concurrent.futures import ThreadPoolExecutor
 from config import threadnum
 import ftplib
 import logging
+import subprocess
 
 # elasticsearch数据库相关漏洞扫描
 def es_unauthorized():
@@ -1063,6 +1064,21 @@ def nfs_unauthorizedset_scan_lib(ip):
         pass
 
 
+# rsync未授权扫描
+def rsync_unauthorizedset_scan_lib(ip):
+    try:
+        socket.setdefaulttimeout(5)
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((ip, 873))
+        s.send(bytes("", 'UTF-8'))
+        result = s.recv(1024).decode()
+        if "RSYNCD" in result:
+            print(ip+" "+"可能存在rsync未授权,需要手工确认："+" "+"rsync rsync://"+ip+":873/")
+    except:
+        pass
+    
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -1174,6 +1190,16 @@ if __name__ == "__main__":
                 for target in ip_list_uniq:
                     target=target.strip()
                     pool.submit(nfs_unauthorizedset_scan_lib, target)
+
+        elif func_name == 'rsync_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(rsync_unauthorizedset_scan_lib, target)
                                     
         else:
             print("Invalid function number")

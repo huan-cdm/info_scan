@@ -38,7 +38,9 @@
 			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig11">字典配置</span>
 
 			</di>
-
+			<!-- <div id="output"
+				style="white-space: pre-wrap; overflow-y: scroll; max-height: 500px; border: 1px solid #ccc; padding: 10px;">
+			</div> -->
 			<div id="modal" class="modal">
 
 				<div class="modal-content">
@@ -395,6 +397,7 @@
 							<td>docker</td>
 							<td>Hadoop</td>
 							<td>NFS</td>
+							<td>rsync</td>
 						</tr>
 						<tr>
 							<th>状态</th>
@@ -434,6 +437,10 @@
 								<span id="spp71" style="color:green"></span>
 								<span id="spp71a" style="color: red;"></span>
 							</td>
+							<td>
+								<span id="spp72" style="color:green"></span>
+								<span id="spp72a" style="color: red;"></span>
+							</td>
 						</tr>
 						<tr>
 							<th>耗时</th>
@@ -463,6 +470,9 @@
 							</td>
 							<td>
 								<span id="diffnfsid"></span>
+							</td>
+							<td>
+								<span id="diffrsyncid"></span>
 							</td>
 						</tr>
 					</table>
@@ -951,6 +961,18 @@ poc显示区域</textarea>
 
 
 
+			<!-- 批量漏洞扫描返回结果弹窗 -->
+			<div id="myModal" class="modal5">
+				<!-- 弹窗内容 -->
+				<div class="modal-content5">
+					<span class="close5" onclick="closevulnscan()">&times;</span>
+					<p id="vulnscan1"></p>
+					<p id="vulnscan2"></p>
+				</div>
+			</div>
+
+
+
 			<h3>基础信息</h3>
 			<div>
 				<form method="post" action="/ipscaninterface/">
@@ -1165,7 +1187,7 @@ poc显示区域</textarea>
 						</td>
 					</tr>
 					<!-- 漏洞扫描程序第四行 -->
-					 <tr>
+					<tr>
 						<td colspan="2">
 							<span><strong>未授权专项类：</strong></span>
 							<input type="checkbox" id="option26" name="option" value="o">
@@ -1186,8 +1208,10 @@ poc显示区域</textarea>
 							<label for="option33" class="my-label">Hadoop</label>
 							<input type="checkbox" id="option34" name="option" value="w">
 							<label for="option34" class="my-label">NFS</label>
+							<input type="checkbox" id="option35" name="option" value="x">
+							<label for="option35" class="my-label">rsync</label>
 						</td>
-					 </tr>
+					</tr>
 				</table>
 				<br>
 				<!-- 设置表格边框颜色 -->
@@ -1286,10 +1310,10 @@ poc显示区域</textarea>
 										<input type="button" id="button25" value="回退资产" onclick="assetsbackspacefunc()"
 											disabled>
 										&nbsp;&nbsp;
-										<input type="button" id="button26" value="资产优化"
-											onclick="asssets_jiansuo()" disabled>&nbsp;&nbsp;
-											<input type="button" id="button27" value="资产扩展"
-											onclick="assets_extend_func()" disabled>
+										<input type="button" id="button26" value="资产优化" onclick="asssets_jiansuo()"
+											disabled>&nbsp;&nbsp;
+										<input type="button" id="button27" value="资产扩展" onclick="assets_extend_func()"
+											disabled>
 										<br><br>
 										<div style="display: none;" id="divjiansuo1">
 											<input type="text" class="my-input" placeholder="关键字检索和排除资产" value=""
