@@ -42,7 +42,9 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3<br>
 1. 新增redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、hadoop、NFS未授权漏洞扫描、rsync；<br>
 2. 已知问题处理与优化；<br>
 3. 新增资产校验开关,通过配置文件自定义是否校验资产格式；<br>
-4. 批量漏洞扫描改为自定义弹窗，删除之前的alert弹窗<br>
+4. 替换掉部分alert弹窗,修改为自定义弹窗,包括批量漏洞扫描和信息收集等；<br>
+5. 优化通过fofa获取资产接口,去掉之前的只保留以协议开头的资产，可获取所有资产；<br>
+6. 弹窗页面整体从index.html迁移到tanchuang.html；<br>
 </li>
 <li>
 2024-12-15更新<br> 

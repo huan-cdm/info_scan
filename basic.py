@@ -688,19 +688,15 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
         restext = res.text
         resdic=json.loads(restext)
         resdicresult=resdic['results']
-      
+
+        # fofa查询接口优化后，t去掉之间的只保留以协议开头的资产
         fofa_list = []
         for i in resdicresult:
-            matches1 = re.findall(r"(http(s)?://\S+)", i[0])
-            for match in matches1:
+            fofa_list.append(i[0])
+        fofa_list_result_uniq = list(set(fofa_list))
 
-                fofa_list.append(match)
-        
-        fofa_list_result = []
-        for j in fofa_list:
-            fofa_list_result.append(j[0])
-        
-        fofa_list_result_uniq = list(set(fofa_list_result))
+
+
         
         # 遍历列表存入目标资产
         f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')

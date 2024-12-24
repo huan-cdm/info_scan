@@ -1465,8 +1465,8 @@ function vulnxuanzhongscan() {
 
         },
 
-        error: function (info) {
-            alert("内部出错")
+        error: function () {
+            document.getElementById('vulnscan1').innerText = "内部错误";
         },
         complete: function () {
 
@@ -1679,8 +1679,8 @@ function vulnxuanzhongstopscanfunc() {
         },
 
 
-        error: function (info) {
-            alert("内部出错")
+        error: function () {
+            document.getElementById('vulnscan2').innerText = "内部错误";
         },
         complete: function () {
 
