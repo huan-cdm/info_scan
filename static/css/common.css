@@ -497,8 +497,8 @@
 			/* 根据菜单高度调整 */
 		}
 
-		
-		/* 批量漏洞扫描集合返回结果弹窗 */
+
+		/* 开启批量漏洞扫描集合返回结果弹窗 */
 		.modal5 {
 			display: none;
 			/* 默认不显示 */
@@ -542,6 +542,154 @@
 
 		.close5:hover,
 		.close5:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		/* 关闭批量漏洞扫描集合返回结果弹窗 */
+		.modal6 {
+			display: none;
+			/* 默认不显示 */
+			position: fixed;
+			/* 固定定位 */
+			z-index: 1;
+			/* 置于顶层 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度100% */
+			height: 100%;
+			/* 高度100% */
+			overflow: auto;
+			/* 如果需要，可以滚动 */
+			background-color: rgb(0, 0, 0);
+			/* 背景颜色 */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* 黑色半透明 */
+		}
+
+		/* 弹窗内容的样式 */
+		.modal-content6 {
+			background-color: #fefefe;
+			margin: 15% auto;
+			/* 15%从顶部和水平居中 */
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+			/* 宽度为屏幕宽度的一半 */
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+
+		/* 关闭按钮的样式 */
+		.close6 {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close6:hover,
+		.close6:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		/* 开启批量信息收集集合返回结果弹窗 */
+		.modal7 {
+			display: none;
+			/* 默认不显示 */
+			position: fixed;
+			/* 固定定位 */
+			z-index: 1;
+			/* 置于顶层 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度100% */
+			height: 100%;
+			/* 高度100% */
+			overflow: auto;
+			/* 如果需要，可以滚动 */
+			background-color: rgb(0, 0, 0);
+			/* 背景颜色 */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* 黑色半透明 */
+		}
+
+		/* 弹窗内容的样式 */
+		.modal-content7 {
+			background-color: #fefefe;
+			margin: 15% auto;
+			/* 15%从顶部和水平居中 */
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+			/* 宽度为屏幕宽度的一半 */
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+
+		/* 关闭按钮的样式 */
+		.close7 {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close7:hover,
+		.close7:focus {
+			color: black;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+
+		/* 关闭批量信息收集集合返回结果弹窗 */
+		.modal8 {
+			display: none;
+			/* 默认不显示 */
+			position: fixed;
+			/* 固定定位 */
+			z-index: 1;
+			/* 置于顶层 */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* 宽度100% */
+			height: 100%;
+			/* 高度100% */
+			overflow: auto;
+			/* 如果需要，可以滚动 */
+			background-color: rgb(0, 0, 0);
+			/* 背景颜色 */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* 黑色半透明 */
+		}
+
+		/* 弹窗内容的样式 */
+		.modal-content8 {
+			background-color: #fefefe;
+			margin: 15% auto;
+			/* 15%从顶部和水平居中 */
+			padding: 20px;
+			border: 1px solid #888;
+			width: 50%;
+			/* 宽度为屏幕宽度的一半 */
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+
+		/* 关闭按钮的样式 */
+		.close8 {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close8:hover,
+		.close8:focus {
 			color: black;
 			text-decoration: none;
 			cursor: pointer;

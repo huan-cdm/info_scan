@@ -1483,6 +1483,29 @@ function closevulnscan() {
 
 }
 
+function closevulnscan1() {
+    var myModa2 = document.getElementById("myModa2");
+    myModa2.style.display = "none";
+
+}
+
+// 关闭信息收集弹窗
+function closevulnscan2() {
+    var myModa3 = document.getElementById("myModa3");
+    myModa3.style.display = "none";
+
+}
+function closevulnscan3() {
+    var myModa4 = document.getElementById("myModa4");
+    myModa4.style.display = "none";
+
+}
+
+function closevulnscan4() {
+    var myModa5 = document.getElementById("myModa5");
+    myModa5.style.display = "none";
+
+}
 
 // 信息收集集合复选框选中开启扫描
 function infoxuanzhongscan() {
@@ -1490,6 +1513,8 @@ function infoxuanzhongscan() {
     const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
     const info_front_list = [];
 
+    var myModa3 = document.getElementById("myModa3");
+    myModa3.style.display = "block";
     if (checkboxes.length === 0) {
         alert('请至少选择一个选项');
         return;
@@ -1508,13 +1533,16 @@ function infoxuanzhongscan() {
         data: JSON.stringify({ info_front_list: info_front_list, portscan_part: portscan_part, pachongselectpart: pachongselectpart }), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
-        // data: JSON.stringify({ info_front_list: info_front_list }),
+        
         success: function (info) {
-            alert(info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5 + "\n" + info.dictkey6 + "\n" + info.dictkey7 + "\n" + info.dictkey8)
+    
+            var message2 = info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5 + 
+            "\n" + info.dictkey6 + "\n" + info.dictkey7 + "\n" + info.dictkey8;
+            document.getElementById('vulnscan3').innerText = message2;
         },
 
-        error: function (info) {
-            alert("内部出错")
+        error: function () {
+            document.getElementById('vulnscan3').innerText = "内部错误";
         },
         complete: function () {
 
@@ -1576,7 +1604,8 @@ function infoxuanzhongreportyulan() {
 function infoxuanzhongstopscanfunc() {
     const checkboxes = document.querySelectorAll('input[name="info_option"]:checked');
     const info_front_list = [];
-
+    var myModa4 = document.getElementById("myModa4");
+    myModa4.style.display = "block";
     if (checkboxes.length === 0) {
         alert('请至少选择一个选项');
         return;
@@ -1592,13 +1621,14 @@ function infoxuanzhongstopscanfunc() {
         data: JSON.stringify({ info_front_list: info_front_list }), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
-        // data: JSON.stringify({ info_front_list: info_front_list }),
         success: function (info) {
-            alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81)
+            // alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81)
+            var message3 = info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81;
+            document.getElementById('vulnscan4').innerText = message3;
         },
 
-        error: function (info) {
-            alert("内部出错")
+        error: function () {
+            document.getElementById('vulnscan4').innerText = "内部错误";
         },
         complete: function () {
 
@@ -1612,7 +1642,8 @@ function vulnxuanzhongstopscanfunc() {
     const checkboxes = document.querySelectorAll('input[name="option"]:checked');
     const vuln_front_list = [];
 
-
+    var myModa2 = document.getElementById("myModa2");
+    myModa2.style.display = "block";
     if (checkboxes.length === 0) {
         alert('请至少选择一个选项');
         return;
@@ -1632,7 +1663,8 @@ function vulnxuanzhongstopscanfunc() {
         // 期望服务器返回的数据类型
         dataType: 'json',
         success: function (info) {
-            alert(info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result +
+
+            var message1 = info.kill_struts2_result + "\n" + info.kill_weblogic_result + "\n" + info.kill_shiro_result +
                 "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result +
                 "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result +
                 "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result +
@@ -1641,8 +1673,9 @@ function vulnxuanzhongstopscanfunc() {
                 "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result +
                 "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result + "\n" + info.kill_redis_result + "\n" + info.kill_mongodb_result +
                 "\n" + info.kill_memcached_result + "\n" + info.kill_zookeeper_result + "\n" + info.kill_ftp_result +
-                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result)
+                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result;
 
+            document.getElementById('vulnscan2').innerText = message1;
         },
 
 
@@ -2033,19 +2066,12 @@ window.onload = function () {
 
 // 打开关键字检索文本框
 function asssets_jiansuo() {
-    var divjiansuo1 = document.getElementById("divjiansuo1");
-    divjiansuo1.style.display = "block";
-
-
+    var myModa5 = document.getElementById("myModa5");
+    myModa5.style.display = "block";
 
 
 }
 
-function stop_asssets_jiansuo() {
-    var divjiansuo1 = document.getElementById("divjiansuo1");
-    divjiansuo1.style.display = "none";
-
-}
 
 // 通过关键字检索资产
 function assets_key_jiansuo() {

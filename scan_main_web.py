@@ -2262,7 +2262,6 @@ def report_download_interface():
 def restartsystemservice():
     user = session.get('username')
     if str(user) == main_username:
-        # os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
         basic.restart_infoscan_lib()
         infoscanstatus = os.popen('bash /TIP/info_scan/finger.sh infoscanstatus').read()
         if "running" in infoscanstatus:
