@@ -2151,6 +2151,35 @@ def stopunrsyncvuln_lib():
     return kill_rsync_result
 
 
+# 开启Elasticsearch未授权扫描专项
+def startunesscan_lib():
+    es_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+    if "running" in es_status:
+        es_status_result = "Elasticsearch未授权漏洞扫描程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_elasticsearch_scan_shell')
+            if "running" in es_status:
+                es_status_result = "Elasticsearch未授权漏洞扫描程序已开启稍后查看结果"
+            else:
+                es_status_result = "Elasticsearch未授权漏洞扫描程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return es_status_result
+
+
+# 关闭Elasticsearch未授权扫描专项程序
+def stopunesvuln_lib():
+    es_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_elasticsearch_scan')
+    if "stop" in es_status:
+        kill_elasticsearch_result = "已关闭Elasticsearch未授权漏洞扫描程序"
+    else:
+        kill_elasticsearch_result = "正在关闭中......"
+    return kill_elasticsearch_result
+
+# -------------------------------------------------未授权专项扫描结尾-------------------------------------------------
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2900,6 +2929,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(41)
         else:
             print("rsync未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 42:
+        print("Elasticsearch扫描程序最终截止时间")
+        es_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+        esscanisnull = scan_total_time_endtimeisnull(42)
+        if "stop" in es_status and esscanisnull == 0:
+            scan_total_time_end_time(42)
+        else:
+            print("Elasticsearch未授权扫描程序运行时间正在计算中...")
     else:
         print("开发中...")
 

@@ -580,6 +580,16 @@ def systemmanagement():
             rsync_status2 = rsync_status
             rsynccontime = basic.scan_end_start_time(41)
 
+        unes1_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+        if "running" in unes1_status:
+            unes1_status1 = unes1_status
+            unes1_status2 = ""
+            unes1contime = "计算中"
+        else:
+            unes1_status1 = ""
+            unes1_status2 = unes1_status
+            unes1contime = basic.scan_end_start_time(42)
+
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
             nucleistatus1 = nucleistatus
@@ -1095,6 +1105,7 @@ def systemmanagement():
             "hadoopcontime":hadoopcontime+"秒",
             "nfscontime":nfscontime+"秒",
             "rsynccontime":rsynccontime+"秒",
+            "unes1contime":unes1contime+"秒",
             "eholecontime":eholecontime+"秒",
             "bbscancontime":bbscancontime+"秒",
             "otxcontime":otxcontime+"秒",
@@ -1170,6 +1181,8 @@ def systemmanagement():
             "nfs_status2":nfs_status2,
             "rsync_status1":rsync_status1,
             "rsync_status2":rsync_status2,
+            "unes1_status1":unes1_status1,
+            "unes1_status2":unes1_status2,
             "nucleistatus1":nucleistatus1,
             "nucleistatus2":nucleistatus2,
             "xraystatus1":xraystatus1,
@@ -2000,6 +2013,28 @@ def unrsyncreportyulan():
             else:
                 lines = []
                 with open('/TIP/info_scan/result/rsync_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#Elasticsearch未授权报告预览
+@app.route("/unelasticsearchreportyulan/")
+def unelasticsearchreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        es_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+        if "running" in es_status:
+            lines = ["正在扫描中......"]
+        else:
+            es1_num = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_num').read()
+            if int(es1_num) ==0:
+                lines = ["未发现漏洞"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/elasticsearch_unauthorized.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -3647,129 +3682,33 @@ def vulnscan_check_back():
                                             
                 else:
                     rsync_status_result = "rsync未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+            
+            elif 'y' in str(k):
+                # 未授权专项不做指纹识别判断
+                print("开启es未授权漏洞扫描")
+                # 获取系统当前时间
+                current_time34 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes34 = basic.vuln_time_shijian_cha(34)
+                if int(diff_time_minutes34) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time34,34)
+                    # es扫描程序用时统计相关
+                    basic.scan_total_time_start_time(42)
+                    # 提交扫描任务
+                    unes_status_result = basic.startunesscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def unesscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(42)
+                    threading.Thread(target=unesscanendtime).start()
+                                            
+                else:
+                    unes_status_result = "Elasticsearch未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif 'd' in str(k):
-                print("重点资产")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    point_all_result = "未进行指纹识别无法开启重点资产漏洞扫描"
-                else:
-                    # 获取系统当前时间
-                    current_time13 = time.time()
-                    # 当前时间和数据库中的作时间差
-                    diff_time_minutes13 = basic.vuln_time_shijian_cha(13)
-                    if int(diff_time_minutes13) > vuln_time_controls:
-                        # 超过单位时间更新数据库中的时间
-                        basic.vuln_last_time_update_lib(current_time13,13)
-                        # 提交扫描任务
-                        # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
-                        basic.asset_by_rule_handle()
-                        
-                        # 计算shiro_file文件行数，如果为0不开启，否则开启
-                        shiro_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num shiro_file.txt').read()
-                        if int(shiro_num) == 0:
-                            all_shiro_status_result = "shiro资产为空无法开启扫描"
-                        else:
-                            # 开启shiro
-                            shiro_status = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
-                            if "running" in shiro_status:
-                                all_shiro_status_result = "shiro扫描程序正在运行中请勿重复提交"
-                            else:
-                                try:
-                                    basic.shiro_scan()
-                                    if "running" in shiro_status:
-                                        all_shiro_status_result = "shiro扫描程序已开启稍后查看结果"
-                                    else:
-                                        all_shiro_status_result = "shiro扫描程序正在后台启动中......"
-                                except Exception as e:
-                                    print("捕获到异常:", e)
-                        
-                
-                        # 计算springboot_file文件行数，如果为0不开启，否则开启
-                        springboot_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num springboot_file.txt').read()
-                        if int(springboot_num) == 0:
-                            all_springboot_status_result = "springboot资产为空无法开启扫描"
-                        else:
-                            # 开启springboot
-                            springboot_scan_status = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
-                            if "running" in springboot_scan_status:
-                                all_springboot_status_result = "springboot扫描程序正在运行中请勿重复提交"
-                            else:
-                                try:
-                                    os.popen('bash /TIP/info_scan/finger.sh start_springboot')
-                                    if "running" in springboot_scan_status:
-                                        all_springboot_status_result = "springboot扫描程序已开启稍后查看结果"
-                                    else:
-                                        all_springboot_status_result = "springboot扫描程序正在后台启动中......"
-                                except Exception as e:
-                                    print("捕获到异常:", e)
-                
-                
-                        # 计算struts2_file文件行数，如果为0不开启，否则开启
-                        struts2_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num struts2_file.txt').read()
-                        if int(struts2_num) == 0:
-                            all_struts2_status_result = "struts2资产为空无法开启扫描"
-                        else:
-                            # 开启struts2
-                            struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
-                            if "running" in struts2status:
-                                all_struts2_status_result = "struts2扫描程序正在运行中请勿重复提交"
-                            else:
-                                try:
-                                    os.popen('bash /TIP/info_scan/finger.sh struts2_poc_scan')
-                                    if "running" in struts2status:
-                                        all_struts2_status_result = "struts2扫描程序已开启稍后查看结果"
-                                    else:
-                                        all_struts2_status_result = "struts2扫描程序正在后台启动中......"
-                                except Exception as e:
-                                    print("捕获到异常:", e)
-                                
-                
-                
-                        # 计算weblogic_file文件行数，如果为0不开启，否则开启
-                        weblogic_num =  os.popen('bash /TIP/info_scan/finger.sh zhongdian_file_num weblogic_file.txt').read()
-                        if int(weblogic_num) == 0:
-                            all_weblogic_status_result = "weblogic资产为空无法开启扫描"
-                        else:
-                            # 开启weblogic
-                            weblogic_status = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
-                            if "running" in weblogic_status:
-                                all_weblogic_status_result = "weblogic扫描程序正在运行中请勿重复提交"
-                            else:
-                    
-                                # 遍历目标文件存入列表
-                                url_list = []
-                                url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
-                                for i in url_file.readlines():
-                                    url_list.append(i.strip())
-                                
-                                # url中匹配出域名
-                                domain_list = []
-                                for url in url_list:
-                                    pattern = r"https?://([^/]+)"
-                                    urls_re_1 = re.search(pattern,url)
-                                    urls_re = urls_re_1.group(1)
-                                    domain_list.append(urls_re)
-                                
-                                # 域名写入到weblogic_poc目标
-                                weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
-                                for j in domain_list:
-                                    weblogic_file.write(str(j)+"\n")
-                                weblogic_file.close()
-                        
-                                # weblogic_poc开始扫描
-                                os.popen('bash /TIP/info_scan/finger.sh weblogic_poc_scan')
-                                if "running" in weblogic_status:
-                                    all_weblogic_status_result = "weblogic扫描程序已开启稍后查看结果"
-                                else:
-                                    all_weblogic_status_result = "weblogic扫描程序正在后台启动中......"
-    
-                        point_all_result = all_shiro_status_result+" "+all_springboot_status_result+" "+all_struts2_status_result+" "+all_weblogic_status_result
-                                                
-                    else:
-                        point_all_result = "重点资产扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                print("待开发")
             else:
                 print("其他扫描器正在完善中......")
         try:
@@ -3882,6 +3821,11 @@ def vulnscan_check_back():
         
         
         try:
+            unes_status_result1 = unes_status_result
+        except:
+            unes_status_result1 = ""
+        
+        try:
             urlfinder_status_result1 = urlfinder_status_result
         except:
             urlfinder_status_result1 = ""
@@ -3967,7 +3911,8 @@ def vulnscan_check_back():
             "docker_status_result":docker_status_result1,
             "hadoop_status_result":hadoop_status_result1,
             "nfs_status_result":nfs_status_result1,
-            "rsync_status_result":rsync_status_result1
+            "rsync_status_result":rsync_status_result1,
+            "unes_status_result":unes_status_result1
         }
 
         return jsonify(message_json)
@@ -4150,6 +4095,8 @@ def stop_vulnscan_back():
                 kill_nfs_result = basic.stopunnfsvuln_lib()
             elif 'x' in str(j):                
                 kill_rsync_result = basic.stopunrsyncvuln_lib()
+            elif 'y' in str(j):                
+                kill_es1_result = basic.stopunesvuln_lib()
             elif 'd' in str(j):                
                 kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
         try:
@@ -4235,6 +4182,11 @@ def stop_vulnscan_back():
             kill_rsync_result1 = kill_rsync_result
         except:
             kill_rsync_result1 = ""
+        
+        try:
+            kill_es1_result1 = kill_es1_result
+        except:
+            kill_es1_result1 = ""
         
         
         
@@ -4346,7 +4298,8 @@ def stop_vulnscan_back():
            "kill_docker_result":kill_docker_result1,
            "kill_hadoop_result":kill_hadoop_result1,
            "kill_nfs_result":kill_nfs_result1,
-           "kill_rsync_result":kill_rsync_result1
+           "kill_rsync_result":kill_rsync_result1,
+           "kill_es1_result":kill_es1_result1
         }
 
         return jsonify(message_json)

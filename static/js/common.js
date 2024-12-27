@@ -37,6 +37,8 @@ function urlfinderreportshow() {
 
 //文本框内容添加
 function sendtextareadata() {
+    var myModa6 = document.getElementById("myModa6");
+    myModa6.style.display = "block";
     // 获取textarea的值  
     const text = document.getElementById('myTextarea').value;
     // 按换行符分割文本为数组  
@@ -49,10 +51,10 @@ function sendtextareadata() {
         data: JSON.stringify({ lines: lines }),
         dataType: 'json',
         success: function (info) {
-            alert(info.file_line)
+            document.getElementById('vulnscan5').innerHTML = info.file_line;
         },
         error: function () {
-            alert('内部出错')
+            document.getElementById('vulnscan5').innerHTML = "内部错误"
         },
         complete: function () {
 
@@ -458,6 +460,8 @@ function openModal() {
                 document.getElementById("spp71a").innerHTML = info.nfs_status2;
                 document.getElementById("spp72").innerHTML = info.rsync_status1;
                 document.getElementById("spp72a").innerHTML = info.rsync_status2;
+                document.getElementById("spp73").innerHTML = info.unes1_status1;
+                document.getElementById("spp73a").innerHTML = info.unes1_status2;
 
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
@@ -631,6 +635,7 @@ function openModal() {
                 document.getElementById("diffhadoopid").innerHTML = info.hadoopcontime;
                 document.getElementById("diffnfsid").innerHTML = info.nfscontime;
                 document.getElementById("diffrsyncid").innerHTML = info.rsynccontime;
+                document.getElementById("diffunesid").innerHTML = info.unes1contime;
             });
     }
 
@@ -1459,7 +1464,8 @@ function vulnxuanzhongscan() {
             var message = info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result +
                 "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result +
                 "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result +
-                "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result;
+                "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result +
+                "\n" + info.unes_status_result;
 
             document.getElementById('vulnscan1').innerText = message;
 
@@ -1507,6 +1513,12 @@ function closevulnscan4() {
 
 }
 
+function closevulnscan5() {
+    var myModa6 = document.getElementById("myModa6");
+    myModa6.style.display = "none";
+
+}
+
 // 信息收集集合复选框选中开启扫描
 function infoxuanzhongscan() {
 
@@ -1533,11 +1545,11 @@ function infoxuanzhongscan() {
         data: JSON.stringify({ info_front_list: info_front_list, portscan_part: portscan_part, pachongselectpart: pachongselectpart }), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
-        
+
         success: function (info) {
-    
-            var message2 = info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5 + 
-            "\n" + info.dictkey6 + "\n" + info.dictkey7 + "\n" + info.dictkey8;
+
+            var message2 = info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5 +
+                "\n" + info.dictkey6 + "\n" + info.dictkey7 + "\n" + info.dictkey8;
             document.getElementById('vulnscan3').innerText = message2;
         },
 
@@ -1673,7 +1685,8 @@ function vulnxuanzhongstopscanfunc() {
                 "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result +
                 "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result + "\n" + info.kill_redis_result + "\n" + info.kill_mongodb_result +
                 "\n" + info.kill_memcached_result + "\n" + info.kill_zookeeper_result + "\n" + info.kill_ftp_result +
-                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result;
+                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + 
+                "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result+"\n"+info.kill_es1_result;
 
             document.getElementById('vulnscan2').innerText = message1;
         },
@@ -1822,7 +1835,10 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/unnfsreportyulan/", "_blank");
         } else if (vuln_front_list[i] == 'x') {
             window.open("/unrsyncreportyulan/", "_blank");
+        } else if (vuln_front_list[i] == 'y') {
+            window.open("/unelasticsearchreportyulan/", "_blank");
         }
+
 
     }
 }

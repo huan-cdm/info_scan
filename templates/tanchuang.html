@@ -40,6 +40,18 @@
     </div>
 </div>
 
+<!-- 添加资产返回结果弹窗 -->
+<div id="myModa6" class="modal8">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close8" onclick="closevulnscan5()">&times;</span>
+        <h3>资产添加：</h3>
+        <p id="vulnscan5"></p>
+    </div>
+</div>
+
+
+
 <!-- 资产优化弹窗 -->
 <div id="myModa5" class="modal8">
     <!-- 弹窗内容 -->
@@ -771,6 +783,7 @@ poc显示区域</textarea>
                 <td>Hadoop</td>
                 <td>NFS</td>
                 <td>rsync</td>
+                <td>Elasticsearch</td>
             </tr>
             <tr>
                 <th>状态</th>
@@ -814,6 +827,10 @@ poc显示区域</textarea>
                     <span id="spp72" style="color:green"></span>
                     <span id="spp72a" style="color: red;"></span>
                 </td>
+                <td>
+                    <span id="spp73" style="color:green"></span>
+                    <span id="spp73a" style="color: red;"></span>
+                </td>
             </tr>
             <tr>
                 <th>耗时</th>
@@ -846,6 +863,9 @@ poc显示区域</textarea>
                 </td>
                 <td>
                     <span id="diffrsyncid"></span>
+                </td>
+                <td>
+                    <span id="diffunesid"></span>
                 </td>
             </tr>
         </table>

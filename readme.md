@@ -38,6 +38,12 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2024-12-27更新<br> 
+1. 新增Elasticsearch未授权扫描；<br>
+2. 下线部分冗余功能；<br>
+3. 已知问题处理与优化；<br>
+</li>
+<li>
 2024-12-22更新<br> 
 1. 新增redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、hadoop、NFS未授权漏洞扫描、rsync；<br>
 2. 已知问题处理与优化；<br>

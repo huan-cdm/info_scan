@@ -1076,7 +1076,17 @@ def rsync_unauthorizedset_scan_lib(ip):
             print(ip+" "+"可能存在rsync未授权,需要手工确认："+" "+"rsync rsync://"+ip+":873/")
     except:
         pass
-    
+
+
+# Elasticsearch未授权扫描
+def elasticsearch_unauthorizedset_scan_lib(ip):
+    try:
+        url = 'http://' + ip + ':9200/_cat'
+        r = requests.get(url, timeout=5,verify=False)
+        if '/_cat/master' in r.content.decode():
+            print(ip + ":9200/_cat"+" "+"存在elasticsearch未授权访问漏洞")
+    except:
+        pass
 
 
 
@@ -1200,6 +1210,16 @@ if __name__ == "__main__":
                 for target in ip_list_uniq:
                     target=target.strip()
                     pool.submit(rsync_unauthorizedset_scan_lib, target)
+
+        elif func_name == 'elasticsearch_unauthorizedset_scan_lib':
+            # 利用线程池
+            ip_list = basic.url_convert_ip()
+            # ip列表文件去重
+            ip_list_uniq =  list(set(ip_list)) 
+            with ThreadPoolExecutor(threadnum) as pool:
+                for target in ip_list_uniq:
+                    target=target.strip()
+                    pool.submit(elasticsearch_unauthorizedset_scan_lib, target)
                                     
         else:
             print("Invalid function number")
