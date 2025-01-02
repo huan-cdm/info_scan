@@ -121,3 +121,6 @@ threadnum=50
 
 # 资产输入格式校验,值为1会校验资产格式,值为其他值不会校验资产格式
 assetverification = 0
+
+# 扫描前是否校验指纹识别(未进行指纹识别的资产无法进行扫描)，0表示不校验，1表示校验
+verification_fingerprint_recognition = 0

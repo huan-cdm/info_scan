@@ -87,6 +87,9 @@ from config_session import PERMANENT_SESSION_LIFETIME
 from config import assetverification
 import json
 
+# 校验是否先进行指纹识别
+from config import verification_fingerprint_recognition
+
 app = Flask(__name__,template_folder='./templates') 
 app.config.from_pyfile('config_session.py')
 app.secret_key = "DragonFire"
@@ -2517,11 +2520,7 @@ def infoscan_check_back():
         # 遍历列表判断调用哪个扫描器
         for j in info_value_list:
             if '1' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    bbscan_status_result = "未进行指纹识别无法开启bbscan扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2544,7 +2543,34 @@ def infoscan_check_back():
                         threading.Thread(target=bbscanscanendtime).start()
                     else:
                         bbscan_status_result = "信息泄露扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
-                
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        bbscan_status_result = "未进行指纹识别无法开启bbscan扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes = basic.info_time_shijian_cha(1)
+                        
+                        if int(diff_time_minutes) > info_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time,1)
+                            # 指纹识别程序用时统计相关
+                            basic.scan_total_time_start_time(3)
+    
+                            # 提交扫描任务
+                            bbscan_status_result = basic.startbbscan_lib()
+    
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def bbscanscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(3)
+                            threading.Thread(target=bbscanscanendtime).start()
+                        else:
+                            bbscan_status_result = "信息泄露扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                 
             elif '2' in str(j):
                 # 获取系统当前时间
@@ -2570,11 +2596,7 @@ def infoscan_check_back():
                 else:
                     finger_status_result = "指纹识别程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '3' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    otx_status_result = "未进行指纹识别无法开启历史URL查询"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 限定第三方接口otx额度
                     otx_inter_num_success = basic.total_port_success_num(6)
                     otx_inter_num_fail = basic.total_port_fail_num(6)
@@ -2604,12 +2626,43 @@ def infoscan_check_back():
 
                         else:
                             otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        otx_status_result = "未进行指纹识别无法开启历史URL查询"
+                    else:
+                        # 限定第三方接口otx额度
+                        otx_inter_num_success = basic.total_port_success_num(6)
+                        otx_inter_num_fail = basic.total_port_fail_num(6)
+                        otx_total = int(otx_inter_num_success) + int(otx_inter_num_fail)
+                        if int(otx_total) > int(otx_max_num):
+                            otx_status_result = "otx接口次数已超过额度"+str(otx_max_num)+"次,无法继续查询,请后台修改额度继续查询"
+                        else:
+                            # 获取系统当前时间
+                            current_time3 = time.time()
+                            # 当前时间和数据库中的作时间差
+                            diff_time_minutes3 = basic.info_time_shijian_cha(3)
+                            if int(diff_time_minutes3) > info_time_controls:
+                                # 超过单位时间更新数据库中的时间
+                                basic.last_time_update_lib(current_time3,3)
+    
+                                # 指纹识别程序用时统计相关
+                                basic.scan_total_time_start_time(4)
+                                # 提交扫描任务
+                                otx_status_result = basic.otxhistorydomain_lib()
+    
+                                # 在后台单独启动1个线程实时判断扫描器停止时间
+                                def otxscanendtime():
+                                    while True:
+                                        time.sleep(1)
+                                        basic.scan_total_time_final_end_time(4)
+                                threading.Thread(target=otxscanendtime).start()
+    
+                            else:
+                                otx_status_result = "历史URL查询接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '4' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    crt_status_result = "未进行指纹识别无法开启查询子域名"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     crt_inter_num_success = basic.total_port_success_num(3)
                     crt_inter_num_fail = basic.total_port_fail_num(3)
                     crt_total = int(crt_inter_num_success) + int(crt_inter_num_fail)
@@ -2638,12 +2691,42 @@ def infoscan_check_back():
 
                         else:
                             crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        crt_status_result = "未进行指纹识别无法开启查询子域名"
+                    else:
+                        crt_inter_num_success = basic.total_port_success_num(3)
+                        crt_inter_num_fail = basic.total_port_fail_num(3)
+                        crt_total = int(crt_inter_num_success) + int(crt_inter_num_fail)
+                        if crt_total > int(crt_max_num):
+                            crt_status_result = "子域名查询接口次数已超过额度"+str(crt_max_num)+"次,无法继续查询,请后台修改额度继续查询"
+                        else:
+                            # 获取系统当前时间
+                            current_time4 = time.time()
+                            # 当前时间和数据库中的作时间差
+                            diff_time_minutes4 = basic.info_time_shijian_cha(4)
+                            if int(diff_time_minutes4) > info_time_controls:
+                                # 超过单位时间更新数据库中的时间
+                                basic.last_time_update_lib(current_time4,4)
+                                # 指纹识别程序用时统计相关
+                                basic.scan_total_time_start_time(5)
+    
+                                # 提交扫描任务
+                                crt_status_result = basic.crtdomain_lib()
+    
+                                # 在后台单独启动1个线程实时判断扫描器停止时间
+                                def crtscanendtime():
+                                    while True:
+                                        time.sleep(1)
+                                        basic.scan_total_time_final_end_time(5)
+                                threading.Thread(target=crtscanendtime).start()
+    
+                            else:
+                                crt_status_result = "基于证书查询子域名接口"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    nmap_status_result = "未进行指纹识别无法开启nmap扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time5 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2665,13 +2748,36 @@ def infoscan_check_back():
 
                     else:
                         nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        nmap_status_result = "未进行指纹识别无法开启nmap扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time5 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes5 = basic.info_time_shijian_cha(5)
+                        if int(diff_time_minutes5) > info_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time5,5)
+                            # 端口扫描程序用时统计相关
+                            basic.scan_total_time_start_time(1)
+                            # 提交扫描任务
+                            # 每次启动前清空上次扫描结果
+                            nmap_status_result = basic.startnmap_lib(portscan_part)
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def portscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(1)
+                            threading.Thread(target=portscanendtime).start()
+    
+                        else:
+                            nmap_status_result = "nmap端口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '6' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    waf_status_result = "未进行指纹识别无法开启WAF扫描程序"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time6 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2694,12 +2800,36 @@ def infoscan_check_back():
 
                     else:
                         waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        waf_status_result = "未进行指纹识别无法开启WAF扫描程序"
+                    else:
+                        # 获取系统当前时间
+                        current_time6 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes6 = basic.info_time_shijian_cha(6)
+                        if int(diff_time_minutes6) > info_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time6,6)
+                            # waf扫描程序用时统计相关
+                            basic.scan_total_time_start_time(6)
+                            # 提交扫描任务
+                            # 每次启动前清空上次扫描结果
+                            waf_status_result = basic.startwafrecognize_lib()
+    
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def wafscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(6)
+                            threading.Thread(target=wafscanendtime).start()
+    
+                        else:
+                            waf_status_result = "WAF扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '7' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    bypass_status_result = "未进行指纹识别无法开启FUZZ扫描程序"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time7 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2722,12 +2852,36 @@ def infoscan_check_back():
 
                     else:
                         bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        bypass_status_result = "未进行指纹识别无法开启FUZZ扫描程序"
+                    else:
+                        # 获取系统当前时间
+                        current_time7 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes7 = basic.info_time_shijian_cha(7)
+                        if int(diff_time_minutes7) > info_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.last_time_update_lib(current_time7,7)
+                            # fuzz扫描程序用时统计相关
+                            basic.scan_total_time_start_time(7)
+                            # 提交扫描任务
+                            # 每次启动前清空上次扫描结果
+                            bypass_status_result = basic.start40xbypass_lib()
+    
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def fuzzscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(7)
+                            threading.Thread(target=fuzzscanendtime).start()
+    
+                        else:
+                            bypass_status_result = "FUZZ扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '8' in str(j):
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    crawlergo_status_result = "未进行指纹识别无法开启爬虫程序"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
                     if "running" in xray_status:
                          # 获取系统当前时间
@@ -2753,6 +2907,37 @@ def infoscan_check_back():
                              crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                     else:
                         crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        crawlergo_status_result = "未进行指纹识别无法开启爬虫程序"
+                    else:
+                        xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+                        if "running" in xray_status:
+                             # 获取系统当前时间
+                             current_time8 = time.time()
+                             # 当前时间和数据库中的作时间差
+                             diff_time_minutes8 = basic.info_time_shijian_cha(8)
+                             if int(diff_time_minutes8) > info_time_controls:
+                                # 超过单位时间更新数据库中的时间
+                                basic.last_time_update_lib(current_time8,8)
+                                
+                                # 爬虫扫描程序用时统计相关
+                                basic.scan_total_time_start_time(8)
+                                 # 提交扫描任务
+                                 # 每次启动前清空上次扫描结果
+                                crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+                                # 在后台单独启动1个线程实时判断扫描器停止时间
+                                def crawlergoscanendtime():
+                                    while True:
+                                        time.sleep(1)
+                                        basic.scan_total_time_final_end_time(8)
+                                threading.Thread(target=crawlergoscanendtime).start()
+                             else:
+                                 crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        else:
+                            crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
             else:
                 print("参数正在完善中...")
 
@@ -2764,7 +2949,6 @@ def infoscan_check_back():
             finger_status_result1 = finger_status_result
         except:
             finger_status_result1 = ""
-
         try:
             otx_status_result1 = otx_status_result
         except:
@@ -2817,9 +3001,6 @@ def infoscan_check_back():
         return render_template('login.html')
 
 
-
-
-
 # 前端复选框批量开启漏洞扫描工具接口
 @app.route("/vulnscan_check_back/",methods=['post'])
 def vulnscan_check_back():
@@ -2839,12 +3020,8 @@ def vulnscan_check_back():
         for k in vuln_front_list:
             if '1' in str(k):
                 print("struts2")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    struts2status_result = "未进行指纹识别无法开启struts2扫描"
-                else:
+                # 指纹识别开关
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time1 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2865,15 +3042,36 @@ def vulnscan_check_back():
 
                     else:
                         struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        struts2status_result = "未进行指纹识别无法开启struts2扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time1 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes1 = basic.vuln_time_shijian_cha(1)
+                        if int(diff_time_minutes1) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time1,1)
+                            # struts2扫描程序用时统计相关
+                            basic.scan_total_time_start_time(9)
+                            # 提交扫描任务
+                            struts2status_result = basic.startstruts2_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def struts2scanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(9)
+                            threading.Thread(target=struts2scanendtime).start()
+    
+                        else:
+                            struts2status_result = "struts2扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '2' in str(k):
                 print("weblogic")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    weblogic_status_result = "未进行指纹识别无法开启weblogic扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time2 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2893,15 +3091,35 @@ def vulnscan_check_back():
                         threading.Thread(target=weblogicscanendtime).start()
                     else:
                         weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        weblogic_status_result = "未进行指纹识别无法开启weblogic扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time2 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes2 = basic.vuln_time_shijian_cha(2)
+                        if int(diff_time_minutes2) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time2,2)
+                            # struts2扫描程序用时统计相关
+                            basic.scan_total_time_start_time(10)
+                            # 提交扫描任务
+                            weblogic_status_result = basic.startweblogic_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def weblogicscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(10)
+                            threading.Thread(target=weblogicscanendtime).start()
+                        else:
+                            weblogic_status_result = "weblogic扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '3' in str(k):
                 print("shiro")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    shiro_status_result = "未进行指纹识别无法开启shiro扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time3 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2922,15 +3140,36 @@ def vulnscan_check_back():
                         
                     else:
                         shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        shiro_status_result = "未进行指纹识别无法开启shiro扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time3 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes3 = basic.vuln_time_shijian_cha(3)
+                        if int(diff_time_minutes3) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time3,3)
+                            # shiro扫描程序用时统计相关
+                            basic.scan_total_time_start_time(11)
+                            # 提交扫描任务
+                            shiro_status_result = basic.startshiro_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def shiroscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(11)
+                            threading.Thread(target=shiroscanendtime).start()
+                            
+                        else:
+                            shiro_status_result = "shiro扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
             elif '4' in str(k):
                 print("springboot")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    springboot_scan_status_result = "未进行指纹识别无法开启springboot扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time4 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2951,14 +3190,35 @@ def vulnscan_check_back():
                                     
                     else:
                         springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        springboot_scan_status_result = "未进行指纹识别无法开启springboot扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time4 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes4 = basic.vuln_time_shijian_cha(4)
+                        if int(diff_time_minutes4) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time4,4)
+                            # springboot扫描程序用时统计相关
+                            basic.scan_total_time_start_time(12)
+                            # 提交扫描任务
+                            springboot_scan_status_result = basic.startspringboot_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def springbootscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(12)
+                            threading.Thread(target=springbootscanendtime).start()
+                                        
+                        else:
+                            springboot_scan_status_result = "springboot扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '5' in str(k):
                 print("thinkphp")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    thinkphp_status_result = "未进行指纹识别无法开启thinkphp扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time5 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -2979,14 +3239,35 @@ def vulnscan_check_back():
                                     
                     else:
                         thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        thinkphp_status_result = "未进行指纹识别无法开启thinkphp扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time5 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes5 = basic.vuln_time_shijian_cha(5)
+                        if int(diff_time_minutes5) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time5,5)
+                            # thinkphp扫描程序用时统计相关
+                            basic.scan_total_time_start_time(13)
+                            # 提交扫描任务
+                            thinkphp_status_result = basic.startthinkphp_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def thinkphpscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(13)
+                            threading.Thread(target=thinkphpscanendtime).start()
+                                        
+                        else:
+                            thinkphp_status_result = "thinkphp扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '6' in str(k):
                 print("afrog")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    start_afrog_result = "未进行指纹识别无法开启afrog扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time6 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3007,14 +3288,35 @@ def vulnscan_check_back():
                                     
                     else:
                         start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        start_afrog_result = "未进行指纹识别无法开启afrog扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time6 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes6 = basic.vuln_time_shijian_cha(6)
+                        if int(diff_time_minutes6) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time6,6)
+                            # afrog扫描程序用时统计相关
+                            basic.scan_total_time_start_time(18)
+                            # 提交扫描任务
+                            start_afrog_result = basic.startafrog_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def afrogscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(18)
+                            threading.Thread(target=afrogscanendtime).start()
+                                        
+                        else:
+                            start_afrog_result = "afrog扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '7' in str(k):
                 print("fscan")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    fscan_status_result = "未进行指纹识别无法开启fscan扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time7 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3035,14 +3337,35 @@ def vulnscan_check_back():
                                     
                     else:
                         fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        fscan_status_result = "未进行指纹识别无法开启fscan扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time7 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes7 = basic.vuln_time_shijian_cha(7)
+                        if int(diff_time_minutes7) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time7,7)
+                            # fscan扫描程序用时统计相关
+                            basic.scan_total_time_start_time(19)
+                            # 提交扫描任务
+                            fscan_status_result = basic.startfscan_lib(fscanpartname)
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def fscanscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(19)
+                            threading.Thread(target=fscanscanendtime).start()
+                                        
+                        else:
+                            fscan_status_result = "fscan扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '8' in str(k):
                 print("弱口令")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    hydra_scan_result = "未进行指纹识别无法开启弱口令扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time8 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3063,14 +3386,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         hydra_scan_result = "弱口令扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        hydra_scan_result = "未进行指纹识别无法开启弱口令扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time8 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes8 = basic.vuln_time_shijian_cha(8)
+                        if int(diff_time_minutes8) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time8,8)
+                            # 弱口令扫描程序用时统计相关
+                            basic.scan_total_time_start_time(20)
+                            # 提交扫描任务
+                            hydra_scan_result = basic.starthydra_lib(hydrapart)
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def weakpassscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(20)
+                            threading.Thread(target=weakpassscanendtime).start()
+                                                    
+                        else:
+                            hydra_scan_result = "弱口令扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif '9' in str(k):
                 print("api接口")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    urlfinder_status_result = "未进行指纹识别无法开启api接口扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time9 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3091,14 +3435,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         urlfinder_status_result = "api接口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        urlfinder_status_result = "未进行指纹识别无法开启api接口扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time9 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes9 = basic.vuln_time_shijian_cha(9)
+                        if int(diff_time_minutes9) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time9,9)
+                            # api接口扫描程序用时统计相关
+                            basic.scan_total_time_start_time(21)
+                            # 提交扫描任务
+                            urlfinder_status_result = basic.starturlfinder_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def apiinterfacescanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(21)
+                            threading.Thread(target=apiinterfacescanendtime).start()
+                                                    
+                        else:
+                            urlfinder_status_result = "api接口扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'a' in str(k):
                 print("vulmap")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    vummap_scan_result = "未进行指纹识别无法开启vulmap扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time10 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3119,14 +3484,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        vummap_scan_result = "未进行指纹识别无法开启vulmap扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time10 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes10 = basic.vuln_time_shijian_cha(10)
+                        if int(diff_time_minutes10) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time10,10)
+                            # vulmap扫描程序用时统计相关
+                            basic.scan_total_time_start_time(22)
+                            # 提交扫描任务
+                            vummap_scan_result = basic.startvulmap_lib(vulnname)
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def vulmapscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(22)
+                            threading.Thread(target=vulmapscanendtime).start()
+                                                    
+                        else:
+                            vummap_scan_result = "vulmap扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'b' in str(k):
                 print("nuclei")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    nuclei_status_result = "未进行指纹识别无法开启nuclei扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time11 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3147,14 +3533,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        nuclei_status_result = "未进行指纹识别无法开启nuclei扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time11 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes11 = basic.vuln_time_shijian_cha(11)
+                        if int(diff_time_minutes11) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time11,11)
+                            # nuclei扫描程序用时统计相关
+                            basic.scan_total_time_start_time(23)
+                            # 提交扫描任务
+                            nuclei_status_result = basic.startnuclei_lib(poc_dir)
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def nucleiscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(23)
+                            threading.Thread(target=nucleiscanendtime).start()
+                                                    
+                        else:
+                            nuclei_status_result = "nuclei扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'c' in str(k):
                 print("泛微OA")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    weaver_status_result = "未进行指纹识别无法开启泛微OA扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time12 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3175,15 +3582,36 @@ def vulnscan_check_back():
                                                 
                     else:
                         weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        weaver_status_result = "未进行指纹识别无法开启泛微OA扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time12 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes12 = basic.vuln_time_shijian_cha(12)
+                        if int(diff_time_minutes12) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time12,12)
+                            # 泛微OA扫描程序用时统计相关
+                            basic.scan_total_time_start_time(24)
+                            # 提交扫描任务
+                            weaver_status_result = basic.startweaver_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def fanweioascanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(24)
+                            threading.Thread(target=fanweioascanendtime).start()
+                                                    
+                        else:
+                            weaver_status_result = "泛微OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             
             elif 'e' in str(k):
                 print("ES未授权访问")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    es_status_result = "未进行指纹识别无法开启ES相关漏洞扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time14 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3204,15 +3632,36 @@ def vulnscan_check_back():
                                  
                     else:
                         es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        es_status_result = "未进行指纹识别无法开启ES相关漏洞扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time14 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes14 = basic.vuln_time_shijian_cha(14)
+                        if int(diff_time_minutes14) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time14,14)
+                            # es扫描程序用时统计相关
+                            basic.scan_total_time_start_time(14)
+                            # 提交扫描任务
+                            es_status_result = basic.startunes_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def esscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(14)
+                            threading.Thread(target=esscanendtime).start()
+                                     
+                        else:
+                            es_status_result = "Elasticsearch未授权访问扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                     
             elif 'f' in str(k):
                 print("nacos漏洞扫描")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    nacos_status_result = "未进行指纹识别无法开启nacos漏洞扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time15 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3233,15 +3682,36 @@ def vulnscan_check_back():
                                      
                     else:
                         nacos_status_result = "nacos漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        nacos_status_result = "未进行指纹识别无法开启nacos漏洞扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time15 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes15 = basic.vuln_time_shijian_cha(15)
+                        if int(diff_time_minutes15) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time15,15)
+                            # Nacos扫描程序用时统计相关
+                            basic.scan_total_time_start_time(15)
+                            # 提交扫描任务
+                            nacos_status_result = basic.startnacosscan_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def nacosscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(15)
+                            threading.Thread(target=nacosscanendtime).start()
+                                         
+                        else:
+                            nacos_status_result = "nacos漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             
             elif 'g' in str(k):
                 print("tomcat漏洞扫描")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    tomcat_status_result = "未进行指纹识别无法开启tomcat漏洞扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time16 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3262,9 +3732,34 @@ def vulnscan_check_back():
                                      
                     else:
                         tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        tomcat_status_result = "未进行指纹识别无法开启tomcat漏洞扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time16 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes16 = basic.vuln_time_shijian_cha(16)
+                        if int(diff_time_minutes16) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time16,16)
+                            # tomcat扫描程序用时统计相关
+                            basic.scan_total_time_start_time(16)
+                            # 提交扫描任务
+                            tomcat_status_result = basic.starttomcatscan_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def tomcatscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(16)
+                            threading.Thread(target=tomcatscanendtime).start()
+                                         
+                        else:
+                            tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'h' in str(k):
                 print("开启jndi服务")
-                
                 # 获取系统当前时间
                 current_time17 = time.time()
                 # 当前时间和数据库中的作时间差
@@ -3279,12 +3774,7 @@ def vulnscan_check_back():
                     jndi_status_result = "JNDI服务程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'i' in str(k):
                 print("开启fastjson漏洞扫描")
-
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    fastjson_status_result = "未进行指纹识别无法开启fastjson漏洞扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
                     jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
                     if "running" in jndi_status and "running" in jndi_python_status:
@@ -3311,6 +3801,38 @@ def vulnscan_check_back():
                             fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                     else:
                         fastjson_status_result = basic.startfastjson_lib()
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        fastjson_status_result = "未进行指纹识别无法开启fastjson漏洞扫描"
+                    else:
+                        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+                        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+                        if "running" in jndi_status and "running" in jndi_python_status:
+                            print("2")
+                            # 获取系统当前时间
+                            current_time18 = time.time()
+                            # 当前时间和数据库中的作时间差
+                            diff_time_minutes18 = basic.vuln_time_shijian_cha(18)
+                            if int(diff_time_minutes18) > vuln_time_controls:
+                                # 超过单位时间更新数据库中的时间
+                                basic.vuln_last_time_update_lib(current_time18,18)
+                                # fastjson扫描程序用时统计相关
+                                basic.scan_total_time_start_time(17)
+                                # 提交扫描任务
+                                fastjson_status_result = basic.startfastjson_lib()
+                                # 在后台单独启动1个线程实时判断扫描器停止时间
+                                def fastjsonscanendtime():
+                                    while True:
+                                        time.sleep(1)
+                                        basic.scan_total_time_final_end_time(17)
+                                threading.Thread(target=fastjsonscanendtime).start()
+                                             
+                            else:
+                                fastjson_status_result = "fastjson漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                        else:
+                            fastjson_status_result = basic.startfastjson_lib()
                     
             elif 'j' in str(k):
                 print("开启xray被动监听")
@@ -3337,11 +3859,7 @@ def vulnscan_check_back():
                     xray_status_result = "xray漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'k' in str(k):
                 print("开启致远OA漏洞扫描")
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    seeyon_status_result = "未进行指纹识别无法开启致远OA扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time20 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3362,13 +3880,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         seeyon_status_result = "致远OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        seeyon_status_result = "未进行指纹识别无法开启致远OA扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time20 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes20 = basic.vuln_time_shijian_cha(20)
+                        if int(diff_time_minutes20) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time20,20)
+                            # 致远OA扫描程序用时统计相关
+                            basic.scan_total_time_start_time(27)
+                            # 提交扫描任务
+                            seeyon_status_result = basic.startseeyonscan_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def seeyonscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(27)
+                            threading.Thread(target=seeyonscanendtime).start()
+                                                    
+                        else:
+                            seeyon_status_result = "致远OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'l' in str(k):
                 print("开启用友OA漏洞扫描")
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    yonsuite_status_result = "未进行指纹识别无法开启用友OA扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time21 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3389,13 +3929,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         yonsuite_status_result = "用友OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        yonsuite_status_result = "未进行指纹识别无法开启用友OA扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time21 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes21 = basic.vuln_time_shijian_cha(21)
+                        if int(diff_time_minutes21) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time21,21)
+                            # 用友OA扫描程序用时统计相关
+                            basic.scan_total_time_start_time(28)
+                            # 提交扫描任务
+                            yonsuite_status_result = basic.startyonsuitescan_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def yonsuitescanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(28)
+                            threading.Thread(target=yonsuitescanendtime).start()
+                                                    
+                        else:
+                            yonsuite_status_result = "用友OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'm' in str(k):
                 print("开启金蝶OA漏洞扫描")
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    kingdee_status_result = "未进行指纹识别无法开启金蝶OA扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time22 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3416,13 +3978,35 @@ def vulnscan_check_back():
                                                 
                     else:
                         kingdee_status_result = "金蝶OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        kingdee_status_result = "未进行指纹识别无法开启金蝶OA扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time22 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes22 = basic.vuln_time_shijian_cha(22)
+                        if int(diff_time_minutes22) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time22,22)
+                            # 金蝶OA扫描程序用时统计相关
+                            basic.scan_total_time_start_time(29)
+                            # 提交扫描任务
+                            kingdee_status_result = basic.startkingdeescan_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def kingdeescanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(29)
+                            threading.Thread(target=kingdeescanendtime).start()
+                                                    
+                        else:
+                            kingdee_status_result = "金蝶OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'n' in str(k):
                 print("开启万户OA漏洞扫描")
-                # 判断是否已进行指纹识别
-                finger_part = basic.assets_finger_compare()
-                if finger_part == 2:
-                    wanhu_status_result = "未进行指纹识别无法开启万户OA扫描"
-                else:
+                if int(verification_fingerprint_recognition) == 0:
                     # 获取系统当前时间
                     current_time23 = time.time()
                     # 当前时间和数据库中的作时间差
@@ -3443,6 +4027,32 @@ def vulnscan_check_back():
                                                 
                     else:
                         wanhu_status_result = "万户OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                elif int(verification_fingerprint_recognition) == 1:
+                    # 判断是否已进行指纹识别
+                    finger_part = basic.assets_finger_compare()
+                    if finger_part == 2:
+                        wanhu_status_result = "未进行指纹识别无法开启万户OA扫描"
+                    else:
+                        # 获取系统当前时间
+                        current_time23 = time.time()
+                        # 当前时间和数据库中的作时间差
+                        diff_time_minutes23 = basic.vuln_time_shijian_cha(23)
+                        if int(diff_time_minutes23) > vuln_time_controls:
+                            # 超过单位时间更新数据库中的时间
+                            basic.vuln_last_time_update_lib(current_time23,23)
+                            # 金蝶OA扫描程序用时统计相关
+                            basic.scan_total_time_start_time(30)
+                            # 提交扫描任务
+                            wanhu_status_result = basic.startwanhuscan_lib()
+                            # 在后台单独启动1个线程实时判断扫描器停止时间
+                            def wanhuscanendtime():
+                                while True:
+                                    time.sleep(1)
+                                    basic.scan_total_time_final_end_time(30)
+                            threading.Thread(target=wanhuscanendtime).start()
+                                                    
+                        else:
+                            wanhu_status_result = "万户OA扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             
             elif 'o' in str(k):
                 # 未授权专项不做指纹识别判断
@@ -3719,12 +4329,10 @@ def vulnscan_check_back():
             weblogic_status_result1 = weblogic_status_result
         except:
             weblogic_status_result1 = ""
-
         try:
             shiro_status_result1 = shiro_status_result
         except:
             shiro_status_result1 = ""
-
         try:
             springboot_scan_status_result1 = springboot_scan_status_result
         except:
@@ -3737,37 +4345,30 @@ def vulnscan_check_back():
             start_afrog_result1 = start_afrog_result
         except:
             start_afrog_result1 = ""
-
         try:
             fscan_status_result1 = fscan_status_result
         except:
             fscan_status_result1 = ""
-
         try:
             hydra_scan_result1 = hydra_scan_result
         except:
-            hydra_scan_result1 = ""
-        
+            hydra_scan_result1 = ""        
         try:
             seeyon_status_result1 = seeyon_status_result
         except:
-            seeyon_status_result1 = ""
-        
+            seeyon_status_result1 = ""        
         try:
             yonsuite_status_result1 = yonsuite_status_result
         except:
             yonsuite_status_result1 = ""
-
         try:
             kingdee_status_result1 = kingdee_status_result
         except:
             kingdee_status_result1 = ""
-
         try:
             wanhu_status_result1 = wanhu_status_result
         except:
             wanhu_status_result1 = ""
-
         try:
             redis_status_result1 = redis_status_result
         except:
@@ -3776,60 +4377,46 @@ def vulnscan_check_back():
             mongodb_status_result1 = mongodb_status_result
         except:
             mongodb_status_result1 = ""
-
         try:
             memcached_status_result1 = memcached_status_result
         except:
-            memcached_status_result1 = ""
-        
+            memcached_status_result1 = ""        
         try:
             zookeeper_status_result1 = zookeeper_status_result
         except:
-            zookeeper_status_result1 = ""
-        
-        
+            zookeeper_status_result1 = ""        
         try:
             ftp_status_result1 = ftp_status_result
         except:
-            ftp_status_result1 = ""
-        
+            ftp_status_result1 = ""        
         try:
             couchdb_status_result1 = couchdb_status_result
         except:
             couchdb_status_result1 = ""
-
         try:
             docker_status_result1 = docker_status_result
         except:
-            docker_status_result1 = ""
-        
+            docker_status_result1 = ""        
         try:
             hadoop_status_result1 = hadoop_status_result
         except:
-            hadoop_status_result1 = ""
-        
+            hadoop_status_result1 = ""        
         try:
             nfs_status_result1 = nfs_status_result
         except:
-            nfs_status_result1 = ""
-
-        
+            nfs_status_result1 = ""        
         try:
             rsync_status_result1 = rsync_status_result
         except:
-            rsync_status_result1 = ""
-        
-        
+            rsync_status_result1 = ""        
         try:
             unes_status_result1 = unes_status_result
         except:
-            unes_status_result1 = ""
-        
+            unes_status_result1 = ""        
         try:
             urlfinder_status_result1 = urlfinder_status_result
         except:
             urlfinder_status_result1 = ""
-
         try:
             vummap_scan_result1 = vummap_scan_result
         except:
@@ -3838,37 +4425,26 @@ def vulnscan_check_back():
             nuclei_status_result1 = nuclei_status_result
         except:
             nuclei_status_result1 = ""
-
         try:
             weaver_status_result1 = weaver_status_result
         except:
-            weaver_status_result1 = ""
-        
-        try:
-            point_all_result1 = point_all_result
-        except:
-            point_all_result1 = ""
-
+            weaver_status_result1 = ""        
         try:
             es_status_result1 = es_status_result
         except:
             es_status_result1 = ""
-
         try:
             nacos_status_result1 = nacos_status_result
         except:
-            nacos_status_result1 = ""
-        
+            nacos_status_result1 = ""        
         try:
             tomcat_status_result1 = tomcat_status_result
         except:
             tomcat_status_result1 = ""
-
         try:
             jndi_status_result1 = jndi_status_result
         except:
             jndi_status_result1 = ""
-
         try:
             fastjson_status_result1 = fastjson_status_result
         except:
@@ -3891,7 +4467,6 @@ def vulnscan_check_back():
             "vummap_scan_result":vummap_scan_result1,
             "nuclei_status_result":nuclei_status_result1,
             "weaver_status_result":weaver_status_result1,
-            "point_all_result":point_all_result1,
             "es_status_result":es_status_result1,
             "nacos_status_result":nacos_status_result1,
             "tomcat_status_result":tomcat_status_result1,
@@ -3914,7 +4489,6 @@ def vulnscan_check_back():
             "rsync_status_result":rsync_status_result1,
             "unes_status_result":unes_status_result1
         }
-
         return jsonify(message_json)
     else:
         return render_template('login.html')
@@ -5032,6 +5606,7 @@ def assets_extend():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
 
                 
 

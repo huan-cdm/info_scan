@@ -1462,7 +1462,7 @@ function vulnxuanzhongscan() {
         success: function (info) {
 
             var message = info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result +
-                "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.point_all_result + "\n" + info.es_status_result +
+                "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.es_status_result +
                 "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result +
                 "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result +
                 "\n" + info.unes_status_result;
