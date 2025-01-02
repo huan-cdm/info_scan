@@ -42,7 +42,7 @@ bilibili教程: https://www.bilibili.com/video/BV1Gt28YFEr3<br>
 1. 新增Elasticsearch未授权扫描；<br>
 2. 下线部分冗余功能；<br>
 3. 已知问题处理与优化；<br>
-4. 新增指纹识别开关配置；<br>
+4. 新增指纹识别开关配置,通过配置文件；<br>
 </li>
 <li>
 2024-12-22更新<br> 
