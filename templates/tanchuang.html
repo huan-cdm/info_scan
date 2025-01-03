@@ -376,7 +376,13 @@ poc显示区域</textarea>
 
             <br>
             <textarea rows="3" cols="30" id="nacostextarea2" style="width: 729px; height: 89px;">
-        </textarea>
+        </textarea><br>
+        <span>bcrypt字典</span><br>
+        <textarea rows="3" cols="30" id="bcrypttextarea1" style="width: 729px; height: 89px;"></textarea>
+
+        <br>
+        <textarea rows="3" cols="30" id="bcrypttextarea2" style="width: 729px; height: 89px;">
+    </textarea>
             <span style="cursor: pointer;" onclick="hydra_dict_submit_func()">保存</span>
         </div>
 
@@ -712,6 +718,7 @@ poc显示区域</textarea>
                 <td>FUZZ扫描</td>
                 <td>爬虫扫描</td>
                 <td>致远OA漏洞扫描</td>
+                <td>bcrypt解密</td>
             </tr>
             <tr>
                 <th>状态</th>
@@ -754,6 +761,10 @@ poc显示区域</textarea>
                     <span id="spp58" style="color:green"></span>
                     <span id="spp58a" style="color: red;"></span>
                 </td>
+                <td>
+                    <span id="spp74" style="color:green"></span>
+                    <span id="spp74a" style="color: red;"></span>
+                </td>
             </tr>
             <tr>
                 <th>耗时</th>
@@ -767,6 +778,7 @@ poc显示区域</textarea>
                 <td><span id="difffuzzid"></span></td>
                 <td><span id="diffcrawlergoid"></span></td>
                 <td><span id="diffseeyonid"></span></td>
+                <td><span id="diffbcryptid"></span></td>
             </tr>
         </table>
         <br>

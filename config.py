@@ -85,6 +85,10 @@ nacos_pass_dir = '/TIP/info_scan/dict/nacos_pass.txt'
 phpmyadmin_user_dir = '/TIP/info_scan/dict/phpmyadmin_user.txt'
 phpmyadmin_pass_dir = '/TIP/info_scan/dict/phpmyadmin_pass.txt'
 
+# bcrypt解密字典和密码配置
+bcrypt_dict = '/TIP/info_scan/dict/bcrypt_dict/dict.txt'
+bcrypt_passwd = '/TIP/info_scan/dict/bcrypt_dict/passwd.txt'
+
 # JNDI服务配置(配置IP)
 jndi_server = 'rmi://x.x.x.x:9999/TouchFile'
 

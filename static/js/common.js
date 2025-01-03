@@ -463,6 +463,9 @@ function openModal() {
                 document.getElementById("spp73").innerHTML = info.unes1_status1;
                 document.getElementById("spp73a").innerHTML = info.unes1_status2;
 
+                document.getElementById("spp74").innerHTML = info.bcrypt_status1;
+                document.getElementById("spp74a").innerHTML = info.bcrypt_status2;
+
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
                 document.getElementById("spp3").innerHTML = info.xraystatus1;
@@ -636,6 +639,7 @@ function openModal() {
                 document.getElementById("diffnfsid").innerHTML = info.nfscontime;
                 document.getElementById("diffrsyncid").innerHTML = info.rsynccontime;
                 document.getElementById("diffunesid").innerHTML = info.unes1contime;
+                document.getElementById("diffbcryptid").innerHTML = info.bcryptcontime;
             });
     }
 
@@ -898,6 +902,22 @@ function hydradictfunc() {
 
             }
             $('#nacostextarea2').val(textAreaContent12);
+
+            // bcrypt相关
+            var textAreaContent13 = '';
+            for (var i = 0; i < info.bcrypt_dict_list.length; i++) {
+                textAreaContent13 += info.bcrypt_dict_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#bcrypttextarea1').val(textAreaContent13);
+
+            var textAreaContent14 = '';
+            for (var i = 0; i < info.bcrypt_passwd_list.length; i++) {
+                textAreaContent14 += info.bcrypt_passwd_list[i] + '\n'; // 追加元素和换行符  
+
+            }
+            $('#bcrypttextarea2').val(textAreaContent14);
+
 
 
 
@@ -1465,7 +1485,7 @@ function vulnxuanzhongscan() {
                 "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.es_status_result +
                 "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result +
                 "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result +
-                "\n" + info.unes_status_result;
+                "\n" + info.unes_status_result+"\n"+info.bcrypt_status_result;
 
             document.getElementById('vulnscan1').innerText = message;
 
@@ -1680,13 +1700,13 @@ function vulnxuanzhongstopscanfunc() {
                 "\n" + info.kill_springboot_result + "\n" + info.kill_thinkphp_result +
                 "\n" + info.kill_afrog_result + "\n" + info.kill_fscan_result + "\n" + info.kill_hydra_result +
                 "\n" + info.kill_urlfinder_result + "\n" + info.kill_vulmap_result + "\n" + info.kill_nuclei_result +
-                "\n" + info.kill_weaver_result + "\n" + info.kill_point_assset_result + "\n" + info.kill_es_result +
+                "\n" + info.kill_weaver_result + "\n" + info.kill_es_result +
                 "\n" + info.kill_nacos_result + "\n" + info.kill_tomcat_result + "\n" + info.kill_jndi_result +
                 "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result +
                 "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result + "\n" + info.kill_redis_result + "\n" + info.kill_mongodb_result +
                 "\n" + info.kill_memcached_result + "\n" + info.kill_zookeeper_result + "\n" + info.kill_ftp_result +
                 "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + 
-                "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result+"\n"+info.kill_es1_result;
+                "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result+"\n"+info.kill_es1_result+"\n"+info.kill_bcrypt_result;
 
             document.getElementById('vulnscan2').innerText = message1;
         },
@@ -1837,6 +1857,8 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/unrsyncreportyulan/", "_blank");
         } else if (vuln_front_list[i] == 'y') {
             window.open("/unelasticsearchreportyulan/", "_blank");
+        }else if (vuln_front_list[i] == 'z') {
+            window.open("/decryptreportyulan/", "_blank");
         }
 
 
@@ -1918,6 +1940,10 @@ function hydra_dict_submit_func() {
     const tomcattextarea2 = document.getElementById('tomcattextarea2').value;
     const nacostextarea1 = document.getElementById('nacostextarea1').value;
     const nacostextarea2 = document.getElementById('nacostextarea2').value;
+
+    const bcrypttextarea1 = document.getElementById('bcrypttextarea1').value;
+    const bcrypttextarea2 = document.getElementById('bcrypttextarea2').value;
+
     // 按换行符分割文本为数组  
     const line_mysqltextarea1 = mysqltextarea1.split('\n');
     const line_mysqltextarea2 = mysqltextarea2.split('\n');
@@ -1932,12 +1958,16 @@ function hydra_dict_submit_func() {
     const line_tomcattextarea2 = tomcattextarea2.split('\n');
     const line_nacostextarea1 = nacostextarea1.split('\n');
     const line_nacostextarea2 = nacostextarea2.split('\n');
+
+    const line_bcrypttextarea1 = bcrypttextarea1.split('\n');
+    const line_bcrypttextarea2 = bcrypttextarea2.split('\n');
+
     // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
     $.ajax({
         url: '/hydradictconfig/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2 }),
+        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2,line_bcrypttextarea1:line_bcrypttextarea1, line_bcrypttextarea2:line_bcrypttextarea2}),
         dataType: 'json',
         success: function (info) {
             alert(info.mysql_dict_result)

@@ -43,6 +43,10 @@ from config import threadnum
 import ftplib
 import logging
 import subprocess
+# bcrypt解密
+import bcrypt
+from config import bcrypt_dict
+from config import bcrypt_passwd
 
 # elasticsearch数据库相关漏洞扫描
 def es_unauthorized():
@@ -1089,6 +1093,27 @@ def elasticsearch_unauthorizedset_scan_lib(ip):
         pass
 
 
+# bcrypt解密
+def bcrypt_decrypt():
+    dict_list = []
+    passwd_dict = []
+    dict_file = open(bcrypt_dict,encoding='utf-8')
+    passwd_file = open(bcrypt_passwd,encoding='utf-8')
+    for dict_line in dict_file.readlines():
+        dict_list.append(dict_line.strip().encode('utf-8'))
+    for passwd_line in passwd_file.readlines():
+        passwd_dict.append(passwd_line.strip().encode('utf-8'))
+    # 遍历字典和密码列表进行碰撞
+    for dict in dict_list:
+        for passwd in passwd_dict:
+            try:
+                checkpw = bcrypt.checkpw(dict,passwd)
+                if checkpw:
+                    print("密文："+str(passwd.decode('utf-8'))+"\n"+"明文："+str(dict.decode('utf-8')))
+            except:
+                pass
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -1117,6 +1142,8 @@ if __name__ == "__main__":
             kingdeeoa_vuln_scan()   
         elif func_name == 'wanhuoa_vuln_scan':
             wanhuoa_vuln_scan()
+        elif func_name == 'bcrypt_decrypt':
+            bcrypt_decrypt()
         elif func_name == 'redis_unauthorizedset_scan_lib':
             # 利用线程池
             ip_list = basic.url_convert_ip()

@@ -1766,4 +1766,35 @@ subfinder_status)
     fi
     ;;
 
+# 开启bcrypt解密
+start_bcrypt)
+    python3 /TIP/info_scan/vuln_lib.py bcrypt_decrypt >/TIP/info_scan/result/bcrypt_result.txt
+    ;;
+
+# bcrypt解密运行状态
+bcrypt_scan_status)
+    bcrypt_scan_ps=$(ps -aux | grep "vuln_lib.py bcrypt_decrypt" | wc -l)
+    if (($bcrypt_scan_ps > 1)); then
+        echo "running"
+    else
+        echo "stop"
+    fi
+    ;;
+
+#bcrypt解密数量
+bcrypt_num)
+    bcrypt_num=$(cat /TIP/info_scan/result/bcrypt_result.txt | wc -l)
+    echo "${bcrypt_num}"
+    ;;
+
+
+# 关闭bcrypt程序
+stop_bcrypt_scan)
+    bcrypt_pid=$(ps -aux | grep "bcrypt_decrypt" | awk -F " " '{print $2}')
+
+    for ii in ${bcrypt_pid}; do
+        kill -9 ${ii} 2>/dev/null
+    done
+    ;;
+
 esac

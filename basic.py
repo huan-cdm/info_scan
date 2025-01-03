@@ -49,10 +49,6 @@ from config import interface_num
 
 import datetime
 
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
     
@@ -2180,6 +2176,33 @@ def stopunesvuln_lib():
 
 # -------------------------------------------------未授权专项扫描结尾-------------------------------------------------
 
+# bcrypt加盐类解密
+# 开启bcrypt
+def startbcryptscan_lib():
+    bcrypt_status = os.popen('bash /TIP/info_scan/finger.sh bcrypt_scan_status').read()
+    if "running" in bcrypt_status:
+        bcrypt_status_result = "bcrypt解密程序正在运行中请勿重复提交"
+    else:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh start_bcrypt')
+            if "running" in bcrypt_status:
+                bcrypt_status_result = "bcrypt解密程序已开启稍后查看结果"
+            else:
+                bcrypt_status_result = "bcrypt解密程序程序正在后台启动中......"
+        except Exception as e:
+            print("捕获到异常:", e)
+    return bcrypt_status_result
+
+# 关闭bcrypt
+def stopbcrypt_lib():
+    bcrypt_status = os.popen('bash /TIP/info_scan/finger.sh bcrypt_scan_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_bcrypt_scan')
+    if "stop" in bcrypt_status:
+        kill_bcrypt_result = "已关闭bcrypt解密程序"
+    else:
+        kill_bcrypt_result = "正在关闭中......"
+    return kill_bcrypt_result
+
 # 开启fastjson漏洞扫描
 def startfastjson_lib():
     fastjson_scan_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
@@ -2937,6 +2960,14 @@ def scan_total_time_final_end_time(typepart):
             scan_total_time_end_time(42)
         else:
             print("Elasticsearch未授权扫描程序运行时间正在计算中...")
+    elif int(typepart) == 43:
+        print("bcrypt解密程序最终截止时间")
+        bcrypt_status = os.popen('bash /TIP/info_scan/finger.sh bcrypt_scan_status').read()
+        bcryptscanisnull = scan_total_time_endtimeisnull(43)
+        if "stop" in bcrypt_status and bcryptscanisnull == 0:
+            scan_total_time_end_time(43)
+        else:
+            print("bcrypt解密程序运行时间正在计算中...")
     else:
         print("开发中...")
 
@@ -3256,7 +3287,8 @@ def icp_info_new(ip):
         fail_third_party_port_addone(4)
     return icp_name_list_uniq
 
-
+            
+           
 
 
 

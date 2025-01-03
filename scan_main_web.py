@@ -63,6 +63,8 @@ from config import tomcat_user_dir
 from config import tomcat_pass_dir
 from config import nacos_user_dir
 from config import nacos_pass_dir
+from config import bcrypt_dict
+from config import bcrypt_passwd
 
 # 统计列表元素出现次数
 from collections import Counter
@@ -593,6 +595,16 @@ def systemmanagement():
             unes1_status2 = unes1_status
             unes1contime = basic.scan_end_start_time(42)
 
+        bcrypt_status = os.popen('bash /TIP/info_scan/finger.sh bcrypt_scan_status').read()
+        if "running" in bcrypt_status:
+            bcrypt_status1 = bcrypt_status
+            bcrypt_status2 = ""
+            bcryptcontime = "计算中"
+        else:
+            bcrypt_status1 = ""
+            bcrypt_status2 = bcrypt_status
+            bcryptcontime = basic.scan_end_start_time(43)
+
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
             nucleistatus1 = nucleistatus
@@ -1122,6 +1134,7 @@ def systemmanagement():
             "springbootcontime":springbootcontime+"秒",
             "thinkphpcontime":thinkphpcontime+"秒",
             "esccontime":esccontime+"秒",
+            "bcryptcontime":bcryptcontime+"秒",
             "nacoscontime":nacoscontime+"秒",
             "tomcatcontime":tomcatcontime+"秒",
             "fastjsoncontime":fastjsoncontime+"秒",
@@ -1166,6 +1179,8 @@ def systemmanagement():
             "subfinder_status2":subfinder_status2,
             "redis_status1":redis_status1,
             "redis_status2":redis_status2,
+            "bcrypt_status1":bcrypt_status1,
+            "bcrypt_status2":bcrypt_status2,
             "mongodb_status1":mongodb_status1,
             "mongodb_status2":mongodb_status2,
             "memcached_status1":memcached_status1,
@@ -2038,6 +2053,28 @@ def unelasticsearchreportyulan():
             else:
                 lines = []
                 with open('/TIP/info_scan/result/elasticsearch_unauthorized.txt', 'r') as f:
+                    for line in f:
+                        lines.append(line.strip())
+        return '<br>'.join(lines)
+    else:
+        return render_template('login.html')
+
+
+#decrypt报告预览
+@app.route("/decryptreportyulan/")
+def decryptreportyulan():
+    user = session.get('username')
+    if str(user) == main_username:
+        decrypt_status = os.popen('bash /TIP/info_scan/finger.sh bcrypt_scan_status').read()
+        if "running" in decrypt_status:
+            lines = ["正在扫描中......"]
+        else:
+            bcrypt_num = os.popen('bash /TIP/info_scan/finger.sh bcrypt_num').read()
+            if int(bcrypt_num) ==0:
+                lines = ["未解密成功"]
+            else:
+                lines = []
+                with open('/TIP/info_scan/result/bcrypt_result.txt', 'r') as f:
                     for line in f:
                         lines.append(line.strip())
         return '<br>'.join(lines)
@@ -4317,8 +4354,29 @@ def vulnscan_check_back():
                 else:
                     unes_status_result = "Elasticsearch未授权扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
 
-            elif 'd' in str(k):
-                print("待开发")
+            elif 'z' in str(k):
+                print("bcrypt解密")
+                # 获取系统当前时间
+                current_time35 = time.time()
+                # 当前时间和数据库中的作时间差
+                diff_time_minutes35 = basic.vuln_time_shijian_cha(35)
+                if int(diff_time_minutes35) > vuln_time_controls:
+                    # 超过单位时间更新数据库中的时间
+                    basic.vuln_last_time_update_lib(current_time35,35)
+                    # bcrypt程序用时统计相关
+                    basic.scan_total_time_start_time(43)
+                    # 提交扫描任务
+                    bcrypt_status_result = basic.startbcryptscan_lib()
+                    # 在后台单独启动1个线程实时判断扫描器停止时间
+                    def bcryptscanendtime():
+                        while True:
+                            time.sleep(1)
+                            basic.scan_total_time_final_end_time(43)
+                    threading.Thread(target=bcryptscanendtime).start()
+                                            
+                else:
+                    bcrypt_status_result = "bcrypt解密程序"+str(info_time_controls)+"分钟内不允许重复扫描"
+                
             else:
                 print("其他扫描器正在完善中......")
         try:
@@ -4453,6 +4511,10 @@ def vulnscan_check_back():
             xray_status_result1 = xray_status_result
         except:
             xray_status_result1 = ""
+        try:
+            bcrypt_status_result1 = bcrypt_status_result
+        except:
+            bcrypt_status_result1 = ""
 
         message_json = {
             "struts2status_result":struts2status_result1,
@@ -4487,7 +4549,8 @@ def vulnscan_check_back():
             "hadoop_status_result":hadoop_status_result1,
             "nfs_status_result":nfs_status_result1,
             "rsync_status_result":rsync_status_result1,
-            "unes_status_result":unes_status_result1
+            "unes_status_result":unes_status_result1,
+            "bcrypt_status_result":bcrypt_status_result1
         }
         return jsonify(message_json)
     else:
@@ -4671,8 +4734,9 @@ def stop_vulnscan_back():
                 kill_rsync_result = basic.stopunrsyncvuln_lib()
             elif 'y' in str(j):                
                 kill_es1_result = basic.stopunesvuln_lib()
-            elif 'd' in str(j):                
-                kill_point_assset_result = "勾选struts2,weblogic,shiro,springboot进行相关操作"        
+            elif 'z' in str(j):                
+                kill_bcrypt_result = basic.stopbcrypt_lib()
+                  
         try:
             kill_struts2_result1 = kill_struts2_result
         except:
@@ -4761,9 +4825,10 @@ def stop_vulnscan_back():
             kill_es1_result1 = kill_es1_result
         except:
             kill_es1_result1 = ""
-        
-        
-        
+        try:
+            kill_bcrypt_result1 = kill_bcrypt_result
+        except:
+            kill_bcrypt_result1 = ""
         try:
             kill_springboot_result1 = kill_springboot_result
         except:
@@ -4813,11 +4878,6 @@ def stop_vulnscan_back():
             kill_weaver_result1 = kill_weaver_result
         except:
             kill_weaver_result1 = ""
-
-        try:
-            kill_point_assset_result1 = kill_point_assset_result
-        except:
-            kill_point_assset_result1 = ""
         try:
             kill_es_result1 = kill_es_result
         except:
@@ -4853,7 +4913,6 @@ def stop_vulnscan_back():
            "kill_vulmap_result":kill_vulmap_result1,
            "kill_nuclei_result":kill_nuclei_result1,
            "kill_weaver_result":kill_weaver_result1,
-           "kill_point_assset_result":kill_point_assset_result1,
            "kill_es_result":kill_es_result1,
            "kill_nacos_result":kill_nacos_result1,
            "kill_tomcat_result":kill_tomcat_result1,
@@ -4873,7 +4932,8 @@ def stop_vulnscan_back():
            "kill_hadoop_result":kill_hadoop_result1,
            "kill_nfs_result":kill_nfs_result1,
            "kill_rsync_result":kill_rsync_result1,
-           "kill_es1_result":kill_es1_result1
+           "kill_es1_result":kill_es1_result1,
+           "kill_bcrypt_result":kill_bcrypt_result1
         }
 
         return jsonify(message_json)
@@ -5122,6 +5182,8 @@ def dict_mysql_edit():
         tomcat_pass_dict_list = []
         nacos_user_dict_list = []
         nacos_pass_dict_list = []
+        bcrypt_dict_list = []
+        bcrypt_passwd_list = []
         # mysql
         file = open(mysql_dict_user_dir,encoding='utf-8')
         for line in file.readlines():
@@ -5220,6 +5282,20 @@ def dict_mysql_edit():
         if len(nacos_pass_dict_list) == 0:
             nacos_pass_dict_list.append("暂无数据")
 
+        # bcrypt
+        file13 = open(bcrypt_dict,encoding='utf-8')
+        for line13 in file13.readlines():
+            bcrypt_dict_list.append(line13.strip())
+        # 判断数据是否为空
+        if len(bcrypt_dict_list) == 0:
+            bcrypt_dict_list.append("暂无数据")
+        file14 = open(bcrypt_passwd,encoding='utf-8')
+        for line14 in file14.readlines():
+            bcrypt_passwd_list.append(line14.strip())
+        # 判断数据是否为空
+        if len(bcrypt_passwd_list) == 0:
+            bcrypt_passwd_list.append("暂无数据")
+
         message_json = {
             "mysql_user_dict_list":mysql_user_dict_list,
             "mysql_pass_dict_list":mysql_pass_dict_list,
@@ -5233,7 +5309,9 @@ def dict_mysql_edit():
             "tomcat_user_dict_list":tomcat_user_dict_list,
             "tomcat_pass_dict_list":tomcat_pass_dict_list,
             "nacos_user_dict_list":nacos_user_dict_list,
-            "nacos_pass_dict_list":nacos_pass_dict_list
+            "nacos_pass_dict_list":nacos_pass_dict_list,
+            "bcrypt_dict_list":bcrypt_dict_list,
+            "bcrypt_passwd_list":bcrypt_passwd_list
         }
 
         return jsonify(message_json)
@@ -5334,6 +5412,18 @@ def hydradictconfig():
             f13.write(str(line13)+"\n")
         f13.close()
 
+        # bcrypt相关
+        line_bcrypttextarea1 = data['line_bcrypttextarea1']
+        line_bcrypttextarea2 = data['line_bcrypttextarea2']
+        f13 = open(file=bcrypt_dict,mode='w')
+        for line13 in line_bcrypttextarea1:
+            f13.write(str(line13)+"\n")
+        f13.close()
+        f14 = open(file=bcrypt_passwd,mode='w')
+        for line14 in line_bcrypttextarea2:
+            f14.write(str(line14)+"\n")
+        f14.close()
+        
         # 判断数据是否添加成功
         line_mysqltextarea1_list = []
         file_a = open(mysql_dict_user_dir,encoding='utf-8')
