@@ -4,8 +4,8 @@
 2. sudo htpasswd -c /etc/nginx/htpasswd username #按照提示输入密码，username是你想要添加的用户名<br>
 3. cp info_scan/nginx_conf/nginx_401.conf /etc/nginx/conf.d/ #将项目中关于401认证的配置文件复制到nginx自定义目录下，/etc/nginx/conf.d/目录会通过nginx.conf加载<br>
 4. service nginx restart #重启服务生效<br>
-bilibili教程: 
-- [info_scan_2024-10-12更新](https://www.bilibili.com/video/BV1Gt28YFEr3)
+bilibili教程: <br>
+- [info_scan_2024-10-12更新](https://www.bilibili.com/video/BV1Gt28YFEr3)<br>
 - [info_scan_2025-1-4更新](https://www.bilibili.com/video/BV1surWYJEHX)
 <br>
 <h2>虚拟机安装：</h2>
