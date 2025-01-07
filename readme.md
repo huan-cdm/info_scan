@@ -1,51 +1,52 @@
+<h2>集成相关工具：</h2> 
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
+综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
+信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
+未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt。
+<br><br>
+<h2>bilibili教程：</h2>
+
+- [info_scan_2024-10-12更新](https://www.bilibili.com/video/BV1Gt28YFEr3)<br>
+- [info_scan_2025-1-4更新](https://www.bilibili.com/video/BV1surWYJEHX)<br>
+
+<h2>便携版本安装：</h2>
+Linux服务器账号密码：huan/admin@123<br>
+nginx账号密码：admin/123456<br>
+web账号密码：admin/123456<br>
+mysql账号密码：admin/123456<br>
+1. 登录系统，在参数配置-系统配置下，修改key信息<br>
+2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行和第二行修改为自己服务器的IP地址<br>
+3. 系统启动参数：bash /TIP/info_scan/server_check.sh -h，nginx和mysql服务开机自启，如未开启成功，需执行service nginx start和service mysql start开启服务<br>
+4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己服务器的IP地址，重启nginx服务器<br>
+5. 入口地址：http://服务器IP:19999/index/<br>
+
+##### 便携版下载链接
+- [info_scan_2025.01](https://pan.quark.cn/s/81003c01a616#/list/share)：2025.01.07更新，夸克网盘。
+- [info_scan_2024.10](https://pan.quark.cn/s/81003c01a616#/list/share)：2024.10.07更新，夸克网盘（网盘空间不足，已删除。）。
+- [info_scan_2024.08](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)：2024.08.14、2024.08.29更新，百度网盘。
+<br><br>
+
+<h2>系统源码安装：</h2>
+注意：<br><br>
+保证系统正常运行需要2个项目：<br><br>
+
+- [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
+- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
+
 <h2>nginx配置401认证：</h2>
 配置方法：<br>
 1. sudo apt-get install apache2-utils  #安装apache2-utils工具包<br>
 2. sudo htpasswd -c /etc/nginx/htpasswd username #按照提示输入密码，username是你想要添加的用户名<br>
 3. cp info_scan/nginx_conf/nginx_401.conf /etc/nginx/conf.d/ #将项目中关于401认证的配置文件复制到nginx自定义目录下，/etc/nginx/conf.d/目录会通过nginx.conf加载<br>
 4. service nginx restart #重启服务生效<br>
-bilibili教程: <br>
-- [info_scan_2024-10-12更新](https://www.bilibili.com/video/BV1Gt28YFEr3)<br>
-- [info_scan_2025-1-4更新](https://www.bilibili.com/video/BV1surWYJEHX)
-<br>
-<h2>虚拟机安装：</h2>
-服务器账号密码：huan/admin@123<br>
-nginx账号密码：admin/123456<br>
-web账号密码：admin/123456<br>
-mysql账号密码：admin/123456<br>
-1. 登录系统，在参数配置-系统配置下，替换自己的key信息<br>
-2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行和第二行修改为自己服务器的IP地址<br>
-3. 开启项目命令：bash /TIP/info_scan/server_check.sh -h，nginx和mysql服务开机自启，如未开启成功，需执行service nginx start和service mysql start开启服务<br>
-4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己虚拟机的IP地址，重启nginx服务器<br>
-5. 入口地址：http://虚拟机IP:19999/index/<br>
-6. 项目源码路径：/TIP/*
-<br>
 
-##### 网盘链接
-- [info_scan_2025.01](https://pan.quark.cn/s/81003c01a616#/list/share)：2025.01.07更新，夸克网盘。
-- [info_scan_2024.10](https://pan.quark.cn/s/81003c01a616#/list/share)：2024.10.07更新，夸克网盘（网盘空间不足，已删除。）。
-- [info_scan_2024.08](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)：2024.08.14、2024.08.29更新，百度网盘。
-<br><br>
-
-<h2>源码安装：</h2>
-注意：<br><br>
-保证系统正常运行需要2个项目：<br><br>
-
-- [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
-- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
-<h2>集成相关工具：</h2> <br>
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
-综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
-信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
-未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt。
-<br><br>
 <h2>更新日志：</h2>
 <ul>
 <li>
 2025-1-6更新<br> 
 1. requirements.txt优化，删除掉python自带的库；<br>
 2. 已知问题处理与优化；<br>
-3. 虚拟机版本更新-2025.01.07；<br>
+3. 便携版本更新-2025.01.07；<br>
 </li>
 <li>
 2025-1-2更新<br> 
@@ -162,7 +163,7 @@ mysql账号密码：admin/123456<br>
 <li>
 2024-10-07更新<br> 
 1. 系统优化；<br>
-2. 虚拟机版更新；<br>
+2. 便携版更新；<br>
 3. 系统管理新增指纹识别结果提示；<br>
 4. 新增扫描前判断是否进行指纹识别,未进行指纹识别无法开启扫描程序；<br>
 5. 新增标题图标；<br>
@@ -235,7 +236,7 @@ mysql账号密码：admin/123456<br>
 2. 新增nacos相关漏洞扫描；<br>
 3. 新增程序运行状态显示绿色,停止状态显示红色；<br>
 4. shodan修改为可配置多个key,系统随机调用；<br>
-5. 虚拟机版本更新到最新版；<br>
+5. 便携版更新到最新版；<br>
 </li>
 <li>
 2024-08-26更新<br> 
