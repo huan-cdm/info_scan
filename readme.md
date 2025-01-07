@@ -9,8 +9,6 @@ bilibili教程: <br>
 - [info_scan_2025-1-4更新](https://www.bilibili.com/video/BV1surWYJEHX)
 <br>
 <h2>虚拟机安装：</h2>
-##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 
-- [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
 服务器账号密码：huan/admin@123<br>
 nginx账号密码：admin/123456<br>
 web账号密码：admin/123456<br>
