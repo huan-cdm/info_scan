@@ -11,17 +11,21 @@ bilibili教程: <br>
 <h2>虚拟机安装：</h2>
 ##### 虚拟机每个月更新一次，源码会及时更新，获取最新版可将项目 
 - [info_scan源码版](https://github.com/huan-cdm/info_scan)，替换到虚拟机的/TIP/目录下，然后重启相关服务；
-虚拟机账号密码：huan/admin@123<br>
-1. 登录Linux系统，修改/TIP/info_scan/config.py中相关参数，包括系统账号密码、接口key的配置都在这个文件，不配置系统无法启动<br>
-2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行和第二行修改为自己虚拟机的IP地址<br>
-3. 开启项目命令：bash /TIP/info_scan/server_check.sh -h，nginx和mysql需执行service nginx start和service mysql start开启服务<br>
+服务器账号密码：huan/admin@123<br>
+nginx账号密码：admin/123456<br>
+web账号密码：admin/123456<br>
+mysql账号密码：admin/123456<br>
+1. 登录系统，在参数配置-系统配置下，替换自己的key信息<br>
+2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行和第二行修改为自己服务器的IP地址<br>
+3. 开启项目命令：bash /TIP/info_scan/server_check.sh -h，nginx和mysql服务开机自启，如未开启成功，需执行service nginx start和service mysql start开启服务<br>
 4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己虚拟机的IP地址，重启nginx服务器<br>
 5. 入口地址：http://虚拟机IP:19999/index/<br>
 6. 项目源码路径：/TIP/*
 <br>
 
 ##### 网盘链接
-- [info_scan_2024.10](https://pan.quark.cn/s/81003c01a616#/list/share)：2024.10.07更新，夸克网盘。
+- [info_scan_2025.01](https://pan.quark.cn/s/81003c01a616#/list/share)：2025.01.07更新，夸克网盘。
+- [info_scan_2024.10](https://pan.quark.cn/s/81003c01a616#/list/share)：2024.10.07更新，夸克网盘（网盘空间不足，已删除。）。
 - [info_scan_2024.08](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)：2024.08.14、2024.08.29更新，百度网盘。
 <br><br>
 
@@ -35,10 +39,16 @@ bilibili教程: <br>
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
 信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
-未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt
+未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt。
 <br><br>
 <h2>更新日志：</h2>
 <ul>
+<li>
+2025-1-6更新<br> 
+1. requirements.txt优化，删除掉python自带的库；<br>
+2. 已知问题处理与优化；<br>
+3. 虚拟机版本更新-2025.01.07；<br>
+</li>
 <li>
 2025-1-2更新<br> 
 1. 新增bcrypt解密；<br>
