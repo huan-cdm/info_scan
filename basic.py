@@ -1678,7 +1678,7 @@ def startnmap_lib(portscan_part):
 
 
 
-# 资产管理相关函数
+# 开启存活检测
 def httpsurvival_lib():
     httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
     if "running" in httpx_status:
@@ -1693,6 +1693,16 @@ def httpsurvival_lib():
         except Exception as e:
             print("捕获到异常:", e)
     return httpx_status_result
+
+# 关闭存活检测
+def stop_httpsurvival_lib():
+    httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh kill_httpx_process')
+    if "stop" in httpx_status:
+        kill_httpx_result = "已关闭httpx存活检测程序"
+    else:
+        kill_httpx_result = "正在关闭中......"
+    return kill_httpx_result
 
 
 
@@ -3287,7 +3297,63 @@ def icp_info_new(ip):
         fail_third_party_port_addone(4)
     return icp_name_list_uniq
 
-            
+
+# CDN检测
+def cdn_detection_lib():
+    print("CDN检测")
+     # url.txt转换为列表
+    url_list = url_file_ip_list()
+    # 提取根域名
+    domain_list = root_domain_scan(url_list)
+    # 定义域名常用后缀，用于过滤掉IP资产，IP不存在子域名信息
+    domain_suffix = ['com','net','org','info','xyz','top','gov','edu','mil','pub','cn']
+    # 提取域名用于判断CDN
+    # 域名列表
+    domain_list_noip = []
+    for k in domain_list:
+        for j in domain_suffix:
+            if j in k:
+                domain_list_noip.append(k)
+    # 纯域名无IP列表去重
+    domain_list_noip_uniq = list(set(domain_list_noip))
+    # 遍历列表判断是否存在CDN
+
+    # 定义存在CDN和不存在CDN字典
+    cdn_dict_list = []
+    no_cdn_dict_list = []
+
+    for domain in domain_list_noip_uniq:
+        cdn_result = os.popen('bash /TIP/info_scan/finger.sh batch_cdn_scan'+' '+domain).read().strip() 
+        if str(cdn_result) == "有CDN":
+            cdn_dict_list.append(domain)
+        else:
+            no_cdn_dict_list.append(domain)
+    
+    # 无CDN+IP（不进行识别CDN）是最终的无CDN列表
+    ip_list = url_convert_ip()
+    ip_list_uniq = list(set(ip_list))
+    total_list_uniq = no_cdn_dict_list+ip_list_uniq
+    total_list_uniq_result = []
+    for total_line in total_list_uniq:
+        nocdnresult = os.popen('bash /TIP/info_scan/finger.sh recognize_no_cdn'+' '+total_line).read().strip()
+        total_list_uniq_result.append(nocdnresult)
+    total_list_uniq_result_uniq = list(set(total_list_uniq_result))
+
+    #列表写入到url.txt
+    f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+    for fileline in total_list_uniq_result_uniq:
+        f.write(str(fileline)+"\n")
+    f.close()
+
+# 关闭CDN检测
+def stop_cdnsurvival_lib():
+    cdn_status = os.popen('bash /TIP/info_scan/finger.sh cdn_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stop_cdn')
+    if "stop" in cdn_status:
+        kill_cdn_result = "已关闭CDN检测程序"
+    else:
+        kill_cdn_result = "正在关闭中......"
+    return kill_cdn_result
            
 
 
@@ -3306,6 +3372,8 @@ if __name__ == "__main__":
             start_crawlergo_scan_lib()
         elif func_name == 'start_crawlergo_scan_proxy_lib':
             start_crawlergo_scan_proxy_lib()
+        elif func_name == 'cdn_detection_lib':
+            cdn_detection_lib()
         else:
             print("Invalid function number")
     else:

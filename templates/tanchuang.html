@@ -65,6 +65,36 @@
 </div>
 
 
+<!-- 存活检测弹窗 -->
+<div id="myModa7" class="modal8">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close8" onclick="closevulnscan6()">&times;</span>
+        <h3>资产存活检测：</h3>
+        <input type="button"  class="hover-color" name="commit" value="存活检测"
+            onclick="filterstatuscodefunc()">
+            <input type="button"  class="hover-color" name="commit" value="关闭程序"
+            onclick="stopfilterstatuscodefunc()">
+            <p id="vulnscan7"></p>
+    </div>
+</div>
+
+<!-- cdn检测 -->
+<div id="myModa8" class="modal8">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close8" onclick="closevulnscan7()">&times;</span>
+        <h3>CDN检测：</h3>
+        <input type="button"  class="hover-color" name="commit" value="CDN检测"
+            onclick="filtercdndatafunc()">
+            <input type="button"  class="hover-color" name="commit" value="关闭程序"
+            onclick="stopcdndetectionfunc()">
+            <p id="vulnscan8"></p>
+    </div>
+</div>
+
+
+
 <!-- 删除日志确认页面 -->
 <div id="modal3" class="modal3">
     <div class="modal-content3">
@@ -377,11 +407,11 @@ poc显示区域</textarea>
             <br>
             <textarea rows="3" cols="30" id="nacostextarea2" style="width: 729px; height: 89px;">
         </textarea><br>
-        <span>bcrypt字典</span><br>
-        <textarea rows="3" cols="30" id="bcrypttextarea1" style="width: 729px; height: 89px;"></textarea>
+            <span>bcrypt字典</span><br>
+            <textarea rows="3" cols="30" id="bcrypttextarea1" style="width: 729px; height: 89px;"></textarea>
 
-        <br>
-        <textarea rows="3" cols="30" id="bcrypttextarea2" style="width: 729px; height: 89px;">
+            <br>
+            <textarea rows="3" cols="30" id="bcrypttextarea2" style="width: 729px; height: 89px;">
     </textarea>
             <span style="cursor: pointer;" onclick="hydra_dict_submit_func()">保存</span>
         </div>
@@ -500,6 +530,7 @@ poc显示区域</textarea>
                 <td>JNDI服务</td>
                 <td>JNDI恶意Java类加载服务</td>
                 <td>报告整合服务</td>
+                <td>CDN识别服务</td>
             </tr>
             <tr>
                 <th>状态</th>
@@ -535,6 +566,11 @@ poc显示区域</textarea>
                     <span id="totalspp1" style="color: green;"></span>
                     <span id="totalspp2" style="color: red;"></span>
                 </td>
+                <td>
+                    <span id="spp75" style="color: green;"></span>
+                    <span id="spp75a" style="color: red;"></span>
+                </td>
+
             </tr>
         </table>
 

@@ -347,10 +347,17 @@
 							<table border="1">
 								<tr>
 									<td colspan="2">
+										<!-- <input type="button" id="button20" class="hover-color" name="commit"
+											value="存活检测" onclick="filterstatuscodefunc()" disabled> &nbsp;&nbsp; -->
+
+
 										<input type="button" id="button20" class="hover-color" name="commit"
-											value="存活检测" onclick="filterstatuscodefunc()" disabled> &nbsp;&nbsp;
-										<input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()"
+											value="存活检测" onclick="openassetalive()" disabled> &nbsp;&nbsp;
+										<!-- <input type="button" id="button24" value="CDN检测" onclick="filtercdndatafunc()"
+											disabled>&nbsp;&nbsp; -->
+											<input type="button" id="button24" value="CDN检测" onclick="opencdnjiancefunc()"
 											disabled>&nbsp;&nbsp;
+											
 										<input type="button" id="button51" value="识别关键资产" onclick="key_data_tiqu_func()"
 											disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -391,7 +398,7 @@
 											disabled>&nbsp;&nbsp;
 										<input type="button" id="button27" value="资产扩展" onclick="assets_extend_func()"
 											disabled>
-										
+
 									</td>
 								</tr>
 

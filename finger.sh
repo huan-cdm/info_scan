@@ -318,6 +318,30 @@ recognize_no_cdn)
     echo "${urlvalue}"
     ;;
 
+# cdn检测运行状态
+cdn_status)
+    cdn_struts_pid=$(ps -aux | grep "cdn_detection_lib" | wc -l)
+    if (($cdn_struts_pid > 1)); then
+        echo "running"
+    else
+        echo "stop"
+    fi
+    ;;
+
+# 关闭cdn检测
+stop_cdn)
+    cdn_struts_pid=$(ps -aux | grep "cdn_detection_lib" | awk -F " " '{print $2}')
+    for ii in ${cdn_struts_pid}; do
+        kill -9 ${ii} 2>/dev/null
+    done
+    ;;
+
+# 开启cdn检测
+start_cdn)
+python3 /TIP/info_scan/basic.py cdn_detection_lib >/dev/null 2>&1 &
+;;
+
+
 # weblogic_poc扫描
 weblogic_poc_scan)
     python3 /TIP/info_scan/weblogin_scan/WeblogicScan.py -f /TIP/info_scan/weblogin_scan/target.txt | grep "+" >/TIP/info_scan/result/weblogic_poc.txt
@@ -530,6 +554,14 @@ httpx_status)
     else
         echo "stop"
     fi
+    ;;
+
+# 关闭httpx存活检测
+kill_httpx_process)
+    pidd=$(ps -aux | grep "httpx" | awk -F " " '{print $2}')
+    for ii in ${pidd}; do
+        kill -9 ${ii} 2>/dev/null
+    done
     ;;
 
 # 自定义指纹列表过滤
@@ -1786,7 +1818,6 @@ bcrypt_num)
     bcrypt_num=$(cat /TIP/info_scan/result/bcrypt_result.txt | wc -l)
     echo "${bcrypt_num}"
     ;;
-
 
 # 关闭bcrypt程序
 stop_bcrypt_scan)

@@ -605,6 +605,14 @@ def systemmanagement():
             bcrypt_status2 = bcrypt_status
             bcryptcontime = basic.scan_end_start_time(43)
 
+        cdn_status = os.popen('bash /TIP/info_scan/finger.sh cdn_status').read()
+        if "running" in cdn_status:
+            cdn_status1 = cdn_status
+            cdn_status2 = ""
+        else:
+            cdn_status1 = ""
+            cdn_status2 = cdn_status
+
         nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
         if "running" in nucleistatus:
             nucleistatus1 = nucleistatus
@@ -1181,6 +1189,8 @@ def systemmanagement():
             "redis_status2":redis_status2,
             "bcrypt_status1":bcrypt_status1,
             "bcrypt_status2":bcrypt_status2,
+            "cdn_status1":cdn_status1,
+            "cdn_status2":cdn_status2,
             "mongodb_status1":mongodb_status1,
             "mongodb_status2":mongodb_status2,
             "memcached_status1":memcached_status1,
@@ -1358,7 +1368,7 @@ def uniqdirsearchtargetinterface():
         return render_template('login.html')
 
 
-#存活检测接口
+# 开启存活检测
 @app.route("/filterstatuscodebyhttpx/",methods=['GET'])
 def filterstatuscodebyhttpx():
     user = session.get('username')
@@ -1377,6 +1387,22 @@ def filterstatuscodebyhttpx():
 
         message_json = {
             "httpx_status_result":httpx_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 关闭存活检测
+@app.route("/stopfilterstatuscodebyhttpx/",methods=['GET'])
+def stopfilterstatuscodebyhttpx():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        stop_httpx_status_result = basic.stop_httpsurvival_lib()
+
+        message_json = {
+            "stop_httpx_status_result":stop_httpx_status_result
         }
         return jsonify(message_json)
     else:
@@ -1403,59 +1429,41 @@ def signout():
     return jsonify(message_json)
 
 
-#cdn探测，将存在cdn和不存在cdn的域名分别存入不同列表中，用于过滤基础数据
-# date:2024.4.3
+# 开启CDN检测
 @app.route('/cdn_service_recogize/',methods=['get'])
 def cdn_service_recogize():
     user = session.get('username')
     if str(user) == main_username:
         # 筛选后资产时间线更新
-        basic.assets_status_update('CDN检测已完成')    
-        try:
-            #遍历目标文件存入列表
-            url_file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
-            url_list = []
-            for i in url_file.readlines():
-                url_list.append(i)
-            # url中提取域名存列表
-            domain_list = []
-            for j in url_list:
+        basic.assets_status_update('CDN检测已完成')
+        cdn_status = os.popen('bash /TIP/info_scan/finger.sh cdn_status').read()
+        if "running" in cdn_status:
+            cdn_status_result = "CDN检测程序正在运行中请勿重复提交"
+        else:
+            os.popen('bash /TIP/info_scan/finger.sh start_cdn')
+            cdn_status_result = "CDN检测程序已开启成功"
+        message_json = {
+            "cdn_status_result":cdn_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
-                domain_re = re.findall("https?://([^/]+)",j)
-                domain_list.append(domain_re)
 
-            # url中提取域名并删除掉长度为0的列表
-            domain_list_result = []
-            for k in domain_list:
-                if len(k) > 0:
-                    domain_list_result.append(k[0])
-            
-            # 存在cdn列表
-            rule_cdn_domain_list = []
-            # 不存在cdn列表
-            rule_nocdn_domain_list = []
-            for domain in domain_list_result:
-                cdn_result = os.popen('bash /TIP/info_scan/finger.sh batch_cdn_scan'+' '+domain).read().strip() 
-                
-                cdn_result_origin = "有CDN"
-                if str(cdn_result) == str(cdn_result_origin):
-                    rule_cdn_domain_list.append(domain)
-                else:
-                    rule_nocdn_domain_list.append(domain)
-            
-            # 不存在cdn列表
-            no_cdn_list_result = []
-            for nocdn in rule_nocdn_domain_list:
-                nocdnresult = os.popen('bash /TIP/info_scan/finger.sh recognize_no_cdn'+' '+nocdn).read().strip()
-                no_cdn_list_result.append(nocdnresult)
-            #列表写入到url.txt
-            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
-            for fileline in no_cdn_list_result:
-                f.write(str(fileline)+"\n")
+# 关闭CDN检测
+@app.route("/stopcdndetection/",methods=['GET'])
+def stopcdndetection():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        stop_cdn_status_result = basic.stop_cdnsurvival_lib()
 
-        except Exception as e:
-            print("捕获到异常:",e)
-    return render_template('login.html')
+        message_json = {
+            "stop_cdn_status_result":stop_cdn_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 #资产回退

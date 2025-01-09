@@ -217,16 +217,36 @@ function filterstatuscodefunc() {
         method: 'GET',
 
         success: function (info) {
-            alert(info.httpx_status_result)
+            document.getElementById('vulnscan7').innerHTML = info.httpx_status_result;
         },
         error: function () {
-            alert('内部出错')
+
+            document.getElementById('vulnscan7').innerHTML = "内部错误"
         },
         complete: function () {
 
         }
     })
 }
+
+// 关闭存活检测
+function stopfilterstatuscodefunc() {
+    $.ajax({
+        url: '/stopfilterstatuscodebyhttpx/',
+        method: 'GET',
+
+        success: function (info) {
+            document.getElementById('vulnscan7').innerHTML = info.stop_httpx_status_result;
+        },
+        error: function () {
+            document.getElementById('vulnscan7').innerHTML = "内部错误"
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 
 
 //ajax异步启动注销系统
@@ -248,21 +268,40 @@ function signoutfunc() {
 }
 
 
-//CDN检测
+//开启CDN检测
 function filtercdndatafunc() {
     $.ajax({
         url: '/cdn_service_recogize/',
         method: 'GET',
 
-        success: function (res) {
-            console.log(res)
-            console.log('CDN检测成功点击文本查看最新数据')
+        success: function (info) {
+            document.getElementById('vulnscan8').innerHTML = info.cdn_status_result;
+           
         },
         error: function () {
-            alert('存活检测出现错误')
+            document.getElementById('vulnscan8').innerHTML = "内部错误";
         },
         complete: function () {
-            alert('CDN检测成功点击文本查看最新数据')
+            
+        }
+    })
+}
+
+
+// 关闭CDN检测
+function stopcdndetectionfunc() {
+    $.ajax({
+        url: '/stopcdndetection/',
+        method: 'GET',
+
+        success: function (info) {
+            document.getElementById('vulnscan8').innerHTML = info.stop_cdn_status_result;
+        },
+        error: function () {
+            document.getElementById('vulnscan8').innerHTML = "内部错误"
+        },
+        complete: function () {
+
         }
     })
 }
@@ -465,6 +504,9 @@ function openModal() {
 
                 document.getElementById("spp74").innerHTML = info.bcrypt_status1;
                 document.getElementById("spp74a").innerHTML = info.bcrypt_status2;
+
+                document.getElementById("spp75").innerHTML = info.cdn_status1;
+                document.getElementById("spp75a").innerHTML = info.cdn_status2;
 
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
@@ -1539,6 +1581,8 @@ function closevulnscan5() {
 
 }
 
+
+
 // 信息收集集合复选框选中开启扫描
 function infoxuanzhongscan() {
 
@@ -2115,6 +2159,31 @@ function asssets_jiansuo() {
     var myModa5 = document.getElementById("myModa5");
     myModa5.style.display = "block";
 
+
+}
+
+// 打开资产存活检测弹窗
+function openassetalive(){
+    var myModa7 = document.getElementById("myModa7");
+    myModa7.style.display = "block";
+}
+
+// 关闭存活检测弹窗
+function closevulnscan6() {
+    var myModa7 = document.getElementById("myModa7");
+    myModa7.style.display = "none";
+
+}
+
+// 打开CDN检测弹窗
+function opencdnjiancefunc(){
+    var myModa8 = document.getElementById("myModa8");
+    myModa8.style.display = "block";
+}
+
+function closevulnscan7() {
+    var myModa8 = document.getElementById("myModa8");
+    myModa8.style.display = "none";
 
 }
 
