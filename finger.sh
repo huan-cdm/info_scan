@@ -338,9 +338,8 @@ stop_cdn)
 
 # 开启cdn检测
 start_cdn)
-python3 /TIP/info_scan/basic.py cdn_detection_lib >/dev/null 2>&1 &
-;;
-
+    python3 /TIP/info_scan/basic.py cdn_detection_lib >/dev/null 2>&1 &
+    ;;
 
 # weblogic_poc扫描
 weblogic_poc_scan)
@@ -559,6 +558,14 @@ httpx_status)
 # 关闭httpx存活检测
 kill_httpx_process)
     pidd=$(ps -aux | grep "httpx" | awk -F " " '{print $2}')
+    for ii in ${pidd}; do
+        kill -9 ${ii} 2>/dev/null
+    done
+    ;;
+
+# 关闭subfinder
+kill_subfinder_process)
+    pidd=$(ps -aux | grep "subfinder" | awk -F " " '{print $2}')
     for ii in ${pidd}; do
         kill -9 ${ii} 2>/dev/null
     done

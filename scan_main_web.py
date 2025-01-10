@@ -1407,6 +1407,22 @@ def stopfilterstatuscodebyhttpx():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+    
+
+# 关闭资产扩展
+@app.route("/stopassetextendinterface/",methods=['GET'])
+def stopassetextendinterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        stop_extend_status_result = basic.stop_assets_extend_lib()
+
+        message_json = {
+            "stop_extend_status_result":stop_extend_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 #跳转登录页

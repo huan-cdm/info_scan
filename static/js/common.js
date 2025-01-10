@@ -247,6 +247,24 @@ function stopfilterstatuscodefunc() {
     })
 }
 
+// 关闭资产扩展
+function stopassetextendfunc() {
+    $.ajax({
+        url: '/stopassetextendinterface/',
+        method: 'GET',
+
+        success: function (info) {
+            document.getElementById('vulnscan9').innerHTML = info.stop_extend_status_result;
+        },
+        error: function () {
+            document.getElementById('vulnscan9').innerHTML = "内部错误"
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 
 
 //ajax异步启动注销系统
@@ -276,13 +294,13 @@ function filtercdndatafunc() {
 
         success: function (info) {
             document.getElementById('vulnscan8').innerHTML = info.cdn_status_result;
-           
+
         },
         error: function () {
             document.getElementById('vulnscan8').innerHTML = "内部错误";
         },
         complete: function () {
-            
+
         }
     })
 }
@@ -1527,7 +1545,7 @@ function vulnxuanzhongscan() {
                 "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.es_status_result +
                 "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result +
                 "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result +
-                "\n" + info.unes_status_result+"\n"+info.bcrypt_status_result;
+                "\n" + info.unes_status_result + "\n" + info.bcrypt_status_result;
 
             document.getElementById('vulnscan1').innerText = message;
 
@@ -1749,8 +1767,8 @@ function vulnxuanzhongstopscanfunc() {
                 "\n" + info.kill_fastjson_result + "\n" + info.kill_seeyon_result + "\n" + info.kill_yonsuite_result +
                 "\n" + info.kill_kingdee_result + "\n" + info.kill_wanhu_result + "\n" + info.kill_redis_result + "\n" + info.kill_mongodb_result +
                 "\n" + info.kill_memcached_result + "\n" + info.kill_zookeeper_result + "\n" + info.kill_ftp_result +
-                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result + 
-                "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result+"\n"+info.kill_es1_result+"\n"+info.kill_bcrypt_result;
+                "\n" + info.kill_couchdb_result + "\n" + info.kill_docker_result + "\n" + info.kill_hadoop_result +
+                "\n" + info.kill_nfs_result + "\n" + info.kill_rsync_result + "\n" + info.kill_es1_result + "\n" + info.kill_bcrypt_result;
 
             document.getElementById('vulnscan2').innerText = message1;
         },
@@ -1901,7 +1919,7 @@ function vulnscanxuanzhongreportyulan() {
             window.open("/unrsyncreportyulan/", "_blank");
         } else if (vuln_front_list[i] == 'y') {
             window.open("/unelasticsearchreportyulan/", "_blank");
-        }else if (vuln_front_list[i] == 'z') {
+        } else if (vuln_front_list[i] == 'z') {
             window.open("/decryptreportyulan/", "_blank");
         }
 
@@ -2011,7 +2029,7 @@ function hydra_dict_submit_func() {
         url: '/hydradictconfig/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2,line_bcrypttextarea1:line_bcrypttextarea1, line_bcrypttextarea2:line_bcrypttextarea2}),
+        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2, line_bcrypttextarea1: line_bcrypttextarea1, line_bcrypttextarea2: line_bcrypttextarea2 }),
         dataType: 'json',
         success: function (info) {
             alert(info.mysql_dict_result)
@@ -2163,7 +2181,7 @@ function asssets_jiansuo() {
 }
 
 // 打开资产存活检测弹窗
-function openassetalive(){
+function openassetalive() {
     var myModa7 = document.getElementById("myModa7");
     myModa7.style.display = "block";
 }
@@ -2176,7 +2194,7 @@ function closevulnscan6() {
 }
 
 // 打开CDN检测弹窗
-function opencdnjiancefunc(){
+function opencdnjiancefunc() {
     var myModa8 = document.getElementById("myModa8");
     myModa8.style.display = "block";
 }
@@ -2187,6 +2205,16 @@ function closevulnscan7() {
 
 }
 
+// 打开资产扩展弹窗
+function openassetjiancefunc() {
+    var myModa9 = document.getElementById("myModa9");
+    myModa9.style.display = "block";
+}
+function closevulnscan8() {
+    var myModa9 = document.getElementById("myModa9");
+    myModa9.style.display = "none";
+
+}
 
 // 通过关键字检索资产
 function assets_key_jiansuo() {
@@ -2245,12 +2273,11 @@ function assets_extend_func() {
     $.ajax({
         url: '/assets_extend/',
         method: 'GET',
-
         success: function (info) {
-            alert(info.assets_extend_status)
+            document.getElementById('vulnscan9').innerHTML = info.assets_extend_status;
         },
         error: function () {
-            alert('内部出错')
+            document.getElementById('vulnscan9').innerHTML = "内部错误"
         },
         complete: function () {
 

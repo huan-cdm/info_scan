@@ -1705,6 +1705,19 @@ def stop_httpsurvival_lib():
     return kill_httpx_result
 
 
+# 关闭资产扩展
+def stop_assets_extend_lib():
+    httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
+    subfinder_status = os.popen('bash /TIP/info_scan/finger.sh subfinder_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh kill_httpx_process')
+    os.popen('bash /TIP/info_scan/finger.sh kill_subfinder_process')
+    if "stop" in httpx_status and "stop" in subfinder_status:
+        kill_assetextend_result = "已关闭资产扩展程序"
+    else:
+        kill_assetextend_result = "正在关闭中......"
+    return kill_assetextend_result
+
+
 
 # 启动es未授权漏洞扫描
 def startunes_lib():
