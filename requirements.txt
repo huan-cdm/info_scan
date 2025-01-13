@@ -17,3 +17,4 @@ termcolor
 pymongo
 httpx
 openpyxl
+mmh3

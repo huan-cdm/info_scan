@@ -1541,11 +1541,11 @@ function vulnxuanzhongscan() {
         dataType: 'json',
         success: function (info) {
 
-            var message = info.struts2status_result + "\n" + info.weblogic_status_result + "\n" + info.shiro_status_result + "\n" + info.springboot_scan_status_result + "\n" + info.thinkphp_status_result + "\n" + info.start_afrog_result +
-                "\n" + info.fscan_status_result + "\n" + info.hydra_scan_result + "\n" + info.urlfinder_status_result + "\n" + info.vummap_scan_result + "\n" + info.nuclei_status_result + "\n" + info.weaver_status_result + "\n" + info.es_status_result +
-                "\n" + info.nacos_status_result + "\n" + info.tomcat_status_result + "\n" + info.jndi_status_result + "\n" + info.fastjson_status_result + "\n" + info.xray_status_result + "\n" + info.seeyon_status_result + "\n" + info.yonsuite_status_result + "\n" + info.kingdee_status_result + "\n" + info.wanhu_status_result +
-                "\n" + info.redis_status_result + "\n" + info.mongodb_status_result + "\n" + info.memcached_status_result + "\n" + info.zookeeper_status_result + "\n" + info.ftp_status_result + "\n" + info.couchdb_status_result + "\n" + info.docker_status_result + "\n" + info.hadoop_status_result + "\n" + info.nfs_status_result + "\n" + info.rsync_status_result +
-                "\n" + info.unes_status_result + "\n" + info.bcrypt_status_result;
+            var message = info.struts2status_result + "struts2_" + info.struts2status + "\n" + info.weblogic_status_result + "weblogic_" + info.weblogicstatus + "\n" + info.shiro_status_result + "shiro_" + info.shirostatus + "\n" + info.springboot_scan_status_result + "springboot_" + info.springbootstatus + "\n" + info.thinkphp_status_result + "thinkphp_" + info.thinkphpstatus + "\n" + info.start_afrog_result + "afrog_" + info.afrogscanstatus +
+                "\n" + info.fscan_status_result + "fscan_" + info.fscanstatus + "\n" + info.hydra_scan_result + "hydra_" + info.hydrastatus + "\n" + info.urlfinder_status_result + "urlfinder_" + info.urlfinderstatus + "\n" + info.vummap_scan_result + "vulmap_" + info.vulmapscanstatus + "\n" + info.nuclei_status_result + "nuclei_" + info.nucleistatus + "\n" + info.weaver_status_result + "weaver_" + info.weaver_status + "\n" + info.es_status_result + "esall_" + info.es_status +
+                "\n" + info.nacos_status_result + "nacos_" + info.nacos_status + "\n" + info.tomcat_status_result + "tomcat_" + info.tomcat_status + "\n" + info.jndi_status_result + "jndi_" + info.jndi_status + "\n" + info.fastjson_status_result + "fastjson_" + info.fastjson_status + "\n" + info.xray_status_result + "xray_" + info.xray_status + "\n" + info.seeyon_status_result + "seeyon_" + info.seeyonstatus + "\n" + info.yonsuite_status_result + "yonsuite_" + info.yonsuite_status +
+                "\n" + info.kingdee_status_result + "kingdee_" + info.kingdee_status + "\n" + info.wanhu_status_result + "wanhu_" + info.wanhu_status + "\n" + info.redis_status_result + "redis_" + info.redis_status + "\n" + info.mongodb_status_result + "mongodb_" + info.mongodb_status + "\n" + info.memcached_status_result + "memcached_" + info.memcached_status + "\n" + info.zookeeper_status_result + "zookeeper_" + info.zookeeper_status + "\n" + info.ftp_status_result + "ftp_" + info.ftp_status +
+                "\n" + info.couchdb_status_result + "couchdb_" + info.couchdb_status + "\n" + info.docker_status_result + "docker_" + info.docker_status + "\n" + info.hadoop_status_result + "hadoop_" + info.hadoop_status + "\n" + info.nfs_status_result + "nfs_" + info.nfs_status + "\n" + info.rsync_status_result + "rsync_" + info.rsync_status + "\n" + info.unes_status_result + "unes_" + info.unes1_status + "\n" + info.bcrypt_status_result + "bcrypt_" + info.bcrypt_status;
 
             document.getElementById('vulnscan1').innerText = message;
 
@@ -1630,8 +1630,9 @@ function infoxuanzhongscan() {
 
         success: function (info) {
 
-            var message2 = info.dictkey1 + "\n" + info.dictkey2 + "\n" + info.dictkey3 + "\n" + info.dictkey4 + "\n" + info.dictkey5 +
-                "\n" + info.dictkey6 + "\n" + info.dictkey7 + "\n" + info.dictkey8;
+            var message2 = info.dictkey1 + "bbscan_" + info.dictkey10 + "\n" + info.dictkey2 + "ehole_" + info.dictkey9 +
+                "\n" + info.dictkey3 + "otx_" + info.dictkey11 + "\n" + info.dictkey4 + "crt_" + info.dictkey12 + "\n" + info.dictkey5 + "nmap_" + info.dictkey13 +
+                "\n" + info.dictkey6 + "waf_" + info.dictkey14 + "\n" + info.dictkey7 + "fuzz_" + info.dictkey15 + "\n" + info.dictkey8 + "crawlergo_" + info.dictkey16;
             document.getElementById('vulnscan3').innerText = message2;
         },
 
@@ -2282,5 +2283,34 @@ function assets_extend_func() {
         complete: function () {
 
         }
+    })
+}
+
+
+// 图标hash计算
+function fofahashfunc() {
+    var hashurl = document.getElementById("hashurl").value;
+    $.ajax({
+        url: '/fofa_icon_hash/',
+        method: 'POST',
+        data: {
+            hashurl: hashurl
+        },
+        success: function (info) {
+            // 当请求成功时调用  
+            // document.getElementById("inputfofaid").innerHTML = info.hash_result;
+            // alert(info.hash_result);
+            var inputfofaid = document.getElementById('inputfofaid');
+            inputfofaid.value = info.hash_result;
+
+
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+
     })
 }

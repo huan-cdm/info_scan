@@ -15,6 +15,7 @@ import re
 import json
 import os
 import base64
+import mmh3
 import requests
 from bs4 import BeautifulSoup
 import time
@@ -2303,7 +2304,7 @@ def stopbypass_lib():
     bypass_scan_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
     os.popen('bash /TIP/info_scan/finger.sh stopbypass')
     if "stop" in bypass_scan_status:
-        kill_bypass_result = "已关闭40xbypass漏洞扫描程序"
+        kill_bypass_result = "已关闭网站FUZZ扫描程序"
     else:
         kill_bypass_result = "正在关闭中......"
     return kill_bypass_result
@@ -3367,6 +3368,20 @@ def stop_cdnsurvival_lib():
     else:
         kill_cdn_result = "正在关闭中......"
     return kill_cdn_result
+
+
+# 图标文件hash计算
+def compute_icon_hash_lib(url):
+    try:
+        print("hash计算")
+        r=requests.get(url)
+        r1=r.content
+        r2=base64.encodebytes(r1)
+        r3=mmh3.hash(r2)
+    except Exception as e:
+        print("捕获到异常:", e)
+    return str(r3)
+
            
 
 
@@ -3387,6 +3402,10 @@ if __name__ == "__main__":
             start_crawlergo_scan_proxy_lib()
         elif func_name == 'cdn_detection_lib':
             cdn_detection_lib()
+        # elif func_name == 'compute_icon_hash':
+        #     url="https://p1.ssl.qhimg.com/t11098f6bcd26caa77d8aa4d2fb.png"
+        #     c = compute_icon_hash(url)  
+        #     print(c)  
         else:
             print("Invalid function number")
     else:

@@ -3035,6 +3035,15 @@ def infoscan_check_back():
         except:
             crawlergo_status_result1 = ""
         
+        eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
+        bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
+        otx_status = os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell_status').read()
+        crt_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
+        nmapstatus =os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
+        waf_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
+        bypass_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
+        crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+        
         dict = {
             "key1":bbscan_status_result1,
             "key2":finger_status_result1,
@@ -3043,7 +3052,15 @@ def infoscan_check_back():
             "key5":nmap_status_result1,
             "key6":waf_status_result1,
             "key7":bypass_status_result1,
-            "key8":crawlergo_status_result1
+            "key8":crawlergo_status_result1,
+            "key9":eholestatus,
+            "key10":bbscanstatus,
+            "key11":otx_status,
+            "key12":crt_status,
+            "key13":nmapstatus,
+            "key14":waf_status,
+            "key15":bypass_status,
+            "key16":crawlergo_status
         }
         message_json = {
             "dictkey1":dict['key1'],
@@ -3053,7 +3070,15 @@ def infoscan_check_back():
             "dictkey5":dict['key5'],
             "dictkey6":dict['key6'],
             "dictkey7":dict['key7'],
-            "dictkey8":dict['key8']
+            "dictkey8":dict['key8'],
+            "dictkey9":dict['key9'],
+            "dictkey10":dict['key10'],
+            "dictkey11":dict['key11'],
+            "dictkey12":dict['key12'],
+            "dictkey13":dict['key13'],
+            "dictkey14":dict['key14'],
+            "dictkey15":dict['key15'],
+            "dictkey16":dict['key16']
         }
 
         return jsonify(message_json)
@@ -4539,42 +4564,111 @@ def vulnscan_check_back():
             bcrypt_status_result1 = bcrypt_status_result
         except:
             bcrypt_status_result1 = ""
+        
+        bcrypt_status = os.popen('bash /TIP/info_scan/finger.sh bcrypt_scan_status').read()
+        struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+        weblogicstatus = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
+        shirostatus = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
+        springbootstatus = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
+        thinkphpstatus = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
+        afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
+        fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
+        hydrastatus = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
+        urlfinderstatus = os.popen('bash /TIP/info_scan/finger.sh urlfinder_status').read()
+        vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
+        nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
+        weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
+        es_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+        nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
+        tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        fastjson_status = os.popen('bash /TIP/info_scan/finger.sh fastjson_scan_status').read()
+        xray_status = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+        seeyonstatus = os.popen('bash /TIP/info_scan/finger.sh seeyon_vuln_scan_status').read()
+        yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+        kingdee_status = os.popen('bash /TIP/info_scan/finger.sh kingdee_vuln_scan_status').read()
+        wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+        redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+        mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+        memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+        zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+        ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+        couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+        docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+        hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+        nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+        rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+        unes1_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
 
         message_json = {
             "struts2status_result":struts2status_result1,
+            "struts2status":struts2status,
             "weblogic_status_result":weblogic_status_result1,
+            "weblogicstatus":weblogicstatus,
             "shiro_status_result":shiro_status_result1,
+            "shirostatus":shirostatus,
             "springboot_scan_status_result":springboot_scan_status_result1,
+            "springbootstatus":springbootstatus,
             "thinkphp_status_result":thinkphp_status_result1,
+            "thinkphpstatus":thinkphpstatus,
             "start_afrog_result":start_afrog_result1,
+            "afrogscanstatus":afrogscanstatus,
             "fscan_status_result":fscan_status_result1,
+            "fscanstatus":fscanstatus,
             "hydra_scan_result":hydra_scan_result1,
+            "hydrastatus":hydrastatus,
             "urlfinder_status_result":urlfinder_status_result1,
+            "urlfinderstatus":urlfinderstatus,
             "vummap_scan_result":vummap_scan_result1,
+            "vulmapscanstatus":vulmapscanstatus,
             "nuclei_status_result":nuclei_status_result1,
+            "nucleistatus":nucleistatus,
             "weaver_status_result":weaver_status_result1,
+            "weaver_status":weaver_status,
             "es_status_result":es_status_result1,
+            "es_status":es_status,
             "nacos_status_result":nacos_status_result1,
+            "nacos_status":nacos_status,
             "tomcat_status_result":tomcat_status_result1,
+            "tomcat_status":tomcat_status,
             "jndi_status_result":jndi_status_result1,
+            "jndi_status":jndi_status,
             "fastjson_status_result":fastjson_status_result1,
+            "fastjson_status":fastjson_status,
             "xray_status_result":xray_status_result1,
+            "xray_status":xray_status,
             "seeyon_status_result":seeyon_status_result1,
+            "seeyonstatus":seeyonstatus,
             "yonsuite_status_result":yonsuite_status_result1,
+            "yonsuite_status":yonsuite_status,
             "kingdee_status_result":kingdee_status_result1,
+            "kingdee_status":kingdee_status,
             "wanhu_status_result":wanhu_status_result1,
+            "wanhu_status":wanhu_status,
             "redis_status_result":redis_status_result1,
+            "redis_status":redis_status,
             "mongodb_status_result":mongodb_status_result1,
+            "mongodb_status":mongodb_status,
             "memcached_status_result":memcached_status_result1,
+            "memcached_status":memcached_status,
             "zookeeper_status_result":zookeeper_status_result1,
+            "zookeeper_status":zookeeper_status,
             "ftp_status_result":ftp_status_result1,
+            "ftp_status":ftp_status,
             "couchdb_status_result":couchdb_status_result1,
+            "couchdb_status":couchdb_status,
             "docker_status_result":docker_status_result1,
+            "docker_status":docker_status,
+            "hadoop_status":hadoop_status,
             "hadoop_status_result":hadoop_status_result1,
             "nfs_status_result":nfs_status_result1,
+            "nfs_status":nfs_status,
             "rsync_status_result":rsync_status_result1,
+            "rsync_status":rsync_status,
             "unes_status_result":unes_status_result1,
-            "bcrypt_status_result":bcrypt_status_result1
+            "unes1_status":unes1_status,
+            "bcrypt_status_result":bcrypt_status_result1,
+            "bcrypt_status":bcrypt_status
         }
         return jsonify(message_json)
     else:
@@ -5716,6 +5810,25 @@ def assets_extend():
             assets_extend_status = "资产扩展程序已开启稍后查看最新资产"
         message_json = {
             "assets_extend_status":assets_extend_status
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+#图标hash计算，用于资产收集
+@app.route("/fofa_icon_hash/",methods=['POST'])
+def fofa_icon_hash():
+    user = session.get('username')
+    hashurl = request.form['hashurl']
+    if str(user) == main_username:
+        try:
+            hash_result = basic.compute_icon_hash_lib(hashurl)
+            print(hash_result)
+        except:
+            hash_result = "hash计算出错"
+        message_json = {
+            "hash_result":"icon_hash=\""+str(hash_result)+"\""
         }
         return jsonify(message_json)
     else:

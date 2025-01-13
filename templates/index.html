@@ -347,12 +347,12 @@
 							<table border="1">
 								<tr>
 									<td colspan="2">
-									
+
 										<input type="button" id="button20" class="hover-color" name="commit"
 											value="存活检测" onclick="openassetalive()" disabled> &nbsp;&nbsp;
-											<input type="button" id="button24" value="CDN检测" onclick="opencdnjiancefunc()"
+										<input type="button" id="button24" value="CDN检测" onclick="opencdnjiancefunc()"
 											disabled>&nbsp;&nbsp;
-											
+
 										<input type="button" id="button51" value="识别关键资产" onclick="key_data_tiqu_func()"
 											disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -394,7 +394,7 @@
 										<!-- <input type="button" id="button27" value="资产扩展" onclick="assets_extend_func()"
 											disabled> -->
 
-											<input type="button" id="button27" value="资产扩展" onclick="openassetjiancefunc()"
+										<input type="button" id="button27" value="资产扩展" onclick="openassetjiancefunc()"
 											disabled>
 									</td>
 								</tr>
@@ -421,7 +421,10 @@
 
 										<span id="routestatus3" style="color: lightblue;"></span>
 										<br>
-
+										<input type="text" placeholder="输入https://test.com/pic.png,计算icon_hash" id="hashurl"
+											class="my-input-text" />
+										<input type="submit" value="计算" onclick="fofahashfunc()">
+										<br>
 										<textarea id="myTextarea">
 ①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
 ②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；
