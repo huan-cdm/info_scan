@@ -1835,4 +1835,34 @@ stop_bcrypt_scan)
     done
     ;;
 
+# 生成社工字典
+gendict)
+    /usr/bin/crunch $2 $3 -p $4 $5 $6 $7 $8 $9 ${10} ${11} ${12} ${13} ${14} ${15} >/TIP/info_scan/result/workerdictionary.txt
+    ;;
+
+# 社工字典运行状态
+gendict_status)
+    crunch_ps=$(ps -aux | grep "/usr/bin/crunch" | wc -l)
+    if (($crunch_ps > 1)); then
+        echo "running"
+    else
+        echo "stop"
+    fi
+    ;;
+
+# 关闭字典生成程序
+stopgendict)
+    dictt_pid=$(ps -aux | grep "/usr/bin/crunch" | awk -F " " '{print $2}')
+    
+    for ii in ${dictt_pid}; do
+        kill -9 ${ii} 2>/dev/null
+    done
+    ;;
+
+# 字典大小
+dictsize)
+num=`du -sh /TIP/info_scan/result/workerdictionary.txt | awk '{print $1}'`
+echo "${num}"
+;;
+
 esac

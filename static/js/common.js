@@ -2298,8 +2298,6 @@ function fofahashfunc() {
         },
         success: function (info) {
             // 当请求成功时调用  
-            // document.getElementById("inputfofaid").innerHTML = info.hash_result;
-            // alert(info.hash_result);
             var inputfofaid = document.getElementById('inputfofaid');
             inputfofaid.value = info.hash_result;
 
@@ -2313,4 +2311,451 @@ function fofahashfunc() {
         }
 
     })
+}
+
+// 生成社工字典
+function gendictfunc() {
+    var gendict1 = document.getElementById("gendict1").value;
+    var gendict2 = document.getElementById("gendict2").value;
+    var gendict3 = document.getElementById("gendict3").value;
+    var gendict4 = document.getElementById("gendict4").value;
+    var gendict5 = document.getElementById("gendict5").value;
+    var gendict6 = document.getElementById("gendict6").value;
+    var gendict7 = document.getElementById("gendict7").value;
+    var gendict8 = document.getElementById("gendict8").value;
+    var gendict9 = document.getElementById("gendict9").value;
+    var gendict10 = document.getElementById("gendict10").value;
+    var gendict11 = document.getElementById("gendict11").value;
+    var gendict12 = document.getElementById("gendict12").value;
+    var gendict13 = document.getElementById("gendict13").value;
+    var gendict14 = document.getElementById("gendict14").value;
+    $.ajax({
+        url: '/social_worker_dictionary/',
+        method: 'POST',
+        data: {
+            gendict1: gendict1,
+            gendict2: gendict2,
+            gendict3: gendict3,
+            gendict4: gendict4,
+            gendict5: gendict5,
+            gendict6: gendict6,
+            gendict7: gendict7,
+            gendict8: gendict8,
+            gendict9: gendict9,
+            gendict10: gendict10,
+            gendict11: gendict11,
+            gendict12: gendict12,
+            gendict13: gendict13,
+            gendict14: gendict14
+        },
+        success: function (info) {
+            document.getElementById('dictresult').innerHTML = info.gendictresult;
+        },
+        error: function () {
+            document.getElementById('dictresult').innerHTML = "内部出错";
+        },
+        complete: function () {
+
+        }
+
+    })
+
+}
+
+
+// 社工字典预览
+function gendictreportfunc() {
+    $.ajax({
+        url: '/social_worker_dictionary_report/',
+        method: 'GET',
+
+        success: function (info) {
+            // 当请求成功时调用
+            var resultDiv = document.getElementById('dictresult');
+            resultDiv.innerHTML = ''; // 清空原有内容
+            info.gendictreport.forEach(function (item) {
+                var itemDiv = document.createElement('div'); // 创建一个新的div元素
+                itemDiv.textContent = item; // 设置文本内容
+                resultDiv.appendChild(itemDiv); // 将新的div元素添加到结果div中
+            });
+
+
+        },
+        error: function () {
+            document.getElementById('dictresult').innerHTML = "内部出错";
+        },
+        complete: function () {
+
+        }
+
+    })
+}
+
+// 关闭字典生成
+function stopgendictreportfunc() {
+    $.ajax({
+        url: '/stop_social_worker_dictionary/',
+        method: 'GET',
+
+        success: function (info) {
+            document.getElementById('dictresult').innerHTML = info.stop_dict_status_result;
+        },
+        error: function () {
+            document.getElementById('dictresult').innerHTML = "内部错误"
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 网站导航模块
+ // 谷歌语法
+ function GoogledisplayText() {
+    // 获取输入框的值
+    var GoogleinputText = document.getElementById('GoogleinputText');
+    // 获取显示的值
+    var displayElement1 = document.getElementById('GoogledisplayText1');
+    var displayElement2 = document.getElementById('GoogledisplayText2');
+    var displayElement3 = document.getElementById('GoogledisplayText3');
+    var displayElement4 = document.getElementById('GoogledisplayText4');
+    var displayElement5 = document.getElementById('GoogledisplayText5');
+    var displayElement6 = document.getElementById('GoogledisplayText6');
+    var displayElement7 = document.getElementById('GoogledisplayText7');
+    var displayElement8 = document.getElementById('GoogledisplayText8');
+    var displayElement9 = document.getElementById('GoogledisplayText9');
+    var displayElement10 = document.getElementById('GoogledisplayText10');
+    var displayElement11 = document.getElementById('GoogledisplayText11');
+    var displayElement12 = document.getElementById('GoogledisplayText12');
+    var displayElement13 = document.getElementById('GoogledisplayText13');
+    var displayElement14 = document.getElementById('GoogledisplayText14');
+    var displayElement15 = document.getElementById('GoogledisplayText15');
+    var displayElement16 = document.getElementById('GoogledisplayText16');
+    var displayElement17 = document.getElementById('GoogledisplayText17');
+    var displayElement18 = document.getElementById('GoogledisplayText18');
+    var displayElement19 = document.getElementById('GoogledisplayText19');
+    var displayElement20 = document.getElementById('GoogledisplayText20');
+
+
+    displayElement1.textContent = GoogleinputText.value;
+    displayElement2.textContent = GoogleinputText.value;
+    displayElement3.textContent = GoogleinputText.value;
+    displayElement4.textContent = GoogleinputText.value;
+    displayElement5.textContent = GoogleinputText.value;
+    displayElement6.textContent = GoogleinputText.value;
+    displayElement7.textContent = GoogleinputText.value;
+    displayElement8.textContent = GoogleinputText.value;
+    displayElement9.textContent = GoogleinputText.value;
+    displayElement10.textContent = GoogleinputText.value;
+    displayElement11.textContent = GoogleinputText.value;
+    displayElement12.textContent = GoogleinputText.value;
+    displayElement13.textContent = GoogleinputText.value;
+    displayElement14.textContent = GoogleinputText.value;
+    displayElement15.textContent = GoogleinputText.value;
+    displayElement16.textContent = GoogleinputText.value;
+    displayElement17.textContent = GoogleinputText.value;
+    displayElement18.textContent = GoogleinputText.value;
+    displayElement19.textContent = GoogleinputText.value;
+    displayElement20.textContent = GoogleinputText.value;
+}
+
+// Github搜索
+function githubdisplayText() {
+    // 获取输入框的值
+    var githubinputText = document.getElementById('githubinputText');
+    // 获取显示的值
+    var displayElement1 = document.getElementById('githubdisplayText1');
+    var displayElement2 = document.getElementById('githubdisplayText2');
+    var displayElement3 = document.getElementById('githubdisplayText3');
+    var displayElement4 = document.getElementById('githubdisplayText4');
+    var displayElement5 = document.getElementById('githubdisplayText5');
+    var displayElement6 = document.getElementById('githubdisplayText6');
+    var displayElement7 = document.getElementById('githubdisplayText7');
+    var displayElement8 = document.getElementById('githubdisplayText8');
+    var displayElement9 = document.getElementById('githubdisplayText9');
+    var displayElement10 = document.getElementById('githubdisplayText10');
+    var displayElement11 = document.getElementById('githubdisplayText11');
+    var displayElement12 = document.getElementById('githubdisplayText12');
+    var displayElement13 = document.getElementById('githubdisplayText13');
+    var displayElement14 = document.getElementById('githubdisplayText14');
+    var displayElement15 = document.getElementById('githubdisplayText15');
+    var displayElement16 = document.getElementById('githubdisplayText16');
+    var displayElement17 = document.getElementById('githubdisplayText17');
+    var displayElement18 = document.getElementById('githubdisplayText18');
+    var displayElement19 = document.getElementById('githubdisplayText19');
+    var displayElement20 = document.getElementById('githubdisplayText20');
+    var displayElement21 = document.getElementById('githubdisplayText21');
+    var displayElement22 = document.getElementById('githubdisplayText22');
+    var displayElement23 = document.getElementById('githubdisplayText23');
+    var displayElement24 = document.getElementById('githubdisplayText24');
+    var displayElement25 = document.getElementById('githubdisplayText25');
+    var displayElement26 = document.getElementById('githubdisplayText26');
+    var displayElement27 = document.getElementById('githubdisplayText27');
+    var displayElement28 = document.getElementById('githubdisplayText28');
+    var displayElement29 = document.getElementById('githubdisplayText29');
+    var displayElement30 = document.getElementById('githubdisplayText30');
+    var displayElement31 = document.getElementById('githubdisplayText31');
+    var displayElement32 = document.getElementById('githubdisplayText32');
+    var displayElement33 = document.getElementById('githubdisplayText33');
+    var displayElement34 = document.getElementById('githubdisplayText34');
+
+    displayElement1.textContent = githubinputText.value;
+    displayElement2.textContent = githubinputText.value;
+    displayElement3.textContent = githubinputText.value;
+    displayElement4.textContent = githubinputText.value;
+    displayElement5.textContent = githubinputText.value;
+    displayElement6.textContent = githubinputText.value;
+    displayElement7.textContent = githubinputText.value;
+    displayElement8.textContent = githubinputText.value;
+    displayElement9.textContent = githubinputText.value;
+    displayElement10.textContent = githubinputText.value;
+    displayElement11.textContent = githubinputText.value;
+    displayElement12.textContent = githubinputText.value;
+    displayElement13.textContent = githubinputText.value;
+    displayElement14.textContent = githubinputText.value;
+    displayElement15.textContent = githubinputText.value;
+    displayElement16.textContent = githubinputText.value;
+    displayElement17.textContent = githubinputText.value;
+    displayElement18.textContent = githubinputText.value;
+    displayElement19.textContent = githubinputText.value;
+    displayElement20.textContent = githubinputText.value;
+    displayElement21.textContent = githubinputText.value;
+    displayElement22.textContent = githubinputText.value;
+    displayElement23.textContent = githubinputText.value;
+    displayElement24.textContent = githubinputText.value;
+    displayElement25.textContent = githubinputText.value;
+    displayElement26.textContent = githubinputText.value;
+    displayElement27.textContent = githubinputText.value;
+    displayElement28.textContent = githubinputText.value;
+    displayElement29.textContent = githubinputText.value;
+    displayElement30.textContent = githubinputText.value;
+    displayElement31.textContent = githubinputText.value;
+    displayElement32.textContent = githubinputText.value;
+    displayElement33.textContent = githubinputText.value;
+    displayElement34.textContent = githubinputText.value;
+}
+
+// 文件传输
+function msfdisplayText() {
+    // 获取输入框的值
+    var inputElement = document.getElementById('msfinputText');
+    var inputElement1 = document.getElementById('msfinputText1');
+
+
+    var displayElement = document.getElementById('msfdisplayText');
+    var displayElement1 = document.getElementById('msfdisplayText1');
+    var displayElement2 = document.getElementById('msfdisplayText2');
+    var displayElement3 = document.getElementById('msfdisplayText3');
+    var displayElement4 = document.getElementById('msfdisplayText4');
+    var displayElement5 = document.getElementById('msfdisplayText5');
+    var displayElement6 = document.getElementById('msfdisplayText6');
+    var displayElement7 = document.getElementById('msfdisplayText7');
+    var displayElement8 = document.getElementById('msfdisplayText8');
+    var displayElement9 = document.getElementById('msfdisplayText9');
+    var displayElement10 = document.getElementById('msfdisplayText10');
+    var displayElement11 = document.getElementById('msfdisplayText11');
+    var displayElement12 = document.getElementById('msfdisplayText12');
+    var displayElement13 = document.getElementById('msfdisplayText13');
+    var displayElement14 = document.getElementById('msfdisplayText14');
+    var displayElement15 = document.getElementById('msfdisplayText15');
+    var displayElement16 = document.getElementById('msfdisplayText16');
+    var displayElement17 = document.getElementById('msfdisplayText17');
+    var displayElement18 = document.getElementById('msfdisplayText18');
+    var displayElement19 = document.getElementById('msfdisplayText19');
+    var displayElement20 = document.getElementById('msfdisplayText20');
+    var displayElement21 = document.getElementById('msfdisplayText21');
+    var displayElement22 = document.getElementById('msfdisplayText22');
+    var displayElement23 = document.getElementById('msfdisplayText23');
+    var displayElement24 = document.getElementById('msfdisplayText24');
+    var displayElement25 = document.getElementById('msfdisplayText25');
+    var displayElement26 = document.getElementById('msfdisplayText26');
+    var displayElement27 = document.getElementById('msfdisplayText27');
+    var displayElement28 = document.getElementById('msfdisplayText28');
+    var displayElement29 = document.getElementById('msfdisplayText29');
+    var displayElement30 = document.getElementById('msfdisplayText30');
+    var displayElement31 = document.getElementById('msfdisplayText31');
+    var displayElement32 = document.getElementById('msfdisplayText32');
+    var displayElement33 = document.getElementById('msfdisplayText33');
+
+    displayElement.textContent = inputElement.value;
+    displayElement1.textContent = inputElement1.value;
+    displayElement2.textContent = inputElement.value;
+    displayElement3.textContent = inputElement1.value;
+    displayElement4.textContent = inputElement.value;
+    displayElement5.textContent = inputElement1.value;
+    displayElement6.textContent = inputElement.value;
+    displayElement7.textContent = inputElement1.value;
+    displayElement8.textContent = inputElement.value;
+    displayElement9.textContent = inputElement1.value;
+    displayElement10.textContent = inputElement.value;
+    displayElement11.textContent = inputElement1.value;
+    displayElement12.textContent = inputElement.value;
+    displayElement13.textContent = inputElement1.value;
+    displayElement14.textContent = inputElement.value;
+    displayElement15.textContent = inputElement1.value;
+    displayElement16.textContent = inputElement.value;
+    displayElement17.textContent = inputElement1.value;
+    displayElement18.textContent = inputElement.value;
+    displayElement19.textContent = inputElement1.value;
+    displayElement20.textContent = inputElement.value;
+    displayElement21.textContent = inputElement1.value;
+    displayElement22.textContent = inputElement.value;
+    displayElement23.textContent = inputElement1.value;
+    displayElement24.textContent = inputElement.value;
+    displayElement25.textContent = inputElement1.value;
+    displayElement26.textContent = inputElement.value;
+    displayElement27.textContent = inputElement1.value;
+    displayElement28.textContent = inputElement.value;
+    displayElement29.textContent = inputElement1.value;
+    displayElement30.textContent = inputElement.value;
+    displayElement31.textContent = inputElement1.value;
+    displayElement32.textContent = inputElement.value;
+    displayElement33.textContent = inputElement1.value;
+
+
+}
+
+// msfbuilder
+function msfbuilderdisplayText() {
+    var inputElement = document.getElementById('msfbuilderinputText');
+    var inputElement1 = document.getElementById('msfbuilderinputText1');
+    var inputElement2 = document.getElementById('msfbuilderinputText2');
+    var inputElement3 = document.getElementById('msfbuilderinputText3');
+    var inputElement4 = document.getElementById('msfbuilderinputText4');
+    var inputElement5 = document.getElementById('msfbuilderinputText5');
+    var inputElement6 = document.getElementById('msfbuilderinputText6');
+    var inputElement7 = document.getElementById('msfbuilderinputText7');
+    var inputElement8 = document.getElementById('msfbuilderinputText8');
+    var inputElement9 = document.getElementById('msfbuilderinputText9');
+
+    var displayElement = document.getElementById('msfbuilderdisplayText');
+    var displayElement1 = document.getElementById('msfbuilderdisplayText1');
+    var displayElement2 = document.getElementById('msfbuilderdisplayText2');
+    var displayElement3 = document.getElementById('msfbuilderdisplayText3');
+    var displayElement4 = document.getElementById('msfbuilderdisplayText4');
+    var displayElement5 = document.getElementById('msfbuilderdisplayText5');
+    var displayElement6 = document.getElementById('msfbuilderdisplayText6');
+    var displayElement7 = document.getElementById('msfbuilderdisplayText7');
+    var displayElement8 = document.getElementById('msfbuilderdisplayText8');
+    var displayElement9 = document.getElementById('msfbuilderdisplayText9');
+    var displayElement10 = document.getElementById('msfbuilderdisplayText10');
+    var displayElement11 = document.getElementById('msfbuilderdisplayText11');
+    var displayElement12 = document.getElementById('msfbuilderdisplayText12');
+    var displayElement13 = document.getElementById('msfbuilderdisplayText13');
+    var displayElement14 = document.getElementById('msfbuilderdisplayText14');
+    var displayElement15 = document.getElementById('msfbuilderdisplayText15');
+
+
+
+    displayElement.textContent = inputElement.value;
+    displayElement1.textContent = inputElement1.value;
+    displayElement2.textContent = inputElement2.value;
+    displayElement3.textContent = inputElement3.value;
+    displayElement4.textContent = inputElement4.value;
+    displayElement5.textContent = inputElement5.value;
+    displayElement6.textContent = inputElement6.value;
+    displayElement7.textContent = inputElement7.value;
+    displayElement8.textContent = inputElement8.value;
+    displayElement9.textContent = inputElement9.value;
+    displayElement10.textContent = inputElement.value;
+    displayElement11.textContent = inputElement1.value;
+    displayElement12.textContent = inputElement2.value;
+    displayElement13.textContent = inputElement.value;
+    displayElement14.textContent = inputElement1.value;
+    displayElement15.textContent = inputElement2.value;
+}
+
+
+function showContent(contentId) {
+    var contents = document.querySelectorAll('.content-item');
+    for (var i = 0; i < contents.length; i++) {
+        contents[i].classList.remove('active');
+    }
+    document.getElementById(contentId).classList.add('active');
+    if (contentId === "content15") {
+        $.ajax({
+            url: '/dictsize/',
+            method: 'GET',
+
+            success: function (info) {
+                document.getElementById('dictresult').innerHTML = info.sizenum;
+            },
+            error: function () {
+                document.getElementById('dictresult').innerHTML = "内部错误"
+            },
+            complete: function () {
+
+            }
+        })
+    }
+}
+
+// 反弹shell
+function displayText() {
+    // 获取输入框的值
+    var inputElement = document.getElementById('inputText');
+    var inputElement1 = document.getElementById('inputText1');
+
+    var displayElement = document.getElementById('displayText');
+    var displayElement1 = document.getElementById('displayText1');
+
+    var displayElement2 = document.getElementById('displayText2');
+    var displayElement3 = document.getElementById('displayText3');
+
+    var displayElement4 = document.getElementById('displayText4');
+    var displayElement5 = document.getElementById('displayText5');
+
+    var displayElement6 = document.getElementById('displayText6');
+    var displayElement7 = document.getElementById('displayText7');
+
+    var displayElement8 = document.getElementById('displayText8');
+    var displayElement9 = document.getElementById('displayText9');
+
+    var displayElement10 = document.getElementById('displayText10');
+    var displayElement11 = document.getElementById('displayText11');
+
+    var displayElement12 = document.getElementById('displayText12');
+    var displayElement13 = document.getElementById('displayText13');
+
+    var displayElement14 = document.getElementById('displayText14');
+    var displayElement15 = document.getElementById('displayText15');
+
+    var displayElement16 = document.getElementById('displayText16');
+    var displayElement17 = document.getElementById('displayText17');
+
+
+    // 将输入框的值设置到显示区域
+    displayElement.textContent = inputElement.value;
+    displayElement1.textContent = inputElement1.value;
+
+    displayElement2.textContent = inputElement.value;
+    displayElement3.textContent = inputElement1.value;
+
+    displayElement4.textContent = inputElement.value;
+    displayElement5.textContent = inputElement1.value;
+
+    displayElement6.textContent = inputElement.value;
+    displayElement7.textContent = inputElement1.value;
+
+    displayElement8.textContent = inputElement.value;
+    displayElement9.textContent = inputElement1.value;
+
+    displayElement10.textContent = inputElement.value;
+    displayElement11.textContent = inputElement1.value;
+
+    displayElement12.textContent = inputElement.value;
+    displayElement13.textContent = inputElement1.value;
+
+    displayElement14.textContent = inputElement.value;
+    displayElement15.textContent = inputElement1.value;
+
+    displayElement16.textContent = inputElement.value;
+    displayElement17.textContent = inputElement1.value;
+
+}
+
+//字典下载
+function passdictdownloadfunc() {
+    window.open("/passworddictdownload/", "_blank");
 }

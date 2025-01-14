@@ -3382,6 +3382,25 @@ def compute_icon_hash_lib(url):
         print("捕获到异常:", e)
     return str(r3)
 
+
+# 关闭字典生成程序
+def stopgendict_lib():
+    dict_status = os.popen('bash /TIP/info_scan/finger.sh gendict_status').read()
+    os.popen('bash /TIP/info_scan/finger.sh stopgendict')
+    if "stop" in dict_status:
+        kill_dict_result = "已关闭字典生成程序"
+    else:
+        kill_dict_result = "正在关闭中......"
+    return kill_dict_result
+
+
+# 密码字典文件存入列表
+def dict_file_list():
+    dict_list = []
+    file = open("/TIP/info_scan/result/workerdictionary.txt",encoding='utf-8')
+    for line in file.readlines():
+        dict_list.append(line.strip())
+    return dict_list
            
 
 

@@ -5824,7 +5824,6 @@ def fofa_icon_hash():
     if str(user) == main_username:
         try:
             hash_result = basic.compute_icon_hash_lib(hashurl)
-            print(hash_result)
         except:
             hash_result = "hash计算出错"
         message_json = {
@@ -5835,7 +5834,119 @@ def fofa_icon_hash():
         return render_template('login.html')
 
 
-                
+# 社工字典生成
+@app.route("/social_worker_dictionary/",methods=['POST'])
+def social_worker_dictionary():
+    user = session.get('username')
+    gendict1 = request.form['gendict1']
+    gendict2 = request.form['gendict2']
+    gendict3 = request.form['gendict3']
+    gendict4 = request.form['gendict4']
+    gendict5 = request.form['gendict5']
+    gendict6 = request.form['gendict6']
+    gendict7 = request.form['gendict7']
+    gendict8 = request.form['gendict8']
+    gendict9 = request.form['gendict9']
+    gendict10 = request.form['gendict10']
+    gendict11 = request.form['gendict11']
+    gendict12 = request.form['gendict12']
+    gendict13 = request.form['gendict13']
+    gendict14 = request.form['gendict14']
+  
+    if str(user) == main_username:
+        try:
+            result = os.popen('bash /TIP/info_scan/finger.sh gendict_status').read()
+            if "running" in result:
+                gendictresult = "密码字典正在生成中请勿重复提交"
+            else:
+                os.popen('bash /TIP/info_scan/finger.sh gendict'+' '+gendict13+' '+gendict14+' '+gendict1+' '+gendict2+' '+gendict3+' '+gendict4+' '+gendict5+' '+gendict6+' '+gendict7+' '+gendict8+' '+gendict9+' '+gendict10+' '+gendict11+' '+gendict12)
+                gendictresult = "密码字典生成程序已开启"
+        except:
+            gendictresult = "密码字典生成出现内部错误"
+        message_json = {
+            "gendictresult":gendictresult
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+# 字典预览
+@app.route("/social_worker_dictionary_report/")
+def social_worker_dictionary_report():
+    user = session.get('username')
+    if str(user) == main_username:
+       
+        lines = []
+        with open('/TIP/info_scan/result/workerdictionary.txt', 'r') as f:
+            for line in f:
+                lines.append(line.strip())
+        message_json = {
+            "gendictreport":lines
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')   
+
+
+# 关闭字典生成
+@app.route("/stop_social_worker_dictionary/",methods=['GET'])
+def stop_social_worker_dictionary():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        stop_dict_status_result = basic.stopgendict_lib()
+
+        message_json = {
+            "stop_dict_status_result":stop_dict_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+# 字典大小
+@app.route("/dictsize/",methods=['GET'])
+def dictsize():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        sizenum = os.popen('bash /TIP/info_scan/finger.sh dictsize').read()
+        message_json = {
+            "sizenum":"字典文件大小："+str(sizenum)+"  "+"（注：文件过大时不要点击预览字典,会导致服务器宕机,可点击下载字典）"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')   
+
+
+# 密码字典文件下载
+@app.route("/passworddictdownload/",methods=['GET'])
+def passworddictdownload():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        dict_result = basic.dict_file_list()
+        # 删除空元素
+        if '' in dict_result:
+            dict_result.remove('')
+        
+        if len(dict_result) == 0:
+            dict_result.append("暂未生成字典")
+            f = open(file='/TIP/info_scan/result/workerdictionary.txt',mode='w')
+            for line in dict_result:
+                f.write(str(line)+"\n")
+            f.close()
+            # 判断url.txt文件是否存在
+            file_path = '/TIP/info_scan/result/workerdictionary.txt'
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                return send_file(file_path, as_attachment=True, download_name='dict.txt')
+        else:
+            # 判断workerdictionary文件是否存在
+            file_path = '/TIP/info_scan/result/workerdictionary.txt'
+            if os.path.exists(file_path) and os.path.isfile(file_path):
+                return send_file(file_path, as_attachment=True, download_name='dict.txt')
+    else:
+        return render_template('login.html')  
 
 
 if __name__ == '__main__':  
