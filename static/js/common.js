@@ -328,20 +328,29 @@ function stopcdndetectionfunc() {
 
 //资产回退
 function assetsbackspacefunc() {
+    var myModa12 = document.getElementById("myModa12");
+    myModa12.style.display = "block";
     $.ajax({
         url: '/assetsbackspaceinterface/',
         method: 'GET',
 
-        success: function (res) {
-            alert('资产回退成功点击编辑资产查看最新数据')
+        success: function (info) {
+            document.getElementById('vulnscan12').innerHTML = info.returnresult;
         },
         error: function () {
-            alert('内部错误')
+            document.getElementById('vulnscan12').innerHTML = "内部错误"
         },
         complete: function () {
 
         }
     })
+}
+
+// 关闭资产回退弹窗
+function closevulnscan11() {
+    var myModa12 = document.getElementById("myModa12");
+    myModa12.style.display = "none";
+
 }
 
 
@@ -460,21 +469,32 @@ function shiroscanreprtfunc() {
 
 //识别重点资产
 function key_data_tiqu_func() {
+    var myModa11 = document.getElementById("myModa11");
+    myModa11.style.display = "block";
     $.ajax({
         url: '/key_assets_withdraw/',
         method: 'GET',
 
         success: function (info) {
-            alert(info.key_assets_result)
+            document.getElementById('vulnscan11').innerHTML = info.key_assets_result;
         },
         error: function () {
-            alert('内部出错')
+            document.getElementById('vulnscan11').innerHTML = "内部出错"
         },
         complete: function () {
 
         }
     })
 }
+
+// 关闭识别重点资产弹窗
+function closevulnscan10() {
+    var myModa11 = document.getElementById("myModa11");
+    myModa11.style.display = "none";
+
+}
+
+
 
 // 系统管理调整为5秒自动请求1次
 function openModal() {

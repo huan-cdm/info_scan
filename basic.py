@@ -138,6 +138,13 @@ def url_file_ip_list():
         url_list.append(line.strip())
     return url_list
 
+# 资产备份文件转列表
+def url_back_file_ip_list():
+    url_back_list = []
+    file = open("/TIP/batch_scan_domain/url_back.txt",encoding='utf-8')
+    for line in file.readlines():
+        url_back_list.append(line.strip())
+    return url_back_list
 
 # 列表存入到队列中用于nmap扫描
 def ip_queue_nmap(ip_queue_nmap):
