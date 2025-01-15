@@ -391,40 +391,16 @@
 										&nbsp;&nbsp;
 										<input type="button" id="button26" value="资产优化" onclick="asssets_jiansuo()"
 											disabled>&nbsp;&nbsp;
-										<!-- <input type="button" id="button27" value="资产扩展" onclick="assets_extend_func()"
-											disabled> -->
 
 										<input type="button" id="button27" value="资产扩展" onclick="openassetjiancefunc()"
 											disabled>
+
+										<input type="button" value="资产收集" onclick="openassetcollectfunc()" id="button83"
+											disabled>
 									</td>
 								</tr>
-
-
 								<tr>
 									<td>
-										<input type="text" placeholder="通过fofa获取资产,搜索语法点击语法提示或者参考fofa官网"
-											id="inputfofaid" class="my-input-text" />
-										<select name="num_fofa">
-											<option value="10">查询10条</option>
-											<option value="100">查询100条</option>
-											<option value="1000">查询1000条</option>
-											<option value="10000">查询10000条</option>
-										</select>
-										<input type="submit" value="查询" onclick="fofa_search_assets_func()"
-											id="button83" disabled>
-
-										<input type="button" value="语法提示" onclick="fofayufa()">&nbsp;&nbsp;
-										<span id="routestatus1" style="color: greenyellow;"
-											onmouseenter="yincangtishifun()"></span>
-										<span id="routestatus2" style="color: red;"
-											onmouseenter="yincangtishifun()"></span>
-
-										<span id="routestatus3" style="color: lightblue;"></span>
-										<br>
-										<input type="text" placeholder="输入https://test.com/pic.png,计算icon_hash" id="hashurl"
-											class="my-input-text" />
-										<input type="submit" value="计算" onclick="fofahashfunc()">
-										<br>
 										<textarea id="myTextarea">
 ①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
 ②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；

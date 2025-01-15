@@ -2217,6 +2217,17 @@ function closevulnscan8() {
 
 }
 
+// 打开资产收集弹窗
+function openassetcollectfunc() {
+    var myModa10 = document.getElementById("myModa10");
+    myModa10.style.display = "block";
+}
+function closevulnscan9() {
+    var myModa10 = document.getElementById("myModa10");
+    myModa10.style.display = "none";
+
+}
+
 // 通过关键字检索资产
 function assets_key_jiansuo() {
     var myinputid = document.getElementById("my-input-id").value;
@@ -2411,8 +2422,8 @@ function stopgendictreportfunc() {
 
 
 // 网站导航模块
- // 谷歌语法
- function GoogledisplayText() {
+// 谷歌语法
+function GoogledisplayText() {
     // 获取输入框的值
     var GoogleinputText = document.getElementById('GoogleinputText');
     // 获取显示的值

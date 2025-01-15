@@ -102,6 +102,32 @@
     </div>
 </div>
 
+<!-- 资产收集 -->
+<div id="myModa10" class="modal8">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close8" onclick="closevulnscan9()">&times;</span>
+        <h3>通过fofa收集资产：</h3>
+        <input type="text" placeholder="fofa语法" id="inputfofaid" class="my-input-text2" />
+        <select name="num_fofa" class="my-select-text2">
+            <option value="10">查询10条</option>
+            <option value="100">查询100条</option>
+            <option value="1000">查询1000条</option>
+            <option value="10000">查询10000条</option>
+        </select>
+        <input type="submit" value="查询" onclick="fofa_search_assets_func()">
+
+        <input type="button" value="语法提示" onclick="fofayufa()">&nbsp;&nbsp;
+        <span id="routestatus1" style="color:lawngreen" onmouseenter="yincangtishifun()"></span>
+        <span id="routestatus2" style="color: red;" onmouseenter="yincangtishifun()"></span>
+
+        <span id="routestatus3" style="color: lightblue;"></span>
+        <br>
+        <input type="text" placeholder="网站图标地址" id="hashurl" class="my-input-text2" />
+        <input type="submit" value="计算" onclick="fofahashfunc()">
+    </div>
+</div>
+
 
 
 <!-- 删除日志确认页面 -->

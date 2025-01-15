@@ -62,6 +62,15 @@
 			width: 300px;
 			font-size: 20px;
 		}
+		.my-input-text2 {
+			height: 40px;
+			width: 250px;
+			font-size: 20px;
+		}
+		.my-select-text2 {
+			height: 40px;
+			width: 100px;
+		}
 
 
 		input[type="submit"]:hover {
@@ -440,7 +449,7 @@
 		}
 
 		.my-label {
-			color: coral;
+			color:#000;
 			font-weight: bold;
 			text-decoration: underline;
 			font-style: italic;
