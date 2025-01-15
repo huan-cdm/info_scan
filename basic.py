@@ -823,10 +823,10 @@ def assets_status_update(part):
         sql="UPDATE status_table SET status_value = '%s' WHERE id = 1"%(part)
         cur.execute(sql)
         db.commit()
-        db.rollback()
         
     except Exception as e:
-            print("捕获到异常:", e)
+        print("捕获到异常:", e)
+        db.rollback()
 
 
 
@@ -859,10 +859,10 @@ def vuln_scan_status_update(part):
         sql="UPDATE status_table SET status_value = '%s' WHERE id = 2"%(part)
         cur.execute(sql)
         db.commit()
-        db.rollback()
-        
+             
     except Exception as e:
-            print("捕获到异常:", e)
+        print("捕获到异常:", e)
+        db.rollback()
 
 
 
@@ -1052,10 +1052,10 @@ def last_time_update_lib(part1,part2):
         sql="UPDATE info_time_diff SET time_diff = '%s' WHERE id = '%s'"%(part1,part2)
         cur.execute(sql)
         db.commit()
-        db.rollback()
         
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 
 # 信息收集类扫描器计算时间差
@@ -1104,9 +1104,10 @@ def vuln_last_time_update_lib(part1,part2):
         sql="UPDATE vuln_time_diff SET time_diff = '%s' WHERE id = '%s'"%(part1,part2)
         cur.execute(sql)
         db.commit()
-        db.rollback()
+        
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 
 
@@ -2485,9 +2486,10 @@ def success_third_party_port_addone(id):
         sql="UPDATE interfacenum_table SET successnum = successnum + 1 where interid = '%s' "%(id)
         cur.execute(sql)
         db.commit()
-        db.rollback()
+        
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 # 第三方接口失败次数,每查询一次数据库增加1次
 def fail_third_party_port_addone(id):
@@ -2498,9 +2500,10 @@ def fail_third_party_port_addone(id):
         sql="UPDATE interfacenum_table SET failnum = failnum + 1 where interid = '%s' "%(id)
         cur.execute(sql)
         db.commit()
-        db.rollback()
+        
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 
 # 统计第三方接口成功次数
@@ -2550,7 +2553,6 @@ def initinterface_num_lib():
         sql="update interfacenum_table set successnum = 0 and failnum = 0"
         cur.execute(sql)
         db.commit()
-        db.rollback()
         # 判断数据是否初始化成功
         sql="select successnum,failnum FROM interfacenum_table"
         cur.execute(sql)
@@ -2571,6 +2573,7 @@ def initinterface_num_lib():
             result = "正在初始化中"
     except:
         result = "MySQL连接失败"
+        db.rollback()
     return result
 
 
@@ -2588,9 +2591,10 @@ def scan_total_time_start_time(partid):
         sql1="UPDATE scan_total_time_table SET endtime = '' WHERE typeid = '%s'"%(partid)
         cur.execute(sql1)
         db.commit()
-        db.rollback()
+        
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 
 # 获取扫描器结束时间戳存入数据库
@@ -2603,9 +2607,10 @@ def scan_total_time_end_time(partid):
         sql="UPDATE scan_total_time_table SET endtime = '%s' WHERE typeid = '%s'"%(current_time,partid)
         cur.execute(sql)
         db.commit()
-        db.rollback()
+        
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 
 # 判断扫描器结束时间是否为空,为空返回0,不为空返回1
@@ -3012,10 +3017,10 @@ def route_status_update_lib(part1,part2):
         sql="UPDATE route_status SET typevalue = '%s' WHERE id = '%s'"%(part1,part2)
         cur.execute(sql)
         db.commit()
-        db.rollback()
         
     except Exception as e:
         print("捕获到异常:", e)
+        db.rollback()
 
 # 路由状态表查询
 def route_status_show_lib(id):
