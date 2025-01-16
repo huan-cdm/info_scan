@@ -1,3 +1,7 @@
+<h2>docker部署：</h2> 
+1. MySQL环境（admin/123456）：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1 ，（下载镜像，启动容器，进入容器，启动MySQL服务）<br>
+2. 系统：正在制作中......<br>
+
 <h2>集成相关工具：</h2> 
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
@@ -48,6 +52,7 @@ mysql账号密码：admin/123456<br>
 2. 新增开启扫描器显示当前程序状态；<br>
 3. 已知问题处理与优化；<br>
 4. 新增密码字典生成器；<br>
+5. 新增MySQL数据库docker环境，下载可直接使用，自带系统所需的数据库和表；<br>
 </li>
 <li>
 2025-1-6更新<br> 
