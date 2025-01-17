@@ -1,6 +1,12 @@
-<h2>docker部署：</h2> 
-1. MySQL环境（admin/123456）：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1 ，（下载镜像，启动容器，进入容器，启动MySQL服务）<br>
-2. 系统：正在制作中......<br>
+<h2>docker部署（beta版本）：</h2> 
+1. 单独MySQL环境（admin/123456）：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1 ，（下载镜像，启动容器，进入容器，启动MySQL服务）<br>
+2. 平台环境+MySQL环境：<br>
+下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3<br>
+启动容器：docker run -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -p 3306:3306 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3 /bin/bash<br>
+修改配置：修改/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js，自己服务器的IP<br>
+启动服务：service  mysql start、bash /TIP/info_scan/server_check.sh start、service nginx start<br>
+参数配置：替换为有效的key<br>
+
 
 <h2>集成相关工具：</h2> 
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
