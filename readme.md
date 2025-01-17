@@ -3,7 +3,7 @@
 2. 平台环境+MySQL环境：<br>
 下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3<br>
 启动容器：docker run -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -p 3306:3306 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3 /bin/bash<br>
-修改配置：修改/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js，自己服务器的IP<br>
+修改配置：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js，替换自己服务器的IP<br>
 启动服务：service  mysql start、bash /TIP/info_scan/server_check.sh start、service nginx start<br>
 参数配置：替换为有效的key<br>
 
@@ -59,6 +59,7 @@ mysql账号密码：admin/123456<br>
 3. 已知问题处理与优化；<br>
 4. 新增密码字典生成器；<br>
 5. 新增MySQL数据库docker环境，下载可直接使用，自带系统所需的数据库和表；<br>
+6. 新增平台+MySQL镜像<br>
 </li>
 <li>
 2025-1-6更新<br> 
