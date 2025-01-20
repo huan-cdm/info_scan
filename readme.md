@@ -1,11 +1,11 @@
 <h2>docker部署（beta版本）：</h2> 
 1. 账号密码：nginx/web/mysql：admin/123456<br>
-2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br><br>
+2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
 下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1<br>
 启动容器：docker run -d --name mysql -it --network info_scan_network -p 3306:3306 registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1 /bin/bash<br>
 进入容器：docker exec -it 容器ID /bin/bash<br>
-启动mysql：service  mysql start<br><br>
+启动mysql：service  mysql start<br>
 4.平台环境：<br>
 下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2<br>
 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2 /bin/bash<br>
@@ -13,7 +13,7 @@
 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js<br>
 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
 访问地址：http://ip:19999/index/<br>
-参数配置：平台-参数配置-系统配置下修改为有效的key，点击导航栏的重启按钮<br><br>
+参数配置：平台-参数配置-系统配置下修改为有效的key，点击导航栏的重启按钮<br>
 
 
 <h2>集成相关工具：</h2> 
