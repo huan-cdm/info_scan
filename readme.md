@@ -16,17 +16,6 @@
 参数配置：平台-参数配置-系统配置下修改为有效的key，点击导航栏的重启按钮<br>
 
 
-<h2>集成相关工具：</h2> 
-漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
-综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
-信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
-未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt。
-<br><br>
-<h2>bilibili教程：</h2>
-
-- [info_scan_2024-10-12更新](https://www.bilibili.com/video/BV1Gt28YFEr3)<br>
-- [info_scan_2025-1-4更新](https://www.bilibili.com/video/BV1surWYJEHX)<br>
-
 <h2>便携版本安装：</h2>
 Linux服务器账号密码：huan/admin@123<br>
 nginx账号密码：admin/123456<br>
@@ -50,6 +39,19 @@ mysql账号密码：admin/123456<br>
 
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
+
+
+<h2>集成相关工具：</h2> 
+漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
+综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
+信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
+未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt。
+<br><br>
+<h2>bilibili教程：</h2>
+
+- [info_scan_2024-10-12更新](https://www.bilibili.com/video/BV1Gt28YFEr3)<br>
+- [info_scan_2025-1-4更新](https://www.bilibili.com/video/BV1surWYJEHX)<br>
+
 
 <h2>nginx配置401认证：</h2>
 配置方法：<br>
