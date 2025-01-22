@@ -1853,7 +1853,7 @@ gendict_status)
 # 关闭字典生成程序
 stopgendict)
     dictt_pid=$(ps -aux | grep "/usr/bin/crunch" | awk -F " " '{print $2}')
-    
+
     for ii in ${dictt_pid}; do
         kill -9 ${ii} 2>/dev/null
     done
@@ -1861,8 +1861,21 @@ stopgendict)
 
 # 字典大小
 dictsize)
-num=`du -sh /TIP/info_scan/result/workerdictionary.txt | awk '{print $1}'`
-echo "${num}"
-;;
+    num=$(du -sh /TIP/info_scan/result/workerdictionary.txt | awk '{print $1}')
+    echo "${num}"
+    ;;
 
+# 开启shodan资产收集
+startshodanasset)
+    python3 /TIP/info_scan/basic.py assets_college_shodan_lib $2 $3 $4 > /dev/null 2>&1 &
+    ;;
+
+shodanassetstatus)
+    shodan_ps=$(ps -aux | grep "assets_college_shodan_lib" | wc -l)
+    if (($shodan_ps > 1)); then
+        echo "running"
+    else
+        echo "stop"
+    fi
+    ;;
 esac

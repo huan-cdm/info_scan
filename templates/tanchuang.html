@@ -128,7 +128,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close8" onclick="closevulnscan9()">&times;</span>
-        <h3>通过fofa收集资产：</h3>
+        <h3>通过fofa收集资产</h3>
         <input type="text" placeholder="fofa语法" id="inputfofaid" class="my-input-text2" />
         <select name="num_fofa" class="my-select-text2">
             <option value="10">查询10条</option>
@@ -136,7 +136,7 @@
             <option value="1000">查询1000条</option>
             <option value="10000">查询10000条</option>
         </select>
-        <input type="submit" value="查询" onclick="fofa_search_assets_func()">
+        <input type="submit" value="收集" onclick="fofa_search_assets_func()">
 
         <input type="button" value="语法提示" onclick="fofayufa()">&nbsp;&nbsp;
         <span id="routestatus1" style="color:lawngreen" onmouseenter="yincangtishifun()"></span>
@@ -146,6 +146,36 @@
         <br>
         <input type="text" placeholder="网站图标地址" id="hashurl" class="my-input-text2" />
         <input type="submit" value="计算" onclick="fofahashfunc()">
+        <h3>通过shodan收集资产</h3>
+        <input type="text" placeholder="关键字" class="my-input-text2" id="inputshodanid" />
+        <select name="start_num_shodan" class="my-select-text2">
+            <option value="1">从第1页</option>
+            <option value="2">从第2页</option>
+            <option value="3">从第3页</option>
+            <option value="4">从第4页</option>
+            <option value="5">从第5页</option>
+            <option value="6">从第6页</option>
+            <option value="7">从第7页</option>
+            <option value="8">从第8页</option>
+            <option value="9">从第9页</option>
+            <option value="10">从第10页</option>
+        </select>
+
+        <select name="end_num_shodan" class="my-select-text2">
+            <option value="1">到第1页</option>
+            <option value="2">到第2页</option>
+            <option value="3">到第3页</option>
+            <option value="4">到第4页</option>
+            <option value="5">到第5页</option>
+            <option value="6">到第6页</option>
+            <option value="7">到第7页</option>
+            <option value="8">到第8页</option>
+            <option value="9">到第9页</option>
+            <option value="10">到第10页</option>
+        </select>
+        <input type="submit" value="收集" onclick="shodan_search_assets_func()">
+        <span id="shodanreturnresult1"></span>
+
     </div>
 </div>
 
@@ -481,7 +511,7 @@ poc显示区域</textarea>
 <div id="modal1" class="modal8">
     <div class="modal-content8">
         <span class="close" onclick="closeModal1()">&times;</span>
-        <h3>fofa查询语法：</h3>
+        <h3>fofa查询语法</h3>
         <P>ip="1.1.1.1" 通过单一IPv4地址进行查询</P>
         <p>ip="220.181.111.1/24" 通过IPv4 C段进行查询</p>
         <p>ip="2600:9000:202a:2600:18:4ab7:f600:93a1" 通过单一Ipv6地址进行查询</p>
@@ -491,7 +521,8 @@ poc显示区域</textarea>
         <p>body="网络空间测绘" 通过HTML正文进行查询</p>
         <p>country="CN" 通过国家的简称代码进行查询</p>
         <p>更多语法参考fofa官网<a href="https://fofa.info/" target="_blank">fofa</a></p>
-
+        <h3>shodan查询语法：</h3>
+        <p>输入关键字，例如：后台管理系统</p>
     </div>
 </div>
 
@@ -587,6 +618,7 @@ poc显示区域</textarea>
                 <td>JNDI恶意Java类加载服务</td>
                 <td>报告整合服务</td>
                 <td>CDN识别服务</td>
+                <td>shodan发现资产(剩余/配额)</td>
             </tr>
             <tr>
                 <th>状态</th>
@@ -625,6 +657,11 @@ poc显示区域</textarea>
                 <td>
                     <span id="spp75" style="color: green;"></span>
                     <span id="spp75a" style="color: red;"></span>
+                </td>
+                <td>
+                    <span id="spp76" style="color: green;"></span>
+                    <span id="spp76a" style="color: red;"></span>
+                    (<span id="spp77"></span>/<span id="spp78"></span>)
                 </td>
 
             </tr>

@@ -63,6 +63,11 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-1-20更新<br> 
+1.新增通过shodan获取资产；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-1-12更新<br> 
 1. 新增icon图标hash计算，可直接将计算结果赋值给fofa查询输入框；<br>
 2. 新增开启扫描器显示当前程序状态；<br>
@@ -443,3 +448,5 @@ icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/iconhash.png" /><br><br>
 密码字典<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/passdict.png" /><br><br>
+shodan收集资产<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/shodancollectasset.png" /><br><br>

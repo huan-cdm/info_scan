@@ -3413,6 +3413,42 @@ def dict_file_list():
     for line in file.readlines():
         dict_list.append(line.strip())
     return dict_list
+
+
+# 通过shodan接口获取资产
+def assets_college_shodan_lib():
+    keyword = sys.argv[2]
+    startnum = sys.argv[3]
+    endnum = sys.argv[4]
+    key1 = 'http.title:"{}"'
+    key1 = key1.replace("{}", keyword)
+    shodankeyvalue = select_session_time_lib(3)
+    apis = shodan.Shodan(shodankeyvalue)
+    
+    try:
+        # 开始页数
+        page = int(startnum)
+        # 最大页数
+        max_pages = int(endnum)
+        # 存入url列表
+        url_list = []
+        for p in range(1, max_pages + 1):
+            results = apis.search(key1, page=p)
+            
+            for result in results['matches']:
+                print(str(result['ip_str']))
+                url_list.append(str(result['ip_str'])+str(":")+str(result['port']))
+        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        for k in url_list:
+            if ":443" in k:
+                f.write("https://"+str(k)+"\n")
+            elif ":80" in k:
+                f.write("http://"+str(k)+"\n")
+            else:
+                f.write(str(k)+"\n")
+        f.close()
+    except:
+        pass
            
 
 
@@ -3433,10 +3469,8 @@ if __name__ == "__main__":
             start_crawlergo_scan_proxy_lib()
         elif func_name == 'cdn_detection_lib':
             cdn_detection_lib()
-        # elif func_name == 'compute_icon_hash':
-        #     url="https://p1.ssl.qhimg.com/t11098f6bcd26caa77d8aa4d2fb.png"
-        #     c = compute_icon_hash(url)  
-        #     print(c)  
+        elif func_name == 'assets_college_shodan_lib':
+            assets_college_shodan_lib()
         else:
             print("Invalid function number")
     else:

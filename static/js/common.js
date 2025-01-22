@@ -545,6 +545,11 @@ function openModal() {
 
                 document.getElementById("spp75").innerHTML = info.cdn_status1;
                 document.getElementById("spp75a").innerHTML = info.cdn_status2;
+                document.getElementById("spp76").innerHTML = info.shodanstatus1;
+                document.getElementById("spp76a").innerHTML = info.shodanstatus2;
+
+                document.getElementById("spp77").innerHTML = info.account_info_num;
+                document.getElementById("spp78").innerHTML = info.total_account_info_num;
 
                 document.getElementById("spp2").innerHTML = info.nucleistatus1;
                 document.getElementById("spp2a").innerHTML = info.nucleistatus2;
@@ -2789,4 +2794,32 @@ function displayText() {
 //字典下载
 function passdictdownloadfunc() {
     window.open("/passworddictdownload/", "_blank");
+}
+
+// 通过shodan获取资产
+function shodan_search_assets_func() {
+    var inputshodanid = document.getElementById("inputshodanid").value;
+    var start_num_shodan = $('select[name="start_num_shodan"]').val();
+    var end_num_shodan = $('select[name="end_num_shodan"]').val();
+    $.ajax({
+        url: '/assets_byshodan/',
+        method: 'POST',
+        data: {
+            inputshodanid: inputshodanid,
+            start_num_shodan: start_num_shodan,
+            end_num_shodan: end_num_shodan
+        },
+        success: function (info) {
+            // 当请求成功时调用  
+            document.getElementById("shodanreturnresult1").innerHTML = info.shodan_status_result;
+
+        },
+        error: function () {
+            document.getElementById("shodanreturnresult1").innerHTML = "内部错误";
+        },
+        complete: function () {
+
+        }
+
+    })
 }

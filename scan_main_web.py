@@ -92,6 +92,8 @@ import json
 # 校验是否先进行指纹识别
 from config import verification_fingerprint_recognition
 
+import shodan
+
 app = Flask(__name__,template_folder='./templates') 
 app.config.from_pyfile('config_session.py')
 app.secret_key = "DragonFire"
@@ -491,6 +493,21 @@ def systemmanagement():
             redis_status1 = ""
             redis_status2 = redis_status
             rediscontime = basic.scan_end_start_time(32)
+        
+        shodanstatus = os.popen('bash /TIP/info_scan/finger.sh shodanassetstatus').read()
+        shodankeyvalue = basic.select_session_time_lib(3)
+        apis = shodan.Shodan(shodankeyvalue)
+        account_info = apis.info()
+        account_info_num = str(account_info['query_credits'])
+        total_account_info_num = str(account_info['scan_credits'])
+        
+        if "running" in shodanstatus:
+            shodanstatus1 = shodanstatus
+            shodanstatus2 = ""
+            
+        else:
+            shodanstatus1 = ""
+            shodanstatus2 = shodanstatus
 
         mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
         if "running" in mongodb_status:
@@ -1203,6 +1220,10 @@ def systemmanagement():
             "couchdb_status2":couchdb_status2,
             "docker_status1":docker_status1,
             "docker_status2":docker_status2,
+            "shodanstatus1":shodanstatus1,
+            "shodanstatus2":shodanstatus2,
+            "account_info_num":account_info_num,
+            "total_account_info_num":total_account_info_num,
             "hadoop_status1":hadoop_status1,
             "hadoop_status2":hadoop_status2,
             "nfs_status1":nfs_status1,
@@ -5956,7 +5977,38 @@ def passworddictdownload():
             if os.path.exists(file_path) and os.path.isfile(file_path):
                 return send_file(file_path, as_attachment=True, download_name='dict.txt')
     else:
-        return render_template('login.html')  
+        return render_template('login.html')
+    
+
+# 通过shodan获取资产
+@app.route('/assets_byshodan/',methods=['POST'])
+def assets_byshodan():
+    user = session.get('username')
+    if str(user) == main_username:
+        inputshodanid = request.form['inputshodanid']
+        start_num_shodan = request.form['start_num_shodan']
+        end_num_shodan = request.form['end_num_shodan']
+
+        # 筛选后资产时间线更新
+        basic.assets_status_update('shodan获取资产已完成')
+        shodanstatus = os.popen('bash /TIP/info_scan/finger.sh shodanassetstatus').read()
+        
+        if "running" in shodanstatus:
+            shodan_status_result = "shodan资产获取程序正在运行中请勿重复提交"
+        else:
+            # 调用shell脚本并传参
+            result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startshodanasset",inputshodanid, start_num_shodan, end_num_shodan], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            # 输出脚本的标准输出和标准错误
+            print("标准输出:", result.stdout)
+            print("标准错误:", result.stderr)
+            shodan_status_result = "shodan资产获取程序已开启成功"
+
+        message_json = {
+            "shodan_status_result":shodan_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  
