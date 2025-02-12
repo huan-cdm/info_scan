@@ -405,6 +405,12 @@
 			font-size: medium;
 		}
 
+		my-input2{
+			height: 50px;
+			width: 800px;
+			font-size: medium;
+		}
+
 		.my-spann {
 			display: inline-block;
 			/* 使span可以设置宽高 */

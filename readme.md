@@ -63,6 +63,11 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-2-11更新<br> 
+1.系统配置功能优化；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-1-20更新<br> 
 1.新增通过shodan获取资产；<br>
 2.已知问题处理与优化；<br>
@@ -436,7 +441,7 @@ ES数据库漏洞扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" /><br><br>
 dnslog<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" /><br><br>
-系统参数配置<br>
+系统配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" /><br><br>
 网站导航<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" /><br><br>

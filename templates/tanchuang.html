@@ -201,7 +201,9 @@
     <div class="modal-content1">
 
         <span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
+        <h3>系统配置</h3>
         <table border="1">
+           
             <tr>
                 <td>
                     <strong style="color: chocolate;">清空报告</strong><br>
@@ -222,7 +224,7 @@
             </tr>
             <tr>
                 <td>
-                    fscan扫描参数：&nbsp;&nbsp;
+
                     <select name="fscanpartname" onmouseout="fscanportshowfunc()">
 
                         <option
@@ -246,6 +248,7 @@
                             常见RCE端口</option>
                         <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
                     </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fscan扫描参数
                     <textarea rows="3" cols="80" id="myTextarea2" onmouseover="fscantextarea_onhover()"
                         onmouseout="fscantextarea_onout()">
 							21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017</textarea>
@@ -253,7 +256,7 @@
             </tr>
             <tr>
                 <td>
-                    nuclei扫描参数：&nbsp;&nbsp;
+
                     <select name="poc_dir" onmouseenter="nuclei_poc_show_func()">
                         <option value="/root/nuclei-templates/http">http</option>
                         <option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
@@ -295,6 +298,7 @@
                         <option value="/root/nuclei-templates/config">config</option>
                         <option value="/root/nuclei-templates/code">code</option>
                     </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;nuclei扫描参数
                     <textarea rows="3" cols="80" id="myTextarea3" onmouseover="nucleitextarea_onhover()"
                         onmouseout="nucleitextarea_onout()">
 poc显示区域</textarea>
@@ -304,7 +308,7 @@ poc显示区域</textarea>
             </tr>
             <tr>
                 <td>
-                    端口扫描参数：&nbsp;&nbsp;&nbsp;&nbsp;
+
                     <select name="portscan_part" onmouseout="nmapportshowfunc()">
                         <option
                             value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
@@ -321,6 +325,7 @@ poc显示区域</textarea>
                         <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
                         <option value="1-65535">全端口</option>
                     </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;端口扫描参数
                     <textarea rows="3" cols="80" id="myTextarea1" onmouseover="nmaptextarea_onhover()"
                         onmouseout="nmaptextarea_onout()">
 80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443
@@ -329,7 +334,7 @@ poc显示区域</textarea>
             </tr>
             <tr>
                 <td>
-                    弱口令扫描参数：&nbsp;&nbsp;
+
                     <select name="hydrapart">
                         <option value="1">mysql</option>
                         <option value="2">ssh</option>
@@ -337,12 +342,12 @@ poc显示区域</textarea>
                         <option value="4">redis</option>
                         <option value="5">mssql</option>
                     </select>
-
+                    &nbsp;&nbsp;&nbsp;&nbsp;弱口令扫描参数
 
                 </td>
             </tr>
             <tr>
-                <td>vulmap扫描参数：
+                <td>
                     <select name="vulnname">
                         <option value="all">all</option>
                         <option value="activemq">检查站点是否存在activemq漏洞</option>
@@ -375,65 +380,87 @@ poc显示区域</textarea>
                         <option value="qianxin">检查站点是否存在qianxin漏洞</option>
                         <option value="ruijie">检查站点是否存在ruijie漏洞</option>
                     </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;vulmap扫描参数
                 </td>
             </tr>
             <tr>
                 <td>
-                    爬虫扫描参数：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <select name="pachongselectpart" onmouseout="crawlergo_part_show()">
                         <option value="1">流量不转发</option>
                         <option value="2">流量转发</option>
                     </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;爬虫扫描参数
                     <span style="color: goldenrod;" id="crawlergo_part_show_part1"></span>
                     <span style="color: goldenrod;" id="crawlergo_part_show_part2"></span>
+                    
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <strong style="color: chocolate;">系统配置</strong><br>
+                    <strong style="color: chocolate;">账号配置</strong><br>
 
                 </td>
 
             </tr>
             <tr>
                 <td>
-                    会话过期时间：&nbsp;&nbsp;
+
                     <input type="text" class="my-input5" value="" id="sessionid1">
-                    <span class="my-span" onclick="startverifychearlogfunc('6')">提交</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    fofakey：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" class="my-input5" value="" id="sessionid2"><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="my-span" onclick="startverifychearlogfunc('6')">保存</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
+                    会话过期时间配置
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    <input type="text" class="my-input5" value="" id="sessionid2"><br>
                     <input type="text" class="my-input5" value="" id="sessionid3">
-                    <span class="my-span" onclick="startverifychearlogfunc('7')">提交</span>
+                    <span class="my-span" onclick="startverifychearlogfunc('7')">保存</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;fofa配置
                 </td>
             </tr>
             <tr>
                 <td>
-                    shodankey：&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="text" class="my-input5" value="" id="sessionid4">
-                    <span class="my-span" onclick="startverifychearlogfunc('8')">提交</span>
+                    <span class="my-span" onclick="startverifychearlogfunc('8')">保存</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;shodan配置
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    amapkey：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="text" class="my-input5" value="" id="sessionid5">
-                    <span class="my-span" onclick="startverifychearlogfunc('9')">提交</span>
+                    <span class="my-span" onclick="startverifychearlogfunc('9')">保存</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;高德地图配置
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    ceyekey：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                     <input type="text" class="my-input5" value="" id="sessionid6">
-                    <span class="my-span" onclick="startverifychearlogfunc('10')">提交</span>
+                    <span class="my-span" onclick="startverifychearlogfunc('10')">保存</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;ceyedns配置
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong style="color: chocolate;">识别关键资产配置</strong><br>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="text" placeholder="关键字" id="rule_input_id1" class="my-input5">
+                    <span class="my-span" onclick="add_rule_func()">保存</span>
+                    <span class="my-spann" onclick="delete_rule_func()">删除</span>
+                    <span class="my-spann" onclick="delete_rule_all_func()">清空</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    ①.资产指纹识别&nbsp;&nbsp;②.找到特征保存到系统&nbsp;&nbsp;③.识别关键资产&nbsp;&nbsp;④.得到关键资产
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="filterruleid1" style="color: red;"></span>
                 </td>
             </tr>
         </table>
@@ -586,17 +613,13 @@ poc显示区域</textarea>
                 <td><span id="spp33" style="color:green"></span></td>
                 <td>
                     <span id="spp26"></span>
-                    <span class="my-span" onclick="shuaixuanrule()">编辑</span>
+                    <!-- <span class="my-span" onclick="shuaixuanrule()">编辑</span> -->
 
 
-                    <p style="display: none;" id="idp1">
+                    <!-- <p style="display: none;" id="idp1">
 
-                        <input type="text" placeholder="指纹识别结果-输入关键字-点击新增-识别关键资产" id="rule_input_id1" class="my-input">
-                        <span class="my-span" onclick="add_rule_func()">新增</span>
-                        <span class="my-spann" onclick="delete_rule_func()">删除</span>
-                        <span class="my-spannn" onclick="fanhuishuaixuanrule()">返回</span>
-                        <span class="my-spann" onclick="delete_rule_all_func()">清空</span>
-                    </p>
+                       
+                    </p> -->
 
 
                 </td>

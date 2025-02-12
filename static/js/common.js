@@ -1239,19 +1239,6 @@ function restart_service_func() {
 }
 
 
-// 弹出编辑筛选规则页面
-function shuaixuanrule() {
-    var idp1 = document.getElementById("idp1");
-    idp1.style.display = "block";
-
-}
-
-// 隐藏编辑筛选规则页面
-function fanhuishuaixuanrule() {
-    var idp1 = document.getElementById("idp1");
-    idp1.style.display = "none";
-
-}
 
 // 初始状态
 function yincangtishifun() {
@@ -1275,11 +1262,12 @@ function add_rule_func() {
             rule: rule
         },
         success: function (info) {
-            alert(info.result_rule)
+            document.getElementById("filterruleid1").innerHTML = info.result_rule
+
         },
 
         error: function (info) {
-            alert("内部出错")
+            document.getElementById("filterruleid1").innerHTML = "内部错误"
         },
         complete: function () {
 
