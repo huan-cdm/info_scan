@@ -13,7 +13,7 @@
 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js<br>
 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
 访问地址：http://ip:19999/index/<br>
-参数配置：平台-参数配置-系统配置下修改为有效的key，点击导航栏的重启按钮<br>
+参数配置：平台-系统配置-账号配置，点击导航栏的重启按钮<br>
 
 
 <h2>便携版本安装：</h2>
