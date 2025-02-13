@@ -1252,29 +1252,6 @@ function yincangtishifun() {
 }
 
 
-// 新增重点资产筛选规则
-function add_rule_func() {
-    var rule = document.getElementById("rule_input_id1").value;
-    $.ajax({
-        url: '/add_point_rule_interface/',
-        method: 'POST',
-        data: {
-            rule: rule
-        },
-        success: function (info) {
-            document.getElementById("filterruleid1").innerHTML = info.result_rule
-
-        },
-
-        error: function (info) {
-            document.getElementById("filterruleid1").innerHTML = "内部错误"
-        },
-        complete: function () {
-
-        }
-    })
-}
-
 
 // 通过规则名称删除重点资产筛选规则
 function delete_rule_func() {
@@ -2142,7 +2119,7 @@ function stopverifychearlogfunc() {
     modal3.style.display = "none";
 }
 
-// 确认删除报告
+// 复核
 function comfirmclearlogfunc() {
     var inputmodel1 = document.getElementById('inputmodel1').value;
     var inputmodel2 = document.getElementById('inputmodel2').value;
@@ -2153,6 +2130,8 @@ function comfirmclearlogfunc() {
     var sessionid4 = document.getElementById('sessionid4').value;
     var sessionid5 = document.getElementById('sessionid5').value;
     var sessionid6 = document.getElementById('sessionid6').value;
+    var rule_input_id1 = document.getElementById('rule_input_id1').value;
+
     $.ajax({
         url: '/comfirmclearloginterface/',
         method: 'POST',
@@ -2165,13 +2144,14 @@ function comfirmclearlogfunc() {
             sessionid3: sessionid3,
             sessionid4: sessionid4,
             sessionid5: sessionid5,
-            sessionid6: sessionid6
+            sessionid6: sessionid6,
+            rule_input_id1: rule_input_id1
         },
         success: function (info) {
-            alert(info.recheck_result)
+            document.getElementById("filterruleid1").innerHTML = info.recheck_result;
         },
-        error: function () {
-
+        error: function (info) {
+            document.getElementById("filterruleid1").innerHTML = "内部错误";
         },
         complete: function () {
 

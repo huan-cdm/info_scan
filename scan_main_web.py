@@ -2408,48 +2408,6 @@ def restartsystemservice():
     else:
         return render_template('login.html')
 
-    
-
-# 识别重点资产中新增筛选规则接口
-@app.route("/add_point_rule_interface/",methods=['post'])
-def add_point_rule_interface():
-    user = session.get('username')
-
-    if str(user) == main_username:
-        rule = request.form['rule']
-        if '' in  rule:
-            result_rule = "输入参数不能为空"
-
-        if ' ' in rule:
-            result_rule = "输入参数不能包含空格"
-
-        if 'alert' in rule or 'select' in rule or '<' in rule or '>' in rule or 'union' in rule:
-            result_rule = "请勿进行安全测试！"
-
-        else:
-            db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-            password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-            cur = db.cursor()
-            
-            # 判断数据库中是否存在传入的数据
-            sql_select = "select rule FROM rule_table where rule = '%s' "%(rule)
-            cur.execute(sql_select)
-            result = cur.fetchone()
-            if result:
-                result_rule = rule+" "+"规则已存在不要重复添加"
-            else:
-                sql_insert = "insert into rule_table(rule)  values('%s')" %(rule)
-                cur.execute(sql_insert)  
-                db.commit()
-                result_rule = rule+" "+"规则已添加成功"
-        message_json = {
-            "result_rule":result_rule
-        }
-
-        return jsonify(message_json)
-    
-    else:
-        return render_template('login.html')
 
 
 # 重点资产识别根据筛选规则名称删除
@@ -5616,6 +5574,7 @@ def comfirmclearloginterface():
         sessionid4 = request.form['sessionid4']
         sessionid5 = request.form['sessionid5']
         sessionid6 = request.form['sessionid6']
+        rule_input_id1 = request.form['rule_input_id1']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -5671,6 +5630,35 @@ def comfirmclearloginterface():
             elif int(inputmodel3) ==10:
                 print("配置ceyekey")
                 recheck_result = basic.update_session_time_lib(sessionid6,5)
+            elif int(inputmodel3) ==11:
+                print("配置重点资产识别")
+                
+                if '' in  rule_input_id1:
+                    recheck_result = "输入参数不能为空"
+        
+                if ' ' in rule_input_id1:
+                    recheck_result = "输入参数不能包含空格"
+        
+                if 'alert' in rule_input_id1 or 'select' in rule_input_id1 or '<' in rule_input_id1 or '>' in rule_input_id1 or 'union' in rule_input_id1:
+                    recheck_result = "请勿进行安全测试！"
+        
+                else:
+                    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+                    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+                    cur = db.cursor()
+                    
+                    # 判断数据库中是否存在传入的数据
+                    sql_select = "select rule FROM rule_table where rule = '%s' "%(rule_input_id1)
+                    cur.execute(sql_select)
+                    result = cur.fetchone()
+                    if result:
+                        recheck_result = rule_input_id1+" "+"规则已存在不要重复添加"
+                    else:
+                        sql_insert = "insert into rule_table(rule)  values('%s')" %(rule_input_id1)
+                        cur.execute(sql_insert)  
+                        db.commit()
+                        recheck_result = rule_input_id1+" "+"规则已添加成功"
+                        # recheck_result = basic.update_session_time_lib(sessionid6,5)
             else:
                 print("其他")
 
