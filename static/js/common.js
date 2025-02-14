@@ -1514,6 +1514,7 @@ function vulnxuanzhongscan() {
     });
     // fscan前端需要传递到后端的参数
     var fscanpartname = $('select[name="fscanpartname"]').val();
+    var fscanpartname1 = $('select[name="fscanpartname1"]').val();
     // hydra弱口令前端需要传递到后端的参数
     var hydrapart = $('select[name="hydrapart"]').val();
     // vulmap前端需要传递到后端的参数
@@ -1524,7 +1525,7 @@ function vulnxuanzhongscan() {
         url: '/vulnscan_check_back/',
         method: 'POST',
         // JSON格式数据传递给后端
-        data: JSON.stringify({ vuln_front_list: vuln_front_list, fscanpartname: fscanpartname, hydrapart: hydrapart, vulnname: vulnname, poc_dir: poc_dir }),
+        data: JSON.stringify({ vuln_front_list: vuln_front_list, fscanpartname: fscanpartname,fscanpartname1:fscanpartname1 ,hydrapart: hydrapart, vulnname: vulnname, poc_dir: poc_dir }),
         // 告诉服务器发送的数据是 JSON 格式
         contentType: 'application/json',
         // 期望服务器返回的数据类型

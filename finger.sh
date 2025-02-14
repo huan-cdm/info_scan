@@ -494,12 +494,21 @@ killnuclei)
     done
     ;;
 
-# 启动fscan扫描程序默认端口
+# 启动fscan扫描程序默认端口（禁止web漏洞扫描）
 startfscanprocessmoren)
     cd /TIP/info_scan/fscan_tool/
     if [ -f ./fscan ]; then
         # grep -vE  过滤多个参数
-        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
+        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc -nocolor -no -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
+        echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"
+    fi
+    ;;
+# 启动fscan扫描程序默认端口（启用web漏洞扫描）
+startfscanprocessmorenall)
+    cd /TIP/info_scan/fscan_tool/
+    if [ -f ./fscan ]; then
+        # grep -vE  过滤多个参数
+        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nocolor -no -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
         echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"
     fi
     ;;

@@ -162,6 +162,7 @@ def ipscaninterface():
         #ip归属地
         try:
             output = subprocess.check_output(["sh", "./finger.sh","location",ip], stderr=subprocess.STDOUT)
+
             output_list = output.decode().splitlines()
             #定义列表
             location_list = []
@@ -3087,6 +3088,7 @@ def vulnscan_check_back():
         data = request.get_json()  
         vuln_front_list = data['vuln_front_list']
         fscanpartname = str(data['fscanpartname'])
+        fscanpartname1 = int(data['fscanpartname1'])
         hydrapart = int(data['hydrapart'])
         vulnname = data['vulnname']
         poc_dir = data['poc_dir']
@@ -3402,7 +3404,7 @@ def vulnscan_check_back():
                         # fscan扫描程序用时统计相关
                         basic.scan_total_time_start_time(19)
                         # 提交扫描任务
-                        fscan_status_result = basic.startfscan_lib(fscanpartname)
+                        fscan_status_result = basic.startfscan_lib(fscanpartname,fscanpartname1)
                         # 在后台单独启动1个线程实时判断扫描器停止时间
                         def fscanscanendtime():
                             while True:
@@ -3428,7 +3430,7 @@ def vulnscan_check_back():
                             # fscan扫描程序用时统计相关
                             basic.scan_total_time_start_time(19)
                             # 提交扫描任务
-                            fscan_status_result = basic.startfscan_lib(fscanpartname)
+                            fscan_status_result = basic.startfscan_lib(fscanpartname,fscanpartname1)
                             # 在后台单独启动1个线程实时判断扫描器停止时间
                             def fscanscanendtime():
                                 while True:

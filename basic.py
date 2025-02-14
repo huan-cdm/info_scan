@@ -480,7 +480,7 @@ def status_scan(ip1):
 
 
 # fscan批量扫描
-def batch_fscan_interface(part):
+def batch_fscan_interface(part,part1):
     ip_list = url_convert_ip()
     
     f = open(file='/TIP/info_scan/fscan_tool/ip.txt', mode='w')
@@ -488,11 +488,21 @@ def batch_fscan_interface(part):
         f.write(str(k)+"\n")
     f.close()
 
-    try:
-        os.popen('bash /TIP/info_scan/finger.sh startfscanprocessmoren'+' '+part)
-        
-    except Exception as e:
+    # 禁止Web漏洞扫描
+    if int(part1) == 1:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh startfscanprocessmoren'+' '+part)
+        except Exception as e:
             print("捕获到异常:", e)
+    # 启用Web漏洞扫描
+    elif int(part1) == 2:
+        try:
+            os.popen('bash /TIP/info_scan/finger.sh startfscanprocessmorenall'+' '+part)
+        except Exception as e:
+            print("捕获到异常:", e)
+    else:
+        print("只允许参数0和1")
+
 
 
 # shiro漏洞扫描
@@ -1464,7 +1474,7 @@ def startafrog_lib():
 
 
 
-def startfscan_lib(fscanpartname):
+def startfscan_lib(fscanpartname,part1):
     # 删除历史fscan扫描数据
     os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
 
@@ -1473,7 +1483,7 @@ def startfscan_lib(fscanpartname):
         fscan_status_result = "fscan扫描程序正在运行中请勿重复提交"
     else:
         try:
-            batch_fscan_interface(fscanpartname)
+            batch_fscan_interface(fscanpartname,part1)
             
             if "running" in fscanstatus:
                 fscan_status_result = "fscan扫描程序已启动稍后查看扫描结果"

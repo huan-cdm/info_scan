@@ -203,7 +203,7 @@
         <span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
         <h3>系统配置</h3>
         <table border="1">
-           
+
             <tr>
                 <td>
                     <strong style="color: chocolate;">清空报告</strong><br>
@@ -249,6 +249,10 @@
                         <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
                     </select>
                     &nbsp;&nbsp;&nbsp;&nbsp;fscan扫描参数<br>
+                    <select name="fscanpartname1">
+                        <option value="1">禁用Web漏洞扫描</option>
+                        <option value="2">启用Web漏洞扫描</option>
+                    </select>
                     <textarea rows="3" cols="80" id="myTextarea2" onmouseover="fscantextarea_onhover()"
                         onmouseout="fscantextarea_onout()">
 							21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017</textarea>
@@ -392,7 +396,7 @@ poc显示区域</textarea>
                     &nbsp;&nbsp;&nbsp;&nbsp;爬虫扫描参数
                     <span style="color: goldenrod;" id="crawlergo_part_show_part1"></span>
                     <span style="color: goldenrod;" id="crawlergo_part_show_part2"></span>
-                    
+
                 </td>
             </tr>
 
@@ -454,7 +458,7 @@ poc显示区域</textarea>
             <tr>
                 <td>
                     <input type="text" placeholder="关键字" id="rule_input_id1" class="my-input5">
-                
+
                     <span class="my-span" onclick="startverifychearlogfunc('11')">保存</span>
                     <span class="my-spann" onclick="delete_rule_func()">删除</span>
                     <span class="my-spann" onclick="delete_rule_all_func()">清空</span>
@@ -558,8 +562,8 @@ poc显示区域</textarea>
 <div id="modal4" class="modal1">
     <div class="modal-content1">
         <span class="close" onclick="closeModal4()">&times;</span>
-        <h3>dnslog</h3>
-        <h3> Identifier: lednh4.ceye.io</h3>
+        <h3>dnslog日志</h3>
+        <span> Identifier: lednh4.ceye.io</span><br><br>
         <table id="data-table">
             <thead>
                 <tr>
