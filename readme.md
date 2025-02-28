@@ -63,6 +63,12 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-2-27更新<br> 
+1.新增设备默认口令查询；<br>
+2.设备口令存放到yaml文件中；<br>
+3.已知问题处理与优化；<br>
+</li>
+<li>
 2025-2-11更新<br> 
 1.系统配置功能优化；<br>
 2.已知问题处理与优化；<br>
@@ -457,3 +463,5 @@ icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/passdict.png" /><br><br>
 shodan收集资产<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/shodancollectasset.png" /><br><br>
+设备默认口令<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepassword.png" /><br><br>

@@ -50,6 +50,10 @@ from config import interface_num
 
 import datetime
 
+# yaml格式文件处理模块
+import yaml
+from config import device_pass_dir
+
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
     
@@ -3459,6 +3463,30 @@ def assets_college_shodan_lib():
         f.close()
     except:
         pass
+
+# 常见设备口令查看（yaml文件）
+def device_password_show():
+    
+    with open(device_pass_dir, 'r', encoding='utf-8') as file:
+       
+        data = yaml.safe_load(file)
+        # 解析每一行并转换为字典
+    result_list = []
+    for item in data:
+        # 拆分每一行，假设格式为 "公司`用户名`密码"
+        parts = item.split("`")
+        if len(parts) == 3:
+            company, username, password = parts
+            result_list.append({
+                "company": company.strip(),
+                "username": username.strip(),
+                "password": password.strip()
+            })
+        else:
+            print(f"解析错误：{item}")
+    return result_list
+
+
            
 
 

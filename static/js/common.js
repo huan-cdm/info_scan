@@ -1525,7 +1525,7 @@ function vulnxuanzhongscan() {
         url: '/vulnscan_check_back/',
         method: 'POST',
         // JSON格式数据传递给后端
-        data: JSON.stringify({ vuln_front_list: vuln_front_list, fscanpartname: fscanpartname,fscanpartname1:fscanpartname1 ,hydrapart: hydrapart, vulnname: vulnname, poc_dir: poc_dir }),
+        data: JSON.stringify({ vuln_front_list: vuln_front_list, fscanpartname: fscanpartname, fscanpartname1: fscanpartname1, hydrapart: hydrapart, vulnname: vulnname, poc_dir: poc_dir }),
         // 告诉服务器发送的数据是 JSON 格式
         contentType: 'application/json',
         // 期望服务器返回的数据类型
@@ -2791,4 +2791,55 @@ function shodan_search_assets_func() {
         }
 
     })
+}
+
+// 打开设备口令窗口
+function opendevicepasswordfunc() {
+    var modal5 = document.getElementById("modal5");
+    modal5.style.display = "block";
+    // 清空表格体中的所有行
+    const tableBody = document.querySelector('#data-table11 tbody');
+    tableBody.innerHTML = '';
+    $.ajax({
+        url: '/showdevicepassword/',
+        method: 'GET',
+        success: function (info) {
+            document.getElementById("deviceid1").innerHTML = info.device_dict_len;
+
+            const tableBody = document.querySelector('#data-table11 tbody');
+
+            info.device_dict.forEach(item => {
+                const row = document.createElement('tr'); // 创建新的行
+
+                // 创建单元格并填充数据
+                const idCell = document.createElement('td');
+                idCell.textContent = item.company;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.username;
+                row.appendChild(nameCell);
+
+                const addrCell = document.createElement('td');
+                addrCell.textContent = item.password;
+                row.appendChild(addrCell);
+
+                tableBody.appendChild(row); // 将行添加到表格体中
+            });
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭设备口令
+function closeModal5() {
+    var modal5 = document.getElementById("modal5");
+    modal5.style.display = "none";
 }

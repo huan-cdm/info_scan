@@ -128,3 +128,6 @@ assetverification = 0
 
 # 扫描前是否校验指纹识别(未进行指纹识别的资产无法进行扫描)，0表示不校验，1表示校验
 verification_fingerprint_recognition = 0
+
+# 定义常见设备口令密码文件路径
+device_pass_dir = "/TIP/info_scan/dict/WeakPass.yaml"

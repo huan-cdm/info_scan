@@ -113,6 +113,10 @@
                         style="color: #FFD700;"></i>&nbsp;&nbsp;MSF Builder</a></li>
             <li><a href="#" onclick="showContent('content15')"><i class="fa fa-folder fa-lg"
                         style="color: #FFD700;"></i>&nbsp;&nbsp;密码字典</a></li>
+
+            <li><a href="#" onclick="opendevicepasswordfunc()"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;设备默认口令</a></li>
+
         </ul>
     </div>
     <div id="content">
@@ -1755,6 +1759,30 @@
         </div>
         <div style="background-color:cadetblue; height: 410px;overflow-y: auto;">
             <p id="dictresult"></p>
+        </div>
+    </div>
+
+
+    <div id="modal5" class="modal1">
+
+        <div class="modal-content1">
+            <h3>设备默认口令列表</h3>
+            <span>本页面和多家浏览器深度合作，按Ctrl+f快捷键，即可搜索！</span><br>
+            <span id="deviceid1"></span>
+            <span class="close" onclick="closeModal5()">&times;</span>
+            <table id="data-table11">
+                <thead>
+                    <tr>
+                        <th>设备</th>
+                        <th>账号</th>
+                        <th>密码</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据将被填充在这里 -->
+                </tbody>
+            </table>
+
         </div>
     </div>
 

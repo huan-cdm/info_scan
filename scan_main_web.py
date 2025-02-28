@@ -1734,6 +1734,7 @@ def ceye_dns_record():
         ceye_key = basic.select_session_time_lib(5)
         result = os.popen('bash /TIP/info_scan/finger.sh ceye_dns'+' '+ceye_key).read()
         result_dict = json.loads(result)
+       
         message_json = {
             "resultdict":result_dict['data']
         }
@@ -5995,6 +5996,22 @@ def assets_byshodan():
 
         message_json = {
             "shodan_status_result":shodan_status_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+
+# 设备口令查看
+@app.route("/showdevicepassword/")
+def showdevicepassword():
+    user = session.get('username')
+    if str(user) == main_username:
+        device_dict = basic.device_password_show()
+        message_json = {
+            "device_dict":device_dict,
+            "device_dict_len":"设备类型（共"+str(len(device_dict))+"条 ）"
         }
         return jsonify(message_json)
     else:
