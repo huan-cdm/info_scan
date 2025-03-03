@@ -6003,7 +6003,7 @@ def assets_byshodan():
     
 
 
-# 设备口令查看
+# 设备口令查询所有
 @app.route("/showdevicepassword/")
 def showdevicepassword():
     user = session.get('username')
@@ -6012,6 +6012,28 @@ def showdevicepassword():
         message_json = {
             "device_dict":device_dict,
             "device_dict_len":"设备类型（共"+str(len(device_dict))+"条 ）"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 设备口令根据关键字查询
+@app.route("/showdevicepasswordbykey/",methods=['POST'])
+def showdevicepasswordbykey():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 定义新的列表用于存放通过关键字检索的结果
+        device_new_list = []
+        devicekeyvalue = request.form['devicekeyvalue']
+        print(devicekeyvalue)
+        device_dict = basic.device_password_show()
+        for key1 in device_dict:
+            if str(devicekeyvalue) in str(key1):
+                device_new_list.append(key1)
+        message_json = {
+            "device_new_list":device_new_list,
+            "device_new_list_len":"设备类型（共"+str(len(device_new_list))+"条 ）"
         }
         return jsonify(message_json)
     else:

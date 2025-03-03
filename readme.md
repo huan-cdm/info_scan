@@ -464,4 +464,5 @@ icon_hash计算<br>
 shodan收集资产<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/shodancollectasset.png" /><br><br>
 设备默认口令<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepassword.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepassword.png" /><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepasswordbykey.png" /><br><br>

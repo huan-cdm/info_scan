@@ -45,12 +45,6 @@
 		}
 
 
-		/* input[type="text"] {
-			height: 40px;
-			width: 700px;
-			font-size: 20px;
-		} */
-
 		.my-input-text {
 			height: 40px;
 			width: 700px;
@@ -402,6 +396,12 @@
 		.my-input {
 			height: 25px;
 			width: 700px;
+			font-size: medium;
+		}
+
+		.my-input3 {
+			height: 25px;
+			width: 500px;
 			font-size: medium;
 		}
 

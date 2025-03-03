@@ -2843,3 +2843,51 @@ function closeModal5() {
     var modal5 = document.getElementById("modal5");
     modal5.style.display = "none";
 }
+
+// 通过关键字检索设备口令
+function opendevicepasswordbykeyfunc(){
+    var devicekeyvalue = document.getElementById("devicekeyvalue").value;
+    // 清空表格体中的所有行
+    const tableBody = document.querySelector('#data-table11 tbody');
+    tableBody.innerHTML = '';
+
+    $.ajax({
+        url: '/showdevicepasswordbykey/',
+        method: 'POST',
+        data: {
+            devicekeyvalue: devicekeyvalue
+        },
+        success: function (info) {
+            document.getElementById("deviceid1").innerHTML = info.device_new_list_len;
+
+            const tableBody = document.querySelector('#data-table11 tbody');
+
+            info.device_new_list.forEach(item => {
+                const row = document.createElement('tr'); // 创建新的行
+
+                // 创建单元格并填充数据
+                const idCell = document.createElement('td');
+                idCell.textContent = item.company;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.username;
+                row.appendChild(nameCell);
+
+                const addrCell = document.createElement('td');
+                addrCell.textContent = item.password;
+                row.appendChild(addrCell);
+
+                tableBody.appendChild(row); // 将行添加到表格体中
+            });
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+}
