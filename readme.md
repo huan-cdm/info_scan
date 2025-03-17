@@ -7,8 +7,9 @@
 进入容器：docker exec -it 容器ID /bin/bash<br>
 启动mysql：service  mysql start<br>
 4.平台环境：<br>
-下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2<br>
-启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2 /bin/bash<br>
+下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（历史版本）<br>
+下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更新）<br>
+启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3 /bin/bash<br>
 进入容器：docker exec -it 容器ID /bin/bash<br>
 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js<br>
 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
@@ -62,6 +63,11 @@ mysql账号密码：admin/123456<br>
 
 <h2>更新日志：</h2>
 <ul>
+<li>
+2025-3-17更新<br> 
+1.docker版本平台环境更新；<br>
+2.已知问题处理与优化；<br>
+</li>
 <li>
 2025-2-27更新<br> 
 1.新增设备默认口令查询；<br>
