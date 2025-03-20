@@ -131,3 +131,6 @@ verification_fingerprint_recognition = 0
 
 # 定义常见设备口令密码文件路径
 device_pass_dir = "/TIP/info_scan/dict/WeakPass.yaml"
+
+# 定义常见杀软进程名和描述文件路径
+antiv_software_dir = "/TIP/info_scan/dict/Antivirussoftware.yaml"

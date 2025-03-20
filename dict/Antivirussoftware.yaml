@@ -1,0 +1,100 @@
+- MsMpEng.exe`Windows Defender反恶意软件服务
+- NisSrv.exe`Windows Defender网络检查服务
+- MsSense.exe`Windows Defender高级威胁防护服务
+- 360tray.exe`360安全卫士托盘程序
+- 360sd.exe`360杀毒主程序
+- a2guard.exe`a-squared杀毒守护进程
+- ad-watch.exe`Lavasoft杀毒广告拦截
+- cleaner8.exe`The Cleaner杀毒清理工具
+- vba32lder.exe`vb32杀毒加载器
+- MongoosaGUI.exe`Mongoosa杀毒用户界面
+- CorantiControlCenter32.exe`Coranti2012杀毒控制中心
+- F-PROT.EXE`F-PROT杀毒主程序
+- CMCTrayIcon.exe`CMC杀毒托盘程序
+- K7TSecurity.exe`K7杀毒安全程序
+- UnThreat.exe`UnThreat杀毒主程序
+- CKSoftShiedAntivirus4.exe`Shield Antivirus杀毒主程序
+- AVWatchService.exe`VIRUSfighter杀毒监控服务
+- ArcaTasksService.exe`ArcaVir杀毒任务服务
+- iptray.exe`Immunet杀毒托盘程序
+- PSafeSysTray.exe`PSafe杀毒托盘程序
+- nspupsvc.exe`nProtect杀毒更新服务
+- SpywareTerminatorShield.exe`SpywareTerminator杀毒防护程序
+- BKavService.exe`Bkav杀毒服务程序
+- SBAMSvc.exe`VIPRE安全服务
+- ccSvcHst.exe`Norton杀毒服务宿主
+- avp.exe`卡巴斯基主程序
+- KvMonXP.exe`江民杀毒监控程序
+- RavMonD.exe`瑞星杀毒监控程序
+- Mcshield.exe`麦咖啡主防护程序
+- egui.exe`NOD32用户界面
+- kxetray.exe`金山毒霸托盘程序
+- knsdtray.exe`可牛杀毒托盘程序
+- avcenter.exe`Avira(小红伞)中心程序
+- ashDisp.exe`Avast网络安全显示程序
+- rtvscan.exe`诺顿杀毒扫描程序
+- ksafe.exe`金山卫士主程序
+- QQPCRTP.exe`QQ电脑管家主程序
+- Miner.exe`流量矿石相关程序
+- AYAgent.aye`韩国胶囊代理程序
+- patray.exe`安博士托盘程序
+- V3Svc.exe`安博士V3服务程序
+- avgwdsvc.exe`AVG杀毒杀毒服务
+- ccSetMgr.exe`赛门铁克设置管理
+- QUHLPSVC.EXE`QUICK HEAL杀毒安全服务
+- mssecess.exe`微软杀毒安全服务
+- SavProgress.exe`Sophos杀毒扫描进度
+- fsavgui.exe`F-Secure杀毒用户界面
+- vsserv.exe`比特梵德服务程序
+- remupd.exe`熊猫卫士更新程序
+- FortiTray.exe`飞塔托盘程序
+- safedog.exe`安全狗主程序
+- parmor.exe`木马克星主程序
+- beikesan.exe`贝壳云安全主程序
+- KSWebShield.exe`金山网盾主程序
+- TrojanHunter.exe`木马猎手主程序
+- GG.exe`巨盾网游安全盾主程序
+- adam.exe`绿鹰安全精灵主程序
+- AST.exe`超级巡警主程序
+- ananwidget.exe`墨者安全专家主程序
+- AVK.exe`GData主程序
+- ccapp.exe`Symantec Norton应用程序
+- avg.exe`AVG Anti-Virus主程序
+- spidernt.exe`Dr.web主程序
+- Mcshield.exe`Mcafee主防护程序
+- avgaurd.exe`Avira Antivir防护程序
+- F-PROT.exe`F-Prot AntiVirus主程序
+- vsmon.exe`ZoneAlarm监控程序
+- cpf.exe`Comodo防火墙相关
+- outpost.exe`Outpost Firewall防火墙程序
+- rfwmain.exe`瑞星防火墙主程序
+- kpfwtray.exe`金山网镖托盘程序
+- FYFireWall.exe`风云防火墙主程序
+- MPMon.exe`微点主动防御监控程序
+- pfw.exe`天网防火墙主程序
+- S.exe`在抓鸡相关程序
+- 1433.exe`在扫1433相关程序
+- DUB.exe`在爆破相关程序
+- ServUDaemon.exe`发现S-U相关程序
+- BaiduSdSvc.exe`百度杀软服务程序
+- SafeDogGuardCenter.exe`安全狗防护中心
+- safedogupdatecenter.exe`安全狗更新中心
+- safedogguardcenter.exe`安全狗防护中心
+- SafeDogSiteIIS.exe`安全狗IIS相关
+- SafeDogTray.exe`安全狗托盘程序
+- SafeDogServerUI.exe`安全狗服务器界面
+- D_Safe_Manage.exe`D盾管理程序
+- d_manage.exe`D盾管理程序
+- yunsuo_agent_service.exe`云锁代理服务
+- yunsuo_agent_daemon.exe`云锁代理守护
+- HwsPanel.exe`护卫神入侵防护系统（状态托盘）
+- hws_ui.exe`护卫神入侵防护系统
+- hws.exe`护卫神入侵防护系统 服务处理程序
+- hwsd.exe`护卫神入侵防护系统 监控组件
+- hipstray.exe`火绒托盘程序
+- wsctrl.exe`火绒控制程序
+- usysdiag.exe`火绒系统诊断
+- TMBMSRV.exe`趋势科技服务程序
+- ntrtscan.exe`趋势科技扫描程序
+- PCCNTMON.exe`趋势科技监控程序
+- TMLISTEN.exe`趋势科技监听程序

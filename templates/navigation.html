@@ -116,7 +116,8 @@
 
             <li><a href="#" onclick="opendevicepasswordfunc()"><i class="fa fa-folder fa-lg"
                         style="color: #FFD700;"></i>&nbsp;&nbsp;设备默认口令</a></li>
-
+            <li><a href="#" onclick="openantivsoftallfunc()"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;杀软识别</a></li>
         </ul>
     </div>
     <div id="content">
@@ -1762,7 +1763,7 @@
         </div>
     </div>
 
-
+    <!-- 设备默认口令 -->
     <div id="modal5" class="modal1">
 
         <div class="modal-content1">
@@ -1777,6 +1778,34 @@
                         <th>设备</th>
                         <th>账号</th>
                         <th>密码</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据将被填充在这里 -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- 杀软识别 -->
+    <div id="modal6" class="modal1">
+
+        <div class="modal-content1">
+            <h3>杀软识别</h3>
+<textarea style="width: 1000px;height: 50px;resize: vertical;" id="antivirusTextarea">
+360tray.exe
+360sd.exe
+</textarea>
+            <span style="cursor: pointer;;" onclick="openantivsoftbykeyfunc()">检索</span>
+            <br>
+            <span id="sharuanid1"></span>
+            <span class="close" onclick="closeModal6()">&times;</span>
+            <table id="data-table22">
+                <thead>
+                    <tr>
+                        <th>杀软进程名称</th>
+                        <th>杀软进程描述</th>
                     </tr>
                 </thead>
                 <tbody>

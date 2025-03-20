@@ -2845,7 +2845,7 @@ function closeModal5() {
 }
 
 // 通过关键字检索设备口令
-function opendevicepasswordbykeyfunc(){
+function opendevicepasswordbykeyfunc() {
     var devicekeyvalue = document.getElementById("devicekeyvalue").value;
     // 清空表格体中的所有行
     const tableBody = document.querySelector('#data-table11 tbody');
@@ -2877,6 +2877,104 @@ function opendevicepasswordbykeyfunc(){
                 const addrCell = document.createElement('td');
                 addrCell.textContent = item.password;
                 row.appendChild(addrCell);
+
+                tableBody.appendChild(row); // 将行添加到表格体中
+            });
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 杀软识别查询所有
+function openantivsoftallfunc() {
+    var modal6 = document.getElementById("modal6");
+    modal6.style.display = "block";
+
+    // 清空表格体中的所有行
+    const tableBody = document.querySelector('#data-table22 tbody');
+    tableBody.innerHTML = '';
+    $.ajax({
+        url: '/antivirus_soft_show_interface/',
+        method: 'GET',
+        success: function (info) {
+            document.getElementById("sharuanid1").innerHTML = info.antivirus_dict_len;
+
+            const tableBody = document.querySelector('#data-table22 tbody');
+
+            info.antivirus_dict.forEach(item => {
+                const row = document.createElement('tr'); // 创建新的行
+
+                // 创建单元格并填充数据
+                const idCell = document.createElement('td');
+                idCell.textContent = item.antivirus_name;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.antivirus_decrib;
+                row.appendChild(nameCell);
+
+                tableBody.appendChild(row); // 将行添加到表格体中
+            });
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭杀软识别
+function closeModal6() {
+    var modal6 = document.getElementById("modal6");
+    modal6.style.display = "none";
+}
+
+
+// 通过关键字查询杀软
+function openantivsoftbykeyfunc() {
+    var modal6 = document.getElementById("modal6");
+    modal6.style.display = "block";
+
+    // 获取textarea的值  
+    const text = document.getElementById('antivirusTextarea').value;
+    // 按换行符分割文本为数组  
+    const antiviruslines = text.split('\n');
+    // 清空表格体中的所有行
+    const tableBody = document.querySelector('#data-table22 tbody');
+    tableBody.innerHTML = '';
+    $.ajax({
+        url: '/antivirus_soft_show_interface_bykey/',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ antiviruslines: antiviruslines }),
+        dataType: 'json',
+        success: function (info) {
+            document.getElementById("sharuanid1").innerHTML = info.antivirus_dict_len;
+
+            const tableBody = document.querySelector('#data-table22 tbody');
+
+            info.antivirus_dict.forEach(item => {
+                const row = document.createElement('tr'); // 创建新的行
+
+                // 创建单元格并填充数据
+                const idCell = document.createElement('td');
+                idCell.textContent = item.antivirus_name;
+                row.appendChild(idCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.antivirus_decrib;
+                row.appendChild(nameCell);
 
                 tableBody.appendChild(row); // 将行添加到表格体中
             });

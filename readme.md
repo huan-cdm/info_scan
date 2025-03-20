@@ -64,9 +64,10 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
-2025-3-17更新<br> 
+2025-3-19更新<br> 
 1.docker版本平台环境更新；<br>
 2.已知问题处理与优化；<br>
+3.新增杀软识别模块；<br>
 </li>
 <li>
 2025-2-27更新<br> 
@@ -472,3 +473,6 @@ shodan收集资产<br>
 设备默认口令<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepassword.png" /><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepasswordbykey.png" /><br><br>
+杀软识别<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus1.png" /><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus2.png" /><br><br>

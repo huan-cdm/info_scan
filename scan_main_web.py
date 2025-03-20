@@ -6026,7 +6026,7 @@ def showdevicepasswordbykey():
         # 定义新的列表用于存放通过关键字检索的结果
         device_new_list = []
         devicekeyvalue = request.form['devicekeyvalue']
-        print(devicekeyvalue)
+        # print(devicekeyvalue)
         device_dict = basic.device_password_show()
         for key1 in device_dict:
             if str(devicekeyvalue) in str(key1):
@@ -6034,6 +6034,50 @@ def showdevicepasswordbykey():
         message_json = {
             "device_new_list":device_new_list,
             "device_new_list_len":"设备类型（共"+str(len(device_new_list))+"条 ）"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
+# 常见杀软名称查询所有
+@app.route("/antivirus_soft_show_interface/")
+def antivirus_soft_show_interface():
+    user = session.get('username')
+    if str(user) == main_username:
+        antivirus_dict = basic.antivirus_soft_show()
+        message_json = {
+            "antivirus_dict":antivirus_dict,
+            "antivirus_dict_len":"常见杀毒软件（共"+str(len(antivirus_dict))+"条 ）"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 根据关键字查询杀软进程名称
+@app.route("/antivirus_soft_show_interface_bykey/",methods=['POST'])
+def antivirus_soft_show_interface_bykey():
+    user = session.get('username')
+    if str(user) == main_username:
+        antiviruslines = request.json.get('antiviruslines', [])
+        antiviruslines_uniq = list(set(antiviruslines))
+        
+        # 定义新的列表用于存放通过关键字检索的结果
+        antivirus_new_list = []
+
+        antivirus_dict = basic.antivirus_soft_show()
+
+        # 循环判断
+        for i in antivirus_dict:
+            for j in antiviruslines_uniq:
+                if str(j) in str(i):
+                    antivirus_new_list.append(i)
+
+        message_json = {
+            "antivirus_dict":antivirus_new_list,
+            "antivirus_dict_len":"设备类型（共"+str(len(antivirus_new_list))+"条 ）"
         }
         return jsonify(message_json)
     else:

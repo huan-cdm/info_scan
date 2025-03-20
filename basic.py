@@ -53,6 +53,7 @@ import datetime
 # yaml格式文件处理模块
 import yaml
 from config import device_pass_dir
+from config import antiv_software_dir
 
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
@@ -3486,6 +3487,26 @@ def device_password_show():
             print(f"解析错误：{item}")
     return result_list
 
+
+# 常见杀软查询（yaml文件）
+def antivirus_soft_show():
+    with open(antiv_software_dir, 'r', encoding='utf-8') as file:
+       
+        data = yaml.safe_load(file)
+        # 解析每一行并转换为字典
+    result_list = []
+    for item in data:
+        # 拆分每一行，假设格式为 "杀软进程名`进程描述"
+        parts = item.split("`")
+        if len(parts) == 2:
+            antivirus_name, antivirus_decrib = parts
+            result_list.append({
+                "antivirus_name": antivirus_name.strip(),
+                "antivirus_decrib": antivirus_decrib.strip()
+            })
+        else:
+            print(f"解析错误：{item}")
+    return result_list
 
            
 
