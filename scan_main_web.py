@@ -1,8 +1,4 @@
-# Description:[主系统]
-# Author:[huan666]
-# Date:[2023/11/15]
-# update:[2024/9/23]
-
+#!/usr/bin/python3
 from flask import Flask, render_template,request
 from flask import session
 from flask import redirect
@@ -93,6 +89,8 @@ import json
 from config import verification_fingerprint_recognition
 
 import shodan
+
+from vuln_lib import get_time_period_lib
 
 app = Flask(__name__,template_folder='./templates') 
 app.config.from_pyfile('config_session.py')
@@ -255,11 +253,12 @@ def ipscaninterface():
             ipstatus = basic.ipstatus_scan(ip)
         except:
             pass
-    
+        
+        period_time = get_time_period_lib()
     
         return render_template('index.html',data1=data1,data2=ip,data3=data3,data4=data4
         ,data5=localtion_list_result,data6=port,data7=history_domain,data8=os_type,data9=cdn_list
-        ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation,data20=str(user))
+        ,data10=site_title_list_result,data11=subdomain_list,data12=ipstatus,data13=companylocation,data20=str(user),data30 = str(period_time))
     else:
         return render_template('login.html')
 
@@ -271,7 +270,8 @@ def index():
         # asset_file_list = basic.list_files_in_directory()
         asset_file_list = basic.fofa_grammar_lib()
         session_time = basic.select_session_time_lib(1)
-        return render_template('index.html',data20=str(user),data21=asset_file_list,data22=str(session_time))
+        period_time = get_time_period_lib()
+        return render_template('index.html',data20=str(user),data21=asset_file_list,data22=str(session_time),data30 = str(period_time))
     else:
         return render_template('login.html')
 

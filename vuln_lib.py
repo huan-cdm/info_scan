@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 '''
 未覆盖文件上传类POC
 1. ES数据库漏洞POC
@@ -1112,6 +1112,21 @@ def bcrypt_decrypt():
                     print("密文："+str(passwd.decode('utf-8'))+"\n"+"明文："+str(dict.decode('utf-8')))
             except:
                 pass
+
+
+# 获取时间期，上午、中午、下午、晚上
+def get_time_period_lib():
+    now = datetime.now()
+    hour = now.hour
+    if 5 <= hour < 12:
+        period_result = "上午好"
+    elif 12 <= hour < 14:
+        period_result = "中午好"
+    elif 14 <= hour < 18:
+        period_result = "下午好"
+    else:
+        period_result = "晚上好"
+    return period_result
 
 
 

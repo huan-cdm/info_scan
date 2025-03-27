@@ -18,13 +18,23 @@
 		<a href="/siteroute/" target="_blank">网站导航</a>
 		<a href="#dnslog" onclick="dnslogfunc()">DNSQuery</a>
 		<a href="#data" onclick="openModal()">数据展示</a>
-		<a href="#rebootserver" onclick="restart_service_func()">重启</a>
-		<a href="#siginout" onclick="signoutfunc()">注销</a>
+		
+
 	</div>
 	<div class="content">
-		<span align="left">欢迎访问漏洞扫描平台！</span> <br>
-		<span align="right">登录用户：{{data20}}</span> &nbsp;&nbsp;&nbsp;
-		<spap>会话有效期：{{data22}} 分钟</spap>
+		<span style="display: block; text-align: left;font-size: larger;">欢迎访问漏洞扫描平台，会话有效时间：{{data22}} 分钟！</span>
+
+		<div class="dropdown">
+			<span class="dropdown-span">{{data30}}，{{data20}}</span>
+			<div class="dropdown-content">
+				<a href="#siginout" onclick="signoutfunc()">注销</a>
+				<a href="#rebootserver" onclick="restart_service_func()">重启</a>
+				<a href="#systemconfig" onclick="startscanconfigpagefunc()">系统配置</a>
+			</div>
+		</div>
+
+
+
 		{% include 'tanchuang.html' %}
 		<br><br>
 		<div class="button-container">
@@ -35,7 +45,7 @@
 			<span class="my-spanconfig11" onclick="total_report_yulan_func()">报告预览</span>&nbsp;
 			<span class="my-spanconfig11" onclick="reportdownloadfunc()">报告下载</span>&nbsp;
 			<span class="my-spanconfig11" onclick="assetdownloadfunc()">资产下载</span>
-			<span onclick="startscanconfigpagefunc()" style="cursor: pointer;" class="my-spanconfig11">系统配置</span>&nbsp;
+			<!-- <span onclick="startscanconfigpagefunc()" style="cursor: pointer;" class="my-spanconfig11">系统配置</span>&nbsp; -->
 			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig11">字典配置</span>
 
 			</di>

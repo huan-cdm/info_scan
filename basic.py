@@ -1,8 +1,4 @@
-# Description:[系统调用第三方接口文件]
-# Author:[huan666]
-# Date:[2024/05/28]
-# update:[2024/9/12]
-
+#!/usr/bin/python3
 # shodan查询模块
 import shodan
 import queue
@@ -3509,7 +3505,6 @@ def antivirus_soft_show():
     return result_list
 
            
-
 
 
 
