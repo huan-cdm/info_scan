@@ -746,3 +746,10 @@
 			cursor: pointer;
 			font-size: larger;
 		}
+		.footer {
+            margin-top: auto; /* 将 footer 推到页面底部 */
+            text-align: center; /* 内容居中 */
+            padding: 10px;
+            background: #f0f0f0;
+			font-size:x-large;
+        }
