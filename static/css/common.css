@@ -485,12 +485,10 @@
 		.top-menu {
 			background-color: #333;
 			overflow: hidden;
-			position: static;
-			/* 固定定位 */
-			top: 0;
+			position: relative; /* 确保在 LOGO 下面 */
 			width: 100%;
-			z-index: 1000;
-			/* 确保菜单在页面内容之上 */
+			z-index: 999; /* 确保比 LOGO 低 */
+			margin-top: 30px; /* 让菜单下移，避免遮挡 LOGO */
 		}
 
 		.top-menu a {
@@ -753,3 +751,9 @@
             background: #f0f0f0;
 			font-size:x-large;
         }
+		.logo {
+			position: absolute;
+			top: 0px; /* 距离顶部0px */
+			left: 0px; /* 距离左侧0px */
+			z-index: 1000; /* 确保在其他元素之上 */
+		}
