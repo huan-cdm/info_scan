@@ -375,7 +375,7 @@ function reporttotalfunc() {
         url: '/report_total_interface/',
         method: 'GET',
         success: function (info) {
-            alert(info.total_result)
+            document.getElementById('vulnscan13').innerHTML = info.total_result;
         },
         error: function () {
             alert('内部出错')
@@ -2210,6 +2210,18 @@ function closevulnscan8() {
     myModa9.style.display = "none";
 
 }
+
+// 打开报告管理
+function reportmanagerfunc(){
+    var myModa13 = document.getElementById("myModa13");
+    myModa13.style.display = "block";
+}
+function closevulnscan12() {
+    var myModa13 = document.getElementById("myModa13");
+    myModa13.style.display = "none";
+
+}
+
 
 // 打开资产收集弹窗
 function openassetcollectfunc() {

@@ -175,8 +175,8 @@
 			display: none;
 			/* 隐藏弹窗 */
 			position: absolute;
-			z-index: 1;
-			/* 弹窗位于其他元素之上 */
+			z-index: 1000;
+			/* 弹窗位于其他元素之上，值大会覆盖掉值小的元素 */
 			left: 0;
 			top: 0;
 			width: 100%;
@@ -237,6 +237,8 @@
 			/* 启用滚动条 */
 			background-color: rgba(0, 0, 0, 0.5);
 			/* 黑色背景，半透明 */
+			z-index: 1000;
+			/* 确保弹窗在其他元素上面 */
 		}
 
 		.modal-content1 {
@@ -275,7 +277,7 @@
 			/* 隐藏弹窗 */
 			position: absolute;
 			/* 弹窗固定在视口 */
-			z-index: 1;
+			z-index: 1000;
 			/* 弹窗位于其他元素之上 */
 			left: 0;
 			top: 0;
@@ -487,7 +489,7 @@
 			overflow: hidden;
 			position: relative; /* 确保在 LOGO 下面 */
 			width: 100%;
-			z-index: 999; /* 确保比 LOGO 低 */
+			z-index: 9; /* 确保比 LOGO 低 */
 			margin-top: 30px; /* 让菜单下移，避免遮挡 LOGO */
 		}
 
