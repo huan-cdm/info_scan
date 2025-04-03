@@ -472,8 +472,6 @@ icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/iconhash.png" /><br><br>
 密码字典<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/passdict.png" /><br><br>
-shodan收集资产<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/shodancollectasset.png" /><br><br>
 设备默认口令<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepassword.png" /><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepasswordbykey.png" /><br><br>
