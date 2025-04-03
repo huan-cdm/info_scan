@@ -438,12 +438,8 @@ IP基础信息查询<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br><br>
 资产收集<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/><br><br>
-
-特殊字符校验<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br><br>
 批量扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang1scan.png" /><br><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang2scan.png" /><br><br>
 JNDI服务管理<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
 fofa语法日志<br>
