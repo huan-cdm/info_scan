@@ -64,6 +64,11 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-4-3更新<br> 
+1.资产优化功能更新；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-3-27更新<br> 
 1.新增时间段显示，上午、中午、下午、晚上；<br>
 2.前端页面优化，注销、重启、系统配置，修改到鼠标放用户名显示，移除消失效果；<br>
@@ -431,13 +436,9 @@ IP基础信息查询<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
 漏洞报告<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/report.png"/><br><br>
-资产发现<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind2.png" /><br><br>
-弱口令扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weakpasswd.png" /><br><br>
-总报告在线预览<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/onlineyulan.jpg" /><br><br>
+资产收集<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/assetfind1.png"/><br><br>
+
 特殊字符校验<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/saferule.png" /><br><br>
 批量扫描<br>
