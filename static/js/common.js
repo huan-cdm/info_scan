@@ -1191,30 +1191,6 @@ function login_interface_func() {
 
 
 
-// 重启服务接口
-function restart_service_func() {
-
-    $.ajax({
-        url: '/restartsystemservice/',
-        method: 'GET',
-
-        success: function (info) {
-            if (confirm(info.comfirm)) {
-                info.infoscanstatus;
-            }
-        },
-        // 重启服务中断会跳转到error处
-        error: function (info) {
-            alert("服务已重启相关配置已重新加载")
-        },
-        complete: function () {
-
-        }
-    })
-}
-
-
-
 // 初始状态
 function yincangtishifun() {
     var routestatus1 = document.getElementById("routestatus1");
@@ -3060,4 +3036,31 @@ function openantivsoftbykeyfunc() {
 
         }
     })
+}
+
+
+// 系统重启
+function systemrebootfunc() {
+    var myModa14 = document.getElementById("myModa14");
+    myModa14.style.display = "block";
+    $.ajax({
+        url: '/restartsystemservice/',
+        method: 'GET',
+
+        success: function (info) {
+            document.getElementById('rebootid1').innerHTML = info.infoscanstatus;
+        },
+        error: function () {
+            document.getElementById('rebootid1').innerHTML = "服务正在重启中"
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+function closevulnscan13() {
+    var myModa14 = document.getElementById("myModa14");
+    myModa14.style.display = "none";
+
 }

@@ -2379,8 +2379,7 @@ def restartsystemservice():
         else:
             infoscanstatus = "正在重启中..."
         message_json = {
-            "infoscanstatus":infoscanstatus,
-            "comfirm":"确定重新启动服务吗?"
+            "infoscanstatus":infoscanstatus
         }
 
         return jsonify(message_json)

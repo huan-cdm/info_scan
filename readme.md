@@ -67,6 +67,7 @@ mysql账号密码：admin/123456<br>
 2025-4-3更新<br> 
 1.资产优化功能更新；<br>
 2.已知问题处理与优化；<br>
+3.服务重启弹窗修改为自定义样式，替换到原来的默认弹窗；<br>
 </li>
 <li>
 2025-3-27更新<br> 
@@ -457,4 +458,6 @@ icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus1.png" /><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus2.png" /><br><br>
 资产优化<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/youhua.png" /><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/youhua.png" /><br><br>
+服务重启<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/servicereboot.png" /><br>
