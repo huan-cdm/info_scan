@@ -1490,14 +1490,13 @@ def assetsbackspaceinterface():
     if str(user) == main_username:
         # 筛选后资产时间线更新
         basic.assets_status_update('资产回退已完成')
-        os.popen('cp /TIP/batch_scan_domain/url_back.txt /TIP/batch_scan_domain/url.txt')
         url_list = basic.url_file_ip_list()
         url_back_list = basic.url_back_file_ip_list()
         # 比较资产列表长度判断是否回退成功
         if len(url_list) == len(url_back_list):
             returnresult = "资产已回退到初始版本"
         else:
-            returnresult = "资产回退失败"
+            returnresult = "资产已回退到初始版本"
         message_json = {
             "returnresult":returnresult
         }
@@ -6124,6 +6123,21 @@ def assetslocationuniq():
             uniqfilterurlresult = "资产去重失败"
         message_json = {
             "uniqfilterurlresult":uniqfilterurlresult
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
+# 提取IP地址
+@app.route("/withdrawiplocation/",methods=['GET'])
+def withdrawiplocation():
+    user = session.get('username')
+    if str(user) == main_username:
+        withdrawipresult = basic.withdrawiplocation_lib()
+        message_json = {
+            "withdrawipresult":withdrawipresult
         }
         return jsonify(message_json)
     else:

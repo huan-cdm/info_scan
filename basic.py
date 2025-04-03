@@ -144,6 +144,7 @@ def url_file_ip_list():
 
 # 资产备份文件转列表
 def url_back_file_ip_list():
+    os.popen('cp /TIP/batch_scan_domain/url_back.txt /TIP/batch_scan_domain/url.txt')
     url_back_list = []
     file = open("/TIP/batch_scan_domain/url_back.txt",encoding='utf-8')
     for line in file.readlines():
@@ -3555,7 +3556,32 @@ def filter_private_ip_lib():
         result = ["过滤内网地址失败",len(private_ip_list)]
     return result
     
-            
+
+
+# 提取IP地址
+def withdrawiplocation_lib():
+    # 全部资产列表
+    assets_list = url_file_ip_list()  
+    ip_list = []
+    for asset in assets_list:
+        try:
+            ip = ipaddress.ip_address(asset)
+            if ip.version == 4:
+                ip_list.append(asset)                                      
+            elif ip.version == 6:
+                ip_list.append(asset)                    
+        except:
+            pass
+    if len(ip_list) <= len(assets_list):
+         # 遍历列表存入目标资产
+        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        for k in ip_list:
+            f.write(str(k)+"\n")
+        f.close()
+        ip_list_result = "提取IP地址成功"
+    else:
+        ip_list_result = "提取IP地址失败"
+    return  ip_list_result
 
            
 
@@ -3578,8 +3604,8 @@ if __name__ == "__main__":
             cdn_detection_lib()
         elif func_name == 'assets_college_shodan_lib':
             assets_college_shodan_lib()
-        elif func_name == 'filter_private_ip_lib':
-            filter_private_ip_lib()
+        elif func_name == 'withdrawiplocation_lib':
+            withdrawiplocation_lib()
         else:
             print("Invalid function number")
     else:

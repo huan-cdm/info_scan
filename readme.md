@@ -411,14 +411,6 @@ mysql账号密码：admin/123456<br>
 13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
 14. pip3 install -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ 安装所需模块<br><br>
 
-项目目录结构
-├── /TIP<br>
-│   ├── info_scan<br>
-│   ├── batch_scan_domain<br><br>
-项目部署目录<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/project.png"/><br><br>
-程序文件<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/code.png"/><br><br>
 服务启动参数<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br><br>
 系统登录<br>
@@ -426,11 +418,11 @@ mysql账号密码：admin/123456<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/login2.jpg"/><br><br>
 IP基础信息查询<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ipbasicinfo.png"/><br><br>
-展开收起<br>
+系统首页<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/partconfigpage.png"/><br><br>
-数据展示<br>
+数据分析<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
 目录扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
@@ -446,28 +438,14 @@ fofa语法日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
 弱口令扫描字典配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
-ES数据库漏洞扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/elasticsearch_scan.png" /><br><br>
-复核界面<br>
+二次校验<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" /><br><br>
-致远OA漏洞扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/seeyonscan.png" /><br><br>
-用友OA漏洞扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/yonsuitescan.png" /><br><br>
-金蝶OA漏洞扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/kingdeescan.png" /><br><br>
-万户OA漏洞扫描<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/wanhuscan.png" /><br><br>
 dnslog<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" /><br><br>
 系统配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" /><br><br>
 网站导航<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" /><br><br>
-401认证<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/401_auth.png" /><br><br>
-未授权专项<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/weishouquan.png" /><br><br>
 icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/iconhash.png" /><br><br>
 密码字典<br>
@@ -478,3 +456,5 @@ icon_hash计算<br>
 杀软识别<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus1.png" /><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus2.png" /><br><br>
+资产优化<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/youhua.png" /><br>

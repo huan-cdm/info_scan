@@ -2320,6 +2320,26 @@ function assetslocationuniqfunc() {
     })
 }
 
+// 提取IP地址
+function withdrawiplocationfunc() {
+    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid3').innerHTML = "";
+    $.ajax({
+        url: '/withdrawiplocation/',
+        method: 'GET',
+        success: function (info) {
+            // 当请求成功时调用
+            document.getElementById('assetfilterid2').innerHTML = info.withdrawipresult;
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
 //资产下载
 function assetdownloadfunc() {
     window.open("/assetsdownload/", "_blank");
