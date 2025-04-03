@@ -759,3 +759,17 @@
 			left: 0px; /* 距离左侧0px */
 			z-index: 1000; /* 确保在其他元素之上 */
 		}
+
+		.my-spanconfig22 {
+			display: inline-block;
+			/* 使span可以设置宽高 */
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
+			background-color:dodgerblue;
+			/* 背景颜色设置为橙色 */
+			color: rgba(8, 0, 0, 0.946);
+			/* 文本颜色设置为白色，以便在橙色背景上可见 */
+			text-align: center;
+			cursor: pointer;
+		}

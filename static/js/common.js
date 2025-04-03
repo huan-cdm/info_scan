@@ -107,8 +107,6 @@ function startbutton() {
     button2.disabled = false;
     var button3 = document.getElementById("button3");
     button3.disabled = false;
-    var button19 = document.getElementById("button19");
-    button19.disabled = false;
     var button20 = document.getElementById("button20");
     button20.disabled = false;
     var button24 = document.getElementById("button24");
@@ -147,8 +145,6 @@ function stopbutton() {
     button2.disabled = true;
     var button3 = document.getElementById("button3");
     button3.disabled = true;
-    var button19 = document.getElementById("button19");
-    button19.disabled = true;
     var button20 = document.getElementById("button20");
     button20.disabled = true;
     var button24 = document.getElementById("button24");
@@ -188,27 +184,6 @@ function jumpdirscanpage() {
 }
 
 
-//数据处理模块
-function filedeweightingfunc() {
-    var fileqingxiname = $('select[name="fileqingxiname"]').val();
-    $.ajax({
-        url: '/uniqdirsearchtargetinterface/',
-        method: 'POST',
-        data: {
-            fileqingxiname: fileqingxiname
-        },
-        success: function (res) {
-            console.log(res)
-            console.log('资产去重成功点击文本查看最新数据')
-        },
-        error: function () {
-            alert('资产去重处理出错')
-        },
-        complete: function () {
-            alert('资产去重成功点击文本查看最新数据')
-        }
-    })
-}
 
 //存活检测
 function filterstatuscodefunc() {
@@ -2212,7 +2187,7 @@ function closevulnscan8() {
 }
 
 // 打开报告管理
-function reportmanagerfunc(){
+function reportmanagerfunc() {
     var myModa13 = document.getElementById("myModa13");
     myModa13.style.display = "block";
 }
@@ -2236,6 +2211,8 @@ function closevulnscan9() {
 
 // 通过关键字检索资产
 function assets_key_jiansuo() {
+    document.getElementById('assetfilterid2').innerHTML = "";
+    document.getElementById('assetfilterid3').innerHTML = "";
     var myinputid = document.getElementById("my-input-id").value;
     $.ajax({
         url: '/searchassetsbykey/',
@@ -2244,8 +2221,8 @@ function assets_key_jiansuo() {
             myinputid: myinputid
         },
         success: function (info) {
-            // 当请求成功时调用  
-            alert(info.search_result);
+            document.getElementById('assetfilterid1').innerHTML = info.search_result;
+
         },
         error: function () {
             alert('内部出错')
@@ -2257,8 +2234,10 @@ function assets_key_jiansuo() {
 }
 
 
-// 通过关键字检索资产
+// 通过关键字过滤资产
 function excude_assets_key_jiansuo() {
+    document.getElementById('assetfilterid2').innerHTML = "";
+    document.getElementById('assetfilterid3').innerHTML = "";
     var myinputid = document.getElementById("my-input-id").value;
     $.ajax({
         url: '/excludesearchassetsbykey/',
@@ -2267,8 +2246,9 @@ function excude_assets_key_jiansuo() {
             myinputid: myinputid
         },
         success: function (info) {
-            // 当请求成功时调用  
-            alert(info.search_result);
+            // 当请求成功时调用
+            document.getElementById('assetfilterid1').innerHTML = info.search_result;
+
         },
         error: function () {
             alert('内部出错')
@@ -2279,6 +2259,66 @@ function excude_assets_key_jiansuo() {
     })
 }
 
+// 过滤内网IP
+function filterprivateipfunc() {
+    document.getElementById('assetfilterid1').innerHTML =""
+    $.ajax({
+        url: '/filterprivateip/',
+        method: 'GET',
+        success: function (info) {
+            // 当请求成功时调用
+            document.getElementById('assetfilterid2').innerHTML = info.filterstatus;
+            document.getElementById('assetfilterid3').innerHTML = info.peivatenum;
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+
+// 提取URL地址
+function withdrawurllocationfunc() {
+    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid3').innerHTML = "";
+    $.ajax({
+        url: '/withdrawurllocation/',
+        method: 'GET',
+        success: function (info) {
+            // 当请求成功时调用
+            document.getElementById('assetfilterid2').innerHTML = info.filterurlresult;
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 资产去重
+function assetslocationuniqfunc() {
+    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid3').innerHTML = "";
+    $.ajax({
+        url: '/assetslocationuniq/',
+        method: 'GET',
+        success: function (info) {
+            // 当请求成功时调用
+            document.getElementById('assetfilterid2').innerHTML = info.uniqfilterurlresult;
+        },
+        error: function () {
+            alert('内部出错')
+        },
+        complete: function () {
+
+        }
+    })
+}
 
 //资产下载
 function assetdownloadfunc() {

@@ -57,10 +57,18 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close8" onclick="closevulnscan4()">&times;</span>
-        <h3>关键字检索资产：</h3>
+        <h3>资产检索</h3>
         <input type="text" class="my-input" placeholder="关键字检索和排除资产" value="" id="my-input-id">
         <span class="my-span" onclick="assets_key_jiansuo()">检索</span>
-        <span class="my-spann" onclick="excude_assets_key_jiansuo()">排除</span>
+        <span class="my-spann" onclick="excude_assets_key_jiansuo()">过滤</span>
+        <p id="assetfilterid1"></p>
+        <br>
+        <h3>资产分拣</h3>
+        <span class="my-spanconfig22" onclick="filterprivateipfunc()">过滤内网</span>&nbsp;
+        <span class="my-spanconfig22" onclick="withdrawurllocationfunc()">提取URL地址</span>&nbsp;
+        <span class="my-spanconfig22" onclick="assetslocationuniqfunc()">资产去重</span>&nbsp;
+        <p id="assetfilterid2"></p>
+        <p id="assetfilterid3"></p>
     </div>
 </div>
 

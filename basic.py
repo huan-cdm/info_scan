@@ -51,6 +51,9 @@ import yaml
 from config import device_pass_dir
 from config import antiv_software_dir
 
+# 过滤内网
+import ipaddress
+
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
     
@@ -3504,6 +3507,56 @@ def antivirus_soft_show():
             print(f"解析错误：{item}")
     return result_list
 
+
+
+# 过滤内网IP
+def filter_private_ip_lib():
+    # 全部资产列表
+    assets_list = url_file_ip_list()  
+    private_ip_list = []
+    public_ip_list = []
+    
+    for asset in assets_list:
+        try:
+            ip = ipaddress.ip_address(asset)
+            if ip.version == 4:
+                # 关键修复：将条件判断结果用于过滤
+                if (ip.is_private or 
+                    ip.is_loopback or 
+                    ip.is_link_local or 
+                    ip.is_unspecified or
+                    (ip >= ipaddress.IPv4Address('100.64.0.0') and 
+                     ip <= ipaddress.IPv4Address('100.127.255.255'))):
+                    private_ip_list.append(asset)                    
+                else:
+                    public_ip_list.append(asset)                    
+            elif ip.version == 6:
+                if (ip.is_private or 
+                    ip.is_loopback or 
+                    ip.is_link_local or 
+                    ip.is_unspecified):
+                    private_ip_list.append(asset)                    
+                else:
+                    public_ip_list.append(asset)                    
+        except ValueError:
+            # 非IP地址（可能是URL或其他格式）
+            public_ip_list.append(asset)
+    # 判断是否执行成功
+    total_assets_len = len(assets_list)
+    sum_assets_len = len(private_ip_list) + len(public_ip_list)
+    if total_assets_len == sum_assets_len:
+        # 遍历列表存入目标资产
+        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        for k in public_ip_list:
+            f.write(str(k)+"\n")
+        f.close()
+        result = ["过滤内网地址成功",len(private_ip_list)]
+    else:
+        result = ["过滤内网地址失败",len(private_ip_list)]
+    return result
+    
+            
+
            
 
 
@@ -3525,6 +3578,8 @@ if __name__ == "__main__":
             cdn_detection_lib()
         elif func_name == 'assets_college_shodan_lib':
             assets_college_shodan_lib()
+        elif func_name == 'filter_private_ip_lib':
+            filter_private_ip_lib()
         else:
             print("Invalid function number")
     else:

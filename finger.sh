@@ -233,27 +233,6 @@ thresholdvaluefilter)
     done
     ;;
 
-#数据处理保留IP的url
-withdrawip)
-    #去重
-    sort /TIP/batch_scan_domain/url.txt | uniq >/TIP/batch_scan_domain/url_tmp.txt
-    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
-
-    #指定文件路径
-    file="/TIP/batch_scan_domain/url.txt"
-    #正则表达式匹配IPv4地址
-    ip_pattern="(http://|https://)([0-9]{1,3}\.){3}[0-9]{1,3}:[0-9]{1,5}"
-    #使用grep命令查找所有匹配的IP地址
-    grep -oE "$ip_pattern" "$file" >/TIP/batch_scan_domain/url_tmp.txt
-    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
-    ;;
-
-#数据处理保留所有url
-uniqfilterdirsearch)
-    #去重
-    sort /TIP/batch_scan_domain/url.txt | uniq >/TIP/batch_scan_domain/url_tmp.txt
-    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
-    ;;
 
 #报告过滤黑名单同步
 blacklistsyncshell)

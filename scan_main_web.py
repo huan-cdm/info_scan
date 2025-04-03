@@ -1367,27 +1367,6 @@ def inter_route_status():
     else:
         return render_template('login.html')
 
-#资产去重
-@app.route("/uniqdirsearchtargetinterface/",methods=['POST'])
-def uniqdirsearchtargetinterface():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 筛选后资产时间线更新
-        basic.assets_status_update('资产去重已完成')
-        fileqingxiname = request.form['fileqingxiname']
-        if int(fileqingxiname) == 1:
-            
-            #文件去重，保留IP地址
-            os.popen('bash /TIP/info_scan/finger.sh withdrawip')
-            return render_template('dirsearchscan.html')
-        else:
-            
-            #文件去重，保留所有
-            os.popen('bash /TIP/info_scan/finger.sh uniqfilterdirsearch')
-    
-            return render_template('dirsearchscan.html')
-    else:
-        return render_template('login.html')
 
 
 # 开启存活检测
@@ -6082,6 +6061,74 @@ def antivirus_soft_show_interface_bykey():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
+
+# 过滤内网IP
+@app.route("/filterprivateip/",methods=['GET'])
+def filterprivateip():
+    user = session.get('username')
+    if str(user) == main_username:
+        filterresult = basic.filter_private_ip_lib()
+        message_json = {
+            "filterstatus":filterresult[0],
+            "peivatenum":"排除 "+str(filterresult[1])+" 条内网地址"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 提取URL地址
+@app.route("/withdrawurllocation/",methods=['GET'])
+def withdrawurllocation():
+    user = session.get('username')
+    if str(user) == main_username:
+        url_list = []
+        assets_list = basic.url_file_ip_list() 
+        for url in assets_list:
+            if 'http' in url:
+                url_list.append(url)
+        if len(url_list) <= len(assets_list):
+            # 遍历列表存入目标资产
+            f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+            for k in url_list:
+                f.write(str(k)+"\n")
+            f.close()
+            filterurlresult = "提取URL地址成功"
+        else:
+            filterurlresult = "提取URL地址失败"
+        message_json = {
+            "filterurlresult":filterurlresult
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 资产去重
+@app.route("/assetslocationuniq/",methods=['GET'])
+def assetslocationuniq():
+    user = session.get('username')
+    if str(user) == main_username:
+        url_list = []
+        assets_list = basic.url_file_ip_list() 
+        assets_list_uniq = list(set(assets_list))
+        if len(assets_list_uniq) <= len(assets_list):
+            # 遍历列表存入目标资产
+            f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+            for k in assets_list_uniq:
+                f.write(str(k)+"\n")
+            f.close()
+            uniqfilterurlresult = "资产去重成功"
+        else:
+            uniqfilterurlresult = "资产去重失败"
+        message_json = {
+            "uniqfilterurlresult":uniqfilterurlresult
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
 
 
 if __name__ == '__main__':  
