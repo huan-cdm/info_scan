@@ -3190,8 +3190,25 @@ def select_fofakey_lib(id):
 
 
 # 涉敏数据脱敏函数
-def mask_data(data, mask_length=4):
-    return data[:mask_length] + '*' * (len(data) - mask_length)
+def mask_data(data, visible_length=4):
+    """
+    数据脱敏处理，保留前4位和后4位明文，中间用*替换
+    
+    参数:
+        data: 要脱敏的原始数据(字符串)
+        visible_length: 头尾保留的明文长度(默认为4)
+    
+    返回:
+        脱敏后的字符串
+    """
+    if len(data) <= visible_length * 2:
+        # 如果数据长度不足，直接返回原始数据（或全星号）
+        return data[:visible_length] + '*' * max(0, len(data) - visible_length)
+    
+    # 保留前N位和后N位，中间用星号填充
+    head = data[:visible_length]
+    tail = data[-visible_length:]
+    return f"{head}{'*' * (len(data) - visible_length * 2)}{tail}"
 
     
 
