@@ -439,7 +439,9 @@ IP基础信息查询<br>
 批量扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/piliang1scan.png" /><br><br>
 JNDI服务管理<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jndi2.png" />
+<br><br>
 fofa语法日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
 弱口令扫描字典配置<br>
