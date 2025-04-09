@@ -456,14 +456,6 @@ dnslog<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" /><br><br>
 icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/iconhash.png" /><br><br>
-密码字典<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/passdict.png" /><br><br>
-设备默认口令<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepassword.png" /><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/devicepasswordbykey.png" /><br><br>
-杀软识别<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus1.png" /><br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/Antivirus2.png" /><br><br>
 资产优化<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/youhua.png" /><br><br>
 服务重启<br>
