@@ -50,7 +50,6 @@
 			<span class="my-spanconfig11" onclick="startbutton()">按钮解锁</span>&nbsp;
 			<span class="my-spanconfig11" onclick="reportmanagerfunc()">报告管理</span>&nbsp;
 			<span class="my-spanconfig11" onclick="assetdownloadfunc()">资产下载</span>
-			<!-- <span onclick="startscanconfigpagefunc()" style="cursor: pointer;" class="my-spanconfig11">系统配置</span>&nbsp; -->
 			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig11">字典配置</span>
 
 			</di>
@@ -226,8 +225,8 @@
 							<label for="option18" class="my-label">tomcat扫描</label>
 							<input type="checkbox" id="option20" name="option" value="i">
 							<label for="option20" class="my-label">fastjson扫描</label>
-							<input type="checkbox" id="option19" name="option" value="h">
-							<label for="option19" class="my-label">JNDI服务</label>
+							<!-- <input type="checkbox" id="option19" name="option" value="h">
+							<label for="option19" class="my-label">JNDI服务</label> -->
 
 						</td>
 					</tr>
@@ -410,7 +409,7 @@
 								</tr>
 								<tr>
 									<td>
-										<textarea id="myTextarea" style="resize: vertical;">
+										<textarea id="myTextarea" class="textareamodel">
 ①. 操作步骤：输入资产->文本添加->资产过滤(存活检测->CDN检测->过滤关键资产)->文本查看->纯净资产->漏洞管理模块扫描；
 ②. 格式说明：必须以http或者https开头的资产，支持在此文本框输入已有资产，将框内说明删除再添加即可，或者通过fofa在线获取；
 ③. 存活检测：资产存活情况探测；

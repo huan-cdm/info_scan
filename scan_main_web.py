@@ -3814,6 +3814,8 @@ def vulnscan_check_back():
                         else:
                             tomcat_status_result = "tomcat漏洞扫描程序"+str(info_time_controls)+"分钟内不允许重复扫描"
             elif 'h' in str(k):
+                
+                # 这段代码不起作用，迁移到系统配置功能
                 print("开启jndi服务")
                 # 获取系统当前时间
                 current_time17 = time.time()
@@ -5741,6 +5743,13 @@ def system_config_data():
         fofa_email = fofa_conf[0]
         fofa_key = fofa_conf[1]
 
+        # jndi服务状态
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+        if "running" in jndi_status and "running" in jndi_python_status:
+            jndistatus = "开启"
+        else:
+            jndistatus = "关闭"
 
         shodan_key = basic.select_session_time_lib(3)
         amap_key = basic.select_session_time_lib(4)
@@ -5758,7 +5767,8 @@ def system_config_data():
             "fofa_key":str(fofa_key_tuomin),
             "shodan_key":str(shodan_key_tuomin),
             "amap_key":str(amap_key_tuomin),
-            "ceye_key":str(ceye_key_tuomin)
+            "ceye_key":str(ceye_key_tuomin),
+            "jndistatus":str(jndistatus)
         }
         return jsonify(message_json)
     else:
@@ -6137,6 +6147,49 @@ def withdrawiplocation():
         withdrawipresult = basic.withdrawiplocation_lib()
         message_json = {
             "withdrawipresult":withdrawipresult
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 开启JNDI服务
+@app.route("/startjndiservice/",methods=['GET'])
+def startjndiservice():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+        if "running" in jndi_status and "running" in jndi_python_status:
+            jndistatus = "开启"
+        else:
+            basic.startjndi_lib()
+            jndistatus = "开启"
+        
+        message_json = {
+            "jndistatus":jndistatus
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 关闭JNDI服务
+@app.route("/stopjndiservice/",methods=['GET'])
+def stopjndiservice():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+        os.popen('bash /TIP/info_scan/finger.sh stop_jndi_python')
+
+        if "running" in jndi_status and "running" in jndi_python_status:
+            jndistatus = "开启"
+        else:
+            jndistatus = "关闭"
+        
+        message_json = {
+            "jndistatus":jndistatus
         }
         return jsonify(message_json)
     else:

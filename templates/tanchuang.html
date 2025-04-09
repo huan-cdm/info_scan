@@ -68,7 +68,7 @@
         <span class="my-spanconfig22" onclick="assetslocationuniqfunc()">资产去重</span>&nbsp;
         <span class="my-spanconfig22" onclick="withdrawurllocationfunc()">提取URL地址</span>&nbsp;
         <span class="my-spanconfig22" onclick="withdrawiplocationfunc()">提取IP地址</span>&nbsp;
-        
+
         <p id="assetfilterid2"></p>
         <p id="assetfilterid3"></p>
     </div>
@@ -119,8 +119,8 @@
         <span class="close8" onclick="closevulnscan12()">&times;</span>
         <h3>报告管理：</h3>
         <span class="my-spanconfig11" onclick="reporttotalfunc()">生成报告</span>&nbsp;
-		<span class="my-spanconfig11" onclick="total_report_yulan_func()">报告预览</span>&nbsp;
-		<span class="my-spanconfig11" onclick="reportdownloadfunc()">报告下载</span>&nbsp;
+        <span class="my-spanconfig11" onclick="total_report_yulan_func()">报告预览</span>&nbsp;
+        <span class="my-spanconfig11" onclick="reportdownloadfunc()">报告下载</span>&nbsp;
         <p id="vulnscan13"></p>
 
     </div>
@@ -153,7 +153,7 @@
     <div class="modal-content8">
         <span class="close8" onclick="closevulnscan13()">&times;</span>
         <h2 id="rebootid1" class="gradient-text"></h2>
-       
+
     </div>
 </div>
 
@@ -217,39 +217,42 @@
 
 
 
-<!-- 删除日志确认页面 -->
+<!-- 二次校验页面 -->
 <div id="modal3" class="modal3">
     <div class="modal-content3">
         <span class="close3" onclick="stopverifychearlogfunc()">&times;</span>
-        <h3>数据复核</h3>
+        <h3>超级管理员</h3>
         <input type="text" placeholder="账号" id="inputmodel1" class="my-input-text1" /><br>
         <input type="text" placeholder="密码" id="inputmodel2" class="my-input-text1" />
         <input type="hidden" id="inputmodel3" />
-        <span class="my-spanconfig11" onclick="comfirmclearlogfunc()">复核</span>
+        <div class="button-container1">
+            <button class="button delete-button" onclick="comfirmclearlogfunc()">登录</button>
+        </div>
+        <!-- <span class="my-spanconfig11" onclick="comfirmclearlogfunc()">复核</span> -->
 
     </div>
 </div>
 
 
 <!-- 扫描器参数配置 -->
-
 <div id="modal2" class="modal1">
     <div class="modal-content1">
-
         <span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
-        <h3>系统配置</h3>
         <table border="1">
-
+            <span id="filterruleid1" style="color: red;font-size: 20px;"></span>
             <tr>
                 <td>
-                    <strong style="color: chocolate;">清空报告</strong><br>
+                    <strong style="color: chocolate;">数据删除</strong><br>
                 </td>
             </tr>
             <tr>
-                <td><span class="my-spanconfig11" onclick="startverifychearlogfunc('1')">afrog</span>&nbsp;&nbsp;
-                    <span class="my-spanconfig11" onclick="startverifychearlogfunc('2')">api接口</span>&nbsp;&nbsp;
-                    <span class="my-spanconfig11" onclick="startverifychearlogfunc('3')">xray</span>&nbsp;&nbsp;
-                    <span class="my-spanconfig11" onclick="startverifychearlogfunc('4')">端口扫描</span>
+                <td>
+                    <div class="button-container1">
+                        <button class="button edit-button" onclick="startverifychearlogfunc('1')">afrog</button>
+                        <button class="button edit-button" onclick="startverifychearlogfunc('2')">api接口</button>
+                        <button class="button edit-button" onclick="startverifychearlogfunc('3')">xray</button>
+                        <button class="button edit-button" onclick="startverifychearlogfunc('4')">nmap</button>
+                    </div>
                 </td>
             </tr>
 
@@ -260,179 +263,196 @@
             </tr>
             <tr>
                 <td>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <select name="fscanpartname" onmouseout="fscanportshowfunc()">
 
-                    <select name="fscanpartname" onmouseout="fscanportshowfunc()">
+                                    <option
+                                        value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">
+                                        默认端口</option>
+                                    <option value="1-65535">全部端口</option>
+                                    <option
+                                        value="80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000">
+                                        常见端口</option>
+                                    <option
+                                        value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
+                                        Web端口</option>
+                                    <option
+                                        value="21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017">
+                                        Top100端口</option>
+                                    <option
+                                        value="7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738">
+                                        Top1000端口</option>
+                                    <option
+                                        value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
+                                        常见RCE端口</option>
+                                    <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
+                                </select>
+                                <select name="fscanpartname1">
+                                    <option value="1">禁用Web漏洞扫描</option>
+                                    <option value="2">启用Web漏洞扫描</option>
+                                </select>
+                                <br>
+                                <strong>fscan扫描参数</strong>
+                            </td>
 
-                        <option
-                            value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">
-                            默认端口</option>
-                        <option value="1-65535">全部端口</option>
-                        <option
-                            value="80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000">
-                            常见端口</option>
-                        <option
-                            value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
-                            Web端口</option>
-                        <option
-                            value="21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017">
-                            Top100端口</option>
-                        <option
-                            value="7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738">
-                            Top1000端口</option>
-                        <option
-                            value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
-                            常见RCE端口</option>
-                        <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
-                    </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;fscan扫描参数<br>
-                    <select name="fscanpartname1">
-                        <option value="1">禁用Web漏洞扫描</option>
-                        <option value="2">启用Web漏洞扫描</option>
-                    </select>
-                    <textarea rows="3" cols="80" id="myTextarea2" onmouseover="fscantextarea_onhover()"
-                        onmouseout="fscantextarea_onout()">
-							21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017</textarea>
+                            <td>
+                                <textarea rows="3" cols="40" id="myTextarea2">
+                                    21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017</textarea>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
+
             <tr>
                 <td>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <select name="poc_dir" onmouseenter="nuclei_poc_show_func()">
+                                    <option value="/root/nuclei-templates/http">http</option>
+                                    <option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
+                                    <option value="/root/nuclei-templates/http/cves">http_cves</option>
+                                    <option value="/root/nuclei-templates/http/exposed-panels">http_exposed_panels
+                                    </option>
+                                    <option value="/root/nuclei-templates/http/fuzzing">http_fuzzing</option>
+                                    <option value="/root/nuclei-templates/http/iot">http_iot</option>
+                                    <option value="/root/nuclei-templates/http/misconfiguration">http_misconfiguration
+                                    </option>
+                                    <option value="/root/nuclei-templates/http/takeovers">http_takeovers</option>
+                                    <option value="/root/nuclei-templates/http/token-spray">http_token_spray</option>
+                                    <option value="/root/nuclei-templates/http/credential-stuffing">
+                                        http_credential_stuffing
+                                    </option>
+                                    <option value="/root/nuclei-templates/http/default-logins">http_default_logins
+                                    </option>
+                                    <option value="/root/nuclei-templates/http/exposures">http_exposures</option>
+                                    <option value="/root/nuclei-templates/http/honeypot">http_honeypot</option>
+                                    <option value="/root/nuclei-templates/http/miscellaneous">http_miscellaneous
+                                    </option>
+                                    <option value="/root/nuclei-templates/http/osint">http_osint</option>
+                                    <option value="/root/nuclei-templates/http/technologies">http_technologies</option>
+                                    <option value="/root/nuclei-templates/http/vulnerabilities">http_vulnerabilities
+                                    </option>
+                                    <option value="/root/nuclei-templates/dns">dns</option>
+                                    <option value="/root/nuclei-templates/helpers">helpers</option>
+                                    <option value="/root/nuclei-templates/miscellaneous">miscellaneous</option>
+                                    <option value="/root/nuclei-templates/technologies">technologies</option>
+                                    <option value="/root/nuclei-templates/workflows">workflows</option>
+                                    <option value="/root/nuclei-templates/file">file</option>
+                                    <option value="/root/nuclei-templates/cloud">cloud</option>
+                                    <option value="/root/nuclei-templates/misconfiguration">misconfiguration</option>
+                                    <option value="/root/nuclei-templates/default-logins">default-logins</option>
+                                    <option value="/root/nuclei-templates/headless">headless</option>
+                                    <option value="/root/nuclei-templates/network">network</option>
+                                    <option value="/root/nuclei-templates/ssl">ssl</option>
+                                    <option value="/root/nuclei-templates/javascript">javascript</option>
+                                    <option value="/root/nuclei-templates/config">config</option>
+                                    <option value="/root/nuclei-templates/code">code</option>
+                                </select>
+                                <br>
+                                <textarea rows="3" cols="40" id="myTextarea3">
+            poc显示区域</textarea>
+                                <br>
+                                <strong>nuclei扫描参数</strong>
+                                <br>
+                                <span id="nucleibyid2" style="color: darksalmon;"></span>
+                            </td>
 
-                    <select name="poc_dir" onmouseenter="nuclei_poc_show_func()">
-                        <option value="/root/nuclei-templates/http">http</option>
-                        <option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
-                        <option value="/root/nuclei-templates/http/cves">http_cves</option>
-                        <option value="/root/nuclei-templates/http/exposed-panels">http_exposed_panels
-                        </option>
-                        <option value="/root/nuclei-templates/http/fuzzing">http_fuzzing</option>
-                        <option value="/root/nuclei-templates/http/iot">http_iot</option>
-                        <option value="/root/nuclei-templates/http/misconfiguration">http_misconfiguration
-                        </option>
-                        <option value="/root/nuclei-templates/http/takeovers">http_takeovers</option>
-                        <option value="/root/nuclei-templates/http/token-spray">http_token_spray</option>
-                        <option value="/root/nuclei-templates/http/credential-stuffing">
-                            http_credential_stuffing
-                        </option>
-                        <option value="/root/nuclei-templates/http/default-logins">http_default_logins
-                        </option>
-                        <option value="/root/nuclei-templates/http/exposures">http_exposures</option>
-                        <option value="/root/nuclei-templates/http/honeypot">http_honeypot</option>
-                        <option value="/root/nuclei-templates/http/miscellaneous">http_miscellaneous
-                        </option>
-                        <option value="/root/nuclei-templates/http/osint">http_osint</option>
-                        <option value="/root/nuclei-templates/http/technologies">http_technologies</option>
-                        <option value="/root/nuclei-templates/http/vulnerabilities">http_vulnerabilities
-                        </option>
-                        <option value="/root/nuclei-templates/dns">dns</option>
-                        <option value="/root/nuclei-templates/helpers">helpers</option>
-                        <option value="/root/nuclei-templates/miscellaneous">miscellaneous</option>
-                        <option value="/root/nuclei-templates/technologies">technologies</option>
-                        <option value="/root/nuclei-templates/workflows">workflows</option>
-                        <option value="/root/nuclei-templates/file">file</option>
-                        <option value="/root/nuclei-templates/cloud">cloud</option>
-                        <option value="/root/nuclei-templates/misconfiguration">misconfiguration</option>
-                        <option value="/root/nuclei-templates/default-logins">default-logins</option>
-                        <option value="/root/nuclei-templates/headless">headless</option>
-                        <option value="/root/nuclei-templates/network">network</option>
-                        <option value="/root/nuclei-templates/ssl">ssl</option>
-                        <option value="/root/nuclei-templates/javascript">javascript</option>
-                        <option value="/root/nuclei-templates/config">config</option>
-                        <option value="/root/nuclei-templates/code">code</option>
-                    </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;nuclei扫描参数<br>
-                    <textarea rows="3" cols="80" id="myTextarea3" onmouseover="nucleitextarea_onhover()"
-                        onmouseout="nucleitextarea_onout()">
-poc显示区域</textarea>
-                    <br>
-                    <span id="nucleibyid2" style="color: darksalmon;"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
+                            <td>
 
-                    <select name="portscan_part" onmouseout="nmapportshowfunc()">
-                        <option
-                            value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
-                            Web端口</option>
-                        <option
-                            value="21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017">
-                            Top100端口</option>
-                        <option
-                            value="7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738">
-                            Top1000端口</option>
-                        <option
-                            value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
-                            常见RCE端口</option>
-                        <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
-                        <option value="1-65535">全端口</option>
-                    </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;端口扫描参数<br>
-                    <textarea rows="3" cols="80" id="myTextarea1" onmouseover="nmaptextarea_onhover()"
-                        onmouseout="nmaptextarea_onout()">
+                                <select name="portscan_part" onmouseout="nmapportshowfunc()">
+                                    <option
+                                        value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
+                                        Web端口</option>
+                                    <option
+                                        value="21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017">
+                                        Top100端口</option>
+                                    <option
+                                        value="7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738">
+                                        Top1000端口</option>
+                                    <option
+                                        value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
+                                        常见RCE端口</option>
+                                    <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
+                                    <option value="1-65535">全端口</option>
+                                </select>
+                                <br>
+                                <textarea rows="3" cols="40" id="myTextarea1">
 80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443
 </textarea>
+                                <br><strong>端口扫描参数</strong>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
+
             <tr>
                 <td>
+                    <table border="1">
+                        <tr>
+                            <td>
 
-                    <select name="hydrapart">
-                        <option value="1">mysql</option>
-                        <option value="2">ssh</option>
-                        <option value="3">ftp</option>
-                        <option value="4">redis</option>
-                        <option value="5">mssql</option>
-                    </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;弱口令扫描参数
+                                <select name="hydrapart">
+                                    <option value="1">mysql</option>
+                                    <option value="2">ssh</option>
+                                    <option value="3">ftp</option>
+                                    <option value="4">redis</option>
+                                    <option value="5">mssql</option>
+                                </select>
+                                <br><strong>弱口令扫描参数</strong>
 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <select name="vulnname">
-                        <option value="all">all</option>
-                        <option value="activemq">检查站点是否存在activemq漏洞</option>
-                        <option value="flink">检查站点是否存在flink漏洞</option>
-                        <option value="shiro">检查站点是否存在shiro漏洞</option>
-                        <option value="solr">检查站点是否存在solr漏洞</option>
-                        <option value="struts2">检查站点是否存在struts2漏洞</option>
-                        <option value="tomcat">检查站点是否存在tomcat漏洞</option>
-                        <option value="unomi">检查站点是否存在unomi漏洞</option>
-                        <option value="drupal">检查站点是否存在drupal漏洞</option>
-                        <option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
-                        <option value="fastjson">检查站点是否存在fastjson漏洞</option>
-                        <option value="jenkins">检查站点是否存在jenkins漏洞</option>
-                        <option value="laravel">检查站点是否存在laravel漏洞</option>
-                        <option value="nexus">检查站点是否存在nexus漏洞</option>
-                        <option value="weblogic">检查站点是否存在weblogic漏洞</option>
-                        <option value="jboss">检查站点是否存在jboss漏洞</option>
-                        <option value="spring">检查站点是否存在spring漏洞</option>
-                        <option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
-                        <option value="druid">检查站点是否存在druid漏洞</option>
-                        <option value="exchange">检查站点是否存在exchange漏洞</option>
-                        <option value="nodejs">检查站点是否存在nodejs漏洞</option>
-                        <option value="saltstack">检查站点是否存在saltstack漏洞</option>
-                        <option value="vmware">检查站点是否存在vmware漏洞</option>
-                        <option value="bigip">检查站点是否存在bigip漏洞</option>
-                        <option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
-                        <option value="coremail">检查站点是否存在coremail漏洞</option>
-                        <option value="ecology">检查站点是否存在ecology漏洞</option>
-                        <option value="eyou">检查站点是否存在eyou漏洞</option>
-                        <option value="qianxin">检查站点是否存在qianxin漏洞</option>
-                        <option value="ruijie">检查站点是否存在ruijie漏洞</option>
-                    </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;vulmap扫描参数
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <select name="pachongselectpart" onmouseout="crawlergo_part_show()">
-                        <option value="1">流量不转发</option>
-                        <option value="2">流量转发</option>
-                    </select>
-                    &nbsp;&nbsp;&nbsp;&nbsp;爬虫扫描参数
-                    <span style="color: goldenrod;" id="crawlergo_part_show_part1"></span>
-                    <span style="color: goldenrod;" id="crawlergo_part_show_part2"></span>
+                            </td>
+                            <td>
+                                <select name="vulnname">
+                                    <option value="all">all</option>
+                                    <option value="activemq">检查站点是否存在activemq漏洞</option>
+                                    <option value="flink">检查站点是否存在flink漏洞</option>
+                                    <option value="shiro">检查站点是否存在shiro漏洞</option>
+                                    <option value="solr">检查站点是否存在solr漏洞</option>
+                                    <option value="struts2">检查站点是否存在struts2漏洞</option>
+                                    <option value="tomcat">检查站点是否存在tomcat漏洞</option>
+                                    <option value="unomi">检查站点是否存在unomi漏洞</option>
+                                    <option value="drupal">检查站点是否存在drupal漏洞</option>
+                                    <option value="elasticsearch">检查站点是否存在elasticsearch漏洞</option>
+                                    <option value="fastjson">检查站点是否存在fastjson漏洞</option>
+                                    <option value="jenkins">检查站点是否存在jenkins漏洞</option>
+                                    <option value="laravel">检查站点是否存在laravel漏洞</option>
+                                    <option value="nexus">检查站点是否存在nexus漏洞</option>
+                                    <option value="weblogic">检查站点是否存在weblogic漏洞</option>
+                                    <option value="jboss">检查站点是否存在jboss漏洞</option>
+                                    <option value="spring">检查站点是否存在spring漏洞</option>
+                                    <option value="thinkphp">检查站点是否存在thinkphp漏洞</option>
+                                    <option value="druid">检查站点是否存在druid漏洞</option>
+                                    <option value="exchange">检查站点是否存在exchange漏洞</option>
+                                    <option value="nodejs">检查站点是否存在nodejs漏洞</option>
+                                    <option value="saltstack">检查站点是否存在saltstack漏洞</option>
+                                    <option value="vmware">检查站点是否存在vmware漏洞</option>
+                                    <option value="bigip">检查站点是否存在bigip漏洞</option>
+                                    <option value="ofbiz">检查站点是否存在ofbiz漏洞</option>
+                                    <option value="coremail">检查站点是否存在coremail漏洞</option>
+                                    <option value="ecology">检查站点是否存在ecology漏洞</option>
+                                    <option value="eyou">检查站点是否存在eyou漏洞</option>
+                                    <option value="qianxin">检查站点是否存在qianxin漏洞</option>
+                                    <option value="ruijie">检查站点是否存在ruijie漏洞</option>
+                                </select>
+                                <br><strong>vulmap扫描参数</strong>
+                            </td>
+                            <td>
+                                <select name="pachongselectpart" onmouseout="crawlergo_part_show()">
+                                    <option value="1">流量不转发</option>
+                                    <option value="2">流量转发</option>
+                                </select>
 
+                                <span style="color: goldenrod;" id="crawlergo_part_show_part1"></span>
+                                <span style="color: goldenrod;" id="crawlergo_part_show_part2"></span>
+                                <br><strong>爬虫扫描参数</strong>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
 
@@ -445,46 +465,48 @@ poc显示区域</textarea>
             </tr>
             <tr>
                 <td>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <input type="text" class="my-input5" value="" id="sessionid1">
+                                <span class="my-span" onclick="startverifychearlogfunc('6')">保存</span>
+                                <br><strong>会话过期时间配置</strong>
 
-                    <input type="text" class="my-input5" value="" id="sessionid1">
-                    <span class="my-span" onclick="startverifychearlogfunc('6')">保存</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    会话过期时间配置
-                </td>
-            </tr>
-            <tr>
-                <td>
+                            </td>
+                            <td>
+                                <input type="text" class="my-input5" value="" id="sessionid2"><br>
+                                <input type="text" class="my-input5" value="" id="sessionid3">
+                                <span class="my-span" onclick="startverifychearlogfunc('7')">保存</span>
+                                <br><strong>fofa配置</strong>
+                            </td>
+                        </tr>
+                    </table>
 
-                    <input type="text" class="my-input5" value="" id="sessionid2"><br>
-                    <input type="text" class="my-input5" value="" id="sessionid3">
-                    <span class="my-span" onclick="startverifychearlogfunc('7')">保存</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;fofa配置
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" class="my-input5" value="" id="sessionid4">
-                    <span class="my-span" onclick="startverifychearlogfunc('8')">保存</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;shodan配置
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input type="text" class="my-input5" value="" id="sessionid5">
-                    <span class="my-span" onclick="startverifychearlogfunc('9')">保存</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;高德地图配置
                 </td>
             </tr>
 
             <tr>
                 <td>
 
-                    <input type="text" class="my-input5" value="" id="sessionid6">
-                    <span class="my-span" onclick="startverifychearlogfunc('10')">保存</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;ceyedns配置
+                    <table border="1">
+                        <tr>
+                            <td><input type="text" class="my-input5" value="" id="sessionid4">
+                                <span class="my-span" onclick="startverifychearlogfunc('8')">保存</span>
+                                <br><strong>shodan配置</strong>
+                            </td>
+                            <td><input type="text" class="my-input5" value="" id="sessionid5">
+                                <span class="my-span" onclick="startverifychearlogfunc('9')">保存</span>
+                                <br><strong>高德地图配置</strong>
+                            </td>
+                            <td> <input type="text" class="my-input5" value="" id="sessionid6">
+                                <span class="my-span" onclick="startverifychearlogfunc('10')">保存</span>
+                                <br><strong>ceye dnslog配置</strong>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
+
             <tr>
                 <td>
                     <strong style="color: chocolate;">识别关键资产配置</strong><br>
@@ -500,8 +522,26 @@ poc显示区域</textarea>
                     <span class="my-spann" onclick="delete_rule_all_func()">清空</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     ①.资产指纹识别&nbsp;&nbsp;②.找到特征保存到系统&nbsp;&nbsp;③.识别关键资产&nbsp;&nbsp;④.得到关键资产
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <strong style="color: chocolate;">JNDI服务开关</strong>&nbsp;
+                    <!-- jndi服务状态显示 -->
+                    <span id="jndistatusid1" class="status-circle"></span>
+                    <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
                     <br>
-                    <span id="filterruleid1" style="color: red;font-size: 20px;"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="button-container1">
+                        <button class="button edit-button" onclick="jndistatusfunc()">开启</button>
+                        <button class="button delete-button" onclick="stopjndistatusfunc()">关闭</button>
+
+                    </div>
                 </td>
             </tr>
         </table>

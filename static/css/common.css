@@ -56,11 +56,13 @@
 			width: 300px;
 			font-size: 20px;
 		}
+
 		.my-input-text2 {
 			height: 40px;
 			width: 250px;
 			font-size: 20px;
 		}
+
 		.my-select-text2 {
 			height: 42px;
 			width: 100px;
@@ -135,7 +137,7 @@
 			/* 设置边框圆角为5像素 */
 		}
 
-		textarea {
+		.textareamodel {
 			width: 1150px;
 			/* 设置宽度为200像素 */
 			height: 50px;
@@ -148,6 +150,7 @@
 			/* 设置边框为1像素宽，颜色为#ccc */
 			border-radius: 5px;
 			/* 设置边框圆角为5像素 */
+			resize: vertical;
 		}
 
 		/* 移除 option 元素的内边距 */
@@ -332,7 +335,7 @@
 		}
 
 
-		/* 日志删除确认页面 */
+		/* 二次校验 */
 
 		.modal3 {
 			display: none;
@@ -340,7 +343,7 @@
 			position: absolute;
 			/* 弹窗固定在视口 */
 			/* 如果弹窗往上叠加，将此值调大即可  */
-			z-index: 2;
+			z-index: 1005;
 			/* 弹窗位于其他元素之上 */
 			left: 0;
 			top: 0;
@@ -407,7 +410,7 @@
 			font-size: medium;
 		}
 
-		my-input2{
+		my-input2 {
 			height: 50px;
 			width: 800px;
 			font-size: medium;
@@ -457,7 +460,7 @@
 		}
 
 		.my-label {
-			color:#000;
+			color: #000;
 			font-weight: bold;
 			text-decoration: underline;
 			font-style: italic;
@@ -487,10 +490,13 @@
 		.top-menu {
 			background-color: #333;
 			overflow: hidden;
-			position: relative; /* 确保在 LOGO 下面 */
+			position: relative;
+			/* 确保在 LOGO 下面 */
 			width: 100%;
-			z-index: 9; /* 确保比 LOGO 低 */
-			margin-top: 30px; /* 让菜单下移，避免遮挡 LOGO */
+			z-index: 9;
+			/* 确保比 LOGO 低 */
+			margin-top: 30px;
+			/* 让菜单下移，避免遮挡 LOGO */
 		}
 
 		.top-menu a {
@@ -716,17 +722,17 @@
 			display: inline-block;
 			text-align: right;
 		}
-		
+
 		.dropdown-content {
 			display: none;
 			position: absolute;
 			background-color: #f9f9f9;
 			min-width: 160px;
-			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 			z-index: 1;
 			text-align: right;
 		}
-		
+
 		.dropdown-content a {
 			color: black;
 			padding: 12px 16px;
@@ -734,30 +740,38 @@
 			display: block;
 			text-align: left;
 		}
-		
+
 		.dropdown-content a:hover {
 			background-color: #f1f1f1;
 		}
-		
+
 		.dropdown:hover .dropdown-content {
 			display: block;
 		}
+
 		.dropdown-span {
 			cursor: pointer;
 			font-size: larger;
 		}
+
 		.footer {
-            margin-top: auto; /* 将 footer 推到页面底部 */
-            text-align: center; /* 内容居中 */
-            padding: 10px;
-            background: #f0f0f0;
-			font-size:x-large;
-        }
+			margin-top: auto;
+			/* 将 footer 推到页面底部 */
+			text-align: center;
+			/* 内容居中 */
+			padding: 10px;
+			background: #f0f0f0;
+			font-size: x-large;
+		}
+
 		.logo {
 			position: absolute;
-			top: 0px; /* 距离顶部0px */
-			left: 0px; /* 距离左侧0px */
-			z-index: 1000; /* 确保在其他元素之上 */
+			top: 0px;
+			/* 距离顶部0px */
+			left: 0px;
+			/* 距离左侧0px */
+			z-index: 1000;
+			/* 确保在其他元素之上 */
 		}
 
 		.my-spanconfig22 {
@@ -766,7 +780,7 @@
 			width: 100px;
 			height: 40px;
 			line-height: 40px;
-			background-color:dodgerblue;
+			background-color: dodgerblue;
 			/* 背景颜色设置为橙色 */
 			color: rgba(8, 0, 0, 0.946);
 			/* 文本颜色设置为白色，以便在橙色背景上可见 */
@@ -778,18 +792,107 @@
 		.gradient-text {
 			font-size: 48px;
 			font-weight: bold;
-			background: linear-gradient(90deg, 
-			  #ff0000, #ff7f00, #ffff00, #00ff00, 
-			  #0000ff, #4b0082, #9400d3);
+			background: linear-gradient(90deg,
+					#ff0000, #ff7f00, #ffff00, #00ff00,
+					#0000ff, #4b0082, #9400d3);
 			-webkit-background-clip: text;
 			background-clip: text;
 			color: transparent;
 			background-size: 400% 400%;
 			animation: gradient 8s ease infinite;
-		  }
-		  
-		  @keyframes gradient {
-			0% { background-position: 0% 50%; }
-			50% { background-position: 100% 50%; }
-			100% { background-position: 0% 50%; }
-		  }
+		}
+
+		@keyframes gradient {
+			0% {
+				background-position: 0% 50%;
+			}
+
+			50% {
+				background-position: 100% 50%;
+			}
+
+			100% {
+				background-position: 0% 50%;
+			}
+		}
+
+		/* jndi服务按钮样式 */
+		.button-container1 {
+			display: flex;
+			gap: 10px;
+			/* 按钮之间的间距 */
+		}
+
+		.button {
+			padding: 10px 20px;
+			/* 按钮内边距 */
+			border: 1px solid;
+			/* 按钮边框 */
+			border-radius: 5px;
+			/* 圆角 */
+			cursor: pointer;
+			/* 鼠标悬停时显示为手型 */
+			font-size: 16px;
+			/* 字体大小 */
+		}
+
+		.edit-button {
+			color: #ffffff;
+			/* 文字颜色 */
+			background-color: #007bff;
+			/* 背景颜色 */
+			border-color: #007bff;
+			/* 边框颜色 */
+		}
+
+		.delete-button {
+			color: #ffffff;
+			/* 文字颜色 */
+			background-color: #dc3545;
+			/* 背景颜色 */
+			border-color: #dc3545;
+			/* 边框颜色 */
+		}
+
+		.button:hover {
+			opacity: 0.8;
+			/* 鼠标悬停时的透明度 */
+		}
+
+		/* INDI运行状态显示 */
+		/* 大号圆圈样式 */
+		.status-circle {
+			display: inline-block;
+			width: 20px;
+			/* 调大圆圈尺寸 */
+			height: 20px;
+			border-radius: 50%;
+			/* margin-left: 10px; */
+			flex-shrink: 0;
+			vertical-align: middle;
+			transition: all 0.3s ease;
+			/* 添加平滑过渡 */
+		}
+
+		/* 开启状态 - 绿色 */
+		.status-running {
+			background-color: #4CAF50;
+			box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+		}
+
+		/* 关闭状态 - 红色 */
+		.status-stopped {
+			background-color: #F44336;
+			box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+		}
+
+		/* 错误状态 - 黄色 */
+		.status-error {
+			background-color: #FFC107;
+			box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
+		}
+
+		/* 隐藏状态文字 */
+		.status-text {
+			display: none;
+		}

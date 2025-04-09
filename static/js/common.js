@@ -829,11 +829,25 @@ function startscanconfigpagefunc() {
             sessionid5.value = info.amap_key;
             sessionid6.value = info.ceye_key;
 
+            // jndi服务状态
+            const statusElement = document.getElementById('jndistatusid1');
+            const status = info.jndistatus;
+
+            // 清除所有可能的状态类
+            statusElement.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status === '开启') {
+                statusElement.classList.add('status-running');
+            } else if (status === '关闭') {
+                statusElement.classList.add('status-stopped');
+            } else {
+                statusElement.classList.add('status-error');
+            }
         },
         error: function () {
-
-        },
-        complete: function () {
+            const statusElement = document.getElementById('jndistatusid1');
+            statusElement.className = 'status-circle status-error';
         }
     })
 
@@ -2049,6 +2063,9 @@ function crawlergo_part_show() {
 
 // 打开删除报告二次验证弹窗
 function startverifychearlogfunc(dataToSet) {
+    // 返回结果滞空
+    document.getElementById("filterruleid1").innerHTML = "";
+
     var modal3 = document.getElementById("modal3");
     modal3.style.display = "block";
 
@@ -2237,7 +2254,7 @@ function excude_assets_key_jiansuo() {
 
 // 过滤内网IP
 function filterprivateipfunc() {
-    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid1').innerHTML = ""
     $.ajax({
         url: '/filterprivateip/',
         method: 'GET',
@@ -2258,7 +2275,7 @@ function filterprivateipfunc() {
 
 // 提取URL地址
 function withdrawurllocationfunc() {
-    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid1').innerHTML = ""
     document.getElementById('assetfilterid3').innerHTML = "";
     $.ajax({
         url: '/withdrawurllocation/',
@@ -2278,7 +2295,7 @@ function withdrawurllocationfunc() {
 
 // 资产去重
 function assetslocationuniqfunc() {
-    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid1').innerHTML = ""
     document.getElementById('assetfilterid3').innerHTML = "";
     $.ajax({
         url: '/assetslocationuniq/',
@@ -2298,7 +2315,7 @@ function assetslocationuniqfunc() {
 
 // 提取IP地址
 function withdrawiplocationfunc() {
-    document.getElementById('assetfilterid1').innerHTML =""
+    document.getElementById('assetfilterid1').innerHTML = ""
     document.getElementById('assetfilterid3').innerHTML = "";
     $.ajax({
         url: '/withdrawiplocation/',
@@ -3063,4 +3080,65 @@ function closevulnscan13() {
     var myModa14 = document.getElementById("myModa14");
     myModa14.style.display = "none";
 
+}
+
+
+// 系统配置开启JNDI
+function jndistatusfunc() {
+
+    $.ajax({
+        url: '/startjndiservice/',
+        method: 'GET',
+
+        success: function (info) {
+            const statusElement = document.getElementById('jndistatusid1');
+            const status = info.jndistatus;
+
+            // 清除所有可能的状态类
+            statusElement.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status === '开启') {
+                statusElement.classList.add('status-running');
+            } else if (status === '关闭') {
+                statusElement.classList.add('status-stopped');
+            } else {
+                statusElement.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement = document.getElementById('jndistatusid1');
+            statusElement.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 系统配置关闭JNDI
+function stopjndistatusfunc() {
+
+    $.ajax({
+        url: '/stopjndiservice/',
+        method: 'GET',
+
+        success: function (info) {
+            const statusElement = document.getElementById('jndistatusid1');
+            const status = info.jndistatus;
+
+            // 清除所有可能的状态类
+            statusElement.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status === '开启') {
+                statusElement.classList.add('status-running');
+            } else if (status === '关闭') {
+                statusElement.classList.add('status-stopped');
+            } else {
+                statusElement.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement = document.getElementById('jndistatusid1');
+            statusElement.className = 'status-circle status-error';
+        }
+    })
 }

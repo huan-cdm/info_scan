@@ -1154,7 +1154,7 @@ def stopstruts2_lib():
 
 # 关闭jndi服务
 def stopjndi_lib():
-    jndi_status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+    jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
     os.popen('bash /TIP/info_scan/finger.sh stop_jndi_python')
     if "stop" in jndi_status:
         killjndi_result = "已关闭JNDI服务程序"
