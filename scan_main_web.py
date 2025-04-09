@@ -498,9 +498,16 @@ def systemmanagement():
         shodanstatus = os.popen('bash /TIP/info_scan/finger.sh shodanassetstatus').read()
         shodankeyvalue = basic.select_session_time_lib(3)
         apis = shodan.Shodan(shodankeyvalue)
-        account_info = apis.info()
-        account_info_num = str(account_info['query_credits'])
-        total_account_info_num = str(account_info['scan_credits'])
+        try:
+            account_info = apis.info()
+        except:
+            pass
+        try:
+            account_info_num = str(account_info['query_credits'])
+            total_account_info_num = str(account_info['scan_credits'])
+        except:
+            account_info_num = "key无效"
+            total_account_info_num = "key无效"
         
         if "running" in shodanstatus:
             shodanstatus1 = shodanstatus
