@@ -1,4 +1,4 @@
-<h2>docker部署（beta版本）：</h2> 
+<h2>docker部署（beta版本）（维护中）：</h2> 
 1. 账号密码：nginx/web/mysql：admin/123456<br>
 2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
@@ -7,17 +7,19 @@
 进入容器：docker exec -it 容器ID /bin/bash<br>
 启动mysql：service  mysql start<br>
 4.平台环境：<br>
-下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（历史版本）<br>
-下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更新）<br>
+下载镜像：<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4（2025.4.10更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（历史版本）<br>
 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3 /bin/bash<br>
 进入容器：docker exec -it 容器ID /bin/bash<br>
 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js<br>
 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
 访问地址：http://ip:19999/index/<br>
-参数配置：平台-系统配置-账号配置，点击导航栏的重启按钮<br>
+参数配置：平台-用户名-系统配置-账号配置，系统默认情况下配置完自动重启生效，如果未生效，需点击重启按钮。<br>
 
 
-<h2>便携版本安装：</h2>
+<h2>便携版本安装（暂停维护）：</h2>
 Linux服务器账号密码：huan/admin@123<br>
 nginx账号密码：admin/123456<br>
 web账号密码：admin/123456<br>
@@ -34,7 +36,7 @@ mysql账号密码：admin/123456<br>
 - [info_scan_2024.08](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)：2024.08.14、2024.08.29更新，百度网盘。
 <br><br>
 
-<h2>系统源码安装：</h2>
+<h2>系统源码安装（维护中）：</h2>
 注意：<br><br>
 保证系统正常运行需要2个项目：<br><br>
 
