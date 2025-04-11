@@ -271,7 +271,14 @@ def index():
         asset_file_list = basic.fofa_grammar_lib()
         session_time = basic.select_session_time_lib(1)
         period_time = get_time_period_lib()
-        return render_template('index.html',data20=str(user),data21=asset_file_list,data22=str(session_time),data30 = str(period_time))
+        # 判断是否开启JNDI
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+        if "running" in jndi_status and "running" in jndi_python_status:
+            jndi_status_result = "1. JNDI监控服务已启动。"
+        else:
+            jndi_status_result = "1. JNDI监控服务未启动，一些检测功能将会受到限制。"
+        return render_template('index.html',data20=str(user),data21=asset_file_list,data22=str(session_time),data30 = str(period_time),data31=str(jndi_status_result))
     else:
         return render_template('login.html')
 

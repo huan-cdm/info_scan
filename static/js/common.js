@@ -328,6 +328,12 @@ function closevulnscan11() {
 
 }
 
+// 关闭系统提示窗口
+function closesystemshow() {
+    var systemshowid1 = document.getElementById("systemshowid1");
+    systemshowid1.style.display = "none";
+}
+
 
 
 //weblogic_poc报告预览
@@ -818,7 +824,7 @@ function startscanconfigpagefunc() {
     var sessionid6 = document.getElementById('sessionid6');
 
     $.ajax({
-        url: '/system_config_data/',
+        url: '/system_config_data/', 
         method: 'GET',
         success: function (info) {
             // 为input元素赋值
@@ -3142,3 +3148,24 @@ function stopjndistatusfunc() {
         }
     })
 }
+
+// 点击logo图标返回首页
+function pointlogopagefunc() {
+    window.location.href = "/index/";
+}
+
+
+// 实时显示当前时间
+function updateClock() {
+    const now = new Date();
+    const formattedTime = now.getFullYear() + '/' +
+                         String(now.getMonth() + 1).padStart(2, '0') + '/' +
+                         String(now.getDate()).padStart(2, '0') + ' ' +
+                         String(now.getHours()).padStart(2, '0') + ':' +
+                         String(now.getMinutes()).padStart(2, '0') + ':' +
+                         String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock').textContent = formattedTime;
+}
+
+setInterval(updateClock, 1000); // 更新时间间隔为1秒
+updateClock(); // 初始化时立即更新时间

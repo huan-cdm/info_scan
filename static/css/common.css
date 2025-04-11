@@ -495,10 +495,36 @@
 			width: 100%;
 			z-index: 9;
 			/* 确保比 LOGO 低 */
-			margin-top: 30px;
+			margin-top: 40px;
 			/* 让菜单下移，避免遮挡 LOGO */
 		}
 
+		.middle-menu {
+			background-color: #35a5e5;
+			width: 100%;
+			height: 100%;
+			margin-top: 0px;
+
+
+		}
+
+		.middle-menu p {
+			font-family: "KaiTi", "楷体", serif;
+			font-size: large;
+		}
+
+
+
+		/* .p_color_font {
+			font-family: "KaiTi", "楷体", serif;
+			font-size: large;
+			
+		}
+		.p_color_font1 {
+			font-family: "KaiTi", "楷体", serif;
+			font-size: large;
+			font-weight: bold;
+		} */
 		.top-menu a {
 			float: left;
 			display: block;
@@ -514,8 +540,9 @@
 		}
 
 		.content {
-			padding-top: 20px;
+
 			/* 根据菜单高度调整 */
+			margin-top: 0px;
 		}
 
 
@@ -709,6 +736,16 @@
 			font-weight: bold;
 		}
 
+		/* 系统提示窗口 */
+		.close88 {
+			color: chartreuse;
+			float: right;
+			font-size: 40px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+
 		.close8:hover,
 		.close8:focus {
 			color: black;
@@ -772,6 +809,23 @@
 			/* 距离左侧0px */
 			z-index: 1000;
 			/* 确保在其他元素之上 */
+			cursor: pointer;
+			/* 鼠标放上变小手 */
+		}
+
+		.rightlogotime {
+			position: absolute;
+			top: 5px;
+			/* 距离顶部0px */
+			right: 0px;
+			/* 距离左侧0px */
+			z-index: 1000;
+			/* 确保在其他元素之上 */
+			cursor: pointer;
+			/* 鼠标放上变小手 */
+		}
+		.rightlogotime span{
+			font-size: larger;
 		}
 
 		.my-spanconfig22 {
@@ -895,4 +949,14 @@
 		/* 隐藏状态文字 */
 		.status-text {
 			display: none;
+		}
+
+		/* 字体右对齐 */
+		.right-align {
+			position: relative;
+			/* 设置绝对定位 */
+			right: 0;
+			/* 将文本放置在容器的最右侧 */
+			top: 0;
+			/* 与容器顶部对齐 */
 		}

@@ -14,7 +14,11 @@
 <body>
 
 	<div class="logo">
-		<img src="{{ url_for( 'static',filename='image/logo.png') }}" alt="Logo" style="width: 100px;">
+		<img src="{{ url_for( 'static',filename='image/logo.png') }}" alt="Logo" style="width: 100px;" onclick="pointlogopagefunc()">
+		
+	</div>
+	<div class="rightlogotime">
+		<span id="clock"></span>
 	</div>
 
 	<div class="top-menu">
@@ -23,8 +27,12 @@
 		<a href="/siteroute/" target="_blank">网站导航</a>
 		<a href="#dnslog" onclick="dnslogfunc()">dnslog</a>
 		<a href="#data" onclick="openModal()">数据分析</a>
+	</div>
 
-
+	<div class="middle-menu" id="systemshowid1">
+		<span class="close88" onclick="closesystemshow()">&times;</span>
+		<p>动态</p>
+		<p>{{data31}}</p>
 	</div>
 
 	<div class="content">
