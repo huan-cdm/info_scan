@@ -67,6 +67,11 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-4-18更新<br> 
+1.新增态势感知大屏展示；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-4-9更新<br> 
 1.系统配置页面整体重构；<br>
 2.JNDI服务迁移到系统配置页面，开启显示绿色圈，关闭显示红色圈；<br>
@@ -466,3 +471,7 @@ icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/youhua.png" /><br><br>
 服务重启<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/servicereboot.png" /><br>
+态势感知大屏<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi2.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi3.png" />

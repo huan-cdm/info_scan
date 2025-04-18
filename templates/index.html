@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=" UTF-8" />
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for( 'static',filename='js/largescreen.js') }}"></script>
 	<link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
 	<link rel="icon" href="{{ url_for('static', filename='image/titlepic.png') }}" type="image/x-icon">
 	<title>漏洞扫描主系统</title>
@@ -27,17 +28,19 @@
 		<a href="/siteroute/" target="_blank">网站导航</a>
 		<a href="#dnslog" onclick="dnslogfunc()">dnslog</a>
 		<a href="#data" onclick="openModal()">数据分析</a>
+		<a href="/largescreenpage/" target="_blank">态势感知</a>
 	</div>
 
 	<div class="middle-menu" id="systemshowid1">
 		<span class="close88" onclick="closesystemshow()">&times;</span>
 		<p>动态</p>
 		<p>{{data31}}</p>
+		<p>{{data32}}</p>
 	</div>
 
 	<div class="content">
 
-		<span style="display: block; text-align: left;font-size: larger;">欢迎访问漏洞扫描平台，会话有效时间：{{data22}} 分钟！</span>
+		<span style="display: block; text-align: left;font-size: larger;">欢迎访问漏洞扫描平台</span>
 
 		<div class="dropdown">
 			<span class="dropdown-span">{{data30}}，{{data20}}</span>

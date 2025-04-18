@@ -929,18 +929,31 @@ def asset_by_rule_handle():
 # 磁盘读写状态查询
 def disk_read_write():
     try:
-        # 获取磁盘的读写速度，单位是字节每秒
-        read_speed_bytes_per_sec = psutil.disk_io_counters().read_bytes
-        write_speed_bytes_per_sec = psutil.disk_io_counters().write_bytes
+        # 获取当前的读取和写入字节数
+        io_counters_start = psutil.disk_io_counters()
+        read_bytes_start = io_counters_start.read_bytes
+        write_bytes_start = io_counters_start.write_bytes
     
-        # 将字节转换为千字节
-        read_speed_kb_per_sec = read_speed_bytes_per_sec / 1024
-        write_speed_kb_per_sec = write_speed_bytes_per_sec / 1024
+        # 等待一段时间（例如1秒）
+        time.sleep(1)
+    
+        # 再次获取读取和写入字节数
+        io_counters_end = psutil.disk_io_counters()
+        read_bytes_end = io_counters_end.read_bytes
+        write_bytes_end = io_counters_end.write_bytes
+    
+        # 计算读取和写入速度（单位：字节/秒）
+        read_speed_bytes_per_sec = read_bytes_end - read_bytes_start
+        write_speed_bytes_per_sec = write_bytes_end - write_bytes_start
+    
+        # 将字节转换为MB（1MB = 1024 * 1024 字节）
+        read_speed_mb_per_sec = read_speed_bytes_per_sec / (1024 * 1024)
+        write_speed_mb_per_sec = write_speed_bytes_per_sec / (1024 * 1024)
     
         
     except Exception as e:
         print("捕获到异常:", e)
-    tuple_list = [read_speed_kb_per_sec,write_speed_kb_per_sec]
+    tuple_list = [read_speed_mb_per_sec,write_speed_mb_per_sec]
     return tuple_list
 
 
@@ -3600,7 +3613,74 @@ def withdrawiplocation_lib():
         ip_list_result = "提取IP地址失败"
     return  ip_list_result
 
-           
+# 网络速率
+def get_network_speed():
+    # 获取当前的网络接口的字节数
+    net_io_start = psutil.net_io_counters()
+    bytes_sent_start = net_io_start.bytes_sent
+    bytes_recv_start = net_io_start.bytes_recv
+
+    # 等待1秒
+    time.sleep(1)
+
+    # 再次获取网络接口的字节数
+    net_io_end = psutil.net_io_counters()
+    bytes_sent_end = net_io_end.bytes_sent
+    bytes_recv_end = net_io_end.bytes_recv
+
+    # 计算1秒内的发送和接收字节数
+    bytes_sent = bytes_sent_end - bytes_sent_start
+    bytes_recv = bytes_recv_end - bytes_recv_start
+
+    # 转换为KB/s
+    net_out_rate = bytes_sent / 1024  # 转换为KB
+    net_in_rate = bytes_recv / 1024  # 转换为KB
+
+    # 格式化输出，保留最多三位有效数字
+    def format_rate(rate):
+        if rate < 10:
+            return f"{rate:.3f}"  # 保留三位小数
+        elif rate < 100:
+            return f"{rate:.2f}"  # 保留两位小数
+        else:
+            return f"{rate:.1f}"  # 保留一位小数
+
+    # 格式化接收速率和发送速率
+    formatted_net_in_rate = "接收 "+format_rate(net_in_rate)+" KB/s"
+    formatted_net_out_rate = "发送 "+format_rate(net_out_rate)+" KB/s"
+    return formatted_net_in_rate, formatted_net_out_rate
+
+
+# 用于态势感知大屏提取主机资产和网站资产
+# 提取主机资产
+def extract_host_assets_lib():
+    # 全部资产列表
+    assets_list = url_file_ip_list()  
+    ip_list = []
+    for asset in assets_list:
+        try:
+            ip = ipaddress.ip_address(asset)
+            if ip.version == 4:
+                ip_list.append(asset)                                      
+            elif ip.version == 6:
+                ip_list.append(asset)                    
+        except:
+            pass
+    return str(len(ip_list))
+
+# 提取网站资产
+def extract_site_assets_lib():
+    # 全部资产列表
+    assets_list = url_file_ip_list()
+    # 网站资产列表
+    site_list = []
+    try:
+        for urlline in assets_list:
+            if "http" in urlline:
+                site_list.append(urlline)
+    except:
+        site_list.append("")
+    return str(len(site_list))
 
 
 
@@ -3623,6 +3703,10 @@ if __name__ == "__main__":
             assets_college_shodan_lib()
         elif func_name == 'withdrawiplocation_lib':
             withdrawiplocation_lib()
+
+        # 测试使用
+        elif func_name == 'extract_site_assets_lib':
+            extract_site_assets_lib()
         else:
             print("Invalid function number")
     else:

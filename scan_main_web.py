@@ -269,7 +269,7 @@ def index():
     if str(user) == main_username:
         # asset_file_list = basic.list_files_in_directory()
         asset_file_list = basic.fofa_grammar_lib()
-        session_time = basic.select_session_time_lib(1)
+        # session_time = basic.select_session_time_lib(1)
         period_time = get_time_period_lib()
         # 判断是否开启JNDI
         jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
@@ -278,7 +278,14 @@ def index():
             jndi_status_result = "1. JNDI监控服务已启动。"
         else:
             jndi_status_result = "1. JNDI监控服务未启动，一些检测功能将会受到限制。"
-        return render_template('index.html',data20=str(user),data21=asset_file_list,data22=str(session_time),data30 = str(period_time),data31=str(jndi_status_result))
+
+        # 判断时候开启MySQL
+        mysql_status = os.popen('bash /TIP/info_scan/finger.sh mysql_server_status').read()
+        if "running" in mysql_status:
+            mysql_status_result = "2. MySQL服务已启动。"
+        else:
+            mysql_status_result = "2. MySQL服务未启动，系统部分功能将会受到限制。"
+        return render_template('index.html',data20=str(user),data21=asset_file_list,data30 = str(period_time),data31=str(jndi_status_result),data32=str(mysql_status_result))
     else:
         return render_template('login.html')
 
@@ -5984,17 +5991,19 @@ def assets_byshodan():
         # 筛选后资产时间线更新
         basic.assets_status_update('shodan获取资产已完成')
         shodanstatus = os.popen('bash /TIP/info_scan/finger.sh shodanassetstatus').read()
-        
-        if "running" in shodanstatus:
-            shodan_status_result = "shodan资产获取程序正在运行中请勿重复提交"
-        else:
-            # 调用shell脚本并传参
-            result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startshodanasset",inputshodanid, start_num_shodan, end_num_shodan], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            # 输出脚本的标准输出和标准错误
-            print("标准输出:", result.stdout)
-            print("标准错误:", result.stderr)
-            shodan_status_result = "shodan资产获取程序已开启成功"
-
+        try:
+            if "running" in shodanstatus:
+                shodan_status_result = "shodan资产获取程序正在运行中请勿重复提交"
+            else:
+                # 调用shell脚本并传参
+                result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startshodanasset",inputshodanid, start_num_shodan, end_num_shodan], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                basic.success_third_party_port_addone(2)
+                # 输出脚本的标准输出和标准错误
+                print("标准输出:", result.stdout)
+                print("标准错误:", result.stderr)
+                shodan_status_result = "shodan资产获取程序已开启成功"
+        except:
+            basic.fail_third_party_port_addone(2)
         message_json = {
             "shodan_status_result":shodan_status_result
         }
@@ -6208,6 +6217,841 @@ def stopjndiservice():
         return jsonify(message_json)
     else:
         return render_template('login.html')
+
+
+# 跳转到态势感知大屏
+@app.route("/largescreenpage/")
+def largescreenpage():
+    user = session.get('username')
+    if str(user) == main_username:
+        return render_template('largescreen.html')
+    else:
+        return render_template('login.html')
+
+
+# 态势感知大屏数据
+@app.route("/largescreenpagedata/")
+def largescreenpagedata():
+    user = session.get('username')
+    if str(user) == main_username:
+        # cpu占用率
+        cpu_percent = psutil.cpu_percent(interval=1)
+        # cpu核数
+        cpu_threads = psutil.cpu_count()
+
+        # 获取内存信息  
+        mem = psutil.virtual_memory()  
+        # 计算内存占用百分比  
+        memory_percent = mem.percent
+        # 总资产数
+        total_assets_num = os.popen('bash /TIP/info_scan/finger.sh current_url_file_num').read()
+        # 磁盘读速率
+        disk_read_1 = basic.disk_read_write()[0]
+        if disk_read_1 <= 0.1:
+            disk_read = f"{disk_read_1:.1f}"
+        elif disk_read_1 <= 0.01:
+            disk_read = f"{disk_read_1:.2f}"
+        else:
+            disk_read = f"{disk_read_1:.3f}"
+        
+        # 磁盘写速率
+        disk_write_1 = basic.disk_read_write()[1]
+        if disk_write_1 <= 0.1:
+            disk_write = f"{disk_write_1:.1f}"
+        elif disk_write_1 <= 0.01:
+            disk_write = f"{disk_write_1:.2f}"
+        else:
+            disk_write = f"{disk_write_1:.3f}"
+
+        # 进程数量
+        pidnum = str(len(psutil.pids()))
+                     
+        # 网络带宽使用率
+        network_rate = basic.get_network_speed()
+
+        # 主机资产数量
+        assets_hostname = basic.extract_host_assets_lib()
+
+        # 网站资产数量
+        assets_site = basic.extract_site_assets_lib()
+
+        # shodan官方接口额度
+        shodankeyvalue = basic.select_session_time_lib(3)
+        apis = shodan.Shodan(shodankeyvalue)
+        try:
+            account_info = apis.info()
+        except:
+            pass
+        try:
+            account_info_num = str(account_info['query_credits'])
+            total_account_info_num = str(account_info['scan_credits'])
+        except:
+            account_info_num = "key无效"
+            total_account_info_num = "key无效"
+
+        shodan_account_info_percent = str(account_info_num)+"/"+str(total_account_info_num)
+        # 会话时间
+        session_time = basic.select_session_time_lib(1)
+
+        # 第三方接口额度剩余查询
+        fofa_inter_num_success = basic.total_port_success_num(1)
+        fofa_inter_num_fail = basic.total_port_fail_num(1)
+        shodan_inter_num_success = basic.total_port_success_num(2)
+        shodan_inter_num_fail = basic.total_port_fail_num(2)
+        crt_inter_num_success = basic.total_port_success_num(3)
+        crt_inter_num_fail = basic.total_port_fail_num(3)
+        icp_inter_num_success = basic.total_port_success_num(4)
+        icp_inter_num_fail = basic.total_port_fail_num(4)
+        gd_inter_num_success = basic.total_port_success_num(5)
+        gd_inter_num_fail = basic.total_port_fail_num(5)
+        otx_inter_num_success = basic.total_port_success_num(6)
+        otx_inter_num_fail = basic.total_port_fail_num(6)
+
+        # 第三方接口总量和剩余查询
+        tatal_fofa_num = int(fofa_inter_num_success) + int(fofa_inter_num_fail)
+        fofa_remaining_num_1 =  int(fofa_max_num) - tatal_fofa_num
+        if fofa_remaining_num_1 < 0:
+            fofa_remaining_num = 0
+        else:
+            fofa_remaining_num = fofa_remaining_num_1
+
+        total_shodan_num = int(shodan_inter_num_success) + int(shodan_inter_num_fail)
+        shodan_remaining_num_1 = int(shodan_max_num) - total_shodan_num
+        if shodan_remaining_num_1 < 0:
+            shodan_remaining_num = 0
+        else:
+            shodan_remaining_num = shodan_remaining_num_1
+
+        tatal_crt_num = int(crt_inter_num_success) + int(crt_inter_num_fail)
+        crt_remaining_num_1 =  int(crt_max_num) - tatal_crt_num
+        if crt_remaining_num_1 < 0:
+            crt_remaining_num = 0
+        else:
+            crt_remaining_num = crt_remaining_num_1
+
+        tatal_icp_num = int(icp_inter_num_success) + int(icp_inter_num_fail)
+        icp_remaining_num_1 =  int(icp_max_num) - tatal_icp_num
+        if icp_remaining_num_1 < 0:
+            icp_remaining_num = 0
+        else:
+            icp_remaining_num = icp_remaining_num_1
+
+        tatal_amap_num = int(gd_inter_num_success) + int(gd_inter_num_fail)
+        amap_remaining_num_1 =  int(amap_max_num) - tatal_amap_num
+        if amap_remaining_num_1 < 0:
+            amap_remaining_num = 0
+        else:
+            amap_remaining_num = amap_remaining_num_1
+        
+        tatal_otx_num = int(otx_inter_num_success) + int(otx_inter_num_fail)
+        otx_remaining_num_1 =  int(otx_max_num) - tatal_otx_num
+        if otx_remaining_num_1 < 0:
+            otx_remaining_num = 0
+        else:
+            otx_remaining_num = otx_remaining_num_1
+
+        # 高危资产数量查询
+        shiro_num = basic.key_point_assets_num(Shiro_rule)
+        springboot_num = basic.key_point_assets_num(SpringBoot_rule)
+        weblogic_num = basic.key_point_assets_num(weblogic_rule)
+        ruoyi_num = basic.key_point_assets_num(ruoyi_rule)
+        struts2_num = basic.key_point_assets_num(struts2_rule)
+        WordPress_num = basic.key_point_assets_num(WordPress_rule)
+        jboss_num = basic.key_point_assets_num(jboss_rule)
+        phpmyadmin_num = basic.key_point_assets_num(phpMyAdmin_rule)
+        ThinkPHP_num = basic.key_point_assets_num(ThinkPHP_rule)
+        nacos_num = basic.key_point_assets_num(nacos_rule)
+        fanwei_num = basic.key_point_assets_num(fanwei_rule)
+        tomcat_num = basic.key_point_assets_num(tomcat_rule)
+
+        # 服务运行状态实时统计
+        jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
+        jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
+        if "running" in jndi_status and "running" in jndi_python_status:
+            jndi_status1 = jndi_status
+            jndi_status2 = ""
+        else:
+            jndi_status1 = ""
+            jndi_status2 = jndi_status
+
+
+        xray_report_status = os.popen('bash /TIP/info_scan/finger.sh xray_report_status').read()
+        if "running" in xray_report_status:
+            xray_report_status1 = xray_report_status
+            xray_report_status2 = ""
+        else:
+            xray_report_status1 = ""
+            xray_report_status2 = xray_report_status
+
+        urlfinder_report_status = os.popen('bash /TIP/info_scan/finger.sh urlfinder_report_status').read()
+        if "running" in urlfinder_report_status:
+            urlfinder_report_status1 = urlfinder_report_status
+            urlfinder_report_status2 = ""
+        else:
+            urlfinder_report_status1 = ""
+            urlfinder_report_status2 = urlfinder_report_status
+
+        afrog_report_status = os.popen('bash /TIP/info_scan/finger.sh afrog_report_status').read()
+        if "running" in afrog_report_status:
+            afrog_report_status1 = afrog_report_status
+            afrog_report_status2 = ""
+        else:
+            afrog_report_status1 = ""
+            afrog_report_status2 = afrog_report_status
+
+        infoinfostatus = os.popen('bash /TIP/info_scan/finger.sh infoinfostatus').read()
+        if "running" in infoinfostatus:
+            infoinfostatus1 = infoinfostatus
+            infoinfostatus2 = ""
+        else:
+            infoinfostatus1 = ""
+            infoinfostatus2 = infoinfostatus
+
+        dirsub_sys_status = os.popen('bash /TIP/info_scan/finger.sh dirsub_sys_status').read()
+        if "running" in dirsub_sys_status:
+            dirsub_sys_status1 = dirsub_sys_status
+            dirsub_sys_status2 = ""
+        else:
+            dirsub_sys_status1 = ""
+            dirsub_sys_status2 = dirsub_sys_status
+
+        mysql_status = os.popen('bash /TIP/info_scan/finger.sh mysql_server_status').read()
+        if "running" in mysql_status:
+            mysql_status1 = mysql_status
+            mysql_status2 = ""
+        else:
+            mysql_status1 = ""
+            mysql_status2 = mysql_status
+
+        xraystatus = os.popen('bash /TIP/info_scan/finger.sh xraystatus').read()
+        if "running" in xraystatus:
+            xraystatus1 = xraystatus
+            xraystatus2 = ""
+        else:
+            xraystatus1 = ""
+            xraystatus2 = xraystatus
+        
+        cdn_status = os.popen('bash /TIP/info_scan/finger.sh cdn_status').read()
+        if "running" in cdn_status:
+            cdn_status1 = cdn_status
+            cdn_status2 = ""
+        else:
+            cdn_status1 = ""
+            cdn_status2 = cdn_status
+        
+        # 汇总报告生成状态
+        total_report_status = os.popen('bash /TIP/info_scan/finger.sh totalreport_num').read()
+        if int(total_report_status) == 2:
+            total_report_status_result1 = ""
+            total_report_status_result2 = "已汇总"
+        elif int(total_report_status) == 1:
+            total_report_status_result1 = "汇总中"
+            total_report_status_result2 = ""
+
+        # 未授权专项扫描状态和耗时
+        redis_status = os.popen('bash /TIP/info_scan/finger.sh redis_vuln_scan_status').read()
+        if "running" in redis_status:
+            redis_status1 = redis_status
+            redis_status2 = ""
+            rediscontime = "?"
+        else:
+            redis_status1 = ""
+            redis_status2 = redis_status
+            rediscontime = basic.scan_end_start_time(32)
+
+        mongodb_status = os.popen('bash /TIP/info_scan/finger.sh mongodb_vuln_scan_status').read()
+        if "running" in mongodb_status:
+            mongodb_status1 = mongodb_status
+            mongodb_status2 = ""
+            mongodbcontime = "计算中"
+        else:
+            mongodb_status1 = ""
+            mongodb_status2 = mongodb_status
+            mongodbcontime = basic.scan_end_start_time(33)
+
+        memcached_status = os.popen('bash /TIP/info_scan/finger.sh memcached_vuln_scan_status').read()
+        if "running" in memcached_status:
+            memcached_status1 = memcached_status
+            memcached_status2 = ""
+            memcachedcontime = "计算中"
+        else:
+            memcached_status1 = ""
+            memcached_status2 = memcached_status
+            memcachedcontime = basic.scan_end_start_time(34)
+
+        zookeeper_status = os.popen('bash /TIP/info_scan/finger.sh zookeeper_vuln_scan_status').read()
+        if "running" in zookeeper_status:
+            zookeeper_status1 = zookeeper_status
+            zookeeper_status2 = ""
+            zookeepercontime = "计算中"
+        else:
+            zookeeper_status1 = ""
+            zookeeper_status2 = zookeeper_status
+            zookeepercontime = basic.scan_end_start_time(35)
+
+        ftp_status = os.popen('bash /TIP/info_scan/finger.sh ftp_vuln_scan_status').read()
+        if "running" in ftp_status:
+            ftp_status1 = ftp_status
+            ftp_status2 = ""
+            ftpcontime = "计算中"
+        else:
+            ftp_status1 = ""
+            ftp_status2 = ftp_status
+            ftpcontime = basic.scan_end_start_time(36)
+
+        couchdb_status = os.popen('bash /TIP/info_scan/finger.sh couchdb_vuln_scan_status').read()
+        if "running" in couchdb_status:
+            couchdb_status1 = couchdb_status
+            couchdb_status2 = ""
+            couchdbcontime = "计算中"
+        else:
+            couchdb_status1 = ""
+            couchdb_status2 = couchdb_status
+            couchdbcontime = basic.scan_end_start_time(37)
+
+        docker_status = os.popen('bash /TIP/info_scan/finger.sh docker_vuln_scan_status').read()
+        if "running" in docker_status:
+            docker_status1 = docker_status
+            docker_status2 = ""
+            dockercontime = "计算中"
+        else:
+            docker_status1 = ""
+            docker_status2 = docker_status
+            dockercontime = basic.scan_end_start_time(38)
+
+        
+        hadoop_status = os.popen('bash /TIP/info_scan/finger.sh hadoop_vuln_scan_status').read()
+        if "running" in hadoop_status:
+            hadoop_status1 = hadoop_status
+            hadoop_status2 = ""
+            hadoopcontime = "计算中"
+        else:
+            hadoop_status1 = ""
+            hadoop_status2 = hadoop_status
+            hadoopcontime = basic.scan_end_start_time(39)
+
+        nfs_status = os.popen('bash /TIP/info_scan/finger.sh nfs_vuln_scan_status').read()
+        if "running" in nfs_status:
+            nfs_status1 = nfs_status
+            nfs_status2 = ""
+            nfscontime = "计算中"
+        else:
+            nfs_status1 = ""
+            nfs_status2 = nfs_status
+            nfscontime = basic.scan_end_start_time(40)
+
+        rsync_status = os.popen('bash /TIP/info_scan/finger.sh rsync_vuln_scan_status').read()
+        if "running" in rsync_status:
+            rsync_status1 = rsync_status
+            rsync_status2 = ""
+            rsynccontime = "计算中"
+        else:
+            rsync_status1 = ""
+            rsync_status2 = rsync_status
+            rsynccontime = basic.scan_end_start_time(41)
+
+        unes1_status = os.popen('bash /TIP/info_scan/finger.sh elasticsearch_vuln_scan_status').read()
+        if "running" in unes1_status:
+            unes1_status1 = unes1_status
+            unes1_status2 = ""
+            unes1contime = "计算中"
+        else:
+            unes1_status1 = ""
+            unes1_status2 = unes1_status
+            unes1contime = basic.scan_end_start_time(42)
+
+        # 信息收集专项扫描状态和耗时
+        eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
+        if "running" in eholestatus:
+            eholestatus1 = eholestatus
+            eholestatus2 = ""
+            eholecontime = "?"
+        else:
+            eholestatus1 = ""
+            eholestatus2 = eholestatus
+            eholecontime = basic.scan_end_start_time(2)
+
+        bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
+        if "running" in bbscanstatus:
+            bbscanstatus1 = bbscanstatus
+            bbscanstatus2 = ""
+            bbscancontime = "?"
+        else:
+            bbscanstatus1 = ""
+            bbscanstatus2 = bbscanstatus
+            bbscancontime = basic.scan_end_start_time(3)
+
+        otx_status = os.popen('bash /TIP/info_scan/finger.sh otx_domain_url_shell_status').read()
+        if "running" in otx_status:
+            otx_status1 = otx_status
+            otx_status2 = ""
+            otxcontime = "?"
+        else:
+            otx_status1 = ""
+            otx_status2 = otx_status
+            otxcontime = basic.scan_end_start_time(4)
+
+        crt_status = os.popen('bash /TIP/info_scan/finger.sh crt_subdomain_shell_status').read()
+        if "running" in crt_status:
+            crt_status1 = crt_status
+            crt_status2 = ""
+            crtcontime = "?"
+        else:
+            crt_status1 = ""
+            crt_status2 = crt_status
+            crtcontime = basic.scan_end_start_time(5)
+
+        nmapstatus =os.popen('bash /TIP/info_scan/finger.sh nmapstatus').read()
+        if "running" in nmapstatus:
+            nmapstatus1 = nmapstatus
+            nmapstatus2 = ""
+            nmapcontime = "?"
+
+        else:
+            nmapstatus1 = ""
+            nmapstatus2 = nmapstatus
+            nmapcontime = basic.scan_end_start_time(1)
+
+        waf_status = os.popen('bash /TIP/info_scan/finger.sh waf_scan_status').read()
+        if "running" in waf_status:
+            waf_status1 = waf_status
+            waf_status2 = ""
+            wafcontime = "?"
+        else:
+            waf_status1 = ""
+            waf_status2 = waf_status
+            wafcontime = basic.scan_end_start_time(6)
+
+        bypass_status = os.popen('bash /TIP/info_scan/finger.sh bypassstatus').read()
+        if "running" in bypass_status:
+            bypass_status1 = bypass_status
+            bypass_status2 = ""
+            bypasscontime = "?"
+        else:
+            bypass_status1 = ""
+            bypass_status2 = bypass_status
+            bypasscontime = basic.scan_end_start_time(7)
+
+
+        crawlergo_status = os.popen('bash /TIP/info_scan/finger.sh crawlergo_status').read()
+        if "running" in crawlergo_status:
+            crawlergo_status1 = crawlergo_status
+            crawlergo_status2 = ""
+            crawlergocontime = "?"
+        else:
+            crawlergo_status1 = ""
+            crawlergo_status2 = crawlergo_status
+            crawlergocontime = basic.scan_end_start_time(8)
+
+        subfinder_status = os.popen('bash /TIP/info_scan/finger.sh subfinder_status').read()
+        if "running" in subfinder_status:
+            subfinder_status1 = subfinder_status
+            subfinder_status2 = ""
+            subfindercontime = "?"
+        else:
+            subfinder_status1 = ""
+            subfinder_status2 = subfinder_status
+            subfindercontime = basic.scan_end_start_time(31)
+
+        # 框架组件专项
+        struts2status = os.popen('bash /TIP/info_scan/finger.sh struts2_status').read()
+        if "running" in struts2status:
+            struts2status1 = struts2status
+            struts2status2 = ""
+            struts2contime = "?"
+        else:
+            struts2status1 = ""
+            struts2status2 = struts2status
+            struts2contime = basic.scan_end_start_time(9)
+        weblogicstatus = os.popen('bash /TIP/info_scan/finger.sh weblogic_status').read()
+        if "running" in weblogicstatus:
+            weblogicstatus1 = weblogicstatus
+            weblogicstatus2 = ""
+            weblogiccontime = "?"
+        else:
+            weblogicstatus1 = ""
+            weblogicstatus2 = weblogicstatus
+            weblogiccontime = basic.scan_end_start_time(10)
+        shirostatus = os.popen('bash /TIP/info_scan/finger.sh shiro_status').read()
+        if "running" in shirostatus:
+            shirostatus1 = shirostatus
+            shirostatus2 = ""
+            shirocontime = "?"
+        else:
+            shirostatus1 = ""
+            shirostatus2 = shirostatus
+            shirocontime = basic.scan_end_start_time(11)
+        springbootstatus = os.popen('bash /TIP/info_scan/finger.sh springboot_scan_status').read()
+        if "running" in springbootstatus:
+            springbootstatus1 = springbootstatus
+            springbootstatus2 = ""
+            springbootcontime = "?"
+        else:
+            springbootstatus1 = ""
+            springbootstatus2 = springbootstatus
+            springbootcontime = basic.scan_end_start_time(12)
+
+        thinkphpstatus = os.popen('bash /TIP/info_scan/finger.sh TPscan_status').read()
+        if "running" in thinkphpstatus:
+            thinkphpstatus1 = thinkphpstatus
+            thinkphpstatus2 = ""
+            thinkphpcontime = "?"
+        else:
+            thinkphpstatus1 = ""
+            thinkphpstatus2 = thinkphpstatus
+            thinkphpcontime = basic.scan_end_start_time(13)
+
+        es_unauthorized_status = os.popen('bash /TIP/info_scan/finger.sh es_unauthorized_status').read()
+        if "running" in es_unauthorized_status:
+            es_unauthorized_status1 = es_unauthorized_status
+            es_unauthorized_status2 = ""
+            esccontime = "?"
+        else:
+            es_unauthorized_status1 = ""
+            es_unauthorized_status2 = es_unauthorized_status
+            esccontime = basic.scan_end_start_time(14)
+
+        nacos_status = os.popen('bash /TIP/info_scan/finger.sh nacos_vuln_scan_status').read()
+        if "running" in nacos_status:
+            nacos_status1 = nacos_status
+            nacos_status2 = ""
+            nacoscontime = "?"
+        else:
+            nacos_status1 = ""
+            nacos_status2 = nacos_status
+            nacoscontime = basic.scan_end_start_time(15)
+        tomcat_status = os.popen('bash /TIP/info_scan/finger.sh tomcat_vuln_scan_status').read()
+        if "running" in tomcat_status:
+            tomcat_status1 = tomcat_status
+            tomcat_status2 = ""
+            tomcatcontime = "?"
+        else:
+            tomcat_status1 = ""
+            tomcat_status2 = tomcat_status
+            tomcatcontime = basic.scan_end_start_time(16)
+        fastjson_status = os.popen('bash /TIP/info_scan/finger.sh fastjson_scan_status').read()
+        if "running" in fastjson_status:
+            fastjson_status1 = fastjson_status
+            fastjson_status2 = ""
+            fastjsoncontime = "?"
+        else:
+            fastjson_status1 = ""
+            fastjson_status2 = fastjson_status
+            fastjsoncontime = basic.scan_end_start_time(17)
+
+
+        # 综合专项
+        afrogscanstatus = os.popen('bash /TIP/info_scan/finger.sh afrogscan_status').read()
+        if "running" in afrogscanstatus:
+            afrogscanstatus1 = afrogscanstatus
+            afrogscanstatus2 = ""
+            afrogcontime = "?"
+        else:
+            afrogscanstatus1 = ""
+            afrogscanstatus2 = afrogscanstatus
+            afrogcontime = basic.scan_end_start_time(18)
+        fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
+        if "running" in fscanstatus:
+            fscanstatus1 = fscanstatus
+            fscanstatus2 = ""
+            fscancontime = "?"
+        else:
+            fscanstatus1 = ""
+            fscanstatus2 = fscanstatus
+            fscancontime = basic.scan_end_start_time(19)
+        hydrastatus = os.popen('bash /TIP/info_scan/finger.sh hydra_status').read()
+        if "running" in hydrastatus:
+            hydrastatus1 = hydrastatus
+            hydrastatus2 = ""
+            weakpasscontime = "?"
+        else:
+            hydrastatus1 = ""
+            hydrastatus2 = hydrastatus
+            weakpasscontime = basic.scan_end_start_time(20)
+
+        vulmapscanstatus = os.popen('bash /TIP/info_scan/finger.sh vulmapscan_status').read()
+        if "running" in vulmapscanstatus:
+            vulmapscanstatus1 = vulmapscanstatus
+            vulmapscanstatus2 = ""
+            vulmapcontime = "?"
+        else:
+            vulmapscanstatus1 = ""
+            vulmapscanstatus2 = vulmapscanstatus
+            vulmapcontime = basic.scan_end_start_time(22)
+
+        nucleistatus =os.popen('bash /TIP/info_scan/finger.sh nucleistatus').read()
+        if "running" in nucleistatus:
+            nucleistatus1 = nucleistatus
+            nucleistatus2 = ""
+            nucleicontime = "?"
+        else:
+            nucleistatus1 = ""
+            nucleistatus2 = nucleistatus
+            nucleicontime = basic.scan_end_start_time(23)
+
+        weaver_status = os.popen('bash /TIP/info_scan/finger.sh weaver_status').read()
+        if "running" in weaver_status:
+            weaver_status1 = weaver_status
+            weaver_status2 = ""
+            weavercontime = "?"
+        else:
+            weaver_status1 = ""
+            weaver_status2 = weaver_status
+            weavercontime = basic.scan_end_start_time(24)
+        seeyonstatus = os.popen('bash /TIP/info_scan/finger.sh seeyon_vuln_scan_status').read()
+        if "running" in seeyonstatus:
+            seeyonstatus1 = seeyonstatus
+            seeyonstatus2 = ""
+            seeyoncontime = "?"
+        else:
+            seeyonstatus1 = ""
+            seeyonstatus2 = seeyonstatus
+            seeyoncontime = basic.scan_end_start_time(27)
+        yonsuite_status = os.popen('bash /TIP/info_scan/finger.sh yonsuite_vuln_scan_status').read()
+        if "running" in yonsuite_status:
+            yonsuite_status1 = yonsuite_status
+            yonsuite_status2 = ""
+            yonsuitecontime = "?"
+            
+        else:
+            yonsuite_status1 = ""
+            yonsuite_status2 = yonsuite_status
+            yonsuitecontime = basic.scan_end_start_time(28)
+
+
+        kingdee_status = os.popen('bash /TIP/info_scan/finger.sh kingdee_vuln_scan_status').read()
+        if "running" in kingdee_status:
+            kingdee_status1 = kingdee_status
+            kingdee_status2 = ""
+            kingdeecontime = "?"
+            
+        else:
+            kingdee_status1 = ""
+            kingdee_status2 = kingdee_status
+            kingdeecontime = basic.scan_end_start_time(29)
+        
+        wanhu_status = os.popen('bash /TIP/info_scan/finger.sh wanhu_vuln_scan_status').read()
+        if "running" in wanhu_status:
+            wanhu_status1 = wanhu_status
+            wanhu_status2 = ""
+            wanhucontime = "?"
+            
+        else:
+            wanhu_status1 = ""
+            wanhu_status2 = wanhu_status
+            wanhucontime = basic.scan_end_start_time(30)
+
+        message_json = {
+            # 综合专项
+            "afrogscanstatus1":afrogscanstatus1,
+            "afrogscanstatus2":afrogscanstatus2,
+            "afrogcontime":afrogcontime,
+            "fscanstatus1":fscanstatus1,
+            "fscanstatus2":fscanstatus2,
+            "fscancontime":fscancontime,
+            "hydrastatus1":hydrastatus1,
+            "hydrastatus2":hydrastatus2,
+            "weakpasscontime":weakpasscontime,
+            "vulmapscanstatus1":vulmapscanstatus1,
+            "vulmapscanstatus2":vulmapscanstatus2,
+            "vulmapcontime":vulmapcontime,
+            "nucleistatus1":nucleistatus1,
+            "nucleistatus2":nucleistatus2,
+            "nucleicontime":nucleicontime,
+            "weaver_status1":weaver_status1,
+            "weaver_status2":weaver_status2,
+            "weavercontime":weavercontime,
+            "seeyonstatus1":seeyonstatus1,
+            "seeyonstatus2":seeyonstatus2,
+            "seeyoncontime":seeyoncontime,
+            "yonsuite_status1":yonsuite_status1,
+            "yonsuite_status2":yonsuite_status2,
+            "yonsuitecontime":yonsuitecontime,
+            "kingdee_status1":kingdee_status1,
+            "kingdee_status2":kingdee_status2,
+            "kingdeecontime":kingdeecontime,
+            "wanhu_status1":wanhu_status1,
+            "wanhu_status2":wanhu_status2,
+            "wanhucontime":wanhucontime,
+            # 框架组件专项
+            "struts2status1":struts2status1,
+            "struts2status2":struts2status2,
+            "struts2contime":struts2contime,
+            "weblogicstatus1":weblogicstatus1,
+            "weblogicstatus2":weblogicstatus2,
+            "weblogiccontime":weblogiccontime,
+            "shirostatus1":shirostatus1,
+            "shirostatus2":shirostatus2,
+            "shirocontime":shirocontime,
+            "springbootstatus1":springbootstatus1,
+            "springbootstatus2":springbootstatus2,
+            "springbootcontime":springbootcontime,
+            "thinkphpstatus1":thinkphpstatus1,
+            "thinkphpstatus2":thinkphpstatus2,
+            "thinkphpcontime":thinkphpcontime,
+            "es_unauthorized_status1":es_unauthorized_status1,
+            "es_unauthorized_status2":es_unauthorized_status2,
+            "esccontime":esccontime,
+            "nacos_status1":nacos_status1,
+            "nacos_status2":nacos_status2,
+            "nacoscontime":nacoscontime,
+            "tomcat_status1":tomcat_status1,
+            "tomcat_status2":tomcat_status2,
+            "tomcatcontime":tomcatcontime,
+            "fastjson_status1":fastjson_status1,
+            "fastjson_status2":fastjson_status2,
+            "fastjsoncontime":fastjsoncontime,
+
+            # 信息收集专项
+            "eholestatus1":eholestatus1,
+            "eholestatus2":eholestatus2,
+            "eholecontime":eholecontime,
+            "bbscanstatus1":bbscanstatus1,
+            "bbscanstatus2":bbscanstatus2,
+            "bbscancontime":bbscancontime,
+            "otx_status1":otx_status1,
+            "otx_status2":otx_status2,
+            "otxcontime":otxcontime,
+            "crt_status1":crt_status1,
+            "crt_status2":crt_status2,
+            "crtcontime":crtcontime,
+            "nmapstatus1":nmapstatus1,
+            "nmapstatus2":nmapstatus2,
+            "nmapcontime":nmapcontime,
+            "waf_status1":waf_status1,
+            "waf_status2":waf_status2,
+            "wafcontime":wafcontime,
+            "bypass_status1":bypass_status1,
+            "bypass_status2":bypass_status2,
+            "bypasscontime":bypasscontime,
+            "crawlergo_status1":crawlergo_status1,
+            "crawlergo_status2":crawlergo_status2,
+            "crawlergocontime":crawlergocontime,
+            "subfinder_status1":subfinder_status1,
+            "subfinder_status2":subfinder_status2,
+            "subfindercontime":subfindercontime,
+            # 系统信息
+            "cpuinfo":str(cpu_percent)+"%",
+            "cpu_threads":str(cpu_threads),
+            "memoryinfo":str(memory_percent)+"%",
+            "total_assets_num":str(total_assets_num),
+            "disk_read":str(disk_read),
+            "disk_write":str(disk_write),
+            "pidnum":pidnum,
+            "net_rate":network_rate,
+            "assets_hostname":assets_hostname,
+            "assets_site":assets_site,
+            "shodan_account_info_percent":shodan_account_info_percent,
+            "session_time":session_time,
+        
+            # 接口成功和失败
+            "fofa_inter_num_success":fofa_inter_num_success,
+            "fofa_inter_num_fail":fofa_inter_num_fail,
+            "shodan_inter_num_success":shodan_inter_num_success,
+            "shodan_inter_num_fail":shodan_inter_num_fail,
+            "crt_inter_num_success":crt_inter_num_success,
+            "crt_inter_num_fail":crt_inter_num_fail,
+            "icp_inter_num_success":icp_inter_num_success,
+            "icp_inter_num_fail":icp_inter_num_fail,
+            "gd_inter_num_success":gd_inter_num_success,
+            "gd_inter_num_fail":gd_inter_num_fail,
+            "otx_inter_num_success":otx_inter_num_success,
+            "otx_inter_num_fail":otx_inter_num_fail,
+
+            # 接口总量和剩余
+            "tatal_fofa_num":str(tatal_fofa_num),
+            "fofa_remaining_num":str(fofa_remaining_num),
+            "total_shodan_num":str(total_shodan_num),
+            "shodan_remaining_num":str(shodan_remaining_num),
+            "tatal_crt_num":str(tatal_crt_num),
+            "crt_remaining_num":str(crt_remaining_num),
+            "tatal_icp_num":str(tatal_icp_num),
+            "icp_remaining_num":str(icp_remaining_num),
+            "tatal_amap_num":str(tatal_amap_num),
+            "amap_remaining_num":str(amap_remaining_num),
+            "tatal_otx_num":str(tatal_otx_num),
+            "otx_remaining_num":str(otx_remaining_num),
+
+            # 高危资产数量统计
+            "shiro_num":str(shiro_num),
+            "springboot_num":str(springboot_num),
+            "struts2_num":str(struts2_num),
+            "weblogic_num":str(weblogic_num),
+            "ruoyi_num":str(ruoyi_num),
+            "WordPress_num":str(WordPress_num),
+            "jboss_num":str(jboss_num),
+            "phpmyadmin_num":str(phpmyadmin_num),
+            "ThinkPHP_num":str(ThinkPHP_num),
+            "nacos_num":str(nacos_num),
+            "fanwei_num":str(fanwei_num),
+            "tomcat_num":str(tomcat_num),
+
+            # 服务运行状态实时统计
+            "jndi_status1":jndi_status1,
+            "jndi_status2":jndi_status2,
+            "xray_report_status1":xray_report_status1,
+            "xray_report_status2":xray_report_status2,
+            "urlfinder_report_status1":urlfinder_report_status1,
+            "urlfinder_report_status2":urlfinder_report_status2,
+            "afrog_report_status1":afrog_report_status1,
+            "afrog_report_status2":afrog_report_status2,
+            "infoinfostatus1":infoinfostatus1,
+            "infoinfostatus2":infoinfostatus2,
+            "dirsub_sys_status1":dirsub_sys_status1,
+            "dirsub_sys_status2":dirsub_sys_status2,
+            "mysql_status1":mysql_status1,
+            "mysql_status2":mysql_status2,
+            "xraystatus1":xraystatus1,
+            "xraystatus2":xraystatus2,
+            "total_report_status_result1":total_report_status_result1,
+            "total_report_status_result2":total_report_status_result2,
+            "cdn_status1":cdn_status1,
+            "cdn_status2":cdn_status2,
+
+            # 未授权专项扫描状态和耗时
+            "redis_status1":redis_status1,
+            "redis_status2":redis_status2,
+            "rediscontime":rediscontime,
+            "mongodb_status1":mongodb_status1,
+            "mongodb_status2":mongodb_status2,
+            "mongodbcontime":mongodbcontime,
+            "memcached_status1":memcached_status1,
+            "memcached_status2":memcached_status2,
+            "memcachedcontime":memcachedcontime,
+            "zookeeper_status1":zookeeper_status1,
+            "zookeeper_status2":zookeeper_status2,
+            "zookeepercontime":zookeepercontime,
+            "ftp_status1":ftp_status1,
+            "ftp_status2":ftp_status2,
+            "ftpcontime":ftpcontime,
+            "couchdb_status1":couchdb_status1,
+            "couchdb_status2":couchdb_status2,
+            "couchdbcontime":couchdbcontime,
+            "docker_status1":docker_status1,
+            "docker_status2":docker_status2,
+            "dockercontime":dockercontime,
+            "hadoop_status1":hadoop_status1,
+            "hadoop_status2":hadoop_status2,
+            "hadoopcontime":hadoopcontime,
+            "nfs_status1":nfs_status1,
+            "nfs_status2":nfs_status2,
+            "nfscontime":nfscontime,
+            "rsync_status1":rsync_status1,
+            "rsync_status2":rsync_status2,
+            "rsynccontime":rsynccontime,
+            "unes1_status1":unes1_status1,
+            "unes1_status2":unes1_status2,
+            "unes1contime":unes1contime
+
+
+
+           
+
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
 
 
 

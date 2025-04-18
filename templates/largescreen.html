@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="{{ url_for('static', filename='css/largescreen-bootstrap.min.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ url_for('static', filename='css/largescreen-base.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ url_for( 'static',filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for( 'static',filename='js/largescreen.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='image/titlepic.png') }}" type="image/x-icon">
+    <title>态势感知大屏</title>
+</head>
+
+<!-- 访问页面自动加载js -->
+
+<body onload="largescreenfunc()">
+
+    <div class="container-fluid container-fluid-s">
+        <div class="row">
+            <div class="col-md-12 col-lg-6 mrbt">
+                <div class="totalbox">
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>系统信息实时显示</p>
+                        </li>
+                    </ul>
+                    <div class="totaltem">
+
+                    </div>
+                    <div class="row" style="padding: 0 2vw">
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>CPU使用率</p>
+                                <div class="purple"><span class="bold" id="cpuid"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>CPU核数</p>
+                                <div class="nuan"><span class="bold" id="cputhreadsid"></span>核</div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>内存使用率</p>
+                                <div class="grn"><span class="bold" id="memoryid"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>磁盘读速率</p>
+                                <div class="bule"><span class="bold" id="disk_read_id"></span>MB/s</div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>磁盘写速率</p>
+                                <div class="yel"><span class="bold" id="disk_write_id"></span>MB/s</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>进程数</p>
+                                <div class="yel"><span class="bold" id="pidnumid"></span></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>网络</p>
+                                <div class="pink"><span class="bold" id="networkid"></span></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>资产总数</p>
+                                <div class="yel"><span class="bold" id="urlid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>主机资产</p>
+                                <div class="green"><span class="bold" id="hostnameassetsid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>网站资产</p>
+                                <div class="purple"><span class="bold" id="siteassetsid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>shodan官方接口额度</p>
+                                <div class="yel"><span class="bold" id="shodanpercentid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>会话时间</p>
+                                <div class="red"><span class="bold" id="sessiontimeid"></span>分钟</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+
+
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>自定义接口额度实时统计（消费数、剩余数、成功数、失败数）</p>
+                        </li>
+                    </ul>
+
+
+                    <div class="row" style="padding: 0 2vw">
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>fofa</p>
+                                <div class="org"><span class="bold" id="fofatotalid"></span>条</div>
+                                <div class="ybule"><span class="bold" id="fofaremainid"></span>条</div>
+                                <div class="yel"><span class="bold" id="fofasuccessid"></span>条</div>
+                                <div class="grn"><span class="grn" id="fofafailid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>shodan</p>
+                                <div class="org"><span class="bold" id="shodantotalid"></span>条</div>
+                                <div class="ybule"><span class="bold" id="shodanremainid"></span>条</div>
+                                <div class="yel"><span class="bold" id="shodansuccessid"></span>条</div>
+                                <div class="grn"><span class="grn" id="shodanfailid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>crt证书</p>
+                                <div class="org"><span class="bold" id="crttotalid"></span>条</div>
+                                <div class="ybule"><span class="bold" id="crtremainid"></span>条</div>
+                                <div class="yel"><span class="bold" id="crtsuccessid"></span>条</div>
+                                <div class="grn"><span class="grn" id="crtfailid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>ICP备案</p>
+                                <div class="org"><span class="bold" id="icptotalid"></span>条</div>
+                                <div class="ybule"><span class="bold" id="icpremainid"></span>条</div>
+                                <div class="yel"><span class="bold" id="icpsuccessid"></span>条</div>
+                                <div class="grn"><span class="grn" id="icpfailid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>高德地图</p>
+                                <div class="org"><span class="bold" id="amaptotalid"></span>条</div>
+                                <div class="ybule"><span class="bold" id="amapremainid"></span>条</div>
+                                <div class="yel"><span class="bold" id="gdsuccessid"></span>条</div>
+                                <div class="grn"><span class="grn" id="gdfailid"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>威胁情报</p>
+                                <div class="org"><span class="bold" id="otxtotalid"></span>条</div>
+                                <div class="ybule"><span class="bold" id="otxremainid"></span>条</div>
+                                <div class="yel"><span class="bold" id="otxsuccessid"></span>条</div>
+                                <div class="grn"><span class="grn" id="otxfailid"></span>条</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>高危资产数量实时统计（指纹识别）</p>
+                        </li>
+
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Shiro</p>
+                                <div class="green"><span class="bold" id="pointassetsid1"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>springboot</p>
+                                <div class="green"><span class="bold" id="pointassetsid2"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Struts2</p>
+                                <div class="green"><span class="bold" id="pointassetsid3"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Weblogic</p>
+                                <div class="org"><span class="bold" id="pointassetsid4"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>若依</p>
+                                <div class="org"><span class="bold" id="pointassetsid5"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>WordPress</p>
+                                <div class="org"><span class="bold" id="pointassetsid6"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Jboss</p>
+                                <div class="nuan"><span class="bold" id="pointassetsid7"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>phpMyAdmin</p>
+                                <div class="nuan"><span class="bold" id="pointassetsid8"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>ThinkPHP</p>
+                                <div class="nuan"><span class="bold" id="pointassetsid9"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Nacos</p>
+                                <div class="pink"><span class="bold" id="pointassetsid10"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>OA类</p>
+                                <div class="pink"><span class="bold" id="pointassetsid11"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Tomcat</p>
+                                <div class="pink"><span class="bold" id="pointassetsid12"></span>条</div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane active" id="jglx">
+                            <div id="jglxchart" style="width: 100%;height: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>服务状态实时查询（状态、端口）</p>
+                        </li>
+
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>jndi服务</p>
+                                <div class="green"><span class="bold" id="jndiserviceid1"></span></div>
+                                <div class="red"><span class="bold" id="jndiserviceid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>xray报告</p>
+                                <div class="green"><span class="bold" id="xrayreportserviceid1"></span></div>
+                                <div class="red"><span class="bold" id="xrayreportserviceid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>urlfinder</p>
+                                <div class="green"><span class="bold" id="urlfinderreportserviceid1"></span></div>
+                                <div class="red"><span class="bold" id="urlfinderreportserviceid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>afrog报告</p>
+                                <div class="green"><span class="bold" id="afrogreportserviceid1"></span></div>
+                                <div class="red"><span class="bold" id="afrogreportserviceid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>主系统</p>
+                                <div class="green"><span class="bold" id="pythoninfoid1"></span></div>
+                                <div class="red"><span class="bold" id="pythoninfoid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>子系统</p>
+                                <div class="green"><span class="bold" id="pythonsubinfoid1"></span></div>
+                                <div class="red"><span class="bold" id="pythonsubinfoid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>mysql</p>
+                                <div class="green"><span class="bold" id="mysqlserviceid1"></span></div>
+                                <div class="red"><span class="bold" id="mysqlserviceid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>xray监听</p>
+                                <div class="green"><span class="bold" id="xraybindportid1"></span></div>
+                                <div class="red"><span class="bold" id="xraybindportid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>汇总报告</p>
+                                <div class="green"><span class="bold" id="totalreportid1"></span></div>
+                                <div class="red"><span class="bold" id="totalreportid2"></span></div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>cdn探测</p>
+                                <div class="green"><span class="bold" id="cdnscanid1"></span></div>
+                                <div class="red"><span class="bold" id="cdnscanid2"></span></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>未授权专项扫描服务状态实时查询（状态、耗时）</p>
+                        </li>
+
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>redis</p>
+                                <div class="green"><span class="bold" id="unredisscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unredisscanid2"></span><span class="bold"
+                                        id="unredisscanid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>mongodb</p>
+                                <div class="green"><span class="bold" id="unmongodbid1"></span></div>
+                                <div class="red"><span class="bold" id="unmongodbid2"></span><span class="bold"
+                                        id="unmongodbid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>memcached</p>
+                                <div class="green"><span class="bold" id="unmemcachedid1"></span></div>
+                                <div class="red"><span class="bold" id="unmemcachedid2"></span><span class="bold"
+                                        id="unmemcachedid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>zookeeper</p>
+                                <div class="green"><span class="bold" id="unzookeeperid1"></span></div>
+                                <div class="red"><span class="bold" id="unzookeeperid2"></span><span class="bold"
+                                        id="unzookeeperid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>ftp</p>
+                                <div class="green"><span class="bold" id="unftpid1"></span></div>
+                                <div class="red"><span class="bold" id="unftpid2"></span><span class="bold"
+                                        id="unftpid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>CouchDB</p>
+                                <div class="green"><span class="bold" id="unCouchDBid1"></span></div>
+                                <div class="red"><span class="bold" id="unCouchDBid2"></span><span class="bold"
+                                        id="unCouchDBid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>docker</p>
+                                <div class="green"><span class="bold" id="undockerid1"></span></div>
+                                <div class="red"><span class="bold" id="undockerid2"></span><span class="bold"
+                                        id="undockerid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Hadoop</p>
+                                <div class="green"><span class="bold" id="unHadoopid1"></span></div>
+                                <div class="red"><span class="bold" id="unHadoopid2"></span><span class="bold"
+                                        id="unHadoopid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>NFS</p>
+                                <div class="green"><span class="bold" id="unNFSid1"></span></div>
+                                <div class="red"><span class="bold" id="unNFSid2"></span><span class="bold"
+                                        id="unNFSid3"></span>秒</div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>rsync</p>
+                                <div class="green"><span class="bold" id="unrsyncid1"></span></div>
+                                <div class="red"><span class="bold" id="unrsyncid2"></span><span class="bold"
+                                        id="unrsyncid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Elasticsearch</p>
+                                <div class="green"><span class="bold" id="unelasticsearchid1"></span></div>
+                                <div class="red"><span class="bold" id="unelasticsearchid2"></span><span class="bold"
+                                        id="unelasticsearchid3"></span>秒</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>信息收集专项扫描服务状态实时查询（状态、耗时）</p>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>指纹识别</p>
+                                <div class="green"><span class="bold" id="unfingerid1"></span></div>
+                                <div class="red"><span class="bold" id="unfingerid2"></span><span class="bold"
+                                        id="unfingerid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>敏感信息</p>
+                                <div class="green"><span class="bold" id="unbbscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unbbscanid2"></span><span class="bold"
+                                        id="unbbscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>历史URL</p>
+                                <div class="green"><span class="bold" id="unotxscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unotxscanid2"></span><span class="bold"
+                                        id="unotxscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>子域名</p>
+                                <div class="green"><span class="bold" id="uncrtscanid1"></span></div>
+                                <div class="red"><span class="bold" id="uncrtscanid2"></span><span class="bold"
+                                        id="uncrtscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>端口扫描</p>
+                                <div class="green"><span class="bold" id="unportscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unportscanid2"></span><span class="bold"
+                                        id="unportscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>WAF识别</p>
+                                <div class="green"><span class="bold" id="unwafscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unwafscanid2"></span><span class="bold"
+                                        id="unwafscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>网站FUZZ</p>
+                                <div class="green"><span class="bold" id="unfuzzscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unfuzzscanid2"></span><span class="bold"
+                                        id="unfuzzscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>爬虫扫描</p>
+                                <div class="green"><span class="bold" id="unpachongscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unpachongscanid2"></span><span class="bold"
+                                        id="unpachongscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>API接口</p>
+                                <div class="green"><span class="bold" id="unapiscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unapiscanid2"></span><span class="bold"
+                                        id="unapiscanid3"></span>秒</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>框架组件专项扫描服务状态实时查询（状态、耗时）</p>
+                        </li>
+
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>struts2</p>
+                                <div class="green"><span class="bold" id="unstruts2id1"></span></div>
+                                <div class="red"><span class="bold" id="unstruts2id2"></span><span class="bold"
+                                        id="unstruts2id3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>weblogic</p>
+                                <div class="green"><span class="bold" id="unweblogicid1"></span></div>
+                                <div class="red"><span class="bold" id="unweblogicid2"></span><span class="bold"
+                                        id="unweblogicid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>shiro</p>
+                                <div class="green"><span class="bold" id="unshiroscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unshiroscanid2"></span><span class="bold"
+                                        id="unshiroscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>springboot</p>
+                                <div class="green"><span class="bold" id="unspringbootscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unspringbootscanid2"></span><span class="bold"
+                                        id="unspringbootscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>thinkphp</p>
+                                <div class="green"><span class="bold" id="unthinkphpscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unthinkphpscanid2"></span><span class="bold"
+                                        id="unthinkphpscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>Elasticsearch</p>
+                                <div class="green"><span class="bold" id="unElasticsearchscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unElasticsearchscanid2"></span><span
+                                        class="bold" id="unElasticsearchscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>nacos</p>
+                                <div class="green"><span class="bold" id="unnacosscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unnacosscanid2"></span><span class="bold"
+                                        id="unnacosscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>tomcat</p>
+                                <div class="green"><span class="bold" id="untomcatscanid1"></span></div>
+                                <div class="red"><span class="bold" id="untomcatscanid2"></span><span class="bold"
+                                        id="untomcatscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>fastjson</p>
+                                <div class="green"><span class="bold" id="unfastjsonscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unfastjsonscanid2"></span><span class="bold"
+                                        id="unfastjsonscanid3"></span>秒</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-6 col-lg-3 mrbt">
+                <div class="totalbox">
+
+
+                    <ul class="nav nav-pills totaltitle" role="tablist">
+                        <li class="fl">
+                            <p>综合专项扫描服务状态实时查询（状态、耗时）</p>
+                        </li>
+                    </ul>
+
+
+                    <div class="row" style="padding: 0 2vw">
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>afrog</p>
+                                <div class="green"><span class="bold" id="unafrogscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unafrogscanid2"></span><span class="bold"
+                                        id="unafrogscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>fscan</p>
+                                <div class="green"><span class="bold" id="unfscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unfscanid2"></span><span class="bold"
+                                        id="unfscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>弱口令</p>
+                                <div class="green"><span class="bold" id="unhydrascanid1"></span></div>
+                                <div class="red"><span class="bold" id="unhydrascanid2"></span><span class="bold"
+                                        id="unhydrascanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>vulmap</p>
+                                <div class="green"><span class="bold" id="unvulmapscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unvulmapscanid2"></span><span class="bold"
+                                        id="unvulmapscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>nuclei</p>
+                                <div class="green"><span class="bold" id="unnucleiscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unnucleiscanid2"></span><span class="bold"
+                                        id="unnucleiscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>泛微OA</p>
+                                <div class="green"><span class="bold" id="unfanweiscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unfanweiscanid2"></span><span class="bold"
+                                        id="unfanweiscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>致远OA</p>
+                                <div class="green"><span class="bold" id="unzhiyuanscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unzhiyuanscanid2"></span><span class="bold"
+                                        id="unzhiyuanscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>用友OA</p>
+                                <div class="green"><span class="bold" id="unyongyouscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unyongyouscanid2"></span><span class="bold"
+                                        id="unyongyouscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>金蝶OA</p>
+                                <div class="green"><span class="bold" id="unjindiescanid1"></span></div>
+                                <div class="red"><span class="bold" id="unjindiescanid2"></span><span class="bold"
+                                        id="unjindiescanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="column">
+                                <p>万户OA</p>
+                                <div class="green"><span class="bold" id="unwanhuscanid1"></span></div>
+                                <div class="red"><span class="bold" id="unwanhuscanid2"></span><span class="bold"
+                                        id="unwanhuscanid3"></span>秒</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -116,7 +116,7 @@ xraystatus)
     num_xray=$(ps -aux | grep xray_linux_amd64 | wc -l)
 
     if (($num_xray > 1)); then
-        echo "running"
+        echo "running  (7777)"
     else
         echo "stop"
 
@@ -1866,4 +1866,15 @@ shodanassetstatus)
         echo "stop"
     fi
     ;;
+
+# mysql服务状态
+mysql_server_status)
+    mysql_ps=$(ps -aux | grep "mysql" | wc -l)
+    if (($mysql_ps > 1)); then
+        echo "running  (3306)"
+    else
+        echo "stop"
+    fi
+    ;;
+
 esac
