@@ -228,8 +228,6 @@
         <div class="button-container1">
             <button class="button delete-button" onclick="comfirmclearlogfunc()">登录</button>
         </div>
-        <!-- <span class="my-spanconfig11" onclick="comfirmclearlogfunc()">复核</span> -->
-
     </div>
 </div>
 
@@ -544,6 +542,53 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <strong style="color: chocolate;">自定义接口额度配置</strong>
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <input type="text" class="my-input5" id="customizelimitid1">
+                                <span class="my-span" onclick="startverifychearlogfunc('12')">保存</span>
+                                <br><strong>fofa配置</strong>
+                            </td>
+                            <td>
+                                <input type="text" class="my-input5"id="customizelimitid2">
+                                <span class="my-span" onclick="startverifychearlogfunc('13')">保存</span>
+                                <br><strong>shodan配置</strong>
+                            </td>
+                            <td>
+                                <input type="text" class="my-input5" id="customizelimitid3">
+                                <span class="my-span" onclick="startverifychearlogfunc('14')">保存</span>
+                                <br><strong>crt证书配置</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="my-input5" id="customizelimitid4">
+                                <span class="my-span" onclick="startverifychearlogfunc('15')">保存</span>
+                                <br><strong>icp备案配置</strong>
+                            </td>
+                            <td>
+                                <input type="text" class="my-input5" id="customizelimitid5">
+                                <span class="my-span" onclick="startverifychearlogfunc('16')">保存</span>
+                                <br><strong>高德地图配置</strong>
+                            </td>
+                            <td>
+                                <input type="text" class="my-input5" id="customizelimitid6">
+                                <span class="my-span" onclick="startverifychearlogfunc('17')">保存</span>
+                                <br><strong>otx威胁情报配置</strong>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                
+            </tr>
         </table>
 
 
@@ -652,576 +697,6 @@
             <tbody>
                 <!-- 数据将被填充在这里 -->
             </tbody>
-        </table>
-
-    </div>
-</div>
-
-
-<!-- 系统管理 -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color: darkorange;" id="spp1h2"></h2>
-        <strong style="color:coral">全局视角</strong>
-        <span class="close" onclick="closesystemanager()">&times;</span>
-        <table border="1" style="width: 1400px; height: 100px;">
-
-            <tr>
-                <th>名称</th>
-                <td>CPU</td>
-                <td>内存</td>
-                <td>磁盘读速率</td>
-                <td>磁盘写速率</td>
-                <td>原始资产数量</td>
-                <td>筛选资产数量</td>
-                <td>资产过滤时间线</td>
-                <td>漏洞扫描时间线</td>
-                <td>
-                    资产过滤规则&nbsp;&nbsp;
-
-                    <span id="spp31"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>状态</th>
-                <td><span id="spp23"></span></td>
-                <td><span id="spp24"></span></td>
-                <td><span id="spp35"></span></td>
-                <td><span id="spp36"></span></td>
-                <td><span id="spp14"></span></td>
-                <td><span id="spp27"></span></td>
-                <td><span id="spp32" style="color:chocolate"></span></td>
-                <td><span id="spp33" style="color:green"></span></td>
-                <td>
-                    <span id="spp26"></span>
-
-                </td>
-            </tr>
-        </table>
-        <br>
-        <strong style="color:coral">后端服务状态</strong>
-
-        <table border="1" style="width: 1400px; height: 100px;">
-
-            <tr>
-                <th>名称</th>
-                <td>漏洞扫描主系统</td>
-                <td>目录扫描系统</td>
-                <td>xray报告访问服务</td>
-                <td>urlfinder报告访问服务</td>
-                <td>afrog报告访问服务</td>
-                <td>JNDI服务</td>
-                <td>JNDI恶意Java类加载服务</td>
-                <td>报告整合服务</td>
-                <td>CDN识别服务</td>
-                <td>shodan发现资产(剩余/配额)</td>
-            </tr>
-            <tr>
-                <th>状态</th>
-                <td>
-                    <span id="spp37" style="color:green"></span>
-                    <span id="spp37a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp38" style="color:green"></span>
-                    <span id="spp38a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp39" style="color:green"></span>
-                    <span id="spp39a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp40" style="color:green"></span>
-                    <span id="spp40a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp41" style="color:green"></span>
-                    <span id="spp41a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp52" style="color:green"></span>
-                    <span id="spp52a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp53" style="color:green"></span>
-                    <span id="spp53a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="totalspp1" style="color: green;"></span>
-                    <span id="totalspp2" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp75" style="color: green;"></span>
-                    <span id="spp75a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp76" style="color: green;"></span>
-                    <span id="spp76a" style="color: red;"></span>
-                    (<span id="spp77"></span>/<span id="spp78"></span>)
-                </td>
-
-            </tr>
-        </table>
-
-        <br>
-        <strong style="color:coral">扫描器状态</strong>
-        <table border="1" style="width: 1400px; height: 100px;">
-            <tr>
-                <th>名称</th>
-                <td>端口扫描</td>
-                <td>nuclei扫描</td>
-                <td>xray监听</td>
-                <td>rad扫描</td>
-                <td>目录扫描</td>
-                <td>weblogic漏洞扫描</td>
-                <td>struts2漏洞扫描</td>
-                <td>信息泄露扫描</td>
-                <td>vulmap综合扫描</td>
-                <td>用友OA漏洞扫描</td>
-                <td>金蝶OA漏洞扫描</td>
-            </tr>
-
-            <tr>
-                <th>状态</th>
-                <td>
-                    <span id="spp1" style="color:green"></span>
-                    <span id="spp1a" style="color: red;"></span><br>
-
-                </td>
-                <td>
-                    <span id="spp2" style="color:green"></span>
-                    <span id="spp2a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp3" style="color:green"></span>
-                    <span id="spp3a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp4" style="color:green"></span>
-                    <span id="spp4a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp5" style="color:green"></span>
-                    <span id="spp5a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp6" style="color:green"></span>
-                    <span id="spp6a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp7" style="color:green"></span>
-                    <span id="spp7a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp8" style="color:green"></span>
-                    <span id="spp8a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp9" style="color:green"></span>
-                    <span id="spp9a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp59" style="color:green"></span>
-                    <span id="spp59a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp60" style="color:green"></span>
-                    <span id="spp60a" style="color: red;"></span>
-                </td>
-
-            </tr>
-            <tr>
-                <th>耗时</th>
-                <td><span id="diffnmapid"></span></td>
-                <td><span id="diffnucleiid"></span></td>
-                <td><span id="diffxrayid"></span></td>
-                <td></td>
-                <td></td>
-                <td><span id="diffweblogicid"></span></td>
-                <td><span id="diffstruts2id"></span></td>
-                <td><span id="diffbbscanid"></span></td>
-                <td><span id="diffvulmapid"></span></td>
-                <td><span id="diffyonsuiteid"></span></td>
-                <td><span id="diffkingdeeid"></span></td>
-            </tr>
-        </table>
-        <br>
-        <table border="1" style="width: 1400px; height: 100px;">
-            <tr>
-                <th>名称</th>
-                <td>afrog综合扫描</td>
-                <td>fscan综合扫描</td>
-                <td>shiro漏洞扫描</td>
-                <td>指纹识别</td>
-                <td>springboot漏洞扫描</td>
-                <td>存活检测</td>
-                <td>subfinder扫描</td>
-                <td>弱口令扫描</td>
-                <td>api扫描</td>
-                <td>thinkphp漏洞扫描</td>
-                <td>泛微OA漏洞扫描</td>
-                <td>万户OA漏洞扫描</td>
-            </tr>
-            <tr>
-                <th>状态</th>
-                <td>
-                    <span id="spp10" style="color:green"></span>
-                    <span id="spp10a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp11" style="color:green"></span>
-                    <span id="spp11a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp12" style="color:green"></span>
-                    <span id="spp12a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp15" style="color:green"></span>
-                    <span id="spp15a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp28" style="color:green"></span>
-                    <span id="spp28a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp13" style="color:green"></span>
-                    <span id="spp13a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp62" style="color:green"></span>
-                    <span id="spp62a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp29" style="color:green"></span>
-                    <span id="spp29a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp30" style="color:green"></span>
-                    <span id="spp30a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp43" style="color:green"></span>
-                    <span id="spp43a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp48" style="color:green"></span>
-                    <span id="spp48a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp61" style="color:green"></span>
-                    <span id="spp61a" style="color: red;"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>耗时</th>
-                <td><span id="diffafrogid"></span></td>
-                <td><span id="difffscanid"></span></td>
-                <td><span id="diffshiroid"></span></td>
-                <td><span id="diffeholeid"></span></td>
-                <td><span id="diffspringbootid"></span></td>
-                <td><span id="diffhttpxscanid"></span></td>
-                <td><span id="diffsubfinderid"></span></td>
-                <td><span id="diffweakpassid"></span></td>
-                <td><span id="diffapiscanid"></span></td>
-                <td><span id="diffthinkphpid"></span></td>
-                <td><span id="difffanweioaid"></span></td>
-                <td><span id="diffwanhuoaid"></span></td>
-            </tr>
-        </table>
-        <br>
-        <table border="1" style="width: 1400px; height: 100px;">
-            <tr>
-                <th>名称</th>
-                <td>历史URL扫描</td>
-                <td>子域名扫描</td>
-                <td>elasticsearch漏洞扫描</td>
-                <td>nacos漏洞扫描</td>
-                <td>tomcat漏洞扫描</td>
-                <td>fastjson漏洞扫描</td>
-                <td>waf识别</td>
-                <td>FUZZ扫描</td>
-                <td>爬虫扫描</td>
-                <td>致远OA漏洞扫描</td>
-                <td>bcrypt解密</td>
-            </tr>
-            <tr>
-                <th>状态</th>
-                <td>
-                    <span id="spp44" style="color:green"></span>
-                    <span id="spp44a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp45" style="color:green"></span>
-                    <span id="spp45a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp49" style="color:green"></span>
-                    <span id="spp49a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp50" style="color:green"></span>
-                    <span id="spp50a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp51" style="color:green"></span>
-                    <span id="spp51a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp54" style="color:green"></span>
-                    <span id="spp54a" style="color: red;"></span>
-                </td>
-                <td><span id="spp55" style="color:green"></span>
-                    <span id="spp55a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp56" style="color:green"></span>
-                    <span id="spp56a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp57" style="color:green"></span>
-                    <span id="spp57a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp58" style="color:green"></span>
-                    <span id="spp58a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp74" style="color:green"></span>
-                    <span id="spp74a" style="color: red;"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>耗时</th>
-                <td><span id="diffotxid"></span></td>
-                <td><span id="diffcrtid"></span></td>
-                <td><span id="diffesid"></span></td>
-                <td><span id="diffnacosid"></span></td>
-                <td><span id="difftomcatid"></span></td>
-                <td><span id="difffastjsonid"></span></td>
-                <td><span id="diffwafid"></span></td>
-                <td><span id="difffuzzid"></span></td>
-                <td><span id="diffcrawlergoid"></span></td>
-                <td><span id="diffseeyonid"></span></td>
-                <td><span id="diffbcryptid"></span></td>
-            </tr>
-        </table>
-        <br>
-        <table border="1" style="width: 1400px; height: 100px;">
-            <tr>
-                <th>名称</th>
-                <td>redis</td>
-                <td>mongodb</td>
-                <td>memcached</td>
-                <td>zookeeper</td>
-                <td>ftp</td>
-                <td>CouchDB</td>
-                <td>docker</td>
-                <td>Hadoop</td>
-                <td>NFS</td>
-                <td>rsync</td>
-                <td>Elasticsearch</td>
-            </tr>
-            <tr>
-                <th>状态</th>
-                <td>
-                    <span id="spp63" style="color:green"></span>
-                    <span id="spp63a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp64" style="color:green"></span>
-                    <span id="spp64a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp65" style="color:green"></span>
-                    <span id="spp65a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp66" style="color:green"></span>
-                    <span id="spp66a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp67" style="color:green"></span>
-                    <span id="spp67a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp68" style="color:green"></span>
-                    <span id="spp68a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp69" style="color:green"></span>
-                    <span id="spp69a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp70" style="color:green"></span>
-                    <span id="spp70a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp71" style="color:green"></span>
-                    <span id="spp71a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp72" style="color:green"></span>
-                    <span id="spp72a" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="spp73" style="color:green"></span>
-                    <span id="spp73a" style="color: red;"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>耗时</th>
-                <td>
-                    <span id="diffredisid"></span>
-                </td>
-                <td>
-                    <span id="diffmongodbid"></span>
-                </td>
-                <td>
-                    <span id="diffmemcachedid"></span>
-                </td>
-                <td>
-                    <span id="diffzookeeperid"></span>
-                </td>
-                <td>
-                    <span id="diffftpid"></span>
-                </td>
-                <td>
-                    <span id="diffcouchdbid"></span>
-                </td>
-                <td>
-                    <span id="diffdockerid"></span>
-                </td>
-                <td>
-                    <span id="diffhadoopid"></span>
-                </td>
-                <td>
-                    <span id="diffnfsid"></span>
-                </td>
-                <td>
-                    <span id="diffrsyncid"></span>
-                </td>
-                <td>
-                    <span id="diffunesid"></span>
-                </td>
-            </tr>
-        </table>
-        <br>
-        <strong style="color:coral">关键资产数量</strong><br>
-        <span>1. 需先进行网站指纹识别,否则读取的是上一次的数据；</span><br>
-        <span>2. 规则名称是资产过滤规则,在资产过滤规则处进行编辑,然后点击识别关键资产,即可得到想要的资产；</span><br>
-        <table border="1" style="width: 1400px; height: 100px;">
-            <tr>
-                <th>资产名称</th>
-                <td>shiro</td>
-                <td>springboot</td>
-                <td>struts2</td>
-                <td>weblogic</td>
-                <td>宝塔面板</td>
-                <td>若依CMS</td>
-                <td>wordpress</td>
-                <td>jboss</td>
-                <td>phpmyadmin</td>
-                <td>thinkphp</td>
-                <td>nacos</td>
-                <td>泛微OA</td>
-                <td>tomcat</td>
-            </tr>
-            <!-- 规则名称 -->
-            <tr>
-                <th>规则名称</th>
-                <td>Shiro</td>
-                <td>spring-boot</td>
-                <td>Struts2</td>
-                <td>Weblogic</td>
-                <td>宝塔-BT</td>
-                <td>若依</td>
-                <td>WordPress</td>
-                <td>Jboss</td>
-                <td>phpMyAdmin</td>
-                <td>ThinkPHP</td>
-                <td>Nacos</td>
-                <td>泛微</td>
-                <td>Tomcat</td>
-            </tr>
-            <tr>
-                <th>资产数量</th>
-                <td><span id="spp16"></span></td>
-                <td><span id="spp17"></span></td>
-                <td><span id="spp21"></span></td>
-                <td><span id="spp18"></span></td>
-                <td><span id="spp19"></span></td>
-                <td><span id="spp20"></span></td>
-                <td><span id="spp22"></span></td>
-                <td><span id="spp25"></span></td>
-                <td><span id="spp34"></span></td>
-                <td><span id="spp42"></span></td>
-                <td><span id="spp46"></span></td>
-                <td><span id="spp47"></span></td>
-                <td><span id="spp52t"></span></td>
-            </tr>
-        </table><br>
-        <strong style="color:coral">第三方接口查询数量统计</strong>&nbsp;&nbsp;
-        <span style="cursor: pointer; color: deepskyblue;" onclick="startverifychearlogfunc('5')">初始化</span><br>
-        <table border="1" style="width: 1400px; height: 100px;">
-            <tr>
-                <th>接口名称</th>
-                <td>fofa接口</td>
-                <td>shodan接口</td>
-                <td>crt接口</td>
-                <td>icp接口</td>
-                <td>高德地图接口</td>
-                <td>otx接口</td>
-            </tr>
-            <tr>
-                <th>成功次数/失败次数</th>
-                <td>
-                    <span id="successsp1" style="color: green;"></span>/
-                    <span id="failsp1" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="successsp2" style="color: green;"></span>/
-                    <span id="failsp2" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="successsp3" style="color: green;"></span>/
-                    <span id="failsp3" style="color: red;"></span>
-
-                </td>
-                <td>
-                    <span id="successsp4" style="color: green;"></span>/
-                    <span id="failsp4" style="color: red;"></span>
-                </td>
-                <td>
-                    <span id="successsp5" style="color: green;"></span>/
-                    <span id="failsp5" style="color: red;"></span>
-
-                </td>
-                <td>
-                    <span id="successsp6" style="color: green;"></span>/
-                    <span id="failsp6" style="color: red;"></span>
-                </td>
-            </tr>
-
-            <tr>
-                <th>接口额度</th>
-                <td><span id="totalsp1" style="color:deepskyblue;"></span></td>
-                <td><span id="totalsp2" style="color:deepskyblue;"></span></td>
-                <td><span id="totalsp3" style="color:deepskyblue;"></span></td>
-                <td><span id="totalsp4" style="color:deepskyblue;"></span></td>
-                <td><span id="totalsp5" style="color:deepskyblue;"></span></td>
-                <td><span id="totalsp6" style="color:deepskyblue;"></span></td>
-            </tr>
-
-            <tr>
-                <th>剩余接口额度</th>
-                <td><span id="overtotalsp1" style="color:blueviolet;"></span></td>
-                <td><span id="overtotalsp2" style="color:blueviolet;"></span></td>
-                <td><span id="overtotalsp3" style="color:blueviolet;"></span></td>
-                <td><span id="overtotalsp4" style="color:blueviolet;"></span></td>
-                <td><span id="overtotalsp5" style="color:blueviolet;"></span></td>
-                <td><span id="overtotalsp6" style="color:blueviolet;"></span></td>
-            </tr>
         </table>
 
     </div>

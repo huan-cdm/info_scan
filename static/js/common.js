@@ -578,6 +578,13 @@ function startscanconfigpagefunc() {
             sessionid5.value = info.amap_key;
             sessionid6.value = info.ceye_key;
 
+            // 自定义额度查询
+            document.getElementById("customizelimitid1").value = info.fofa_remaining_num;
+            document.getElementById("customizelimitid2").value = info.shodan_remaining_num;
+            document.getElementById("customizelimitid3").value = info.crt_remaining_num;
+            document.getElementById("customizelimitid4").value = info.icp_remaining_num;
+            document.getElementById("customizelimitid5").value = info.amap_remaining_num;
+            document.getElementById("customizelimitid6").value = info.otx_remaining_num;
             // jndi服务状态
             const statusElement = document.getElementById('jndistatusid1');
             const status = info.jndistatus;
@@ -1849,6 +1856,13 @@ function comfirmclearlogfunc() {
     var sessionid5 = document.getElementById('sessionid5').value;
     var sessionid6 = document.getElementById('sessionid6').value;
     var rule_input_id1 = document.getElementById('rule_input_id1').value;
+    // 获取自定义接口额度文本框数据
+    var customizelimitid1 = document.getElementById('customizelimitid1').value;
+    var customizelimitid2 = document.getElementById('customizelimitid2').value;
+    var customizelimitid3 = document.getElementById('customizelimitid3').value;
+    var customizelimitid4 = document.getElementById('customizelimitid4').value;
+    var customizelimitid5 = document.getElementById('customizelimitid5').value;
+    var customizelimitid6 = document.getElementById('customizelimitid6').value;
 
     $.ajax({
         url: '/comfirmclearloginterface/',
@@ -1863,7 +1877,13 @@ function comfirmclearlogfunc() {
             sessionid4: sessionid4,
             sessionid5: sessionid5,
             sessionid6: sessionid6,
-            rule_input_id1: rule_input_id1
+            rule_input_id1: rule_input_id1,
+            customizelimitid1:customizelimitid1,
+            customizelimitid2:customizelimitid2,
+            customizelimitid3:customizelimitid3,
+            customizelimitid4:customizelimitid4,
+            customizelimitid5:customizelimitid5,
+            customizelimitid6:customizelimitid6
         },
         success: function (info) {
             document.getElementById("filterruleid1").innerHTML = info.recheck_result;

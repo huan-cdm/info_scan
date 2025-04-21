@@ -73,6 +73,7 @@ mysql账号密码：admin/123456<br>
 3.下线旧版数据展示弹窗；<br>
 4.密码查询和杀软查询新增传入参数校验是否为空；<br>
 5.密码查询和杀软查询首页去掉查询所有数据，只能通过关键字进行搜索；<br>
+6.接口额度由配置文件修改为前端自定义配置；<br>
 </li>
 <li>
 2025-4-9更新<br> 
@@ -465,7 +466,9 @@ fofa语法日志<br>
 dnslog<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" /><br><br>
 系统配置<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf1.png" />
+<br><br>
 网站导航<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/daohang.png" /><br><br>
 icon_hash计算<br>

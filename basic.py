@@ -42,7 +42,6 @@ import sys
 # 线程
 import threading
 from config import history_switch
-from config import interface_num
 
 import datetime
 
@@ -2572,39 +2571,6 @@ def total_port_fail_num(id):
     return list_result[0]
 
 
-# 初始化第三方接口次数
-def initinterface_num_lib():
-    try:
-        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        sql="update interfacenum_table set successnum = 0 and failnum = 0"
-        cur.execute(sql)
-        db.commit()
-        # 判断数据是否初始化成功
-        sql="select successnum,failnum FROM interfacenum_table"
-        cur.execute(sql)
-        data = cur.fetchall()
-        list_data = list(data)
-        success_result_list = []
-        for i in list_data:
-            success_result_list.append(i[0])
-        fail_result_list = []
-        for j in list_data:
-            fail_result_list.append(j[1])
-        success_result_list_num = success_result_list.count('0')
-        fail_result_list_num = fail_result_list.count('0')
-        # 判断数据是否清空
-        if success_result_list_num == interface_num and fail_result_list_num == interface_num:
-            result = "已完成数据初始化"
-        else:
-            result = "正在初始化中"
-    except:
-        result = "MySQL连接失败"
-        db.rollback()
-    return result
-
-
 # 扫描器用时情况统计
 # 获取扫描器开始时间戳存入数据库,并清空当前的扫描器结束时间
 def scan_total_time_start_time(partid):
@@ -3683,6 +3649,65 @@ def extract_site_assets_lib():
     return str(len(site_list))
 
 
+# 自定义接口额度总量查询
+def customize_interface_totalnum(partid):
+    if partid >= 7:
+        customize_result = "只能查询6条数据"
+    else:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select totalnum from interfacenum_table where id = '%s' "%(partid)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        for i in list_data:
+            customize_result = i[0]
+    return customize_result
+
+# 自定义接口额度修复
+def update_customize_interface_totalnum(part1,part2):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE interfacenum_table SET totalnum = '%s' WHERE id = '%s'"%(part1,part2)
+        cur.execute(sql)
+        db.commit()
+        # 验证是否更新成功
+        check_sql = "SELECT totalnum FROM interfacenum_table WHERE id = %s"
+        cur.execute(check_sql, (part2))
+        result = cur.fetchone()
+        # 判断是哪个平台
+        if int(part2) == 1:
+            platform = "fofa"
+        elif int(part2) == 2:
+            platform = "shodan"
+        elif int(part2) == 3:
+            platform = "crt证书"
+        elif int(part2) == 4:
+            platform = "icp备案" 
+        elif int(part2) == 5:
+            platform = "高德地图"
+        elif int(part2) == 6:
+            platform = "otx威胁情报"
+        else:
+            print("其他参数")
+        if int(result[0]) == int(part1):
+            update_result = platform+"接口额度更新成功"
+        else:
+            update_result = platform+"接口额度更新失败"
+    except Exception as e:
+        print("捕获到异常:", e)
+        db.rollback()
+    # 配置生效需重启服务
+    try:
+        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+    except Exception as e:
+        print("执行重启语句时发生错误：", e)
+    return update_result
+    
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -3705,8 +3730,9 @@ if __name__ == "__main__":
             withdrawiplocation_lib()
 
         # 测试使用
-        elif func_name == 'extract_site_assets_lib':
-            extract_site_assets_lib()
+        elif func_name == 'update_customize_interface_totalnum':
+            c = update_customize_interface_totalnum(6123,2)
+            print(c)
         else:
             print("Invalid function number")
     else:

@@ -66,12 +66,18 @@ from config import bcrypt_passwd
 from collections import Counter
 
 # 统计第三方接口查询次数
-from config import fofa_max_num
-from config import otx_max_num
-from config import amap_max_num
-from config import crt_max_num
-from config import shodan_max_num
-from config import icp_max_num
+fofa_max_num = basic.customize_interface_totalnum(1)
+shodan_max_num = basic.customize_interface_totalnum(2)
+crt_max_num =  basic.customize_interface_totalnum(3)
+icp_max_num = basic.customize_interface_totalnum(4)
+amap_max_num = basic.customize_interface_totalnum(5)
+otx_max_num = basic.customize_interface_totalnum(6)
+# from config import fofa_max_num
+# from config import otx_max_num
+# from config import amap_max_num
+# from config import crt_max_num
+# from config import shodan_max_num
+# from config import icp_max_num
 
 # 多线程操作模块
 import threading
@@ -4681,6 +4687,13 @@ def comfirmclearloginterface():
         sessionid5 = request.form['sessionid5']
         sessionid6 = request.form['sessionid6']
         rule_input_id1 = request.form['rule_input_id1']
+        # 接收前端传递过来的自定义接口额度参数
+        customizelimitid1 = request.form['customizelimitid1']
+        customizelimitid2 = request.form['customizelimitid2']
+        customizelimitid3 = request.form['customizelimitid3']
+        customizelimitid4 = request.form['customizelimitid4']
+        customizelimitid5 = request.form['customizelimitid5']
+        customizelimitid6 = request.form['customizelimitid6']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -4736,6 +4749,24 @@ def comfirmclearloginterface():
             elif int(inputmodel3) ==10:
                 print("配置ceyekey")
                 recheck_result = basic.update_session_time_lib(sessionid6,5)
+            elif int(inputmodel3) ==12:
+                print("配置fofa接口额度")
+                recheck_result = basic.update_customize_interface_totalnum(customizelimitid1,1)
+            elif int(inputmodel3) ==13:
+                print("配置shodan接口额度")
+                recheck_result = basic.update_customize_interface_totalnum(customizelimitid2,2)
+            elif int(inputmodel3) ==14:
+                print("配置crt接口额度")
+                recheck_result = basic.update_customize_interface_totalnum(customizelimitid3,3)
+            elif int(inputmodel3) ==15:
+                print("配置icp接口额度")
+                recheck_result = basic.update_customize_interface_totalnum(customizelimitid4,4)
+            elif int(inputmodel3) ==16:
+                print("配置高德地图接口额度")
+                recheck_result = basic.update_customize_interface_totalnum(customizelimitid5,5)
+            elif int(inputmodel3) ==17:
+                print("配置otx威胁情报接口额度")
+                recheck_result = basic.update_customize_interface_totalnum(customizelimitid6,6)
             elif int(inputmodel3) ==11:
                 print("配置重点资产识别")
                 
@@ -4884,14 +4915,79 @@ def system_config_data():
         fofa_email_tuomin = basic.mask_data(fofa_email)
         fofa_key_tuomin = basic.mask_data(fofa_key)
 
+        # 获取自定义接口额度
+        fofa_inter_num_success = basic.total_port_success_num(1)
+        fofa_inter_num_fail = basic.total_port_fail_num(1)
+        shodan_inter_num_success = basic.total_port_success_num(2)
+        shodan_inter_num_fail = basic.total_port_fail_num(2)
+        crt_inter_num_success = basic.total_port_success_num(3)
+        crt_inter_num_fail = basic.total_port_fail_num(3)
+        icp_inter_num_success = basic.total_port_success_num(4)
+        icp_inter_num_fail = basic.total_port_fail_num(4)
+        gd_inter_num_success = basic.total_port_success_num(5)
+        gd_inter_num_fail = basic.total_port_fail_num(5)
+        otx_inter_num_success = basic.total_port_success_num(6)
+        otx_inter_num_fail = basic.total_port_fail_num(6)
+
+        
+        tatal_fofa_num = int(fofa_inter_num_success) + int(fofa_inter_num_fail)
+        fofa_remaining_num_1 =  int(fofa_max_num) - tatal_fofa_num
+        if fofa_remaining_num_1 < 0:
+            fofa_remaining_num = 0
+        else:
+            fofa_remaining_num = fofa_remaining_num_1
+
+        total_shodan_num = int(shodan_inter_num_success) + int(shodan_inter_num_fail)
+        shodan_remaining_num_1 = int(shodan_max_num) - total_shodan_num
+        if shodan_remaining_num_1 < 0:
+            shodan_remaining_num = 0
+        else:
+            shodan_remaining_num = shodan_remaining_num_1
+
+        tatal_crt_num = int(crt_inter_num_success) + int(crt_inter_num_fail)
+        crt_remaining_num_1 =  int(crt_max_num) - tatal_crt_num
+        if crt_remaining_num_1 < 0:
+            crt_remaining_num = 0
+        else:
+            crt_remaining_num = crt_remaining_num_1
+
+        tatal_icp_num = int(icp_inter_num_success) + int(icp_inter_num_fail)
+        icp_remaining_num_1 =  int(icp_max_num) - tatal_icp_num
+        if icp_remaining_num_1 < 0:
+            icp_remaining_num = 0
+        else:
+            icp_remaining_num = icp_remaining_num_1
+
+        tatal_amap_num = int(gd_inter_num_success) + int(gd_inter_num_fail)
+        amap_remaining_num_1 =  int(amap_max_num) - tatal_amap_num
+        if amap_remaining_num_1 < 0:
+            amap_remaining_num = 0
+        else:
+            amap_remaining_num = amap_remaining_num_1
+        
+        tatal_otx_num = int(otx_inter_num_success) + int(otx_inter_num_fail)
+        otx_remaining_num_1 =  int(otx_max_num) - tatal_otx_num
+        if otx_remaining_num_1 < 0:
+            otx_remaining_num = 0
+        else:
+            otx_remaining_num = otx_remaining_num_1
 
         message_json = {
+            # 接口剩余额度
+            "fofa_remaining_num":fofa_remaining_num,
+            "shodan_remaining_num":shodan_remaining_num,
+            "crt_remaining_num":crt_remaining_num,
+            "icp_remaining_num":icp_remaining_num,
+            "amap_remaining_num":amap_remaining_num,
+            "otx_remaining_num":otx_remaining_num,
+            # key查询
             "search_result":str(session_time),
             "fofa_email":str(fofa_email_tuomin),
             "fofa_key":str(fofa_key_tuomin),
             "shodan_key":str(shodan_key_tuomin),
             "amap_key":str(amap_key_tuomin),
             "ceye_key":str(ceye_key_tuomin),
+            # jndi状态查询
             "jndistatus":str(jndistatus)
         }
         return jsonify(message_json)
