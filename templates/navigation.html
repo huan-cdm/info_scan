@@ -115,9 +115,9 @@
                         style="color: #FFD700;"></i>&nbsp;&nbsp;密码字典</a></li>
 
             <li><a href="#" onclick="opendevicepasswordfunc()"><i class="fa fa-folder fa-lg"
-                        style="color: #FFD700;"></i>&nbsp;&nbsp;设备默认口令</a></li>
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;密码查询</a></li>
             <li><a href="#" onclick="openantivsoftallfunc()"><i class="fa fa-folder fa-lg"
-                        style="color: #FFD700;"></i>&nbsp;&nbsp;杀软识别</a></li>
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;杀软查询</a></li>
         </ul>
     </div>
     <div id="content">
@@ -1767,10 +1767,13 @@
     <div id="modal5" class="modal1">
 
         <div class="modal-content1">
-            <h3>设备默认口令列表</h3>
+            <h3>设备默认密码</h3>
             <input type="text" class="my-input3" placeholder="设备关键字" value="" id="devicekeyvalue">
-            <span class="my-span" onclick="opendevicepasswordbykeyfunc()">检索</span><br>
-            <span id="deviceid1"></span>
+            <span class="button edit-button" onclick="opendevicepasswordbykeyfunc()">查询</span><br>
+            <div class="daohang_password">
+                <span id="deviceid2"></span><br>
+                <span id="deviceid1"></span>
+            </div>
             <span class="close" onclick="closeModal5()">&times;</span>
             <table id="data-table11">
                 <thead>
@@ -1793,13 +1796,17 @@
 
         <div class="modal-content1">
             <h3>杀软识别</h3>
-<textarea style="width: 1000px;height: 50px;resize: vertical;" id="antivirusTextarea">
+            <textarea class="daohang_sharuan" id="antivirusTextarea">
 360tray.exe
 360sd.exe
 </textarea>
-            <span style="cursor: pointer;;" onclick="openantivsoftbykeyfunc()">检索</span>
-            <br>
-            <span id="sharuanid1"></span>
+            <span class="button edit-button" onclick="openantivsoftbykeyfunc()">查询</span>
+            <br> <br>
+            <div class="daohang_password">
+                <span id="sharuanid2"></span><br>
+                <span id="sharuanid1"></span>
+            </div>
+
             <span class="close" onclick="closeModal6()">&times;</span>
             <table id="data-table22">
                 <thead>

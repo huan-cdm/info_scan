@@ -476,263 +476,6 @@ function closevulnscan10() {
 }
 
 
-
-// 系统管理调整为5秒自动请求1次
-function openModal() {
-    var modal = document.getElementById("modal");
-    modal.style.display = "block";
-
-    // 定义一个函数来处理AJAX请求
-    function fetchData() {
-        $.getJSON("/systemmanagement/",
-            function (info) {
-
-
-                // 运行状态显示绿色，停止状态显示红色
-                document.getElementById("spp1").innerHTML = info.nmapstatus1;
-                document.getElementById("spp1a").innerHTML = info.nmapstatus2;
-                document.getElementById("spp62").innerHTML = info.subfinder_status1;
-                document.getElementById("spp62a").innerHTML = info.subfinder_status2;
-                document.getElementById("spp63").innerHTML = info.redis_status1;
-                document.getElementById("spp63a").innerHTML = info.redis_status2;
-                document.getElementById("spp64").innerHTML = info.mongodb_status1;
-                document.getElementById("spp64a").innerHTML = info.mongodb_status2;
-                document.getElementById("spp65").innerHTML = info.memcached_status1;
-                document.getElementById("spp65a").innerHTML = info.memcached_status2;
-
-                document.getElementById("spp66").innerHTML = info.zookeeper_status1;
-                document.getElementById("spp66a").innerHTML = info.zookeeper_status2;
-                document.getElementById("spp67").innerHTML = info.ftp_status1;
-                document.getElementById("spp67a").innerHTML = info.ftp_status2;
-
-                document.getElementById("spp68").innerHTML = info.couchdb_status1;
-                document.getElementById("spp68a").innerHTML = info.couchdb_status2;
-
-                document.getElementById("spp69").innerHTML = info.docker_status1;
-                document.getElementById("spp69a").innerHTML = info.docker_status2;
-
-                document.getElementById("spp70").innerHTML = info.hadoop_status1;
-                document.getElementById("spp70a").innerHTML = info.hadoop_status2;
-
-                document.getElementById("spp71").innerHTML = info.nfs_status1;
-                document.getElementById("spp71a").innerHTML = info.nfs_status2;
-                document.getElementById("spp72").innerHTML = info.rsync_status1;
-                document.getElementById("spp72a").innerHTML = info.rsync_status2;
-                document.getElementById("spp73").innerHTML = info.unes1_status1;
-                document.getElementById("spp73a").innerHTML = info.unes1_status2;
-
-                document.getElementById("spp74").innerHTML = info.bcrypt_status1;
-                document.getElementById("spp74a").innerHTML = info.bcrypt_status2;
-
-                document.getElementById("spp75").innerHTML = info.cdn_status1;
-                document.getElementById("spp75a").innerHTML = info.cdn_status2;
-                document.getElementById("spp76").innerHTML = info.shodanstatus1;
-                document.getElementById("spp76a").innerHTML = info.shodanstatus2;
-
-                document.getElementById("spp77").innerHTML = info.account_info_num;
-                document.getElementById("spp78").innerHTML = info.total_account_info_num;
-
-                document.getElementById("spp2").innerHTML = info.nucleistatus1;
-                document.getElementById("spp2a").innerHTML = info.nucleistatus2;
-                document.getElementById("spp3").innerHTML = info.xraystatus1;
-                document.getElementById("spp3a").innerHTML = info.xraystatus2;
-                document.getElementById("spp4").innerHTML = info.radstatus1;
-                document.getElementById("spp4a").innerHTML = info.radstatus2;
-                document.getElementById("spp5").innerHTML = info.dirscanstatus1;
-                document.getElementById("spp5a").innerHTML = info.dirscanstatus2;
-                document.getElementById("spp6").innerHTML = info.weblogicstatus1;
-                document.getElementById("spp6a").innerHTML = info.weblogicstatus2;
-                document.getElementById("spp7").innerHTML = info.struts2status1;
-                document.getElementById("spp7a").innerHTML = info.struts2status2;
-                document.getElementById("spp8").innerHTML = info.bbscanstatus1;
-                document.getElementById("spp8a").innerHTML = info.bbscanstatus2;
-                document.getElementById("spp9").innerHTML = info.vulmapscanstatus1;
-                document.getElementById("spp9a").innerHTML = info.vulmapscanstatus2;
-                document.getElementById("spp10").innerHTML = info.afrogscanstatus1;
-                document.getElementById("spp10a").innerHTML = info.afrogscanstatus2;
-                document.getElementById("spp11").innerHTML = info.fscanstatus1;
-                document.getElementById("spp11a").innerHTML = info.fscanstatus2;
-                document.getElementById("spp12").innerHTML = info.shirostatus1;
-                document.getElementById("spp12a").innerHTML = info.shirostatus2;
-                document.getElementById("spp13").innerHTML = info.httpxstatus1;
-                document.getElementById("spp13a").innerHTML = info.httpxstatus2;
-                document.getElementById("spp14").innerHTML = info.url_file_num;
-                document.getElementById("spp15").innerHTML = info.eholestatus1;
-                document.getElementById("spp15a").innerHTML = info.eholestatus2;
-                document.getElementById("spp16").innerHTML = info.shiro_num;
-                document.getElementById("spp17").innerHTML = info.springboot_num;
-                document.getElementById("spp18").innerHTML = info.weblogic_num;
-                document.getElementById("spp19").innerHTML = info.baota_num;
-                document.getElementById("spp20").innerHTML = info.ruoyi_num;
-                document.getElementById("spp21").innerHTML = info.struts2_num;
-                document.getElementById("spp22").innerHTML = info.WordPress_num;
-                document.getElementById("spp23").innerHTML = info.cpuinfo;
-                document.getElementById("spp24").innerHTML = info.memoryinfo;
-                document.getElementById("spp25").innerHTML = info.jboss_num;
-                document.getElementById("spp26").innerHTML = info.key_asset_rule;
-                document.getElementById("spp27").innerHTML = info.current_key_asset_num;
-                document.getElementById("spp28").innerHTML = info.springbootstatus1;
-                document.getElementById("spp28a").innerHTML = info.springbootstatus2;
-                document.getElementById("spp29").innerHTML = info.hydrastatus1;
-                document.getElementById("spp29a").innerHTML = info.hydrastatus2;
-                document.getElementById("spp30").innerHTML = info.urlfinderstatus1;
-                document.getElementById("spp30a").innerHTML = info.urlfinderstatus2;
-                document.getElementById("spp31").innerHTML = info.key_asset_rule_origin;
-                document.getElementById("spp32").innerHTML = info.assets_status;
-                document.getElementById("spp33").innerHTML = info.vuln_scan_status_shijianxian;
-                document.getElementById("spp34").innerHTML = info.phpmyadmin_num;
-                document.getElementById("spp35").innerHTML = info.disk_read;
-                document.getElementById("spp36").innerHTML = info.disk_write;
-                document.getElementById("spp37").innerHTML = info.infoinfostatus1;
-                document.getElementById("spp37a").innerHTML = info.infoinfostatus2;
-                document.getElementById("spp38").innerHTML = info.dirsub_sys_status1;
-                document.getElementById("spp38a").innerHTML = info.dirsub_sys_status2;
-                document.getElementById("spp39").innerHTML = info.xray_report_status1;
-                document.getElementById("spp39a").innerHTML = info.xray_report_status2;
-                document.getElementById("spp40").innerHTML = info.urlfinder_report_status1;
-                document.getElementById("spp40a").innerHTML = info.urlfinder_report_status2;
-                document.getElementById("spp41").innerHTML = info.afrog_report_status1;
-                document.getElementById("spp41a").innerHTML = info.afrog_report_status2;
-                document.getElementById("spp42").innerHTML = info.ThinkPHP_num;
-                document.getElementById("spp43").innerHTML = info.thinkphpstatus1;
-                document.getElementById("spp43a").innerHTML = info.thinkphpstatus2;
-                document.getElementById("spp44").innerHTML = info.otx_status1;
-                document.getElementById("spp44a").innerHTML = info.otx_status2;
-                document.getElementById("spp45").innerHTML = info.crt_status1;
-                document.getElementById("spp45a").innerHTML = info.crt_status2;
-                document.getElementById("spp46").innerHTML = info.nacos_num;
-                document.getElementById("spp47").innerHTML = info.fanwei_num;
-                document.getElementById("spp52t").innerHTML = info.tomcat_num;
-                document.getElementById("spp48").innerHTML = info.weaver_status1;
-                document.getElementById("spp48a").innerHTML = info.weaver_status2;
-                document.getElementById("spp49").innerHTML = info.es_unauthorized_status1;
-                document.getElementById("spp49a").innerHTML = info.es_unauthorized_status2;
-                document.getElementById("spp50").innerHTML = info.nacos_status1;
-                document.getElementById("spp50a").innerHTML = info.nacos_status2;
-                document.getElementById("spp51").innerHTML = info.tomcat_status1;
-                document.getElementById("spp51a").innerHTML = info.tomcat_status2;
-                document.getElementById("spp52").innerHTML = info.jndi_status1;
-                document.getElementById("spp52a").innerHTML = info.jndi_status2;
-                document.getElementById("spp53").innerHTML = info.jndi_python_status1;
-                document.getElementById("spp53a").innerHTML = info.jndi_python_status2;
-                document.getElementById("spp54").innerHTML = info.fastjson_status1;
-                document.getElementById("spp54a").innerHTML = info.fastjson_status2;
-                document.getElementById("spp55").innerHTML = info.waf_status1;
-                document.getElementById("spp55a").innerHTML = info.waf_status2;
-                document.getElementById("spp56").innerHTML = info.bypass_status1;
-                document.getElementById("spp56a").innerHTML = info.bypass_status2;
-                document.getElementById("spp57").innerHTML = info.crawlergo_status1;
-                document.getElementById("spp57a").innerHTML = info.crawlergo_status2;
-                document.getElementById("spp58").innerHTML = info.seeyonstatus1;
-                document.getElementById("spp58a").innerHTML = info.seeyonstatus2;
-                document.getElementById("spp59").innerHTML = info.yonsuite_status1;
-                document.getElementById("spp59a").innerHTML = info.yonsuite_status2;
-                document.getElementById("spp60").innerHTML = info.kingdee_status1;
-                document.getElementById("spp60a").innerHTML = info.kingdee_status2;
-                document.getElementById("spp61").innerHTML = info.wanhu_status1;
-                document.getElementById("spp61a").innerHTML = info.wanhu_status2;
-                document.getElementById("spp1h2").innerHTML = info.finger_jindu;
-                document.getElementById("successsp1").innerHTML = info.fofa_inter_num_success;
-                document.getElementById("failsp1").innerHTML = info.fofa_inter_num_fail;
-                document.getElementById("successsp2").innerHTML = info.shodan_inter_num_success;
-                document.getElementById("failsp2").innerHTML = info.shodan_inter_num_fail;
-                document.getElementById("successsp3").innerHTML = info.crt_inter_num_success;
-                document.getElementById("failsp3").innerHTML = info.crt_inter_num_fail;
-                document.getElementById("successsp4").innerHTML = info.icp_inter_num_success;
-                document.getElementById("failsp4").innerHTML = info.icp_inter_num_fail;
-                document.getElementById("successsp5").innerHTML = info.gd_inter_num_success;
-                document.getElementById("failsp5").innerHTML = info.gd_inter_num_fail;
-                document.getElementById("successsp6").innerHTML = info.otx_inter_num_success;
-                document.getElementById("failsp6").innerHTML = info.otx_inter_num_fail;
-                // 第三方接口额度查看
-                document.getElementById("totalsp1").innerHTML = info.fofa_max_num;
-                document.getElementById("totalsp2").innerHTML = info.shodan_max_num;
-                document.getElementById("totalsp3").innerHTML = info.crt_max_num;
-                document.getElementById("totalsp4").innerHTML = info.icp_max_num;
-                document.getElementById("totalsp5").innerHTML = info.amap_max_num;
-                document.getElementById("totalsp6").innerHTML = info.otx_max_num;
-                // 第三方接口剩余额度查询
-                document.getElementById("overtotalsp1").innerHTML = info.fofa_remaining_num;
-                document.getElementById("overtotalsp2").innerHTML = info.shodan_remaining_num;
-                document.getElementById("overtotalsp3").innerHTML = info.crt_remaining_num;
-                document.getElementById("overtotalsp4").innerHTML = info.icp_remaining_num;
-                document.getElementById("overtotalsp5").innerHTML = info.amap_remaining_num;
-                document.getElementById("overtotalsp6").innerHTML = info.otx_remaining_num;
-                document.getElementById("totalspp2").innerHTML = info.total_report_status_result2;
-                document.getElementById("totalspp1").innerHTML = info.total_report_status_result1;
-                // 扫描器耗时统计
-                document.getElementById("diffnmapid").innerHTML = info.nmapcontime;
-                document.getElementById("diffsubfinderid").innerHTML = info.subfindercontime;
-
-                document.getElementById("diffeholeid").innerHTML = info.eholecontime;
-                document.getElementById("diffbbscanid").innerHTML = info.bbscancontime;
-                document.getElementById("diffotxid").innerHTML = info.otxcontime;
-                document.getElementById("diffcrtid").innerHTML = info.crtcontime;
-                document.getElementById("diffwafid").innerHTML = info.wafcontime;
-                document.getElementById("difffuzzid").innerHTML = info.bypasscontime;
-                document.getElementById("diffcrawlergoid").innerHTML = info.crawlergocontime;
-                document.getElementById("diffseeyonid").innerHTML = info.seeyoncontime;
-                document.getElementById("diffyonsuiteid").innerHTML = info.yonsuitecontime;
-                document.getElementById("diffkingdeeid").innerHTML = info.kingdeecontime;
-                document.getElementById("diffstruts2id").innerHTML = info.struts2contime;
-                document.getElementById("diffweblogicid").innerHTML = info.weblogiccontime;
-                document.getElementById("diffshiroid").innerHTML = info.shirocontime;
-                document.getElementById("diffspringbootid").innerHTML = info.springbootcontime;
-                document.getElementById("diffthinkphpid").innerHTML = info.thinkphpcontime;
-                document.getElementById("diffesid").innerHTML = info.esccontime;
-                document.getElementById("diffnacosid").innerHTML = info.nacoscontime;
-                document.getElementById("difftomcatid").innerHTML = info.tomcatcontime;
-                document.getElementById("difffastjsonid").innerHTML = info.fastjsoncontime;
-                document.getElementById("diffafrogid").innerHTML = info.afrogcontime;
-                document.getElementById("difffscanid").innerHTML = info.fscancontime;
-                document.getElementById("diffweakpassid").innerHTML = info.weakpasscontime;
-                document.getElementById("diffapiscanid").innerHTML = info.apiintersacecontime;
-                document.getElementById("diffvulmapid").innerHTML = info.vulmapcontime;
-                document.getElementById("diffnucleiid").innerHTML = info.nucleicontime;
-                document.getElementById("difffanweioaid").innerHTML = info.weavercontime;
-                document.getElementById("diffhttpxscanid").innerHTML = info.httpxcontime;
-                document.getElementById("diffxrayid").innerHTML = info.xraycontime;
-                document.getElementById("diffwanhuoaid").innerHTML = info.wanhucontime;
-
-                document.getElementById("diffredisid").innerHTML = info.rediscontime;
-                document.getElementById("diffmongodbid").innerHTML = info.mongodbcontime;
-                document.getElementById("diffmemcachedid").innerHTML = info.memcachedcontime;
-                document.getElementById("diffzookeeperid").innerHTML = info.zookeepercontime;
-                document.getElementById("diffftpid").innerHTML = info.ftpcontime;
-                document.getElementById("diffcouchdbid").innerHTML = info.couchdbcontime;
-                document.getElementById("diffdockerid").innerHTML = info.dockercontime;
-                document.getElementById("diffhadoopid").innerHTML = info.hadoopcontime;
-                document.getElementById("diffnfsid").innerHTML = info.nfscontime;
-                document.getElementById("diffrsyncid").innerHTML = info.rsynccontime;
-                document.getElementById("diffunesid").innerHTML = info.unes1contime;
-                document.getElementById("diffbcryptid").innerHTML = info.bcryptcontime;
-            });
-    }
-
-    // 调用fetchData函数初始化显示
-    fetchData();
-
-    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
-    var intervalId = setInterval(fetchData, 5000);
-}
-
-// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function () {
-    clearInterval(intervalId);
-});
-
-
-
-// 关闭系统管理
-function closeModal() {
-    var modal = document.getElementById("modal");
-    modal.style.display = "none";
-
-}
-
-
-
-
 // 查询fofa语法
 function fofayufa() {
     var modal1 = document.getElementById("modal1");
@@ -2876,27 +2619,7 @@ function opendevicepasswordfunc() {
         method: 'GET',
         success: function (info) {
             document.getElementById("deviceid1").innerHTML = info.device_dict_len;
-
-            const tableBody = document.querySelector('#data-table11 tbody');
-
-            info.device_dict.forEach(item => {
-                const row = document.createElement('tr'); // 创建新的行
-
-                // 创建单元格并填充数据
-                const idCell = document.createElement('td');
-                idCell.textContent = item.company;
-                row.appendChild(idCell);
-
-                const nameCell = document.createElement('td');
-                nameCell.textContent = item.username;
-                row.appendChild(nameCell);
-
-                const addrCell = document.createElement('td');
-                addrCell.textContent = item.password;
-                row.appendChild(addrCell);
-
-                tableBody.appendChild(row); // 将行添加到表格体中
-            });
+            document.getElementById("deviceid2").innerHTML = info.device_dict;
 
         },
         error: function () {
@@ -2921,7 +2644,7 @@ function opendevicepasswordbykeyfunc() {
     // 清空表格体中的所有行
     const tableBody = document.querySelector('#data-table11 tbody');
     tableBody.innerHTML = '';
-
+    document.getElementById("deviceid2").innerHTML = "";
     $.ajax({
         url: '/showdevicepasswordbykey/',
         method: 'POST',
@@ -2976,24 +2699,7 @@ function openantivsoftallfunc() {
         method: 'GET',
         success: function (info) {
             document.getElementById("sharuanid1").innerHTML = info.antivirus_dict_len;
-
-            const tableBody = document.querySelector('#data-table22 tbody');
-
-            info.antivirus_dict.forEach(item => {
-                const row = document.createElement('tr'); // 创建新的行
-
-                // 创建单元格并填充数据
-                const idCell = document.createElement('td');
-                idCell.textContent = item.antivirus_name;
-                row.appendChild(idCell);
-
-                const nameCell = document.createElement('td');
-                nameCell.textContent = item.antivirus_decrib;
-                row.appendChild(nameCell);
-
-                tableBody.appendChild(row); // 将行添加到表格体中
-            });
-
+            document.getElementById("sharuanid2").innerHTML = info.antivirus_dict;
         },
         error: function () {
 
@@ -3016,7 +2722,7 @@ function closeModal6() {
 function openantivsoftbykeyfunc() {
     var modal6 = document.getElementById("modal6");
     modal6.style.display = "block";
-
+    document.getElementById("sharuanid2").innerHTML = "";
     // 获取textarea的值  
     const text = document.getElementById('antivirusTextarea').value;
     // 按换行符分割文本为数组  
