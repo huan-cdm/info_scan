@@ -443,8 +443,6 @@ IP基础信息查询<br>
 系统首页<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhedie.png"/><br><br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/zhankai.png"/><br><br>
-数据分析<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/service.png"/><br><br>
 目录扫描<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dirscanpic.jpg"/><br><br>
 漏洞报告<br>
