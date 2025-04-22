@@ -585,6 +585,7 @@ function startscanconfigpagefunc() {
             document.getElementById("customizelimitid4").value = info.icp_remaining_num;
             document.getElementById("customizelimitid5").value = info.amap_remaining_num;
             document.getElementById("customizelimitid6").value = info.otx_remaining_num;
+
             // jndi服务状态
             const statusElement = document.getElementById('jndistatusid1');
             const status = info.jndistatus;
@@ -600,6 +601,20 @@ function startscanconfigpagefunc() {
             } else {
                 statusElement.classList.add('status-error');
             }
+
+            // 资产校验开关状态
+            const statusElement1 = document.getElementById('assetsjiaoyanstatusid1');
+            const status1 = info.assets_jiaoyan_status;
+            
+            // 根据状态添加对应样式
+            if (status1 === '已开启校验') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启校验') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+
         },
         error: function () {
             const statusElement = document.getElementById('jndistatusid1');
@@ -2895,3 +2910,64 @@ function updateClock() {
 
 setInterval(updateClock, 1000); // 更新时间间隔为1秒
 updateClock(); // 初始化时立即更新时间
+
+
+// 系统配置开启资产校验
+function startassetsjiaoyanfunc() {
+
+    $.ajax({
+        url: '/startassetserification/',
+        method: 'GET',
+
+        success: function (info) {
+            const statusElement = document.getElementById('assetsjiaoyanstatusid1');
+            const status = info.verificationresult;
+
+            // 清除所有可能的状态类
+            statusElement.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status === '已开启校验') {
+                statusElement.classList.add('status-running');
+            } else if (status === '未开启校验') {
+                statusElement.classList.add('status-stopped');
+            } else {
+                statusElement.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement = document.getElementById('assetsjiaoyanstatusid1');
+            statusElement.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 系统配置关闭资产校验
+function stopassetsjiaoyanfunc() {
+
+    $.ajax({
+        url: '/stopassetserification/',
+        method: 'GET',
+
+        success: function (info) {
+            const statusElement = document.getElementById('assetsjiaoyanstatusid1');
+            const status = info.verificationresult;
+
+            // 清除所有可能的状态类
+            statusElement.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status === '已开启校验') {
+                statusElement.classList.add('status-running');
+            } else if (status === '未开启校验') {
+                statusElement.classList.add('status-stopped');
+            } else {
+                statusElement.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement = document.getElementById('assetsjiaoyanstatusid1');
+            statusElement.className = 'status-circle status-error';
+        }
+    })
+}

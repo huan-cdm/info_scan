@@ -72,12 +72,6 @@ crt_max_num =  basic.customize_interface_totalnum(3)
 icp_max_num = basic.customize_interface_totalnum(4)
 amap_max_num = basic.customize_interface_totalnum(5)
 otx_max_num = basic.customize_interface_totalnum(6)
-# from config import fofa_max_num
-# from config import otx_max_num
-# from config import amap_max_num
-# from config import crt_max_num
-# from config import shodan_max_num
-# from config import icp_max_num
 
 # 多线程操作模块
 import threading
@@ -88,7 +82,8 @@ from config import recheck_password
 
 from config_session import PERMANENT_SESSION_LIFETIME
 
-from config import assetverification
+# 资产格式校验
+assetverification = basic.verification_table_lib(1)
 import json
 
 # 校验是否先进行指纹识别
@@ -273,9 +268,8 @@ def ipscaninterface():
 def index():
     user = session.get('username')
     if str(user) == main_username:
-        # asset_file_list = basic.list_files_in_directory()
+
         asset_file_list = basic.fofa_grammar_lib()
-        # session_time = basic.select_session_time_lib(1)
         period_time = get_time_period_lib()
         # 判断是否开启JNDI
         jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
@@ -291,7 +285,14 @@ def index():
             mysql_status_result = "2. MySQL服务已启动。"
         else:
             mysql_status_result = "2. MySQL服务未启动，系统部分功能将会受到限制。"
-        return render_template('index.html',data20=str(user),data21=asset_file_list,data30 = str(period_time),data31=str(jndi_status_result),data32=str(mysql_status_result))
+        
+        # 判断是否开启资产格式校验
+        verification_status = basic.verification_table_lib(1)
+        if "已开启校验" == verification_status:
+            assets_status_result = "3. 资产校验已启动，只允许输入URL格式资产。"
+        else:
+            assets_status_result = "3. 资产校验未启动，允许输入任意格式资产。"
+        return render_template('index.html',data20=str(user),data21=asset_file_list,data30 = str(period_time),data31=str(jndi_status_result),data32=str(mysql_status_result),data33=str(assets_status_result))
     else:
         return render_template('login.html')
 
@@ -428,12 +429,12 @@ def submit_data():
             result_rule = "请勿进行安全测试！"
 
         else:
-            # 2024.8.2更新  校验非URL资产
+            
             result_rule = ""
-            if int(assetverification) == 1:
+            if assetverification == "已开启校验":
                 for ii in data:
                     if "http://"  not in ii and "https://" not in ii:
-                        result_rule = "请勿输入非URL字段！"
+                        result_rule = "请勿输入非URL资产！！！"
                         break
             if not result_rule:
                 # 列表中数据存入文件中
@@ -4906,6 +4907,8 @@ def system_config_data():
         else:
             jndistatus = "关闭"
 
+        # 资产校验开关状态
+        assets_jiaoyan_status = basic.verification_table_lib(1)
         shodan_key = basic.select_session_time_lib(3)
         amap_key = basic.select_session_time_lib(4)
         ceye_key =  basic.select_session_time_lib(5)
@@ -4988,7 +4991,9 @@ def system_config_data():
             "amap_key":str(amap_key_tuomin),
             "ceye_key":str(ceye_key_tuomin),
             # jndi状态查询
-            "jndistatus":str(jndistatus)
+            "jndistatus":str(jndistatus),
+            # 资产校验状态
+            "assets_jiaoyan_status":str(assets_jiaoyan_status)
         }
         return jsonify(message_json)
     else:
@@ -6251,6 +6256,35 @@ def largescreenpagedata():
             "unes1_status2":unes1_status2,
             "unes1contime":unes1contime
 
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
+# 开启资产校验
+@app.route("/startassetserification/",methods=['GET'])
+def startassetserification():
+    user = session.get('username')
+    if str(user) == main_username:
+        verificationresult = basic.update_verification_table_lib(1,1)
+        message_json = {
+            "verificationresult":verificationresult
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 关闭资产校验
+@app.route("/stopassetserification/",methods=['GET'])
+def stopassetserification():
+    user = session.get('username')
+    if str(user) == main_username:
+        verificationresult = basic.update_verification_table_lib(2,1)
+        message_json = {
+            "verificationresult":verificationresult
         }
         return jsonify(message_json)
     else:

@@ -3665,7 +3665,7 @@ def customize_interface_totalnum(partid):
             customize_result = i[0]
     return customize_result
 
-# 自定义接口额度修复
+# 自定义接口额度修改
 def update_customize_interface_totalnum(part1,part2):
     try:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
@@ -3708,6 +3708,63 @@ def update_customize_interface_totalnum(part1,part2):
     return update_result
     
 
+# 资产校验开关查询
+def verification_table_lib(partid):
+    if partid >= 2:
+        customize_result = "只能查询1条数据"
+    else:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="select logopart from verification_table where id = '%s' "%(partid)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        for i in list_data:
+            customize_result = i[0]
+            if int(customize_result) == 1:
+                customize_result_part = "已开启校验"
+            else:
+                customize_result_part = "未开启校验"
+    return customize_result_part
+
+
+# 修改资产校验开关
+def update_verification_table_lib(part1,part2):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE verification_table SET logopart = '%s' WHERE id = '%s'"%(part1,part2)
+        cur.execute(sql)
+        db.commit()
+        # 验证是否更新成功
+        check_sql = "SELECT logopart FROM verification_table WHERE id = %s"
+        cur.execute(check_sql, (part2))
+        result = cur.fetchone()
+        if int(part1) == 1:
+            if int(result[0]) == int(part1):
+                update_result = "已开启校验"
+            else:
+                update_result = "资产校验开启出错"
+        elif int(part1) == 2:
+            if int(result[0]) == int(part1):
+                update_result = "未开启校验"
+            else:
+                update_result = "资产校验关闭出错"
+        else:
+            print("不允许配置其他参数")
+        
+    except Exception as e:
+        print("捕获到异常:", e)
+        db.rollback()
+    # 配置生效需重启服务
+    try:
+        os.popen('bash /TIP/info_scan/finger.sh restartinfoscan')
+    except Exception as e:
+        print("执行重启语句时发生错误：", e)
+    return update_result
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -3730,8 +3787,8 @@ if __name__ == "__main__":
             withdrawiplocation_lib()
 
         # 测试使用
-        elif func_name == 'update_customize_interface_totalnum':
-            c = update_customize_interface_totalnum(6123,2)
+        elif func_name == 'update_verification_table_lib':
+            c = update_verification_table_lib(2,1)
             print(c)
         else:
             print("Invalid function number")

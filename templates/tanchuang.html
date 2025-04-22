@@ -526,22 +526,37 @@
 
             <tr>
                 <td>
-                    <strong style="color: chocolate;">JNDI服务开关</strong>&nbsp;
-                    <!-- jndi服务状态显示 -->
-                    <span id="jndistatusid1" class="status-circle"></span>
-                    <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="button-container1">
-                        <button class="button edit-button" onclick="jndistatusfunc()">开启</button>
-                        <button class="button delete-button" onclick="stopjndistatusfunc()">关闭</button>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <strong style="color: chocolate;">JNDI服务开关</strong>&nbsp;
+                                <!-- jndi服务状态显示 -->
+                                <span id="jndistatusid1" class="status-circle"></span>
+                                <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                                <br><br>
+                                <div class="button-container1">
+                                    <button class="button edit-button" onclick="jndistatusfunc()">开启</button>
+                                    <button class="button delete-button" onclick="stopjndistatusfunc()">关闭</button>
 
-                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <strong style="color: chocolate;">资产校验开关</strong>&nbsp;
+                                <!-- 资产校验开关显示 -->
+                                <span id="assetsjiaoyanstatusid1" class="status-circle"></span>
+                                <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                                <br><br>
+                                <div class="button-container1">
+                                    <button class="button edit-button" onclick="startassetsjiaoyanfunc()">开启</button>
+                                    <button class="button delete-button" onclick="stopassetsjiaoyanfunc()">关闭</button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
+
             <tr>
                 <td>
                     <strong style="color: chocolate;">自定义接口额度配置</strong>
@@ -558,7 +573,7 @@
                                 <br><strong>fofa配置</strong>
                             </td>
                             <td>
-                                <input type="text" class="my-input5"id="customizelimitid2">
+                                <input type="text" class="my-input5" id="customizelimitid2">
                                 <span class="my-span" onclick="startverifychearlogfunc('13')">保存</span>
                                 <br><strong>shodan配置</strong>
                             </td>
@@ -587,7 +602,7 @@
                         </tr>
                     </table>
                 </td>
-                
+
             </tr>
         </table>
 
