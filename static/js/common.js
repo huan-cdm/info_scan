@@ -567,7 +567,7 @@ function startscanconfigpagefunc() {
     var sessionid6 = document.getElementById('sessionid6');
 
     $.ajax({
-        url: '/system_config_data/', 
+        url: '/system_config_data/',
         method: 'GET',
         success: function (info) {
             // 为input元素赋值
@@ -605,7 +605,7 @@ function startscanconfigpagefunc() {
             // 资产校验开关状态
             const statusElement1 = document.getElementById('assetsjiaoyanstatusid1');
             const status1 = info.assets_jiaoyan_status;
-            
+
             // 根据状态添加对应样式
             if (status1 === '已开启校验') {
                 statusElement1.classList.add('status-running');
@@ -1000,11 +1000,12 @@ function delete_rule_func() {
             key: 1
         },
         success: function (info) {
-            alert(info.delete_rule)
+            document.getElementById("filterruleid1").innerHTML = info.delete_rule;
+            // alert(info.delete_rule)
         },
 
         error: function (info) {
-            alert("内部出错")
+            document.getElementById("filterruleid1").innerHTML = "内部出错";
         },
         complete: function () {
 
@@ -1024,11 +1025,12 @@ function delete_rule_all_func() {
             key: 2
         },
         success: function (info) {
-            alert(info.delete_rule)
+            document.getElementById("filterruleid1").innerHTML = info.delete_rule;
         },
 
         error: function (info) {
-            alert("内部出错")
+            // alert("内部出错")
+            document.getElementById("filterruleid1").innerHTML = "内部出错";
         },
         complete: function () {
 
@@ -1893,12 +1895,12 @@ function comfirmclearlogfunc() {
             sessionid5: sessionid5,
             sessionid6: sessionid6,
             rule_input_id1: rule_input_id1,
-            customizelimitid1:customizelimitid1,
-            customizelimitid2:customizelimitid2,
-            customizelimitid3:customizelimitid3,
-            customizelimitid4:customizelimitid4,
-            customizelimitid5:customizelimitid5,
-            customizelimitid6:customizelimitid6
+            customizelimitid1: customizelimitid1,
+            customizelimitid2: customizelimitid2,
+            customizelimitid3: customizelimitid3,
+            customizelimitid4: customizelimitid4,
+            customizelimitid5: customizelimitid5,
+            customizelimitid6: customizelimitid6
         },
         success: function (info) {
             document.getElementById("filterruleid1").innerHTML = info.recheck_result;
@@ -2900,11 +2902,11 @@ function pointlogopagefunc() {
 function updateClock() {
     const now = new Date();
     const formattedTime = now.getFullYear() + '/' +
-                         String(now.getMonth() + 1).padStart(2, '0') + '/' +
-                         String(now.getDate()).padStart(2, '0') + ' ' +
-                         String(now.getHours()).padStart(2, '0') + ':' +
-                         String(now.getMinutes()).padStart(2, '0') + ':' +
-                         String(now.getSeconds()).padStart(2, '0');
+        String(now.getMonth() + 1).padStart(2, '0') + '/' +
+        String(now.getDate()).padStart(2, '0') + ' ' +
+        String(now.getHours()).padStart(2, '0') + ':' +
+        String(now.getMinutes()).padStart(2, '0') + ':' +
+        String(now.getSeconds()).padStart(2, '0');
     document.getElementById('clock').textContent = formattedTime;
 }
 
@@ -2970,4 +2972,48 @@ function stopassetsjiaoyanfunc() {
             statusElement.className = 'status-circle status-error';
         }
     })
+}
+
+
+// 查询高危资产规则
+function select_rule_all_func() {
+    var modal7 = document.getElementById("modal7");
+    modal7.style.display = "block";
+    // 清空表格体中的所有行
+    const tableBody = document.querySelector('#data-table3 tbody');
+    tableBody.innerHTML = '';
+    $.ajax({
+        url: '/high_asset_characteristics/',
+        method: 'GET',
+        success: function (info) {
+            const tableBody = document.querySelector('#data-table3 tbody');
+
+            // 遍历数组中的每个字符串项
+            info.assets_character_result.forEach((item) => {
+                const row = document.createElement('tr'); // 创建新的行
+
+                // 创建内容单元格
+                const contentCell = document.createElement('td');
+                contentCell.textContent = item; // 显示数组中的字符串
+                row.appendChild(contentCell);
+
+                tableBody.appendChild(row); // 将行添加到表格体中
+            });
+
+        },
+        error: function () {
+
+
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭高危资产查询规则
+function stop_rule_all_func() {
+    var modal7 = document.getElementById("modal7");
+    modal7.style.display = "none";
+
 }

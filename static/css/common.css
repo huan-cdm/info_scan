@@ -213,10 +213,12 @@ h2 {
 	/* 垂直居中，水平居中  */
 	padding: 5px;
 	border: 10px solid #888;
-	width: 80%;
+	width: 100%;
 	/* 弹窗宽度可以根据需要调整 */
 	border: 2px solid #007BFF;
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
+	margin-left: 15%;
+	margin-top: 3%;
 }
 .close1 {
 	color: #aaa;
@@ -844,5 +846,39 @@ body {
 	height: 50px;
 	width: 500px;
 	resize: vertical;
+	
+}
+
+.modal2 {
+	display: none;
+	/* 隐藏弹窗 */
+	position: absolute;
+	/* 弹窗固定在视口 */
+	
+	left: 0;
+	top: 0;
+	width: 60%;
+	/* 宽度为全屏 */
+	height: 100%;
+	/* 高度为全屏 */
+	overflow: auto;
+	/* 启用滚动条 */
+	background-color: rgba(0, 0, 0, 0.5);
+	/* 黑色背景，半透明 */
+	z-index: 1009;
+	/* 确保弹窗在其他元素上面 */
+}
+
+.modal-content4 {
+	background-color: #fefefe;
+	margin: 10% auto;
+	margin-left: 15% ;
+	/* 垂直居中，水平居中  */
+	padding: 5px;
+	border: 10px solid #888;
+	width: 80%;
+	/* 弹窗宽度可以根据需要调整 */
+	border: 2px solid #007BFF;
+	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
 	
 }

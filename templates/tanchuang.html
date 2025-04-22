@@ -516,8 +516,9 @@
                     <input type="text" placeholder="关键字" id="rule_input_id1" class="my-input5">
 
                     <span class="my-span" onclick="startverifychearlogfunc('11')">保存</span>
-                    <span class="my-spann" onclick="delete_rule_func()">删除</span>
-                    <span class="my-spann" onclick="delete_rule_all_func()">清空</span>
+                    <span class="my-span" onclick="delete_rule_func()">删除</span>
+                    <span class="my-span" onclick="delete_rule_all_func()">清空</span>
+                    <span class="my-span" onclick="select_rule_all_func()">查询</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     ①.资产指纹识别&nbsp;&nbsp;②.找到特征保存到系统&nbsp;&nbsp;③.识别关键资产&nbsp;&nbsp;④.得到关键资产
 
@@ -707,6 +708,26 @@
                     <th>Name</th>
                     <th>Remote Address</th>
                     <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 数据将被填充在这里 -->
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- 高危资产过滤规则列表 -->
+<div id="modal7" class="modal2">
+    <div class="modal-content4">
+        <span class="close" onclick="stop_rule_all_func()">&times;</span>
+        <h3>高危资产过滤规则</h3>
+       
+        <table id="data-table3">
+            <thead>
+                <tr>
+                    <th>规则名称</th>
                 </tr>
             </thead>
             <tbody>

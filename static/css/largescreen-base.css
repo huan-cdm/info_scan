@@ -68,7 +68,9 @@ body{
 .totalbox{
     border: 1px solid #3188ff;
     box-shadow: 0.1vw 0.1vw 1vw rgba(38,79,141,.7);
-    height: 22vw;
+    height: 25vw;
+    
+
 }
 
 .totaltem{
@@ -126,7 +128,8 @@ body{
 }
 
 .tab-content{
-    height: 86%;
+    height: 100%;
+    width: 100%;
 }
 .tab-pane{
     height: 100%;

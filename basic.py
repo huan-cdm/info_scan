@@ -3787,9 +3787,9 @@ if __name__ == "__main__":
             withdrawiplocation_lib()
 
         # 测试使用
-        elif func_name == 'update_verification_table_lib':
-            c = update_verification_table_lib(2,1)
-            print(c)
+        elif func_name == 'select_rule':
+            c = select_rule()
+            print(type(c))
         else:
             print("Invalid function number")
     else:

@@ -15,7 +15,7 @@ from basic import root_domain_scan
 #主系统账号密码配置导入
 from config import main_username
 from config import main_password
-# 重点资产数量规则
+# 高危资产数量规则
 from config import Shiro_rule
 from config import SpringBoot_rule
 from config import weblogic_rule
@@ -1286,7 +1286,7 @@ def shiro_report_show():
     
     
 
-#识别重点资产
+#识别高危资产
 @app.route("/key_assets_withdraw/")
 def key_assets_withdraw():
     user = session.get('username')
@@ -1295,7 +1295,7 @@ def key_assets_withdraw():
         
         eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
         if "running" in eholestatus:
-            key_assets_result = "指纹识别接口正在运行中请稍后再进行识别重点资产"
+            key_assets_result = "指纹识别接口正在运行中请稍后再进行识别高危资产"
         else:
 
             # 根据config.py中finger_list配置进行识别，可在finger_list列表中配置多个，最终写入到全局资产文件url.txt中
@@ -1313,9 +1313,9 @@ def key_assets_withdraw():
             # 从资产文件url.txt中根据规则分别提取出springboot、weblogic、struts2、shiro资产并写入对应的文件
             basic.asset_by_rule_handle()
 
-            key_assets_result = "已成功识别出重点资产"
+            key_assets_result = "已成功识别出高危资产"
             # 筛选后资产时间线更新
-            basic.assets_status_update('识别重点资产已完成')
+            basic.assets_status_update('识别高危资产已完成')
         
         message_json = {
             "key_assets_result":key_assets_result
@@ -1520,7 +1520,7 @@ def restartsystemservice():
 
 
 
-# 重点资产识别根据筛选规则名称删除
+# 高危资产识别根据筛选规则名称删除
 @app.route("/delete_point_rule_interface/",methods=['post'])
 def delete_point_rule_interface():
     user = session.get('username')
@@ -4769,7 +4769,7 @@ def comfirmclearloginterface():
                 print("配置otx威胁情报接口额度")
                 recheck_result = basic.update_customize_interface_totalnum(customizelimitid6,6)
             elif int(inputmodel3) ==11:
-                print("配置重点资产识别")
+                print("配置高危资产识别")
                 
                 if '' in  rule_input_id1:
                     recheck_result = "输入参数不能为空"
@@ -6291,6 +6291,20 @@ def stopassetserification():
         return render_template('login.html')
 
 
+# 高危资产特征查询
+@app.route("/high_asset_characteristics/")
+def high_asset_characteristics():
+    user = session.get('username')
+    if str(user) == main_username:
+        assets_character_result = basic.select_rule()
+        if len(assets_character_result) == 0:
+            assets_character_result = ["高危资产规则为空"]
+        message_json = {
+            "assets_character_result":assets_character_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':  
