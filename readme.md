@@ -1,6 +1,6 @@
 <h2>系统功能介绍：</h2> 
 
-- [系统功能详情] (https://mp.weixin.qq.com/s?__biz=MzkzMjk5MDU3Nw==&mid=2247483994&idx=1&sn=6bd66b9f1310968a153138ee9d8d23d6&chksm=c37f814576b46d5dc47a78cba85741ada5dde4a7747683cd1670c8f0b79a751e97e352e76312&scene=126&sessionid=1745293268#rd)：系统功能详情<br>
+- [infoscan说明文档](https://mp.weixin.qq.com/s?__biz=MzkzMjk5MDU3Nw==&mid=2247483994&idx=1&sn=6bd66b9f1310968a153138ee9d8d23d6&chksm=c37f814576b46d5dc47a78cba85741ada5dde4a7747683cd1670c8f0b79a751e97e352e76312&scene=126&sessionid=1745293268#rd)：说明文档<br>
 或者微信搜索：infoscan-自动化漏洞扫描系统（2025.4.22更新）
 <h2>docker部署（beta版本）（维护中）：</h2> 
 1. 账号密码：nginx/web/mysql：admin/123456<br>
