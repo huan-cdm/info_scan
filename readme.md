@@ -1,17 +1,18 @@
 <h2>系统功能介绍：</h2> 
-
-- [infoscan说明文档](https://mp.weixin.qq.com/s?__biz=MzkzMjk5MDU3Nw==&mid=2247483994&idx=1&sn=6bd66b9f1310968a153138ee9d8d23d6&chksm=c37f814576b46d5dc47a78cba85741ada5dde4a7747683cd1670c8f0b79a751e97e352e76312&scene=126&sessionid=1745293268#rd)：说明文档<br>
-或者微信搜索：infoscan-自动化漏洞扫描系统（2025.4.22更新）
+微信搜索：infoscan-自动化漏洞扫描系统（2025.4.22更新）
 <h2>docker部署（beta版本）（维护中）：</h2> 
 1. 账号密码：nginx/web/mysql：admin/123456<br>
 2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
-①. 下载镜像：docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.1.16更新）<br>
+①. 下载镜像：<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1（2025.4.24更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.1.16更新）<br>
 ②. 启动容器：docker run -d --name mysql -it --network info_scan_network -p 3306:3306 registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1 /bin/bash<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
 ④. 启动mysql：service  mysql start<br>
 4.平台环境：<br>
 ①. 下载镜像：<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.1（2025.4.24更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4（2025.4.10更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（2025.1.20更新）<br>
