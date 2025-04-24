@@ -79,6 +79,8 @@ function largescreenfunc() {
                 document.getElementById("totalreportid2").innerHTML = info.total_report_status_result2;
                 document.getElementById("cdnscanid1").innerHTML = info.cdn_status1;
                 document.getElementById("cdnscanid2").innerHTML = info.cdn_status2;
+                document.getElementById("httpxscanid1").innerHTML = info.httpx_status1;
+                document.getElementById("httpxscanid2").innerHTML = info.httpx_status2;
 
                 // 未授权专项扫描状态和耗时
                 document.getElementById("unredisscanid1").innerHTML = info.redis_status1;
@@ -212,9 +214,9 @@ function largescreenfunc() {
 
     // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
     var intervalId = setInterval(fetchData, 5000);
+    // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
+    window.addEventListener("beforeunload", function () {
+        clearInterval(intervalId);
+    });
 }
 
-// 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
-window.addEventListener("beforeunload", function () {
-    clearInterval(intervalId);
-});

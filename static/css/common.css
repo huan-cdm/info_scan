@@ -6,15 +6,18 @@ input {
 	border-radius: 3px;
 	outline: none;
 }
+
 input:focus {
 	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 	-webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 	-moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 }
+
 table {
 	height: 10px;
 	width: 10px;
 }
+
 input[type="submit"] {
 	background-color: coral;
 	border-radius: 3px;
@@ -26,6 +29,7 @@ input[type="submit"] {
 	/* color: white; */
 	font-family: 'SimSun', '宋体', sans-serif;
 }
+
 input[type="button"] {
 	background-color: coral;
 	border-radius: 3px;
@@ -37,46 +41,56 @@ input[type="button"] {
 	/* color: white; */
 	font-family: 'SimSun', '宋体', sans-serif;
 }
+
 .my-input-text {
 	height: 40px;
 	width: 700px;
 	font-size: 20px;
 }
+
 .my-input-text1 {
 	height: 40px;
 	width: 300px;
 	font-size: 20px;
 }
+
 .my-input-text2 {
 	height: 40px;
 	width: 250px;
 	font-size: 20px;
 }
+
 .my-select-text2 {
 	height: 42px;
 	width: 100px;
 }
+
 input[type="submit"]:hover {
 	background-color: rgb(207, 33, 193);
 	cursor: pointer;
 }
+
 input[type="button"]:hover {
 	background-color: rgb(207, 100, 33);
 	cursor: pointer;
 }
+
 table {
 	width: 100%;
 	border-collapse: collapse;
 }
+
 th,
 td {
 	border: 1px solid #ccc;
 	padding: 8px;
 	text-align: left;
 }
+
 th {
 	background-color: #f2f2f2;
 }
+
 /* 使用ID选择器来设置进度条的颜色 */
 #progress-bar {
 	background-color: #4CAF50;
@@ -88,18 +102,22 @@ th {
 	transition: width 0.5s;
 	/* 过渡效果 */
 }
+
 .div-container {
 	display: flex;
 	align-items: center;
 	border: 1px solid #000;
 }
+
 .inner-div {
 	flex: 1;
 	border-right: 1px solid #000;
 }
+
 .inner-div:last-child {
 	border-right: none;
 }
+
 select {
 	width: 230px;
 	/* 设置宽度为200像素 */
@@ -114,6 +132,7 @@ select {
 	border-radius: 5px;
 	/* 设置边框圆角为5像素 */
 }
+
 .textareamodel {
 	width: 1150px;
 	/* 设置宽度为200像素 */
@@ -129,22 +148,27 @@ select {
 	/* 设置边框圆角为5像素 */
 	resize: vertical;
 }
+
 /* 移除 option 元素的内边距 */
 option {
 	padding-left: 0;
 	/* 只移除左侧内边距 */
 }
+
 #span1 {
 	color: orange;
 }
+
 h3 {
 	color: chocolate;
 }
+
 h2 {
 	color: darkorange;
 	text-align: left;
 	cursor: pointer;
 }
+
 /* 系统管理 */
 .modal {
 	display: none;
@@ -163,6 +187,7 @@ h2 {
 	/* background-color: rgba(0, 0, 0, 0.5); 黑色背景，半透明   */
 	background-color: rgba(255, 255, 255, 0.987);
 }
+
 .modal-content {
 	background-color: #fefefe;
 	margin: 0% auto;
@@ -173,19 +198,24 @@ h2 {
 	/* border: 2px solid #007BFF; */
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
 }
+
 .close {
-	color: #aaa;
+	margin-right: 20px;
+	margin-top: 2px;
+	color:darkorange;
 	float: right;
-	font-size: 28px;
+	font-size: 40px;
 	font-weight: bold;
 	cursor: pointer;
 }
+
 .close:hover,
 .close:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
+
 /* fofa查询语法 */
 .modal1 {
 	display: none;
@@ -196,7 +226,7 @@ h2 {
 	/* 弹窗位于其他元素之上 */
 	left: 0;
 	top: 0;
-	width: 80%;
+	width: 100%;
 	/* 宽度为全屏 */
 	height: 100%;
 	/* 高度为全屏 */
@@ -207,6 +237,7 @@ h2 {
 	z-index: 1000;
 	/* 确保弹窗在其他元素上面 */
 }
+
 .modal-content1 {
 	background-color: #fefefe;
 	margin: 0% auto;
@@ -217,22 +248,14 @@ h2 {
 	/* 弹窗宽度可以根据需要调整 */
 	border: 2px solid #007BFF;
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
-	margin-left: 15%;
-	margin-top: 3%;
+	/* margin-left: 15%;
+	margin-top: 3%; */
+	margin-left: 0px;
+	margin-top: 0px;
 }
-.close1 {
-	color: #aaa;
-	float: right;
-	font-size: 98px;
-	font-weight: bold;
-	cursor: pointer;
-}
-.close1:hover,
-.close1:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
+
 /* 弱口令扫描字典配置 */
 .moda22 {
 	display: none;
@@ -252,6 +275,7 @@ h2 {
 	background-color: rgba(0, 0, 0, 0.5);
 	/* 黑色背景，半透明 */
 }
+
 .modal-content2 {
 	background-color: #fefefe;
 	margin: 0% auto;
@@ -259,34 +283,13 @@ h2 {
 	padding: 5px;
 	/*内边距*/
 	border: 10px solid #888;
-	width: 50%;
+	width: 100%;
 	/* 弹窗宽度可以根据需要调整 */
 	border: 2px solid #007BFF;
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
 }
-.close2 {
-	/* color: #aaa;
-	float: right;
-	font-size: 98px;
-	font-weight: bold;
-	cursor: pointer; */
-	color: #aaa;
-	position: absolute;
-	/* 绝对定位 */
-	right: 0;
-	/* 距离右侧0 */
-	bottom: 0;
-	/* 距离底部0 */
-	font-size: 98px;
-	font-weight: bold;
-	cursor: pointer;
-}
-.close2:hover,
-.close2:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
 /* 二次校验 */
 .modal3 {
 	display: none;
@@ -307,6 +310,7 @@ h2 {
 	background-color: rgba(0, 0, 0, 0.5);
 	/* 黑色背景，半透明 */
 }
+
 .modal-content3 {
 	background-color: #fefefe;
 	margin: 0% auto;
@@ -318,19 +322,9 @@ h2 {
 	border: 2px solid #007BFF;
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
 }
-.close3 {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	cursor: pointer;
-}
-.close3:hover,
-.close3:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
+
 .my-span {
 	display: inline-block;
 	/* 使span可以设置宽高 */
@@ -344,21 +338,25 @@ h2 {
 	cursor: pointer;
 	line-height: 25px;
 }
+
 .my-input {
 	height: 25px;
 	width: 700px;
 	font-size: medium;
 }
+
 .my-input3 {
 	height: 30px;
 	width: 500px;
-	font-size:larger;
+	font-size: larger;
 }
+
 my-input2 {
 	height: 50px;
 	width: 800px;
 	font-size: medium;
 }
+
 .my-spann {
 	display: inline-block;
 	/* 使span可以设置宽高 */
@@ -372,6 +370,7 @@ my-input2 {
 	cursor: pointer;
 	line-height: 25px;
 }
+
 .my-spannn {
 	display: inline-block;
 	/* 使span可以设置宽高 */
@@ -385,6 +384,7 @@ my-input2 {
 	cursor: pointer;
 	line-height: 25px;
 }
+
 .my-spanconfig11 {
 	display: inline-block;
 	/* 使span可以设置宽高 */
@@ -398,6 +398,7 @@ my-input2 {
 	text-align: center;
 	cursor: pointer;
 }
+
 .my-label {
 	color: #000;
 	font-weight: bold;
@@ -405,19 +406,23 @@ my-input2 {
 	font-style: italic;
 	cursor: pointer;
 }
+
 .button-container {
 	background-color: #f0f0f0;
 	/* 标题区域的背景色 */
 }
+
 .my-input5 {
 	height: 22px;
 	width: 300px;
 	font-size: medium;
 }
+
 body {
 	margin: 0;
 	font-family: Arial, sans-serif;
 }
+
 .top-menu {
 	background-color: #333;
 	overflow: hidden;
@@ -429,16 +434,19 @@ body {
 	margin-top: 40px;
 	/* 让菜单下移，避免遮挡 LOGO */
 }
+
 .middle-menu {
 	background-color: #35a5e5;
 	width: 100%;
 	height: 100%;
 	margin-top: 0px;
 }
+
 .middle-menu p {
 	font-family: "KaiTi", "楷体", serif;
 	font-size: large;
 }
+
 /* .p_color_font {
 	font-family: "KaiTi", "楷体", serif;
 	font-size: large;
@@ -457,14 +465,17 @@ body {
 	padding: 14px 16px;
 	text-decoration: none;
 }
+
 .top-menu a:hover {
 	background-color: #ddd;
 	color: black;
 }
+
 .content {
 	/* 根据菜单高度调整 */
 	margin-top: 0px;
 }
+
 /* 开启批量漏洞扫描集合返回结果弹窗 */
 .modal5 {
 	display: none;
@@ -486,6 +497,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.4);
 	/* 黑色半透明 */
 }
+
 /* 弹窗内容的样式 */
 .modal-content5 {
 	background-color: #fefefe;
@@ -497,19 +509,9 @@ body {
 	/* 宽度为屏幕宽度的一半 */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-/* 关闭按钮的样式 */
-.close5 {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-.close5:hover,
-.close5:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
+
 /* 关闭批量漏洞扫描集合返回结果弹窗 */
 .modal6 {
 	display: none;
@@ -531,6 +533,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.4);
 	/* 黑色半透明 */
 }
+
 /* 弹窗内容的样式 */
 .modal-content6 {
 	background-color: #fefefe;
@@ -542,19 +545,9 @@ body {
 	/* 宽度为屏幕宽度的一半 */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-/* 关闭按钮的样式 */
-.close6 {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-.close6:hover,
-.close6:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
+
 /* 开启批量信息收集集合返回结果弹窗 */
 .modal7 {
 	display: none;
@@ -576,6 +569,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.4);
 	/* 黑色半透明 */
 }
+
 /* 弹窗内容的样式 */
 .modal-content7 {
 	background-color: #fefefe;
@@ -587,19 +581,9 @@ body {
 	/* 宽度为屏幕宽度的一半 */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-/* 关闭按钮的样式 */
-.close7 {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-.close7:hover,
-.close7:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
+
 /* 关闭批量信息收集集合返回结果弹窗 */
 .modal8 {
 	display: none;
@@ -621,6 +605,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.4);
 	/* 黑色半透明 */
 }
+
 /* 弹窗内容的样式 */
 .modal-content8 {
 	background-color: #fefefe;
@@ -632,33 +617,16 @@ body {
 	/* 宽度为屏幕宽度的一半 */
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-/* 关闭按钮的样式 */
-.close8 {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-/* 系统提示窗口 */
-.close88 {
-	color: chartreuse;
-	float: right;
-	font-size: 40px;
-	font-weight: bold;
-	cursor: pointer;
-}
-.close8:hover,
-.close8:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
+
+
+
 /* 个人中心鼠标悬停实现效果 */
 .dropdown {
 	position: relative;
 	display: inline-block;
 	text-align: right;
 }
+
 .dropdown-content {
 	display: none;
 	position: absolute;
@@ -668,6 +636,7 @@ body {
 	z-index: 1;
 	text-align: right;
 }
+
 .dropdown-content a {
 	color: black;
 	padding: 12px 16px;
@@ -675,16 +644,20 @@ body {
 	display: block;
 	text-align: left;
 }
+
 .dropdown-content a:hover {
 	background-color: #f1f1f1;
 }
+
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+
 .dropdown-span {
 	cursor: pointer;
 	font-size: larger;
 }
+
 .footer {
 	margin-top: auto;
 	/* 将 footer 推到页面底部 */
@@ -694,6 +667,7 @@ body {
 	background: #f0f0f0;
 	font-size: x-large;
 }
+
 .logo {
 	position: absolute;
 	top: 0px;
@@ -705,20 +679,21 @@ body {
 	cursor: pointer;
 	/* 鼠标放上变小手 */
 }
+
 .rightlogotime {
 	position: absolute;
-	top: 5px;
-	/* 距离顶部0px */
+	top: 20px;
 	right: 0px;
-	/* 距离左侧0px */
 	z-index: 1000;
 	/* 确保在其他元素之上 */
 	cursor: pointer;
 	/* 鼠标放上变小手 */
 }
-.rightlogotime span{
+
+.rightlogotime span {
 	font-size: larger;
 }
+
 .my-spanconfig22 {
 	display: inline-block;
 	/* 使span可以设置宽高 */
@@ -732,6 +707,7 @@ body {
 	text-align: center;
 	cursor: pointer;
 }
+
 /* 服务重启弹窗 */
 .gradient-text {
 	font-size: 48px;
@@ -745,23 +721,28 @@ body {
 	background-size: 400% 400%;
 	animation: gradient 8s ease infinite;
 }
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
 	}
+
 	50% {
 		background-position: 100% 50%;
 	}
+
 	100% {
 		background-position: 0% 50%;
 	}
 }
+
 /* jndi服务按钮样式 */
 .button-container1 {
 	display: flex;
 	gap: 10px;
 	/* 按钮之间的间距 */
 }
+
 .button {
 	padding: 10px 20px;
 	/* 按钮内边距 */
@@ -774,6 +755,7 @@ body {
 	font-size: 16px;
 	/* 字体大小 */
 }
+
 .edit-button {
 	color: #ffffff;
 	/* 文字颜色 */
@@ -782,6 +764,7 @@ body {
 	border-color: #007bff;
 	/* 边框颜色 */
 }
+
 .delete-button {
 	color: #ffffff;
 	/* 文字颜色 */
@@ -790,10 +773,12 @@ body {
 	border-color: #dc3545;
 	/* 边框颜色 */
 }
+
 .button:hover {
 	opacity: 0.8;
 	/* 鼠标悬停时的透明度 */
 }
+
 /* INDI运行状态显示 */
 /* 大号圆圈样式 */
 .status-circle {
@@ -808,25 +793,30 @@ body {
 	transition: all 0.3s ease;
 	/* 添加平滑过渡 */
 }
+
 /* 开启状态 - 绿色 */
 .status-running {
 	background-color: #4CAF50;
 	box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
 }
+
 /* 关闭状态 - 红色 */
 .status-stopped {
 	background-color: #F44336;
 	box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
 }
+
 /* 错误状态 - 黄色 */
 .status-error {
 	background-color: #FFC107;
 	box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
 }
+
 /* 隐藏状态文字 */
 .status-text {
 	display: none;
 }
+
 /* 字体右对齐 */
 .right-align {
 	position: relative;
@@ -837,16 +827,17 @@ body {
 	/* 与容器顶部对齐 */
 }
 
-.daohang_password{
+.daohang_password {
 	font-size: larger;
 	color: coral;
-	
+
 }
-.daohang_sharuan{
+
+.daohang_sharuan {
 	height: 50px;
 	width: 500px;
 	resize: vertical;
-	
+
 }
 
 .modal2 {
@@ -854,7 +845,7 @@ body {
 	/* 隐藏弹窗 */
 	position: absolute;
 	/* 弹窗固定在视口 */
-	
+
 	left: 0;
 	top: 0;
 	width: 60%;
@@ -872,7 +863,7 @@ body {
 .modal-content4 {
 	background-color: #fefefe;
 	margin: 10% auto;
-	margin-left: 15% ;
+	margin-left: 15%;
 	/* 垂直居中，水平居中  */
 	padding: 5px;
 	border: 10px solid #888;
@@ -880,5 +871,5 @@ body {
 	/* 弹窗宽度可以根据需要调整 */
 	border: 2px solid #007BFF;
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
-	
+
 }

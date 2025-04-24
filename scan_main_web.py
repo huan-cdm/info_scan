@@ -1498,12 +1498,33 @@ def report_download_interface():
         return render_template('login.html')
 
 
-#前端软重启系统服务
+# 重启系统
+@app.route("/restartsystemserviceinterface/")
+def restartsystemserviceinterface():
+    user = session.get('username')
+    if str(user) == main_username:
+        basic.restart_infoscan_lib()
+        return render_template('index.html')
+        # infoscanstatus = os.popen('bash /TIP/info_scan/finger.sh infoscanstatus').read()
+        # if "running" in infoscanstatus:
+        #     infoscanstatus = "服务已启动"
+        # else:
+        #     infoscanstatus = "正在重启中..."
+        # message_json = {
+        #     "infoscanstatus":""
+        # }
+
+        # return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
+
 @app.route("/restartsystemservice/")
 def restartsystemservice():
     user = session.get('username')
     if str(user) == main_username:
-        basic.restart_infoscan_lib()
+        
         infoscanstatus = os.popen('bash /TIP/info_scan/finger.sh infoscanstatus').read()
         if "running" in infoscanstatus:
             infoscanstatus = "服务已启动"
@@ -5652,6 +5673,14 @@ def largescreenpagedata():
             cdn_status1 = ""
             cdn_status2 = cdn_status
         
+        httpx_status = os.popen('bash /TIP/info_scan/finger.sh httpx_status').read()
+        if "running" in httpx_status:
+            httpx_status1 = httpx_status
+            httpx_status2 = ""
+        else:
+            httpx_status1 = ""
+            httpx_status2 = httpx_status
+        
         # 汇总报告生成状态
         total_report_status = os.popen('bash /TIP/info_scan/finger.sh totalreport_num').read()
         if int(total_report_status) == 2:
@@ -6220,6 +6249,8 @@ def largescreenpagedata():
             "total_report_status_result2":total_report_status_result2,
             "cdn_status1":cdn_status1,
             "cdn_status2":cdn_status2,
+            "httpx_status1":httpx_status1,
+            "httpx_status2":httpx_status2,
 
             # 未授权专项扫描状态和耗时
             "redis_status1":redis_status1,

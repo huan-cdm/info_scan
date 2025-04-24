@@ -2805,25 +2805,34 @@ function openantivsoftbykeyfunc() {
 }
 
 
-// 系统重启
+// 系统服务重启
 function systemrebootfunc() {
     var myModa14 = document.getElementById("myModa14");
     myModa14.style.display = "block";
     $.ajax({
-        url: '/restartsystemservice/',
+        url: '/restartsystemserviceinterface/',
         method: 'GET',
-
-        success: function (info) {
-            document.getElementById('rebootid1').innerHTML = info.infoscanstatus;
-        },
-        error: function () {
-            document.getElementById('rebootid1').innerHTML = "服务正在重启中"
-        },
-        complete: function () {
-
-        }
     })
+    function fetchData() {
+        $.getJSON("/restartsystemservice/",
+            function (info) {
+                document.getElementById('rebootid1').innerHTML = info.infoscanstatus;
+            });
+    }
+
+    // 调用fetchData函数初始化显示
+    fetchData();
+
+    // 设置定时器，每5000毫秒（5秒）执行一次fetchData函数
+    var intervalId = setInterval(fetchData, 1000);
+    // 确保在页面卸载或组件销毁时清除定时器，以防止内存泄漏
+    window.addEventListener("beforeunload", function () {
+        clearInterval(intervalId);
+    });
 }
+
+
+
 
 function closevulnscan13() {
     var myModa14 = document.getElementById("myModa14");
