@@ -468,8 +468,10 @@ JNDI服务管理<br>
 <br><br>
 fofa语法日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/fofaselectlog.png" /><br><br>
-弱口令扫描字典配置<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig.png" /><br><br>
+字典配置<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig2.png" />
+<br><br>
 二次校验<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" /><br><br>
 dnslog<br>
