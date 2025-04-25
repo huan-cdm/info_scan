@@ -240,17 +240,46 @@
             <span id="filterruleid1" style="color: red;font-size: 20px;"></span>
             <tr>
                 <td>
-                    <strong style="color: chocolate;">数据删除</strong><br>
+                    <strong style="color: chocolate;">删除漏洞报告</strong><br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <div class="button-container1">
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <div class="button-container1">
+                                    <button class="button delete1-button" onclick="startverifychearlogfunc('1')">删除</button>
+                                    
+                                </div>
+                                <strong>删除afrog漏洞报告</strong>
+                            </td>
+                            <td>
+                                <div class="button-container1">
+                                    <button class="button delete1-button" onclick="startverifychearlogfunc('2')">删除</button>
+                                </div>
+                                <strong>删除urlfinder漏洞报告</strong>
+                            </td>
+                            <td>
+                                <div class="button-container1">
+                                    <button class="button delete1-button" onclick="startverifychearlogfunc('3')">删除</button>
+                                </div>
+                                <strong>删除xray漏洞报告</strong>
+                            </td>
+                            <td>
+                                <div class="button-container1">
+                                    <button class="button delete1-button" onclick="startverifychearlogfunc('4')">删除</button>
+                                </div>
+                                <strong>删除nmap漏洞报告</strong>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <div class="button-container1">
                         <button class="button edit-button" onclick="startverifychearlogfunc('1')">afrog</button>
                         <button class="button edit-button" onclick="startverifychearlogfunc('2')">api接口</button>
                         <button class="button edit-button" onclick="startverifychearlogfunc('3')">xray</button>
                         <button class="button edit-button" onclick="startverifychearlogfunc('4')">nmap</button>
-                    </div>
+                    </div> -->
                 </td>
             </tr>
 
@@ -264,7 +293,7 @@
                     <table border="1">
                         <tr>
                             <td>
-                                <select name="fscanpartname" onmouseout="fscanportshowfunc()">
+                                <select name="fscanpartname" onmouseout="fscanportshowfunc()" class="scanpartselectconfig">
 
                                     <option
                                         value="21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017">
@@ -287,7 +316,7 @@
                                         常见RCE端口</option>
                                     <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
                                 </select>
-                                <select name="fscanpartname1">
+                                <select name="fscanpartname1" class="scanpartselectconfig">
                                     <option value="1">禁用Web漏洞扫描</option>
                                     <option value="2">启用Web漏洞扫描</option>
                                 </select>
@@ -296,8 +325,9 @@
                             </td>
 
                             <td>
-                                <textarea rows="3" cols="40" id="myTextarea2">
-                                    21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017</textarea>
+                                <textarea class="scanpartconfig" id="myTextarea2"> 
+21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017
+                                </textarea>
                             </td>
                         </tr>
                     </table>
@@ -309,7 +339,7 @@
                     <table border="1">
                         <tr>
                             <td>
-                                <select name="poc_dir" onmouseenter="nuclei_poc_show_func()">
+                                <select name="poc_dir" onmouseenter="nuclei_poc_show_func()" class="scanpartselectconfig">
                                     <option value="/root/nuclei-templates/http">http</option>
                                     <option value="/root/nuclei-templates/http/cnvd">http_cnvd</option>
                                     <option value="/root/nuclei-templates/http/cves">http_cves</option>
@@ -350,18 +380,19 @@
                                     <option value="/root/nuclei-templates/config">config</option>
                                     <option value="/root/nuclei-templates/code">code</option>
                                 </select>
+                                
+                                <span id="nucleibyid2" style="color: darksalmon;"></span>
                                 <br>
-                                <textarea rows="3" cols="40" id="myTextarea3">
+                                <textarea class="scanpartconfig" id="myTextarea3">
             poc显示区域</textarea>
                                 <br>
                                 <strong>nuclei扫描参数</strong>
-                                <br>
-                                <span id="nucleibyid2" style="color: darksalmon;"></span>
+                                
                             </td>
 
                             <td>
 
-                                <select name="portscan_part" onmouseout="nmapportshowfunc()">
+                                <select name="portscan_part" onmouseout="nmapportshowfunc()" class="scanpartselectconfig">
                                     <option
                                         value="80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443">
                                         Web端口</option>
@@ -378,7 +409,7 @@
                                     <option value="1-65535">全端口</option>
                                 </select>
                                 <br>
-                                <textarea rows="3" cols="40" id="myTextarea1">
+                                <textarea class="scanpartconfig" id="myTextarea1">
 80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443
 </textarea>
                                 <br><strong>端口扫描参数</strong>
@@ -394,7 +425,7 @@
                         <tr>
                             <td>
 
-                                <select name="hydrapart">
+                                <select name="hydrapart" class="scanpartselectconfig">
                                     <option value="1">mysql</option>
                                     <option value="2">ssh</option>
                                     <option value="3">ftp</option>
@@ -405,7 +436,7 @@
 
                             </td>
                             <td>
-                                <select name="vulnname">
+                                <select name="vulnname" class="scanpartselectconfig">
                                     <option value="all">all</option>
                                     <option value="activemq">检查站点是否存在activemq漏洞</option>
                                     <option value="flink">检查站点是否存在flink漏洞</option>
@@ -440,7 +471,7 @@
                                 <br><strong>vulmap扫描参数</strong>
                             </td>
                             <td>
-                                <select name="pachongselectpart" onmouseout="crawlergo_part_show()">
+                                <select name="pachongselectpart" onmouseout="crawlergo_part_show()" class="scanpartselectconfig">
                                     <option value="1">流量不转发</option>
                                     <option value="2">流量转发</option>
                                 </select>

@@ -774,6 +774,16 @@ body {
 	/* 边框颜色 */
 }
 
+.delete1-button {
+	color:white;
+	/* 文字颜色 */
+	background-color:purple;
+	/* 背景颜色 */
+	border-color: #ffff00;
+	/* 边框颜色 */
+}
+
+
 .button:hover {
 	opacity: 0.8;
 	/* 鼠标悬停时的透明度 */
@@ -872,4 +882,18 @@ body {
 	border: 2px solid #007BFF;
 	/* 设置边框宽度为2px，样式为实线，颜色为蓝色 */
 
+}
+
+/* 扫描器参数配置 */
+.scanpartconfig {
+	/* 宽度固定 */
+	resize: vertical;
+	/* 宽度和高度 */
+	width: 400px;
+	height: 60px;
+}
+.scanpartselectconfig {
+	/* 宽度和高度 */
+	width: 200px;
+	height: 40px;
 }
