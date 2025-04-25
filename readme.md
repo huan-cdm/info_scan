@@ -2,6 +2,8 @@
 微信搜索：infoscan-自动化漏洞扫描系统（2025.4.22更新）
 <h2>docker部署（beta版本）（维护中）：</h2> 
 <h4>注意：平台和数据库要统一更新版本，否则会报错。</h4>
+<h5>平台2025.1.20-2025.4.10和数据库2025.1.16对应</h4>
+<h5>平台2025.4.24和数据库2025.4.24对应</h4>
 1. 账号密码：nginx/web/mysql：admin/123456<br>
 2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
