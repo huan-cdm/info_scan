@@ -1,6 +1,7 @@
 <h2>系统功能介绍：</h2> 
 微信搜索：infoscan-自动化漏洞扫描系统（2025.4.22更新）
 <h2>docker部署（beta版本）（维护中）：</h2> 
+<h4>注意：平台和数据库要统一更新版本，否则会报错。</h4>
 1. 账号密码：nginx/web/mysql：admin/123456<br>
 2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
@@ -8,8 +9,7 @@
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1（2025.4.24更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.1.16更新）<br>
 ②. 启动容器：<br>
-docker run -d --name mysql -it --network info_scan_network registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1 /bin/bash（发布到生产要禁用公网映射）<br>
-docker run -d --name mysql -it --network info_scan_network -p 3306:3306 registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1 /bin/bash（调试时）<br>
+docker run -d --name mysql -it --network info_scan_network registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1 /bin/bash<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
 ④. 启动mysql：service  mysql start<br>
 4.平台环境：<br>
