@@ -7,7 +7,9 @@
 ①. 下载镜像：<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1（2025.4.24更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.1.16更新）<br>
-②. 启动容器：docker run -d --name mysql -it --network info_scan_network -p 3306:3306 registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1 /bin/bash<br>
+②. 启动容器：<br>
+docker run -d --name mysql -it --network info_scan_network registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1 /bin/bash（发布到生产要禁用公网映射）<br>
+docker run -d --name mysql -it --network info_scan_network -p 3306:3306 registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1 /bin/bash（调试时）<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
 ④. 启动mysql：service  mysql start<br>
 4.平台环境：<br>
