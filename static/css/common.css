@@ -202,7 +202,7 @@ h2 {
 .close {
 	margin-right: 20px;
 	margin-top: 2px;
-	color:darkorange;
+	color: darkorange;
 	float: right;
 	font-size: 40px;
 	font-weight: bold;
@@ -290,7 +290,7 @@ h2 {
 }
 
 
-/* 二次校验 */
+/* 超级管理员 */
 .modal3 {
 	display: none;
 	/* 隐藏弹窗 */
@@ -299,11 +299,11 @@ h2 {
 	/* 如果弹窗往上叠加，将此值调大即可  */
 	z-index: 1005;
 	/* 弹窗位于其他元素之上 */
-	left: 0;
-	top: 0;
-	width: 100%;
+	left: 10%;
+	top: 10%;
+	width: 80%;
 	/* 宽度为全屏 */
-	height: 100%;
+	height: 70%;
 	/* 高度为全屏 */
 	overflow: auto;
 	/* 启用滚动条 */
@@ -312,6 +312,7 @@ h2 {
 }
 
 .modal-content3 {
+	
 	background-color: #fefefe;
 	margin: 0% auto;
 	/* 垂直居中，水平居中  */
@@ -775,9 +776,9 @@ body {
 }
 
 .delete1-button {
-	color:white;
+	color: white;
 	/* 文字颜色 */
-	background-color:purple;
+	background-color: purple;
 	/* 背景颜色 */
 	border-color: #ffff00;
 	/* 边框颜色 */
@@ -892,6 +893,7 @@ body {
 	width: 400px;
 	height: 60px;
 }
+
 .scanpartselectconfig {
 	/* 宽度和高度 */
 	width: 200px;
