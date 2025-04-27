@@ -51,7 +51,7 @@ mysql账号密码：admin/123456<br>
 保证系统正常运行需要2个项目：<br><br>
 
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
-- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：xray+rad批量扫描，通过info_scan进行控制<br>
+- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：和info_scan放在同一目录<br>
 
 
 <h2>集成相关工具：</h2> 
