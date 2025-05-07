@@ -76,6 +76,12 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-5-7更新<br> 
+1.DNS日志功能优化；<br>
+2.DNS日志当前域名显示由原来的前端硬编码修改数据库交互，新增前端修改当前域名功能；<br>
+3.已知问题处理与优化；<br>
+</li>
+<li>
 2025-4-18更新<br> 
 1.新增态势感知大屏展示；<br>
 2.已知问题处理与优化；<br>
@@ -474,7 +480,7 @@ fofa语法日志<br>
 <br><br>
 二次校验<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" /><br><br>
-dnslog<br>
+DNS日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" /><br><br>
 系统配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/sys_part_conf.png" />

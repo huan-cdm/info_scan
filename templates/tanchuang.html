@@ -643,9 +643,7 @@
 </div>
 
 <!-- 扫描器参数配置 -->
-
 <!-- 字典配置 -->
-
 <div id="moda22" class="moda22">
     <div class="modal-content2">
         <span class="close" onclick="closeModa22()">&times;</span>
@@ -727,18 +725,24 @@
 </div>
 
 <!-- dns日志查询 -->
-<div id="modal4" class="modal1">
-    <div class="modal-content1">
+<div id="modal4" class="modal8">
+    <div class="modal-content8">
         <span class="close" onclick="closeModal4()">&times;</span>
-        <h3>dnslog日志</h3>
-        <span> Identifier: lednh4.ceye.io</span><br><br>
+        <h3>DNS日志列表</h3>
+        <div class="button-container1">
+            <span style="font-weight: bolder;">当前域名:</span> 
+            <input type="text" id="dnslogkeyid">
+            <button class="button delete1-button" onclick="dnslogupdatedomainfunc()">修改</button>
+            <span id="dnslogkeyid2" style="color: red;"></span>
+        </div>
+        <br><br>
         <table id="data-table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Remote Address</th>
-                    <th>Created At</th>
+                    <th>DNS Log</th>
+                    <th>IP</th>
+                    <th>接收时间</th>
                 </tr>
             </thead>
             <tbody>

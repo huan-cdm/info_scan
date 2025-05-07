@@ -835,7 +835,7 @@ def url_list_textarea_show():
         return render_template('login.html')
 
 
-#ceye_dns记录
+# DNS日志查询
 @app.route("/ceye_dns_record/")
 def ceye_dns_record():
     user = session.get('username')
@@ -843,9 +843,10 @@ def ceye_dns_record():
         ceye_key = basic.select_session_time_lib(5)
         result = os.popen('bash /TIP/info_scan/finger.sh ceye_dns'+' '+ceye_key).read()
         result_dict = json.loads(result)
-       
+        dnslog_key = basic.select_session_time_lib(6)
         message_json = {
-            "resultdict":result_dict['data']
+            "resultdict":result_dict['data'],
+            "dnslog_key":str(dnslog_key)
         }
         return jsonify(message_json)
     else:
@@ -6332,6 +6333,20 @@ def high_asset_characteristics():
             assets_character_result = ["高危资产规则为空"]
         message_json = {
             "assets_character_result":assets_character_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+# DNS日志更新当前域名
+@app.route("/dnslogupdatedomain/",methods=['POST'])
+def dnslogupdatedomain():
+    user = session.get('username')
+    if str(user) == main_username:
+        dnslogkeyid = request.form['dnslogkeyid']
+        dnslogdomainresult = basic.update_dnslog_lib(dnslogkeyid,6)
+        message_json = {
+           "dnslogdomainresult":dnslogdomainresult
         }
         return jsonify(message_json)
     else:

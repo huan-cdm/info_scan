@@ -5,6 +5,7 @@ input {
 	border: #35a5e5 3px solid;
 	border-radius: 3px;
 	outline: none;
+	font-weight:300;
 }
 
 input:focus {

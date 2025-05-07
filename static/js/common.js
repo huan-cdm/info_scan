@@ -489,19 +489,20 @@ function closeModal1() {
     modal1.style.display = "none";
 }
 
-// dns日志查询
+// DNS日志查询
 function dnslogfunc() {
     var modal4 = document.getElementById("modal4");
     modal4.style.display = "block";
     // 清空表格体中的所有行
     const tableBody = document.querySelector('#data-table tbody');
     tableBody.innerHTML = '';
+    
     $.ajax({
         url: '/ceye_dns_record/',
         method: 'GET',
         success: function (info) {
             const tableBody = document.querySelector('#data-table tbody');
-
+            document.getElementById('dnslogkeyid').value = info.dnslog_key;
             info.resultdict.forEach(item => {
                 const row = document.createElement('tr'); // 创建新的行
 
@@ -541,6 +542,7 @@ function dnslogfunc() {
 function closeModal4() {
     var modal4 = document.getElementById("modal4");
     modal4.style.display = "none";
+    document.getElementById("dnslogkeyid2").innerHTML = "";
 }
 
 
@@ -627,6 +629,7 @@ function startscanconfigpagefunc() {
 function stopscanconfigpagefunc() {
     var modal2 = document.getElementById("modal2");
     modal2.style.display = "none";
+    document.getElementById("filterruleid1").innerHTML = "";
 }
 
 // 弱口令扫描字典配置
@@ -1001,7 +1004,6 @@ function delete_rule_func() {
         },
         success: function (info) {
             document.getElementById("filterruleid1").innerHTML = info.delete_rule;
-            // alert(info.delete_rule)
         },
 
         error: function (info) {
@@ -3025,4 +3027,27 @@ function stop_rule_all_func() {
     var modal7 = document.getElementById("modal7");
     modal7.style.display = "none";
 
+}
+
+
+// DNS日志更新当前域名
+function dnslogupdatedomainfunc() {
+    var dnslogkeyid = document.getElementById("dnslogkeyid").value;
+    $.ajax({
+        url: '/dnslogupdatedomain/',
+        method: 'POST',
+        data: {
+            dnslogkeyid: dnslogkeyid
+        },
+        success: function (info) {
+            document.getElementById("dnslogkeyid2").innerHTML = info.dnslogdomainresult;
+        },
+
+        error: function () {
+            document.getElementById("dnslogkeyid2").innerHTML = "内部出错";
+        },
+        complete: function () {
+
+        }
+    })
 }

@@ -3059,10 +3059,8 @@ def restart_infoscan_lib():
         print("执行重启语句时发生错误：", e)
 
 
-# 会话过期时间相关配置
-# 时间更新
+# 系统配置更新
 def update_session_time_lib(part1,part2):
-
     db= pymysql.connect(host=dict['ip'],user=dict['username'],  
     password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
     cur = db.cursor()
@@ -3094,10 +3092,31 @@ def update_session_time_lib(part1,part2):
     else:
         return_result = "其他配置"
     return return_result
+
+
+# 更新DNS日志
+def update_dnslog_lib(part1,part2):
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="UPDATE sys_conf SET info_session_time = '%s' WHERE id = '%s'"%(part1,part2)
+    try:
+        cur.execute(sql)
+        db.commit()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+        db.rollback()
+    
+    dnslog_key = select_session_time_lib(6)
+    if str(part1) == str(dnslog_key):
+        return_result = "已更改当前域名"
+    else:
+        return_result = "其他配置"
+    return return_result
         
 
 
-
+# 系统配置数据查询
 def select_session_time_lib(id):
     try:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
