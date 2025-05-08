@@ -493,8 +493,16 @@ icon_hash计算<br>
 资产优化<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/youhua.png" /><br><br>
 服务重启<br>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/servicereboot.png" /><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/servicereboot.png" /><br><br>
 态势感知大屏<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi1.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi2.png" />
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi3.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi3.png" /><br><br>
+识别高危资产<br>
+a. 指纹识别，提取关键字
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets1.png" />
+b. 高危资产特征录入系统
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets2.png" />
+c. 识别高危资产，得到高危资产
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets3.png" />
+

@@ -985,34 +985,9 @@ function yincangtishifun() {
     routestatus1.style.display = "none";
     var routestatus2 = document.getElementById("routestatus2");
     routestatus2.style.display = "none";
-    var routestatus3 = document.getElementById("routestatus3");
+    var routestatus3 = document.getElementById("routestatus3"); 
     routestatus3.style.display = "none";
 
-}
-
-
-
-// 通过规则名称删除重点资产筛选规则
-function delete_rule_func() {
-    var rule = document.getElementById("rule_input_id1").value;
-    $.ajax({
-        url: '/delete_point_rule_interface/',
-        method: 'POST',
-        data: {
-            rule: rule,
-            key: 1
-        },
-        success: function (info) {
-            document.getElementById("filterruleid1").innerHTML = info.delete_rule;
-        },
-
-        error: function (info) {
-            document.getElementById("filterruleid1").innerHTML = "内部出错";
-        },
-        complete: function () {
-
-        }
-    })
 }
 
 
@@ -3008,19 +2983,55 @@ function select_rule_all_func() {
                 contentCell.textContent = item; // 显示数组中的字符串
                 row.appendChild(contentCell);
 
-                tableBody.appendChild(row); // 将行添加到表格体中
-            });
+                // 创建操作单元格
+                const actionCell = document.createElement('td');
 
+                // 创建删除按钮
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('button', 'delete1-button');
+                deleteButton.textContent = '删除';
+
+                // 为删除按钮绑定点击事件
+                deleteButton.onclick = function () {
+                    
+                    // 删除当前规则指令到后端接口
+                    $.ajax({
+                        url: '/delete_point_rule_interface/', // 假设这是删除规则的API接口
+                        method: 'POST',
+                        data: {
+                            rule: item,
+                            key: 1
+                        },
+                        success: function (response) {
+                            // 删除成功后，移除当前行
+                            row.remove();
+                            console.log('删除规则成功:', response.delete_rule);
+                        },
+                        error: function (error) {
+                            console.error('删除规则失败:', error);
+                        }
+                    });
+                };
+
+                // 将删除按钮添加到操作单元格中
+                actionCell.appendChild(deleteButton);
+
+                // 将操作单元格添加到行中
+                row.appendChild(actionCell);
+
+                // 将行添加到表格体中
+                tableBody.appendChild(row);
+            });
         },
         error: function () {
-
-
+            console.error('获取数据失败');
         },
         complete: function () {
-
+            console.log('请求完成');
         }
-    })
+    });
 }
+
 
 // 关闭高危资产查询规则
 function stop_rule_all_func() {

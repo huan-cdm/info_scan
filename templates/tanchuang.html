@@ -223,7 +223,7 @@
         <span class="close" onclick="stopverifychearlogfunc()">&times;</span>
         <h3>超级管理员</h3>
         <input type="text" placeholder="账号" id="inputmodel1" class="my-input-text1" /><br>
-        <input type="text" placeholder="密码" id="inputmodel2" class="my-input-text1" />
+        <input type="password" placeholder="密码" id="inputmodel2" class="my-input-text1" />
         <input type="hidden" id="inputmodel3" />
         <div class="button-container1">
             <button class="button delete-button" onclick="comfirmclearlogfunc()">登录</button>
@@ -547,7 +547,6 @@
                     <input type="text" placeholder="关键字" id="rule_input_id1" class="my-input5">
 
                     <span class="my-span" onclick="startverifychearlogfunc('11')">保存</span>
-                    <span class="my-span" onclick="delete_rule_func()">删除</span>
                     <span class="my-span" onclick="delete_rule_all_func()">清空</span>
                     <span class="my-span" onclick="select_rule_all_func()">查询</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -763,11 +762,13 @@
             <thead>
                 <tr>
                     <th>规则名称</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- 数据将被填充在这里 -->
             </tbody>
+
         </table>
 
     </div>

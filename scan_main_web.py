@@ -1549,6 +1549,7 @@ def delete_point_rule_interface():
 
     if str(user) == main_username:
         rule = request.form['rule']
+        print(rule)
         key = request.form['key']
         if '' in  rule:
             result_rule = "输入参数不能为空"
