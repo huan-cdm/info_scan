@@ -499,7 +499,7 @@ icon_hash计算<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi2.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/taishiganzhi3.png" /><br><br>
 识别高危资产<br>
-a. 指纹识别，提取关键字
+a. 指纹识别，提取高危资产特征
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets1.png" />
 b. 高危资产特征录入系统
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets2.png" />
