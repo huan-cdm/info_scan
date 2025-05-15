@@ -1,5 +1,5 @@
 // 上线后需替换为自己的服务器IP地址
-var ipvalue = "http://x.x.x.x"
+var ipvalue = "http://117.72.16.222"
 
 
 function fanhui() {
@@ -496,7 +496,7 @@ function dnslogfunc() {
     // 清空表格体中的所有行
     const tableBody = document.querySelector('#data-table tbody');
     tableBody.innerHTML = '';
-    
+
     $.ajax({
         url: '/ceye_dns_record/',
         method: 'GET',
@@ -985,7 +985,7 @@ function yincangtishifun() {
     routestatus1.style.display = "none";
     var routestatus2 = document.getElementById("routestatus2");
     routestatus2.style.display = "none";
-    var routestatus3 = document.getElementById("routestatus3"); 
+    var routestatus3 = document.getElementById("routestatus3");
     routestatus3.style.display = "none";
 
 }
@@ -2993,7 +2993,7 @@ function select_rule_all_func() {
 
                 // 为删除按钮绑定点击事件
                 deleteButton.onclick = function () {
-                    
+
                     // 删除当前规则指令到后端接口
                     $.ajax({
                         url: '/delete_point_rule_interface/', // 假设这是删除规则的API接口

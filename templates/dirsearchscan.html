@@ -22,7 +22,7 @@
   </style>
 
   <script>
-
+    // 前端js分页
     $(function () {
 
       goPage(1, 10);
@@ -100,6 +100,7 @@
 
 <body>
 
+  {% include 'tanchuang.html' %}
   <div class="container">
 
     <div class="login">
@@ -107,8 +108,8 @@
         style="cursor: pointer;" onclick="subsignoutfunc()">
       <img src="{{ url_for('static', filename='image/shuaxin.png') }}" width="50" height="50" style="cursor: pointer;"
         onclick="shuaxinfunc()">
-        <img src="{{ url_for('static', filename='image/returnmain.png') }}" width="50" height="50" style="cursor: pointer;"
-        onclick="jumpmainpagefunc()">
+      <img src="{{ url_for('static', filename='image/returnmain.png') }}" width="50" height="50"
+        style="cursor: pointer;" onclick="jumpmainpagefunc()">
       <table class="table table-bordered" border="1">
         <tr>
           <td>扩展名&nbsp;&nbsp;
@@ -165,26 +166,7 @@
           </td>
         </tr>
         <tr>
-          <td style="display:none;" id="blacklistshowid">
-            <!--黑名单查看-->
 
-            <strong>扫描前黑名单</strong>&nbsp;&nbsp;
-            <select id="opbyid6" onclick="opbyid6func()">
-              <option value="">--请选择--</option>
-            </select>
-
-            <input type="text" name="beforeblackname" required="required" value="" placeholder="删除扫描前黑名单" id="input6">
-            <input type="button" name="commit" value="删除" onclick="deletedirsearcscanbeforehblackbynamefunc()"><br>
-
-            <strong>扫描后黑名单</strong>&nbsp;&nbsp;
-            <select id="opbyid3" onclick="opbyid3func()">
-              <option value="">--请选择--</option>
-            </select>
-            <input type="text" name="blackname" required="required" value="" placeholder="删除扫描后黑名单" id="input1">
-            <input type="button" name="commit" value="删除" onclick="deletedirsearchblackbynamefunc()">
-            <input type="button" name="commit" value="返回" onclick="blacklistshowlistfunc()">
-
-          </td>
 
           <td style="display:none;" id="blacklistshowid1">
             <font color="red" id="scanbeforefontid"></font><br>
@@ -192,95 +174,59 @@
           </td>
 
 
-          <td style="display:none;" id="Whitelistshowid">
-            <input type="text" name="keyvalue1" value="" required="required" placeholder="添加白名单">
-            <input type="button" name="commit" value="提交" onclick="filterdirsearchdatabywhitefunc()">
-            <select id="opbyid4" onclick="opbyid4func()">
-              <option>--请选择--</option>
-            </select>
-            <br>
-            <input type="text" name="whitename" required="required" value="" placeholder="删除白名单" id="input2">
-            <input type="button" name="commit" value="删除" onclick="deletedirsearchwhitebynamefunc()">
-            <input type="button" name="commit" value="返回" onclick="Whitelistshowlistfunc()">
-          </td>
+
         </tr>
         </tr>
         <tr>
           <td>
             <strong>扫描开关</strong>&nbsp;&nbsp;
-            <input type="button" class="hover-color" name="commit" value="开始扫描" onclick="dirsearchscanfunc()">
-            <input type="button" class="hover-color" name="commit" value="关闭扫描" onclick="dirsearchkillfunc()">
-
+            <button class="button delete1-button" onclick="dirsearchscanfunc()">开始扫描</button>&nbsp;
+            <button class="button delete1-button" onclick="dirsearchkillfunc()">关闭扫描</button>
           </td>
 
           <td>
             <strong>数据操作</strong>&nbsp;&nbsp;
-            <input type="button" class="hover-color" name="commit" value="原始数据删除" onclick="origindataclearfunc()">
-            <input type="button" class="hover-color" name="commit" value="列表删除" onclick="cleardirvulmaptargetfunc()">
+            <button class="button delete1-button" onclick="origindataclearfunc()">删除原始日志</button>&nbsp;
+            <button class="button delete1-button" onclick="cleardirvulmaptargetfunc()">删除分析日志</button>
           </td>
         </tr><br>
         <tr>
           <td>
-            <strong>数据查看</strong>&nbsp;&nbsp;
-            <input type="button" class="hover-color" name="commit" value="黑名单查询" onclick="blacklistshowfunc()">
-            <input type="button" class="hover-color" name="commit" value="白名单查询" onclick="Whitelistshowfunc()">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong>数据操作</strong>&nbsp;&nbsp;
+            <button class="button delete1-button" onclick="blacklistshowfunc()">黑名单操作</button>&nbsp;
+            <button class="button delete1-button" onclick="Whitelistshowfunc()">白名单操作</button>
           </td>
           <td>
-            <strong>报告过滤</strong>&nbsp;&nbsp;
-            <input type="button" class="hover-color" name="commit" value="原始数据同步" onclick="dirsearchcopyfilefunc()">
-            <input type="button" class="hover-color" name="commit" value="黑名单同步" onclick="flushdirsearchdatafunc()">
-            <input type="button" class="hover-color" name="commit" value="白名单同步"
-              onclick="flushdirsearchdatabywhitefunc()">
+            <strong>同步日志</strong>&nbsp;&nbsp;
+            <button class="button delete1-button" onclick="dirsearchcopyfilefunc()">同步原始日志</button>&nbsp;
+            <button class="button delete1-button" onclick="flushdirsearchdatafunc()">同步黑名单</button>&nbsp;
+            <button class="button delete1-button" onclick="flushdirsearchdatabywhitefunc()">同步白名单</button>
           </td>
         </tr>
         <tr>
           <td>
             <strong>批量添加</strong>&nbsp;&nbsp;
-            <input type="button" class="hover-color" name="commit" value="扫描前黑名单" onclick="scanbeforebatchinsert()">
-            <input type="button" class="hover-color" name="commit" value="扫描后黑名单" onclick="scanafterbatchinsert()">
+            <button class="button delete1-button" onclick="scanbeforebatchinsert()">扫描前黑名单</button>&nbsp;
+            <button class="button delete1-button" onclick="scanafterbatchinsert()">扫描后黑名单</button>
           </td>
           <td>
-            <strong>报告阈值</strong>&nbsp;&nbsp;
-            <select name="thresholdname">
-              <option value="1">过滤出现超过1次的网址</option>
-              <option value="2">过滤出现超过2次的网址</option>
-              <option value="3">过滤出现超过3次的网址</option>
-              <option value="4">过滤出现超过4次的网址</option>
-              <option value="5">过滤出现超过5次的网址</option>
-              <option value="6">过滤出现超过6次的网址</option>
-              <option value="7">过滤出现超过7次的网址</option>
-              <option value="8">过滤出现超过8次的网址</option>
-              <option value="9">过滤出现超过9次的网址</option>
-              <option value="10">过滤出现超过10次的网址</option>
+            <strong>日志阈值</strong>&nbsp;&nbsp;
+            <select name="thresholdname" style="height: 48px;">
+              <option value="1">过滤超过1次的日志</option>
+              <option value="2">过滤超过2次的日志</option>
+              <option value="3">过滤超过3次的日志</option>
+              <option value="4">过滤超过4次的日志</option>
+              <option value="5">过滤超过5次的日志</option>
+              <option value="6">过滤超过6次的日志</option>
+              <option value="7">过滤超过7次的日志</option>
+              <option value="8">过滤超过8次的日志</option>
+              <option value="9">过滤超过9次的日志</option>
+              <option value="10">过滤超过10次的日志</option>
             </select>
-            <input type="button" class="hover-color" name="commit" value="过滤" onclick="thresholdvaluefunc()">
-
-          </td>
-
-          <td>
-
-
-          </td>
-        </tr>
-        <tr>
-          <td>
-
-
-
-
-          </td>
-          <td>
-
+            <button class="button delete1-button" onclick="thresholdvaluefunc()">同步阈值</button>
           </td>
         </tr>
 
-        </td>
-
-        </tr>
 
         <tr>
           <td>
@@ -295,31 +241,26 @@
         <tr id="aaa">
           <td>
             目录列表
-            <button onclick="selectAll()">全选</button>
-            <button onclick="reverseSelection()">反选</button>
+            <button onclick="selectAll()" class="dirscanquanxuan">全选</button>
+            <button onclick="reverseSelection()" class="dirscanquanxuan">反选</button>
           </td>
           <td>操作选项</td>
         </tr>
 
-        <tbody id="adminTbody">
+        <tbody id="adminTbody" class="dirscanfont">
           {% for i in data %}
           <tr>
             <td>
               <input type="checkbox" name="checkbox" value="{{i}}">&nbsp;&nbsp;
               {{i}}
             </td>
-
-
-
             <td>
-              <a href="####" class="hover-color" style='text-decoration:none;'
-                onclick="primitivereportfunc('{{i}}')">访问原始网址</a>
-              &nbsp;&nbsp;
-              <a href="####" class="hover-color" style='text-decoration:none;'
-                onclick="generatereportfunc('{{i}}')">访问漏洞网址</a>
-              &nbsp;&nbsp;
-              <a href="####" class="hover-color" style='text-decoration:none;'
-                onclick="primitivereportfunc1('{{i}}')">原始日志信息</a>
+
+              <button class="button delete1-button" onclick="primitivereportfunc('{{i}}')">原始网址</button>
+              &nbsp;
+              <button class="button delete1-button" onclick="generatereportfunc('{{i}}')">漏洞网址</button>
+              &nbsp;
+              <button class="button delete1-button" onclick="primitivereportfunc1('{{i}}')">原始日志</button>
             </td>
 
           </tr>
@@ -341,9 +282,6 @@
 
         {% endfor %}
       </table>
-
-
-
     </div>
 
 
@@ -355,9 +293,7 @@
           <li><a href="###" id="prePage">上一页</a></li>
           <li><a href="###" id="nextPage">下一页</a></li>
           <li><a href="###" id="lastPage">尾页</a></li>
-          <li><select id="jumpWhere">
-            </select></li>
-          <li><a href="###" id="jumpPage" οnclick="jumpPage()">跳转</a></li>
+
         </ul>
       </div>
     </div>

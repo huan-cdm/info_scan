@@ -5,7 +5,7 @@ input {
 	border: #35a5e5 3px solid;
 	border-radius: 3px;
 	outline: none;
-	font-weight:300;
+	font-weight: 300;
 }
 
 input:focus {
@@ -313,7 +313,7 @@ h2 {
 }
 
 .modal-content3 {
-	
+
 	background-color: #fefefe;
 	margin: 0% auto;
 	/* 垂直居中，水平居中  */
@@ -742,7 +742,6 @@ body {
 .button-container1 {
 	display: flex;
 	gap: 10px;
-	/* 按钮之间的间距 */
 }
 
 .button {
@@ -899,4 +898,17 @@ body {
 	/* 宽度和高度 */
 	width: 200px;
 	height: 40px;
+}
+
+/* 目录扫描系统样式变更 */
+.dirscanfont{
+	font-size: large;
+	font-weight: normal;
+	color: #000;
+}
+
+/* 全选和反选 */
+.dirscanquanxuan{
+	color: #35a5e5;
+	cursor: pointer;
 }

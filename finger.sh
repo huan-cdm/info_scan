@@ -1,6 +1,6 @@
 #! /bin/bash
 # 自定义全局变量本机IP地址
-ip_address="x.x.x.x"
+ip_address="117.72.16.222"
 # 爬虫流量代理地址
 proxy_ip="http://127.0.0.1:7777"
 case "${1}" in
@@ -199,9 +199,7 @@ dirsearchtargetnum)
 #目录扫描同步后的结果
 dirsearchsyncresult)
     dirsearchsyncresult_value=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | wc -l)
-    #数量减2才是正确数量
-    direserach_rsync_value=$((${dirsearchsyncresult_value} - 2))
-    echo "${direserach_rsync_value}"
+    echo "${dirsearchsyncresult_value}"
     ;;
 
 #目录扫描启动脚本
@@ -238,7 +236,6 @@ thresholdvaluefilter)
 blacklistsyncshell)
     num=$(cat /TIP/info_scan/result/filterdirsearchblack.txt | wc -l)
     if (($num == 0)); then
-        #echo "不存在过滤数据"
         echo "不存在过滤数据"
     else
         #echo "存在过滤数据"
@@ -1877,4 +1874,42 @@ mysql_server_status)
     fi
     ;;
 
+# 目录扫描子系统
+# 原始日志数量
+deleteoriginlognum)
+originnum=$(ls /TIP/info_scan/dirsearch/reports/ | wc -l)
+    if (($originnum == 0)); then
+        echo "已删除原始日志"
+    else
+        echo "原始日志正在删除中"
+    fi
+;;
+
+# 分析日志数量
+deletefenxilognum)
+fenxinum=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | wc -l)
+    if (($fenxinum == 0)); then
+        echo "已删除分析日志"
+    else
+        echo "分析日志正在删除中"
+    fi
+;;
+
+# 最初原始日志数量
+beginoriginlognum)
+    num=$(cat /TIP/info_scan/dirsearch/reports/*/*.txt | grep "http" | wc -l)
+    echo "${num}"
+    ;;
+
+# 同步后原始日志数量
+rsyncriginlognum)
+num=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep "http" | wc -l)
+    echo "${num}"
+    ;;
+
+# 同步白名单
+rsynoriginlogscript)
+    data1=`cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep $2`
+    echo "$data1"
+    ;;
 esac

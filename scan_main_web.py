@@ -1506,17 +1506,6 @@ def restartsystemserviceinterface():
     if str(user) == main_username:
         basic.restart_infoscan_lib()
         return render_template('index.html')
-        # infoscanstatus = os.popen('bash /TIP/info_scan/finger.sh infoscanstatus').read()
-        # if "running" in infoscanstatus:
-        #     infoscanstatus = "服务已启动"
-        # else:
-        #     infoscanstatus = "正在重启中..."
-        # message_json = {
-        #     "infoscanstatus":""
-        # }
-
-        # return jsonify(message_json)
-    
     else:
         return render_template('login.html')
 

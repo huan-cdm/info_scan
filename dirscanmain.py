@@ -63,22 +63,21 @@ def dirscanpage():
         for c in dir_no_swa_list:
             dir_no_swa_list_1.append(c[0])
         
-
-        
         #回显给前端的目录扫描数量
         dirsearch_count_tmp = os.popen('bash /TIP/info_scan/finger.sh dirsearchscancount').read()
-        if int(dirsearch_count_tmp) == -2:
-            dirsearch_count = "筛选前："+"暂无数据"
+        if int(dirsearch_count_tmp) <= 0:
+            dirsearch_count = "原始日志："+"暂无数据"
         else:
-            dirsearch_count = "筛选前："+str(dirsearch_count_tmp)
+            dirsearch_count = "原始日志："+str(dirsearch_count_tmp)+"条"
        
-        
         #目录扫描同步后的数量
         dirsearch_sync_value = os.popen('bash /TIP/info_scan/finger.sh dirsearchsyncresult').read()
-        if int(dirsearch_sync_value) == -2:
-            dirsearch_sync_value_result = "筛选后："+"暂无数据"
+        print(dirsearch_sync_value)
+        
+        if int(dirsearch_sync_value) <= 0:
+            dirsearch_sync_value_result = "分析日志："+"暂无数据"
         else:
-            dirsearch_sync_value_result = "筛选后："+str(dirsearch_sync_value)
+            dirsearch_sync_value_result = "分析日志："+str(dirsearch_sync_value)+"条"
     
         return render_template('dirsearchscan.html',data=dirsearch_list,
         data09=dir_list_status_code,data13=dirsearch_count,data18=dirsearch_sync_value_result)
@@ -86,6 +85,7 @@ def dirscanpage():
     else:
         return render_template('sublogin.html')
     
+
 #目录扫描后黑名单查询
 @app.route("/QueryingBlacklist/",methods=['GET'])
 def QueryingBlacklist():
@@ -133,8 +133,8 @@ def queryingbeforeblacklist():
         list_data_after = list(data_after)
         message_json = {
         "query_before_black_list":query_before_black_list,
-        "query_before_black_list_len":"扫描前黑名单数量: "+str(len(query_before_black_list)),
-        "query_after_black_list_len":"扫描后黑名单数量: "+str(len(list_data_after))
+        "query_before_black_list_len":str(len(query_before_black_list))+"条",
+        "query_after_black_list_len":str(len(list_data_after))+"条"
         }
         return jsonify(message_json)
     else:
@@ -158,7 +158,6 @@ def QueryingWhitelist():
                 "query_white_list":list_data1
             }
             return jsonify(message_json)
-           
         except:
             pass
     else:
@@ -193,13 +192,30 @@ def dirsearchscanfun():
         return render_template('sublogin.html')
    
 
-#目录扫描原始数据同步
+# 目录扫描同步原始日志
 @app.route("/dirsearchcopyfile/")
 def dirsearchcopyfile():
     user1 = session.get('username1')
     if str(user1) == sub_username:
-        os.popen('cp /TIP/info_scan/dirsearch/reports/*/* /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
-        return render_template('dirsearchscan.html')
+        dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
+        print(dirsearchstatus_result)
+        if "running" in dirsearchstatus_result:
+            rsync_log_result = "扫描器正在运行中无法同步扫描日志"
+        else:
+            os.popen('cp /TIP/info_scan/dirsearch/reports/*/* /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
+            begin_origin_log_num = os.popen('bash /TIP/info_scan/finger.sh beginoriginlognum').read()
+            rsync_origin_log_num = os.popen('bash /TIP/info_scan/finger.sh rsyncriginlognum').read()
+            if int(begin_origin_log_num) == int(rsync_origin_log_num):
+                rsync_log_result = "已成功同步原始日志"
+            elif int(begin_origin_log_num) >= int(rsync_origin_log_num):
+                rsync_log_result = "原始日志正在同步中"
+            else:
+                rsync_log_result = "原始日志为空无法同步"
+        message_json = {
+            "rsync_log_result":rsync_log_result
+        }
+
+        return jsonify(message_json)
     else:
         return render_template('sublogin.html')
 
@@ -211,7 +227,11 @@ def cleardirvulmaptarget():
     if str(user1) == sub_username:
         os.popen('rm -rf /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
         os.popen('touch /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
-        return render_template('dirsearchscan.html')
+        fenxiresultnum = os.popen('bash /TIP/info_scan/finger.sh deletefenxilognum').read()
+        message_json = {
+            "fenxiresultnum":fenxiresultnum
+        }
+        return jsonify(message_json)
     else:
         return render_template('sublogin.html')
 
@@ -222,7 +242,12 @@ def origindataclearinterface():
     user1 = session.get('username1')
     if str(user1) == sub_username:
         os.popen('rm -rf /TIP/info_scan/dirsearch/reports/*')
-        return render_template('dirsearchscan.html')
+        deleteresult = os.popen('bash /TIP/info_scan/finger.sh deleteoriginlognum').read()
+        message_json = {
+            "deleteresult":deleteresult
+        }
+        return jsonify(message_json)
+
     else:
         return render_template('sublogin.html')
 
@@ -349,40 +374,63 @@ def scanbeforeinsertinterfacebyajax():
     else:
         return render_template('sublogin.html')
 
-#扫描前黑名单删除
+
+# 删除扫描前黑名单
 @app.route("/deletedirsearcscanbeforehblackbyname/",methods=['POST'])
 def deletedirsearcscanbeforehblackbyname():
     user1 = session.get('username1')
     if str(user1) == sub_username:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        vulnurl = request.form['vulnurl']
-       
-        sql="DELETE from scan_before_black WHERE vulnurl = '%s' " %(vulnurl)
-        cur.execute(sql)
-        db.commit()
-        db.rollback()
-        return render_template('dirsearchscan.html')
+        password=dict['password'],db=dict['dbname'],port=dict['portnum'])
+        try: 
+            cur = db.cursor()
+            vulnurl = request.form['vulnurl']
+            sql="DELETE from scan_before_black WHERE vulnurl = '%s' " %(vulnurl)
+            cur.execute(sql)
+            # 判断是否删除成功
+            sql1 = "select * from scan_before_black where vulnurl = '%s' " %(vulnurl)
+            cur.execute(sql1)
+            db.commit()
+            result = cur.fetchone()
+            if result == None:
+                delete_before_black_result_rule = "扫描前黑名单："+vulnurl+"已删除成功"
+        except Exception as e:
+            print("执行SQL语句时发生错误：", e)
+            db.rollback()
+        message_json = {
+            "delete_before_black_result_rule":delete_before_black_result_rule
+            }    
+        return jsonify(message_json)
     else:
         return render_template('sublogin.html')
 
 
-#扫描后黑名单删除
+# 删除扫描后黑名单
 @app.route("/deletedirsearchblackbyname/",methods=['POST'])
 def deletedirsearchblackbyname():
     user1 = session.get('username1')
     if str(user1) == sub_username:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
-        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
-        cur = db.cursor()
-        blackname = request.form['blackname']
-       
-        sql="DELETE from scan_after_black WHERE name = '%s' " %(blackname)
-        cur.execute(sql)
-        db.commit()
-        db.rollback()
-        return render_template('dirsearchscan.html')
+        password=dict['password'],db=dict['dbname'],port=dict['portnum'])
+        try:
+            cur = db.cursor()
+            blackname = request.form['blackname']
+            sql="DELETE from scan_after_black WHERE name = '%s' " %(blackname)
+            cur.execute(sql)
+            # 判断是否删除成功
+            sql1 = "select * from scan_after_black where name = '%s' " %(blackname)
+            cur.execute(sql1)
+            db.commit()
+            result = cur.fetchone()
+            if result == None:
+                delete_after_black_result_rule = "扫描后黑名单："+blackname+"已删除成功"
+        except Exception as e:
+            print("执行SQL语句时发生错误：", e)
+            db.rollback()
+        message_json = {
+            "delete_after_black_result_rule":delete_after_black_result_rule
+            }
+        return jsonify(message_json)
     else:
         return render_template('sublogin.html')
 
@@ -466,13 +514,17 @@ def scanafterinsertinterfacebyajax():
     else:
         return render_template('sublogin.html')
 
-#报告过滤黑名单同步
+
+# 同步黑名单
 @app.route("/blacklistsync/",methods=['get'])
 def blacklistsync():
     user1 = session.get('username1')
     if str(user1) == sub_username:
         os.popen('bash /TIP/info_scan/finger.sh blacklistsyncshell')
-        return render_template('dirsearchscan.html')
+        message_json = {
+            "rsynctongbublackresult":"成功同步黑名单"
+        }
+        return jsonify(message_json)
     else:
         return render_template('sublogin.html')
 
@@ -525,22 +577,7 @@ def queryorigindatainterfacebyajax():
 def subloginpage():
     return render_template('sublogin.html')
 
-
-
-# @app.route('/sublogininterface/',methods=['post'])
-# def sublogininterface():
-#     username = request.form['username']
-#     password = request.form['password']
-#     if str(username) == str(sub_username) and str(password) == str(sub_password):
-#         session['username1'] = username
-#         return redirect("/dirscanpage/")
-#     else:
-#         return render_template('sublogin.html',data1="账号或者密码错误")
     
-
-
-
-
 #登录实现
 @app.route('/sublogininterface/',methods=['post'])
 def sublogininterface():
@@ -573,9 +610,6 @@ def sublogininterface():
 
 
 
-    
-
-
 #注销系统
 @app.route('/subsignout/',methods=['get'])
 def subsignout():
@@ -587,8 +621,107 @@ def subsignout():
         'subzhuxiaostatus':'确认退出系统吗？',
         'subzhuxiaoredirect_url':'/subloginpage/'
     }    
-       
     return jsonify(message_json)
+
+
+# 新增目录扫描白名单
+@app.route("/filterdirsearchbywhite/",methods=['post'])
+def filterdirsearchbywhite():
+    keyvalue1 = request.form['keyvalue1']
+    user1 = session.get('username1')
+    if str(user1) == sub_username:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        try:
+            # 禁用重复数据
+            cur = db.cursor()       
+            # 判断数据库中是否存在传入的数据
+            sql_select = "select name FROM scan_after_white where name = '%s' "%(keyvalue1)
+            cur.execute(sql_select)
+            result = cur.fetchone()
+            if result:
+                filterdirsearchbywhite_recheck_result = "白名单："+keyvalue1+"已存在请勿重复提交"
+            else:
+                sql_insert = "insert into scan_after_white(name)  values('%s')" %(keyvalue1)
+                cur.execute(sql_insert)  
+                db.commit()
+                filterdirsearchbywhite_recheck_result = "白名单："+keyvalue1+"已添加成功"
+        except Exception as e:
+            print("执行SQL语句时发生错误：", e)
+            db.rollback()
+        
+        message_json = {
+            "filterdirsearchbywhite_recheck_result":filterdirsearchbywhite_recheck_result
+            }    
+        return jsonify(message_json)
+    else:
+        return render_template('sublogin.html')
+    
+
+# 删除目录扫描白名单
+@app.route("/deletedirsearchwhitebyname/",methods=['POST'])
+def deletedirsearchwhitebyname():
+    user1 = session.get('username1')
+    whitename = request.form['whitename']
+    if str(user1) == sub_username:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+       
+        try:
+            cur = db.cursor()
+            sql="DELETE from scan_after_white WHERE name = '%s' " %(whitename)
+            cur.execute(sql)
+            # 判断是否删除成功
+            sql1 = "select * from scan_after_white where name = '%s' " %(whitename)
+            cur.execute(sql1)
+            db.commit()
+            result = cur.fetchone()
+            if result == None:
+                delete_white_result_rule = "白名单："+whitename+"已删除成功"
+        except Exception as e:
+            print("执行SQL语句时发生错误：", e)
+            db.rollback()
+        message_json = {
+            "delete_white_result_rule":delete_white_result_rule
+            }    
+        return jsonify(message_json)
+        
+    else:
+        return render_template('sublogin.html')
+    
+
+# 同步白名单
+@app.route("/flushfilterbywhite/",methods=['get'])
+def flushfilterbywhite():
+    user1 = session.get('username1')
+    if str(user1) == sub_username:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql1 = "select name from scan_after_white order by id desc"
+        cur.execute(sql1)
+        data1 = cur.fetchall()
+        #白名单从数据库查询出来是元组格式转换列表格式
+        tup_list = []
+        for i in data1:
+            tup_list.append(i[0])
+
+        #遍历白名单列表执行shell脚本，将执行的结果追加到结果列表中
+        result_list = []
+        for j in tup_list:
+            result = os.popen('bash /TIP/info_scan/finger.sh rsynoriginlogscript'+' '+j+'').read()
+            result_list.append(result)
+
+        #将存入到列表中的结果写入到最终的文件中用于前端展示
+        f = open(file='/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt', mode='w')
+        for ii in result_list:
+            f.write(str(ii))
+        message_json = {
+            "rsynctongbuwhiteresult":"成功同步白名单"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('sublogin.html')
 
 
 if __name__ == '__main__':  

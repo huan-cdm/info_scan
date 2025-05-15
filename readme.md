@@ -22,7 +22,7 @@ docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更�
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（2025.1.20更新）<br>
 ②. 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4 /bin/bash<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
-④. 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js<br>
+④. 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js、/TIP/info_scan/static/js/dirsearchcommon.js<br>
 ⑤. 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
 ⑥. 查看平台服务运行状态：bash /TIP/info_scan/server_check.sh status<br>
 ⑦. 入口地址：http://ip:19999/index/<br>
@@ -35,7 +35,7 @@ nginx账号密码：admin/123456<br>
 web账号密码：admin/123456<br>
 mysql账号密码：admin/123456<br>
 1. 登录系统，在参数配置-系统配置下，修改key信息<br>
-2. 修改/TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh文件第一行和第二行修改为自己服务器的IP地址<br>
+2. 修改/TIP/info_scan/static/js/common.js、/TIP/info_scan/static/js/dirsearchcommon.js、/TIP/info_scan/finger.sh文件第一行和第二行修改为自己服务器的IP地址<br>
 3. 系统启动参数：bash /TIP/info_scan/server_check.sh -h，nginx和mysql服务开机自启，如未开启成功，需执行service nginx start和service mysql start开启服务<br>
 4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己服务器的IP地址，重启nginx服务器<br>
 5. 入口地址：http://服务器IP:19999/index/<br>
@@ -75,6 +75,11 @@ mysql账号密码：admin/123456<br>
 
 <h2>更新日志：</h2>
 <ul>
+<li>
+2025-5-15更新<br> 
+1.目录扫描功能优化；<br>
+2.已知问题处理与优化；<br>
+</li>
 <li>
 2025-5-7更新<br> 
 1.DNS日志功能优化；<br>
