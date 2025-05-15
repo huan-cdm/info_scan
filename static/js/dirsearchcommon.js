@@ -1,9 +1,10 @@
 // 系统上线后替换为自己服务器IP
-ipaddress = "http://117.72.16.222:19999"
+ipaddress = "http://x.x.x.x:19999"
 
 //扫描前黑名单批量添加
 function scanbeforebatchinsert() {
-
+    var myModa15 = document.getElementById("myModa15");
+    myModa15.style.display = "block";
     // 获取所有的复选框元素
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
@@ -27,25 +28,20 @@ function scanbeforebatchinsert() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json",
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            document.getElementById('vulnscan15').innerText = info.insert_data_list_11;
         },
         error: function () {
-
-        },
-        complete: function () {
+            document.getElementById('vulnscan15').innerText = "内部错误"
         }
     })
-
-    $.getJSON("/scanbeforeinsertinterfacebyajax/",
-        function (info) {
-            alert(info.insert_data_list_result);
-        })
 }
 
 
 //扫描后黑名单批量添加
 function scanafterbatchinsert() {
+    var myModa15 = document.getElementById("myModa15");
+    myModa15.style.display = "block";
     // 获取所有的复选框元素
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
@@ -69,20 +65,13 @@ function scanafterbatchinsert() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json",
-        success: function (res) {
-            console.log(res)
+        success: function (info) {
+            document.getElementById('vulnscan15').innerText = info.insert_data_list_22;
         },
         error: function () {
-
-        },
-        complete: function () {
+            document.getElementById('vulnscan15').innerText = "内部错误";
         }
     })
-
-    $.getJSON("/scanafterinsertinterfacebyajax/",
-        function (info) {
-            alert(info.insert_after_data_list_result);
-        })
 }
 
 

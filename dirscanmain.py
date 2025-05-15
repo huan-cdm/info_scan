@@ -270,7 +270,6 @@ def killdirsearch():
 
         message_json = {
             "kill_dirsearch_result":kill_dirsearch_result
-        
         }
         return jsonify(message_json)   
         
@@ -347,32 +346,19 @@ def scanbeforeinsertinterface():
                 vuln_url_message2 = "扫描前黑名单"+url_value_result_11+"已入库成功"
                 insert_data_list.append(vuln_url_message2)
         
-        #逻辑判断 2023.11.01
+        #逻辑判断 2023.11.01 
         for jj in insert_data_list:
             if "已入库成功" in jj:
                 insert_data_list_11 = "正在入库中......"
             else:
                 insert_data_list_11 = "已入库完成!"
-        global insert_data_list_result
-        insert_data_list_result = insert_data_list_11
-        return render_template('dirsearchscan.html')
-    else:
-        return render_template('sublogin.html')
-    
-
-
-@app.route("/scanbeforeinsertinterfacebyajax/",methods=['GET'])
-def scanbeforeinsertinterfacebyajax():
-    user1 = session.get('username1')
-    if str(user1) == sub_username:
-        global insert_data_list_result
-    
         message_json = {
-        "insert_data_list_result":insert_data_list_result
+            "insert_data_list_11":insert_data_list_11
         }
-        return jsonify(message_json)
+        return jsonify(message_json)   
     else:
         return render_template('sublogin.html')
+    
 
 
 # 删除扫描前黑名单
@@ -482,9 +468,6 @@ def scanafterinsertinterface():
             else:
                 insert_data_list_22 = "已入库完成!"
     
-        #定义全局变量用于前端在展示
-        global insert_after_data_list_result
-        insert_after_data_list_result = insert_data_list_22
     
         #生成文件用于过滤扫描结果
         sql1 = "select name from scan_after_black order by id desc"
@@ -494,22 +477,9 @@ def scanafterinsertinterface():
         for ii in list(data1):
             for jj in ii:
                 f.write(str(jj)+"\n")
-    
-        return render_template('dirsearchscan.html')
-    
-    else:
-        return render_template('sublogin.html')
-
-
-@app.route("/scanafterinsertinterfacebyajax/",methods=['GET'])
-def scanafterinsertinterfacebyajax():
-    user1 = session.get('username1')
-    if str(user1) == sub_username:
-        global insert_after_data_list_result
-    
         message_json = {
-        "insert_after_data_list_result":insert_after_data_list_result
-        }
+            "insert_data_list_22":insert_data_list_22
+            }
         return jsonify(message_json)
     else:
         return render_template('sublogin.html')
