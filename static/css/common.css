@@ -912,3 +912,10 @@ body {
 	color: #35a5e5;
 	cursor: pointer;
 }
+
+/* ceyedns日志 */
+.ceyednszhankai{
+	color: red;
+	font-weight: 900;
+	cursor: pointer;
+}

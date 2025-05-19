@@ -503,6 +503,8 @@ function dnslogfunc() {
         success: function (info) {
             const tableBody = document.querySelector('#data-table tbody');
             document.getElementById('dnslogkeyid').value = info.dnslog_key;
+            document.getElementById("dnslogkeyid6").innerHTML = info.dnslog_key;
+            document.getElementById("dnslogkeyid7").innerHTML = info.dnslog_key;
             info.resultdict.forEach(item => {
                 const row = document.createElement('tr'); // 创建新的行
 
@@ -542,6 +544,10 @@ function dnslogfunc() {
 function closeModal4() {
     var modal4 = document.getElementById("modal4");
     modal4.style.display = "none";
+    var dnslogkeyid3 = document.getElementById("dnslogkeyid3");
+    dnslogkeyid3.style.display = "none";
+    var dnslogkeyid4 = document.getElementById("dnslogkeyid4");
+    dnslogkeyid4.style.display = "none";
     document.getElementById("dnslogkeyid2").innerHTML = "";
 }
 
@@ -3043,6 +3049,7 @@ function stop_rule_all_func() {
 
 // DNS日志更新当前域名
 function dnslogupdatedomainfunc() {
+    
     var dnslogkeyid = document.getElementById("dnslogkeyid").value;
     $.ajax({
         url: '/dnslogupdatedomain/',
@@ -3061,4 +3068,49 @@ function dnslogupdatedomainfunc() {
 
         }
     })
+}
+
+// 关闭DNSLog Platform
+function closevulnscan18() {
+    var myModa18 = document.getElementById("myModa18");
+    myModa18.style.display = "none";
+}
+
+// 打开DNSLog Platform
+function opendnslogpaltform() {
+    var myModa18 = document.getElementById("myModa18");
+    myModa18.style.display = "block";
+}
+
+// 获取随机子域名
+function getrandomsubdomainfunc() {
+    $.ajax({
+        url: '/getrandomsubdomain/',
+        method: 'GET',
+        success: function (info) {
+            document.getElementById("getrandomsubdomainid1").innerHTML = info.randomdomain;
+        },
+
+        error: function () {
+            document.getElementById("getrandomsubdomainid1").innerHTML = "内部出错";
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// ceyednslog详细用法
+function ceyexianshixiangximethos(){
+    var dnslogkeyid3 = document.getElementById("dnslogkeyid3");
+    dnslogkeyid3.style.display = "block";
+    var dnslogkeyid4 = document.getElementById("dnslogkeyid4");
+    dnslogkeyid4.style.display = "block";
+}
+
+function ceyexianshiyincangmethos(){
+    var dnslogkeyid3 = document.getElementById("dnslogkeyid3");
+    dnslogkeyid3.style.display = "none";
+    var dnslogkeyid4 = document.getElementById("dnslogkeyid4");
+    dnslogkeyid4.style.display = "none";
 }

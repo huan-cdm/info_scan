@@ -735,13 +735,30 @@
 <div id="modal4" class="modal8">
     <div class="modal-content8">
         <span class="close" onclick="closeModal4()">&times;</span>
-        <h3>DNS日志列表</h3>
+        <h3>CEYE Platform日志列表</h3>
         <div class="button-container1">
             <span style="font-weight: bolder;">当前域名:</span>
             <input type="text" id="dnslogkeyid">
             <button class="button delete1-button" onclick="dnslogupdatedomainfunc()">修改</button>
+            <button class="button delete1-button" onclick="dnslogfunc()">刷新</button>
+            <br><br>
             <span id="dnslogkeyid2" style="color: red;"></span>
-        </div>
+        </div><br>
+         <span>详细用法：</span><span class="ceyednszhankai" onclick="ceyexianshixiangximethos()" id="dnslogkeyid5">展开</span><br>
+         <span style="display:none;" id="dnslogkeyid3">
+            windows环境：<br>
+            举例：ping %username%.<span id="dnslogkeyid6"></span><br>
+            %APPDATA%：列出应用程序数据的默认存放位置<br>
+            %CD%：列出当前目录<br>
+            %CLIENTNAME%：列出联接到终端服务会话时客户端的NETBIOS名<br>
+            %CMDCMDLINE%：列出启动当前cmd.exe所使用的命令行<br>
+            %CMDEXTVERSION%：命令出当前命令处理程序扩展版本号<br>
+            %username%：列出当前用户名<br><br>
+            linux环境：<br>
+            举例：ping $(系统命令).<span id="dnslogkeyid7"></span><br>
+            ping $(whoami).当前域名
+         </span>
+         <span class="ceyednszhankai" style="display:none;" id="dnslogkeyid4" onclick="ceyexianshiyincangmethos()">隐藏</span>
         <br><br>
         <table id="data-table">
             <thead>
@@ -759,6 +776,34 @@
 
     </div>
 </div>
+
+<!-- DNSLog Platform -->
+<div id="myModa18" class="modal8">
+    <div class="modal-content8">
+        <span class="close" onclick="closevulnscan18()">&times;</span>
+        <h3>DNSLog Platform日志列表</h3>
+        <button class="button delete1-button"
+            onclick="getrandomsubdomainfunc()">获取随机子域名</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        随机子域名：
+        <span id="getrandomsubdomainid1"></span>
+        <br><br>
+        <button class="button delete1-button" onclick="">刷新&nbsp;DNS&nbsp;&nbsp;记录</button>
+        <br><br>
+        <table id="">
+            <thead>
+                <tr>
+                    <th>DNS Query Record</th>
+                    <th>IP Address</th>
+                    <th>Created Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 数据将被填充在这里 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
 
 <!-- 高危资产过滤规则列表 -->
 <div id="modal7" class="modal2">

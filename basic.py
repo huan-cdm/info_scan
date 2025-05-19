@@ -53,6 +53,17 @@ from config import antiv_software_dir
 # 过滤内网
 import ipaddress
 
+# dns日志
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import TimeoutException
+
+
+
+
 # IP基础信息端口查询通过fofa+shodan
 def shodan_api(ip):
     
@@ -3785,6 +3796,97 @@ def update_verification_table_lib(part1,part2):
     return update_result
 
 
+# DNSLog Platform平台相关
+# 获取随机子域名
+def get_random_subdomain_lib():
+    # 设置 Chrome 选项
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")  # 允许 Chrome 在没有沙箱环境的情况下运行
+    chrome_options.add_argument("--disable-dev-shm-usage")  # 避免使用 /dev/shm
+    chrome_options.add_argument("--disable-gpu")  # 禁用 GPU 硬件加速
+    chrome_options.add_argument("--headless")  # 无头模式
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+    driver = None
+    try:
+        # 初始化浏览器
+        driver = webdriver.Chrome(options=chrome_options)
+        # 打开目标网站
+        driver.get("http://www.dnslog.cn/")
+
+        # 设置显式等待
+        wait = WebDriverWait(driver, 20)  # 等待最长20秒
+
+        # 等待按钮出现并点击
+        try:
+            button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="content"]/button[1]')))
+            button.click()
+        except TimeoutException:
+            print("按钮未找到或页面加载超时")
+            return
+        # 添加3秒延时，等待数据加载
+        time.sleep(3)
+        # 等待页面加载完成后的 <div> 元素出现
+        try:
+            # 使用绝对路径定位内容
+            result_xpath = "/html/body/div[2]/div"
+            result_element = wait.until(EC.presence_of_element_located((By.XPATH, result_xpath)))
+            result_text = result_element.text
+        except TimeoutException:
+            print("内容未找到或页面加载超时")
+    except Exception as e:
+        print("发生错误:", str(e))
+    finally:
+        # 关闭浏览器
+        if driver:
+            driver.quit()
+    return result_text
+
+
+# 刷新DNSLog记录
+def refresh_random_subdomain_lib():
+    # 设置 Chrome 选项
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")  # 允许 Chrome 在没有沙箱环境的情况下运行
+    chrome_options.add_argument("--disable-dev-shm-usage")  # 避免使用 /dev/shm
+    chrome_options.add_argument("--disable-gpu")  # 禁用 GPU 硬件加速
+    chrome_options.add_argument("--headless")  # 无头模式
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+    driver = None
+    try:
+        # 初始化浏览器
+        driver = webdriver.Chrome(options=chrome_options)
+        # 打开目标网站
+        driver.get("http://www.dnslog.cn/")
+
+        # 设置显式等待
+        wait = WebDriverWait(driver, 20)  # 等待最长20秒
+
+        # 等待按钮出现并点击
+        try:
+            button = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="content"]/button[2]')))
+            button.click()
+        except TimeoutException:
+            print("按钮未找到或页面加载超时")
+            return
+        # 添加3秒延时，等待数据加载
+        time.sleep(3)
+        # 等待页面加载完成后的 <div> 元素出现
+        try:
+            # 使用绝对路径定位内容
+            result_xpath = "/html/body/div[2]/center/table/tbody"
+            result_element = wait.until(EC.presence_of_element_located((By.XPATH, result_xpath)))
+            result_text = result_element.text
+            print(result_text)
+        except TimeoutException:
+            print("内容未找到或页面加载超时")
+    except Exception as e:
+        print("发生错误:", str(e))
+    finally:
+        # 关闭浏览器
+        if driver:
+            driver.quit()
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         func_name = sys.argv[1]
@@ -3806,9 +3908,10 @@ if __name__ == "__main__":
             withdrawiplocation_lib()
 
         # 测试使用
-        elif func_name == 'select_rule':
-            c = select_rule()
-            print(type(c))
+        elif func_name == 'refresh_random_subdomain_lib':
+            refresh_random_subdomain_lib()
+        # elif func_name == 'get_random_subdomain_lib':
+        #     get_random_subdomain_lib()
         else:
             print("Invalid function number")
     else:

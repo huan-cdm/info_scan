@@ -6342,6 +6342,22 @@ def dnslogupdatedomain():
     else:
         return render_template('login.html')
 
+# 获取随机子域名
+@app.route("/getrandomsubdomain/",methods=['GET'])
+def getrandomsubdomain():
+    user = session.get('username')
+    if str(user) == main_username:
+        try:
+            randomdomain = basic.get_random_subdomain_lib()
+        except:
+            randomdomain = "接口出错"
+        message_json = {
+           "randomdomain":randomdomain
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)
