@@ -505,6 +505,7 @@ function dnslogfunc() {
             document.getElementById('dnslogkeyid').value = info.dnslog_key;
             document.getElementById("dnslogkeyid6").innerHTML = info.dnslog_key;
             document.getElementById("dnslogkeyid7").innerHTML = info.dnslog_key;
+            document.getElementById("dnslogkeyid8").innerHTML = info.dnslog_key;
             info.resultdict.forEach(item => {
                 const row = document.createElement('tr'); // 创建新的行
 
