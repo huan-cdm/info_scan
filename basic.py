@@ -3120,7 +3120,7 @@ def update_dnslog_lib(part1,part2):
     
     dnslog_key = select_session_time_lib(6)
     if str(part1) == str(dnslog_key):
-        return_result = "已更改当前域名"
+        return_result ="当前域名"+ part1+"已更改"
     else:
         return_result = "其他配置"
     return return_result
