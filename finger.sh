@@ -1912,4 +1912,18 @@ rsynoriginlogscript)
     data1=`cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep $2`
     echo "$data1"
     ;;
+
+# 全局白名单数量
+global_white_num)
+    global_white_num_value=$(cat /TIP/info_scan/result/globalwhiteconfig.txt | wc -l)
+    echo "${global_white_num_value}"
+    ;;
+
+# 全局白名单过滤
+globalwhitefilter)
+    for n in $(cat /TIP/info_scan/result/globalwhiteconfig.txt); do
+        cat /TIP/batch_scan_domain/url.txt | grep -v ${n} > /TIP/batch_scan_domain/url_tmp.txt
+        mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+    done
+    ;;
 esac

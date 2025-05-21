@@ -795,15 +795,6 @@ function closeModa22() {
     divdictid1.style.display = "none";
 }
 
-// function openmysqldictfunc() {
-//     var divdictid1 = document.getElementById("divdictid1");
-//     divdictid1.style.display = "block";
-
-
-// }
-
-
-
 
 //nuclei查看poc yaml文件
 function nuclei_poc_show_func() {
@@ -3050,7 +3041,7 @@ function stop_rule_all_func() {
 
 // DNS日志更新当前域名
 function dnslogupdatedomainfunc() {
-    
+
     var dnslogkeyid = document.getElementById("dnslogkeyid").value;
     $.ajax({
         url: '/dnslogupdatedomain/',
@@ -3102,16 +3093,150 @@ function getrandomsubdomainfunc() {
 }
 
 // ceyednslog详细用法
-function ceyexianshixiangximethos(){
+function ceyexianshixiangximethos() {
     var dnslogkeyid3 = document.getElementById("dnslogkeyid3");
     dnslogkeyid3.style.display = "block";
     var dnslogkeyid4 = document.getElementById("dnslogkeyid4");
     dnslogkeyid4.style.display = "block";
 }
 
-function ceyexianshiyincangmethos(){
+function ceyexianshiyincangmethos() {
     var dnslogkeyid3 = document.getElementById("dnslogkeyid3");
     dnslogkeyid3.style.display = "none";
     var dnslogkeyid4 = document.getElementById("dnslogkeyid4");
     dnslogkeyid4.style.display = "none";
+}
+
+// 全局白名单配置
+// 打开白名单弹窗
+function openwhiteupwindowsfunc() {
+    var myModa19 = document.getElementById("myModa19");
+    myModa19.style.display = "block";
+    $.ajax({
+        url: '/getglobalwhiteconfig/',
+        method: 'GET',
+        success: function (info) {
+            // 全局白名单配置开关
+            const statusElement1 = document.getElementById('globalwhiteconfigid1');
+            const status1 = info.globalwhiteswitch;
+
+            // 根据状态添加对应样式
+            if (status1 === '已开启校验') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启校验') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+
+            // 全局白名单目标
+            var textAreaContent = '';
+            for (var i = 0; i < info.globalwhitetarget.length; i++) {
+                textAreaContent += info.globalwhitetarget[i] + '\n';
+            }
+            $('#globalwhiteconfigid2').val(textAreaContent);
+            document.getElementById("globalwhiteconfigid3").innerHTML = info.globalwhitetargetlen;
+        },
+        error: function () {
+            const statusElement = document.getElementById('jndistatusid1');
+            statusElement.className = 'status-circle status-error';
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 开启全局白名单控制
+function startwhiteupwindowsfunc() {
+    $.ajax({
+        url: '/startglobalwhiteconfig/',
+        method: 'GET',
+        success: function (info) {
+            // 资产校验开关状态
+            const statusElement1 = document.getElementById('globalwhiteconfigid1');
+            const status1 = info.startglobalwhiteswitch;
+            // 清除所有可能的状态类
+            statusElement1.className = 'status-circle';
+            // 根据状态添加对应样式
+            if (status1 === '已开启校验') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启校验') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement = document.getElementById('jndistatusid1');
+            statusElement.className = 'status-circle status-error';
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭全局白名单控制
+function stopwhiteupwindowsfunc() {
+    $.ajax({
+        url: '/stopglobalwhiteconfig/',
+        method: 'GET',
+        success: function (info) {
+            // 资产校验开关状态
+            const statusElement1 = document.getElementById('globalwhiteconfigid1');
+            const status1 = info.stopglobalwhiteswitch;
+            // 清除所有可能的状态类
+            statusElement1.className = 'status-circle';
+            // 根据状态添加对应样式
+            if (status1 === '已开启校验') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启校验') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement = document.getElementById('jndistatusid1');
+            statusElement.className = 'status-circle status-error';
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭白名单弹窗
+function closewhiteupwindowsfunc() {
+    var myModa19 = document.getElementById("myModa19");
+    myModa19.style.display = "none";
+    var globalwhiteconfigid4 = document.getElementById("globalwhiteconfigid4");
+    globalwhiteconfigid4.style.display = "none";
+    
+}
+
+// 新增全局白名单
+function addglobalwhiteconffunc() {
+    // 获取textarea的值  
+    const text = document.getElementById('globalwhiteconfigid2').value;
+    // 按换行符分割文本为数组  
+    const lines = text.split('\n');
+    // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
+    $.ajax({
+        url: '/addglobalwhitedata/',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ lines: lines }),
+        dataType: 'json',
+        success: function (info) {
+            document.getElementById('globalwhiteconfigid4').innerHTML = info.file_line;
+        },
+        error: function () {
+            document.getElementById('globalwhiteconfigid4').innerHTML = "内部错误"
+        },
+        complete: function () {
+
+        }
+    });
 }

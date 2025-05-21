@@ -81,6 +81,7 @@ mysql账号密码：admin/123456<br>
 2.已知问题处理与优化；<br>
 3.DNS日志功能优化；<br>
 4.DNS日志新增异步刷新；<br>
+5.新增全局资产白名单；<br>
 </li>
 <li>
 2025-5-7更新<br> 
@@ -512,5 +513,10 @@ a. 指纹识别，提取高危资产特征
 b. 高危资产特征录入系统
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets2.png" />
 c. 识别高危资产，得到高危资产
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets3.png" />
-
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/highassets3.png" /><br><br>
+全局资产白名单配置 （手动添加资产、第三方平台获取资产，在白名单开启状态下不会存入到系统，避免误扫）<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf2.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf3.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf4.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf5.png" />

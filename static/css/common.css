@@ -133,7 +133,7 @@ select {
 	border-radius: 5px;
 	/* 设置边框圆角为5像素 */
 }
-
+/* 资产文本框 */
 .textareamodel {
 	width: 1150px;
 	/* 设置宽度为200像素 */
@@ -918,4 +918,23 @@ body {
 	color: red;
 	font-weight: 900;
 	cursor: pointer;
+}
+
+/* 全局白名单配置 */
+.globalwhiteconf {
+	width: 500px;
+	/* 设置宽度为200像素 */
+	height: 150px;
+	/* 设置高度为40像素 */
+	padding: 0px;
+	/* 设置内边距为5像素，这可以增加选项之间的空间 */
+	font-size: 16px;
+	/* 设置字体大小为16像素 */
+	border: 1px solid #ccc;
+	/* 设置边框为1像素宽，颜色为#ccc */
+	border-radius: 5px;
+	/* 设置边框圆角为5像素 */
+	resize: vertical;
+	font-weight: 900;
+	color: #35a5e5;
 }

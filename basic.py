@@ -3740,8 +3740,8 @@ def update_customize_interface_totalnum(part1,part2):
 
 # 资产校验开关查询
 def verification_table_lib(partid):
-    if partid >= 2:
-        customize_result = "只能查询1条数据"
+    if partid >= 3:
+        customize_result = "只能查询2条数据"
     else:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
         password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
@@ -3759,7 +3759,7 @@ def verification_table_lib(partid):
     return customize_result_part
 
 
-# 修改资产校验开关
+# 修改校验开关
 def update_verification_table_lib(part1,part2):
     try:
         db= pymysql.connect(host=dict['ip'],user=dict['username'],  
@@ -3814,7 +3814,7 @@ def get_random_subdomain_lib():
         driver.get("http://www.dnslog.cn/")
 
         # 设置显式等待
-        wait = WebDriverWait(driver, 20)  # 等待最长20秒
+        wait = WebDriverWait(driver, 3)  # 等待最长20秒
 
         # 等待按钮出现并点击
         try:
@@ -3857,7 +3857,6 @@ def refresh_random_subdomain_lib():
         driver = webdriver.Chrome(options=chrome_options)
         # 打开目标网站
         driver.get("http://www.dnslog.cn/")
-
         # 设置显式等待
         wait = WebDriverWait(driver, 20)  # 等待最长20秒
 
@@ -3886,6 +3885,14 @@ def refresh_random_subdomain_lib():
         if driver:
             driver.quit()
 
+# 全局白名单查询
+def global_white_conf_lib():
+    whiteconf_list = []
+    file = open("/TIP/info_scan/result/globalwhiteconfig.txt",encoding='utf-8')
+    for line in file.readlines():
+        whiteconf_list.append(line.strip())
+    return whiteconf_list
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -3910,8 +3917,9 @@ if __name__ == "__main__":
         # 测试使用
         elif func_name == 'refresh_random_subdomain_lib':
             refresh_random_subdomain_lib()
-        # elif func_name == 'get_random_subdomain_lib':
-        #     get_random_subdomain_lib()
+        elif func_name == 'get_random_subdomain_lib':
+            c= get_random_subdomain_lib()
+            print(c)
         else:
             print("Invalid function number")
     else:

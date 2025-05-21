@@ -278,12 +278,7 @@
                             </td>
                         </tr>
                     </table>
-                    <!-- <div class="button-container1">
-                        <button class="button edit-button" onclick="startverifychearlogfunc('1')">afrog</button>
-                        <button class="button edit-button" onclick="startverifychearlogfunc('2')">api接口</button>
-                        <button class="button edit-button" onclick="startverifychearlogfunc('3')">xray</button>
-                        <button class="button edit-button" onclick="startverifychearlogfunc('4')">nmap</button>
-                    </div> -->
+
                 </td>
             </tr>
 
@@ -744,8 +739,9 @@
             <br><br>
             <span id="dnslogkeyid2" style="color: red;"></span>
         </div><br>
-         <span>详细用法：</span><span class="ceyednszhankai" onclick="ceyexianshixiangximethos()" id="dnslogkeyid5">展开</span><br>
-         <span style="display:none;" id="dnslogkeyid3">
+        <span>详细用法：</span><span class="ceyednszhankai" onclick="ceyexianshixiangximethos()"
+            id="dnslogkeyid5">展开</span><br>
+        <span style="display:none;" id="dnslogkeyid3">
             windows环境：<br>
             举例：ping %username%.<span id="dnslogkeyid6"></span><br>
             %APPDATA%：列出应用程序数据的默认存放位置<br>
@@ -757,8 +753,9 @@
             linux环境：<br>
             举例：ping $(系统命令).<span id="dnslogkeyid7"></span><br>
             ping $(whoami).<span id="dnslogkeyid8"></span>
-         </span>
-         <span class="ceyednszhankai" style="display:none;" id="dnslogkeyid4" onclick="ceyexianshiyincangmethos()">隐藏</span>
+        </span>
+        <span class="ceyednszhankai" style="display:none;" id="dnslogkeyid4"
+            onclick="ceyexianshiyincangmethos()">隐藏</span>
         <br><br>
         <table id="data-table">
             <thead>
@@ -883,5 +880,43 @@
             <button class="button delete1-button" onclick="deletedirsearchblackbynamefunc()">删除</button><br>
             <span id="filterdirsearchbyblack_recheck_resultid2" style="color: red;"></span>
         </td>
+    </div>
+</div>
+
+<!-- 全局白名单配置 -->
+<div id="myModa19" class="modal8">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close" onclick="closewhiteupwindowsfunc()">&times;</span>
+        <h3>全局白名单配置</h3>
+        <span>※白名单中的地址不会被扫描</span><br><br>
+        <table border="1">
+            <tr>
+                <td>
+                    <textarea id="globalwhiteconfigid2" class="globalwhiteconf">
+</textarea>
+                    <span id="globalwhiteconfigid3"></span>
+                    <br>
+                    <button class="button delete1-button" onclick="addglobalwhiteconffunc()">保存</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span id="globalwhiteconfigid4"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong style="color: chocolate;">全局资产白名单控制开关</strong>
+                    &nbsp;
+                    <!-- 资产校验开关显示 -->
+                    <span id="globalwhiteconfigid1" class="status-circle"></span>
+                    <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                    <br><br>
+                    <button class="button edit-button" onclick="startwhiteupwindowsfunc()">开启</button>
+                    <button class="button delete-button" onclick="stopwhiteupwindowsfunc()">关闭</button>
+
+                </td>
+
+            </tr>
+        </table>
+
     </div>
 </div>

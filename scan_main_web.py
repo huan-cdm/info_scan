@@ -468,7 +468,10 @@ def submit_data():
                 result_rule = "已成功添加"+str(file_line)+"条资产"
                 #资产备份
                 os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
-            
+                # 资产全局白名单
+                globalwhiteswitch = basic.verification_table_lib(2)
+                if globalwhiteswitch == "已开启校验":
+                    os.popen('bash /TIP/info_scan/finger.sh globalwhitefilter')
         message_json = {
             "file_line":result_rule
         }
@@ -1416,6 +1419,10 @@ def fofa_search_assets_service():
                     asset_len_list = "总共发现"+" "+str(asset_len_list_1)+" "+"条资产已存入扫描目标中"
                 except:
                     basic.fail_third_party_port_addone(1)
+        # 资产全局白名单
+        globalwhiteswitch = basic.verification_table_lib(2)
+        if globalwhiteswitch == "已开启校验":
+            os.popen('bash /TIP/info_scan/finger.sh globalwhitefilter')
         message_json = {
             "asset_len_list":asset_len_list
         }
@@ -5220,6 +5227,12 @@ def assets_byshodan():
                 shodan_status_result = "shodan资产获取程序已开启成功"
         except:
             basic.fail_third_party_port_addone(2)
+
+        # 资产全局白名单
+        globalwhiteswitch = basic.verification_table_lib(2)
+        if globalwhiteswitch == "已开启校验":
+            os.popen('bash /TIP/info_scan/finger.sh globalwhitefilter')
+            
         message_json = {
             "shodan_status_result":shodan_status_result
         }
@@ -6353,6 +6366,81 @@ def getrandomsubdomain():
             randomdomain = "接口出错"
         message_json = {
            "randomdomain":randomdomain
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+# 获取全局白名单配置
+@app.route("/getglobalwhiteconfig/",methods=['GET'])
+def getglobalwhiteconfig():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 白名单配置开关
+        globalwhiteswitch = basic.verification_table_lib(2)
+        # 白名单目标
+        globalwhitetarget = basic.global_white_conf_lib()
+        message_json = {
+           "globalwhiteswitch":globalwhiteswitch,
+           "globalwhitetarget":globalwhitetarget,
+           "globalwhitetargetlen":"共计"+str(len(globalwhitetarget))+"条"
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 开启全局白名单配置
+@app.route("/startglobalwhiteconfig/",methods=['GET'])
+def startglobalwhiteconfig():
+    user = session.get('username')
+    if str(user) == main_username:
+        startglobalwhiteswitch = basic.update_verification_table_lib(1,2)
+        message_json = {
+            "startglobalwhiteswitch":startglobalwhiteswitch
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# 关闭全局白名单配置
+@app.route("/stopglobalwhiteconfig/",methods=['GET'])
+def stopglobalwhiteconfig():
+    user = session.get('username')
+    if str(user) == main_username:
+        stopglobalwhiteswitch = basic.update_verification_table_lib(2,2)
+        message_json = {
+            "stopglobalwhiteswitch":stopglobalwhiteswitch
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 新增全局白名单
+@app.route('/addglobalwhitedata/', methods=['POST'])  
+def addglobalwhitedata():
+    user = session.get('username')
+    if str(user) == main_username: 
+        data = request.json.get('lines', [])
+        # 列表去重
+        data_uniq = list(set(data))
+        # 列表删除空元素
+        notempty_list = []
+        for i in data_uniq:
+            if '' !=  i:
+                notempty_list.append(i)
+        # 写入文件
+        f = open(file='/TIP/info_scan/result/globalwhiteconfig.txt',mode='w')
+        for line in notempty_list:
+            f.write(str(line)+"\n")
+        f.close()
+
+        file_line = os.popen('bash /TIP/info_scan/finger.sh global_white_num').read()
+        result_rule = "白名单已更新到"+str(file_line)+"条"      
+        message_json = {
+            "file_line":result_rule
         }
         return jsonify(message_json)
     else:
