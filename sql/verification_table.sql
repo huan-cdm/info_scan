@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         :  127.0.0.1
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
  Source Server Version : 80037
- Source Host           :  127.0.0.1:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : vuln_scan_database
 
  Target Server Type    : MySQL
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 22/04/2025 09:35:13
+ Date: 22/05/2025 09:55:44
 */
 
 SET NAMES utf8mb4;
@@ -31,5 +31,6 @@ CREATE TABLE `verification_table`  (
 -- Records of verification_table
 -- ----------------------------
 INSERT INTO `verification_table` VALUES (1, '2');
+INSERT INTO `verification_table` VALUES (2, '1');
 
 SET FOREIGN_KEY_CHECKS = 1;
