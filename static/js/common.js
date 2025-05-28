@@ -3240,3 +3240,106 @@ function addglobalwhiteconffunc() {
         }
     });
 }
+
+
+// 关闭系统代理配置
+function closesystemproxyfunc() {
+    var myModa20 = document.getElementById("myModa20");
+    myModa20.style.display = "none";
+}
+
+// 打开系统代理配置页面
+function opensystemproxyconffunc() {
+    var myModa20 = document.getElementById("myModa20");
+    myModa20.style.display = "block";
+    $.ajax({
+        url: '/showsystemproxyconf/',
+        method: 'GET',
+        success: function (info) {
+            // 地理位置
+            document.getElementById('systemproxyid1').innerHTML = info.ip_location;
+            document.getElementById('systemproxyid4').innerHTML = info.proxyport;
+            // 代理状态
+            const statusElement1 = document.getElementById('systemproxyid2');
+            const status1 = info.proxystatus;
+            // 清除所有可能的状态类
+            statusElement1.className = 'status-circle';
+            // 根据状态添加对应样式
+            if (status1 === '已开启') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+        },
+        error: function () {
+            document.getElementById('systemproxyid1').innerHTML = "内部错误";
+            statusElement1.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 开启系统代理配置
+function opensystemproxycontrolfunc() {
+
+    $.ajax({
+        url: '/startsystemproxyconf/',
+        method: 'GET',
+
+        success: function (info) {
+            // 地理位置
+            document.getElementById('systemproxyid1').innerHTML = info.ip_location;
+            document.getElementById('systemproxyid4').innerHTML = info.proxyport;
+            // 代理状态
+            const statusElement1 = document.getElementById('systemproxyid2');
+            const status1 = info.proxystatus;
+            // 清除所有可能的状态类
+            statusElement1.className = 'status-circle';
+            // 根据状态添加对应样式
+            if (status1 === '已开启') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement1 = document.getElementById('systemproxyid2');
+            statusElement1.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 关闭系统代理配置
+function stopdownsystemproxycontrolfunc() {
+
+    $.ajax({
+        url: '/stopdownsystemproxyconf/',
+        method: 'GET',
+
+        success: function (info) {
+            // 地理位置
+            document.getElementById('systemproxyid1').innerHTML = info.ip_location;
+            document.getElementById('systemproxyid4').innerHTML = info.proxyport;
+            // 代理状态
+            const statusElement1 = document.getElementById('systemproxyid2');
+            const status1 = info.proxystatus;
+            // 清除所有可能的状态类
+            statusElement1.className = 'status-circle';
+            // 根据状态添加对应样式
+            if (status1 === '已开启') {
+                statusElement1.classList.add('status-running');
+            } else if (status1 === '未开启') {
+                statusElement1.classList.add('status-stopped');
+            } else {
+                statusElement1.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement1 = document.getElementById('systemproxyid2');
+            statusElement1.className = 'status-circle status-error';
+        }
+    })
+}

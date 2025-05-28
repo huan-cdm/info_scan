@@ -92,6 +92,11 @@ mysql账号密码：admin/123456<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-5-28更新<br> 
+1.新增系统代理功能，后期会优化；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-5-15更新<br> 
 1.目录扫描功能优化；<br>
 2.已知问题处理与优化；<br>
@@ -535,4 +540,7 @@ c. 识别高危资产，得到高危资产
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf2.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf3.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf4.png" />
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf5.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf5.png" /><br><br>
+代理配置<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf2.png" /><br><br>

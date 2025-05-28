@@ -6447,5 +6447,117 @@ def addglobalwhitedata():
         return render_template('login.html')
 
 
+# 系统代理查询
+@app.route("/showsystemproxyconf/",methods=['GET'])
+def showsystemproxyconf():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 当前地理位置查询
+        try:
+            output = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","location3"], stderr=subprocess.DEVNULL)
+            output_list = output.decode().splitlines()
+            #定义列表
+            location_list = []
+            for ii in output_list:
+                if "地址" in ii:
+                    location_list.append(ii)
+            localtion_list_1 = location_list[0].replace("地址","")
+            localtion_list_result = "地理位置："+localtion_list_1.replace(":","")
+        except:
+            localtion_list_result = "地理位置："+"延迟较高"
+        
+        # 代理服务状态查询
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+        # 代理端口
+        if "已开启" == proxystatus:
+            proxyport = os.popen('bash /TIP/info_scan/finger.sh proxyipport').read()
+        else:
+            proxyport = "代理服务已关闭"
+        message_json = {
+            "ip_location":localtion_list_result,
+            "proxystatus":str(proxystatus).strip(),
+            "proxyport":"代理端口："+str(proxyport).strip()
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 开启系统代理
+@app.route("/startsystemproxyconf/",methods=['GET'])
+def startsystemproxyconf():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 增加重复提交判断
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+        if "已开启" == str(proxystatus):
+            print("请勿重复提交")
+        else:
+            os.popen('bash /TIP/info_scan/finger.sh startsystemproxy')
+        # 当前地理位置查询
+        try:
+            output = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","location3"], stderr=subprocess.DEVNULL)
+            output_list = output.decode().splitlines()
+            #定义列表
+            location_list = []
+            for ii in output_list:
+                if "地址" in ii:
+                    location_list.append(ii)
+            localtion_list_1 = location_list[0].replace("地址","")
+            localtion_list_result = "地理位置："+localtion_list_1.replace(":","")
+        except:
+            localtion_list_result = "地理位置："+"延迟较高"
+        # 代理端口
+        if "已开启" == proxystatus:
+            proxyport = os.popen('bash /TIP/info_scan/finger.sh proxyipport').read()
+        else:
+            proxyport = "代理服务已关闭"
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read()
+        message_json = {
+            "ip_location":localtion_list_result,
+            "proxystatus":str(proxystatus).strip(),
+            "proxyport":"代理端口："+str(proxyport).strip()
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 关闭系统代理
+@app.route("/stopdownsystemproxyconf/",methods=['GET'])
+def stopdownsystemproxyconf():
+    user = session.get('username')
+    if str(user) == main_username:
+        os.popen('bash /TIP/info_scan/finger.sh stopsystemproxy')
+         # 当前地理位置查询
+        try:
+            output = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","location3"], stderr=subprocess.DEVNULL)
+            output_list = output.decode().splitlines()
+            #定义列表
+            location_list = []
+            for ii in output_list:
+                if "地址" in ii:
+                    location_list.append(ii)
+            localtion_list_1 = location_list[0].replace("地址","")
+            localtion_list_result = "地理位置："+localtion_list_1.replace(":","")
+        except:
+            localtion_list_result = "地理位置："+"延迟较高"
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read()
+        # 代理端口
+        if "已开启" == proxystatus:
+            proxyport = os.popen('bash /TIP/info_scan/finger.sh proxyipport').read()
+        else:
+            proxyport = "代理服务已关闭"
+        message_json = {
+            "ip_location":localtion_list_result,
+            "proxystatus":str(proxystatus).strip(),
+            "proxyport":"代理端口："+str(proxyport).strip()
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

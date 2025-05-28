@@ -16,6 +16,18 @@ location)
     echo "${locat}"
     ;;
 
+location3)
+    # 根据代理状态判断
+    v2ray_ps=$(ps -aux | grep "v2ray" | wc -l)
+    if (($v2ray_ps > 1)); then
+        locat=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "地址")
+        echo "${locat}"
+    else
+        locat=$(curl cip.cc | grep "地址")
+        echo "${locat}"
+    fi
+    ;;
+
 #IP归属地查询
 location1)
     locat1=$(curl cip.cc/${2} | grep "数据二")
@@ -1925,5 +1937,46 @@ globalwhitefilter)
         cat /TIP/batch_scan_domain/url.txt | grep -v ${n} > /TIP/batch_scan_domain/url_tmp.txt
         mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
     done
+    ;;
+
+# 开启系统代理
+startsystemproxy)
+    # 开启代理
+    nohup /usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json >/dev/null 2>&1 &
+    # 代理生效
+    # rm -rf /etc/profile.d/custom_proxy.sh
+    # echo 'export http_proxy=socks5://127.0.0.1:10808' >> /etc/profile.d/custom_proxy.sh
+    # echo 'export https_proxy="socks5://127.0.0.1:10808' >> /etc/profile.d/custom_proxy.sh
+    # echo 'export ftp_proxy="socks5://127.0.0.1:10808' >> /etc/profile.d/custom_proxy.sh
+    # chmod +x /etc/profile.d/custom_proxy.sh
+    # source /etc/profile.d/custom_proxy.sh
+;;
+
+# 关闭系统代理
+stopsystemproxy)
+    pidd=$(ps -aux | grep "v2ray" | awk -F " " '{print $2}')
+    for ii in ${pidd}; do
+        kill -9 ${ii} 2>/dev/null
+    done
+    # echo '' > /etc/profile.d/custom_proxy.sh
+    # sudo tee /etc/profile.d/custom_proxy.sh >/dev/null <<<''
+    # source /etc/profile.d/custom_proxy.sh
+    # unset http_proxy https_proxy ftp_proxy all_proxy no_proxy
+    ;;
+    
+# 系统代理运行状态
+systemproxystatus)
+    v2ray_ps=$(ps -aux | grep "v2ray" | wc -l)
+    if (($v2ray_ps > 1)); then
+        echo "已开启"
+    else
+        echo "未开启"
+    fi
+;;
+
+# 代理端口
+proxyipport)
+    num=$(netstat -alntp | grep v2ray | awk '{print $4}' |uniq)
+    echo "${num}"
     ;;
 esac
