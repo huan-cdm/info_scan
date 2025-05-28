@@ -4,7 +4,7 @@
  Source Server         : 127.0.0.1
  Source Server Type    : MySQL
  Source Server Version : 80037
- Source Host           : 117.72.16.222:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : vuln_scan_database
 
  Target Server Type    : MySQL
