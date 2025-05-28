@@ -68,8 +68,8 @@ mysql账号密码：admin/123456<br>
 
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：和info_scan放在同一目录<br>
-
-
+<h2>服务器代理配置：</h2>
+https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>集成相关工具：</h2> 
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
