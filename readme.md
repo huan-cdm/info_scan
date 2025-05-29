@@ -543,4 +543,6 @@ c. 识别高危资产，得到高危资产
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/globalwhiteconf5.png" /><br><br>
 代理配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf1.png" />
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf2.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf2.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf3.png" />
+<br><br>
