@@ -3257,8 +3257,12 @@ function opensystemproxyconffunc() {
         method: 'GET',
         success: function (info) {
             // 地理位置
-            document.getElementById('systemproxyid1').innerHTML = info.ip_location;
+            document.getElementById('systemproxyid1').innerHTML = info.ip_location1;
+            document.getElementById('systemproxyid6').innerHTML = info.ip_location2;
+            document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
+            document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
+            
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;
@@ -3289,8 +3293,11 @@ function opensystemproxycontrolfunc() {
 
         success: function (info) {
             // 地理位置
-            document.getElementById('systemproxyid1').innerHTML = info.ip_location;
+            document.getElementById('systemproxyid1').innerHTML = info.ip_location1;
+            document.getElementById('systemproxyid6').innerHTML = info.ip_location2;
+            document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
+            document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;
@@ -3321,8 +3328,11 @@ function stopdownsystemproxycontrolfunc() {
 
         success: function (info) {
             // 地理位置
-            document.getElementById('systemproxyid1').innerHTML = info.ip_location;
+            document.getElementById('systemproxyid1').innerHTML = info.ip_location1;
+            document.getElementById('systemproxyid6').innerHTML = info.ip_location2;
+            document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
+            document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;

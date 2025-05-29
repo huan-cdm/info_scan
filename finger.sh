@@ -1976,7 +1976,47 @@ systemproxystatus)
 
 # 代理端口
 proxyipport)
-    num=$(netstat -alntp | grep v2ray | awk '{print $4}' |uniq)
+    num=$(netstat -alntp | grep "v2ray" | awk '{print $4}' |uniq)
     echo "${num}"
     ;;
+
+# 代理公网IP查询
+proxypublicip)
+    num=$(curl cip.cc --socks5 127.0.0.1:10808 | awk 'NR==1 {print $3}')
+    echo "${num}"
+    ;;
+
+# IP地理位置查询
+# 走代理
+proxyipaddress1)
+    num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "地址" | awk '{print $3}')
+    echo "${num}"
+;;
+
+proxyipaddress2)
+    num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "数据二" | awk '{print $3}')
+    echo "${num}"
+;;
+
+proxyipaddress3)
+    num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "数据三" | awk '{print $3}')
+    echo "${num}"
+;;
+
+# 不走代理
+ipaddress1)
+    num=$(curl cip.cc | grep "地址" | awk '{print $3}')
+    echo "${num}"
+;;
+
+ipaddress2)
+    num=$(curl cip.cc | grep "数据二" | awk '{print $3}')
+    echo "${num}"
+;;
+
+ipaddress3)
+    num=$(curl cip.cc | grep "数据三" | awk '{print $3}')
+    echo "${num}"
+;;
+
 esac
