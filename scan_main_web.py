@@ -5685,6 +5685,14 @@ def largescreenpagedata():
             httpx_status1 = ""
             httpx_status2 = httpx_status
         
+        dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
+        if "running" in dirsearchstatus_result:
+            dirsearchstatus_result1 = dirsearchstatus_result
+            dirsearchstatus_result2 = ""
+        else:
+            dirsearchstatus_result1 = ""
+            dirsearchstatus_result2 = dirsearchstatus_result
+        
         # 汇总报告生成状态
         total_report_status = os.popen('bash /TIP/info_scan/finger.sh totalreport_num').read()
         if int(total_report_status) == 2:
@@ -6255,6 +6263,8 @@ def largescreenpagedata():
             "cdn_status2":cdn_status2,
             "httpx_status1":httpx_status1,
             "httpx_status2":httpx_status2,
+            "dirsearchstatus_result1":dirsearchstatus_result1,
+            "dirsearchstatus_result2":dirsearchstatus_result2,
 
             # 未授权专项扫描状态和耗时
             "redis_status1":redis_status1,

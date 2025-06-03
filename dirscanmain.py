@@ -174,13 +174,19 @@ def dirsearchscanfun():
         statuscode = request.form['statuscode']
         level = request.form['level']
         dict = request.form['dict']
+        
         dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
         if "running" in dirsearchstatus_result:
-
             dirsearch_status_result = "目录扫描程序正在运行中稍后再开启扫描"
         else:
-            os.popen('bash /TIP/info_scan/finger.sh dirsearchscan'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
-            dirsearch_status_result = "目录扫描程序已开启稍后查看结果"
+            # 根据代理服务判断
+            proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+            if "已开启" == proxystatus:
+                os.popen('bash /TIP/info_scan/finger.sh dirsearchscanproxy'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
+                dirsearch_status_result = "目录扫描程序已开启稍后查看结果(已开启代理)"
+            else:
+                os.popen('bash /TIP/info_scan/finger.sh dirsearchscan'+''+' '+filename+''+' '+level+''+' '+statuscode+''+' '+dict+''+' '+thread+'')
+                dirsearch_status_result = "目录扫描程序已开启稍后查看结果(未开启代理)"
         
         message_json = {
             "dirsearch_status_result":dirsearch_status_result

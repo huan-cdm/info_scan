@@ -218,6 +218,10 @@ dirsearchsyncresult)
 dirsearchscan)
     python3 /TIP/info_scan/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb >/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
     ;;
+# 目录扫描启动脚本代理
+dirsearchscanproxy)
+    python3 /TIP/info_scan/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb --proxy socks5://127.0.0.1:10808 >/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+    ;;
 
 #目录扫描原始数量/reports目录下
 dirsearchscancount)
@@ -1943,13 +1947,6 @@ globalwhitefilter)
 startsystemproxy)
     # 开启代理
     nohup /usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json >/dev/null 2>&1 &
-    # 代理生效
-    # rm -rf /etc/profile.d/custom_proxy.sh
-    # echo 'export http_proxy=socks5://127.0.0.1:10808' >> /etc/profile.d/custom_proxy.sh
-    # echo 'export https_proxy="socks5://127.0.0.1:10808' >> /etc/profile.d/custom_proxy.sh
-    # echo 'export ftp_proxy="socks5://127.0.0.1:10808' >> /etc/profile.d/custom_proxy.sh
-    # chmod +x /etc/profile.d/custom_proxy.sh
-    # source /etc/profile.d/custom_proxy.sh
 ;;
 
 # 关闭系统代理
@@ -1958,10 +1955,6 @@ stopsystemproxy)
     for ii in ${pidd}; do
         kill -9 ${ii} 2>/dev/null
     done
-    # echo '' > /etc/profile.d/custom_proxy.sh
-    # sudo tee /etc/profile.d/custom_proxy.sh >/dev/null <<<''
-    # source /etc/profile.d/custom_proxy.sh
-    # unset http_proxy https_proxy ftp_proxy all_proxy no_proxy
     ;;
     
 # 系统代理运行状态
@@ -1986,34 +1979,36 @@ proxypublicip)
     echo "${num}"
     ;;
 
-# IP地理位置查询
-# 走代理
+
+# 通过代理
+# 地理位置1
 proxyipaddress1)
     num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "地址" | awk '{print $3}')
     echo "${num}"
 ;;
-
+# 地理位置2
 proxyipaddress2)
     num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "数据二" | awk '{print $3}')
     echo "${num}"
 ;;
-
+# 地理位置3
 proxyipaddress3)
     num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "数据三" | awk '{print $3}')
     echo "${num}"
 ;;
 
-# 不走代理
+# 不通过代理
+# 地理位置1
 ipaddress1)
     num=$(curl cip.cc | grep "地址" | awk '{print $3}')
     echo "${num}"
 ;;
-
+# 地理位置2
 ipaddress2)
     num=$(curl cip.cc | grep "数据二" | awk '{print $3}')
     echo "${num}"
 ;;
-
+# 地理位置3
 ipaddress3)
     num=$(curl cip.cc | grep "数据三" | awk '{print $3}')
     echo "${num}"

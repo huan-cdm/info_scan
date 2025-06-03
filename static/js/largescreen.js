@@ -81,6 +81,8 @@ function largescreenfunc() {
                 document.getElementById("cdnscanid2").innerHTML = info.cdn_status2;
                 document.getElementById("httpxscanid1").innerHTML = info.httpx_status1;
                 document.getElementById("httpxscanid2").innerHTML = info.httpx_status2;
+                document.getElementById("dirsearchscanid1").innerHTML = info.dirsearchstatus_result1;
+                document.getElementById("dirsearchscanid2").innerHTML = info.dirsearchstatus_result2;
 
                 // 未授权专项扫描状态和耗时
                 document.getElementById("unredisscanid1").innerHTML = info.redis_status1;

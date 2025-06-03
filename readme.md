@@ -93,8 +93,9 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <ul>
 <li>
 2025-5-28更新<br> 
-1.新增系统代理功能，后期会优化；<br>
+1.新增系统代理功能；<br>
 2.已知问题处理与优化；<br>
+3.目录扫描功能已配置代理功能，其他扫描器正在逐步完善；<br>
 </li>
 <li>
 2025-5-15更新<br> 
