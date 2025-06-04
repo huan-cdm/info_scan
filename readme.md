@@ -96,6 +96,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 1.新增系统代理功能；<br>
 2.已知问题处理与优化；<br>
 3.目录扫描功能已配置代理功能，其他扫描器正在逐步完善；<br>
+4.新增代理轮切功能，每次启动代理服务随机选中代理节点；<br>
 </li>
 <li>
 2025-5-15更新<br> 
@@ -545,5 +546,4 @@ c. 识别高危资产，得到高危资产
 代理配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf1.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf2.png" />
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf3.png" />
 <br><br>

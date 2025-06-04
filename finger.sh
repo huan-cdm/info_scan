@@ -1946,7 +1946,8 @@ globalwhitefilter)
 # 开启系统代理
 startsystemproxy)
     # 开启代理
-    nohup /usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json >/dev/null 2>&1 &
+    # nohup /usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json >/dev/null 2>&1 &
+    nohup /usr/local/bin/v2ray run -config $2 >/dev/null 2>&1 &
 ;;
 
 # 关闭系统代理
@@ -2011,6 +2012,12 @@ ipaddress2)
 # 地理位置3
 ipaddress3)
     num=$(curl cip.cc | grep "数据三" | awk '{print $3}')
+    echo "${num}"
+;;
+
+# 系统代理配置文件数量
+systemproxyconfignum)
+    num=$(ls /usr/local/etc/v2ray/ | wc -l)
     echo "${num}"
 ;;
 

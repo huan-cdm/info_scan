@@ -32,9 +32,9 @@ from config import tomcat_rule
 from config import finger_list
 from config  import rule_options
 from config import dict
-from basic import select_rule
 import psutil
 import pymysql
+import uuid
 
 
 # 导入时间模块
@@ -6549,7 +6549,11 @@ def startsystemproxyconf():
         if "已开启" == str(proxystatus):
             print("请勿重复提交")
         else:
-            os.popen('bash /TIP/info_scan/finger.sh startsystemproxy')
+            # 替换为代理配置文件目录
+            directory = "/usr/local/etc/v2ray"
+            selected_file = basic.random_file(directory)
+            selected_file_str = str(selected_file)
+            os.popen('bash /TIP/info_scan/finger.sh startsystemproxy'+' '+selected_file_str)
 
         # 代理IP端口
         if "已开启" == proxystatus:
@@ -6706,6 +6710,49 @@ def stopdownsystemproxyconf():
             "proxystatus":str(proxystatus).strip(),
             "proxyport":"本地代理："+str(proxyport).strip(),
             "public_ip_result":"公网地址："+public_ip_result
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 上传系统代理配置文件
+@app.route('/proxyconfigfileupload/', methods=['POST'])
+def proxyconfigfileupload():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 获取上传的文件
+        file = request.files.get('file')
+        if not file:
+            return jsonify({'success': False, 'message': '未上传文件'})
+        # 生成随机文件名
+        random_filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
+        # 保存文件到指定目录，/usr/local/etc/v2ray为v2ray配置文件目录，可存在多个文件，每次启动前随机选中一个
+        try:
+            file.save(f'/usr/local/etc/v2ray/{random_filename}')
+            return jsonify({'success': True, 'message': '文件上传成功'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'文件保存失败：{str(e)}'})
+    else:
+        return render_template('login.html')
+    
+
+
+# 删除系统代理配置文件
+@app.route("/deleteproxyconfigfile/",methods=['GET'])
+def deleteproxyconfigfile():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 删除系统代理配置文件
+        os.popen('rm -rf /usr/local/etc/v2ray/*')
+        # 判断是否删除成功
+        configfile_num = os.popen('bash /TIP/info_scan/finger.sh systemproxyconfignum').read()
+        if int(configfile_num) == 0:
+            delete_result = "配置文件已清空"
+        else:
+            delete_result = "配置文件清空失败"
+        message_json = {
+            "delete_result":delete_result
         }
         return jsonify(message_json)
     else:

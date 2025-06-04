@@ -943,35 +943,56 @@
                             </td>
                         </tr>
                     </table>
-                    
+
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span id="systemproxyid4"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span id="systemproxyid5"></span>
+                    <table border="1">
+                        <tr>
+                            <td><span id="systemproxyid4"></span></td>
+                            <td><span id="systemproxyid5"></span></td>
+                        </tr>
+                    </table>
+
                 </td>
             </tr>
 
+
             <tr>
                 <td>
-                    <strong style="color: chocolate;">代理开关</strong>
-                    &nbsp;
-                    <!-- 资产校验开关显示 -->
-                    <span id="systemproxyid2" class="status-circle"></span>
-                    <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
-                    <br><br>
-                    <button class="button edit-button" onclick="opensystemproxycontrolfunc()">开启</button>
-                    <button class="button delete-button" onclick="stopdownsystemproxycontrolfunc()">关闭</button>
-                    <button class="button edit-button" onclick="opensystemproxyconffunc()">刷新</button>
+
+                    <table border="1">
+                        <tr>
+                            <td>
+                                <strong style="color: chocolate;">代理开关</strong>
+                                &nbsp;
+                                <!-- 资产校验开关显示 -->
+                                <span id="systemproxyid2" class="status-circle"></span>
+                                <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                                <br><br>
+                                <button class="button edit-button" onclick="opensystemproxycontrolfunc()">开启</button>
+                                <button class="button delete-button"
+                                    onclick="stopdownsystemproxycontrolfunc()">关闭</button>
+                                <button class="button edit-button" onclick="opensystemproxyconffunc()">刷新</button>
+                            </td>
+                            <td>
+                                <span>1.配置文件建议从Windows版本导出*.json文件;</span><br>
+                                <span>2.遇到代理失效情况需清空配置文件重新上传;</span><br>
+                                <span>3.可上传多个配置文件每次启动代理随机选中节点;</span><br>
+                                <br>
+                                <input type="file" class="configfileupload" id="fileuploadid1">
+                                <button class="button delete-button" onclick="proxyfileuploadfunc()">上传</button>
+                                <button class="button delete-button" onclick="deletesystemproxyfilefunc()">清空</button><br>
+                                <span id="fileuploadid2"></span>
+
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
 
-        
+
     </div>
 </div>

@@ -3213,7 +3213,7 @@ function closewhiteupwindowsfunc() {
     myModa19.style.display = "none";
     var globalwhiteconfigid4 = document.getElementById("globalwhiteconfigid4");
     globalwhiteconfigid4.style.display = "none";
-    
+
 }
 
 // 新增全局白名单
@@ -3246,6 +3246,7 @@ function addglobalwhiteconffunc() {
 function closesystemproxyfunc() {
     var myModa20 = document.getElementById("myModa20");
     myModa20.style.display = "none";
+    document.getElementById('fileuploadid2').innerHTML = "";
 }
 
 // 打开系统代理配置页面
@@ -3262,7 +3263,7 @@ function opensystemproxyconffunc() {
             document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
             document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
-            
+
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;
@@ -3350,6 +3351,55 @@ function stopdownsystemproxycontrolfunc() {
         error: function () {
             const statusElement1 = document.getElementById('systemproxyid2');
             statusElement1.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 配置文件上传
+function proxyfileuploadfunc() {
+    // 获取文件选择框中的文件
+    const fileInput = document.getElementById('fileuploadid1');
+    const file = fileInput.files[0];
+
+    // 创建 FormData 对象，用于封装文件数据
+    const formData = new FormData();
+    formData.append('file', file);
+    $.ajax({
+        url: '/proxyconfigfileupload/',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // 请求成功
+            if (response.success) {
+                document.getElementById('fileuploadid2').innerHTML = "文件上传成功！";
+            } else {
+                document.getElementById('fileuploadid2').innerHTML = "文件上传失败：" + response.message;
+
+            }
+        },
+        error: function (xhr, status, error) {
+            // 请求失败
+            document.getElementById('fileuploadid2').innerHTML = "文件上传发生错误：" + error;
+        }
+    });
+}
+
+// 删除系统代理配置文件
+function deletesystemproxyfilefunc() {
+    $.ajax({
+        url: '/deleteproxyconfigfile/',
+        method: 'GET',
+        success: function (info) {
+            document.getElementById("fileuploadid2").innerHTML = info.delete_result;
+        },
+
+        error: function () {
+            document.getElementById("fileuploadid2").innerHTML = "内部出错";
+        },
+        complete: function () {
+
         }
     })
 }

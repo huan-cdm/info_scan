@@ -766,6 +766,7 @@ body {
 	/* 边框颜色 */
 }
 
+
 .delete-button {
 	color: #ffffff;
 	/* 文字颜色 */
@@ -938,3 +939,18 @@ body {
 	font-weight: 900;
 	color: #35a5e5;
 }
+
+/* 配置文件上传 */
+.configfileupload{
+	transition: all 0.30s ease-in-out;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	border: #35a5e5 3px solid;
+	border-radius: 3px;
+	outline: none;
+	font-weight: 300;
+	padding: 8px 5px;
+	color: #ff7f00;
+	width: 150px;
+}
+

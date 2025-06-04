@@ -3894,6 +3894,30 @@ def global_white_conf_lib():
     return whiteconf_list
 
 
+# 随机抽取文件名
+def random_file(directory):
+    """
+    从指定目录中随机选取一个文件
+    :param directory: 指定的目录路径
+    :return: 随机选取的文件的完整路径
+    """
+    # 获取目录中的所有文件和文件夹
+    files_and_dirs = os.listdir(directory)
+    
+    # 过滤出文件（排除文件夹）
+    files = [f for f in files_and_dirs if os.path.isfile(os.path.join(directory, f))]
+    
+    if not files:
+        raise FileNotFoundError("指定目录中没有文件")
+    
+    # 随机选取一个文件
+    random_file_name = random.choice(files)
+    
+    # 返回文件的完整路径
+    return os.path.join(directory, random_file_name)
+
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         func_name = sys.argv[1]
