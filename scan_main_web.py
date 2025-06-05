@@ -6525,14 +6525,16 @@ def showsystemproxyconf():
                 proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
-
+        # 代理节点数量
+        proxynodenum = os.popen('bash /TIP/info_scan/finger.sh systemproxyconfignum').read()
         message_json = {
             "ip_location1":str(proxyaddresslocat111),
             "ip_location2":str(proxyaddresslocat222),
             "ip_location3":str(proxyaddresslocat333),
             "proxystatus":str(proxystatus).strip(),
             "proxyport":"本地代理："+str(proxyport).strip(),
-            "public_ip_result":"公网地址："+public_ip_result
+            "public_ip_result":"公网地址："+public_ip_result,
+            "proxynode_num":"节点数："+str(proxynodenum)+"个"
         }
         return jsonify(message_json)
     else:

@@ -54,7 +54,7 @@ mysql账号密码：admin/123456<br>
 2. 修改/TIP/info_scan/static/js/common.js、/TIP/info_scan/static/js/dirsearchcommon.js、/TIP/info_scan/finger.sh文件第一行和第二行修改为自己服务器的IP地址<br>
 3. 系统启动参数：bash /TIP/info_scan/server_check.sh -h，nginx和mysql服务开机自启，如未开启成功，需执行service nginx start和service mysql start开启服务<br>
 4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己服务器的IP地址，重启nginx服务器<br>
-5. 入口地址：http://服务器IP:19999/index/<br>
+5. 入口地址：(http://服务器IP:19999/index/)<br>
 
 ##### 便携版下载链接
 - [info_scan_2025.01](https://pan.quark.cn/s/81003c01a616#/list/share)：2025.01.07更新，夸克网盘。
@@ -68,8 +68,7 @@ mysql账号密码：admin/123456<br>
 
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
 - [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：和info_scan放在同一目录<br>
-<h2>服务器代理配置：</h2>
-https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
+
 <h2>集成相关工具：</h2> 
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
@@ -88,15 +87,20 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 2. sudo htpasswd -c /etc/nginx/htpasswd username #按照提示输入密码，username是你想要添加的用户名<br>
 3. cp info_scan/nginx_conf/nginx_401.conf /etc/nginx/conf.d/ #将项目中关于401认证的配置文件复制到nginx自定义目录下，/etc/nginx/conf.d/目录会通过nginx.conf加载<br>
 4. service nginx restart #重启服务生效<br>
+<h2>服务器代理配置：</h2>
+https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
+
 
 <h2>更新日志：</h2>
 <ul>
 <li>
-2025-5-28更新<br> 
+2025-6-1更新<br> 
 1.新增系统代理功能；<br>
 2.已知问题处理与优化；<br>
-3.目录扫描功能已配置代理功能，其他扫描器正在逐步完善；<br>
+3.目录扫描和指纹识别已配置代理功能，；<br>
 4.新增代理轮切功能，每次启动代理服务随机选中代理节点；<br>
+5.新增代理节点数量查询；<br>
+6.其他扫描器正在逐步完善；<br>
 </li>
 <li>
 2025-5-15更新<br> 

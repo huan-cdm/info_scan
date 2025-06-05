@@ -3263,7 +3263,7 @@ function opensystemproxyconffunc() {
             document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
             document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
-
+            document.getElementById('systemproxyid8').innerHTML = info.proxynode_num;
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;
@@ -3299,6 +3299,7 @@ function opensystemproxycontrolfunc() {
             document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
             document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
+            
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;

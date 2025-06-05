@@ -387,9 +387,13 @@ killstruts2process)
     done
     ;;
 
-# EHole指纹识别
+# EHole指纹识别（未启动代理）
 ehole_finger_scan)
     /TIP/info_scan/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
+    ;;
+# EHole指纹识别（启动代理）
+ehole_finger_scan_proxy)
+    /TIP/info_scan/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt -p socks5://127.0.0.1:10808 | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
     ;;
 
 # BBScan敏感信息扫描

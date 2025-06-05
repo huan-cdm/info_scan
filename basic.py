@@ -1647,17 +1647,28 @@ def startbbscan_lib():
     return bbscan_status_result
 
 
+# 指纹识别
 def startechole_lib():
     finger_status = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
     if "running" in finger_status:
         finger_status_result = "EHole程序正在运行中请勿重复提交"
     else:
-        # 执行指纹识别扫描
-        os.popen('bash /TIP/info_scan/finger.sh ehole_finger_scan')
-        if "running" in finger_status:
-            finger_status_result = "指纹识别程序已启动稍后查看扫描结果"
+        # 根据代理服务判断
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+        if "已开启" == proxystatus:
+            # 开启代理指纹识别
+            os.popen('bash /TIP/info_scan/finger.sh ehole_finger_scan_proxy')
+            if "running" in finger_status:
+                finger_status_result = "指纹识别程序已启动稍后查看扫描结果(已开启代理)"
+            else:
+                finger_status_result = "指纹识别程序正在后台启动中(已开启代理)......"
         else:
-            finger_status_result = "指纹识别程序正在后台启动中......"
+            # 未开启代理指纹识别
+            os.popen('bash /TIP/info_scan/finger.sh ehole_finger_scan')
+            if "running" in finger_status:
+                finger_status_result = "指纹识别程序已启动稍后查看扫描结果(未开启代理)"
+            else:
+                finger_status_result = "指纹识别程序正在后台启动中(未开启代理)......"
     return finger_status_result
 
 
