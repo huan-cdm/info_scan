@@ -1985,39 +1985,19 @@ proxypublicip)
     ;;
 
 
-# 通过代理
-# 地理位置1
-proxyipaddress1)
-    num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "地址" | awk '{print $3}')
-    echo "${num}"
-;;
-# 地理位置2
-proxyipaddress2)
-    num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "数据二" | awk '{print $3}')
-    echo "${num}"
-;;
-# 地理位置3
-proxyipaddress3)
-    num=$(curl cip.cc --socks5 127.0.0.1:10808 | grep "数据三" | awk '{print $3}')
+
+# 系统代理信息（经过代理）
+proxyaddressyouhua)
+    num=$(curl cip.cc --socks5 127.0.0.1:10808 | awk '{print $3}')
     echo "${num}"
 ;;
 
-# 不通过代理
-# 地理位置1
-ipaddress1)
-    num=$(curl cip.cc | grep "地址" | awk '{print $3}')
+# 系统代理信息（不经过代理）
+addressyouhua)
+    num=$(curl cip.cc  | awk '{print $3}')
     echo "${num}"
 ;;
-# 地理位置2
-ipaddress2)
-    num=$(curl cip.cc | grep "数据二" | awk '{print $3}')
-    echo "${num}"
-;;
-# 地理位置3
-ipaddress3)
-    num=$(curl cip.cc | grep "数据三" | awk '{print $3}')
-    echo "${num}"
-;;
+
 
 # 系统代理配置文件数量
 systemproxyconfignum)

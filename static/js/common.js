@@ -3246,7 +3246,9 @@ function addglobalwhiteconffunc() {
 function closesystemproxyfunc() {
     var myModa20 = document.getElementById("myModa20");
     myModa20.style.display = "none";
+    // 清空前端选中的值
     document.getElementById('fileuploadid2').innerHTML = "";
+    document.getElementById('fileuploadid1').value = "";
 }
 
 // 打开系统代理配置页面
@@ -3361,7 +3363,7 @@ function proxyfileuploadfunc() {
     // 获取文件选择框中的文件
     const fileInput = document.getElementById('fileuploadid1');
     const file = fileInput.files[0];
-
+    // 文件上传格式校验通过后端进行校验
     // 创建 FormData 对象，用于封装文件数据
     const formData = new FormData();
     formData.append('file', file);

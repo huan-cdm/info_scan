@@ -3928,6 +3928,28 @@ def random_file(directory):
     return os.path.join(directory, random_file_name)
 
 
+# 获取代理后ip地理位置
+def get_ip_proxy_location_yh_lib(part):
+    ip_location_list = []
+    if int(part) == 0:
+        proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyaddressyouhua"], stderr=subprocess.DEVNULL)
+    elif int(part) == 1:
+        proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","addressyouhua"], stderr=subprocess.DEVNULL)
+    # 将字节串解码为字符串
+    output_str = proxyaddresslocat1.decode('utf-8')
+    
+    # 去除空行并分割成列表
+    output_lines = [line.strip() for line in output_str.splitlines() if line.strip()]
+    
+    # 打印处理后的结果
+    for line in output_lines:
+        ip_location_list.append(line)
+    return ip_location_list
+
+
+
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -3950,10 +3972,8 @@ if __name__ == "__main__":
             withdrawiplocation_lib()
 
         # 测试使用
-        elif func_name == 'refresh_random_subdomain_lib':
-            refresh_random_subdomain_lib()
-        elif func_name == 'get_random_subdomain_lib':
-            c= get_random_subdomain_lib()
+        elif func_name == 'get_ip_proxy_location_yh_lib':
+            c = get_ip_proxy_location_yh_lib()
             print(c)
         else:
             print("Invalid function number")

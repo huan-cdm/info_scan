@@ -6467,62 +6467,57 @@ def showsystemproxyconf():
         proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
         # 代理IP和端口
         if "已开启" == proxystatus:
+            proxyaddresslocation = basic.get_ip_proxy_location_yh_lib(0)
             # 代理公网地址位置1
             try:
-                proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress1"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat11 = proxyaddresslocat1.decode().splitlines()
-                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocat11[0])
+                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocation[1])
             except:
                 proxyaddresslocat111 = "地理位置1："+"延迟较高"
 
             # 代理公网地址位置2
             try:
-                proxyaddresslocat2 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress2"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat22 = proxyaddresslocat2.decode().splitlines()
-                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocat22[0])
+                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocation[2])
             except:
                 proxyaddresslocat222 = "地理位置2："+"延迟较高"
 
             # 代理公网地址位置3
             try:
-                proxyaddresslocat3 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress3"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat33 = proxyaddresslocat3.decode().splitlines()
-                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
+                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
-
-            
+                            
             # 本地代理
             proxyport = os.popen('bash /TIP/info_scan/finger.sh proxyipport').read().splitlines()[0]
-            # 公网地址
-            public_ip = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxypublicip"], stderr=subprocess.DEVNULL)
-            public_ip1 = public_ip.decode().splitlines()
-            public_ip_result = str(public_ip1[0])
+
+            # 公网出口地址
+            try:
+                public_ip_result = proxyaddresslocation[0]
+            except:
+                public_ip_result = "延迟较高"
         else:
             proxyport = "代理服务已关闭"
-            public_ip_result = "代理服务已关闭"
 
+            noproxyaddresslocation = basic.get_ip_proxy_location_yh_lib(1)
+            # 公网出口地址
+            try:
+                public_ip_result = noproxyaddresslocation[0]
+            except:
+                public_ip_result = "延迟较高"
             # 公网地址位置1
             try:
-                proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress1"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat11 = proxyaddresslocat1.decode().splitlines()
-                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocat11[0])
+                proxyaddresslocat111 = "地理位置1："+str(noproxyaddresslocation[1])
             except:
                 proxyaddresslocat111 = "地理位置1："+"延迟较高"
 
             # 公网地址位置2
             try:
-                proxyaddresslocat2 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress2"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat22 = proxyaddresslocat2.decode().splitlines()
-                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocat22[0])
+                proxyaddresslocat222 = "地理位置2："+str(noproxyaddresslocation[2])
             except:
                 proxyaddresslocat222 = "地理位置2："+"延迟较高"
 
             # 公网地址位置3
             try:
-                proxyaddresslocat3 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress3"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat33 = proxyaddresslocat3.decode().splitlines()
-                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
+                proxyaddresslocat333 = "地理位置3："+str(noproxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
         # 代理节点数量
@@ -6560,59 +6555,53 @@ def startsystemproxyconf():
         # 代理IP端口
         if "已开启" == proxystatus:
             proxyport = os.popen('bash /TIP/info_scan/finger.sh proxyipport').read().splitlines()[0]
-            public_ip = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxypublicip"], stderr=subprocess.DEVNULL)
-            public_ip1 = public_ip.decode().splitlines()
-            public_ip_result = str(public_ip1[0])
-
+            
+            proxyaddresslocation = basic.get_ip_proxy_location_yh_lib(0)
+            public_ip_result = proxyaddresslocation[0]
+            
             # 代理公网地址位置1
             try:
-                proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress1"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat11 = proxyaddresslocat1.decode().splitlines()
-                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocat11[0])
+                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocation[1])
             except:
                 proxyaddresslocat111 = "地理位置1："+"延迟较高"
 
             # 代理公网地址位置2
             try:
-                proxyaddresslocat2 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress2"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat22 = proxyaddresslocat2.decode().splitlines()
-                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocat22[0])
+                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocation[2])
             except:
                 proxyaddresslocat222 = "地理位置2："+"延迟较高"
 
             # 代理公网地址位置3
             try:
-                proxyaddresslocat3 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress3"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat33 = proxyaddresslocat3.decode().splitlines()
-                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
+                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
         else:
             proxyport = "代理服务已关闭"
-            public_ip_result = "代理服务已关闭"
+            noproxyaddresslocation = basic.get_ip_proxy_location_yh_lib(1)
             # 公网地址位置1
             try:
-                proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress1"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat11 = proxyaddresslocat1.decode().splitlines()
-                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocat11[0])
+                proxyaddresslocat111 = "地理位置1："+str(noproxyaddresslocation[1])
             except:
                 proxyaddresslocat111 = "地理位置1："+"延迟较高"
 
             # 公网地址位置2
             try:
-                proxyaddresslocat2 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress2"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat22 = proxyaddresslocat2.decode().splitlines()
-                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocat22[0])
+                proxyaddresslocat222 = "地理位置2："+str(noproxyaddresslocation[2])
             except:
                 proxyaddresslocat222 = "地理位置2："+"延迟较高"
 
             # 公网地址位置3
             try:
-                proxyaddresslocat3 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress3"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat33 = proxyaddresslocat3.decode().splitlines()
-                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
+                proxyaddresslocat333 = "地理位置3："+str(noproxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
+            
+            # 公网地址
+            try:
+                public_ip_result = noproxyaddresslocation[0]
+            except:
+                public_ip_result = "延迟较高"
         # proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read()
             
         message_json = {
@@ -6655,55 +6644,51 @@ def stopdownsystemproxyconf():
             public_ip = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxypublicip"], stderr=subprocess.DEVNULL)
             public_ip1 = public_ip.decode().splitlines()
             public_ip_result = str(public_ip1[0])
+
+            proxyaddresslocation = basic.get_ip_proxy_location_yh_lib(0)
             # 代理公网地址位置1
             try:
-                proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress1"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat11 = proxyaddresslocat1.decode().splitlines()
-                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocat11[0])
+                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocation[1])
             except:
                 proxyaddresslocat111 = "地理位置1："+"延迟较高"
 
             # 代理公网地址位置2
             try:
-                proxyaddresslocat2 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress2"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat22 = proxyaddresslocat2.decode().splitlines()
-                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocat22[0])
+                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocation[2])
             except:
                 proxyaddresslocat222 = "地理位置2："+"延迟较高"
 
             # 代理公网地址位置3
             try:
-                proxyaddresslocat3 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","proxyipaddress3"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat33 = proxyaddresslocat3.decode().splitlines()
-                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
+                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
         else:
             proxyport = "代理服务已关闭"
-            public_ip_result = "代理服务已关闭"
+            noproxyaddresslocation = basic.get_ip_proxy_location_yh_lib(1)
             # 公网地址位置1
             try:
-                proxyaddresslocat1 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress1"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat11 = proxyaddresslocat1.decode().splitlines()
-                proxyaddresslocat111 = "地理位置1："+str(proxyaddresslocat11[0])
+                proxyaddresslocat111 = "地理位置1："+str(noproxyaddresslocation[1])
             except:
                 proxyaddresslocat111 = "地理位置1："+"延迟较高"
 
             # 公网地址位置2
             try:
-                proxyaddresslocat2 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress2"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat22 = proxyaddresslocat2.decode().splitlines()
-                proxyaddresslocat222 = "地理位置2："+str(proxyaddresslocat22[0])
+                proxyaddresslocat222 = "地理位置2："+str(noproxyaddresslocation[2])
             except:
                 proxyaddresslocat222 = "地理位置2："+"延迟较高"
 
             # 公网地址位置3
             try:
-                proxyaddresslocat3 = subprocess.check_output(["bash", "/TIP/info_scan/finger.sh","ipaddress3"], stderr=subprocess.DEVNULL)
-                proxyaddresslocat33 = proxyaddresslocat3.decode().splitlines()
-                proxyaddresslocat333 = "地理位置3："+str(proxyaddresslocat33[0])
+                proxyaddresslocat333 = "地理位置3："+str(noproxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
+                
+            # 公网地址
+            try:
+                public_ip_result = noproxyaddresslocation[0]
+            except:
+                public_ip_result = "延迟较高"
             
         message_json = {
             "ip_location1":str(proxyaddresslocat111),
@@ -6727,6 +6712,12 @@ def proxyconfigfileupload():
         file = request.files.get('file')
         if not file:
             return jsonify({'success': False, 'message': '未上传文件'})
+        
+        # 后端校验文件上传格式只能为json格式
+        file_extension = os.path.splitext(file.filename)[1].lower()
+        if file_extension != '.json':
+            return jsonify({'success': False, 'message': '禁止上传'+file_extension+'格式，仅支持.json格式'})
+        
         # 生成随机文件名
         random_filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
         # 保存文件到指定目录，/usr/local/etc/v2ray为v2ray配置文件目录，可存在多个文件，每次启动前随机选中一个
