@@ -12,11 +12,15 @@ infoscan-自动化漏洞扫描系统-目录扫描模块（2025.05.15更新）
   </tr>
   <tr>
     <td>V0.2-V0.4</td>
-	<td>V0.1</td>
+	  <td>V0.1</td>
   </tr>
   <tr>
     <td>V0.4.1</td>
-	<td>V0.1.1</td>
+	  <td>V0.1.1</td>
+  </tr>
+  <tr>
+    <td>V0.4.2</td>
+	  <td>V0.1.2</td>
   </tr>
 </table>
 
@@ -24,6 +28,7 @@ infoscan-自动化漏洞扫描系统-目录扫描模块（2025.05.15更新）
 2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
 ①. 下载镜像：<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.2（2025.6.11更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1（2025.4.24更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.1.16更新）<br>
 ②. 启动容器：<br>
@@ -32,18 +37,19 @@ docker run -d --name mysql -it --network info_scan_network registry.cn-hangzhou.
 ④. 启动mysql：service  mysql start<br>
 4.平台环境：<br>
 ①. 下载镜像：<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.2（2025.6.11更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.1（2025.4.24更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4（2025.4.10更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更新）<br>
 docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（2025.1.20更新）<br>
-②. 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4 /bin/bash<br>
+②. 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.2 /bin/bash<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
 ④. 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js、/TIP/info_scan/static/js/dirsearchcommon.js<br>
 ⑤. 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
 ⑥. 查看平台服务运行状态：bash /TIP/info_scan/server_check.sh status<br>
 ⑦. 入口地址：http://ip:19999/index/<br>
-⑧. *注意：（一定要配置相关参数，否则系统部分功能无法使用）配置位置：鼠标放到用户名处，系统配置-账号配置，系统默认情况下配置完自动重启生效，如果未生效，需点击重启按钮。<br>
-
+⑧. *注意：（一定要配置相关参数，否则系统部分功能无法使用）配置位置：鼠标放到用户名处，系统配置-账号配置，系统默认情况下配置完自动重启生效，如果未生效，需点击重启按钮<br>
+⑨. docker版本目前代理功能无法正常使用，其余功能都正常<br>
 
 <h2>便携版本安装（暂停维护）：</h2>
 Linux服务器账号密码：huan/admin@123<br>
@@ -98,6 +104,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 1.系统代理功能优化；<br>
 2.已知问题处理与优化；<br>
 3.文件上传后端白名单校验；<br>
+4.更新docker版本；<br>
 </li>
 <li>
 2025-6-1更新<br> 
