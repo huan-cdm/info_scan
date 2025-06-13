@@ -247,7 +247,6 @@ thresholdvaluefilter)
     done
     ;;
 
-
 #报告过滤黑名单同步
 blacklistsyncshell)
     num=$(cat /TIP/info_scan/result/filterdirsearchblack.txt | wc -l)
@@ -1872,7 +1871,7 @@ dictsize)
 
 # 开启shodan资产收集
 startshodanasset)
-    python3 /TIP/info_scan/basic.py assets_college_shodan_lib $2 $3 $4 > /dev/null 2>&1 &
+    python3 /TIP/info_scan/basic.py assets_college_shodan_lib $2 $3 $4 >/dev/null 2>&1 &
     ;;
 
 shodanassetstatus)
@@ -1897,23 +1896,23 @@ mysql_server_status)
 # 目录扫描子系统
 # 原始日志数量
 deleteoriginlognum)
-originnum=$(ls /TIP/info_scan/dirsearch/reports/ | wc -l)
+    originnum=$(ls /TIP/info_scan/dirsearch/reports/ | wc -l)
     if (($originnum == 0)); then
         echo "已删除原始日志"
     else
         echo "原始日志正在删除中"
     fi
-;;
+    ;;
 
 # 分析日志数量
 deletefenxilognum)
-fenxinum=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | wc -l)
+    fenxinum=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | wc -l)
     if (($fenxinum == 0)); then
         echo "已删除分析日志"
     else
         echo "分析日志正在删除中"
     fi
-;;
+    ;;
 
 # 最初原始日志数量
 beginoriginlognum)
@@ -1923,13 +1922,13 @@ beginoriginlognum)
 
 # 同步后原始日志数量
 rsyncriginlognum)
-num=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep "http" | wc -l)
+    num=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep "http" | wc -l)
     echo "${num}"
     ;;
 
 # 同步白名单
 rsynoriginlogscript)
-    data1=`cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep $2`
+    data1=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep $2)
     echo "$data1"
     ;;
 
@@ -1942,7 +1941,7 @@ global_white_num)
 # 全局白名单过滤
 globalwhitefilter)
     for n in $(cat /TIP/info_scan/result/globalwhiteconfig.txt); do
-        cat /TIP/batch_scan_domain/url.txt | grep -v ${n} > /TIP/batch_scan_domain/url_tmp.txt
+        cat /TIP/batch_scan_domain/url.txt | grep -v ${n} >/TIP/batch_scan_domain/url_tmp.txt
         mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
     done
     ;;
@@ -1952,7 +1951,7 @@ startsystemproxy)
     # 开启代理
     # nohup /usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json >/dev/null 2>&1 &
     nohup /usr/local/bin/v2ray run -config $2 >/dev/null 2>&1 &
-;;
+    ;;
 
 # 关闭系统代理
 stopsystemproxy)
@@ -1961,7 +1960,7 @@ stopsystemproxy)
         kill -9 ${ii} 2>/dev/null
     done
     ;;
-    
+
 # 系统代理运行状态
 systemproxystatus)
     v2ray_ps=$(ps -aux | grep "v2ray" | wc -l)
@@ -1970,11 +1969,11 @@ systemproxystatus)
     else
         echo "未开启"
     fi
-;;
+    ;;
 
 # 代理端口
 proxyipport)
-    num=$(netstat -alntp | grep "v2ray" | awk '{print $4}' |uniq)
+    num=$(netstat -alntp | grep "v2ray" | awk '{print $4}' | uniq)
     echo "${num}"
     ;;
 
@@ -1984,25 +1983,53 @@ proxypublicip)
     echo "${num}"
     ;;
 
-
-
 # 系统代理信息（经过代理）
 proxyaddressyouhua)
     num=$(curl cip.cc --socks5 127.0.0.1:10808 | awk '{print $3}')
     echo "${num}"
-;;
+    ;;
 
 # 系统代理信息（不经过代理）
 addressyouhua)
-    num=$(curl cip.cc  | awk '{print $3}')
+    num=$(curl cip.cc | awk '{print $3}')
     echo "${num}"
-;;
-
+    ;;
 
 # 系统代理配置文件数量
 systemproxyconfignum)
     num=$(ls /usr/local/etc/v2ray/ | wc -l)
     echo "${num}"
-;;
+    ;;
+
+# 上传附件为zip时执行的逻辑
+file_zip_oper)
+    cd /usr/local/etc/v2ray/
+    unzip -o /usr/local/etc/v2ray/*.zip -d /usr/local/etc/v2ray/
+    # 解压后的文件移动到/usr/local/etc/v2ray/目录下
+    mv /usr/local/etc/v2ray/*/* /usr/local/etc/v2ray/
+    # 删除压缩包
+    rm -rf /usr/local/etc/v2ray/*.zip
+    # 删除/usr/local/etc/v2ray目录下的所有子目录
+    find /usr/local/etc/v2ray -mindepth 1 -type d -exec rm -rf {} +
+    # 删除/usr/local/etc/v2ray/目录下的除了.json后缀的所有文件
+    find /usr/local/etc/v2ray -type f ! -name "*.json" -exec rm -f {} \;
+
+    # UUDI文件重命名
+    python3 /TIP/info_scan/basic.py filerename_lib
+    # 文件重命名
+    # /usr/local/etc/v2ray/目录下的所有文件UUID随机重命名
+    # cd /usr/local/etc/v2ray
+    # for file in *; do
+    #     if [ -f "$file" ]; then             # 确保是文件，而不是目录
+    #         ext="${file##*.}"               # 获取文件扩展名（如果有）
+    #         new_name=$(uuidgen | tr -d '-') # 生成随机 UUID 并去掉短横线
+    #         if [[ "$file" != *.* ]]; then
+    #             ext="" # 如果原文件没有扩展名，则不添加
+    #         fi
+    #         mv -v "$file" "${new_name}${ext:+.$ext}" # 重命名
+    #     fi
+    # done
+
+    ;;
 
 esac

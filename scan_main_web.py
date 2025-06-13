@@ -6704,6 +6704,7 @@ def stopdownsystemproxyconf():
 
 
 # 上传系统代理配置文件
+'''
 @app.route('/proxyconfigfileupload/', methods=['POST'])
 def proxyconfigfileupload():
     user = session.get('username')
@@ -6728,7 +6729,50 @@ def proxyconfigfileupload():
             return jsonify({'success': False, 'message': f'文件保存失败：{str(e)}'})
     else:
         return render_template('login.html')
-    
+'''  
+
+@app.route('/proxyconfigfileupload/', methods=['POST'])
+def proxyconfigfileupload():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 获取上传的文件
+        file = request.files.get('file')
+        if not file:
+            return jsonify({'success': False, 'message': '未上传文件'})
+        
+        # 后端校验文件上传格式只能为json格式
+        file_extension = os.path.splitext(file.filename)[1].lower()
+        if file_extension not in ['.json','.zip']:
+            return jsonify({'success': False, 'message': '禁止上传'+file_extension+'格式，仅支持.json和.zip格式'})
+        else:
+            # 上传文件类型为.json
+            if file_extension == '.json':
+                # 生成随机文件名
+                random_filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
+                print(random_filename)
+                # 保存文件到指定目录，/usr/local/etc/v2ray为v2ray配置文件目录，可存在多个文件，每次启动前随机选中一个
+                try:
+                    file.save(f'/usr/local/etc/v2ray/{random_filename}')
+                    return jsonify({'success': True, 'message': '文件上传成功'})
+                except Exception as e:
+                    return jsonify({'success': False, 'message': f'文件保存失败：{str(e)}'})
+            elif file_extension == '.zip':
+                # 生成随机文件名
+                random_filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
+                
+                # 保存文件到指定目录，/usr/local/etc/v2ray为v2ray配置文件目录，可存在多个文件，每次启动前随机选中一个
+                try:
+                    file.save(f'/usr/local/etc/v2ray/{random_filename}')
+                    os.popen('bash /TIP/info_scan/finger.sh file_zip_oper')
+                    
+                    return jsonify({'success': True, 'message': '文件上传成功'})
+                except Exception as e:
+                    return jsonify({'success': False, 'message': f'文件保存失败：{str(e)}'})
+        
+    else:
+        return render_template('login.html')
+
+
 
 
 # 删除系统代理配置文件

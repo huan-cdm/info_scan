@@ -975,13 +975,16 @@
                                 <button class="button edit-button" onclick="opensystemproxycontrolfunc()">开启</button>
                                 <button class="button delete-button"
                                     onclick="stopdownsystemproxycontrolfunc()">关闭</button>
-                                <button class="button edit-button" onclick="opensystemproxyconffunc()">刷新</button>
+                                <button class="button delete1-button" onclick="opensystemproxyconffunc()">刷新</button>
                             </td>
                             <td>
-                                <span>1.配置文件建议从Windows版本导出*.json文件;</span><br>
-                                <span>2.遇到代理失效情况需清空配置文件重新上传;</span><br>
-                                <span>3.可上传多个配置文件每次启动代理随机选中节点;</span><br>
-                                <br>
+                                <div style="font-size: small; color: cornflowerblue">
+                                <span>1. 配置文件建议从Windows版本导出*.json文件;</span><br>
+                                <span>2. 支持单个文件上传(.json格式)和批量上传(.zip格式);</span><br>
+                                <span>3. 压缩包里的配置文件只允许.json格式,其它会被删除;</span><br>
+                                <span>4. 每次启动代理服务随机选取代理节点进行调用;</span><br>
+                                <span>5. 延迟较高情况,清空配置文件,Windows版本重新测速,<br>&nbsp;&nbsp;&nbsp;把速度高的配置文件节点打包重新上传即可;</span><br>
+                                </div>
                                 <input type="file" class="configfileupload" id="fileuploadid1">
                                 <button class="button delete-button" onclick="proxyfileuploadfunc()">上传</button>
                                 <button class="button delete-button" onclick="deletesystemproxyfilefunc()">清空</button><br>

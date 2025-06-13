@@ -61,6 +61,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 
+import uuid
+
 
 
 
@@ -3946,6 +3948,24 @@ def get_ip_proxy_location_yh_lib(part):
         ip_location_list.append(line)
     return ip_location_list
 
+# 文件UUID重命名
+def filerename_lib():
+    directory = "/usr/local/etc/v2ray"
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            # 文件的完整路径
+            file_path = os.path.join(root, file)
+            # 分离文件名和扩展名
+            name, ext = os.path.splitext(file)
+            
+            # 生成新的 UUID 文件名（保留原扩展名）
+            new_name = str(uuid.uuid4()) + ext
+            new_path = os.path.join(root, new_name)
+           
+            # 重命名文件
+            os.rename(file_path, new_path)
+            print("重命名成功")
+
 
 
 
@@ -3971,10 +3991,8 @@ if __name__ == "__main__":
         elif func_name == 'withdrawiplocation_lib':
             withdrawiplocation_lib()
 
-        # 测试使用
-        elif func_name == 'get_ip_proxy_location_yh_lib':
-            c = get_ip_proxy_location_yh_lib()
-            print(c)
+        elif func_name == 'filerename_lib':
+            filerename_lib()
         else:
             print("Invalid function number")
     else:
