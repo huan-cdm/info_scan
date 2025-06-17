@@ -6488,7 +6488,8 @@ def showsystemproxyconf():
                             
             # 本地代理
             proxyport = os.popen('bash /TIP/info_scan/finger.sh proxyipport').read().splitlines()[0]
-
+            # 科学上网响应时间
+            response_time_kxsw = basic.proxy_url_time_kxsw_lib(1)
             # 公网出口地址
             try:
                 public_ip_result = proxyaddresslocation[0]
@@ -6520,8 +6521,11 @@ def showsystemproxyconf():
                 proxyaddresslocat333 = "地理位置3："+str(noproxyaddresslocation[3])
             except:
                 proxyaddresslocat333 = "地理位置3："+"延迟较高"
+            # 科学上网响应时间
+            response_time_kxsw = basic.proxy_url_time_kxsw_lib(2)
         # 代理节点数量
         proxynodenum = os.popen('bash /TIP/info_scan/finger.sh systemproxyconfignum').read()
+        
         message_json = {
             "ip_location1":str(proxyaddresslocat111),
             "ip_location2":str(proxyaddresslocat222),
@@ -6529,7 +6533,8 @@ def showsystemproxyconf():
             "proxystatus":str(proxystatus).strip(),
             "proxyport":"本地代理："+str(proxyport).strip(),
             "public_ip_result":"公网地址："+public_ip_result,
-            "proxynode_num":"节点数："+str(proxynodenum)+"个"
+            "proxynode_num":"节点数："+str(proxynodenum)+"个",
+            "response_time_kxsw":response_time_kxsw
         }
         return jsonify(message_json)
     else:
@@ -6704,33 +6709,6 @@ def stopdownsystemproxyconf():
 
 
 # 上传系统代理配置文件
-'''
-@app.route('/proxyconfigfileupload/', methods=['POST'])
-def proxyconfigfileupload():
-    user = session.get('username')
-    if str(user) == main_username:
-        # 获取上传的文件
-        file = request.files.get('file')
-        if not file:
-            return jsonify({'success': False, 'message': '未上传文件'})
-        
-        # 后端校验文件上传格式只能为json格式
-        file_extension = os.path.splitext(file.filename)[1].lower()
-        if file_extension != '.json':
-            return jsonify({'success': False, 'message': '禁止上传'+file_extension+'格式，仅支持.json格式'})
-        
-        # 生成随机文件名
-        random_filename = str(uuid.uuid4()) + os.path.splitext(file.filename)[1]
-        # 保存文件到指定目录，/usr/local/etc/v2ray为v2ray配置文件目录，可存在多个文件，每次启动前随机选中一个
-        try:
-            file.save(f'/usr/local/etc/v2ray/{random_filename}')
-            return jsonify({'success': True, 'message': '文件上传成功'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'文件保存失败：{str(e)}'})
-    else:
-        return render_template('login.html')
-'''  
-
 @app.route('/proxyconfigfileupload/', methods=['POST'])
 def proxyconfigfileupload():
     user = session.get('username')

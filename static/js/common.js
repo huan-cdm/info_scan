@@ -3266,6 +3266,7 @@ function opensystemproxyconffunc() {
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
             document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
             document.getElementById('systemproxyid8').innerHTML = info.proxynode_num;
+            document.getElementById('systemproxyid9').innerHTML = info.response_time_kxsw;
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;

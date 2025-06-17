@@ -62,7 +62,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 
 import uuid
-
+# 科学上网使用
+from config import proxy_response_time_target
+from config import response_time_target
+from config import proxy_ip_port
 
 
 
@@ -3967,6 +3970,43 @@ def filerename_lib():
             print("重命名成功")
 
 
+# 代理服务响应时间
+def proxy_url_time_kxsw_lib(part):
+    try:
+        if int(part) == 1:
+            # 配置SOCKS5代理
+            PROXY = {
+                'http': proxy_ip_port,
+                'https': proxy_ip_port
+            }
+            TEST_URL = proxy_response_time_target  # 测试URL，建议使用可访问的网站
+            # 记录请求开始时间
+            start_time = time.time()
+            # 发送带SOCKS代理的GET请求
+            requests.get(
+                TEST_URL,
+                proxies=PROXY,
+                timeout=10  # 设置超时时间（秒）
+            )
+            # 记录请求结束时间
+            end_time = time.time()
+        elif int(part) == 2:
+            # 记录请求开始时间
+            start_time = time.time()
+            requests.get(
+                response_time_target,
+                timeout=10  # 设置超时时间（秒）
+            )
+            # 记录请求结束时间
+            end_time = time.time()
+        else:
+            print("只允许1和2参数")
+            
+        # 计算响应时间（秒），保留两位小数
+        response_time_sec = "响应时间："+str(round(end_time - start_time, 2))+"秒"
+    except:
+         response_time_sec = "无法连接测速节点"
+    return response_time_sec
 
 
 
@@ -3990,9 +4030,12 @@ if __name__ == "__main__":
             assets_college_shodan_lib()
         elif func_name == 'withdrawiplocation_lib':
             withdrawiplocation_lib()
-
         elif func_name == 'filerename_lib':
             filerename_lib()
+        # 测试使用
+        elif func_name == 'proxy_url_time_kxsw_lib':
+            c = proxy_url_time_kxsw_lib()
+            print(c)
         else:
             print("Invalid function number")
     else:

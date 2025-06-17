@@ -122,3 +122,11 @@ device_pass_dir = "/TIP/info_scan/dict/WeakPass.yaml"
 
 # 定义常见杀软进程名和描述文件路径
 antiv_software_dir = "/TIP/info_scan/dict/Antivirussoftware.yaml"
+
+# 定义代理响应时间测试目标
+# 走代理访问谷歌
+proxy_response_time_target = "https://www.google.com"
+# 不走代理访问百度
+response_time_target = "https://www.baidu.com"
+# 代理地址根据需求更改
+proxy_ip_port = "socks5://127.0.0.1:10808"
