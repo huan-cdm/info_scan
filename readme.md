@@ -103,6 +103,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 2025-6-17更新<br> 
 1.新增代理响应时间查询；<br>
 2.已知问题处理与优化；<br>
+3.redis、memcached、zookeeper、couchdb、docker未授权扫描添加代理，其他扫描模块持续更新中；<br>
 </li>
 <li>
 2025-6-10更新<br> 

@@ -1949,7 +1949,6 @@ globalwhitefilter)
 # 开启系统代理
 startsystemproxy)
     # 开启代理
-    # nohup /usr/local/bin/v2ray run -config /usr/local/etc/v2ray/config.json >/dev/null 2>&1 &
     nohup /usr/local/bin/v2ray run -config $2 >/dev/null 2>&1 &
     ;;
 
@@ -2016,20 +2015,6 @@ file_zip_oper)
 
     # UUDI文件重命名
     python3 /TIP/info_scan/basic.py filerename_lib
-    # 文件重命名
-    # /usr/local/etc/v2ray/目录下的所有文件UUID随机重命名
-    # cd /usr/local/etc/v2ray
-    # for file in *; do
-    #     if [ -f "$file" ]; then             # 确保是文件，而不是目录
-    #         ext="${file##*.}"               # 获取文件扩展名（如果有）
-    #         new_name=$(uuidgen | tr -d '-') # 生成随机 UUID 并去掉短横线
-    #         if [[ "$file" != *.* ]]; then
-    #             ext="" # 如果原文件没有扩展名，则不添加
-    #         fi
-    #         mv -v "$file" "${new_name}${ext:+.$ext}" # 重命名
-    #     fi
-    # done
-
     ;;
 
 esac

@@ -1960,6 +1960,8 @@ function openassetcollectfunc() {
 function closevulnscan9() {
     var myModa10 = document.getElementById("myModa10");
     myModa10.style.display = "none";
+    document.getElementById("routestatus1").innerHTML = "";
+    document.getElementById("routestatus2").innerHTML = "";
 
 }
 

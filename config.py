@@ -130,3 +130,5 @@ proxy_response_time_target = "https://www.google.com"
 response_time_target = "https://www.baidu.com"
 # 代理地址根据需求更改
 proxy_ip_port = "socks5://127.0.0.1:10808"
+proxy_ip = "127.0.0.1"
+proxy_port = 10808

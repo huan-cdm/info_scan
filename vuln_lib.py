@@ -41,12 +41,16 @@ import pymongo
 from concurrent.futures import ThreadPoolExecutor
 from config import threadnum
 import ftplib
-import logging
-import subprocess
 # bcrypt解密
 import bcrypt
 from config import bcrypt_dict
 from config import bcrypt_passwd
+import socks
+
+# 代理IP和端口
+from config import proxy_ip
+from config import proxy_port
+from config import proxy_ip_port
 
 # elasticsearch数据库相关漏洞扫描
 def es_unauthorized():
@@ -960,17 +964,35 @@ def wanhuoa_vuln_scan():
 
 # redis未授权访问扫描
 def redis_unauthorizedset_scan_lib(ip):
-    try:
-        socket.setdefaulttimeout(5)
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((ip, 6379))
-        s.send(bytes("INFO\r\n", 'UTF-8'))
-        result = s.recv(1024).decode()
-        if "redis_version" in result:
-            print(ip + ":6379 存在redis未授权访问漏洞")
-        s.close()
-    except:
-        pass
+    # 根据代理状态判断
+    proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+    if "未开启" == proxystatus:
+        try:
+            socket.setdefaulttimeout(5)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, 6379))
+            s.send(bytes("INFO\r\n", 'UTF-8'))
+            result = s.recv(1024).decode()
+            if "redis_version" in result:
+                print(ip + ":6379 存在redis未授权访问漏洞")
+            s.close()
+        except:
+            pass
+    else:
+        try:
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy_ip, proxy_port)
+            socket.socket = socks.socksocket  # 将默认的 socket 替换为代理 socket
+    
+            socket.setdefaulttimeout(5)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, 6379))
+            s.send(bytes("INFO\r\n", 'UTF-8'))
+            result = s.recv(1024).decode()
+            if "redis_version" in result:
+                print(ip + ":6379 存在redis未授权访问漏洞")
+            s.close()
+        except:
+            pass
         
 
 # mongodb未授权访问扫描
@@ -983,35 +1005,71 @@ def mongodb_unauthorizedset_scan_lib(ip):
         conn.close()
     except:
         pass
+
+        
         
 
 # memcached未授权访问扫描
 def memcached_unauthorizedset_scan_lib(ip):
-    try:
-        socket.setdefaulttimeout(5)
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((ip, 11211))
-        s.send(bytes('stats\r\n', 'UTF-8'))
-        result = s.recv(1024).decode()
-        if "version" in result:
-            print(ip + ":11211 存在memcached未授权访问漏洞")
-        s.close()
-    except:
-        pass
+    # 根据代理状态判断
+    proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+    if "未开启" == proxystatus:
+        try:
+            socket.setdefaulttimeout(5)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, 11211))
+            s.send(bytes('stats\r\n', 'UTF-8'))
+            result = s.recv(1024).decode()
+            if "version" in result:
+                print(ip + ":11211 存在memcached未授权访问漏洞")
+            s.close()
+        except:
+            pass
+    else:
+        try:
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy_ip, proxy_port)
+            socket.socket = socks.socksocket  # 将默认的 socket 替换为代理 socket
+            socket.setdefaulttimeout(5)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, 11211))
+            s.send(bytes('stats\r\n', 'UTF-8'))
+            result = s.recv(1024).decode()
+            if "version" in result:
+                print(ip + ":11211 存在memcached未授权访问漏洞")
+            s.close()
+        except:
+            pass
         
 # zookeeper未授权访问扫描
 def zookeeper_unauthorizedset_scan_lib(ip):
-    try:
-        socket.setdefaulttimeout(5)
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((ip, 2181))
-        s.send(bytes('envi\r\n', 'UTF-8'))
-        result = s.recv(1024).decode()
-        if "Environment" in result:
-            print(ip + ":2181 存在zookeeper未授权访问漏洞")
-        s.close()
-    except:
-        pass
+    # 根据代理状态判断
+    proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+    if "未开启" == proxystatus:
+        try:
+            socket.setdefaulttimeout(5)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, 2181))
+            s.send(bytes('envi\r\n', 'UTF-8'))
+            result = s.recv(1024).decode()
+            if "Environment" in result:
+                print(ip + ":2181 存在zookeeper未授权访问漏洞")
+            s.close()
+        except:
+            pass
+    else:
+        try:
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy_ip, proxy_port)
+            socket.socket = socks.socksocket  # 将默认的 socket 替换为代理 socket
+            socket.setdefaulttimeout(5)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((ip, 2181))
+            s.send(bytes('envi\r\n', 'UTF-8'))
+            result = s.recv(1024).decode()
+            if "Environment" in result:
+                print(ip + ":2181 存在zookeeper未授权访问漏洞")
+            s.close()
+        except:
+            pass
 
 # ftp未授权访问扫描
 def ftp_unauthorizedset_scan_lib(ip):
@@ -1026,9 +1084,18 @@ def ftp_unauthorizedset_scan_lib(ip):
 
 # CouchDB未授权扫描
 def couchdb_unauthorizedset_scan_lib(ip):
+    # 配置SOCKS5代理
+    PROXY = {
+        'http': proxy_ip_port,
+        'https': proxy_ip_port
+    }
     try:
         url = 'http://' + ip + ':5984'+'/_utils/'
-        r = requests.get(url, timeout=5)
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+        if "未开启" == proxystatus:
+            r = requests.get(url, timeout=5)
+        else:
+            r = requests.get(url,  proxies=PROXY,timeout=5)
         if 'couchdb-logo' in r.content.decode():
             print(ip + ":5984/_utils 存在CouchDB未授权访问漏洞")
     except:
@@ -1037,9 +1104,18 @@ def couchdb_unauthorizedset_scan_lib(ip):
 
 # docker未授权扫描
 def docker_unauthorizedset_scan_lib(ip):
+    # 配置SOCKS5代理
+    PROXY = {
+        'http': proxy_ip_port,
+        'https': proxy_ip_port
+    }
     try:
         url = 'http://' + ip + ':2375'+'/version'
-        r = requests.get(url, timeout=5)
+        proxystatus = os.popen('bash /TIP/info_scan/finger.sh systemproxystatus').read().strip()
+        if "未开启" == proxystatus:
+            r = requests.get(url, timeout=5)
+        else:
+            r = requests.get(url, proxies=PROXY,timeout=5)
         if 'ApiVersion' in r.content.decode():
             print(ip + ":2375/version 存在docker api未授权访问漏洞")
     except:

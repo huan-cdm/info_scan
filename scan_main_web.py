@@ -5717,7 +5717,7 @@ def largescreenpagedata():
         if "running" in mongodb_status:
             mongodb_status1 = mongodb_status
             mongodb_status2 = ""
-            mongodbcontime = "计算中"
+            mongodbcontime = "?"
         else:
             mongodb_status1 = ""
             mongodb_status2 = mongodb_status
@@ -5727,7 +5727,7 @@ def largescreenpagedata():
         if "running" in memcached_status:
             memcached_status1 = memcached_status
             memcached_status2 = ""
-            memcachedcontime = "计算中"
+            memcachedcontime = "?"
         else:
             memcached_status1 = ""
             memcached_status2 = memcached_status
@@ -5737,7 +5737,7 @@ def largescreenpagedata():
         if "running" in zookeeper_status:
             zookeeper_status1 = zookeeper_status
             zookeeper_status2 = ""
-            zookeepercontime = "计算中"
+            zookeepercontime = "?"
         else:
             zookeeper_status1 = ""
             zookeeper_status2 = zookeeper_status
@@ -5747,7 +5747,7 @@ def largescreenpagedata():
         if "running" in ftp_status:
             ftp_status1 = ftp_status
             ftp_status2 = ""
-            ftpcontime = "计算中"
+            ftpcontime = "?"
         else:
             ftp_status1 = ""
             ftp_status2 = ftp_status
@@ -5757,7 +5757,7 @@ def largescreenpagedata():
         if "running" in couchdb_status:
             couchdb_status1 = couchdb_status
             couchdb_status2 = ""
-            couchdbcontime = "计算中"
+            couchdbcontime = "?"
         else:
             couchdb_status1 = ""
             couchdb_status2 = couchdb_status
@@ -5767,7 +5767,7 @@ def largescreenpagedata():
         if "running" in docker_status:
             docker_status1 = docker_status
             docker_status2 = ""
-            dockercontime = "计算中"
+            dockercontime = "?"
         else:
             docker_status1 = ""
             docker_status2 = docker_status
@@ -5778,7 +5778,7 @@ def largescreenpagedata():
         if "running" in hadoop_status:
             hadoop_status1 = hadoop_status
             hadoop_status2 = ""
-            hadoopcontime = "计算中"
+            hadoopcontime = "?"
         else:
             hadoop_status1 = ""
             hadoop_status2 = hadoop_status
@@ -5788,7 +5788,7 @@ def largescreenpagedata():
         if "running" in nfs_status:
             nfs_status1 = nfs_status
             nfs_status2 = ""
-            nfscontime = "计算中"
+            nfscontime = "?"
         else:
             nfs_status1 = ""
             nfs_status2 = nfs_status
@@ -5798,7 +5798,7 @@ def largescreenpagedata():
         if "running" in rsync_status:
             rsync_status1 = rsync_status
             rsync_status2 = ""
-            rsynccontime = "计算中"
+            rsynccontime = "?"
         else:
             rsync_status1 = ""
             rsync_status2 = rsync_status
@@ -5808,7 +5808,7 @@ def largescreenpagedata():
         if "running" in unes1_status:
             unes1_status1 = unes1_status
             unes1_status2 = ""
-            unes1contime = "计算中"
+            unes1contime = "?"
         else:
             unes1_status1 = ""
             unes1_status2 = unes1_status
