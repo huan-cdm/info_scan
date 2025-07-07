@@ -19,3 +19,6 @@ httpx
 openpyxl
 mmh3
 yaml
+cprint
+pycryptodomex
+requests

@@ -100,6 +100,11 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-7-7更新<br> 
+1.新增JWT字典编辑和修改；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-6-17更新<br> 
 1.新增代理响应时间查询；<br>
 2.已知问题处理与优化；<br>

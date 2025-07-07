@@ -89,6 +89,9 @@ phpmyadmin_pass_dir = '/TIP/info_scan/dict/phpmyadmin_pass.txt'
 bcrypt_dict = '/TIP/info_scan/dict/bcrypt_dict/dict.txt'
 bcrypt_passwd = '/TIP/info_scan/dict/bcrypt_dict/passwd.txt'
 
+# jwt字典配置
+jwt_pass_dict = '/TIP/info_scan/dict/jwt_pass.txt'
+
 # JNDI服务配置(配置IP)
 jndi_server = 'rmi://x.x.x.x:9999/TouchFile'
 

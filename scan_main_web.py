@@ -61,6 +61,7 @@ from config import nacos_user_dir
 from config import nacos_pass_dir
 from config import bcrypt_dict
 from config import bcrypt_passwd
+from config import jwt_pass_dict
 
 # 统计列表元素出现次数
 from collections import Counter
@@ -4423,6 +4424,7 @@ def dict_mysql_edit():
         nacos_pass_dict_list = []
         bcrypt_dict_list = []
         bcrypt_passwd_list = []
+        jwt_pass_list = []
         # mysql
         file = open(mysql_dict_user_dir,encoding='utf-8')
         for line in file.readlines():
@@ -4534,6 +4536,13 @@ def dict_mysql_edit():
         # 判断数据是否为空
         if len(bcrypt_passwd_list) == 0:
             bcrypt_passwd_list.append("暂无数据")
+        # jwt
+        file15 = open(jwt_pass_dict,encoding='utf-8')
+        for line15 in file15.readlines():
+            jwt_pass_list.append(line15.strip())
+        # 判断数据是否为空
+        if len(jwt_pass_list) == 0:
+            jwt_pass_list.append("暂无数据")
 
         message_json = {
             "mysql_user_dict_list":mysql_user_dict_list,
@@ -4550,7 +4559,8 @@ def dict_mysql_edit():
             "nacos_user_dict_list":nacos_user_dict_list,
             "nacos_pass_dict_list":nacos_pass_dict_list,
             "bcrypt_dict_list":bcrypt_dict_list,
-            "bcrypt_passwd_list":bcrypt_passwd_list
+            "bcrypt_passwd_list":bcrypt_passwd_list,
+            "jwt_pass_list":jwt_pass_list
         }
 
         return jsonify(message_json)
@@ -4662,6 +4672,12 @@ def hydradictconfig():
         for line14 in line_bcrypttextarea2:
             f14.write(str(line14)+"\n")
         f14.close()
+        # jwt相关
+        line_jwttextarea1 = data['line_jwttextarea1']
+        f15 = open(file=jwt_pass_dict,mode='w')
+        for line15 in line_jwttextarea1:
+            f15.write(str(line15)+"\n")
+        f15.close()
         
         # 判断数据是否添加成功
         line_mysqltextarea1_list = []

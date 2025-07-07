@@ -773,7 +773,13 @@ function hydradictfunc() {
             }
             $('#bcrypttextarea2').val(textAreaContent14);
 
+            // JWT相关
+            var textAreaContent15 = '';
+            for (var i = 0; i < info.jwt_pass_list.length; i++) {
+                textAreaContent15 += info.jwt_pass_list[i] + '\n'; // 追加元素和换行符  
 
+            }
+            $('#jwttextarea1').val(textAreaContent15);
 
 
         },
@@ -1707,9 +1713,9 @@ function hydra_dict_submit_func() {
     const tomcattextarea2 = document.getElementById('tomcattextarea2').value;
     const nacostextarea1 = document.getElementById('nacostextarea1').value;
     const nacostextarea2 = document.getElementById('nacostextarea2').value;
-
     const bcrypttextarea1 = document.getElementById('bcrypttextarea1').value;
     const bcrypttextarea2 = document.getElementById('bcrypttextarea2').value;
+    const jwttextarea1 = document.getElementById('jwttextarea1').value;
 
     // 按换行符分割文本为数组  
     const line_mysqltextarea1 = mysqltextarea1.split('\n');
@@ -1725,16 +1731,21 @@ function hydra_dict_submit_func() {
     const line_tomcattextarea2 = tomcattextarea2.split('\n');
     const line_nacostextarea1 = nacostextarea1.split('\n');
     const line_nacostextarea2 = nacostextarea2.split('\n');
-
     const line_bcrypttextarea1 = bcrypttextarea1.split('\n');
     const line_bcrypttextarea2 = bcrypttextarea2.split('\n');
+    const line_jwttextarea1 = jwttextarea1.split('\n');
 
     // 使用jQuery的$.ajax方法发送POST请求到Flask后端  
     $.ajax({
         url: '/hydradictconfig/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2, line_bcrypttextarea1: line_bcrypttextarea1, line_bcrypttextarea2: line_bcrypttextarea2 }),
+        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, 
+            line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, 
+            line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, 
+            line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, 
+            line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2, line_bcrypttextarea1: line_bcrypttextarea1,
+            line_bcrypttextarea2: line_bcrypttextarea2, line_jwttextarea1:line_jwttextarea1}),
         dataType: 'json',
         success: function (info) {
             alert(info.mysql_dict_result)
