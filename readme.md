@@ -582,5 +582,7 @@ c. 识别高危资产，得到高危资产
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf2.png" />
 JWT爆破<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan1.png" />
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan2.png" /><br><br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan2.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan3.png" />
+<br><br>
 <br><br>
