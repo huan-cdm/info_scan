@@ -3420,3 +3420,65 @@ function deletesystemproxyfilefunc() {
         }
     })
 }
+
+// JWT爆破结果预览
+function jwtreportfunc() {
+    $.ajax({
+        url: '/jwt_result_show/',
+        method: 'GET',
+
+        success: function (info) {
+            // 当请求成功时调用
+            var resultDiv = document.getElementById('jwtresultid1');
+            resultDiv.innerHTML = ''; // 清空原有内容
+            info.jwtresultdata.forEach(function (item) {
+                var itemDiv = document.createElement('div'); // 创建一个新的div元素
+                itemDiv.textContent = item; // 设置文本内容
+                resultDiv.appendChild(itemDiv); // 将新的div元素添加到结果div中
+            });
+
+
+        },
+        error: function () {
+            document.getElementById('jwtresultid1').innerHTML = "内部出错";
+        },
+        complete: function () {
+
+        }
+
+    })
+}
+
+// 开启JWT爆破
+function startjwtscanfunc() {
+    // 打开弹窗
+    var myModa21 = document.getElementById("myModa21");
+    myModa21.style.display = "block";
+     // 获取textarea的值  
+    const jwtresultid2 = document.getElementById('jwtresultid2').value;
+    var jwtresultid3 = $('select[name="jwtresultid3"]').val();
+    $.ajax({
+        url: '/startjwtscan/',
+        method: 'POST',
+        data: {
+            jwtresultid2: jwtresultid2,
+            jwtresultid3,jwtresultid3
+        },
+        success: function (info) {
+            document.getElementById("jwtresultid4").innerHTML = info.jwt_status_result;
+        },
+
+        error: function () {
+            document.getElementById("jwtresultid4").innerHTML = "内部出错";
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭jwt弹窗
+function closevulnscan19() {
+    var myModa21 = document.getElementById("myModa21");
+    myModa21.style.display = "none";
+}

@@ -100,6 +100,12 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-7-21更新<br> 
+1.新增JWT密钥爆破功能；<br>
+2.新增JWT签名算法可被修改为none；<br>
+3.已知问题处理与优化；<br>
+</li>
+<li>
 2025-7-7更新<br> 
 1.新增JWT字典编辑和修改；<br>
 2.已知问题处理与优化；<br>
@@ -574,4 +580,7 @@ c. 识别高危资产，得到高危资产
 代理配置<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf1.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/proxyconf2.png" />
+JWT爆破<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan2.png" /><br><br>
 <br><br>

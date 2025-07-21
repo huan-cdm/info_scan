@@ -6790,6 +6790,70 @@ def deleteproxyconfigfile():
         return render_template('login.html')
 
 
+# JWT结果预览
+@app.route("/jwt_result_show/")
+def jwt_result_show():
+    user = session.get('username')
+    if str(user) == main_username:
+       
+        lines = []
+        ANSI_ESCAPE = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
+        with open('/TIP/info_scan/result/jwt_report.txt', 'r') as f:
+            # lines = [ANSI_ESCAPE.sub('', line).strip() for line in f]
+            for line in f:
+                lines.append(ANSI_ESCAPE.sub('', line).strip())
+        message_json = {
+            "jwtresultdata":lines
+        }
+
+        return jsonify(message_json)
+    else:
+        return render_template('login.html') 
+
+
+
+# 开启JWT扫描
+@app.route("/startjwtscan/",methods=['POST'])
+def startjwtscan():
+    user = session.get('username')
+    if str(user) == main_username:
+        
+        jwtresultid2 = request.form['jwtresultid2']
+        jwtresultid3 = request.form['jwtresultid3']
+        if int(jwtresultid3) == 1:
+            print("暴力破解密钥")
+            # 执行暴力破解密钥逻辑
+            jwt_status = os.popen('bash /TIP/info_scan/finger.sh jwt_status').read()
+            if "running" in jwt_status:
+                jwt_status_result = "JWT密钥爆破工具正在运行中请稍后再启动"
+            else:
+                os.popen('bash /TIP/info_scan/finger.sh startjwtscanbykey'+' '+jwtresultid2)
+                jwt_status_result = "JWT密钥爆破工具已启动"
+
+        elif int(jwtresultid3) == 2:
+            print("签名算法可被修改为none")
+
+            # 执行签名算法可被修改为none的逻辑
+            jwt_status = os.popen('bash /TIP/info_scan/finger.sh jwt_status').read()
+            if "running" in jwt_status:
+                jwt_status_result = "JWT密钥爆破工具正在运行中请稍后再启动"
+            else:
+                os.popen('bash /TIP/info_scan/finger.sh startjwtscanbynone'+' '+jwtresultid2)
+                jwt_status_result = "JWT密钥爆破工具已启动"
+            
+        else:
+            print("其他参数")
+
+        message_json = {
+            "jwt_status_result":jwt_status_result
+        }
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
+
+
+
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

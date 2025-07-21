@@ -936,6 +936,7 @@ body {
 	border-radius: 5px;
 	/* 设置边框圆角为5像素 */
 	resize: vertical;
+	/* 宽度不变，高度可伸缩 */
 	font-weight: 900;
 	color: #35a5e5;
 }

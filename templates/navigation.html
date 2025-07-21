@@ -10,6 +10,7 @@
     <script type="text/javascript" src="{{ url_for( 'static',filename='js/common.js') }}"></script>
     <link type="text/css" href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ url_for('static', filename='image/titlepic.png') }}" type="image/x-icon">
+    {% include 'tanchuang.html' %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,6 +84,8 @@
 
     <div id="navbar">
         <ul>
+            <li><a href="#" onclick="showContent('content16')"><i class="fa fa-folder fa-lg"
+                        style="color: #FFD700;"></i>&nbsp;&nbsp;JWT爆破</a></li>
             <li><a href="#" onclick="showContent('content1')"><i class="fa fa-folder fa-lg"
                         style="color: #FFD700;"></i>&nbsp;&nbsp;信息收集</a></li>
             <li><a href="#" onclick="showContent('content2')"><i class="fa fa-folder fa-lg"
@@ -118,6 +121,7 @@
                         style="color: #FFD700;"></i>&nbsp;&nbsp;密码查询</a></li>
             <li><a href="#" onclick="openantivsoftallfunc()"><i class="fa fa-folder fa-lg"
                         style="color: #FFD700;"></i>&nbsp;&nbsp;杀软查询</a></li>
+            
         </ul>
     </div>
     <div id="content">
@@ -1823,6 +1827,38 @@
         </div>
     </div>
 
+    <!-- JWT爆破 -->
+    <div id="content16" class="content-item">
+        <button class="button edit-button" onclick="jwtreportfunc()">JWT报告</button>&nbsp;&nbsp;
+        <button class="button edit-button" onclick="startjwtscanfunc()">开始爆破</button>&nbsp;&nbsp;
+        <br><br>
+        <strong style="color: red;">参数:</strong>&nbsp;
+        <select name="jwtresultid3">
+            <option value="1">暴力破解密钥</option>
+            <option value="2">签名算法可被修改为none</option>
+        </select>
+        <br><br>
+        <!-- 宽度不变高度可变 -->
+<!-- <strong style="position: absolute; top: 2px; left: 4px;
+                   color: red; font-size: 13px;">参数</strong>&nbsp; -->
+<div style="position: relative;">
+     <strong style="position: absolute; top: 0; left: 200px;
+                   color: red; z-index: 1;
+                   pointer-events: none; /* 不遮挡鼠标点击 */">
+        payload:
+    </strong>
+</div>
+<br>
+<textarea style="width: 800px;height: 150px;resize: vertical;" id="jwtresultid2">
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvZGVtby5zam9lcmRsYW5na2VtcGVyLm5sXC8iLCJpYXQiOjE3NTMwNjU0NTgsImV4cCI6MTc1MzA2NjY1OCwiZGF0YSI6eyJoZWxsbyI6IndvcmxkIn19.2Dx5B16oIw7teXzsMoJn6iGOVFdRgK6SMKsRLc1u3B4
+</textarea>
+
+
+        <br><br>
+        <div style="background-color:rgb(37, 157, 178); height: 410px;overflow-y: auto;font-size: large;">
+            <p id="jwtresultid1">点击<strong style="color: red;cursor: pointer;" onclick="jwtreportfunc()">JWT报告</strong>查看扫描结果</p>
+        </div>
+    </div>
 
 </body>
 

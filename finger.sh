@@ -2017,4 +2017,24 @@ file_zip_oper)
     python3 /TIP/info_scan/basic.py filerename_lib
     ;;
 
+# jwt相关
+# 暴力破解密钥
+startjwtscanbykey)
+    python3 /TIP/info_scan/jwt_tool/jwt_tool.py  $2 -C -d /TIP/info_scan/dict/jwt_pass.txt > /TIP/info_scan/result/jwt_report.txt
+;;
+
+# 签名算法可被修改为none
+startjwtscanbynone)
+    python3 /TIP/info_scan/jwt_tool/jwt_tool.py  $2 -X a > /TIP/info_scan/result/jwt_report.txt
+;;
+
+# JWT爆破运行状态
+jwt_status)
+    jwt_struts_pid=$(ps -aux | grep "jwt_tool.py" | wc -l)
+    if (($jwt_struts_pid > 1)); then
+        echo "running"
+    else
+        echo "stop"
+    fi
+    ;;
 esac
