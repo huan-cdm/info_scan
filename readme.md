@@ -1,6 +1,5 @@
-<h2>首次使用必须进行系统配置：</h2> 
-<h4>鼠标划到用户名->系统配置->账号配置</h4>
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/firstuseconfig.png" />
+<h2>首次使用必须进行账号配置否则无法正常使用：</h2> 
+<h4>系统配置->账号配置</h4>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/firstuseconfig1.png" />
 <h2>系统功能介绍：</h2> 
 微信搜索：<br>
