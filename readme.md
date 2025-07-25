@@ -104,6 +104,11 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-7-25更新<br> 
+1.前端页面优化；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-7-21更新<br> 
 1.新增JWT密钥爆破功能；<br>
 2.新增JWT签名算法可被修改为none；<br>

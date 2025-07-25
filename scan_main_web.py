@@ -293,7 +293,8 @@ def index():
             assets_status_result = "3. 资产校验已启动，只允许输入URL格式资产。"
         else:
             assets_status_result = "3. 资产校验未启动，允许输入任意格式资产。"
-        return render_template('index.html',data20=str(user),data21=asset_file_list,data30 = str(period_time),data31=str(jndi_status_result),data32=str(mysql_status_result),data33=str(assets_status_result))
+
+        return render_template('index.html',data20=str(user),data21=asset_file_list,data30 = str(period_time),data31=str(jndi_status_result),data32=str(mysql_status_result),data33=str(assets_status_result),data34="4. 未进行系统配置无法正常使用。")
     else:
         return render_template('login.html')
 

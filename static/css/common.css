@@ -110,13 +110,17 @@ th {
 	border: 1px solid #000;
 }
 
+/* 基础信息查询 */
 .inner-div {
 	flex: 1;
 	border-right: 1px solid #000;
+	
+	width: 150px;
 }
 
 .inner-div:last-child {
 	border-right: none;
+	
 }
 
 select {
@@ -954,4 +958,3 @@ body {
 	color: #ff7f00;
 	width: 150px;
 }
-

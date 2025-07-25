@@ -33,10 +33,8 @@
 
 	<div class="middle-menu" id="systemshowid1">
 		<span class="close" onclick="closesystemshow()">&times;</span>
-		<p>动态</p>
-		<p>{{data31}}</p>
-		<p>{{data32}}</p>
-		<p>{{data33}}</p>
+		<p>系统公告</p>
+		<p>{{data31}}&nbsp;{{data32}}&nbsp;{{data33}}&nbsp;{{data34}}</p>
 	</div>
 
 	<div class="content">
@@ -45,28 +43,32 @@
 
 		<div class="dropdown">
 			<span class="dropdown-span">{{data30}}，{{data20}}</span>
-			<div class="dropdown-content">
+			<!-- <div class="dropdown-content">
 				<a href="#siginout" onclick="signoutfunc()">注销</a>
 				<a href="#rebootserver" onclick="systemrebootfunc()">重启</a>
 				<a href="#systemconfig" onclick="startscanconfigpagefunc()">系统配置</a>
 				<a href="#globalwhiteconfig" onclick="openwhiteupwindowsfunc()">全局白名单配置</a>
 				<a href="#systemproxyconf" onclick="opensystemproxyconffunc()">系统代理配置</a>
-			</div>
+				
+			</div> -->
 		</div>
-
-
-
+		<!-- 引入tanchuang.html文件 -->
 		{% include 'tanchuang.html' %}
 		<br><br>
 		<div class="button-container">
-
-			<span class="my-spanconfig11" onclick="stopbutton()">按钮锁定</span>&nbsp;
-			<span class="my-spanconfig11" onclick="startbutton()">按钮解锁</span>&nbsp;
-			<span class="my-spanconfig11" onclick="reportmanagerfunc()">报告管理</span>&nbsp;
-			<span class="my-spanconfig11" onclick="assetdownloadfunc()">资产下载</span>
-			<span onclick="hydradictfunc()" style="cursor: pointer;" class="my-spanconfig11">字典配置</span>
-
-			</di>
+			<button class="button edit-button" onclick="stopbutton()">锁定按钮</button>&nbsp; 
+			<button class="button edit-button" onclick="startbutton()">解锁按钮</button>&nbsp; 
+			<button class="button edit-button" onclick="signoutfunc()">注销系统</button>&nbsp; 
+			<button class="button edit-button" onclick="systemrebootfunc()">重启系统</button>&nbsp; 
+			<button class="button edit-button" onclick="assetdownloadfunc()">资产下载</button>&nbsp;
+			
+			<br><br>
+			<button class="button edit-button" onclick="reportmanagerfunc()">报告管理</button>&nbsp;
+			<button class="button edit-button" onclick="hydradictfunc()">字典配置</button>&nbsp; 
+			<button class="button edit-button" onclick="startscanconfigpagefunc()">系统配置</button>&nbsp; 
+			<button class="button edit-button" onclick="opensystemproxyconffunc()">代理配置</button>&nbsp; 
+			<button class="button edit-button" onclick="openwhiteupwindowsfunc()">白名单配置</button>&nbsp; 
+			</div>
 
 
 
@@ -83,7 +85,7 @@
 			<br>
 
 			<div class="div-container" style="background-color:#f2f2f2">
-				<div class="inner-div"><strong>IP</strong></div>
+				<!-- <div class="inner-div"><strong>IP</strong></div> -->
 				<div class="inner-div"><strong>位置</strong></div>
 				<div class="inner-div"><strong>属性</strong></div>
 				<div class="inner-div"><strong>操作系统</strong></div>
@@ -92,9 +94,9 @@
 				<div class="inner-div"><strong>公司位置</strong></div>
 			</div>
 			<div class="div-container">
-				<div class="inner-div">
+				<!-- <div class="inner-div">
 					{{data2}}
-				</div>
+				</div> -->
 				<div class="inner-div">
 					{{data5}}
 				</div>
