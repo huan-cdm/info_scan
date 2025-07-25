@@ -1,6 +1,7 @@
 <h2>首次使用必须进行系统配置：</h2> 
 <h4>鼠标划到用户名->系统配置->账号配置</h4>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/firstuseconfig.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/firstuseconfig1.png" />
 <h2>系统功能介绍：</h2> 
 微信搜索：<br>
 infoscan-自动化漏洞扫描系统（2025.4.22更新）<br>
