@@ -218,7 +218,7 @@
 
 
 <!-- 二次校验页面 -->
-<div id="modal3" class="modal3">
+<div id="modal3" class="modal9">
     <div class="modal-content3">
         <span class="close" onclick="stopverifychearlogfunc()">&times;</span>
         <h3>超级管理员</h3>
@@ -248,33 +248,35 @@
                     <table border="1">
                         <tr>
                             <td>
+                                <strong>afrog报告</strong>
                                 <div class="button-container1">
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('1')">删除</button>
-
                                 </div>
-                                <strong>删除afrog漏洞报告</strong>
+                                
                             </td>
                             <td>
+                                 <strong>urlfinder报告</strong>
                                 <div class="button-container1">
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('2')">删除</button>
                                 </div>
-                                <strong>删除urlfinder漏洞报告</strong>
+                               
                             </td>
                             <td>
+                                 <strong>xray报告</strong>
                                 <div class="button-container1">
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('3')">删除</button>
                                 </div>
-                                <strong>删除xray漏洞报告</strong>
+                               
                             </td>
                             <td>
+                                <strong>nmap报告</strong>
                                 <div class="button-container1">
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('4')">删除</button>
                                 </div>
-                                <strong>删除nmap漏洞报告</strong>
                             </td>
                         </tr>
                     </table>
@@ -385,7 +387,7 @@
                                 <span id="nucleibyid2" style="color: darksalmon;"></span>
                                 <br>
                                 <textarea class="scanpartconfig" id="myTextarea3">
-            poc显示区域</textarea>
+poc显示区域</textarea>
                                 <br>
                                 <strong>nuclei扫描参数</strong>
 
@@ -563,15 +565,25 @@
                     <table border="1">
                         <tr>
                             <td>
-                                <strong style="color: chocolate;">JNDI服务开关</strong>&nbsp;
+                                <strong style="color: chocolate;">JNDI服务开关-marshalsec</strong>&nbsp;
                                 <!-- jndi服务状态显示 -->
                                 <span id="jndistatusid1" class="status-circle"></span>
                                 <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
                                 <br><br>
                                 <div class="button-container1">
                                     <button class="button edit-button" onclick="jndistatusfunc()">开启</button>
-                                    <button class="button delete-button" onclick="stopjndistatusfunc()">关闭</button>
+                                    <button class="button delete-button" onclick="stopjndistatusfunc()">关闭</button> 
+                                    <button class="button jndilog-button" onclick="openjndilogwindows()">日志</button> 
+                                </div>
+                            </td>
+                            <td>
+                                 <strong style="color: chocolate;">JNDI服务开关-JNDI-Injection-Exploit</strong>&nbsp;
 
+                                  <br><br>
+                                <div class="button-container1">
+                                    <button class="button edit-button" onclick="">开启</button>
+                                    <button class="button delete-button" onclick="">关闭</button> 
+                                    <button class="button jndilog-button" onclick="">日志</button> 
                                 </div>
                             </td>
                             <td>
@@ -646,7 +658,7 @@
 
 <!-- 扫描器参数配置 -->
 <!-- 字典配置 -->
-<div id="moda22" class="moda22">
+<div id="moda22" class="modal9">
     <div class="modal-content2">
         <span class="close" onclick="closeModa22()">&times;</span>
         <strong style="color: chocolate;">字典配置</strong><br>
@@ -806,7 +818,7 @@
 
 
 <!-- 高危资产过滤规则列表 -->
-<div id="modal7" class="modal2">
+<div id="modal7" class="modal9">
     <div class="modal-content4">
         <span class="close" onclick="stop_rule_all_func()">&times;</span>
         <h3>高危资产过滤规则</h3>
@@ -1008,6 +1020,7 @@
 </div>
 
 
+
 <!-- JWT爆破 -->
 <div id="myModa21" class="modal8">
     <!-- 弹窗内容 -->
@@ -1015,5 +1028,16 @@
         <span class="close" onclick="closevulnscan19()">&times;</span>
         <h3>JWT爆破：</h3>
         <p id="jwtresultid4"></p>
+    </div>
+</div>
+
+<!-- JNDI日志 -->
+<div id="myModa22" class="modal9">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close" onclick="closejndilogwindows()">&times;</span>
+        <h3>JNDI日志</h3>
+         <textarea id="indilogspanid1" class="jndilogstylesclass">
+        </textarea>
     </div>
 </div>

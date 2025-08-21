@@ -789,6 +789,15 @@ body {
 	/* 边框颜色 */
 }
 
+/* jndi日志 */
+.jndilog-button {
+	color: #ffffff;
+	/* 文字颜色 */
+	background-color:darkorange;
+	/* 背景颜色 */
+	border-color:darkorange;
+	/* 边框颜色 */
+}
 
 .button:hover {
 	opacity: 0.8;
@@ -957,4 +966,46 @@ body {
 	padding: 8px 5px;
 	color: #ff7f00;
 	width: 150px;
+}
+
+/* JNDI日志 */
+.modal9 {
+	display: none;
+	/* 默认不显示 */
+	position: fixed;
+	/* 固定定位 */
+	z-index: 1000000;
+	/* 置于顶层 */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* 宽度100% */
+	height: 100%;
+	/* 高度100% */
+	overflow: auto;
+	/* 如果需要，可以滚动 */
+	background-color: rgb(0, 0, 0);
+	/* 背景颜色 */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* 黑色半透明 */
+}
+
+/* jndi日志 */
+.jndilogstylesclass {
+	width: 800px;
+	/* 设置宽度为200像素 */
+	height: 200px;
+	/* 设置高度为40像素 */
+	padding: 0px;
+	/* 设置内边距为5像素，这可以增加选项之间的空间 */
+	font-size: 16px;
+	/* 设置字体大小为16像素 */
+	border: 1px solid #ccc;
+	/* 设置边框为1像素宽，颜色为#ccc */
+	border-radius: 5px;
+	/* 设置边框圆角为5像素 */
+	resize: vertical;
+	/* 宽度不变，高度可伸缩 */
+	font-weight: 400;
+	color: black;
 }

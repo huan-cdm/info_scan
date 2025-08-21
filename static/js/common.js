@@ -3482,3 +3482,33 @@ function closevulnscan19() {
     var myModa21 = document.getElementById("myModa21");
     myModa21.style.display = "none";
 }
+
+// 打开JNDI日志弹窗
+function openjndilogwindows() {
+    var myModa22 = document.getElementById("myModa22");
+    myModa22.style.display = "block";
+        $.ajax({
+        url: '/get_jndi_log_list/',
+        method: 'GET',
+        success: function (info) {
+            // jndi日志
+            var jndilogContent = '';
+            for (var i = 0; i < info.jndilog_list.length; i++) {
+                jndilogContent += info.jndilog_list[i] + '\n';
+            }
+            $('#indilogspanid1').val(jndilogContent);
+        },
+        error: function () {
+            
+        },
+        complete: function () {
+
+        }
+    })
+}
+
+// 关闭JNDI日志弹窗
+function closejndilogwindows() {
+    var myModa22 = document.getElementById("myModa22");
+    myModa22.style.display = "none";
+}

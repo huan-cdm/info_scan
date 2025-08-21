@@ -4009,6 +4009,13 @@ def proxy_url_time_kxsw_lib(part):
     return response_time_sec
 
 
+# JNDI日志列表
+def jndi_log_list_lib():
+    jndilog_list = []
+    file = open("/TIP/info_scan/result/jndi_result.txt",encoding='utf-8')
+    for line in file.readlines():
+        jndilog_list.append(line.strip())
+    return jndilog_list
 
 
 if __name__ == "__main__":

@@ -5460,7 +5460,9 @@ def stopjndiservice():
         jndi_status = os.popen('bash /TIP/info_scan/finger.sh jndi_server_status').read()
         jndi_python_status = os.popen('bash /TIP/info_scan/finger.sh jndi_python_server_status').read()
         os.popen('bash /TIP/info_scan/finger.sh stop_jndi_python')
-
+        # 清空JNDI请求日志
+        os.popen('rm -rf /TIP/info_scan/result/jndi_result.txt')
+        os.popen('touch /TIP/info_scan/result/jndi_result.txt')
         if "running" in jndi_status and "running" in jndi_python_status:
             jndistatus = "开启"
         else:
@@ -6853,6 +6855,21 @@ def startjwtscan():
     else:
         return render_template('login.html')
 
+
+# JNDI日志列表
+@app.route("/get_jndi_log_list/",methods=['GET'])
+def get_jndi_log_list():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndilog_list = basic.jndi_log_list_lib()
+        if len(jndilog_list) == 0:
+            jndilog_list = ["暂无JNDI请求日志"]
+        message_json = {
+           "jndilog_list":jndilog_list
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
 
 
 
