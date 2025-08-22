@@ -424,6 +424,12 @@ my-input2 {
 	font-size: medium;
 }
 
+.my-input6 {
+	height: 22px;
+	width: 400px;
+	font-size: medium;
+}
+
 body {
 	margin: 0;
 	font-family: Arial, sans-serif;

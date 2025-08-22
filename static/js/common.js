@@ -624,6 +624,19 @@ function startscanconfigpagefunc() {
                 statusElement1.classList.add('status-error');
             }
 
+            // jndi_exp开关状态
+            const statusElement2 = document.getElementById('jndiexpstatusid1');
+            const status2 = info.jndi_exp_status_result;
+
+            // 根据状态添加对应样式
+            if (status2 === '开启') {
+                statusElement2.classList.add('status-running');
+            } else if (status2 === '关闭') {
+                statusElement2.classList.add('status-stopped');
+            } else {
+                statusElement2.classList.add('status-error');
+            }
+
         },
         error: function () {
             const statusElement = document.getElementById('jndistatusid1');
@@ -1740,12 +1753,14 @@ function hydra_dict_submit_func() {
         url: '/hydradictconfig/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2, 
-            line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1, 
-            line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1, 
-            line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2, 
+        data: JSON.stringify({
+            line_mysqltextarea1: line_mysqltextarea1, line_mysqltextarea2: line_mysqltextarea2,
+            line_sshtextarea1: line_sshtextarea1, line_sshtextarea2: line_sshtextarea2, line_ftptextarea1: line_ftptextarea1,
+            line_ftptextarea2: line_ftptextarea2, line_redistextarea2: line_redistextarea2, line_mssqltextarea1: line_mssqltextarea1,
+            line_mssqltextarea2: line_mssqltextarea2, line_tomcattextarea1: line_tomcattextarea1, line_tomcattextarea2: line_tomcattextarea2,
             line_nacostextarea1: line_nacostextarea1, line_nacostextarea2: line_nacostextarea2, line_bcrypttextarea1: line_bcrypttextarea1,
-            line_bcrypttextarea2: line_bcrypttextarea2, line_jwttextarea1:line_jwttextarea1}),
+            line_bcrypttextarea2: line_bcrypttextarea2, line_jwttextarea1: line_jwttextarea1
+        }),
         dataType: 'json',
         success: function (info) {
             alert(info.mysql_dict_result)
@@ -3315,7 +3330,7 @@ function opensystemproxycontrolfunc() {
             document.getElementById('systemproxyid7').innerHTML = info.ip_location3;
             document.getElementById('systemproxyid4').innerHTML = info.proxyport;
             document.getElementById('systemproxyid5').innerHTML = info.public_ip_result;
-            
+
             // 代理状态
             const statusElement1 = document.getElementById('systemproxyid2');
             const status1 = info.proxystatus;
@@ -3454,7 +3469,7 @@ function startjwtscanfunc() {
     // 打开弹窗
     var myModa21 = document.getElementById("myModa21");
     myModa21.style.display = "block";
-     // 获取textarea的值  
+    // 获取textarea的值  
     const jwtresultid2 = document.getElementById('jwtresultid2').value;
     var jwtresultid3 = $('select[name="jwtresultid3"]').val();
     $.ajax({
@@ -3462,7 +3477,7 @@ function startjwtscanfunc() {
         method: 'POST',
         data: {
             jwtresultid2: jwtresultid2,
-            jwtresultid3,jwtresultid3
+            jwtresultid3, jwtresultid3
         },
         success: function (info) {
             document.getElementById("jwtresultid4").innerHTML = info.jwt_status_result;
@@ -3487,7 +3502,7 @@ function closevulnscan19() {
 function openjndilogwindows() {
     var myModa22 = document.getElementById("myModa22");
     myModa22.style.display = "block";
-        $.ajax({
+    $.ajax({
         url: '/get_jndi_log_list/',
         method: 'GET',
         success: function (info) {
@@ -3499,7 +3514,7 @@ function openjndilogwindows() {
             $('#indilogspanid1').val(jndilogContent);
         },
         error: function () {
-            
+
         },
         complete: function () {
 
@@ -3511,4 +3526,66 @@ function openjndilogwindows() {
 function closejndilogwindows() {
     var myModa22 = document.getElementById("myModa22");
     myModa22.style.display = "none";
+}
+
+// 开启JNDI-Injection-Exploit
+function start_jndi_exp_func() {
+    var jndilogid1 = document.getElementById("jndilogid1").value;
+    var jndilogid2 = document.getElementById("jndilogid2").value;
+    $.ajax({
+        url: '/start_JNDI_Injection_Exploit_service/',
+        method: 'POST',
+        data: {
+            jndilogid1: jndilogid1,
+            jndilogid2, jndilogid2
+        },
+        success: function (info) {
+            const statusElement5 = document.getElementById('jndiexpstatusid1');
+            const status5 = info.jndi_exp_status;
+
+            // 清除所有可能的状态类
+            statusElement5.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status5 === '开启') {
+                statusElement5.classList.add('status-running');
+            } else if (status5 === '关闭') {
+                statusElement5.classList.add('status-stopped');
+            } else {
+                statusElement5.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement5 = document.getElementById('jndiexpstatusid1');
+            statusElement5.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 关闭JNDI-Injection-Exploit
+function stop_jndi_exp_func() {
+    $.ajax({
+        url: '/stop_JNDI_Injection_Exploit_service/',
+        method: 'GET',
+        success: function (info) {
+            const statusElement7 = document.getElementById('jndiexpstatusid1');
+            const status7 = info.jndistatus7;
+
+            // 清除所有可能的状态类
+            statusElement7.className = 'status-circle';
+
+            // 根据状态添加对应样式
+            if (status7 === '开启') {
+                statusElement7.classList.add('status-running');
+            } else if (status7 === '关闭') {
+                statusElement7.classList.add('status-stopped');
+            } else {
+                statusElement7.classList.add('status-error');
+            }
+        },
+        error: function () {
+            const statusElement7 = document.getElementById('jndiexpstatusid1');
+            statusElement7.className = 'status-circle status-error';
+        }
+    })
 }

@@ -2037,4 +2037,27 @@ jwt_status)
         echo "stop"
     fi
     ;;
+
+# JNDI-Injection-Exploit
+# 开启JNDI
+start_jndi_Injection-Exploit)
+    cd /TIP/info_scan/jndi_server
+    nohup java -jar JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar -C "$2" -A "$3" >/TIP/info_scan/result/jndi_Injection-Exploit.txt 2>&1 &
+    ;;
+# JNDI运行状态
+jndi_Injection_Exploit_status)
+jndi_exp_struts_pid=$(ps -aux | grep "JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar" | wc -l)
+    if (($jndi_exp_struts_pid > 1)); then
+        echo "running"
+    else
+        echo "stop"
+    fi
+;;
+# 关闭JNDI
+stop_jndi_Injection-Exploit)
+    pidd=$(ps -aux | grep JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar | awk -F " " '{print $2}')
+    for ii in ${pidd}; do
+        kill -9 ${ii} 2>/dev/null
+    done
+    ;;
 esac

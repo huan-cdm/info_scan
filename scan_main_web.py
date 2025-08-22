@@ -4943,6 +4943,13 @@ def system_config_data():
         else:
             jndistatus = "关闭"
 
+        # jndi_exp服务状态
+        jndi_exp_status = os.popen('bash /TIP/info_scan/finger.sh jndi_Injection_Exploit_status').read()
+        if "running" in jndi_exp_status:
+            jndi_exp_status_result = "开启"
+        else:
+            jndi_exp_status_result = "关闭"
+
         # 资产校验开关状态
         assets_jiaoyan_status = basic.verification_table_lib(1)
         shodan_key = basic.select_session_time_lib(3)
@@ -5028,6 +5035,7 @@ def system_config_data():
             "ceye_key":str(ceye_key_tuomin),
             # jndi状态查询
             "jndistatus":str(jndistatus),
+            "jndi_exp_status_result":jndi_exp_status_result,
             # 资产校验状态
             "assets_jiaoyan_status":str(assets_jiaoyan_status)
         }
@@ -6866,6 +6874,57 @@ def get_jndi_log_list():
             jndilog_list = ["暂无JNDI请求日志"]
         message_json = {
            "jndilog_list":jndilog_list
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+    
+
+# JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar
+# 开启JNDI服务
+@app.route("/start_JNDI_Injection_Exploit_service/",methods=['POST'])
+def start_JNDI_Injection_Exploit_service():
+    user = session.get('username')
+    if str(user) == main_username:
+        jndilogid1 = request.form['jndilogid1']
+        jndilogid2 = request.form['jndilogid2']
+        jndi_exp_status = os.popen('bash /TIP/info_scan/finger.sh jndi_Injection_Exploit_status').read()
+        if "running" in jndi_exp_status:
+            jndi_exp_status = "开启"
+        else:
+            # 调用shell脚本并传参
+            result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","start_jndi_Injection-Exploit",jndilogid1, jndilogid2], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            # 输出脚本的标准输出和标准错误
+            print("标准输出:", result.stdout)
+            print("标准错误:", result.stderr)
+            jndi_exp_status = "开启"
+        
+        message_json = {
+            "jndi_exp_status":jndi_exp_status
+        }
+        return jsonify(message_json)
+    else:
+        return render_template('login.html')
+
+
+# 关闭JNDI
+@app.route("/stop_JNDI_Injection_Exploit_service/",methods=['GET'])
+def stop_JNDI_Injection_Exploit_service():
+    user = session.get('username')
+    if str(user) == main_username:
+        # 调用shell脚本并传参
+        result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","stop_jndi_Injection-Exploit"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        # 输出脚本的标准输出和标准错误
+        print("标准输出:", result.stdout)
+        print("标准错误:", result.stderr)
+        jndi_exp_status = os.popen('bash /TIP/info_scan/finger.sh jndi_Injection_Exploit_status').read()
+        if "running" in jndi_exp_status:
+            jndistatus7 = "开启"
+        else:
+            jndistatus7 = "关闭"
+        
+        message_json = {
+            "jndistatus7":jndistatus7
         }
         return jsonify(message_json)
     else:

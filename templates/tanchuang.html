@@ -239,7 +239,7 @@
         <table border="1">
             <span id="filterruleid1" style="color: red;font-size: 20px;"></span>
             <tr>
-                <td>
+                <td style="text-align:center;">
                     <strong style="color: chocolate;">删除漏洞报告</strong><br>
                 </td>
             </tr>
@@ -253,23 +253,23 @@
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('1')">删除</button>
                                 </div>
-                                
+
                             </td>
                             <td>
-                                 <strong>urlfinder报告</strong>
+                                <strong>urlfinder报告</strong>
                                 <div class="button-container1">
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('2')">删除</button>
                                 </div>
-                               
+
                             </td>
                             <td>
-                                 <strong>xray报告</strong>
+                                <strong>xray报告</strong>
                                 <div class="button-container1">
                                     <button class="button delete1-button"
                                         onclick="startverifychearlogfunc('3')">删除</button>
                                 </div>
-                               
+
                             </td>
                             <td>
                                 <strong>nmap报告</strong>
@@ -285,7 +285,7 @@
             </tr>
 
             <tr>
-                <td>
+                <td style="text-align: center;">
                     <strong style="color: chocolate;">扫描参数配置</strong><br>
                 </td>
             </tr>
@@ -317,29 +317,19 @@
                                         value="21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017">
                                         常见RCE端口</option>
                                     <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
-                                </select>
+                                </select><br>
                                 <select name="fscanpartname1" class="scanpartselectconfig">
                                     <option value="1">禁用Web漏洞扫描</option>
                                     <option value="2">启用Web漏洞扫描</option>
                                 </select>
                                 <br>
-                                <strong>fscan扫描参数</strong>
-                            </td>
-
-                            <td>
                                 <textarea class="scanpartconfig" id="myTextarea2">
 21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017
                                 </textarea>
+                                <br>
+                                <strong>fscan扫描参数</strong>
                             </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <table border="1">
-                        <tr>
                             <td>
                                 <select name="poc_dir" onmouseenter="nuclei_poc_show_func()"
                                     class="scanpartselectconfig">
@@ -390,11 +380,10 @@
 poc显示区域</textarea>
                                 <br>
                                 <strong>nuclei扫描参数</strong>
-
                             </td>
 
                             <td>
-
+                                
                                 <select name="portscan_part" onmouseout="nmapportshowfunc()"
                                     class="scanpartselectconfig">
                                     <option
@@ -422,6 +411,8 @@ poc显示区域</textarea>
                     </table>
                 </td>
             </tr>
+
+       
 
             <tr>
                 <td>
@@ -491,9 +482,8 @@ poc显示区域</textarea>
             </tr>
 
             <tr>
-                <td>
+                <td style="text-align: center;">
                     <strong style="color: chocolate;">账号配置</strong><br>
-
                 </td>
 
             </tr>
@@ -542,7 +532,7 @@ poc显示区域</textarea>
             </tr>
 
             <tr>
-                <td>
+                <td style="text-align: center;">
                     <strong style="color: chocolate;">识别关键资产配置</strong><br>
                 </td>
             </tr>
@@ -564,39 +554,88 @@ poc显示区域</textarea>
                 <td>
                     <table border="1">
                         <tr>
+
                             <td>
-                                <strong style="color: chocolate;">JNDI服务开关-marshalsec</strong>&nbsp;
-                                <!-- jndi服务状态显示 -->
-                                <span id="jndistatusid1" class="status-circle"></span>
-                                <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
-                                <br><br>
-                                <div class="button-container1">
-                                    <button class="button edit-button" onclick="jndistatusfunc()">开启</button>
-                                    <button class="button delete-button" onclick="stopjndistatusfunc()">关闭</button> 
-                                    <button class="button jndilog-button" onclick="openjndilogwindows()">日志</button> 
-                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <strong style="color: chocolate;">JNDI服务开关-marshalsec</strong>&nbsp;
+                                            <!-- jndi服务状态显示 -->
+                                            <span id="jndistatusid1" class="status-circle"></span>
+                                            <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="button-container1">
+                                                <button class="button edit-button"
+                                                    onclick="jndistatusfunc()">开启</button>
+                                                <button class="button delete-button"
+                                                    onclick="stopjndistatusfunc()">关闭</button>
+                                                <button class="button jndilog-button"
+                                                    onclick="openjndilogwindows()">日志</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </td>
+
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">
+                                            <strong
+                                                style="color: chocolate;">JNDI服务开关-JNDI-Injection-Exploit</strong>&nbsp;
+                                            <!-- jndi服务状态显示 -->
+                                            <span id="jndiexpstatusid1" class="status-circle"></span>
+                                            <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            执行命令&nbsp;&nbsp;<input type="text" class="my-input6" id="jndilogid1"><br>
+                                                
+                                            服务器IP&nbsp;&nbsp;<input type="text" class="my-input6" id="jndilogid2">
+                                        </td>
+                                        <td>
+                                            <div class="button-container1">
+                                                <button class="button edit-button" onclick="start_jndi_exp_func()">开启</button>
+                                                <button class="button delete-button" onclick="stop_jndi_exp_func()">关闭</button>
+                                                <button class="button jndilog-button" onclick="">日志</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                             <td>
-                                 <strong style="color: chocolate;">JNDI服务开关-JNDI-Injection-Exploit</strong>&nbsp;
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <strong style="color: chocolate;">资产校验开关</strong>&nbsp;
+                                            <!-- 资产校验开关显示 -->
+                                            <span id="assetsjiaoyanstatusid1" class="status-circle"></span>
+                                            <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
+                                        </td>
+                                    </tr>
 
-                                  <br><br>
-                                <div class="button-container1">
-                                    <button class="button edit-button" onclick="">开启</button>
-                                    <button class="button delete-button" onclick="">关闭</button> 
-                                    <button class="button jndilog-button" onclick="">日志</button> 
-                                </div>
-                            </td>
-                            <td>
-                                <strong style="color: chocolate;">资产校验开关</strong>&nbsp;
-                                <!-- 资产校验开关显示 -->
-                                <span id="assetsjiaoyanstatusid1" class="status-circle"></span>
-                                <span class="status-text" id="statusText"></span> <!-- 隐藏的文字 -->
-                                <br><br>
-                                <div class="button-container1">
-                                    <button class="button edit-button" onclick="startassetsjiaoyanfunc()">开启</button>
-                                    <button class="button delete-button" onclick="stopassetsjiaoyanfunc()">关闭</button>
+                                    <tr>
+                                        <td>
+                                            <div class="button-container1">
+                                                <button class="button edit-button"
+                                                    onclick="startassetsjiaoyanfunc()">开启</button>
+                                                <button class="button delete-button"
+                                                    onclick="stopassetsjiaoyanfunc()">关闭</button>
 
-                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
                             </td>
                         </tr>
                     </table>
@@ -604,7 +643,7 @@ poc显示区域</textarea>
             </tr>
 
             <tr>
-                <td>
+                <td style="text-align: center;">
                     <strong style="color: chocolate;">自定义接口额度配置</strong>
                 </td>
             </tr>
@@ -711,7 +750,7 @@ poc显示区域</textarea>
             <br>
             <textarea rows="3" cols="30" id="bcrypttextarea2" style="width: 729px; height: 89px;">
         </textarea><br>
-             <span>JWT字典</span><br>
+            <span>JWT字典</span><br>
             <textarea rows="3" cols="30" id="jwttextarea1" style="width: 729px; height: 89px;">
         </textarea><br>
             <button class="button edit-button" onclick="hydra_dict_submit_func()">保存</button>
@@ -997,15 +1036,17 @@ poc显示区域</textarea>
                             </td>
                             <td>
                                 <div style="font-size: small; color: cornflowerblue">
-                                <span>1. 配置文件建议从Windows版本导出*.json文件;</span><br>
-                                <span>2. 支持单个文件上传(.json格式)和批量上传(.zip格式);</span><br>
-                                <span>3. 压缩包里的配置文件只允许.json格式,其它会被删除;</span><br>
-                                <span>4. 每次启动代理服务随机选取代理节点进行调用;</span><br>
-                                <span>5. 延迟较高情况,清空配置文件,Windows版本重新测速,<br>&nbsp;&nbsp;&nbsp;把速度高的配置文件节点打包重新上传即可;</span><br>
+                                    <span>1. 配置文件建议从Windows版本导出*.json文件;</span><br>
+                                    <span>2. 支持单个文件上传(.json格式)和批量上传(.zip格式);</span><br>
+                                    <span>3. 压缩包里的配置文件只允许.json格式,其它会被删除;</span><br>
+                                    <span>4. 每次启动代理服务随机选取代理节点进行调用;</span><br>
+                                    <span>5.
+                                        延迟较高情况,清空配置文件,Windows版本重新测速,<br>&nbsp;&nbsp;&nbsp;把速度高的配置文件节点打包重新上传即可;</span><br>
                                 </div>
                                 <input type="file" class="configfileupload" id="fileuploadid1">
                                 <button class="button delete-button" onclick="proxyfileuploadfunc()">上传</button>
-                                <button class="button delete-button" onclick="deletesystemproxyfilefunc()">清空</button><br>
+                                <button class="button delete-button"
+                                    onclick="deletesystemproxyfilefunc()">清空</button><br>
                                 <span id="fileuploadid2"></span>
 
                             </td>
@@ -1037,7 +1078,7 @@ poc显示区域</textarea>
     <div class="modal-content8">
         <span class="close" onclick="closejndilogwindows()">&times;</span>
         <h3>JNDI日志</h3>
-         <textarea id="indilogspanid1" class="jndilogstylesclass">
+        <textarea id="indilogspanid1" class="jndilogstylesclass">
         </textarea>
     </div>
 </div>
