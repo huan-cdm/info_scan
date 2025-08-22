@@ -64,8 +64,9 @@ mysql账号密码：admin/123456<br>
 3. 系统启动参数：bash /TIP/info_scan/server_check.sh -h，nginx和mysql服务开机自启，如未开启成功，需执行service nginx start和service mysql start开启服务<br>
 4. 修改/etc/nginx/conf.d/目录下所有文件中server_name字段替换为自己服务器的IP地址，重启nginx服务器<br>
 5. 入口地址：(http://服务器IP:19999/index/)<br>
+   
+便携版下载链接<br>
 
-##### 便携版下载链接
 - [info_scan_2025.01](https://pan.quark.cn/s/81003c01a616#/list/share)：2025.01.07更新，夸克网盘。
 - [info_scan_2024.10](https://pan.quark.cn/s/81003c01a616#/list/share)：2024.10.07更新，夸克网盘（网盘空间不足，已删除。）。
 - [info_scan_2024.08](https://pan.baidu.com/s/19EPOyjgf0JxbbOYymUr2vg?pwd=sufy)：2024.08.14、2024.08.29更新，百度网盘。
@@ -83,8 +84,8 @@ mysql账号密码：admin/123456<br>
 4. 安装requirements.txt中的所需模块<br>
 5. 执行 python3 scan_main_web.py（主系统）和python3 dirscanmain.py（目录扫描子系统），确保系统运行正常，后期在利用bash server_check.sh脚本进行服务管理<br>
 6. nginx自定义配置文件在/etc/nginx/conf.d/目录，主配置文件在/etc/nginx/目录<br>
-8. vps安全组放行15555、16666、17777、18888、19999、3306、8180、1099、1389出入站规则<br>
-9. 部署完成后需第一步需在首页进行系统配置，否则影响正常使用<br>
+7. vps安全组放行15555、16666、17777、18888、19999、3306、8180、1099、1389出入站规则<br>
+8. 部署完成后需第一步需在首页进行系统配置，否则影响正常使用<br>
 
 
 <h2>集成相关工具：</h2> 
