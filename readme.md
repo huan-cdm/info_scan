@@ -72,11 +72,20 @@ mysql账号密码：admin/123456<br>
 <br><br>
 
 <h2>系统源码安装（维护中）：</h2>
-注意：<br><br>
-保证系统正常运行需要2个项目：<br><br>
+注意：<br>
+保证系统正常运行需要2个项目：<br>
 
 - [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
-- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：和info_scan放在同一目录<br>
+- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：和info_scan放在/TIP/目录下<br>
+1. 安装python3、MySQL数据库、java、nginx<br>
+2. /TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh第一行替换vpsIP地址<br>
+3. 仅支持Linux环境部署，不支持Windows环境部署<br>
+4. 安装requirements.txt中的所需模块<br>
+5. 执行 python3 scan_main_web.py（主系统）和python3 dirscanmain.py（目录扫描子系统），确保系统运行正常，后期在利用bash server_check.sh脚本进行服务管理<br>
+6. nginx自定义配置文件在/etc/nginx/conf.d/目录，主配置文件在/etc/nginx/目录<br>
+8. vps安全组放行15555、16666、17777、18888、19999、3306、8180、1099、1389出入站规则<br>
+9. 部署完成后需第一步需在首页进行系统配置，否则影响正常使用<br>
+
 
 <h2>集成相关工具：</h2> 
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
@@ -513,22 +522,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 </li>
 </ul>
 
-<h2>系统使用说明：</h2>
-1. 安装python3+MySQL数据库<br>
-2. 建议安装nginx反向代理web服务，部分接口会出现查询超时情况，可通过nginx控制超时时间，也可直接通过flask直接访问，只需修改scan_main_web.py和dirscanmain.py最后一行IP部分<br>
-3. 不要修改目录，容易报错，将info_scan和batch_scan_domain部署到服务器的/TIP/目录下<br>
-4. 将/TIP/info_scan/static/js/common.js第一行修改为自己服务器的IP地址<br>
-5. info_scan系统相关配置在/TIP/info_scan/config.py文件配置<br>
-6. 系统使用前需点击解锁按钮进行解锁<br>
-7. 系统主要功能分为三类，第一是对IP进行基础信息探测，第二是对URL进行漏洞扫描，第三是对URL数据进行处理<br>
-8. 建议部署到Ubuntu系统下，不支持Windows系统<br>
-9. 系统设计初衷就是集成开源漏洞扫描器，让测试人员通过网页一键完成扫描，提升工作效率<br>
-10. 需要通过pip3安装requirements.txt中的模块<br>
-11. 建议先执行 python3 scan_main_web.py（主系统）和python3 dirscanmain.py（目录扫描子系统），确保系统运行正常后在利用bash server_check.sh进行管理<br>
-12. nginx相关配置文件在nginx_conf目录下，将nginx.conf放到/etc/nginx目录下，将dirscan_nginx.conf和infoscan_nginx.conf放到/etc/nginx/conf.d目录下，执行nginx -t检查配置文件是否正确<br>
-13. 系统需在开通以下端口：15555、16666、17777、18888、19999、3306<br>
-14. pip3 install -r requirements.txt -i https://pypi.mirrors.ustc.edu.cn/simple/ 安装所需模块<br><br>
-
+<h2>系统部分截图：</h2>
 服务启动参数<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/backservicemanage.png"/><br><br>
 系统登录<br>
