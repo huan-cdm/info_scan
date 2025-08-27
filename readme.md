@@ -116,7 +116,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 2025-8-21更新<br> 
 1.系统配置JNDI服务模块优化；<br>
 2.已知问题处理与优化；<br>
-3.新增JNDI-Injection-Exploit-1.0-SNAPSHOT-all jndi注入工具调用，包括开启和关闭，日志查看开发中；<br>
+3.新增JNDI-Injection-Exploit-1.0-SNAPSHOT-all jndi注入工具调用，包括开启、关闭和日志查询；<br>
 </li>
 <li>
 2025-7-25更新<br> 

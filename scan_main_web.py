@@ -6865,11 +6865,17 @@ def startjwtscan():
 
 
 # JNDI日志列表
-@app.route("/get_jndi_log_list/",methods=['GET'])
+@app.route("/get_jndi_log_list/",methods=['POST'])
 def get_jndi_log_list():
     user = session.get('username')
     if str(user) == main_username:
-        jndilog_list = basic.jndi_log_list_lib()
+        part = request.form['part']
+        if int(part) == 1:
+            jndilog_list = basic.jndi_log_list_lib()
+        elif int(part) == 2:
+            jndilog_list = basic.jndi_log_list_Injection_lib()
+        else:
+            print("只允许传入1和2参数")
         if len(jndilog_list) == 0:
             jndilog_list = ["暂无JNDI请求日志"]
         message_json = {

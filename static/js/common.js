@@ -3499,12 +3499,16 @@ function closevulnscan19() {
 }
 
 // 打开JNDI日志弹窗
-function openjndilogwindows() {
+function openjndilogwindows(part) { 
+    
     var myModa22 = document.getElementById("myModa22");
     myModa22.style.display = "block";
     $.ajax({
         url: '/get_jndi_log_list/',
-        method: 'GET',
+        method: 'POST',
+        data: {
+            part:part
+        },
         success: function (info) {
             // jndi日志
             var jndilogContent = '';

@@ -4009,13 +4009,23 @@ def proxy_url_time_kxsw_lib(part):
     return response_time_sec
 
 
-# JNDI日志列表
+# JNDI日志列表_marshalsec
 def jndi_log_list_lib():
     jndilog_list = []
     file = open("/TIP/info_scan/result/jndi_result.txt",encoding='utf-8')
     for line in file.readlines():
         jndilog_list.append(line.strip())
     return jndilog_list
+
+# JNDI日志列表_jndi_Injection-Exploit
+def jndi_log_list_Injection_lib():
+    jndilog_inject_list = []
+    file_inject = open("/TIP/info_scan/result/jndi_Injection-Exploit.txt",encoding='utf-8')
+    for line in file_inject.readlines():
+        pattern = re.compile(r'\x1b\[[0-9;]*m')
+        clean_text = pattern.sub('', line)
+        jndilog_inject_list.append(clean_text.strip())
+    return jndilog_inject_list
 
 
 if __name__ == "__main__":
