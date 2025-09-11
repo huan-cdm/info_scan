@@ -273,8 +273,8 @@ survivaldetection)
 urlfinder_start)
     #使用date命令生成当前的时间戳
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")
-    rm -rf /TIP/info_scan/urlfinder_server/result_tmp.txt
-    /TIP/info_scan/urlfinder_server/URLFinder -f /TIP/batch_scan_domain/url.txt -m 2 -s all -s 200 -o /TIP/info_scan/urlfinder_server/report/urlfinder-${TIMESTAMP}.html >/TIP/info_scan/urlfinder_server/result_tmp.txt
+    rm -rf /TIP/info_scan/Tools/urlfinder_server/result_tmp.txt
+    /TIP/info_scan/Tools/urlfinder_server/URLFinder -f /TIP/batch_scan_domain/url.txt -m 2 -s all -s 200 -o /TIP/info_scan/Tools/urlfinder_server/report/urlfinder-${TIMESTAMP}.html >/TIP/info_scan/Tools/urlfinder_server/result_tmp.txt
     ;;
 
 # urlfinder扫描器状态
@@ -1769,7 +1769,7 @@ afrognum)
 
 # api接口报告数量
 apinum)
-    num=$(ls /TIP/info_scan/urlfinder_server/report/ | wc -l)
+    num=$(ls /TIP/info_scan/Tools/urlfinder_server/report/ | wc -l)
     echo "${num}"
     ;;
 

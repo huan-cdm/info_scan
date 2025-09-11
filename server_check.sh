@@ -359,7 +359,7 @@ case "${1}" in
 	#开启链接扫描报告服务
     #本地开启127.0.0.1，利用nginx反向代理
     startURLFinder)
-    cd /TIP/info_scan/urlfinder_server/report
+    cd /TIP/info_scan/Tools/urlfinder_server/report
     nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
 	
 	sleep 0.5s
@@ -410,7 +410,7 @@ case "${1}" in
 	sleep 0.5s
 	echo "URLFinderreport正在重启中......"
 	sleep 0.5s
-	cd /TIP/info_scan/urlfinder_server/report
+	cd /TIP/info_scan/Tools/urlfinder_server/report
     nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
 	
 	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
@@ -479,7 +479,7 @@ case "${1}" in
 	fi
 
 	# 开启urlfinder
-	cd /TIP/info_scan/urlfinder_server/report
+	cd /TIP/info_scan/Tools/urlfinder_server/report
     nohup python3 -m http.server 8089 --bind 127.0.0.1 > /dev/null 2>&1 &
 	
 	sleep 0.5s

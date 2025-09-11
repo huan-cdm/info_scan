@@ -4743,7 +4743,7 @@ def comfirmclearloginterface():
                     recheck_result = "afrog报告正在删除中"
             elif int(inputmodel3) ==2:
                 print("api")
-                os.popen('rm -rf /TIP/info_scan/urlfinder_server/report/*')
+                os.popen('rm -rf /TIP/info_scan/Tools/urlfinder_server/report/*')
                 api_num = os.popen('bash /TIP/info_scan/finger.sh apinum').read()
                 if int(api_num) == 0:
                     recheck_result = "api接口报告已删除"
