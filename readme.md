@@ -113,6 +113,11 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-9-11更新<br> 
+1.JNDI配置模块增加服务器IP和系统命令后端格式校验逻辑；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-8-21更新<br> 
 1.系统配置JNDI服务模块优化；<br>
 2.已知问题处理与优化；<br>

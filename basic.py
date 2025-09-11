@@ -4028,6 +4028,19 @@ def jndi_log_list_Injection_lib():
     return jndilog_inject_list
 
 
+# 判断是否是ipv4地址
+def is_valid_ipv4(address):
+    try:
+        ipaddress.IPv4Address(str(address).strip())
+        logo_part = "合法"
+        print(logo_part)
+    except ipaddress.AddressValueError:
+        logo_part = "不合法"
+        print(logo_part)
+    return logo_part
+
+
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         func_name = sys.argv[1]

@@ -6894,16 +6894,24 @@ def start_JNDI_Injection_Exploit_service():
     if str(user) == main_username:
         jndilogid1 = request.form['jndilogid1']
         jndilogid2 = request.form['jndilogid2']
-        jndi_exp_status = os.popen('bash /TIP/info_scan/finger.sh jndi_Injection_Exploit_status').read()
-        if "running" in jndi_exp_status:
-            jndi_exp_status = "开启"
+        # 判断是否为空
+        if not jndilogid1 or not jndilogid2:
+            print("参数不允许为空")
+            jndi_exp_status = "关闭"
+        elif basic.is_valid_ipv4(str(jndilogid2).strip()) == "不合法":
+            print("不是合法的ipv4地址")
+            jndi_exp_status = "关闭"
         else:
-            # 调用shell脚本并传参
-            result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","start_jndi_Injection-Exploit",jndilogid1, jndilogid2], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            # 输出脚本的标准输出和标准错误
-            print("标准输出:", result.stdout)
-            print("标准错误:", result.stderr)
-            jndi_exp_status = "开启"
+            jndi_exp_status = os.popen('bash /TIP/info_scan/finger.sh jndi_Injection_Exploit_status').read()
+            if "running" in jndi_exp_status:
+                jndi_exp_status = "开启"
+            else:
+                # 调用shell脚本并传参
+                result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","start_jndi_Injection-Exploit",jndilogid1, jndilogid2], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                # 输出脚本的标准输出和标准错误
+                print("标准输出:", result.stdout)
+                print("标准错误:", result.stderr)
+                jndi_exp_status = "开启"
         
         message_json = {
             "jndi_exp_status":jndi_exp_status
@@ -6928,7 +6936,9 @@ def stop_JNDI_Injection_Exploit_service():
             jndistatus7 = "开启"
         else:
             jndistatus7 = "关闭"
-        
+        # 清空jndi日志
+        os.popen('rm -rf /TIP/info_scan/result/jndi_Injection-Exploit.txt')
+        os.popen('touch /TIP/info_scan/result/jndi_Injection-Exploit.txt')
         message_json = {
             "jndistatus7":jndistatus7
         }
