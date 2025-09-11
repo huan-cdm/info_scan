@@ -1,0 +1,5 @@
+git clone https://github.com/ticarpi/jwt_tool
+cd jwt_tool
+sudo apt install python3-pip
+python3 -m pip install termcolor cprint pycryptodomex requests
+chmod +x jwt_tool.py

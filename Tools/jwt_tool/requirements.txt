@@ -1,0 +1,5 @@
+termcolor
+cprint
+pycryptodomex
+requests
+ratelimit
