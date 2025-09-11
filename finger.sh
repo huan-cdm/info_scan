@@ -264,7 +264,7 @@ blacklistsyncshell)
 
 #存活检测状态码为200
 survivaldetection)
-    /TIP/info_scan/httpx_server/httpx -l /TIP/batch_scan_domain/url.txt -mc 200 >/TIP/batch_scan_domain/url_tmp.txt
+    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/batch_scan_domain/url.txt -mc 200 >/TIP/batch_scan_domain/url_tmp.txt
     # 删除空行
     sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt >/TIP/batch_scan_domain/url.txt
     ;;
@@ -491,20 +491,20 @@ killnuclei)
 
 # 启动fscan扫描程序默认端口（禁止web漏洞扫描）
 startfscanprocessmoren)
-    cd /TIP/info_scan/fscan_tool/
+    cd /TIP/info_scan/Tools/fscan_tool/
     if [ -f ./fscan ]; then
         # grep -vE  过滤多个参数
-        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nopoc -nocolor -no -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
-        echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"
+        ./fscan -hf /TIP/info_scan/Tools/fscan_tool/ip.txt -nopoc -nocolor -no -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
+        echo "Error: fscan not found in /TIP/info_scan/Tools/fscan_tool/"
     fi
     ;;
 # 启动fscan扫描程序默认端口（启用web漏洞扫描）
 startfscanprocessmorenall)
-    cd /TIP/info_scan/fscan_tool/
+    cd /TIP/info_scan/Tools/fscan_tool/
     if [ -f ./fscan ]; then
         # grep -vE  过滤多个参数
-        ./fscan -hf /TIP/info_scan/fscan_tool/ip.txt -nocolor -no -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
-        echo "Error: fscan not found in /TIP/info_scan/fscan_tool/"
+        ./fscan -hf /TIP/info_scan/Tools/fscan_tool/ip.txt -nocolor -no -p $2 | grep -vE 'start|已完成|扫描结束|alive' >/TIP/info_scan/result/fscan_vuln.txt
+        echo "Error: fscan not found in /TIP/info_scan/Tools/fscan_tool/"
     fi
     ;;
 
@@ -551,7 +551,7 @@ killshirovulnscanprocess)
 
     # httpx运行状态
 httpx_status)
-    ps_httpxscan=$(ps -aux | grep /TIP/info_scan/httpx_server/httpx | wc -l)
+    ps_httpxscan=$(ps -aux | grep /TIP/info_scan/Tools/httpx_server/httpx | wc -l)
     if (($ps_httpxscan > 1)); then
         echo "running"
     else
@@ -1752,7 +1752,7 @@ assset_textarea_num)
 
 # 过滤状态码为200的url
 httpxfilterstatus)
-    /TIP/info_scan/httpx_server/httpx -l /TIP/info_scan/result/domain.txt -mc 200
+    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/info_scan/result/domain.txt -mc 200
     ;;
 
 # 汇总报告生成状态
@@ -1791,7 +1791,7 @@ startsubfinder)
     ;;
 
 subfinder_httpx)
-    /TIP/info_scan/httpx_server/httpx -l /TIP/info_scan/result/subfinder_result.txt -mc 200 >/TIP/batch_scan_domain/url_tmp.txt
+    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/info_scan/result/subfinder_result.txt -mc 200 >/TIP/batch_scan_domain/url_tmp.txt
     # 删除空行
     sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt >/TIP/batch_scan_domain/url.txt
     # 去重

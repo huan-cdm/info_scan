@@ -503,7 +503,7 @@ def status_scan(ip1):
 def batch_fscan_interface(part,part1):
     ip_list = url_convert_ip()
     
-    f = open(file='/TIP/info_scan/fscan_tool/ip.txt', mode='w')
+    f = open(file='/TIP/info_scan/Tools/fscan_tool/ip.txt', mode='w')
     for k in ip_list:
         f.write(str(k)+"\n")
     f.close()
@@ -1509,7 +1509,7 @@ def startafrog_lib():
 
 def startfscan_lib(fscanpartname,part1):
     # 删除历史fscan扫描数据
-    os.popen('rm -rf /TIP/info_scan/fscan_tool/result.txt')
+    os.popen('rm -rf /TIP/info_scan/Tools/fscan_tool/result.txt')
 
     fscanstatus = os.popen('bash /TIP/info_scan/finger.sh fscan_status').read()
     if "running" in fscanstatus:
