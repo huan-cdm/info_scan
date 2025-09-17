@@ -1702,7 +1702,7 @@ bypass_vuln_num)
 
 # 开启crawlergo爬虫,不转发流量
 start_crawlergo)
-    /TIP/info_scan/crawlergo_scan/crawlergo_linux_amd64 -c /usr/bin/google-chrome -t 10 $2
+    /TIP/info_scan/Tools/crawlergo_scan/crawlergo_linux_amd64 -c /usr/bin/google-chrome -t 10 $2
     ;;
 
 start_crawlergo_shell)
@@ -1711,7 +1711,7 @@ start_crawlergo_shell)
 
 # 开启crawlergo爬虫,转发流量
 start_crawlergo_proxy)
-    /TIP/info_scan/crawlergo_scan/crawlergo_linux_amd64 -c /usr/bin/google-chrome -t 10 --request-proxy ${proxy_ip} $2
+    /TIP/info_scan/Tools/crawlergo_scan/crawlergo_linux_amd64 -c /usr/bin/google-chrome -t 10 --request-proxy ${proxy_ip} $2
 
     ;;
 
