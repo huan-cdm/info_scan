@@ -104,13 +104,13 @@ startnuclei_url)
     #   -timeout 超时前等待的时间(以秒为单位) 默认 10秒
     #   dict="/root/nuclei-templates/http"
     # dict="/root/nuclei-templates/http"
-    ./nuclei_server/nuclei -l /TIP/batch_scan_domain/url.txt -t ${2} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 >./result/nucleiresult.txt
+    /TIP/info_scan/Tools/nuclei_server/nuclei -l /TIP/batch_scan_domain/url.txt -t ${2} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 > /TIP/info_scan/result/nucleiresult.txt
     ;;
 
 #开启nuclei扫描(通过第三方接口获取的URL)
 startnuclei_result)
     dict="/root/nuclei-templates/http"
-    ./nuclei_server/nuclei -l /TIP/batch_scan_domain/result.txt -t ${dict} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 >./result/nucleiresult.txt
+    /TIP/info_scan/Tools/nuclei_server/nuclei -l /TIP/batch_scan_domain/result.txt -t ${dict} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 > /TIP/info_scan/result/nucleiresult.txt
     ;;
 
 #nuclei状态查询
@@ -413,7 +413,7 @@ bbscan_status)
 
 # vulmap漏洞扫描
 vulmapscan_shell)
-    cd /TIP/info_scan/vulmap
+    cd /TIP/info_scan/Tools/vulmap
     python3 vulmap.py -f /TIP/batch_scan_domain/url.txt -a ${2} | grep "[+]" >/TIP/info_scan/result/vulmapscan_info.txt
     ;;
 
@@ -528,7 +528,7 @@ fscan_status)
 
 # shiro 默认key扫描
 shiro_scan)
-    python3 /TIP/info_scan/shiro-tool/shiro-exploit.py check -u $2 >>/TIP/info_scan/result/shiro_vuln.txt
+    python3 /TIP/info_scan/Tools/shiro-tool/shiro-exploit.py check -u $2 >>/TIP/info_scan/result/shiro_vuln.txt
     ;;
 
 # shiro运行状态
