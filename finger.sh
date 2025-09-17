@@ -397,7 +397,7 @@ ehole_finger_scan_proxy)
 
 # BBScan敏感信息扫描
 bbscan_shell)
-    cd /TIP/info_scan/BBScan
+    cd /TIP/info_scan/Tools/BBScan
     python3 BBScan.py -f /TIP/batch_scan_domain/url.txt | grep "[+]" >/TIP/info_scan/result/bbscan_info.txt
     ;;
 
@@ -439,11 +439,11 @@ ceye_dns)
 
 # 启动afrog程序
 startafrogprocess)
-    cd /TIP/info_scan/afrog_scan/
+    cd /TIP/info_scan/Tools/afrog_scan/
     if [ -f ./afrog ]; then
         ./afrog -T /TIP/batch_scan_domain/url.txt | grep "http" >/TIP/info_scan/result/afrog_vuln.txt
     else
-        echo "Error: afrog not found in /TIP/info_scan/afrog_scan/"
+        echo "Error: afrog not found in /TIP/info_scan/Tools/afrog_scan/"
     fi
     ;;
 
@@ -611,7 +611,7 @@ templatenuclei)
 
 # 启动springboot漏洞扫描程序
 start_springboot)
-    /TIP/info_scan/SpingBoot_Scan/ssp_linux_amd64 -uf /TIP/batch_scan_domain/url.txt | grep "+" >/TIP/info_scan/result/springboot_result.txt
+    /TIP/info_scan/Tools/SpingBoot_Scan/ssp_linux_amd64 -uf /TIP/batch_scan_domain/url.txt | grep "+" >/TIP/info_scan/result/springboot_result.txt
     ;;
 
 # springboot扫描运行状态
@@ -1763,7 +1763,7 @@ totalreport_num)
 
 # afrog报告数量
 afrognum)
-    num=$(ls /TIP/info_scan/afrog_scan/reports/ | wc -l)
+    num=$(ls /TIP/info_scan/Tools/afrog_scan/reports/ | wc -l)
     echo "${num}"
     ;;
 

@@ -213,7 +213,7 @@ case "${1}" in
 	# 开启afrog报告服务
 	# 本地开启127.0.0.1，利用nginx反向代理
 	startafrogreport)
-    cd /TIP/info_scan/afrog_scan/reports
+    cd /TIP/info_scan/Tools/afrog_scan/reports
     nohup python3 -m http.server 8082 --bind 127.0.0.1 > /dev/null 2>&1 &
 	
 	sleep 0.5s
@@ -268,7 +268,7 @@ case "${1}" in
 	echo "afrogreport正在重启中......"
 	sleep 0.5s
 
-	cd /TIP/info_scan/afrog_scan/reports
+	cd /TIP/info_scan/Tools/afrog_scan/reports
     nohup python3 -m http.server 8082 --bind 127.0.0.1 > /dev/null 2>&1 &
 	
 	
@@ -465,7 +465,7 @@ case "${1}" in
 	fi
 
 	# 开启afrog
-	cd /TIP/info_scan/afrog_scan/reports
+	cd /TIP/info_scan/Tools/afrog_scan/reports
     nohup python3 -m http.server 8082 --bind 127.0.0.1 > /dev/null 2>&1 &
 	
 	sleep 0.5s
