@@ -1673,7 +1673,7 @@ waf_vuln_num)
 
 # 开启40xbypass扫描程序
 startbypass)
-    /TIP/info_scan/40Xbypass/40xbypass -xD $2 >/TIP/info_scan/result/403bypass_result.txt
+    /TIP/info_scan/Tools/40Xbypass/40xbypass -xD $2 >/TIP/info_scan/result/403bypass_result.txt
     ;;
 
 # 40xbypass扫描程序运行状态
