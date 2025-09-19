@@ -1428,7 +1428,7 @@ def startweblogic_lib():
             domain_list.append(urls_re)
         
         # 域名写入到weblogic_poc目标
-        weblogic_file = open(file='/TIP/info_scan/weblogin_scan/target.txt', mode='w')
+        weblogic_file = open(file='/TIP/info_scan/Tools/weblogin_scan/target.txt', mode='w')
         for j in domain_list:
             weblogic_file.write(str(j)+"\n")
         weblogic_file.close()

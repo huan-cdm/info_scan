@@ -210,22 +210,22 @@ dirsearchtargetnum)
 
 #目录扫描同步后的结果
 dirsearchsyncresult)
-    dirsearchsyncresult_value=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | wc -l)
+    dirsearchsyncresult_value=$(cat /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt | wc -l)
     echo "${dirsearchsyncresult_value}"
     ;;
 
 #目录扫描启动脚本
 dirsearchscan)
-    python3 /TIP/info_scan/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb >/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+    python3 /TIP/info_scan/Tools/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb > /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
     ;;
 # 目录扫描启动脚本代理
 dirsearchscanproxy)
-    python3 /TIP/info_scan/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb --proxy socks5://127.0.0.1:10808 >/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+    python3 /TIP/info_scan/Tools/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb --proxy socks5://127.0.0.1:10808 > /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
     ;;
 
 #目录扫描原始数量/reports目录下
 dirsearchscancount)
-    dirsearchscancount_value=$(cat /TIP/info_scan/dirsearch/reports/*/*.txt | wc -l)
+    dirsearchscancount_value=$(cat /TIP/info_scan/Tools/dirsearch/reports/*/*.txt | wc -l)
     #数量减2才是正确数量
     direserach_value=$((${dirsearchscancount_value} - 2))
     echo "${direserach_value}"
@@ -242,8 +242,8 @@ killdirsearch)
 #报告阈值过滤
 thresholdvaluefilter)
     for n in $(cat /TIP/info_scan/result/thresholdvalue.txt); do
-        cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep -v ${n} >/TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt
-        mv /TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+        cat /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt | grep -v ${n} >/TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport_tmp.txt
+        mv /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport_tmp.txt /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
     done
     ;;
 
@@ -255,8 +255,8 @@ blacklistsyncshell)
     else
         #echo "存在过滤数据"
         for i in $(cat /TIP/info_scan/result/filterdirsearchblack.txt); do
-            cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep -v ${i} >/TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt
-            mv /TIP/info_scan/dirsearch/finalreport/dirsearchreport_tmp.txt /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt
+            cat /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt | grep -v ${i} >/TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport_tmp.txt
+            mv /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport_tmp.txt /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
         done
 
     fi
@@ -334,7 +334,7 @@ start_cdn)
 
 # weblogic_poc扫描
 weblogic_poc_scan)
-    python3 /TIP/info_scan/weblogin_scan/WeblogicScan.py -f /TIP/info_scan/weblogin_scan/target.txt | grep "+" >/TIP/info_scan/result/weblogic_poc.txt
+    python3 /TIP/info_scan/Tools/weblogin_scan/WeblogicScan.py -f /TIP/info_scan/Tools/weblogin_scan/target.txt | grep "+" >/TIP/info_scan/result/weblogic_poc.txt
     ;;
 
 # weblogic_poc运行状态
@@ -365,7 +365,7 @@ killweblogic_poc)
 
 # struts2漏洞扫描
 struts2_poc_scan)
-    python3 /TIP/info_scan/struts2_scan/Struts2Scan.py -f /TIP/batch_scan_domain/url.txt | grep "*" | grep -v "results" >/TIP/info_scan/result/struts2_poc.txt
+    python3 /TIP/info_scan/Tools/struts2_scan/Struts2Scan.py -f /TIP/batch_scan_domain/url.txt | grep "*" | grep -v "results" >/TIP/info_scan/result/struts2_poc.txt
     ;;
 
 # struts2_poc运行状态
@@ -826,7 +826,7 @@ afrog_report_status)
 
 # thinkphp漏洞扫描
 thinkphp_vuln_scan)
-    python3 /TIP/info_scan/TPscan/TPscan.py -u $2 >>/TIP/info_scan/result/thinkphp_vuln.txt
+    python3 /TIP/info_scan/Tools/TPscan/TPscan.py -u $2 >>/TIP/info_scan/result/thinkphp_vuln.txt
     ;;
 
 # TPscan运行状态
@@ -995,7 +995,7 @@ kill_crt_subdomain_shell)
 
 # 开启泛微OA漏洞扫描
 weaver_exp_scan)
-    python3 /TIP/info_scan/weaver_exp/main.py -f /TIP/batch_scan_domain/url.txt >/TIP/info_scan/result/weaver_vuln.txt
+    python3 /TIP/info_scan/Tools/weaver_exp/main.py -f /TIP/batch_scan_domain/url.txt >/TIP/info_scan/result/weaver_vuln.txt
     ;;
 
 # 泛微OA扫描器运行状态
@@ -1896,7 +1896,7 @@ mysql_server_status)
 # 目录扫描子系统
 # 原始日志数量
 deleteoriginlognum)
-    originnum=$(ls /TIP/info_scan/dirsearch/reports/ | wc -l)
+    originnum=$(ls /TIP/info_scan/Tools/dirsearch/reports/ | wc -l)
     if (($originnum == 0)); then
         echo "已删除原始日志"
     else
@@ -1906,7 +1906,7 @@ deleteoriginlognum)
 
 # 分析日志数量
 deletefenxilognum)
-    fenxinum=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | wc -l)
+    fenxinum=$(cat /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt | wc -l)
     if (($fenxinum == 0)); then
         echo "已删除分析日志"
     else
@@ -1916,19 +1916,19 @@ deletefenxilognum)
 
 # 最初原始日志数量
 beginoriginlognum)
-    num=$(cat /TIP/info_scan/dirsearch/reports/*/*.txt | grep "http" | wc -l)
+    num=$(cat /TIP/info_scan/Tools/dirsearch/reports/*/*.txt | grep "http" | wc -l)
     echo "${num}"
     ;;
 
 # 同步后原始日志数量
 rsyncriginlognum)
-    num=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep "http" | wc -l)
+    num=$(cat /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt | grep "http" | wc -l)
     echo "${num}"
     ;;
 
 # 同步白名单
 rsynoriginlogscript)
-    data1=$(cat /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt | grep $2)
+    data1=$(cat /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt | grep $2)
     echo "$data1"
     ;;
 

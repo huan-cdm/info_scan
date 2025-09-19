@@ -47,7 +47,7 @@ def dirscanpage():
         dir_no_swa_list_1 = []
         global dir_no_swa_list_1_1
         dir_no_swa_list_1_1 = dir_no_swa_list_1
-        dirsearch_file = open('/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt',encoding='utf-8')
+        dirsearch_file = open('/TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt',encoding='utf-8')
         for line in dirsearch_file.readlines():
             dir_list_status_code.append(line)
             #捕获异常，报错直接PASS
@@ -208,7 +208,7 @@ def dirsearchcopyfile():
         if "running" in dirsearchstatus_result:
             rsync_log_result = "扫描器正在运行中无法同步扫描日志"
         else:
-            os.popen('cp /TIP/info_scan/dirsearch/reports/*/* /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
+            os.popen('cp /TIP/info_scan/Tools/dirsearch/reports/*/* /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt')
             begin_origin_log_num = os.popen('bash /TIP/info_scan/finger.sh beginoriginlognum').read()
             rsync_origin_log_num = os.popen('bash /TIP/info_scan/finger.sh rsyncriginlognum').read()
             if int(begin_origin_log_num) == int(rsync_origin_log_num):
@@ -231,8 +231,8 @@ def dirsearchcopyfile():
 def cleardirvulmaptarget():
     user1 = session.get('username1')
     if str(user1) == sub_username:
-        os.popen('rm -rf /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
-        os.popen('touch /TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt')
+        os.popen('rm -rf /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt')
+        os.popen('touch /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt')
         fenxiresultnum = os.popen('bash /TIP/info_scan/finger.sh deletefenxilognum').read()
         message_json = {
             "fenxiresultnum":fenxiresultnum
@@ -247,7 +247,7 @@ def cleardirvulmaptarget():
 def origindataclearinterface():
     user1 = session.get('username1')
     if str(user1) == sub_username:
-        os.popen('rm -rf /TIP/info_scan/dirsearch/reports/*')
+        os.popen('rm -rf /TIP/info_scan/Tools/dirsearch/reports/*')
         deleteresult = os.popen('bash /TIP/info_scan/finger.sh deleteoriginlognum').read()
         message_json = {
             "deleteresult":deleteresult
@@ -514,7 +514,7 @@ def queryorigindatainterface():
         try:
             list_result = []
             global global_item_origin_data
-            file_result = open('/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt',encoding='utf-8')
+            file_result = open('/TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt',encoding='utf-8')
             #将文件存到列表中用于检索
             for line in file_result.readlines():
                 list_result.append(line)
@@ -689,7 +689,7 @@ def flushfilterbywhite():
             result_list.append(result)
 
         #将存入到列表中的结果写入到最终的文件中用于前端展示
-        f = open(file='/TIP/info_scan/dirsearch/finalreport/dirsearchreport.txt', mode='w')
+        f = open(file='/TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt', mode='w')
         for ii in result_list:
             f.write(str(ii))
         message_json = {
