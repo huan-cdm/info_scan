@@ -7,7 +7,7 @@ case "${1}" in
 
 #指纹识别脚本
 finger)
-    python3 ./tiderfinger/TideFinger.py -u ${2} | grep "Banner\|CMS_finger"
+    python3 /TIP/info_scan/Tools/tiderfinger/TideFinger.py -u ${2} | grep "Banner\|CMS_finger"
     ;;
 
 #IP归属地查询
@@ -1787,7 +1787,7 @@ nmapnum)
 
 # 扩大资产范围
 startsubfinder)
-    /TIP/info_scan/subfinder-scan/subfinder -dL /TIP/info_scan/result/subfinder_target.txt >/TIP/info_scan/result/subfinder_result.txt
+    /TIP/info_scan/Tools/subfinder-scan/subfinder -dL /TIP/info_scan/result/subfinder_target.txt >/TIP/info_scan/result/subfinder_result.txt
     ;;
 
 subfinder_httpx)
