@@ -559,7 +559,7 @@ fofa语法日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig1.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/dictconfig2.png" />
 <br><br>
-二次校验<br>
+超级管理员复核<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/recheck.png" /><br><br>
 DNS日志<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/ceyednslog.png" /><br><br>
