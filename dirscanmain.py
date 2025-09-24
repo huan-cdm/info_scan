@@ -68,7 +68,11 @@ def dirscanpage():
         if int(dirsearch_count_tmp) <= 0:
             dirsearch_count = "原始日志："+"暂无数据"
         else:
-            dirsearch_count = "原始日志："+str(dirsearch_count_tmp)+"条"
+            dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
+            if "running" in dirsearchstatus_result:
+                dirsearch_count = "原始日志："+"0"+"条"
+            else:
+                dirsearch_count = "原始日志："+str(dirsearch_count_tmp)+"条"
        
         #目录扫描同步后的数量
         dirsearch_sync_value = os.popen('bash /TIP/info_scan/finger.sh dirsearchsyncresult').read()
@@ -77,10 +81,16 @@ def dirscanpage():
         if int(dirsearch_sync_value) <= 0:
             dirsearch_sync_value_result = "分析日志："+"暂无数据"
         else:
-            dirsearch_sync_value_result = "分析日志："+str(dirsearch_sync_value)+"条"
+            dirsearchstatus_result = os.popen('bash /TIP/info_scan/finger.sh dirsearchstatus').read()
+            if "running" in dirsearchstatus_result:
+                dirsearch_sync_value_result = "分析日志："+"0"+"条"
+                scan_status = "运行"
+            else:
+                dirsearch_sync_value_result = "分析日志："+str(dirsearch_sync_value)+"条"
+                scan_status = "停止"
     
         return render_template('dirsearchscan.html',data=dirsearch_list,
-        data09=dir_list_status_code,data13=dirsearch_count,data18=dirsearch_sync_value_result)
+        data09=dir_list_status_code,data13=dirsearch_count,data18=dirsearch_sync_value_result,data19=scan_status)
     
     else:
         return render_template('sublogin.html')

@@ -718,7 +718,7 @@ body {
 .rightlogotime {
 	position: absolute;
 	top: 20px;
-	right: 0px;
+	right: 5px;
 	z-index: 1000;
 	/* 确保在其他元素之上 */
 	cursor: pointer;

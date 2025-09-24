@@ -130,7 +130,7 @@ def shodan_api(ip):
 # 从目标url中提取ip地址并存到列表
 def url_convert_ip():
     url_list = []
-    file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
+    file = open("/TIP/info_scan/batch_scan_domain/url.txt",encoding='utf-8')
     for line in file.readlines():
         url_list.append(line.strip())
     
@@ -152,16 +152,16 @@ def url_convert_ip():
 # 目标url文件存入列表并返回
 def url_file_ip_list():
     url_list = []
-    file = open("/TIP/batch_scan_domain/url.txt",encoding='utf-8')
+    file = open("/TIP/info_scan/batch_scan_domain/url.txt",encoding='utf-8')
     for line in file.readlines():
         url_list.append(line.strip())
     return url_list
 
 # 资产备份文件转列表
 def url_back_file_ip_list():
-    os.popen('cp /TIP/batch_scan_domain/url_back.txt /TIP/batch_scan_domain/url.txt')
+    os.popen('cp /TIP/info_scan/batch_scan_domain/url_back.txt /TIP/info_scan/batch_scan_domain/url.txt')
     url_back_list = []
-    file = open("/TIP/batch_scan_domain/url_back.txt",encoding='utf-8')
+    file = open("/TIP/info_scan/batch_scan_domain/url_back.txt",encoding='utf-8')
     for line in file.readlines():
         url_back_list.append(line.strip())
     return url_back_list
@@ -733,7 +733,7 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
 
         
         # 遍历列表存入目标资产
-        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        f = open(file='/TIP/info_scan/batch_scan_domain/url.txt', mode='w')
         for k in fofa_list_result_uniq:
             f.write(str(k)+"\n")
         f.close()
@@ -763,7 +763,7 @@ def fofa_search_assets_service_lib(parameter,num_fofa):
                 f21.write(str(line21) + "\n")
         
         # 资产备份
-        os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
+        os.popen('cp /TIP/info_scan/batch_scan_domain/url.txt /TIP/info_scan/batch_scan_domain/url_back.txt')
     except:
         # fofa接口异常无数据长度返回0
         fofa_list_result_uniq = [""]
@@ -1415,7 +1415,7 @@ def startweblogic_lib():
     else:
         # 遍历目标文件存入列表
         url_list = []
-        url_file = open('/TIP/batch_scan_domain/url.txt',encoding='utf-8')
+        url_file = open('/TIP/info_scan/batch_scan_domain/url.txt',encoding='utf-8')
         for i in url_file.readlines():
             url_list.append(i.strip())
         
@@ -3313,7 +3313,7 @@ def expand_range_asset_lib():
 
     # 把子域名和资产备份中的IP合成一个列表存入文件，得到最终的资产
     ip_list = []
-    file = open("/TIP/batch_scan_domain/url_back.txt",encoding='utf-8')
+    file = open("/TIP/info_scan/batch_scan_domain/url_back.txt",encoding='utf-8')
     for line in file.readlines():
         ip_list.append(line.strip())
 
@@ -3423,7 +3423,7 @@ def cdn_detection_lib():
     total_list_uniq_result_uniq = list(set(total_list_uniq_result))
 
     #列表写入到url.txt
-    f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+    f = open(file='/TIP/info_scan/batch_scan_domain/url.txt',mode='w')
     for fileline in total_list_uniq_result_uniq:
         f.write(str(fileline)+"\n")
     f.close()
@@ -3495,7 +3495,7 @@ def assets_college_shodan_lib():
             for result in results['matches']:
                 print(str(result['ip_str']))
                 url_list.append(str(result['ip_str'])+str(":")+str(result['port']))
-        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        f = open(file='/TIP/info_scan/batch_scan_domain/url.txt', mode='w')
         for k in url_list:
             if ":443" in k:
                 f.write("https://"+str(k)+"\n")
@@ -3589,7 +3589,7 @@ def filter_private_ip_lib():
     sum_assets_len = len(private_ip_list) + len(public_ip_list)
     if total_assets_len == sum_assets_len:
         # 遍历列表存入目标资产
-        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        f = open(file='/TIP/info_scan/batch_scan_domain/url.txt', mode='w')
         for k in public_ip_list:
             f.write(str(k)+"\n")
         f.close()
@@ -3616,7 +3616,7 @@ def withdrawiplocation_lib():
             pass
     if len(ip_list) <= len(assets_list):
          # 遍历列表存入目标资产
-        f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+        f = open(file='/TIP/info_scan/batch_scan_domain/url.txt', mode='w')
         for k in ip_list:
             f.write(str(k)+"\n")
         f.close()

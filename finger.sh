@@ -104,18 +104,18 @@ startnuclei_url)
     #   -timeout 超时前等待的时间(以秒为单位) 默认 10秒
     #   dict="/root/nuclei-templates/http"
     # dict="/root/nuclei-templates/http"
-    /TIP/info_scan/Tools/nuclei_server/nuclei -l /TIP/batch_scan_domain/url.txt -t ${2} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 > /TIP/info_scan/result/nucleiresult.txt
+    /TIP/info_scan/Tools/nuclei_server/nuclei -l /TIP/info_scan/batch_scan_domain/url.txt -t ${2} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 > /TIP/info_scan/result/nucleiresult.txt
     ;;
 
 #开启nuclei扫描(通过第三方接口获取的URL)
 startnuclei_result)
     dict="/root/nuclei-templates/http"
-    /TIP/info_scan/Tools/nuclei_server/nuclei -l /TIP/batch_scan_domain/result.txt -t ${dict} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 > /TIP/info_scan/result/nucleiresult.txt
+    /TIP/info_scan/Tools/nuclei_server/nuclei -l /TIP/info_scan/batch_scan_domain/result.txt -t ${dict} -c 10 -bulk-size 10 -rate-limit 30 -timeout 3 > /TIP/info_scan/result/nucleiresult.txt
     ;;
 
 #nuclei状态查询
 nucleistatus)
-    ps_nuclei=$(ps -aux | grep "nuclei_server/nuclei -l /TIP/batch_scan_domain" | wc -l)
+    ps_nuclei=$(ps -aux | grep "nuclei_server/nuclei -l /TIP/info_scan/batch_scan_domain" | wc -l)
     if (($ps_nuclei > 1)); then
         echo "running"
     else
@@ -147,13 +147,13 @@ stopxrayscan)
 # 开启xray
 startxray_scan)
     # 需要进入下面的路径，否则无法启动程序
-    cd /TIP/batch_scan_domain/
+    cd /TIP/info_scan/batch_scan_domain/
     # 使用date命令生成当前的时间戳
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")
     #拼接文件名
-    OUTPUT_FILE="/TIP/batch_scan_domain/report/xray-testphp-${TIMESTAMP}.html"
+    OUTPUT_FILE="/TIP/info_scan/batch_scan_domain/report/xray-testphp-${TIMESTAMP}.html"
 
-    nohup /TIP/batch_scan_domain/xray_engine/xray_linux_amd64 webscan --listen 127.0.0.1:7777 --html-output "$OUTPUT_FILE" >/dev/null 2>&1 &
+    nohup /TIP/info_scan/batch_scan_domain/xray_engine/xray_linux_amd64 webscan --listen 127.0.0.1:7777 --html-output "$OUTPUT_FILE" >/dev/null 2>&1 &
     # 打印出生成的文件名
     echo "HTML output saved to $OUTPUT_FILE"
 
@@ -171,13 +171,13 @@ radstatus)
 
 #历史URL数量
 history_url_num)
-    his_num=$(cat /TIP/batch_scan_domain/result.txt | wc -l)
+    his_num=$(cat /TIP/info_scan/batch_scan_domain/result.txt | wc -l)
     echo "${his_num}"
     ;;
 
 #文本框中URL数量
 textarea_url_num)
-    textarea_url_num_value=$(cat /TIP/batch_scan_domain/url.txt | wc -l)
+    textarea_url_num_value=$(cat /TIP/info_scan/batch_scan_domain/url.txt | wc -l)
     echo "${textarea_url_num_value}"
     ;;
 
@@ -204,7 +204,7 @@ fileclean)
 
 #目录扫描url数量
 dirsearchtargetnum)
-    num=$(cat /TIP/batch_scan_domain/url.txt | wc -l)
+    num=$(cat /TIP/info_scan/batch_scan_domain/url.txt | wc -l)
     echo "${num}"
     ;;
 
@@ -216,11 +216,11 @@ dirsearchsyncresult)
 
 #目录扫描启动脚本
 dirsearchscan)
-    python3 /TIP/info_scan/Tools/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb > /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
+    python3 /TIP/info_scan/Tools/dirsearch/dirsearch.py -l /TIP/info_scan/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb > /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
     ;;
 # 目录扫描启动脚本代理
 dirsearchscanproxy)
-    python3 /TIP/info_scan/Tools/dirsearch/dirsearch.py -l /TIP/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb --proxy socks5://127.0.0.1:10808 > /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
+    python3 /TIP/info_scan/Tools/dirsearch/dirsearch.py -l /TIP/info_scan/batch_scan_domain/url.txt -e $2 -r -R $3 -i $4 -w $5 -t $6 exclude-sizes = 0b,123gb --proxy socks5://127.0.0.1:10808 > /TIP/info_scan/Tools/dirsearch/finalreport/dirsearchreport.txt
     ;;
 
 #目录扫描原始数量/reports目录下
@@ -264,9 +264,9 @@ blacklistsyncshell)
 
 #存活检测状态码为200
 survivaldetection)
-    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/batch_scan_domain/url.txt -mc 200 >/TIP/batch_scan_domain/url_tmp.txt
+    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/info_scan/batch_scan_domain/url.txt -mc 200 >/TIP/info_scan/batch_scan_domain/url_tmp.txt
     # 删除空行
-    sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt >/TIP/batch_scan_domain/url.txt
+    sed '/^$/d' /TIP/info_scan/batch_scan_domain/url_tmp.txt >/TIP/info_scan/batch_scan_domain/url.txt
     ;;
 
 #urlfinder引擎启动脚本
@@ -274,7 +274,7 @@ urlfinder_start)
     #使用date命令生成当前的时间戳
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")
     rm -rf /TIP/info_scan/Tools/urlfinder_server/result_tmp.txt
-    /TIP/info_scan/Tools/urlfinder_server/URLFinder -f /TIP/batch_scan_domain/url.txt -m 2 -s all -s 200 -o /TIP/info_scan/Tools/urlfinder_server/report/urlfinder-${TIMESTAMP}.html >/TIP/info_scan/Tools/urlfinder_server/result_tmp.txt
+    /TIP/info_scan/Tools/urlfinder_server/URLFinder -f /TIP/info_scan/batch_scan_domain/url.txt -m 2 -s all -s 200 -o /TIP/info_scan/Tools/urlfinder_server/report/urlfinder-${TIMESTAMP}.html >/TIP/info_scan/Tools/urlfinder_server/result_tmp.txt
     ;;
 
 # urlfinder扫描器状态
@@ -305,7 +305,7 @@ batch_cdn_scan)
 
 #不存在cdn的url脚本
 recognize_no_cdn)
-    urlvalue=$(cat /TIP/batch_scan_domain/url.txt | grep $2)
+    urlvalue=$(cat /TIP/info_scan/batch_scan_domain/url.txt | grep $2)
     echo "${urlvalue}"
     ;;
 
@@ -365,7 +365,7 @@ killweblogic_poc)
 
 # struts2漏洞扫描
 struts2_poc_scan)
-    python3 /TIP/info_scan/Tools/struts2_scan/Struts2Scan.py -f /TIP/batch_scan_domain/url.txt | grep "*" | grep -v "results" >/TIP/info_scan/result/struts2_poc.txt
+    python3 /TIP/info_scan/Tools/struts2_scan/Struts2Scan.py -f /TIP/info_scan/batch_scan_domain/url.txt | grep "*" | grep -v "results" >/TIP/info_scan/result/struts2_poc.txt
     ;;
 
 # struts2_poc运行状态
@@ -388,17 +388,17 @@ killstruts2process)
 
 # EHole指纹识别（未启动代理）
 ehole_finger_scan)
-    /TIP/info_scan/Tools/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
+    /TIP/info_scan/Tools/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/info_scan/batch_scan_domain/url.txt | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
     ;;
 # EHole指纹识别（启动代理）
 ehole_finger_scan_proxy)
-    /TIP/info_scan/Tools/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/batch_scan_domain/url.txt -p socks5://127.0.0.1:10808 | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
+    /TIP/info_scan/Tools/EHole_linux_amd64/EHole_linux_amd64 finger -l /TIP/info_scan/batch_scan_domain/url.txt -p socks5://127.0.0.1:10808 | grep "\[" >/TIP/info_scan/result/ehole_finger.txt
     ;;
 
 # BBScan敏感信息扫描
 bbscan_shell)
     cd /TIP/info_scan/Tools/BBScan
-    python3 BBScan.py -f /TIP/batch_scan_domain/url.txt | grep "[+]" >/TIP/info_scan/result/bbscan_info.txt
+    python3 BBScan.py -f /TIP/info_scan/batch_scan_domain/url.txt | grep "[+]" >/TIP/info_scan/result/bbscan_info.txt
     ;;
 
 # bbscan运行状态
@@ -414,7 +414,7 @@ bbscan_status)
 # vulmap漏洞扫描
 vulmapscan_shell)
     cd /TIP/info_scan/Tools/vulmap
-    python3 vulmap.py -f /TIP/batch_scan_domain/url.txt -a ${2} | grep "[+]" >/TIP/info_scan/result/vulmapscan_info.txt
+    python3 vulmap.py -f /TIP/info_scan/batch_scan_domain/url.txt -a ${2} | grep "[+]" >/TIP/info_scan/result/vulmapscan_info.txt
     ;;
 
 # vulmap运行状态
@@ -441,7 +441,7 @@ ceye_dns)
 startafrogprocess)
     cd /TIP/info_scan/Tools/afrog_scan/
     if [ -f ./afrog ]; then
-        ./afrog -T /TIP/batch_scan_domain/url.txt | grep "http" >/TIP/info_scan/result/afrog_vuln.txt
+        ./afrog -T /TIP/info_scan/batch_scan_domain/url.txt | grep "http" >/TIP/info_scan/result/afrog_vuln.txt
     else
         echo "Error: afrog not found in /TIP/info_scan/Tools/afrog_scan/"
     fi
@@ -583,13 +583,13 @@ finger_filter_shell)
 
 # 总资产URL数量
 url_file_num)
-    url_num=$(cat /TIP/batch_scan_domain/url_back.txt | wc -l)
+    url_num=$(cat /TIP/info_scan/batch_scan_domain/url_back.txt | wc -l)
     echo "${url_num}"
     ;;
 
     # 当前资产URL数量
 current_url_file_num)
-    url_current_num=$(cat /TIP/batch_scan_domain/url.txt | wc -l)
+    url_current_num=$(cat /TIP/info_scan/batch_scan_domain/url.txt | wc -l)
     echo "${url_current_num}"
     ;;
 
@@ -611,7 +611,7 @@ templatenuclei)
 
 # 启动springboot漏洞扫描程序
 start_springboot)
-    /TIP/info_scan/Tools/SpingBoot_Scan/ssp_linux_amd64 -uf /TIP/batch_scan_domain/url.txt | grep "+" >/TIP/info_scan/result/springboot_result.txt
+    /TIP/info_scan/Tools/SpingBoot_Scan/ssp_linux_amd64 -uf /TIP/info_scan/batch_scan_domain/url.txt | grep "+" >/TIP/info_scan/result/springboot_result.txt
     ;;
 
 # springboot扫描运行状态
@@ -995,7 +995,7 @@ kill_crt_subdomain_shell)
 
 # 开启泛微OA漏洞扫描
 weaver_exp_scan)
-    python3 /TIP/info_scan/Tools/weaver_exp/main.py -f /TIP/batch_scan_domain/url.txt >/TIP/info_scan/result/weaver_vuln.txt
+    python3 /TIP/info_scan/Tools/weaver_exp/main.py -f /TIP/info_scan/batch_scan_domain/url.txt >/TIP/info_scan/result/weaver_vuln.txt
     ;;
 
 # 泛微OA扫描器运行状态
@@ -1638,8 +1638,8 @@ waf_scan_shell)
 
 # 存在waf文件过滤
 waf_filter)
-    cat /TIP/batch_scan_domain/url.txt | grep -v "$2" >/TIP/batch_scan_domain/url_tmp.txt
-    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+    cat /TIP/info_scan/batch_scan_domain/url.txt | grep -v "$2" >/TIP/info_scan/batch_scan_domain/url_tmp.txt
+    mv /TIP/info_scan/batch_scan_domain/url_tmp.txt /TIP/info_scan/batch_scan_domain/url.txt
     ;;
 
 # 开启waf设备扫描检测
@@ -1775,7 +1775,7 @@ apinum)
 
 # xray报告数量
 xraynum)
-    num=$(ls /TIP/batch_scan_domain/report/ | wc -l)
+    num=$(ls /TIP/info_scan/batch_scan_domain/report/ | wc -l)
     echo "${num}"
     ;;
 
@@ -1791,12 +1791,12 @@ startsubfinder)
     ;;
 
 subfinder_httpx)
-    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/info_scan/result/subfinder_result.txt -mc 200 >/TIP/batch_scan_domain/url_tmp.txt
+    /TIP/info_scan/Tools/httpx_server/httpx -l /TIP/info_scan/result/subfinder_result.txt -mc 200 >/TIP/info_scan/batch_scan_domain/url_tmp.txt
     # 删除空行
-    sed '/^$/d' /TIP/batch_scan_domain/url_tmp.txt >/TIP/batch_scan_domain/url.txt
+    sed '/^$/d' /TIP/info_scan/batch_scan_domain/url_tmp.txt >/TIP/info_scan/batch_scan_domain/url.txt
     # 去重
-    sort /TIP/batch_scan_domain/url.txt | uniq >/TIP/batch_scan_domain/url_tmp.txt
-    mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+    sort /TIP/info_scan/batch_scan_domain/url.txt | uniq >/TIP/info_scan/batch_scan_domain/url_tmp.txt
+    mv /TIP/info_scan/batch_scan_domain/url_tmp.txt /TIP/info_scan/batch_scan_domain/url.txt
     ;;
 
     # subfinder运行状态
@@ -1941,8 +1941,8 @@ global_white_num)
 # 全局白名单过滤
 globalwhitefilter)
     for n in $(cat /TIP/info_scan/result/globalwhiteconfig.txt); do
-        cat /TIP/batch_scan_domain/url.txt | grep -v ${n} >/TIP/batch_scan_domain/url_tmp.txt
-        mv /TIP/batch_scan_domain/url_tmp.txt /TIP/batch_scan_domain/url.txt
+        cat /TIP/info_scan/batch_scan_domain/url.txt | grep -v ${n} >/TIP/info_scan/batch_scan_domain/url_tmp.txt
+        mv /TIP/info_scan/batch_scan_domain/url_tmp.txt /TIP/info_scan/batch_scan_domain/url.txt
     done
     ;;
 

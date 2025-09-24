@@ -73,11 +73,6 @@ mysql账号密码：admin/123456<br>
 <br><br>
 
 <h2>系统源码安装（维护中）：</h2>
-注意：<br>
-保证系统正常运行需要2个项目：<br>
-
-- [info_scan](https://github.com/huan-cdm/info_scan)：漏洞扫描主系统<br>
-- [batch_scan_domain](https://github.com/huan-cdm/batch_scan_domain)：和info_scan放在/TIP/目录下<br>
 1. 安装python3、MySQL数据库、java、nginx<br>
 2. /TIP/info_scan/static/js/common.js和/TIP/info_scan/finger.sh第一行替换vpsIP地址<br>
 3. 仅支持Linux环境部署，不支持Windows环境部署<br>
@@ -112,6 +107,11 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 
 <h2>更新日志：</h2>
 <ul>
+<li>
+2025-9-24更新<br> 
+1.代码整合；<br>
+2.已知问题处理与优化；<br>
+</li>
 <li>
 2025-9-11更新<br> 
 1.JNDI配置模块增加服务器IP和系统命令后端格式校验逻辑；<br>

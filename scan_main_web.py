@@ -440,7 +440,7 @@ def submit_data():
                         break
             if not result_rule:
                 # 列表中数据存入文件中
-                f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+                f = open(file='/TIP/info_scan/batch_scan_domain/url.txt',mode='w')
                 for line in data:
                     f.write(str(line)+"\n")
                 f.close()
@@ -469,7 +469,7 @@ def submit_data():
                 file_line = os.popen('bash /TIP/info_scan/finger.sh textarea_url_num').read()
                 result_rule = "已成功添加"+str(file_line)+"条资产"
                 #资产备份
-                os.popen('cp /TIP/batch_scan_domain/url.txt /TIP/batch_scan_domain/url_back.txt')
+                os.popen('cp /TIP/info_scan/batch_scan_domain/url.txt /TIP/info_scan/batch_scan_domain/url_back.txt')
                 # 资产全局白名单
                 globalwhiteswitch = basic.verification_table_lib(2)
                 if globalwhiteswitch == "已开启校验":
@@ -1308,7 +1308,7 @@ def key_assets_withdraw():
             try:
                 key_url_list = basic.key_point_tiqu()
                
-                f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+                f = open(file='/TIP/info_scan/batch_scan_domain/url.txt',mode='w')
                 for line in key_url_list:
                     f.write(str(line)+"\n")
                 f.close()
@@ -4751,7 +4751,7 @@ def comfirmclearloginterface():
                     recheck_result = "api接口报告正在删除中"
             elif int(inputmodel3) ==3:
                 print("xray")
-                os.popen('rm -rf /TIP/batch_scan_domain/report/*')
+                os.popen('rm -rf /TIP/info_scan/batch_scan_domain/report/*')
                 xray_num = os.popen('bash /TIP/info_scan/finger.sh xraynum').read()
                 if int(xray_num) == 0:
                     recheck_result = "xray报告已删除"
@@ -4855,7 +4855,7 @@ def searchassetsbykey():
         myinputid = request.form['myinputid']
         url_list = basic.url_file_ip_list()
         asset_url_list = []
-        f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+        f = open(file='/TIP/info_scan/batch_scan_domain/url.txt',mode='w')
         for url in url_list:
             if myinputid in url:
                 asset_url_list.append(url)
@@ -4879,7 +4879,7 @@ def excludesearchassetsbykey():
         myinputid = request.form['myinputid']
         url_list = basic.url_file_ip_list()
         asset_url_list = []
-        f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+        f = open(file='/TIP/info_scan/batch_scan_domain/url.txt',mode='w')
         for url in url_list:
             if myinputid not in url:
                 asset_url_list.append(url)
@@ -4907,17 +4907,17 @@ def assetsdownload():
         
         if len(url_result) == 0:
             url_result.append("暂无资产信息")
-            f = open(file='/TIP/batch_scan_domain/url.txt',mode='w')
+            f = open(file='/TIP/info_scan/batch_scan_domain/url.txt',mode='w')
             for line in url_result:
                 f.write(str(line)+"\n")
             f.close()
             # 判断url.txt文件是否存在
-            file_path = '/TIP/batch_scan_domain/url.txt'
+            file_path = '/TIP/info_scan/batch_scan_domain/url.txt'
             if os.path.exists(file_path) and os.path.isfile(file_path):
                 return send_file(file_path, as_attachment=True, download_name='url.txt')
         else:
             # 判断url.txt文件是否存在
-            file_path = '/TIP/batch_scan_domain/url.txt'
+            file_path = '/TIP/info_scan/batch_scan_domain/url.txt'
             if os.path.exists(file_path) and os.path.isfile(file_path):
                 return send_file(file_path, as_attachment=True, download_name='url.txt')
     else:
@@ -5384,7 +5384,7 @@ def withdrawurllocation():
                 url_list.append(url)
         if len(url_list) <= len(assets_list):
             # 遍历列表存入目标资产
-            f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+            f = open(file='/TIP/info_scan/batch_scan_domain/url.txt', mode='w')
             for k in url_list:
                 f.write(str(k)+"\n")
             f.close()
@@ -5409,7 +5409,7 @@ def assetslocationuniq():
         assets_list_uniq = list(set(assets_list))
         if len(assets_list_uniq) <= len(assets_list):
             # 遍历列表存入目标资产
-            f = open(file='/TIP/batch_scan_domain/url.txt', mode='w')
+            f = open(file='/TIP/info_scan/batch_scan_domain/url.txt', mode='w')
             for k in assets_list_uniq:
                 f.write(str(k)+"\n")
             f.close()

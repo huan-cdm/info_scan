@@ -147,7 +147,7 @@ case "${1}" in
 	#开启xray报告访问服务
     #本地开启127.0.0.1，利用nginx反向代理
     startxrayreport)
-    cd /TIP/batch_scan_domain/report
+    cd /TIP/info_scan/batch_scan_domain/report
     nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
 	sleep 0.5s
 	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
@@ -195,7 +195,7 @@ case "${1}" in
 	sleep 0.5s
 	echo "xrayreport正在重启中......"
 	sleep 0.5s
-	cd /TIP/batch_scan_domain/report
+	cd /TIP/info_scan/batch_scan_domain/report
     nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
 	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
 	#xray报告服务
@@ -452,7 +452,7 @@ case "${1}" in
 
 
 	# 开启xray报告
-	cd /TIP/batch_scan_domain/report
+	cd /TIP/info_scan/batch_scan_domain/report
     nohup python3 -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &
 	sleep 0.5s
 	xraypid=`ps -aux | grep 8081 |awk -F " " '{print $2}' | wc -l`
