@@ -109,7 +109,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <ul>
 <li>
 2025-9-24更新<br> 
-1.代码整合；<br>
+1.整合xray被动扫描；<br>
 2.已知问题处理与优化；<br>
 </li>
 <li>
