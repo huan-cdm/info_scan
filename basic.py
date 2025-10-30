@@ -4040,6 +4040,38 @@ def is_valid_ipv4(address):
     return logo_part
 
 
+# 扫描器参数配置
+# 爬虫流量转发配置查询
+def crawler_conf_lib(part):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="SELECT partname from scan_conf_table where id = '%s'"%(part)
+        cur.execute(sql)
+        data = cur.fetchall()
+        list_data = list(data)
+        crawler_conf_list = []
+        for i in list_data:
+            crawler_conf_list.append(i[0])
+        crawler_conf_list_result = crawler_conf_list[0]
+    except:
+        crawler_conf_list_result = "MySQL连接失败"
+    return crawler_conf_list_result
+
+# 爬虫流量转发配置修改
+def update_crawler_conf_lib(part1,part2):
+    try:
+        db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+        password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+        cur = db.cursor()
+        sql="UPDATE scan_conf_table SET partname = '%s' WHERE id = '%s'"%(part1,part2)
+        cur.execute(sql)
+        db.commit()
+    except Exception as e:
+        print("捕获到异常:", e)
+        db.rollback()
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

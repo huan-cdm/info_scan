@@ -637,6 +637,14 @@ function startscanconfigpagefunc() {
                 statusElement2.classList.add('status-error');
             }
 
+            // 扫描器配置选项爬虫流量转发配置
+            const sel = document.querySelector('select[name="pachongselectpart"]');
+            if (info.crawlerscan_part === '1'){
+                 sel.value = '1'; 
+            }else{
+                sel.value = '2'; 
+            }
+
         },
         error: function () {
             const statusElement = document.getElementById('jndistatusid1');
@@ -1821,20 +1829,6 @@ function nmaptextarea_onout() {
 }
 
 
-// 爬虫扫描参数详情
-function crawlergo_part_show() {
-    var pachongselectpart = $('select[name="pachongselectpart"]').val();
-    if (pachongselectpart == 1) {
-        document.getElementById("crawlergo_part_show_part2").innerHTML = "";
-        document.getElementById("crawlergo_part_show_part1").innerHTML = "爬虫流量不转发给被动流量扫描器";
-    } else if (pachongselectpart == 2) {
-        document.getElementById("crawlergo_part_show_part1").innerHTML = "";
-        document.getElementById("crawlergo_part_show_part2").innerHTML = "爬虫流量已转发给xray,扫描前需先开启xray被动监听";
-    }
-}
-
-
-
 // 打开删除报告二次验证弹窗
 function startverifychearlogfunc(dataToSet) {
     // 返回结果滞空
@@ -1881,6 +1875,8 @@ function comfirmclearlogfunc() {
     var customizelimitid4 = document.getElementById('customizelimitid4').value;
     var customizelimitid5 = document.getElementById('customizelimitid5').value;
     var customizelimitid6 = document.getElementById('customizelimitid6').value;
+    // 扫描器参数爬虫选项配置
+    var pachongselectpart = $('select[name="pachongselectpart"]').val();
 
     $.ajax({
         url: '/comfirmclearloginterface/',
@@ -1901,7 +1897,8 @@ function comfirmclearlogfunc() {
             customizelimitid3: customizelimitid3,
             customizelimitid4: customizelimitid4,
             customizelimitid5: customizelimitid5,
-            customizelimitid6: customizelimitid6
+            customizelimitid6: customizelimitid6,
+            pachongselectpart:pachongselectpart
         },
         success: function (info) {
             document.getElementById("filterruleid1").innerHTML = info.recheck_result;

@@ -4731,6 +4731,8 @@ def comfirmclearloginterface():
         customizelimitid4 = request.form['customizelimitid4']
         customizelimitid5 = request.form['customizelimitid5']
         customizelimitid6 = request.form['customizelimitid6']
+        # 扫描器参数爬虫选项配置
+        pachongselectpart = request.form['pachongselectpart']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -4804,6 +4806,10 @@ def comfirmclearloginterface():
             elif int(inputmodel3) ==17:
                 print("配置otx威胁情报接口额度")
                 recheck_result = basic.update_customize_interface_totalnum(customizelimitid6,6)
+            elif int(inputmodel3) == 18:
+                print("扫描器爬虫流量转发选项配置")
+                basic.update_crawler_conf_lib(pachongselectpart,1)
+                recheck_result = "扫描器爬虫流量转发选项配置已生效"
             elif int(inputmodel3) ==11:
                 print("配置高危资产识别")
                 
@@ -5017,6 +5023,8 @@ def system_config_data():
             otx_remaining_num = 0
         else:
             otx_remaining_num = otx_remaining_num_1
+        # 获取扫描器配置爬虫流量转发部分
+        crawlerscan_part = basic.crawler_conf_lib(1)
 
         message_json = {
             # 接口剩余额度
@@ -5037,7 +5045,9 @@ def system_config_data():
             "jndistatus":str(jndistatus),
             "jndi_exp_status_result":jndi_exp_status_result,
             # 资产校验状态
-            "assets_jiaoyan_status":str(assets_jiaoyan_status)
+            "assets_jiaoyan_status":str(assets_jiaoyan_status),
+            # 扫描器配置选项
+            "crawlerscan_part":str(crawlerscan_part)
         }
         return jsonify(message_json)
     else:

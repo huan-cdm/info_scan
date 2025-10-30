@@ -466,14 +466,15 @@ poc显示区域</textarea>
                                 <br><strong>vulmap扫描参数</strong>
                             </td>
                             <td>
-                                <select name="pachongselectpart" onmouseout="crawlergo_part_show()"
+                                <select name="pachongselectpart"
                                     class="scanpartselectconfig">
-                                    <option value="1">流量不转发</option>
-                                    <option value="2">流量转发</option>
+                                    <option value="1">停止转发流量</option>
+                                    <option value="2">开始转发流量</option>
                                 </select>
 
-                                <span style="color: goldenrod;" id="crawlergo_part_show_part1"></span>
-                                <span style="color: goldenrod;" id="crawlergo_part_show_part2"></span>
+                                <button class="button edit-button" onclick="startverifychearlogfunc('18')">保存</button>
+                                <br>
+                                <span style="color: crimson;">✳转发流量：爬虫流量转发给xray被动扫描</span>
                                 <br><strong>爬虫扫描参数</strong>
                             </td>
                         </tr>
@@ -541,9 +542,9 @@ poc显示区域</textarea>
                 <td>
                     <input type="text" placeholder="关键字" id="rule_input_id1" class="my-input5">
 
-                    <span class="my-span" onclick="startverifychearlogfunc('11')">保存</span>
-                    <span class="my-span" onclick="delete_rule_all_func()">清空</span>
-                    <span class="my-span" onclick="select_rule_all_func()">查询</span>
+                    <span class="my-span" onclick="startverifychearlogfunc('11')">新增</span>
+                    <span class="my-span" onclick="delete_rule_all_func()">重置</span>
+                    <span class="my-span" onclick="select_rule_all_func()">列表</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     ①.资产指纹识别&nbsp;&nbsp;②.找到特征保存到系统&nbsp;&nbsp;③.识别关键资产&nbsp;&nbsp;④.得到关键资产
 
