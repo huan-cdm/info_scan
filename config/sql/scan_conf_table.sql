@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 30/10/2025 17:00:41
+ Date: 31/10/2025 10:59:39
 */
 
 SET NAMES utf8mb4;
@@ -30,6 +30,11 @@ CREATE TABLE `scan_conf_table`  (
 -- ----------------------------
 -- Records of scan_conf_table
 -- ----------------------------
-INSERT INTO `scan_conf_table` VALUES (1, '1');
+INSERT INTO `scan_conf_table` VALUES (1, '2');
+INSERT INTO `scan_conf_table` VALUES (2, '1');
+INSERT INTO `scan_conf_table` VALUES (3, '1');
+INSERT INTO `scan_conf_table` VALUES (4, '1');
+INSERT INTO `scan_conf_table` VALUES (5, '1');
+INSERT INTO `scan_conf_table` VALUES (6, '1');
 
 SET FOREIGN_KEY_CHECKS = 1;
