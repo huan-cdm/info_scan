@@ -645,6 +645,23 @@ function startscanconfigpagefunc() {
                 sel.value = '2'; 
             }
 
+            // 弱口令扫描配置
+            const weekpwdsel = document.querySelector('select[name="hydrapart"]');
+            if (info.weekpwd_scan_part === '1'){
+                 weekpwdsel.value = '1'; }
+            else if (info.weekpwd_scan_part === '2'){
+                weekpwdsel.value = '2'; 
+            }
+            else if (info.weekpwd_scan_part === '3'){
+                weekpwdsel.value = '3'; 
+            }
+            else if (info.weekpwd_scan_part === '4'){
+                weekpwdsel.value = '4'; 
+            }
+            else{
+                weekpwdsel.value = '5'; 
+            }
+
         },
         error: function () {
             const statusElement = document.getElementById('jndistatusid1');
@@ -1858,6 +1875,8 @@ function stopverifychearlogfunc() {
 
 // 复核
 function comfirmclearlogfunc() {
+    var myModa23 = document.getElementById("myModa23");
+    myModa23.style.display = "block";
     var inputmodel1 = document.getElementById('inputmodel1').value;
     var inputmodel2 = document.getElementById('inputmodel2').value;
     var inputmodel3 = document.getElementById('inputmodel3').value;
@@ -1877,6 +1896,8 @@ function comfirmclearlogfunc() {
     var customizelimitid6 = document.getElementById('customizelimitid6').value;
     // 扫描器参数爬虫选项配置
     var pachongselectpart = $('select[name="pachongselectpart"]').val();
+    // 扫描器参数配置弱口令扫描参数配置
+    var hydrapart = $('select[name="hydrapart"]').val();
 
     $.ajax({
         url: '/comfirmclearloginterface/',
@@ -1898,12 +1919,15 @@ function comfirmclearlogfunc() {
             customizelimitid4: customizelimitid4,
             customizelimitid5: customizelimitid5,
             customizelimitid6: customizelimitid6,
-            pachongselectpart:pachongselectpart
+            pachongselectpart:pachongselectpart,
+            hydrapart:hydrapart
         },
         success: function (info) {
+            
             document.getElementById("filterruleid1").innerHTML = info.recheck_result;
         },
         error: function (info) {
+            
             document.getElementById("filterruleid1").innerHTML = "内部错误";
         },
         complete: function () {
@@ -3493,6 +3517,12 @@ function startjwtscanfunc() {
 function closevulnscan19() {
     var myModa21 = document.getElementById("myModa21");
     myModa21.style.display = "none";
+}
+
+// 关闭复核结果
+function closevulnscan20() {
+    var myModa23 = document.getElementById("myModa23");
+    myModa23.style.display = "none";
 }
 
 // 打开JNDI日志弹窗

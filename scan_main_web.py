@@ -4733,6 +4733,8 @@ def comfirmclearloginterface():
         customizelimitid6 = request.form['customizelimitid6']
         # 扫描器参数爬虫选项配置
         pachongselectpart = request.form['pachongselectpart']
+        # 弱口令扫描参数配置
+        hydrapart = request.form['hydrapart']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -4810,6 +4812,10 @@ def comfirmclearloginterface():
                 print("扫描器爬虫流量转发选项配置")
                 basic.update_crawler_conf_lib(pachongselectpart,1)
                 recheck_result = "扫描器爬虫流量转发选项配置已生效"
+            elif int(inputmodel3) == 19:
+                print("弱口令扫描参数配置")
+                basic.update_crawler_conf_lib(hydrapart,2)
+                recheck_result = "弱口令扫描参数配置已生效"
             elif int(inputmodel3) ==11:
                 print("配置高危资产识别")
                 
@@ -5023,8 +5029,10 @@ def system_config_data():
             otx_remaining_num = 0
         else:
             otx_remaining_num = otx_remaining_num_1
-        # 获取扫描器配置爬虫流量转发部分
+        # 爬虫流量转发部分
         crawlerscan_part = basic.crawler_conf_lib(1)
+        # 弱口令扫描配置
+        weekpwd_scan_part = basic.crawler_conf_lib(2)
 
         message_json = {
             # 接口剩余额度
@@ -5047,7 +5055,8 @@ def system_config_data():
             # 资产校验状态
             "assets_jiaoyan_status":str(assets_jiaoyan_status),
             # 扫描器配置选项
-            "crawlerscan_part":str(crawlerscan_part)
+            "crawlerscan_part":str(crawlerscan_part),
+            "weekpwd_scan_part":str(weekpwd_scan_part)
         }
         return jsonify(message_json)
     else:

@@ -237,7 +237,7 @@
     <div class="modal-content1">
         <span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
         <table border="1">
-            <span id="filterruleid1" style="color: red;font-size: 20px;"></span>
+            <!-- <span id="filterruleid1" style="color: red;font-size: 20px;"></span> -->
             <tr>
                 <td style="text-align:center;">
                     <strong style="color: chocolate;">删除漏洞报告</strong><br>
@@ -427,6 +427,7 @@ poc显示区域</textarea>
                                     <option value="4">redis</option>
                                     <option value="5">mssql</option>
                                 </select>
+                                <button class="button edit-button" onclick="startverifychearlogfunc('19')">保存</button>
                                 <br><strong>弱口令扫描参数</strong>
 
                             </td>
@@ -1070,6 +1071,18 @@ poc显示区域</textarea>
         <span class="close" onclick="closevulnscan19()">&times;</span>
         <h3>JWT爆破：</h3>
         <p id="jwtresultid4"></p>
+    </div>
+</div>
+
+
+<!-- 复核返回结果弹窗 -->
+<div id="myModa23" class="modal9">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close" onclick="closevulnscan20()">&times;</span>
+        <h3>复核结果：</h3>
+        <!-- <p id="vulnscan13"></p> -->
+        <span id="filterruleid1" style="color: red;font-size: 20px;"></span>
     </div>
 </div>
 
