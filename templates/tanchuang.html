@@ -235,6 +235,7 @@
 <!-- 系统配置弹窗页面 -->
 <div id="modal2" class="modal1">
     <div class="modal-content1">
+        <a href="#/flushconfig/" onclick="startscanconfigpagefunc()">刷新配置</a>
         <span class="close" onclick="stopscanconfigpagefunc()">&times;</span>
         <table border="1">
             <!-- <span id="filterruleid1" style="color: red;font-size: 20px;"></span> -->
@@ -464,6 +465,7 @@ poc显示区域</textarea>
                                     <option value="qianxin">检查站点是否存在qianxin漏洞</option>
                                     <option value="ruijie">检查站点是否存在ruijie漏洞</option>
                                 </select>
+                                <button class="button edit-button" onclick="startverifychearlogfunc('20')">保存</button>
                                 <br><strong>vulmap扫描参数</strong>
                             </td>
                             <td>

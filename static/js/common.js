@@ -562,7 +562,7 @@ function closesystemanager() {
 }
 
 
-// 打开扫描器配置页面
+// 系统配置
 function startscanconfigpagefunc() {
     var modal2 = document.getElementById("modal2");
     modal2.style.display = "block";
@@ -660,6 +660,103 @@ function startscanconfigpagefunc() {
             }
             else{
                 weekpwdsel.value = '5'; 
+            }
+
+            // vulmap扫描配置
+            const vulmapsel = document.querySelector('select[name="vulnname"]');
+            if (info.vulmap_scan_part === 'all'){
+                 vulmapsel.value = 'all'; }
+            else if (info.vulmap_scan_part === 'activemq'){
+                vulmapsel.value = 'activemq'; 
+            }
+            else if (info.vulmap_scan_part === 'flink'){
+                vulmapsel.value = 'flink'; 
+            }
+            else if (info.vulmap_scan_part === 'shiro'){
+                vulmapsel.value = 'shiro'; 
+            }
+            else if (info.vulmap_scan_part === 'solr'){
+                vulmapsel.value = 'solr'; 
+            }
+            else if (info.vulmap_scan_part === 'struts2'){
+                vulmapsel.value = 'struts2'; 
+            }
+            else if (info.vulmap_scan_part === 'tomcat'){
+                vulmapsel.value = 'tomcat'; 
+            }
+            else if (info.vulmap_scan_part === 'unomi'){
+                vulmapsel.value = 'unomi'; 
+            }
+            else if (info.vulmap_scan_part === 'drupal'){
+                vulmapsel.value = 'drupal'; 
+            }
+            else if (info.vulmap_scan_part === 'elasticsearch'){
+                vulmapsel.value = 'elasticsearch'; 
+            }
+            else if (info.vulmap_scan_part === 'fastjson'){
+                vulmapsel.value = 'fastjson'; 
+            }
+
+            // 换行
+            else if (info.vulmap_scan_part === 'jenkins'){
+                vulmapsel.value = 'jenkins'; 
+            }
+            else if (info.vulmap_scan_part === 'laravel'){
+                vulmapsel.value = 'laravel'; 
+            }
+            else if (info.vulmap_scan_part === 'nexus'){
+                vulmapsel.value = 'nexus'; 
+            }
+            else if (info.vulmap_scan_part === 'weblogic'){
+                vulmapsel.value = 'weblogic'; 
+            }
+            else if (info.vulmap_scan_part === 'jboss'){
+                vulmapsel.value = 'jboss'; 
+            }
+            else if (info.vulmap_scan_part === 'spring'){
+                vulmapsel.value = 'spring'; 
+            }
+            else if (info.vulmap_scan_part === 'thinkphp'){
+                vulmapsel.value = 'thinkphp'; 
+            }
+            else if (info.vulmap_scan_part === 'druid'){
+                vulmapsel.value = 'druid'; 
+            }
+
+            else if (info.vulmap_scan_part === 'exchange'){
+                vulmapsel.value = 'exchange'; 
+            }
+            else if (info.vulmap_scan_part === 'nodejs'){
+                vulmapsel.value = 'nodejs'; 
+            }
+            else if (info.vulmap_scan_part === 'saltstack'){
+                vulmapsel.value = 'saltstack'; 
+            }
+            else if (info.vulmap_scan_part === 'vmware'){
+                vulmapsel.value = 'vmware'; 
+            }
+            else if (info.vulmap_scan_part === 'bigip'){
+                vulmapsel.value = 'bigip'; 
+            }
+
+             else if (info.vulmap_scan_part === 'ofbiz'){
+                vulmapsel.value = 'ofbiz'; 
+            }
+             else if (info.vulmap_scan_part === 'coremail'){
+                vulmapsel.value = 'coremail'; 
+            }
+            else if (info.vulmap_scan_part === 'ecology'){
+                vulmapsel.value = 'ecology'; 
+            }
+            else if (info.vulmap_scan_part === 'eyou'){
+                vulmapsel.value = 'eyou'; 
+            }
+            else if (info.vulmap_scan_part === 'qianxin'){
+                vulmapsel.value = 'qianxin'; 
+            }
+
+            else{
+                vulmapsel.value = 'ruijie'; 
             }
 
         },
@@ -1898,6 +1995,8 @@ function comfirmclearlogfunc() {
     var pachongselectpart = $('select[name="pachongselectpart"]').val();
     // 扫描器参数配置弱口令扫描参数配置
     var hydrapart = $('select[name="hydrapart"]').val();
+    // 扫描器参数配置vulmap参数配置
+    var vulnname = $('select[name="vulnname"]').val();
 
     $.ajax({
         url: '/comfirmclearloginterface/',
@@ -1920,7 +2019,8 @@ function comfirmclearlogfunc() {
             customizelimitid5: customizelimitid5,
             customizelimitid6: customizelimitid6,
             pachongselectpart:pachongselectpart,
-            hydrapart:hydrapart
+            hydrapart:hydrapart,
+            vulnname:vulnname
         },
         success: function (info) {
             

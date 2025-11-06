@@ -4735,6 +4735,8 @@ def comfirmclearloginterface():
         pachongselectpart = request.form['pachongselectpart']
         # 弱口令扫描参数配置
         hydrapart = request.form['hydrapart']
+        # vulmap扫描参数配置
+        vulnname = request.form['vulnname']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -4816,6 +4818,10 @@ def comfirmclearloginterface():
                 print("弱口令扫描参数配置")
                 basic.update_crawler_conf_lib(hydrapart,2)
                 recheck_result = "弱口令扫描参数配置已生效"
+            elif int(inputmodel3) == 20:
+                print("vulmap扫描参数配置")
+                basic.update_crawler_conf_lib(vulnname,3)
+                recheck_result = "vulmap扫描参数配置已生效"
             elif int(inputmodel3) ==11:
                 print("配置高危资产识别")
                 
@@ -5033,6 +5039,8 @@ def system_config_data():
         crawlerscan_part = basic.crawler_conf_lib(1)
         # 弱口令扫描配置
         weekpwd_scan_part = basic.crawler_conf_lib(2)
+        # vulmap扫描配置
+        vulmap_scan_part = basic.crawler_conf_lib(3)
 
         message_json = {
             # 接口剩余额度
@@ -5056,7 +5064,8 @@ def system_config_data():
             "assets_jiaoyan_status":str(assets_jiaoyan_status),
             # 扫描器配置选项
             "crawlerscan_part":str(crawlerscan_part),
-            "weekpwd_scan_part":str(weekpwd_scan_part)
+            "weekpwd_scan_part":str(weekpwd_scan_part),
+            "vulmap_scan_part":str(vulmap_scan_part)
         }
         return jsonify(message_json)
     else:

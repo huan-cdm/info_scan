@@ -112,6 +112,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 1.扫描器爬虫流量转发配置功能状态保存；<br>
 2.扫描器弱口令扫描配置功能状态保存；<br>
 3.已知问题处理与优化；<br>
+4.扫描器vulmap扫描配置功能状态保存；<br>
 </li>
 <li>
 2025-9-24更新<br> 
