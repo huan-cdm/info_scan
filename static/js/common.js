@@ -639,124 +639,280 @@ function startscanconfigpagefunc() {
 
             // 扫描器配置选项爬虫流量转发配置
             const sel = document.querySelector('select[name="pachongselectpart"]');
-            if (info.crawlerscan_part === '1'){
-                 sel.value = '1'; 
-            }else{
-                sel.value = '2'; 
+            if (info.crawlerscan_part === '1') {
+                sel.value = '1';
+            } else {
+                sel.value = '2';
             }
 
             // 弱口令扫描配置
             const weekpwdsel = document.querySelector('select[name="hydrapart"]');
-            if (info.weekpwd_scan_part === '1'){
-                 weekpwdsel.value = '1'; }
-            else if (info.weekpwd_scan_part === '2'){
-                weekpwdsel.value = '2'; 
+            if (info.weekpwd_scan_part === '1') {
+                weekpwdsel.value = '1';
             }
-            else if (info.weekpwd_scan_part === '3'){
-                weekpwdsel.value = '3'; 
+            else if (info.weekpwd_scan_part === '2') {
+                weekpwdsel.value = '2';
             }
-            else if (info.weekpwd_scan_part === '4'){
-                weekpwdsel.value = '4'; 
+            else if (info.weekpwd_scan_part === '3') {
+                weekpwdsel.value = '3';
             }
-            else{
-                weekpwdsel.value = '5'; 
+            else if (info.weekpwd_scan_part === '4') {
+                weekpwdsel.value = '4';
+            }
+            else {
+                weekpwdsel.value = '5';
             }
 
             // vulmap扫描配置
             const vulmapsel = document.querySelector('select[name="vulnname"]');
-            if (info.vulmap_scan_part === 'all'){
-                 vulmapsel.value = 'all'; }
-            else if (info.vulmap_scan_part === 'activemq'){
-                vulmapsel.value = 'activemq'; 
+            if (info.vulmap_scan_part === 'all') {
+                vulmapsel.value = 'all';
             }
-            else if (info.vulmap_scan_part === 'flink'){
-                vulmapsel.value = 'flink'; 
+            else if (info.vulmap_scan_part === 'activemq') {
+                vulmapsel.value = 'activemq';
             }
-            else if (info.vulmap_scan_part === 'shiro'){
-                vulmapsel.value = 'shiro'; 
+            else if (info.vulmap_scan_part === 'flink') {
+                vulmapsel.value = 'flink';
             }
-            else if (info.vulmap_scan_part === 'solr'){
-                vulmapsel.value = 'solr'; 
+            else if (info.vulmap_scan_part === 'shiro') {
+                vulmapsel.value = 'shiro';
             }
-            else if (info.vulmap_scan_part === 'struts2'){
-                vulmapsel.value = 'struts2'; 
+            else if (info.vulmap_scan_part === 'solr') {
+                vulmapsel.value = 'solr';
             }
-            else if (info.vulmap_scan_part === 'tomcat'){
-                vulmapsel.value = 'tomcat'; 
+            else if (info.vulmap_scan_part === 'struts2') {
+                vulmapsel.value = 'struts2';
             }
-            else if (info.vulmap_scan_part === 'unomi'){
-                vulmapsel.value = 'unomi'; 
+            else if (info.vulmap_scan_part === 'tomcat') {
+                vulmapsel.value = 'tomcat';
             }
-            else if (info.vulmap_scan_part === 'drupal'){
-                vulmapsel.value = 'drupal'; 
+            else if (info.vulmap_scan_part === 'unomi') {
+                vulmapsel.value = 'unomi';
             }
-            else if (info.vulmap_scan_part === 'elasticsearch'){
-                vulmapsel.value = 'elasticsearch'; 
+            else if (info.vulmap_scan_part === 'drupal') {
+                vulmapsel.value = 'drupal';
             }
-            else if (info.vulmap_scan_part === 'fastjson'){
-                vulmapsel.value = 'fastjson'; 
+            else if (info.vulmap_scan_part === 'elasticsearch') {
+                vulmapsel.value = 'elasticsearch';
+            }
+            else if (info.vulmap_scan_part === 'fastjson') {
+                vulmapsel.value = 'fastjson';
             }
 
             // 换行
-            else if (info.vulmap_scan_part === 'jenkins'){
-                vulmapsel.value = 'jenkins'; 
+            else if (info.vulmap_scan_part === 'jenkins') {
+                vulmapsel.value = 'jenkins';
             }
-            else if (info.vulmap_scan_part === 'laravel'){
-                vulmapsel.value = 'laravel'; 
+            else if (info.vulmap_scan_part === 'laravel') {
+                vulmapsel.value = 'laravel';
             }
-            else if (info.vulmap_scan_part === 'nexus'){
-                vulmapsel.value = 'nexus'; 
+            else if (info.vulmap_scan_part === 'nexus') {
+                vulmapsel.value = 'nexus';
             }
-            else if (info.vulmap_scan_part === 'weblogic'){
-                vulmapsel.value = 'weblogic'; 
+            else if (info.vulmap_scan_part === 'weblogic') {
+                vulmapsel.value = 'weblogic';
             }
-            else if (info.vulmap_scan_part === 'jboss'){
-                vulmapsel.value = 'jboss'; 
+            else if (info.vulmap_scan_part === 'jboss') {
+                vulmapsel.value = 'jboss';
             }
-            else if (info.vulmap_scan_part === 'spring'){
-                vulmapsel.value = 'spring'; 
+            else if (info.vulmap_scan_part === 'spring') {
+                vulmapsel.value = 'spring';
             }
-            else if (info.vulmap_scan_part === 'thinkphp'){
-                vulmapsel.value = 'thinkphp'; 
+            else if (info.vulmap_scan_part === 'thinkphp') {
+                vulmapsel.value = 'thinkphp';
             }
-            else if (info.vulmap_scan_part === 'druid'){
-                vulmapsel.value = 'druid'; 
-            }
-
-            else if (info.vulmap_scan_part === 'exchange'){
-                vulmapsel.value = 'exchange'; 
-            }
-            else if (info.vulmap_scan_part === 'nodejs'){
-                vulmapsel.value = 'nodejs'; 
-            }
-            else if (info.vulmap_scan_part === 'saltstack'){
-                vulmapsel.value = 'saltstack'; 
-            }
-            else if (info.vulmap_scan_part === 'vmware'){
-                vulmapsel.value = 'vmware'; 
-            }
-            else if (info.vulmap_scan_part === 'bigip'){
-                vulmapsel.value = 'bigip'; 
+            else if (info.vulmap_scan_part === 'druid') {
+                vulmapsel.value = 'druid';
             }
 
-             else if (info.vulmap_scan_part === 'ofbiz'){
-                vulmapsel.value = 'ofbiz'; 
+            else if (info.vulmap_scan_part === 'exchange') {
+                vulmapsel.value = 'exchange';
             }
-             else if (info.vulmap_scan_part === 'coremail'){
-                vulmapsel.value = 'coremail'; 
+            else if (info.vulmap_scan_part === 'nodejs') {
+                vulmapsel.value = 'nodejs';
             }
-            else if (info.vulmap_scan_part === 'ecology'){
-                vulmapsel.value = 'ecology'; 
+            else if (info.vulmap_scan_part === 'saltstack') {
+                vulmapsel.value = 'saltstack';
             }
-            else if (info.vulmap_scan_part === 'eyou'){
-                vulmapsel.value = 'eyou'; 
+            else if (info.vulmap_scan_part === 'vmware') {
+                vulmapsel.value = 'vmware';
             }
-            else if (info.vulmap_scan_part === 'qianxin'){
-                vulmapsel.value = 'qianxin'; 
+            else if (info.vulmap_scan_part === 'bigip') {
+                vulmapsel.value = 'bigip';
             }
 
-            else{
-                vulmapsel.value = 'ruijie'; 
+            else if (info.vulmap_scan_part === 'ofbiz') {
+                vulmapsel.value = 'ofbiz';
+            }
+            else if (info.vulmap_scan_part === 'coremail') {
+                vulmapsel.value = 'coremail';
+            }
+            else if (info.vulmap_scan_part === 'ecology') {
+                vulmapsel.value = 'ecology';
+            }
+            else if (info.vulmap_scan_part === 'eyou') {
+                vulmapsel.value = 'eyou';
+            }
+            else if (info.vulmap_scan_part === 'qianxin') {
+                vulmapsel.value = 'qianxin';
+            }
+
+            else {
+                vulmapsel.value = 'ruijie';
+            }
+
+            // nuclei配置
+            const nucleisel = document.querySelector('select[name="poc_dir"]');
+            if (info.nuclei_scan_part === '/root/nuclei-templates/http') {
+                nucleisel.value = '/root/nuclei-templates/http';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/cnvd') {
+                nucleisel.value = '/root/nuclei-templates/http/cnvd';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/cves') {
+                nucleisel.value = '/root/nuclei-templates/http/cves';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/exposed-panels') {
+                nucleisel.value = '/root/nuclei-templates/http/exposed-panels';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/fuzzing') {
+                nucleisel.value = '/root/nuclei-templates/http/fuzzing';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/iot') {
+                nucleisel.value = '/root/nuclei-templates/http/iot';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/misconfiguration') {
+                nucleisel.value = '/root/nuclei-templates/http/misconfiguration';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/takeovers') {
+                nucleisel.value = '/root/nuclei-templates/http/takeovers';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/token-spray') {
+                nucleisel.value = '/root/nuclei-templates/http/token-spray';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/credential-stuffing') {
+                nucleisel.value = '/root/nuclei-templates/http/credential-stuffing';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/default-logins') {
+                nucleisel.value = '/root/nuclei-templates/http/default-logins';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/exposures') {
+                nucleisel.value = '/root/nuclei-templates/http/exposures';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/honeypot') {
+                nucleisel.value = '/root/nuclei-templates/http/honeypot';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/miscellaneous') {
+                nucleisel.value = '/root/nuclei-templates/http/miscellaneous';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/osint') {
+                nucleisel.value = '/root/nuclei-templates/http/osint';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/technologies') {
+                nucleisel.value = '/root/nuclei-templates/http/technologies';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/http/vulnerabilities') {
+                nucleisel.value = '/root/nuclei-templates/http/vulnerabilities';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/dns') {
+                nucleisel.value = '/root/nuclei-templates/dns';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/helpers') {
+                nucleisel.value = '/root/nuclei-templates/helpers';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/miscellaneous') {
+                nucleisel.value = '/root/nuclei-templates/miscellaneous';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/technologies') {
+                nucleisel.value = '/root/nuclei-templates/technologies';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/workflows') {
+                nucleisel.value = '/root/nuclei-templates/workflows';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/file') {
+                nucleisel.value = '/root/nuclei-templates/file';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/cloud') {
+                nucleisel.value = '/root/nuclei-templates/cloud';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/misconfiguration') {
+                nucleisel.value = '/root/nuclei-templates/misconfiguration';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/default-logins6') {
+                nucleisel.value = '/root/nuclei-templates/default-logins';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/headless') {
+                nucleisel.value = '/root/nuclei-templates/headless';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/network') {
+                nucleisel.value = '/root/nuclei-templates/network';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/ssl') {
+                nucleisel.value = '/root/nuclei-templates/ssl';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/javascript') {
+                nucleisel.value = '/root/nuclei-templates/javascript';
+            }
+            else if (info.nuclei_scan_part === '/root/nuclei-templates/config') {
+                nucleisel.value = '/root/nuclei-templates/config';
+            }
+            else {
+                nucleisel.value = '/root/nuclei-templates/code';
+            }
+            // 端口扫描配置
+            const portscansel = document.querySelector('select[name="portscan_part"]');
+            if (info.port_scan_part === 'top1000端口') {
+                portscansel.value = '7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738';
+            }
+            else if (info.port_scan_part === '常见RCE端口') {
+                portscansel.value = '21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017';
+            }
+            else if (info.port_scan_part === '80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443') {
+                portscansel.value = '80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443';
+            }
+            else if (info.port_scan_part === '21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017') {
+                portscansel.value = '21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017';
+            }
+            else if (info.nuclei_scan_part === '21,22,53,80,443,445,1433,3306,3389,8080') {
+                nucleisel.value = '21,22,53,80,443,445,1433,3306,3389,8080';
+            }
+            else {
+                portscansel.value = '1-65535';
+            }
+
+            // fscan扫描配置
+            const fscnsel1 = document.querySelector('select[name="fscanpartname"]');
+            const fscnsel2 = document.querySelector('select[name="fscanpartname1"]');
+            if (info.fscan_scan_part1 === 'top1000端口') {
+                fscnsel1.value = '7,9,11,13,17,19,21,22,23,26,37,38,43,49,51,53,67,69,70,79,80,81,82,83,84,85,86,88,89,102,104,111,113,119,121,123,135,137,138,139,143,161,175,179,199,211,264,311,389,443,444,445,465,500,502,503,512,515,520,548,554,564,587,623,631,636,646,666,771,777,789,800,801,808,853,873,880,888,902,992,993,995,999,1000,1022,1023,1024,1025,1026,1027,1080,1099,1177,1194,1200,1201,1234,1241,1248,1260,1290,1311,1344,1400,1433,1443,1471,1494,1515,1521,1554,1588,1701,1720,1723,1741,1777,1863,1883,1900,1911,1935,1962,1967,1991,2000,2001,2002,2020,2022,2030,2031,2049,2052,2053,2077,2080,2082,2083,2086,2087,2095,2096,2121,2123,2152,2181,2222,2223,2252,2323,2332,2375,2376,2379,2401,2404,2424,2427,2443,2455,2480,2501,2601,2628,3000,3001,3002,3006,3128,3260,3283,3288,3299,3306,3307,3310,3333,3388,3389,3390,3443,3460,3541,3542,3689,3690,3749,3780,4000,4022,4040,4063,4064,4111,4343,4369,4430,4433,4443,4444,4500,4505,4567,4664,4712,4730,4782,4786,4840,4848,4880,4911,4949,5000,5001,5002,5004,5005,5006,5007,5009,5050,5060,5084,5222,5258,5269,5351,5353,5357,5400,5432,5443,5500,5554,5555,5556,5560,5577,5601,5631,5672,5678,5683,5800,5801,5900,5901,5902,5903,5938,5984,5985,5986,6000,6001,6002,6003,6005,6006,6050,6060,6068,6110,6363,6379,6443,6488,6560,6565,6581,6588,6590,6600,6664,6665,6666,6667,6668,6669,6699,6881,6998,7000,7001,7002,7003,7005,7006,7010,7014,7025,7070,7071,7077,7080,7170,7288,7306,7307,7312,7401,7443,7474,7493,7537,7547,7548,7634,7657,7777,7779,7788,7911,8000,8001,8002,8003,8004,8006,8008,8009,8010,8015,8020,8025,8030,8040,8060,8069,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8090,8091,8092,8093,8094,8095,8096,8097,8098,8099,8111,8112,8118,8123,8125,8126,8139,8159,8161,8180,8181,8182,8200,8222,8291,8333,8334,8377,8378,8388,8443,8500,8545,8546,8554,8649,8686,8800,8834,8880,8883,8887,8888,8889,8899,8983,8999,9000,9001,9002,9003,9009,9010,9030,9042,9050,9051,9080,9083,9090,9091,9100,9151,9191,9200,9295,9333,9418,9443,9444,9527,9530,9595,9600,9653,9700,9711,9869,9944,9981,9997,9999,10000,10001,10003,10162,10243,10333,10443,10554,11001,11211,11300,11310,12300,12345,13579,14000,14147,14265,16010,16030,16992,16993,17000,18000,18001,18080,18081,18245,18246,19999,20000,20547,20880,22105,22222,23023,23424,25000,25105,25565,27015,27017,28017,28080,29876,30001,32400,33338,33890,37215,37777,41795,45554,49151,49152,49153,49154,49155,50000,50050,50070,50100,51106,52869,55442,55553,55555,60001,60010,60030,60443,61613,61616,62078,64738';
+            } 
+            else if (info.fscan_scan_part1 === '21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017') {
+                fscnsel1.value = '21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017';
+            }
+            else if (info.fscan_scan_part1 === '1-65535') {
+                fscnsel1.value = '1-65535';
+            }
+            else if (info.fscan_scan_part1 === '80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000') {
+                fscnsel1.value = '80,443,8080,7001,7002,8089,9090,4848,1352,10000,3306,1433,1521,5432,27017,27018,6379,5000,2181,8069,9200,9300,11211,512,513,514,873,3690,50000';
+            }
+            else if (info.fscan_scan_part1 === '80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443') {
+                fscnsel1.value = '80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443';
+            }
+            else if (info.fscan_scan_part1 === '21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017') {
+                fscnsel1.value = '21,22,23,53,80,81,82,83,85,88,135,139,443,445,888,1433,1521,3306,3389,3443,4430,4433,4443,4899,5432,5443,5900,5985,6379,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443,11211,27017';
+            }
+             else if (info.fscan_scan_part1 === '21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017') {
+                fscnsel1.value = '21,22,23,80,81,135,139,389,443,445,1099,1433,1521,2375,3306,3389,3873,4446,4899,5432,5900,5985,6379,7001,8000,8080,8089,9000,9200,11211,20880,27017';
+            }
+            else {
+                fscnsel1.value = '21,22,53,80,443,445,1433,3306,3389,8080';
+            }
+
+            // fscan poc开关
+            if (info.fscan_scan_part2 === '1') {
+                fscnsel2.value = '1';
+            } else {
+                fscnsel2.value = '2';
             }
 
         },
@@ -1997,6 +2153,13 @@ function comfirmclearlogfunc() {
     var hydrapart = $('select[name="hydrapart"]').val();
     // 扫描器参数配置vulmap参数配置
     var vulnname = $('select[name="vulnname"]').val();
+    // 扫描器参数配置nuclei参数配置
+    var poc_dir = $('select[name="poc_dir"]').val();
+    // 扫描参数配置端口扫描参数配置
+    var portscan_part = $('select[name="portscan_part"]').val();
+    // 扫描器参数配置fscan配置
+    var fscanpartname = $('select[name="fscanpartname"]').val();
+    var fscanpartname1 = $('select[name="fscanpartname1"]').val();
 
     $.ajax({
         url: '/comfirmclearloginterface/',
@@ -2018,16 +2181,20 @@ function comfirmclearlogfunc() {
             customizelimitid4: customizelimitid4,
             customizelimitid5: customizelimitid5,
             customizelimitid6: customizelimitid6,
-            pachongselectpart:pachongselectpart,
-            hydrapart:hydrapart,
-            vulnname:vulnname
+            pachongselectpart: pachongselectpart,
+            hydrapart: hydrapart,
+            vulnname: vulnname,
+            poc_dir: poc_dir,
+            portscan_part:portscan_part,
+            fscanpartname:fscanpartname,
+            fscanpartname1:fscanpartname1
         },
         success: function (info) {
-            
+
             document.getElementById("filterruleid1").innerHTML = info.recheck_result;
         },
         error: function (info) {
-            
+
             document.getElementById("filterruleid1").innerHTML = "内部错误";
         },
         complete: function () {
@@ -3626,15 +3793,15 @@ function closevulnscan20() {
 }
 
 // 打开JNDI日志弹窗
-function openjndilogwindows(part) { 
-    
+function openjndilogwindows(part) {
+
     var myModa22 = document.getElementById("myModa22");
     myModa22.style.display = "block";
     $.ajax({
         url: '/get_jndi_log_list/',
         method: 'POST',
         data: {
-            part:part
+            part: part
         },
         success: function (info) {
             // jndi日志

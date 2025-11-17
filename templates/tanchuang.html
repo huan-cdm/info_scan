@@ -251,7 +251,7 @@
                             <td>
                                 <strong>afrog报告</strong>
                                 <div class="button-container1">
-                                    <button class="button delete1-button"
+                                    <button class="button edit-button"
                                         onclick="startverifychearlogfunc('1')">删除</button>
                                 </div>
 
@@ -259,7 +259,7 @@
                             <td>
                                 <strong>urlfinder报告</strong>
                                 <div class="button-container1">
-                                    <button class="button delete1-button"
+                                    <button class="button edit-button"
                                         onclick="startverifychearlogfunc('2')">删除</button>
                                 </div>
 
@@ -267,7 +267,7 @@
                             <td>
                                 <strong>xray报告</strong>
                                 <div class="button-container1">
-                                    <button class="button delete1-button"
+                                    <button class="button edit-button"
                                         onclick="startverifychearlogfunc('3')">删除</button>
                                 </div>
 
@@ -275,7 +275,7 @@
                             <td>
                                 <strong>nmap报告</strong>
                                 <div class="button-container1">
-                                    <button class="button delete1-button"
+                                    <button class="button edit-button"
                                         onclick="startverifychearlogfunc('4')">删除</button>
                                 </div>
                             </td>
@@ -323,6 +323,7 @@
                                     <option value="1">禁用Web漏洞扫描</option>
                                     <option value="2">启用Web漏洞扫描</option>
                                 </select>
+                                <button class="button edit-button" onclick="startverifychearlogfunc('23')">保存</button>
                                 <br>
                                 <textarea class="scanpartconfig" id="myTextarea2">
 21,22,80,81,135,139,443,445,1433,3306,5432,6379,7001,8000,8080,8089,9000,9200,11211,27017
@@ -374,11 +375,12 @@
                                     <option value="/root/nuclei-templates/config">config</option>
                                     <option value="/root/nuclei-templates/code">code</option>
                                 </select>
-
+                                <button class="button edit-button" onclick="startverifychearlogfunc('21')">保存</button>
                                 <span id="nucleibyid2" style="color: darksalmon;"></span>
                                 <br>
                                 <textarea class="scanpartconfig" id="myTextarea3">
 poc显示区域</textarea>
+                                
                                 <br>
                                 <strong>nuclei扫描参数</strong>
                             </td>
@@ -402,6 +404,7 @@ poc显示区域</textarea>
                                     <option value="21,22,53,80,443,445,1433,3306,3389,8080">精简端口</option>
                                     <option value="1-65535">全端口</option>
                                 </select>
+                                <button class="button edit-button" onclick="startverifychearlogfunc('22')">保存</button>
                                 <br>
                                 <textarea class="scanpartconfig" id="myTextarea1">
 80,81,82,83,85,88,443,888,3443,4430,4433,4443,5443,7001,8000,8001,8002,8003,8008,8009,8010,8080,8081,8082,8086,8088,8089,8090,8443,8888,9000,9043,9100,9200,9443,9999,10443

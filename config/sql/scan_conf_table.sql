@@ -11,7 +11,7 @@
  Target Server Version : 80037
  File Encoding         : 65001
 
- Date: 31/10/2025 10:59:39
+ Date: 17/11/2025 16:18:48
 */
 
 SET NAMES utf8mb4;
@@ -31,10 +31,16 @@ CREATE TABLE `scan_conf_table`  (
 -- Records of scan_conf_table
 -- ----------------------------
 INSERT INTO `scan_conf_table` VALUES (1, '2');
-INSERT INTO `scan_conf_table` VALUES (2, '1');
-INSERT INTO `scan_conf_table` VALUES (3, '1');
-INSERT INTO `scan_conf_table` VALUES (4, '1');
-INSERT INTO `scan_conf_table` VALUES (5, '1');
+INSERT INTO `scan_conf_table` VALUES (2, '2');
+INSERT INTO `scan_conf_table` VALUES (3, 'shiro');
+INSERT INTO `scan_conf_table` VALUES (4, '/root/nuclei-templates/http');
+INSERT INTO `scan_conf_table` VALUES (5, 'top1000端口');
 INSERT INTO `scan_conf_table` VALUES (6, '1');
+INSERT INTO `scan_conf_table` VALUES (7, '1');
+INSERT INTO `scan_conf_table` VALUES (8, '1');
+INSERT INTO `scan_conf_table` VALUES (9, '1');
+INSERT INTO `scan_conf_table` VALUES (10, '1');
+INSERT INTO `scan_conf_table` VALUES (11, '1');
+INSERT INTO `scan_conf_table` VALUES (12, '1');
 
 SET FOREIGN_KEY_CHECKS = 1;

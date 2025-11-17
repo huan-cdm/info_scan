@@ -108,6 +108,12 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-11-17更新<br> 
+1.扫描器fscan配置功能状态保存；<br>
+2.扫描器端口扫描配置功能状态保存；<br>
+3.扫描器nuclei扫描配置功能状态保存；<br>
+</li>
+<li>
 2025-10-30更新<br> 
 1.扫描器爬虫流量转发配置功能状态保存；<br>
 2.扫描器弱口令扫描配置功能状态保存；<br>

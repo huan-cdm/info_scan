@@ -4737,6 +4737,13 @@ def comfirmclearloginterface():
         hydrapart = request.form['hydrapart']
         # vulmap扫描参数配置
         vulnname = request.form['vulnname']
+        # nuclei扫描参数配置
+        poc_dir = request.form['poc_dir']
+        # 端口扫描参数配置
+        portscan_part = request.form['portscan_part']
+        # fscan扫描参数配置
+        fscanpartname_part = request.form['fscanpartname']
+        fscanpartname1_part = request.form['fscanpartname1']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -4822,6 +4829,28 @@ def comfirmclearloginterface():
                 print("vulmap扫描参数配置")
                 basic.update_crawler_conf_lib(vulnname,3)
                 recheck_result = "vulmap扫描参数配置已生效"
+            elif int(inputmodel3) == 21:
+                print("nuclei扫描参数配置")
+                basic.update_crawler_conf_lib(poc_dir,4)
+                recheck_result = "nuclei扫描参数配置已生效"
+            elif int(inputmodel3) == 22:
+                print("端口扫描参数配置")
+                if "64738" in portscan_part:
+                    basic.update_crawler_conf_lib("top1000端口",5)
+                elif "3873" in portscan_part:
+                    basic.update_crawler_conf_lib("常见RCE端口",5)
+                else:
+                    basic.update_crawler_conf_lib(portscan_part,5)
+                basic.update_crawler_conf_lib(portscan_part,6)
+                recheck_result = "端口扫描参数配置已生效"
+            elif int(inputmodel3) == 23:
+                print("fscan扫描参数配置")
+                if "50050" in fscanpartname_part:
+                    basic.update_crawler_conf_lib("top1000端口",6)
+                else:
+                    basic.update_crawler_conf_lib(fscanpartname_part,6)
+                basic.update_crawler_conf_lib(fscanpartname1_part,7)
+                recheck_result = "fscan扫描参数配置已生效"
             elif int(inputmodel3) ==11:
                 print("配置高危资产识别")
                 
@@ -5041,6 +5070,13 @@ def system_config_data():
         weekpwd_scan_part = basic.crawler_conf_lib(2)
         # vulmap扫描配置
         vulmap_scan_part = basic.crawler_conf_lib(3)
+        # nuclei扫描配置
+        nuclei_scan_part = basic.crawler_conf_lib(4)
+        # 端口扫描配置
+        port_scan_part = basic.crawler_conf_lib(5)
+        # fscan扫描配置
+        fscan_scan_part1 = basic.crawler_conf_lib(6)
+        fscan_scan_part2 = basic.crawler_conf_lib(7)
 
         message_json = {
             # 接口剩余额度
@@ -5065,7 +5101,11 @@ def system_config_data():
             # 扫描器配置选项
             "crawlerscan_part":str(crawlerscan_part),
             "weekpwd_scan_part":str(weekpwd_scan_part),
-            "vulmap_scan_part":str(vulmap_scan_part)
+            "vulmap_scan_part":str(vulmap_scan_part),
+            "nuclei_scan_part":str(nuclei_scan_part),
+            "port_scan_part":str(port_scan_part),
+            "fscan_scan_part1":str(fscan_scan_part1),
+            "fscan_scan_part2":str(fscan_scan_part2)
         }
         return jsonify(message_json)
     else:
