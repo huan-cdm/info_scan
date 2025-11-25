@@ -2060,4 +2060,14 @@ stop_jndi_Injection-Exploit)
         kill -9 ${ii} 2>/dev/null
     done
     ;;
+
+# telnet连通性测试
+telnet_conn_test)
+if timeout 1 bash -c "</dev/tcp/$2/$3" 2>/dev/null; then
+        echo "连接成功"
+    else
+        echo "连接:"$2"失败"
+    fi
+
+;;
 esac

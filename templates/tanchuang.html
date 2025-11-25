@@ -4,7 +4,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content5">
         <span class="close" onclick="closevulnscan()">&times;</span>
-        <h3>批量开启漏洞扫描：</h3>
+        <h3>批量开启漏洞扫描</h3>
         <p id="vulnscan1"></p>
     </div>
 </div>
@@ -15,7 +15,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content6">
         <span class="close" onclick="closevulnscan1()">&times;</span>
-        <h3>批量关闭漏洞扫描：</h3>
+        <h3>批量关闭漏洞扫描</h3>
         <p id="vulnscan2"></p>
     </div>
 </div>
@@ -25,7 +25,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content7">
         <span class="close" onclick="closevulnscan2()">&times;</span>
-        <h3>批量开启信息收集：</h3>
+        <h3>批量开启信息收集</h3>
         <p id="vulnscan3"></p>
     </div>
 </div>
@@ -35,7 +35,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close" onclick="closevulnscan3()">&times;</span>
-        <h3>批量关闭信息收集：</h3>
+        <h3>批量关闭信息收集</h3>
         <p id="vulnscan4"></p>
     </div>
 </div>
@@ -45,7 +45,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close" onclick="closevulnscan5()">&times;</span>
-        <h3>资产添加：</h3>
+        <h3>资产添加</h3>
         <p id="vulnscan5"></p>
     </div>
 </div>
@@ -80,7 +80,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close" onclick="closevulnscan6()">&times;</span>
-        <h3>资产存活检测：</h3>
+        <h3>资产存活检测</h3>
         <input type="button" class="hover-color" name="commit" value="存活检测" onclick="filterstatuscodefunc()">
         <input type="button" class="hover-color" name="commit" value="关闭程序" onclick="stopfilterstatuscodefunc()">
         <p id="vulnscan7"></p>
@@ -92,7 +92,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close" onclick="closevulnscan7()">&times;</span>
-        <h3>CDN检测：</h3>
+        <h3>CDN检测</h3>
         <input type="button" class="hover-color" name="commit" value="CDN检测" onclick="filtercdndatafunc()">
         <input type="button" class="hover-color" name="commit" value="关闭程序" onclick="stopcdndetectionfunc()">
         <p id="vulnscan8"></p>
@@ -104,7 +104,7 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close" onclick="closevulnscan8()">&times;</span>
-        <h3>资产扩展：</h3>
+        <h3>资产扩展</h3>
         <input type="button" class="hover-color" name="commit" value="资产扩展" onclick="assets_extend_func()">
         <input type="button" class="hover-color" name="commit" value="关闭程序" onclick="stopassetextendfunc()">
         <p id="vulnscan9"></p>
@@ -117,11 +117,31 @@
     <!-- 弹窗内容 -->
     <div class="modal-content8">
         <span class="close" onclick="closevulnscan12()">&times;</span>
-        <h3>报告管理：</h3>
+        <h3>报告管理</h3>
         <span class="my-spanconfig11" onclick="reporttotalfunc()">生成报告</span>&nbsp;
         <span class="my-spanconfig11" onclick="total_report_yulan_func()">报告预览</span>&nbsp;
         <span class="my-spanconfig11" onclick="reportdownloadfunc()">报告下载</span>&nbsp;
         <p id="vulnscan13"></p>
+
+    </div>
+</div>
+
+<!-- 网络诊断 -->
+<div id="myModa24" class="modal8">
+    <!-- 弹窗内容 -->
+    <div class="modal-content8">
+        <span class="close" onclick="closevulnscan21()">&times;</span>
+        <h3>网络诊断</h3>
+        <span style="color: blue;">✳Telnet式Internet远程登陆服务的标准协议和主要方式，用于远程管理。</span><br>
+        <span style="color: blue;">可输入IPv4、IPv6地址或域名，如：</span><br>
+        <span style="color: blue;">IPv4地址：192.168.0.1</span><br>
+        <span style="color: blue;">IPv6地址：2001:0db8:85a3:0000:0000:8a2e:0370:7334</span><br>
+        <span style="color: blue;">域名：www.example.com</span><br><br><br>
+        <input type="text" class="my-input5"  id="targetnetworkip" placeholder="请输入主机"><br>
+        <input type="text" class="my-input5"  id="targetnetworkport" placeholder="请输入端口">
+        <span class="my-span" onclick="conntargetnetworkfunc()">执行</span>
+       
+        <p id="targetnetworkresult" style="color: red;"></p>
 
     </div>
 </div>

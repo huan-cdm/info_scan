@@ -2265,6 +2265,17 @@ function closevulnscan12() {
 
 }
 
+// 网络诊断
+function opennetworkconnfunc() {
+    var myModa24 = document.getElementById("myModa24");
+    myModa24.style.display = "block";
+}
+function closevulnscan21() {
+    var myModa24 = document.getElementById("myModa24");
+    myModa24.style.display = "none";
+
+}
+
 
 // 打开资产收集弹窗
 function openassetcollectfunc() {
@@ -3884,6 +3895,27 @@ function stop_jndi_exp_func() {
         error: function () {
             const statusElement7 = document.getElementById('jndiexpstatusid1');
             statusElement7.className = 'status-circle status-error';
+        }
+    })
+}
+
+// 网络检测
+function conntargetnetworkfunc() {
+    var targetnetworkip = document.getElementById("targetnetworkip").value;
+    var targetnetworkport = document.getElementById("targetnetworkport").value;
+    $.ajax({
+        url: '/networkdiagnosis/',
+        method: 'POST',
+        data: {
+            targetnetworkip: targetnetworkip,
+            targetnetworkport: targetnetworkport
+        },
+        success: function (info) {
+            // 当请求成功时调用  
+            document.getElementById("targetnetworkresult").innerHTML = info.connresult;
+        },
+        error: function () {
+            document.getElementById("targetnetworkresult").innerHTML = "内部错误";
         }
     })
 }

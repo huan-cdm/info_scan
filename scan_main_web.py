@@ -7015,6 +7015,25 @@ def stop_JNDI_Injection_Exploit_service():
         return render_template('login.html')
 
 
+# 网络诊断
+@app.route("/networkdiagnosis/",methods=['POST'])
+def networkdiagnosis():
+    user = session.get('username')
+    if str(user) == main_username:
+        targetnetworkip = request.form['targetnetworkip']
+        targetnetworkport = request.form['targetnetworkport']
+        try:
+            result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","telnet_conn_test",targetnetworkip, targetnetworkport], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        except Exception as e:
+            print("捕获到异常:", e)
+
+        message_json = {
+            "connresult":str(result.stdout.strip())
+        }
+        return jsonify(message_json)
+    
+    else:
+        return render_template('login.html')
 
 if __name__ == '__main__':  
     app.run(host="127.0.0.1",port=80)

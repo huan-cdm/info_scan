@@ -108,6 +108,11 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
+2025-11-25更新<br> 
+1.新增网络诊断功能，扫描器到待扫描目标网络诊断；<br>
+2.已知问题处理与优化；<br>
+</li>
+<li>
 2025-11-17更新<br> 
 1.扫描器fscan配置功能状态保存；<br>
 2.扫描器端口扫描配置功能状态保存；<br>
@@ -611,6 +616,9 @@ c. 识别高危资产，得到高危资产
 JWT爆破<br>
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan1.png" />
 <img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan2.png" />
-<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan3.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/jwtscan3.png" /><br><br>
+网络诊断<br>
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/networkconn1.png" />
+<img src="https://raw.githubusercontent.com/huan-cdm/info_scan/main/images/networkconn2.png" />
 <br><br>
 <br><br>
