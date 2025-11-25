@@ -110,7 +110,7 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 <li>
 2025-11-25更新<br> 
 1.新增网络诊断功能，扫描器到待扫描目标网络诊断；<br>
-2.已知问题处理与优化；<br>
+2.已知问题处理与优化与前端优化；<br>
 </li>
 <li>
 2025-11-17更新<br> 
