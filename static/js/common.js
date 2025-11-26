@@ -2273,7 +2273,7 @@ function opennetworkconnfunc() {
 function closevulnscan21() {
     var myModa24 = document.getElementById("myModa24");
     myModa24.style.display = "none";
-
+    document.getElementById("targetnetworkresult").innerHTML = "";
 }
 
 
