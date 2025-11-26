@@ -7022,13 +7022,32 @@ def networkdiagnosis():
     if str(user) == main_username:
         targetnetworkip = request.form['targetnetworkip']
         targetnetworkport = request.form['targetnetworkport']
-        try:
-            result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","telnet_conn_test",targetnetworkip, targetnetworkport], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        except Exception as e:
-            print("捕获到异常:", e)
+        # 服务器互联网出口地址
+        # 后续执行shell脚本全部采用这种方式
+        hlwckdz = subprocess.run(["sh", "/TIP/info_scan/finger.sh","current_internet_address"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        finalhlwckdz = hlwckdz.stdout.strip()
+        # 服务器内所有网卡的内网地址
+        fwqallnwdz = subprocess.run(["sh", "/TIP/info_scan/finger.sh","internal_address"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        finalfwqallnwdz = fwqallnwdz.stdout.strip()
+        # 遍历字符串
+        address_list = []
+        for address in finalfwqallnwdz.splitlines():
+            address_list.append(address.strip())
+        address_list_uniq = list(set(address_list))
+        # 逻辑判断
+        if str(targetnetworkip.strip()) == str(finalhlwckdz):
+            finalresult = "输入地址不能包含扫描器互联网地址"
+        elif str(targetnetworkip.strip()) in address_list_uniq:
+            finalresult = "输入地址不能包含扫描器内部地址"
+        else:
+            try:
+                result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","telnet_conn_test",targetnetworkip, targetnetworkport], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                finalresult = result.stdout.strip()
+            except Exception as e:
+                print("捕获到异常:", e)
 
         message_json = {
-            "connresult":str(result.stdout.strip())
+            "connresult":str(finalresult)
         }
         return jsonify(message_json)
     
