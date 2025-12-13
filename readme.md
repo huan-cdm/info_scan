@@ -11,19 +11,39 @@ infoscan-自动化漏洞扫描系统-目录扫描模块（2025.05.15更新）
 <table border="1" style="width: 50%;">
   <tr>
     <th>平台版本</th>
-	<th>数据库版本</th>
+	  <th>数据库版本</th>
+    <th>更新时间</th>
+    <th>平台下载入口</th>
+    <th>数据库下载入口</th>
   </tr>
+  
   <tr>
     <td>V0.2-V0.4</td>
 	  <td>V0.1</td>
+    <td>2025/01/16</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1</td>
   </tr>
   <tr>
     <td>V0.4.1</td>
 	  <td>V0.1.1</td>
+    <td>2025/04/24</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.1</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1</td>
   </tr>
   <tr>
     <td>V0.4.2</td>
 	  <td>V0.1.2</td>
+    <td>2025/06/11</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.2</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.2</td>
+  </tr>
+  <tr>
+    <td>V0.4.3</td>
+	  <td>V0.1.3</td>
+    <td>2025/12/13</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.3</td>
+    <td>docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.3</td>
   </tr>
 </table>
 
@@ -31,21 +51,23 @@ infoscan-自动化漏洞扫描系统-目录扫描模块（2025.05.15更新）
 2. 创建docker自定义网络，使容器间完成通信：docker network create info_scan_network<br>
 3. mysql环境：<br>
 ①. 下载镜像：<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.2（2025.6.11更新）<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1（2025.4.24更新）<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.1.16更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.3（2025.12.13更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.2（2025.06.11更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1（2025.04.24更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1（2025.01.16更新）<br>
 ②. 启动容器：<br>
-docker run -d --name mysql -it --network info_scan_network registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.1 /bin/bash<br>
+docker run -d --name mysql -it --network info_scan_network registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.1.3 /bin/bash<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
 ④. 启动mysql：service  mysql start<br>
 4.平台环境：<br>
 ①. 下载镜像：<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.2（2025.6.11更新）<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.1（2025.4.24更新）<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4（2025.4.10更新）<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.3.17更新）<br>
-docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（2025.1.20更新）<br>
-②. 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.2 /bin/bash<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.3（2025.12.13更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.2（2025.06.11更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.1（2025.04.24更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4（2025.04.10更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.3（2025.03.17更新）<br>
+docker pull registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.2（2025.01.20更新）<br>
+②. 启动容器：docker run -d --name platform --network info_scan_network -p 16666:16666 -p 18888:18888 -p 17777:17777 -p 15555:15555 -p 19999:19999 -it registry.cn-hangzhou.aliyuncs.com/huan666/ubuntu:0.4.3 /bin/bash<br>
 ③. 进入容器：docker exec -it 容器ID /bin/bash<br>
 ④. 修改服务器IP：/etc/nginx/conf.d/*、/TIP/info_scan/finger.sh中ip_address字段、/TIP/info_scan/static/js/common.js、/TIP/info_scan/static/js/dirsearchcommon.js、config.py中x.x.x.x部分<br>
 ⑤. 启动平台服务：bash /TIP/info_scan/server_check.sh start、service nginx start<br>
@@ -107,6 +129,10 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 
 <h2>更新日志：</h2>
 <ul>
+<li>
+2025-12-13更新<br> 
+1.docker部署版本更新；<br>
+</li>
 <li>
 2025-11-25更新<br> 
 1.新增网络诊断功能，扫描器到待扫描目标网络诊断；<br>
