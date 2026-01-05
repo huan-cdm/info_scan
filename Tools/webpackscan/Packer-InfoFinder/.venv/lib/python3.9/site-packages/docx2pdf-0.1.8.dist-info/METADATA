@@ -1,0 +1,112 @@
+Metadata-Version: 2.1
+Name: docx2pdf
+Version: 0.1.8
+Summary: Convert docx to pdf on Windows or macOS directly using Microsoft Word (must be installed).
+Home-page: https://github.com/AlJohri/docx2pdf
+License: MIT
+Author: Al Johri
+Author-email: al.johri@gmail.com
+Requires-Python: >=3.5
+Classifier: Environment :: MacOS X
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Office/Business :: Office Suites
+Classifier: Topic :: Software Development :: Libraries
+Requires-Dist: appscript (>=1.1.0); sys_platform == "darwin"
+Requires-Dist: importlib_metadata (>=1.3.0); python_version < "3.8"
+Requires-Dist: pywin32 (>=227); sys_platform == "win32"
+Requires-Dist: tqdm (>=4.41.0)
+Project-URL: Repository, https://github.com/AlJohri/docx2pdf
+Description-Content-Type: text/markdown
+
+# docx2pdf
+
+[![PyPI](https://img.shields.io/pypi/v/docx2pdf)](https://pypi.org/project/docx2pdf/)
+
+Convert `docx` to `pdf` on Windows or macOS directly using Microsoft Word (must be installed).
+
+On Windows, this is implemented via [`win32com`](https://pypi.org/project/pywin32/) while on macOS this is implemented via [JXA](https://github.com/JXA-Cookbook/JXA-Cookbook) (Javascript for Automation, aka AppleScript in JS).
+
+## Install
+
+On macOS:
+
+```
+brew install aljohri/-/docx2pdf
+```
+
+Via [pipx](https://pipxproject.github.io/pipx/):
+
+```
+pipx install docx2pdf
+```
+
+Via pip:
+
+```
+pip install docx2pdf
+```
+
+## CLI
+
+```
+usage: docx2pdf [-h] [--keep-active] [--version] input [output]
+
+Example Usage:
+
+Convert single docx file in-place from myfile.docx to myfile.pdf:
+    docx2pdf myfile.docx
+
+Batch convert docx folder in-place. Output PDFs will go in the same folder:
+    docx2pdf myfolder/
+
+Convert single docx file with explicit output filepath:
+    docx2pdf input.docx output.docx
+
+Convert single docx file and output to a different explicit folder:
+    docx2pdf input.docx output_dir/
+
+Batch convert docx folder. Output PDFs will go to a different explicit folder:
+    docx2pdf input_dir/ output_dir/
+
+positional arguments:
+  input          input file or folder. batch converts entire folder or convert
+                 single file
+  output         output file or folder
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --keep-active  prevent closing word after conversion
+  --version      display version and exit
+```
+
+## Library
+
+```python
+from docx2pdf import convert
+
+convert("input.docx")
+convert("input.docx", "output.pdf")
+convert("my_docx_folder/")
+```
+
+See CLI docs above (or in `docx2pdf --help`) for all the different invocations. It is the same for the CLI and python library.
+
+## Jupyter Notebook
+
+If you are using this in the context of jupyter notebook, you will need `ipywidgets` for the tqdm progress bar to render properly.
+
+```
+pip install ipywidgets
+jupyter nbextension enable --py widgetsnbextension
+``
+

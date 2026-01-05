@@ -27,6 +27,10 @@
 	echo "关闭afrog报告：bash server_check.sh stopafrogreport"
 	echo "重启afrog报告：bash server_check.sh restartafrogreport"
 	echo -e "[+]------------------------------------------"
+	echo "开启PackerFuzzer报告：bash server_check.sh startPackerFuzzerreport"
+	echo "关闭PackerFuzzer报告：bash server_check.sh stopPackerFuzzerreport"
+	echo "重启PackerFuzzer报告：bash server_check.sh restartPackerFuzzerreport"
+	echo -e "[+]------------------------------------------"
     exit 0  #退出脚本，如果不需要执行其他命令的话
 fi  
 
@@ -158,7 +162,6 @@ case "${1}" in
 	else
 		echo -e "xrayreport：" "\033[31mX\033[0m"
 	fi
-
     ;;
 
     #关闭xray报告访问服务
@@ -184,7 +187,6 @@ case "${1}" in
 
 	# 重启xray报告访问服务
 	restartxrayreport)
-
 	pidd=`ps -aux | grep 8081 |awk -F " " '{print $2}'`
     
     for ii in ${pidd}
@@ -208,6 +210,67 @@ case "${1}" in
 
 	;;
 
+    # 开启Packer-Fuzzer报告访问服务
+    #本地开启127.0.0.1，利用nginx反向代理
+    startPackerFuzzerreport)
+    cd /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/report
+    nohup python3 -m http.server 8083 --bind 127.0.0.1 > /dev/null 2>&1 &
+	sleep 0.5s
+	packerfuzzerpid=`ps -aux | grep 8083 |awk -F " " '{print $2}' | wc -l`
+	#packerfuzzerpid报告服务
+	if (( $packerfuzzerpid > 1 ))
+	then
+		echo -e "PackerFuzzerreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzerreport：" "\033[31mX\033[0m"
+	fi
+    ;;
+
+
+	# 关闭Packer-Fuzzer报告访问服务
+	stopPackerFuzzerreport)
+    packerfuzzerpid=`ps -aux | grep 8083 |awk -F " " '{print $2}'`
+    
+    for ii in ${packerfuzzerpid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+
+	sleep 0.5s
+	packerfuzzerpidd=`ps -aux | grep 8083 |awk -F " " '{print $2}' | wc -l`
+	#Packer-Fuzzer报告服务
+	if (( $packerfuzzerpidd > 1 ))
+	then
+		echo -e "PackerFuzzerreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzerreport：" "\033[31mX\033[0m"
+	fi
+    ;;
+
+
+	# 重启Packer-Fuzzer报告访问服务
+	restartPackerFuzzerreport)
+	packerfuzzerpid=`ps -aux | grep 8083 |awk -F " " '{print $2}'`
+    
+    for ii in ${packerfuzzerpid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+
+	sleep 0.5s
+	echo "PackerFuzzerreport正在重启中......"
+	sleep 0.5s
+	cd /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/report
+    nohup python3 -m http.server 8083 --bind 127.0.0.1 > /dev/null 2>&1 &
+	packerfuzzerpidd=`ps -aux | grep 8083 |awk -F " " '{print $2}' | wc -l`
+	#PackerFuzzerreport报告服务
+	if (( $packerfuzzerpidd > 1 ))
+	then
+		echo -e "PackerFuzzerreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzerreport：" "\033[31mX\033[0m"
+	fi
+	;;
 
 
 	# 开启afrog报告服务
@@ -310,6 +373,7 @@ case "${1}" in
 	urlfinderpid=`ps -aux | grep 8089 |awk -F " " '{print $2}' | wc -l`
 	dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
 	afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
+	packerfuzzerpidd=`ps -aux | grep 8083 |awk -F " " '{print $2}' | wc -l`
 	sleep 0.5s
 	#infoscan运行状态
 	if (( $infopid > 1 ))
@@ -350,6 +414,14 @@ case "${1}" in
 		echo -e "afrogreport：" "\033[32m√\033[0m" 
 	else
 		echo -e "afrogreport：" "\033[31mX\033[0m"
+	fi
+
+	#PackerFuzzerreport报告服务
+	if (( $packerfuzzerpidd > 1 ))
+	then
+		echo -e "PackerFuzzerreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzerreport：" "\033[31mX\033[0m"
 	fi
 	;;
 

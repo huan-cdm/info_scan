@@ -1,0 +1,7 @@
+#!/Users/Zhuanz1/Desktop/tools/Packer-InfoFinder(v1.3)/.venv/bin/python
+import sys
+from docx2pdf import cli
+if __name__ == '__main__':
+    if sys.argv[0].endswith('.exe'):
+        sys.argv[0] = sys.argv[0][:-4]
+    sys.exit(cli())

@@ -22,3 +22,9 @@ yaml
 cprint
 pycryptodomex
 requests
+node_vm2
+python-docx==0.8.11
+docx2pdf
+docx2txt
+deno_vm
+esprima

@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "test": "deno lint index.js",
+    "build": "deno vendor -f mod.ts https://deno.land/x/worker_vm@v0.2.0/worker.ts"
+  },
+  "importMap": "./vendor/import_map.json"
+}
