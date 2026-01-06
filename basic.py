@@ -4072,6 +4072,91 @@ def update_crawler_conf_lib(part1,part2):
         print("捕获到异常:", e)
         db.rollback()
 
+# Webpack扫描函数
+def webpackscan_lib():
+    # 判断扫描器是否运行，运行返回提示
+    result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","Webpackscanstatus"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    webpack_scan_status = result.stdout.strip()
+    if "running" in webpack_scan_status:
+        webpack_scan_result = "Webpack扫描程序正在运行中请勿重复提交"
+    else:
+        # 是否添加cookie通过系统配置页面配置
+        # 启用Cookie值为1
+        cookievalue = showwebpackcookieconfig_lib(1)[0]
+        cookievalue1 = showwebpackcookieconfig_lib(1)[1]
+        print(cookievalue)
+        if int(cookievalue) == int(1):
+            print("启用cookie")
+            startresultcookie = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startWebpackscanbyCookie",cookievalue1], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            print("错误日志:", startresultcookie.stderr)
+            if "running" in webpack_scan_status:
+                webpack_scan_result = "Webpack扫描程序已开启(启用Cookie)"
+            else:
+                webpack_scan_result = "Webpack扫描程序正在启动中(启用Cookie)"
+        # 禁用cookie值为2
+        else:
+            startresult = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startWebpackscan"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            print("错误日志:", startresult.stderr)
+            if "running" in webpack_scan_status:
+                webpack_scan_result = "Webpack扫描程序已开启(禁用Cookie)"
+            else:
+                webpack_scan_result = "Webpack扫描程序正在启动中(禁用Cookie)"
+    return webpack_scan_result
+
+
+# 更新WebpackCookie配置
+def updatewebpackcookieconfig_lib(part1,part2,part3):
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="UPDATE webpack_conf SET logopart = '%s', cookiepart = '%s' WHERE id = '%s'"%(part1,part2,part3)
+    try:
+        cur.execute(sql)
+        db.commit()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+        db.rollback()
+
+    # 判断是否更新成功
+    sql="select * from webpack_conf where id = '%s' "%(part3)
+    try:
+        cur.execute(sql)
+        data = cur.fetchall()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+    list_data = list(data)
+    list_result = []
+    for i in list_data:
+        # 追加到一个列表中
+        list_result.extend([i[1],i[2]])
+    try:
+        if str(part1) == str(list_result[0]) and str(part2) == str(list_result[1]):
+            update_result = "Webpack扫描Cookie配置更新成功"
+        else:
+            update_result = "Webpack扫描Cookie配置更新失败"
+    except:
+        update_result = "接口内部错误"
+    return update_result
+
+# 查询WebpackCookie配置
+def showwebpackcookieconfig_lib(part1):
+    db= pymysql.connect(host=dict['ip'],user=dict['username'],  
+    password=dict['password'],db=dict['dbname'],port=dict['portnum']) 
+    cur = db.cursor()
+    sql="select * from webpack_conf where id = '%s' "%(part1)
+    try:
+        cur.execute(sql)
+        data = cur.fetchall()
+    except Exception as e:
+        print("执行SQL语句时发生错误：", e)
+    list_data = list(data)
+    list_result = []
+    for i in list_data:
+        # 追加到一个列表中
+        list_result.extend([i[1],i[2]])
+    return list_result
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -4094,10 +4179,12 @@ if __name__ == "__main__":
             withdrawiplocation_lib()
         elif func_name == 'filerename_lib':
             filerename_lib()
-        # 测试使用
-        elif func_name == 'proxy_url_time_kxsw_lib':
-            c = proxy_url_time_kxsw_lib()
+        # 接口测试使用
+        elif func_name == 'showwebpackcookieconfig_lib':
+            c = showwebpackcookieconfig_lib(1)
             print(c)
+            # c = updatewebpackcookieconfig_lib()
+            # print(c)
         else:
             print("Invalid function number")
     else:

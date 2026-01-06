@@ -1,5 +1,5 @@
 // 上线后需替换为自己的服务器IP地址
-var ipvalue = "http://x.x.x.x"
+var ipvalue = "https://x.x.x.x"
 
 
 function fanhui() {
@@ -915,6 +915,15 @@ function startscanconfigpagefunc() {
                 fscnsel2.value = '2';
             }
 
+            // webpack cookie 配置
+             $('#webpackpart2').val(info.webpack_scan_part2); 
+            const webpackpart1 = document.querySelector('select[name="webpackpart1"]');
+            if (info.webpack_scan_part1 === '1') {
+                webpackpart1.value = '1';
+            } else {
+                webpackpart1.value = '2';
+            }
+
         },
         error: function () {
             const statusElement = document.getElementById('jndistatusid1');
@@ -1622,10 +1631,13 @@ function infoxuanzhongscan() {
     var portscan_part = $('select[name="portscan_part"]').val();
     // 爬虫扫描传递给后端的参数
     var pachongselectpart = $('select[name="pachongselectpart"]').val();
+    // Webpack扫描传递给后端的参数
+    var webpackpart1 = $('select[name="webpackpart1"]').val();
+    var webpackpart2 = document.getElementById('webpackpart2').value;
     $.ajax({
         url: '/infoscan_check_back/',
         method: 'POST',
-        data: JSON.stringify({ info_front_list: info_front_list, portscan_part: portscan_part, pachongselectpart: pachongselectpart }), // 发送 JSON 字符串
+        data: JSON.stringify({ info_front_list: info_front_list, portscan_part: portscan_part, pachongselectpart: pachongselectpart, webpackpart2:webpackpart2, webpackpart1:webpackpart1 }), // 发送 JSON 字符串
         contentType: 'application/json', // 告诉服务器发送的数据是 JSON 格式
         dataType: 'json', // 期望服务器返回的数据类型
 
@@ -1633,7 +1645,8 @@ function infoxuanzhongscan() {
 
             var message2 = info.dictkey1 + "bbscan_" + info.dictkey10 + "\n" + info.dictkey2 + "ehole_" + info.dictkey9 +
                 "\n" + info.dictkey3 + "otx_" + info.dictkey11 + "\n" + info.dictkey4 + "crt_" + info.dictkey12 + "\n" + info.dictkey5 + "nmap_" + info.dictkey13 +
-                "\n" + info.dictkey6 + "waf_" + info.dictkey14 + "\n" + info.dictkey7 + "fuzz_" + info.dictkey15 + "\n" + info.dictkey8 + "crawlergo_" + info.dictkey16;
+                "\n" + info.dictkey6 + "waf_" + info.dictkey14 + "\n" + info.dictkey7 + "fuzz_" + info.dictkey15 + "\n" + info.dictkey8 + "crawlergo_" + info.dictkey16+
+                "\n"+"Webpack_"+info.dictkey17;
             document.getElementById('vulnscan3').innerText = message2;
         },
 
@@ -1692,7 +1705,10 @@ function infoxuanzhongreportyulan() {
             window.open("/bypass_report_show/", "_blank");
         } else if (info_front_list[i] == '8') {
             window.open("/crawlergo_report_show/", "_blank");
+        }else if (info_front_list[i] == 'packfuzz') {
+            window.open(ipvalue + ":13333/", "_blank");
         }
+        
     }
 }
 
@@ -2160,7 +2176,10 @@ function comfirmclearlogfunc() {
     // 扫描器参数配置fscan配置
     var fscanpartname = $('select[name="fscanpartname"]').val();
     var fscanpartname1 = $('select[name="fscanpartname1"]').val();
-
+    // webpack cookie参数配置
+    var webpackpart1 = $('select[name="webpackpart1"]').val();
+    var webpackpart2 = document.getElementById('webpackpart2').value;
+    
     $.ajax({
         url: '/comfirmclearloginterface/',
         method: 'POST',
@@ -2187,7 +2206,9 @@ function comfirmclearlogfunc() {
             poc_dir: poc_dir,
             portscan_part:portscan_part,
             fscanpartname:fscanpartname,
-            fscanpartname1:fscanpartname1
+            fscanpartname1:fscanpartname1,
+            webpackpart1:webpackpart1,
+            webpackpart2:webpackpart2
         },
         success: function (info) {
 

@@ -2082,4 +2082,24 @@ case "${1}" in
     all_address_value=`ifconfig | grep "inet" | awk '{print $2}'`
     echo "${all_address_value}"
     ;;
+
+    # Webpack相关
+    # 开启Webpack扫描不带Cookie参数
+    startWebpackscan)
+        python3 /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/Packer-InfoFinder.py -l /TIP/info_scan/batch_scan_domain/url.txt --finder > /TIP/info_scan/result/Webpackscanlog.txt
+    ;;
+
+    # 开启Webpack扫描带Cookie参数
+    startWebpackscanbyCookie)
+        python3 /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/Packer-InfoFinder.py -l /TIP/info_scan/batch_scan_domain/url.txt --finder -c "\"$2\"" > /TIP/info_scan/result/Webpackscanlog.txt
+    ;;
+
+     Webpackscanstatus)
+        ps_webpack=$(ps -aux | grep Packer-InfoFinder.py | wc -l)
+        if (($ps_webpack > 1)); then
+            echo "running"
+        else
+            echo "stop"
+        fi
+    ;;
 esac

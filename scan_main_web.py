@@ -1692,11 +1692,14 @@ def infoscan_check_back():
         info_front_list = data['info_front_list']
         portscan_part = data['portscan_part']
         pachongselectpart = data['pachongselectpart']
+        webpackpart1 = data['webpackpart1']
+        webpackpart2 = data['webpackpart2']
         
         # 接收前端传入的值转为int型
         info_value_list = []
         for i in info_front_list:
-            info_value_list.append(int(i))
+            # info_value_list.append(int(i))
+            info_value_list.append(i)
 
         # 遍历列表判断调用哪个扫描器
         for j in info_value_list:
@@ -2119,6 +2122,10 @@ def infoscan_check_back():
                                  crawlergo_status_result = "爬虫程序"+str(info_time_controls)+"分钟内不允许重复扫描"
                         else:
                             crawlergo_status_result = basic.start_crawlergo_lib(pachongselectpart)
+
+            elif 'packfuzz' == str(j):
+                print("Webpack扫描")
+                info_webpack_scan_result = basic.webpackscan_lib()
             else:
                 print("参数正在完善中...")
 
@@ -2154,6 +2161,10 @@ def infoscan_check_back():
             crawlergo_status_result1 = crawlergo_status_result
         except:
             crawlergo_status_result1 = ""
+        try:
+            info_webpack_scan_result1 = info_webpack_scan_result
+        except:
+            info_webpack_scan_result1 = ""
         
         eholestatus = os.popen('bash /TIP/info_scan/finger.sh ehole_status').read()
         bbscanstatus = os.popen('bash /TIP/info_scan/finger.sh bbscan_status').read()
@@ -2180,7 +2191,8 @@ def infoscan_check_back():
             "key13":nmapstatus,
             "key14":waf_status,
             "key15":bypass_status,
-            "key16":crawlergo_status
+            "key16":crawlergo_status,
+            "key17":info_webpack_scan_result1
         }
         message_json = {
             "dictkey1":dict['key1'],
@@ -2198,7 +2210,8 @@ def infoscan_check_back():
             "dictkey13":dict['key13'],
             "dictkey14":dict['key14'],
             "dictkey15":dict['key15'],
-            "dictkey16":dict['key16']
+            "dictkey16":dict['key16'],
+            "dictkey17":dict['key17']
         }
 
         return jsonify(message_json)
@@ -3811,7 +3824,8 @@ def stop_infoscan_back():
         # 接收前端传入的值转为int型
         info_value_list = []
         for i in info_front_list:
-            info_value_list.append(int(i))
+            # info_value_list.append(int(i))
+            info_value_list.append(i)
 
         # 遍历列表判断关闭哪个扫描器
         for j in info_value_list:
@@ -4744,6 +4758,9 @@ def comfirmclearloginterface():
         # fscan扫描参数配置
         fscanpartname_part = request.form['fscanpartname']
         fscanpartname1_part = request.form['fscanpartname1']
+        # webpack cookie 扫描参数
+        webpackpart1 = request.form['webpackpart1']
+        webpackpart2 = request.form['webpackpart2']
 
         if str(inputmodel1) == str(recheck_username) and str(inputmodel2) == str(recheck_password):
             if int(inputmodel3) == 1:
@@ -4851,6 +4868,13 @@ def comfirmclearloginterface():
                     basic.update_crawler_conf_lib(fscanpartname_part,6)
                 basic.update_crawler_conf_lib(fscanpartname1_part,7)
                 recheck_result = "fscan扫描参数配置已生效"
+            elif int(inputmodel3) == 24:
+                print("Webpack Cookie参数配置")
+                recheck_result = basic.updatewebpackcookieconfig_lib(webpackpart1,webpackpart2,1)
+            elif int(inputmodel3) == 25:
+                print("Webpack")
+                os.popen('rm -rf /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/report/*')
+                recheck_result = "Webpack报告已删除"
             elif int(inputmodel3) ==11:
                 print("配置高危资产识别")
                 
@@ -5077,7 +5101,9 @@ def system_config_data():
         # fscan扫描配置
         fscan_scan_part1 = basic.crawler_conf_lib(6)
         fscan_scan_part2 = basic.crawler_conf_lib(7)
-
+        # Webpack扫描配置
+        webpack_scan_part1 = basic.showwebpackcookieconfig_lib(1)[0]
+        webpack_scan_part2 = basic.showwebpackcookieconfig_lib(1)[1]
         message_json = {
             # 接口剩余额度
             "fofa_remaining_num":fofa_remaining_num,
@@ -5105,7 +5131,9 @@ def system_config_data():
             "nuclei_scan_part":str(nuclei_scan_part),
             "port_scan_part":str(port_scan_part),
             "fscan_scan_part1":str(fscan_scan_part1),
-            "fscan_scan_part2":str(fscan_scan_part2)
+            "fscan_scan_part2":str(fscan_scan_part2),
+            "webpack_scan_part1":str(webpack_scan_part1),
+            "webpack_scan_part2":str(webpack_scan_part2)
         }
         return jsonify(message_json)
     else:

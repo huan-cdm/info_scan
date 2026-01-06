@@ -935,6 +935,7 @@ body {
 	/* 宽度和高度 */
 	width: 400px;
 	height: 60px;
+	font-size:larger;
 }
 
 .scanpartselectconfig {

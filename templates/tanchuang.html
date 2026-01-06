@@ -299,6 +299,13 @@
                                         onclick="startverifychearlogfunc('4')">删除</button>
                                 </div>
                             </td>
+                            <td>
+                                <strong>Webpack报告</strong>
+                                <div class="button-container1">
+                                    <button class="button edit-button"
+                                        onclick="startverifychearlogfunc('25')">删除</button>
+                                </div>
+                            </td>
                         </tr>
                     </table>
 
@@ -503,6 +510,31 @@ poc显示区域</textarea>
                                 <span style="color: crimson;">✳转发流量：爬虫流量转发给xray被动扫描</span>
                                 <br><strong>爬虫扫描参数</strong>
                             </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Webpack扫描 -->
+            <tr>
+                <td>
+                    <table border="1">
+                        <tr>
+                            <td>
+                                 <select name="webpackpart1"
+                                    class="scanpartselectconfig">
+                                    <option value="1">启用Cookie</option>
+                                    <option value="2">禁用Cookie</option>
+                                </select>
+
+                                <button class="button edit-button" onclick="startverifychearlogfunc('24')">保存</button>
+                                <br>
+<textarea class="scanpartconfig" id="webpackpart2">
+</textarea><strong style="color: red;">Cookie配置</strong>
+                                <!-- <span style="color: crimson;">✳转发流量：爬虫流量转发给xray被动扫描</span> -->
+                                <br><strong>Webpack扫描参数</strong>
+                            </td>
+                            
                         </tr>
                     </table>
                 </td>
