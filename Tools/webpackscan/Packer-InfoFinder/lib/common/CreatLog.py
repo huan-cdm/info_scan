@@ -25,7 +25,7 @@ except Exception as e:
 global log_name,logs #全局变量引用
 
 # 确保logs目录存在
-logs_dir = "logs"
+logs_dir = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/logs"
 if not os.path.exists(logs_dir):
     try:
         os.makedirs(logs_dir)
