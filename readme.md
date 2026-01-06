@@ -108,7 +108,7 @@ mysql账号密码：admin/123456<br>
 <h2>集成相关工具：</h2> 
 漏洞扫描类：struts2、weblogic、shiro、springboot、thinkphp、泛微OA、tomcat、fastjson、marshalsec、nacos、elasticsearch、tomcat、致远OA、用友OA、金蝶OA、万户OA <br>
 综合漏洞扫描类：afrog、fscan、hydra、urlfinder、vulmap、nuclei、xray <br>
-信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ<br>
+信息收集类：bbscan、ehole、nmap、otx威胁情报、crt子域名、crawlergo、waf识别、FUZZ、webpack<br>
 未授权专项：redis、mongodb、memcached、zookeeper、ftp、CouchDB、docker、Hadoop、NFS（安装apt-get install nfs-common）、rsync、bcrypt。
 <br><br>
 <h2>bilibili教程：</h2>
@@ -125,8 +125,8 @@ mysql账号密码：admin/123456<br>
 4. service nginx restart #重启服务生效<br>
 <h2>服务器代理配置：</h2>
 https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
-
-
+<h2>https证书配置：</h2>
+https://mp.weixin.qq.com/s?__biz=MzkzMjk5MDU3Nw==&mid=2247484564&idx=1&sn=62e5d8b40aacffeb7d29f2a1bfba25f3&chksm=c35a0bd2954eaac34174c8c37a2c68d0e0cdca90d4be3e8505ddd78a27c6c9d98e60a5d4380b&scene=126&sessionid=1767689287&subscene=227&clicktime=1767689291&enterid=1767689291#rd<br>
 <h2>更新日志：</h2>
 <ul>
 <li>
