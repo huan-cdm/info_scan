@@ -1,0 +1,20 @@
+[DEBUG]--2026-01-13 17:32:06,590-Database.py->createDatabase line:54: 主数据库创建成功（已启用WAL模式）
+
+[DEBUG]--2026-01-13 17:32:06,613-Database.py->createProjectDatabase line:192: 项目数据库创建成功
+
+[DEBUG]--2026-01-13 17:32:06,614-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[WARNING]--2026-01-13 17:32:06,788-ParseJs.py->requestUrl line:172: [警告] 连接失败，正在重试 (1/3)...
+
+[DEBUG]--2026-01-13 17:32:08,791-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[WARNING]--2026-01-13 17:32:08,955-ParseJs.py->requestUrl line:172: [警告] 连接失败，正在重试 (2/3)...
+
+[DEBUG]--2026-01-13 17:32:13,007-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[DEBUG]--2026-01-13 17:32:13,337-connectionpool.py->_make_request line:546: http://testphp.vulnweb.com:80 "GET / HTTP/11" 200 None
+
+[INFO]--2026-01-13 17:32:13,369-ParseJs.py->_download_js_by_source line:406: [17:32:13]  [静态解析] 共发现 0 个JS文件
+
+[ERROR]--2026-01-13 17:32:13,370-Database.py->getPathfromDB line:221: [Err] 未找到项目标签: ouw5B3
+

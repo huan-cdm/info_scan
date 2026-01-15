@@ -397,7 +397,7 @@ class DownloadJs():
         """
         jsFilename = Utils().getFilename(jsRealPath)
         jsTag = Utils().creatTag(6)
-        PATH = "tmp/" + tag + "_" + host + "/" + tag + ".db"
+        PATH = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp/" + tag + "_" + host + "/" + tag + ".db"
         db_path = os.sep.join(PATH.split('/'))
         
         # Use instance discovery_source if not provided
@@ -568,7 +568,7 @@ class DownloadJs():
             jsRealPath = url
             jsFilename = "7777777.script.inside.html.js"
             jsTag = Utils().creatTag(6)
-            PATH = "tmp/" + tag + "_" + host + "/" + tag + ".db"
+            PATH = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp/" + tag + "_" + host + "/" + tag + ".db"
             
             # Use instance discovery_source if not provided
             source = discovery_source or self.discovery_source

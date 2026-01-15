@@ -1,0 +1,24 @@
+[DEBUG]--2026-01-15 16:39:48,230-Database.py->createDatabase line:54: 主数据库创建成功（已启用WAL模式）
+
+[DEBUG]--2026-01-15 16:39:48,249-Database.py->createProjectDatabase line:192: 项目数据库创建成功
+
+[DEBUG]--2026-01-15 16:39:48,250-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[DEBUG]--2026-01-15 16:39:48,578-connectionpool.py->_make_request line:546: http://testphp.vulnweb.com:80 "GET / HTTP/11" 200 None
+
+[ERROR]--2026-01-15 16:39:48,638-ParseJs.py->requestUrl line:186: [Critical Error] 主解析流程失败: unable to open database file
+
+[DEBUG]--2026-01-15 16:39:50,641-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): ip.3322.net:80
+
+[DEBUG]--2026-01-15 16:39:50,688-connectionpool.py->_make_request line:546: http://ip.3322.net:80 "GET / HTTP/11" 200 None
+
+[DEBUG]--2026-01-15 16:39:50,690-Database.py->createDatabase line:54: 主数据库创建成功（已启用WAL模式）
+
+[ERROR]--2026-01-15 16:39:50,691-Database.py->createProjectDatabase line:197: [Err] 创建项目数据库失败: UNIQUE constraint failed: info.name
+
+[DEBUG]--2026-01-15 16:39:50,692-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[DEBUG]--2026-01-15 16:39:51,039-connectionpool.py->_make_request line:546: http://testphp.vulnweb.com:80 "GET / HTTP/11" 200 None
+
+[ERROR]--2026-01-15 16:39:51,050-ParseJs.py->requestUrl line:186: [Critical Error] 主解析流程失败: unable to open database file
+

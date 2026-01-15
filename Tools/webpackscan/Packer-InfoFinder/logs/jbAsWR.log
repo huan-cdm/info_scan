@@ -1,0 +1,50 @@
+[DEBUG]--2026-01-13 16:51:03,797-Database.py->createDatabase line:50: 主数据库创建成功（已启用WAL模式）
+
+[DEBUG]--2026-01-13 16:51:03,819-Database.py->createProjectDatabase line:185: 项目数据库创建成功
+
+[DEBUG]--2026-01-13 16:51:03,820-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[DEBUG]--2026-01-13 16:51:04,172-connectionpool.py->_make_request line:546: http://testphp.vulnweb.com:80 "GET / HTTP/11" 200 None
+
+[INFO]--2026-01-13 16:51:04,239-ParseJs.py->_download_js_by_source line:406: [16:51:04]  [静态解析] 共发现 0 个JS文件
+
+[INFO]--2026-01-13 16:51:04,240-Controller.py->parseStart line:54: [+] 缓存文件路径：/TIP/info_scan/tmp/jbAsWR_testphp.vulnweb.com/jbAsWR.db
+
+[INFO]--2026-01-13 16:51:04,240-Controller.py->parseStart line:55: [+] 日志文件路径：/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/logs/jbAsWR.log
+
+[DEBUG]--2026-01-13 16:51:04,241-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[DEBUG]--2026-01-13 16:51:04,573-connectionpool.py->_make_request line:546: http://testphp.vulnweb.com:80 "GET / HTTP/11" 200 None
+
+[INFO]--2026-01-13 16:51:04,575-Controller.py->parseStart line:63: [!] 未检测到前端打包器特征，将仍然尝试异步JS分析（可能是现有规则不足或未使用常见打包器）
+
+[INFO]--2026-01-13 16:51:04,575-Recoverspilt.py->recoverStart line:1649: --- 开始混合模式分析 (AST为主, Regex为辅) ---
+
+[INFO]--2026-01-13 16:51:04,581-Recoverspilt.py->checkCodeSpilting line:1465: [[16:51:04] ] 正在分析: J31iMY.js
+
+[DEBUG]--2026-01-13 16:51:04,583-Recoverspilt.py->checkCodeSpilting line:1469: AST未找到模式，尝试Regex: J31iMY.js
+
+[INFO]--2026-01-13 16:51:04,585-Recoverspilt.py->recoverStart line:1667: [*] 未发现新的异步JS文件
+
+[INFO]--2026-01-13 16:51:04,585-Controller.py->parseStart line:86: [+] 已启用JavaScript敏感信息扫描...
+
+[INFO]--2026-01-13 16:51:04,593-JsFinderModule.py->start_scan line:592: 开始JavaScript敏感信息扫描...
+
+[INFO]--2026-01-13 16:51:04,594-JsFinderModule.py->process_js_files line:282: 找到 1 个源文件（无SourceMap新增），开始扫描敏感信息...
+
+[INFO]--2026-01-13 16:51:04,597-JsFinderModule.py->save_results line:573: HTML格式结果已保存到: tmp/jbAsWR_testphp.vulnweb.com/finder_results/sensitive_info.html
+
+[INFO]--2026-01-13 16:51:04,597-JsFinderModule.py->save_results line:574: 文本格式结果已保存到: tmp/jbAsWR_testphp.vulnweb.com/finder_results/sensitive_info.txt
+
+[INFO]--2026-01-13 16:51:04,597-JsFinderModule.py->save_results line:575: 路径信息已保存到: tmp/jbAsWR_testphp.vulnweb.com/finder_results/paths.txt
+
+[DEBUG]--2026-01-13 16:51:04,597-JsFinderModule.py->save_results line:588: 已跳过 API Inventory 导出（功能已取消）
+
+[INFO]--2026-01-13 16:51:04,597-JsFinderModule.py->process_js_files line:304: 敏感信息扫描完成，共发现 0 个匹配项
+
+[INFO]--2026-01-13 16:51:04,597-JsFinderModule.py->start_scan line:603: JavaScript敏感信息扫描完成，结果保存在: tmp/jbAsWR_testphp.vulnweb.com/finder_results
+
+[INFO]--2026-01-13 16:51:04,597-Controller.py->parseStart line:93: [v] JavaScript敏感信息扫描完成
+
+[INFO]--2026-01-13 16:51:04,598-Controller.py->parseStart line:100: [v] 感谢您的使用！
+

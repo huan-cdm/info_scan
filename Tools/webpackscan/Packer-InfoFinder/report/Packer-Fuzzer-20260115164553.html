@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Finder 敏感信息扫描总览报告</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0 auto; max-width: 1600px; padding: 20px; background-color: #f8f9fa; color: #333; }
+        h1, h2 { text-align: center; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); background-color: #fff; }
+        th, td { padding: 12px 15px; border: 1px solid #ddd; text-align: left; word-break: break-all; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        .data-row:nth-child(even) { background-color: #f9f9f9; }
+        .data-row:hover { background-color: #e9ecef; cursor: pointer; }
+        .data-row.active { background-color: #d1e7fd; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .summary-found { color: #dc3545; font-weight: bold; }
+        .summary-not-found { color: #6c757d; }
+        .summary-error { color: #ffc107; }
+        .footer { text-align: center; margin-top: 30px; color: #888; font-size: 0.9em; }
+        .hidden { display: none; }
+        .detail-cell { padding: 0; }
+        .detail-container { padding: 20px; background-color: #fdfdfd; border-top: 2px solid #007bff; }
+        .tabs { display: flex; border-bottom: 1px solid #ccc; margin-bottom: 15px; flex-wrap: wrap; }
+        .tab-link { padding: 10px 15px; cursor: pointer; border: 1px solid transparent; border-bottom: none; margin-bottom: -1px; background: #f1f1f1; border-radius: 4px 4px 0 0; margin-right: 5px; }
+        .tab-link.active { background: #fff; border-color: #ccc #ccc #fff; }
+        .tab-content { padding: 10px; }
+        .match-list-item { list-style: none; padding: 10px; border: 1px solid #eee; margin-bottom: 8px; border-radius: 4px; background: #fff; }
+        .match-list-item:hover { background: #f7f7f7; }
+        .match-header { cursor: pointer; font-weight: bold; color: #c0392b; font-family: monospace; }
+        .match-source { font-size: 0.8em; color: #777; margin-left: 15px; }
+        .match-context { background-color: #f0f0f0; padding: 10px; border-radius: 4px; margin-top: 10px; font-family: monospace; white-space: pre-wrap; word-break: break-all; font-size: 0.9em; border-left: 3px solid #6c757d; }
+        .highlight { background-color: #ff9999; padding: 2px 0; border-radius: 2px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Finder 敏感信息扫描总览报告</h1>
+    <h2>报告生成时间: 2026-01-15 16:45:53</h2>
+    <table id="main-table">
+        <thead>
+            <tr>
+                <th style="width:5%">序号</th>
+                <th style="width:35%">目标URL (点击展开/折叠)</th>
+                <th style="width:45%">结果摘要</th>
+                <th style="width:15%">原始报告</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+            <tr class="data-row" data-id="1">
+                <td>1</td>
+                <td><a href="http://testphp.vulnweb.com/" target="_blank" onclick="event.stopPropagation();">http://testphp.vulnweb.com/</a></td>
+                <td class="summary-error">扫描失败: unsupported operand type(s) for +: 'NoneType' and 'str' (已重试1次)</td>
+                <td>无</td>
+            </tr>
+    
+            <script type="application/json-base64" id="json-1" class="hidden">
+            e30=
+            </script>
+    </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainTableBody = document.querySelector('#main-table tbody');
+
+            // --- BUG FIX: Unicode-safe Base64解码函数 ---
+            function b64DecodeUnicode(str) {
+                try {
+                    return decodeURIComponent(atob(str).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                } catch (e) {
+                    console.error("Base64 decoding failed:", e);
+                    return '';
+                }
+            }
+
+            mainTableBody.addEventListener('click', function(e) {
+                const dataRow = e.target.closest('.data-row');
+                if (!dataRow) return;
+
+                const detailRowId = `detail-${dataRow.dataset.id}`;
+                let detailRow = document.getElementById(detailRowId);
+
+                if (detailRow) {
+                    dataRow.classList.toggle('active');
+                    detailRow.classList.toggle('hidden');
+                } else {
+                    dataRow.classList.add('active');
+                    detailRow = document.createElement('tr');
+                    detailRow.id = detailRowId;
+                    const detailCell = detailRow.insertCell(0);
+                    detailCell.colSpan = 4;
+                    detailCell.classList.add('detail-cell');
+                    dataRow.insertAdjacentElement('afterend', detailRow);
+
+                    const jsonDataScript = document.getElementById(`json-${dataRow.dataset.id}`);
+                    try {
+                        const b64Data = jsonDataScript.textContent.trim();
+                        if (!b64Data) throw new Error("No data found.");
+
+                        const jsonText = b64DecodeUnicode(b64Data);
+                        if (!jsonText) throw new Error("Decoded data is empty.");
+
+                        const findings = JSON.parse(jsonText);
+                        detailCell.innerHTML = createDetailView(findings, dataRow.dataset.id);
+                        attachDetailEventListeners(detailRow);
+                    } catch (err) {
+                        detailCell.innerHTML = `<div class="detail-container">无法加载详细信息: ${err.message}</div>`;
+                    }
+                }
+            });
+
+            function createDetailView(findings, id) {
+                if (Object.keys(findings).length === 0) {
+                    return `<div class="detail-container">无详细信息</div>`;
+                }
+                let tabsHtml = '<div class="tabs">';
+                let contentHtml = '';
+                let isFirstTab = true;
+                let tabIndex = 0; // --- BUG FIX: 使用索引作为ID，更稳妥 ---
+
+                for (const type in findings) {
+                    const safeId = `tab-${id}-${tabIndex}`;
+                    tabsHtml += `<div class="tab-link ${isFirstTab ? 'active' : ''}" data-tab="${safeId}">${escapeHtml(type)} (${findings[type].length})</div>`;
+
+                    let matchesHtml = '<ul style="padding:0;">';
+                    findings[type].forEach((item, index) => {
+                        const contextId = `context-${id}-${tabIndex}-${index}`;
+
+                        // --- 优化点: 在上下文中高亮显示匹配的敏感信息 ---
+                        const safeMatch = escapeHtml(item.match);
+                        const safeContext = escapeHtml(item.context);
+                        // 使用 split 和 join 实现全局替换，比 replaceAll 兼容性更好
+                        const highlightedContext = safeContext.split(safeMatch).join(`<span class="highlight">${safeMatch}</span>`);
+
+                        matchesHtml += `
+                            <li class="match-list-item">
+                                <div class="match-header" data-target="${contextId}">
+                                    ${safeMatch}
+                                    <span class="match-source">${escapeHtml(item.source)}</span>
+                                </div>
+                                <div id="${contextId}" class="match-context hidden">
+                                    ${highlightedContext}
+                                </div>
+                            </li>`;
+                    });
+                    matchesHtml += '</ul>';
+
+                    contentHtml += `<div id="${safeId}" class="tab-content ${isFirstTab ? '' : 'hidden'}">${matchesHtml}</div>`;
+                    isFirstTab = false;
+                    tabIndex++;
+                }
+                tabsHtml += '</div>';
+
+                return `<div class="detail-container">${tabsHtml}${contentHtml}</div>`;
+            }
+
+            function attachDetailEventListeners(detailRow) {
+                detailRow.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('tab-link')) {
+                        const tabId = e.target.dataset.tab;
+                        detailRow.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+                        e.target.classList.add('active');
+                        detailRow.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                        detailRow.querySelector(`#${tabId}`).classList.remove('hidden');
+                    } else if (e.target.closest('.match-header')) {
+                        const header = e.target.closest('.match-header');
+                        const contextDiv = document.getElementById(header.dataset.target);
+                        if (contextDiv) {
+                            contextDiv.classList.toggle('hidden');
+                        }
+                    }
+                });
+            }
+
+            function escapeHtml(str) {
+                if (typeof str !== 'string') return '';
+                const p = document.createElement("p");
+                p.textContent = str;
+                return p.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>

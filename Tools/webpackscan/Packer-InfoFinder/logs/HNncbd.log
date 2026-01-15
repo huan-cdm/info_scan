@@ -1,0 +1,12 @@
+[DEBUG]--2026-01-13 17:24:55,384-Database.py->createDatabase line:50: 主数据库创建成功（已启用WAL模式）
+
+[DEBUG]--2026-01-13 17:24:55,407-Database.py->createProjectDatabase line:188: 项目数据库创建成功
+
+[DEBUG]--2026-01-13 17:24:55,408-connectionpool.py->_new_conn line:243: Starting new HTTP connection (1): testphp.vulnweb.com:80
+
+[DEBUG]--2026-01-13 17:24:55,741-connectionpool.py->_make_request line:546: http://testphp.vulnweb.com:80 "GET / HTTP/11" 200 None
+
+[INFO]--2026-01-13 17:24:55,892-ParseJs.py->_download_js_by_source line:406: [17:24:55]  [静态解析] 共发现 0 个JS文件
+
+[ERROR]--2026-01-13 17:24:55,899-Database.py->getPathfromDB line:211: [Err] 未找到项目标签: HNncbd
+
