@@ -33,10 +33,6 @@ from lib.common.CreatLog import logs, log_name
 
 import importlib
 
-# 每次执行前删除临时目录下的所有文件
-# os.popen('rm -rf /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp/*')
-# os.popen('rm -rf /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/logs/*')
-
 class Program():
     def __init__(self, options):
         self.options = options
@@ -100,11 +96,7 @@ def run_single_url_with_timeout(options, url, timeout_seconds):
 
 def get_latest_project_tag_for_host(host, batch_start_ts):
     """从 main.db 中获取本次批量任务中指定主机的最新 projectTag。"""
-    # 修改为固定目录下存放main.db文件
-    maindb_path = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder"
-    # report_dir = os.path.join("/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp", f"{project_tag}_{host}", "finder_results")
-    main_db_path = os.path.join(maindb_path, "main.db")                
-    # main_db_path = os.path.abspath(os.path.join(maindb_path, "main.db"))
+    main_db_path = os.path.abspath(os.path.join(os.getcwd(), "main.db"))
     if not os.path.exists(main_db_path):
         return None
 
@@ -254,6 +246,9 @@ def initialize_finder_overview_report(report_path):
         <tbody>
         </tbody>
     </table>
+    <div class="footer">
+        <p>报告由 Packer-InfoFinder 工具生成</p>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {{
@@ -488,7 +483,7 @@ def PackerInfoFinder():
     if js_only_mode:
         scan_js_urls_only(options)
         return
-
+    
     # 修改文件名为时间戳格式
     timestamp = time.strftime("%Y%m%d%H%M%S", time.localtime())
     # 定义报告路径
@@ -499,6 +494,7 @@ def PackerInfoFinder():
     
     overview_report_path = os.path.join(html_report_dir, f"Packer-Fuzzer-{timestamp}.html")
 
+    # overview_report_path = "Finder_敏感信息总览报告.html"
     is_batch_finder_scan = options.list and options.finder
     all_rows_html = []
 
@@ -579,7 +575,7 @@ def PackerInfoFinder():
                         if not project_tag:
                             summary_text = "未找到当前扫描对应的项目标签（可能扫描失败或未创建数据库）"
                         else:
-                            report_dir = os.path.join("/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp", f"{project_tag}_{host}", "finder_results")
+                            report_dir = os.path.join("tmp", f"{project_tag}_{host}", "finder_results")
                             report_file = os.path.join(report_dir, "sensitive_info.html")
 
                             if os.path.exists(report_file):

@@ -99,7 +99,7 @@ class ParseJs():
         js_tag = Utils().creatTag(6)
         res = urlparse(self.url)
         domain = res.netloc.replace(":", "_")
-        db_path = os.path.join("/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp", f"{self.projectTag}_{domain}", f"{self.projectTag}.db")
+        db_path = os.path.join("tmp", f"{self.projectTag}_{domain}", f"{self.projectTag}.db")
         
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
@@ -107,7 +107,7 @@ class ParseJs():
                 "INSERT INTO js_file(name, path, local) VALUES(?, ?, ?)",
                 (f"{js_tag}.js", self.url, f"{js_tag}.js")
             )
-            file_path = os.path.join("/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp", f"{self.projectTag}_{domain}", f"{js_tag}.js")
+            file_path = os.path.join("tmp", f"{self.projectTag}_{domain}", f"{js_tag}.js")
             with open(file_path, "wb") as f:
                 f.write(js_code)
             cursor.execute("UPDATE js_file SET success = 1 WHERE local=?", (f"{js_tag}.js",))

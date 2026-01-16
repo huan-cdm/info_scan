@@ -20,11 +20,7 @@ class DatabaseType():
         - 添加重试机制
         - 优化数据库配置
         """
-        maindatabasedb_path = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder"
-        # main_db_path = os.path.join(maindatabasedb_path, "main.db")  
-
-        # path = os.getcwd() + os.sep + "main.db"
-        path = maindatabasedb_path + "main.db"
+        path = os.getcwd() + os.sep + "main.db"
         max_retries = 3
         retry_count = 0
 
@@ -85,7 +81,7 @@ class DatabaseType():
             domain = str(domain).replace(":","_")
 
         # 确保tmp目录存在
-        tmp_dir = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp"
+        tmp_dir = "tmp"
         if not os.path.exists(tmp_dir):
             try:
                 os.makedirs(tmp_dir, exist_ok=True)
@@ -157,10 +153,7 @@ class DatabaseType():
             connect.close()
 
             # 对主数据库的写入添加重试机制（批量扫描时容易锁竞争）
-            # 定义绝对路径
-            maindatabasedb_path = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder"
-            main_db_path = os.path.join(maindatabasedb_path, "main.db")    
-            # main_db_path = os.path.abspath(os.getcwd() + os.sep + "main.db")
+            main_db_path = os.path.abspath(os.getcwd() + os.sep + "main.db")
             max_retries = 5
             retry_count = 0
 
@@ -198,13 +191,7 @@ class DatabaseType():
 
     def getPathfromDB(self):
         """优化后的路径获取方法 - 增加超时和异常处理"""
-        maindatabasedb_path = "/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder"
-        path = maindatabasedb_path+ "main.db"
-        
-        # main_db_path = os.path.join(maindatabasedb_path, "main.db")  
-
-        # path = os.getcwd() + os.sep + "main.db"
-        # path = maindatabasedb_path + "main.db"
+        path = os.getcwd() + os.sep + "main.db"
         try:
             conn = sqlite3.connect(path, timeout=30.0)
             cursor = conn.cursor()

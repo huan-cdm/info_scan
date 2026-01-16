@@ -1,1 +1,0 @@
-$('topbar_progress').update('Veuillez patienter, connexion en cours au backend');$('display_noscript').remove();

@@ -198,7 +198,7 @@ class Project():
         existing_urls = set()
         
         try:
-            db_path = os.path.join("/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp", f"{projectTag}_{domain}", f"{projectTag}.db")
+            db_path = os.path.join("tmp", f"{projectTag}_{domain}", f"{projectTag}.db")
             
             if os.path.exists(db_path):
                 with sqlite3.connect(db_path) as conn:
@@ -234,7 +234,7 @@ class Project():
             parsed = urlparse(self.url)
             domain = parsed.netloc.replace(":", "_")
             
-            db_path = os.path.join("/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp", f"{projectTag}_{domain}", f"{projectTag}.db")
+            db_path = os.path.join("tmp", f"{projectTag}_{domain}", f"{projectTag}.db")
             
             if not os.path.exists(db_path):
                 log.debug("[Summary] 数据库文件不存在，跳过摘要生成")

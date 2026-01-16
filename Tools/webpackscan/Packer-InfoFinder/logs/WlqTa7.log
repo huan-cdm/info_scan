@@ -1,0 +1,202 @@
+[DEBUG]--2026-01-16 15:57:50,584-Database.py->createDatabase line:50: 主数据库创建成功（已启用WAL模式）
+
+[DEBUG]--2026-01-16 15:57:50,608-Database.py->createProjectDatabase line:185: 项目数据库创建成功
+
+[DEBUG]--2026-01-16 15:57:50,609-connectionpool.py->_new_conn line:1051: Starting new HTTPS connection (1): 211.23.197.76:10001
+
+[DEBUG]--2026-01-16 15:57:51,014-connectionpool.py->_make_request line:546: https://211.23.197.76:10001 "GET / HTTP/11" 200 560
+
+[INFO]--2026-01-16 15:57:51,068-ParseJs.py->_download_js_by_source line:406: [15:57:51]  [静态解析] 共发现 6 个JS文件
+
+[INFO]--2026-01-16 15:57:51,609-DownloadJs.py->download_single_js line:475: [15:57:51] [STATIC] 下载成功: core.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:57:51,749-DownloadJs.py->download_single_js line:475: [15:57:51] [STATIC] 下载成功: element.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:57:51,759-DownloadJs.py->download_single_js line:475: [15:57:51] [STATIC] 下载成功: common.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:57:51,769-DownloadJs.py->download_single_js line:475: [15:57:51] [STATIC] 下载成功: vue.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:57:51,879-DownloadJs.py->download_single_js line:475: [15:57:51] [STATIC] 下载成功: vendors.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:57:51,958-DownloadJs.py->download_single_js line:475: [15:57:51] [STATIC] 下载成功: index.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:57:51,967-Controller.py->parseStart line:54: [+] 缓存文件路径：/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp/WlqTa7_211.23.197.76_10001/WlqTa7.db
+
+[INFO]--2026-01-16 15:57:51,967-Controller.py->parseStart line:55: [+] 日志文件路径：/TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/logs/WlqTa7.log
+
+[INFO]--2026-01-16 15:57:52,342-Controller.py->parseStart line:59: [v] 恭喜，这个站点很可能是通过前端打包器构建的！
+
+[INFO]--2026-01-16 15:57:52,343-Recoverspilt.py->recoverStart line:1649: --- 开始混合模式分析 (AST为主, Regex为辅) ---
+
+[INFO]--2026-01-16 15:57:57,961-Recoverspilt.py->checkCodeSpilting line:1465: [[15:57:57] ] 正在分析: c6C6JU.element.60f19fb1c6d2f9310fcc.js
+
+[DEBUG]--2026-01-16 15:58:01,729-Recoverspilt.py->checkCodeSpilting line:1469: AST未找到模式，尝试Regex: c6C6JU.element.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:58:02,754-Recoverspilt.py->checkCodeSpilting line:1465: [[15:58:02] ] 正在分析: JeXBIm.index.60f19fb1c6d2f9310fcc.js
+
+[DEBUG]--2026-01-16 15:58:03,141-Recoverspilt.py->checkCodeSpilting line:1469: AST未找到模式，尝试Regex: JeXBIm.index.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:58:03,153-Recoverspilt.py->_analyze_with_regex line:1597: Regex发现可能的异步加载函数(function): JeXBIm.index.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:58:03,154-Recoverspilt.py->compile_from_regex line:670:   → 提取到 25 个模块ID (Regex)
+
+[DEBUG]--2026-01-16 15:58:03,155-Recoverspilt.py->compile_from_regex line:697: [Debug] Regex代码编译过程中出错: Failed starting VM server. 'deno' is unavailable.
+
+[INFO]--2026-01-16 15:58:03,156-Recoverspilt.py->_log_filenames_success_once line:726:   ✓ 解析出 25 个异步JS (Template)
+
+[INFO]--2026-01-16 15:58:03,166-Recoverspilt.py->getRealFilePath line:1384: 在 index.60f19fb1c6d2f9310fcc.js 中成功提取到 publicPath: './'，将优先基于该路径来合并资源 URL。
+
+[INFO]--2026-01-16 15:58:18,531-Recoverspilt.py->checkCodeSpilting line:1465: [[15:58:18] ] 正在分析: q37TnK.core.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:58:23,864-Recoverspilt.py->_traverse_ast line:1507: AST发现可能的异步加载函数: q37TnK.core.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:58:23,866-Recoverspilt.py->compile_from_ast line:615:   → 提取到 65 个模块ID (AST)
+
+[ERROR]--2026-01-16 15:58:23,866-Recoverspilt.py->compile_from_ast line:634: [Err] AST代码编译过程中出错: Failed starting VM server. 'deno' is unavailable.
+
+[INFO]--2026-01-16 15:59:06,550-Recoverspilt.py->checkCodeSpilting line:1465: [[15:59:06] ] 正在分析: Z6l8BP.vendors.60f19fb1c6d2f9310fcc.js
+
+[DEBUG]--2026-01-16 15:59:09,541-Recoverspilt.py->checkCodeSpilting line:1469: AST未找到模式，尝试Regex: Z6l8BP.vendors.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:59:11,391-Recoverspilt.py->checkCodeSpilting line:1465: [[15:59:11] ] 正在分析: y0PM2P.common.60f19fb1c6d2f9310fcc.js
+
+[DEBUG]--2026-01-16 15:59:12,660-Recoverspilt.py->checkCodeSpilting line:1469: AST未找到模式，尝试Regex: y0PM2P.common.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:59:13,465-Recoverspilt.py->checkCodeSpilting line:1465: [[15:59:13] ] 正在分析: bd0XGH.vue.60f19fb1c6d2f9310fcc.js
+
+[DEBUG]--2026-01-16 15:59:14,754-Recoverspilt.py->checkCodeSpilting line:1469: AST未找到模式，尝试Regex: bd0XGH.vue.60f19fb1c6d2f9310fcc.js
+
+[INFO]--2026-01-16 15:59:14,811-Recoverspilt.py->recoverStart line:1660: [+] 发现 25 个异步JS文件，开始下载...
+
+[ERROR]--2026-01-16 15:59:15,097-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: main.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,097-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/main.js
+
+[ERROR]--2026-01-16 15:59:15,109-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: localSetting.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,109-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/localSetting.js
+
+[ERROR]--2026-01-16 15:59:15,131-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: remoteSetting.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,131-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/remoteSetting.js
+
+[ERROR]--2026-01-16 15:59:15,392-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: ESN.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,392-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/ESN.js
+
+[ERROR]--2026-01-16 15:59:15,396-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: FRA.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,396-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/FRA.js
+
+[ERROR]--2026-01-16 15:59:15,489-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: ITA.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,490-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/ITA.js
+
+[ERROR]--2026-01-16 15:59:15,504-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: ENU.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,506-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/ENU.js
+
+[ERROR]--2026-01-16 15:59:15,519-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: modify_password.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,519-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/modify_password.js
+
+[ERROR]--2026-01-16 15:59:15,529-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: KOR.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,529-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/KOR.js
+
+[ERROR]--2026-01-16 15:59:15,542-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: ARA.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,542-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/ARA.js
+
+[ERROR]--2026-01-16 15:59:15,550-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: JPN.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,550-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/JPN.js
+
+[ERROR]--2026-01-16 15:59:15,553-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: UKA.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,553-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/UKA.js
+
+[ERROR]--2026-01-16 15:59:15,555-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: playback.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,555-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/playback.js
+
+[ERROR]--2026-01-16 15:59:15,556-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: PTG.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,556-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/PTG.js
+
+[ERROR]--2026-01-16 15:59:15,563-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: login.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,563-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/login.js
+
+[ERROR]--2026-01-16 15:59:15,571-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: HUN.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,571-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/HUN.js
+
+[ERROR]--2026-01-16 15:59:15,572-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: CHS.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,572-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/CHS.js
+
+[ERROR]--2026-01-16 15:59:15,573-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: live.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,574-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/live.js
+
+[ERROR]--2026-01-16 15:59:15,575-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: RUS.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,576-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/RUS.js
+
+[ERROR]--2026-01-16 15:59:15,622-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: DEU.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,622-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/DEU.js
+
+[ERROR]--2026-01-16 15:59:15,640-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: CHT.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,640-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/CHT.js
+
+[ERROR]--2026-01-16 15:59:15,671-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: c79_report.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,671-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/c79_report.js
+
+[ERROR]--2026-01-16 15:59:15,780-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: PLK.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,780-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/PLK.js
+
+[ERROR]--2026-01-16 15:59:15,917-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: TUR.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:15,917-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/TUR.js
+
+[DEBUG]--2026-01-16 15:59:24,859-retry.py->increment line:521: Incremented Retry for (url='/js/VIE.js'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+
+[ERROR]--2026-01-16 15:59:26,163-DownloadJs.py->download_single_js line:505: [STATIC] [Err] 重试多次仍失败: VIE.js (资源不存在(404))
+
+[DEBUG]--2026-01-16 15:59:26,164-DownloadJs.py->download_single_js line:507: [Debug] 失败请求URL: https://211.23.197.76:10001/js/VIE.js
+
+[INFO]--2026-01-16 15:59:26,167-Controller.py->parseStart line:86: [+] 已启用JavaScript敏感信息扫描...
+
+[INFO]--2026-01-16 15:59:26,177-JsFinderModule.py->start_scan line:592: 开始JavaScript敏感信息扫描...
+
+[INFO]--2026-01-16 15:59:26,179-JsFinderModule.py->process_js_files line:282: 找到 6 个源文件（无SourceMap新增），开始扫描敏感信息...
+
+[INFO]--2026-01-16 16:03:41,907-JsFinderModule.py->save_results line:573: HTML格式结果已保存到: tmp/WlqTa7_211.23.197.76_10001/finder_results/sensitive_info.html
+
+[INFO]--2026-01-16 16:03:41,908-JsFinderModule.py->save_results line:574: 文本格式结果已保存到: tmp/WlqTa7_211.23.197.76_10001/finder_results/sensitive_info.txt
+
+[INFO]--2026-01-16 16:03:41,908-JsFinderModule.py->save_results line:575: 路径信息已保存到: tmp/WlqTa7_211.23.197.76_10001/finder_results/paths.txt
+
+[INFO]--2026-01-16 16:03:41,910-JsFinderModule.py->save_results line:583: 已将 12 个候选路径末段去重后追加到: /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/fuzz_last_segments.txt
+
+[DEBUG]--2026-01-16 16:03:41,910-JsFinderModule.py->save_results line:588: 已跳过 API Inventory 导出（功能已取消）
+
+[INFO]--2026-01-16 16:03:41,910-JsFinderModule.py->process_js_files line:304: 敏感信息扫描完成，共发现 63 个匹配项
+
+[INFO]--2026-01-16 16:03:41,910-JsFinderModule.py->process_js_files line:307: - 敏感配置信息: 41 个匹配
+
+[INFO]--2026-01-16 16:03:41,910-JsFinderModule.py->process_js_files line:307: - Password: 9 个匹配
+
+[INFO]--2026-01-16 16:03:41,910-JsFinderModule.py->process_js_files line:307: - Username/Account: 13 个匹配
+
+[INFO]--2026-01-16 16:03:41,910-JsFinderModule.py->start_scan line:603: JavaScript敏感信息扫描完成，结果保存在: tmp/WlqTa7_211.23.197.76_10001/finder_results
+
+[INFO]--2026-01-16 16:03:41,910-Controller.py->parseStart line:93: [v] JavaScript敏感信息扫描完成
+
+[INFO]--2026-01-16 16:03:41,912-Controller.py->parseStart line:100: [v] 感谢您的使用！
+
