@@ -27,9 +27,13 @@
 	echo "关闭afrog报告：bash server_check.sh stopafrogreport"
 	echo "重启afrog报告：bash server_check.sh restartafrogreport"
 	echo -e "[+]------------------------------------------"
-	echo "开启PackerFuzzer报告：bash server_check.sh startPackerFuzzerreport"
-	echo "关闭PackerFuzzer报告：bash server_check.sh stopPackerFuzzerreport"
-	echo "重启PackerFuzzer报告：bash server_check.sh restartPackerFuzzerreport"
+	echo "开启WebpackScan报告：bash server_check.sh startPackerFuzzerreport"
+	echo "关闭WebpackScan报告：bash server_check.sh stopPackerFuzzerreport"
+	echo "重启WebpackScan报告：bash server_check.sh restartPackerFuzzerreport"
+	echo -e "[+]------------------------------------------"
+	echo "开启WebpackScan原始文件：bash server_check.sh startPackerFuzzeroriginreport"
+	echo "关闭WebpackScan原始文件：bash server_check.sh stopPackerFuzzeroriginreport"
+	echo "重启WebpackScan原始文件：bash server_check.sh restartPackerFuzzeoriginrreport"
 	echo -e "[+]------------------------------------------"
     exit 0  #退出脚本，如果不需要执行其他命令的话
 fi  
@@ -206,6 +210,50 @@ case "${1}" in
 	;;
 
 
+	# 开启Packer-Fuzzer原始文件目录访问
+    #本地开启127.0.0.1，利用nginx反向代理
+    startPackerFuzzeroriginreport)
+    cd /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp
+    nohup python3 -m http.server 8084 --bind 127.0.0.1 > /dev/null 2>&1 &
+	sleep 0.5s
+	packerfuzzeroriginpid=`ps -aux | grep 8084 |awk -F " " '{print $2}' | wc -l`
+	#packerfuzzeroriginpid报告服务
+	if (( $packerfuzzeroriginpid > 1 ))
+	then
+		echo -e "PackerFuzzeroriginreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzeroriginreport：" "\033[31mX\033[0m"
+	fi
+    ;;
+
+
+	# 关闭Packer-Fuzzer原始文件访问服务
+	stopPackerFuzzeroriginreport)
+    packerfuzzeroriginpid=`ps -aux | grep 8084 |awk -F " " '{print $2}'`
+    for ii in ${packerfuzzeroriginpid}
+	do
+		kill -9 ${ii} 2>/dev/null
+	done
+	sleep 0.5s
+	packerfuzzeroriginpid=`ps -aux | grep 8084 |awk -F " " '{print $2}' | wc -l`
+	#Packer-Fuzzer报告服务
+	if (( $packerfuzzeroriginpid > 1 ))
+	then
+		echo -e "PackerFuzzeroriginreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzeroriginreport：" "\033[31mX\033[0m"
+	fi
+    ;;
+
+
+	# 重启Packer-Fuzzer原始文件访问服务
+	restartPackerFuzzeoriginrreport)
+	bash /TIP/info_scan/server_check.sh stopPackerFuzzeroriginreport
+	sleep 0.5s
+	bash /TIP/info_scan/server_check.sh startPackerFuzzeroriginreport
+	;;
+
+
 	# 开启afrog报告服务
 	# 本地开启127.0.0.1，利用nginx反向代理
 	startafrogreport)
@@ -278,6 +326,7 @@ case "${1}" in
 	dirscanpid=`ps -aux | grep dirscanmain.py |awk -F " " '{print $2}' | wc -l`
 	afrogpid=`ps -aux | grep 8082 |awk -F " " '{print $2}' | wc -l`
 	packerfuzzerpidd=`ps -aux | grep 8083 |awk -F " " '{print $2}' | wc -l`
+	packerfuzzeroriginpid=`ps -aux | grep 8084 |awk -F " " '{print $2}' | wc -l`
 	sleep 0.5s
 	#infoscan运行状态
 	if (( $infopid > 1 ))
@@ -326,6 +375,15 @@ case "${1}" in
 		echo -e "PackerFuzzerreport：" "\033[32m√\033[0m" 
 	else
 		echo -e "PackerFuzzerreport：" "\033[31mX\033[0m"
+	fi
+
+	# webpack原始文件
+	#packerfuzzeroriginpid报告服务
+	if (( $packerfuzzeroriginpid > 1 ))
+	then
+		echo -e "PackerFuzzeroriginreport：" "\033[32m√\033[0m" 
+	else
+		echo -e "PackerFuzzeroriginreport：" "\033[31mX\033[0m"
 	fi
 	;;
 
@@ -399,6 +457,9 @@ case "${1}" in
 	# 开启Webpack报告服务
 	bash /TIP/info_scan/server_check.sh startPackerFuzzerreport
 	sleep 0.5s
+	# 开启webpack原始日志
+	bash /TIP/info_scan/server_check.sh startPackerFuzzeroriginreport
+	sleep 0.5s
 	;;
 
 
@@ -426,6 +487,9 @@ case "${1}" in
 
 	# 关闭Webpack报告服务
 	bash /TIP/info_scan/server_check.sh stopPackerFuzzerreport
+	sleep 0.5
+	# 关闭webpack原始日志
+	bash /TIP/info_scan/server_check.sh stopPackerFuzzeroriginreport
 	sleep 0.5
 	;;
 

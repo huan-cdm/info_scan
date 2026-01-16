@@ -4872,9 +4872,13 @@ def comfirmclearloginterface():
                 print("Webpack Cookie参数配置")
                 recheck_result = basic.updatewebpackcookieconfig_lib(webpackpart1,webpackpart2,1)
             elif int(inputmodel3) == 25:
-                print("Webpack")
+                print("Webpack报告")
                 os.popen('rm -rf /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/report/*')
                 recheck_result = "Webpack报告已删除"
+            elif int(inputmodel3) == 26:
+                print("Webpack源文件")
+                os.popen('rm -rf /TIP/info_scan/Tools/webpackscan/Packer-InfoFinder/tmp/*')
+                recheck_result = "Webpack源文件已删除"
             elif int(inputmodel3) ==11:
                 print("配置高危资产识别")
                 

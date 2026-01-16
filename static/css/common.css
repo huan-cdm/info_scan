@@ -775,6 +775,7 @@ body {
 .button-container1 {
 	display: flex;
 	gap: 10px;
+	align-items: center; /* 关键：让子元素垂直居中对齐 */
 }
 
 .button {
@@ -1038,4 +1039,28 @@ body {
 	/* 宽度不变，高度可伸缩 */
 	font-weight: 400;
 	color: black;
+}
+
+/* webpack扫描源文件查看 */
+.webpackorigin {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff; /* 基础文字颜色 */
+    /* 彩色文字阴影（模拟发光） */
+    text-shadow: 
+        0 0 5px #ff00ff,
+        0 0 10px #00ffff,
+        0 0 15px #ffff00,
+        0 0 20px #00ff00;
+    /* 可选：hover时增强效果 */
+    transition: text-shadow 0.3s ease;
+}
+
+.webpackorigin:hover {
+    text-shadow: 
+        0 0 8px #ff00ff,
+        0 0 15px #00ffff,
+        0 0 20px #ffff00,
+        0 0 30px #00ff00;
 }
