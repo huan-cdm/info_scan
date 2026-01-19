@@ -1046,21 +1046,35 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 16px;
-    color: #fff; /* 基础文字颜色 */
-    /* 彩色文字阴影（模拟发光） */
-    text-shadow: 
-        0 0 5px #ff00ff,
-        0 0 10px #00ffff,
-        0 0 15px #ffff00,
-        0 0 20px #00ff00;
-    /* 可选：hover时增强效果 */
-    transition: text-shadow 0.3s ease;
+	font-family: "KaiTi", "STKaiti", "AR PL UKai CN", "AR PL KaitiM GB", "KaiTi_GB2312", serif;
+    /* 低饱和渐变配色（柔和不刺眼） */
+    background: linear-gradient(90deg, 
+        #e6646588, /* 浅红 */
+        #f6b73c88, /* 浅橙黄 */
+        #82c3a688, /* 浅绿 */
+        #6fa8dc88, /* 浅蓝 */
+        #9966cc88, /* 浅紫 */
+        #c27ba088  /* 浅粉紫 */
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: #333; /* 底层浅灰色文字，弱化渐变刺眼感 */
+    /* 细微文字间距，提升可读性 */
+    letter-spacing: 0.5px;
+    /* hover轻微变化，不突兀 */
+    transition: all 0.3s ease;
 }
 
 .webpackorigin:hover {
-    text-shadow: 
-        0 0 8px #ff00ff,
-        0 0 15px #00ffff,
-        0 0 20px #ffff00,
-        0 0 30px #00ff00;
+    color: transparent; /* hover时完全显示渐变，轻微强化 */
+    background: linear-gradient(90deg, 
+        #e66465aa, 
+        #f6b73caa, 
+        #82c3a6aa, 
+        #6fa8dcaa, 
+        #9966ccaa, 
+        #c27ba0aa
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
 }

@@ -3940,3 +3940,9 @@ function conntargetnetworkfunc() {
         }
     })
 }
+
+
+// 跳转到webpack原始文件
+function jumpwebpackoriginfile() {
+    window.open(ipvalue + ":12222/", "_blank");
+}
