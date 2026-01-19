@@ -101,7 +101,7 @@ mysql账号密码：admin/123456<br>
 4. 安装requirements.txt中的所需模块<br>
 5. 执行 python3 scan_main_web.py（主系统）和python3 dirscanmain.py（目录扫描子系统），确保系统运行正常，后期在利用bash server_check.sh脚本进行服务管理<br>
 6. nginx自定义配置文件在/etc/nginx/conf.d/目录，主配置文件在/etc/nginx/目录<br>
-7. vps安全组放行15555、16666、17777、18888、19999、13333、3306、8180、1099、1389出入站规则<br>
+7. vps安全组放行15555、16666、17777、18888、19999、13333、12222、3306、8180、1099、1389出入站规则<br>
 8. 部署完成后需第一步需在首页进行系统配置，否则影响正常使用<br>
 
 
@@ -129,6 +129,12 @@ https://github.com/huan-cdm/Surf-the-Internet-scientifically<br>
 https://mp.weixin.qq.com/s?__biz=MzkzMjk5MDU3Nw==&mid=2247484564&idx=1&sn=62e5d8b40aacffeb7d29f2a1bfba25f3&chksm=c35a0bd2954eaac34174c8c37a2c68d0e0cdca90d4be3e8505ddd78a27c6c9d98e60a5d4380b&scene=126&sessionid=1767689287&subscene=227&clicktime=1767689291&enterid=1767689291#rd<br>
 <h2>更新日志：</h2>
 <ul>
+<li>
+2026-01-19更新<br> 
+1.webpack扫描优化；<br>
+2.新增webpack扫描原始文件访问入口，和浏览器插件FindSomething配合使用；<br>
+3.已知问题处理与优化；<br>
+</li>
 <li>
 2026-01-06更新<br> 
 1.新增Webpack包扫描功能；<br>
