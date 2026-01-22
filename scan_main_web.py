@@ -3845,6 +3845,8 @@ def stop_infoscan_back():
                 kill_bypass_result = basic.stopbypass_lib()
             elif '8' in str(j):
                 kill_crawlergo_result = basic.stop_crawlergo_lib()
+            elif 'packfuzz' in str(j):
+                kill_webpack_result = basic.stop_webpackscan_lib()
             else:
                 print("参数正在完善中...")
         # 捕获异常
@@ -3881,6 +3883,11 @@ def stop_infoscan_back():
             kill_crawlergo_result1 = kill_crawlergo_result
         except:
             kill_crawlergo_result1 = ""
+        try:
+            kill_webpack_result1 = kill_webpack_result
+        except:
+            kill_webpack_result1 = ""
+        
         
         dict = {
             "key11":kill_bbscan_result1,
@@ -3890,7 +3897,8 @@ def stop_infoscan_back():
             "key51":kill_nmap_result1,
             "key61":kill_waf_result1,
             "key71":kill_bypass_result1,
-            "key81":kill_crawlergo_result1
+            "key81":kill_crawlergo_result1,
+            "key91":kill_webpack_result1
         }
         message_json = {
             "dictkey11":dict['key11'],
@@ -3900,9 +3908,9 @@ def stop_infoscan_back():
             "dictkey51":dict['key51'],
             "dictkey61":dict['key61'],
             "dictkey71":dict['key71'],
-            "dictkey81":dict['key81']
+            "dictkey81":dict['key81'],
+            "dictkey91":dict['key91']
         }
-
         return jsonify(message_json)
     
     else:

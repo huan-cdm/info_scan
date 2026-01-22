@@ -4074,8 +4074,8 @@ def update_crawler_conf_lib(part1,part2):
 
 # Webpack扫描函数
 def webpackscan_lib():
-    # 判断扫描器是否运行，运行返回提示
-    result = subprocess.run(["sh", "/TIP/info_scan/finger.sh","Webpackscanstatus"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    # 判断扫描器是否运行，运行返回提示，2026.1.22修改
+    result = subprocess.run("/TIP/info_scan/finger.sh Webpackscanstatus", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,shell=True,executable="/bin/bash")
     webpack_scan_status = result.stdout.strip()
     if "running" in webpack_scan_status:
         webpack_scan_result = "Webpack扫描程序正在运行中请勿重复提交"
@@ -4087,7 +4087,7 @@ def webpackscan_lib():
         print(cookievalue)
         if int(cookievalue) == int(1):
             print("启用cookie")
-            startresultcookie = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startWebpackscanbyCookie",cookievalue1], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            startresultcookie = subprocess.run(["/bin/bash", "/TIP/info_scan/finger.sh","startWebpackscanbyCookie",cookievalue1], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,shell=False,executable="/bin/bash")
             print("错误日志:", startresultcookie.stderr)
             if "running" in webpack_scan_status:
                 webpack_scan_result = "Webpack扫描程序已开启(启用Cookie)"
@@ -4095,7 +4095,7 @@ def webpackscan_lib():
                 webpack_scan_result = "Webpack扫描程序正在启动中(启用Cookie)"
         # 禁用cookie值为2
         else:
-            startresult = subprocess.run(["sh", "/TIP/info_scan/finger.sh","startWebpackscan"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            startresult = subprocess.run("/TIP/info_scan/finger.sh startWebpackscan",stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,shell=True,executable="/bin/bash")
             print("错误日志:", startresult.stderr)
             if "running" in webpack_scan_status:
                 webpack_scan_result = "Webpack扫描程序已开启(禁用Cookie)"
@@ -4155,6 +4155,19 @@ def showwebpackcookieconfig_lib(part1):
         # 追加到一个列表中
         list_result.extend([i[1],i[2]])
     return list_result
+
+
+# 关闭webpack扫描
+def stop_webpackscan_lib():
+    result = subprocess.run("/TIP/info_scan/finger.sh Webpackscanstatus", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,shell=True,executable="/bin/bash")
+    webpack_scan_status = result.stdout.strip()
+    stopwebpack_scan_shell = subprocess.run("/TIP/info_scan/finger.sh stopwebpack_scan", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,shell=True,executable="/bin/bash")
+    print("错误日志:", stopwebpack_scan_shell.stderr)
+    if "stop" in webpack_scan_status:
+        kill_webpack_result = "已关闭webpack扫描程序"
+    else:
+        kill_webpack_result = "正在关闭中......"
+    return kill_webpack_result
 
 
 

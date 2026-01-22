@@ -1735,7 +1735,7 @@ function infoxuanzhongstopscanfunc() {
         dataType: 'json', // 期望服务器返回的数据类型
         success: function (info) {
             // alert(info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81)
-            var message3 = info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81;
+            var message3 = info.dictkey11 + "\n" + info.dictkey21 + "\n" + info.dictkey31 + "\n" + info.dictkey41 + "\n" + info.dictkey51 + "\n" + info.dictkey61 + "\n" + info.dictkey71 + "\n" + info.dictkey81+"\n"+info.dictkey91;
             document.getElementById('vulnscan4').innerText = message3;
         },
 

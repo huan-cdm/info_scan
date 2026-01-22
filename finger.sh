@@ -2096,12 +2096,21 @@ case "${1}" in
         python3 Packer-InfoFinder.py -l /TIP/info_scan/batch_scan_domain/url.txt --finder -c "\"$2\"" > /TIP/info_scan/result/Webpackscanlog.txt
     ;;
 
-     Webpackscanstatus)
+    # webpack扫描运行状态
+    Webpackscanstatus)
         ps_webpack=$(ps -aux | grep Packer-InfoFinder.py | wc -l)
         if (($ps_webpack > 1)); then
             echo "running"
         else
             echo "stop"
         fi
+    ;;
+    # 关闭webpack扫描
+     stopwebpack_scan)
+        pidd=$(ps -aux | grep Packer-InfoFinder.py | awk -F " " '{print $2}')
+        
+        for ii in ${pidd}; do
+            kill -9 ${ii} 2>/dev/null
+        done
     ;;
 esac
